@@ -61,7 +61,7 @@
   .header-update { font-size: 10px; color: #9CA3AF; }
 
   .content { flex: 1; overflow-y: auto; padding: 16px; }
-  .row { display: grid; gap: 14px; margin-bottom: 14px; }
+  .row { display: grid; gap: 14px; margin-bottom: 14px; align-items: center; }
   .row-2 { grid-template-columns: 1fr 1fr; }
 
   .card {
@@ -74,11 +74,11 @@
   .card:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.11); }
   .card-title {
     font-size: 13px; font-weight: 700; color: #1A1A1A;
-    margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 4px;
   }
   .card-title-sm { font-size: 12px; }
   .card-unit { font-size: 10px; color: #9E9E9E; font-weight: 400; }
-  .ctrl-row { display: flex; gap: 6px; }
+  .ctrl-row { display: flex; gap: 6px; margin-bottom: 8px; }
   .ctrl-select {
     border: 1px solid #E5E7EB; border-radius: 4px;
     padding: 3px 18px 3px 6px; font-size: 11px; color: #333;
@@ -159,8 +159,6 @@
       <!-- CSAT -->
       <div class="card">
         <div class="card-title card-title-sm">CSAT <span class="card-unit">점</span></div>
-        <!-- 3개년: 2023=81.0, 2024=83.5, 2025=84.2 | viewBox 300x118 -->
-        <!-- y=95-(v/100)*87 | 81→y=24.5 h=70.5 | 83.5→y=22.3 h=72.7 | 84.2→y=21.6 h=73.4 -->
         <svg width="100%" height="118" viewBox="0 0 300 118">
           <line x1="38" y1="8" x2="38" y2="95" stroke="#E5E7EB" stroke-width="1"/>
           <text x="34" y="11" text-anchor="end" font-size="8" fill="#9E9E9E">100</text>
@@ -186,8 +184,6 @@
       <!-- NPS -->
       <div class="card">
         <div class="card-title card-title-sm">NPS <span class="card-unit">점</span></div>
-        <!-- 3개년: 2023=60, 2024=64, 2025=68 -->
-        <!-- y=95-(v/100)*87 | 60→y=42.8 h=52.2 | 64→y=39.3 h=55.7 | 68→y=35.8 h=59.2 -->
         <svg width="100%" height="118" viewBox="0 0 300 118">
           <line x1="38" y1="8" x2="38" y2="95" stroke="#E5E7EB" stroke-width="1"/>
           <text x="34" y="11" text-anchor="end" font-size="8" fill="#9E9E9E">100</text>
@@ -217,8 +213,6 @@
       <!-- CES -->
       <div class="card">
         <div class="card-title card-title-sm">CES <span class="card-unit">점</span></div>
-        <!-- 3개년: 2023=70, 2024=73, 2025=75 -->
-        <!-- y=95-(v/100)*87 | 70→y=34.1 h=60.9 | 73→y=31.5 h=63.5 | 75→y=29.8 h=65.3 -->
         <svg width="100%" height="118" viewBox="0 0 300 118">
           <line x1="38" y1="8" x2="38" y2="95" stroke="#E5E7EB" stroke-width="1"/>
           <text x="34" y="11" text-anchor="end" font-size="8" fill="#9E9E9E">100</text>
@@ -240,53 +234,76 @@
         </svg>
       </div>
 
-      <!-- 체감불만율 (복합) -->
+      <!-- 체감불만율 (월별 24.03~26.04, 막대 24.03~26.03, 꺾은선 24.03~26.04) -->
       <div class="card">
         <div class="card-title card-title-sm">체감불만율* <span class="card-unit">건/%</span></div>
         <div class="legend">
-          <div class="legend-item"><div class="leg-bar" style="background:#89B2F7"></div>건수</div>
-          <div class="legend-item"><div class="leg-line" style="background:#F29135"></div>비율</div>
+          <div class="legend-item"><div class="leg-bar" style="background:#89B2F7"></div>건수 (24.03~26.03)</div>
+          <div class="legend-item"><div class="leg-line" style="background:#F29135"></div>비율 (24.03~26.04)</div>
         </div>
-        <!-- 3 data points: 22.4Q=115(66%), 23.4Q=102(-18.7%), 25.3Q=52(-45.4%) -->
-        <!-- viewBox 300x105 | 좌축 0-150건 | 우축 -50~200% -->
-        <!-- y_bar=95-(v/150)*87 | 115→y=28.3 h=66.7 | 102→y=36.7 h=58.3 | 52→y=64.8 h=30.2 -->
-        <!-- y_line: 0%기준 y=95-(50/250)*87=95-17.4=77.6≈78 -->
-        <!-- 66%: 78-((66)/250)*87=78-23=55 | -18.7%: 78-(-18.7+0)... -->
-        <!-- y_line = 78 - (v/250)*87, v=value+50... wait: range is -50~200, total=250 -->
-        <!-- y = 95 - ((v+50)/250)*87 -->
-        <!-- 66%: y=95-(116/250)*87=95-40.4=54.6≈55 -->
-        <!-- -18.7%: y=95-(31.3/250)*87=95-10.9=84.1≈84 but max is 95 -->
-        <!-- -45.4%: y=95-(4.6/250)*87=95-1.6=93.4≈93 -->
-        <svg width="100%" height="110" viewBox="0 0 300 110">
-          <line x1="38" y1="8" x2="38" y2="95" stroke="#E5E7EB" stroke-width="1"/>
-          <text x="34" y="11" text-anchor="end" font-size="8" fill="#9E9E9E">150</text>
-          <text x="34" y="52" text-anchor="end" font-size="8" fill="#9E9E9E">75</text>
-          <text x="34" y="96" text-anchor="end" font-size="8" fill="#9E9E9E">0</text>
-          <line x1="240" y1="8" x2="240" y2="95" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="2,2"/>
-          <text x="244" y="11" text-anchor="start" font-size="8" fill="#F29135">200%</text>
-          <text x="244" y="52" text-anchor="start" font-size="8" fill="#F29135">75%</text>
-          <text x="244" y="96" text-anchor="start" font-size="8" fill="#F29135">-50%</text>
-          <!-- 0% 기준선 y=95-(50/250)*87=77.6≈78 -->
-          <line x1="38" y1="78" x2="240" y2="78" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="3,2"/>
-          <!-- 막대 3개: 중앙 x=83,150,217 -->
-          <rect x="58" y="28" width="50" height="67" rx="2" fill="#89B2F7"/>
-          <text x="83" y="25" text-anchor="middle" font-size="9" font-weight="600" fill="#4A90E2">115</text>
-          <rect x="125" y="37" width="50" height="58" rx="2" fill="#89B2F7"/>
-          <text x="150" y="34" text-anchor="middle" font-size="9" font-weight="600" fill="#4A90E2">102</text>
-          <rect x="192" y="65" width="50" height="30" rx="2" fill="#89B2F7"/>
-          <text x="217" y="62" text-anchor="middle" font-size="9" font-weight="600" fill="#4A90E2">52</text>
-          <!-- 비율 선 -->
-          <polyline points="83,55 150,84 217,93" fill="none" stroke="#F29135" stroke-width="2" stroke-linejoin="round"/>
-          <circle cx="83" cy="55" r="4" fill="#F29135"/>
-          <circle cx="150" cy="84" r="4" fill="#F29135"/>
-          <circle cx="217" cy="93" r="4" fill="#F29135"/>
-          <text x="83" y="50" text-anchor="middle" font-size="8" fill="#F29135">66.0%</text>
-          <text x="150" y="79" text-anchor="middle" font-size="8" fill="#F29135">-18.7%</text>
-          <text x="217" y="89" text-anchor="middle" font-size="8" fill="#F29135">-45.4%</text>
-          <line x1="38" y1="95" x2="240" y2="95" stroke="#E5E7EB" stroke-width="1"/>
-          <text x="83" y="106" text-anchor="middle" font-size="8" fill="#666">22.4Q</text>
-          <text x="150" y="106" text-anchor="middle" font-size="8" fill="#666">23.4Q</text>
-          <text x="217" y="106" text-anchor="middle" font-size="8" fill="#666">25.3Q</text>
+        <!-- viewBox 540x120 | 26개월 센터(간격~18.5): 49,68,86,105,123,142,160,178,197,215,234,252,271,289,308,326,345,363,382,400,418,437,455,474,492,511 -->
+        <!-- 좌축 0-150건: y=95-(v/150)*87 | 우축 0-40%: y=95-(v/40)*87 -->
+        <!-- 막대 25개(24.03~26.03) | 꺾은선 26개(24.03~26.04) -->
+        <svg width="100%" height="120" viewBox="0 0 540 120">
+          <!-- Left axis -->
+          <line x1="40" y1="8" x2="40" y2="95" stroke="#E5E7EB" stroke-width="1"/>
+          <text x="36" y="11" text-anchor="end" font-size="8" fill="#9E9E9E">150</text>
+          <text x="36" y="52" text-anchor="end" font-size="8" fill="#9E9E9E">75</text>
+          <text x="36" y="96" text-anchor="end" font-size="8" fill="#9E9E9E">0</text>
+          <!-- Right axis -->
+          <line x1="520" y1="8" x2="520" y2="95" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="2,2"/>
+          <text x="524" y="11" text-anchor="start" font-size="8" fill="#F29135">40%</text>
+          <text x="524" y="52" text-anchor="start" font-size="8" fill="#F29135">20%</text>
+          <text x="524" y="96" text-anchor="start" font-size="8" fill="#F29135">0%</text>
+          <!-- Grid -->
+          <line x1="40" y1="52" x2="520" y2="52" stroke="#F3F4F6" stroke-width="1"/>
+          <!-- 25 bars (24.03~26.03) | bar width=11, left x = center-5.5→round -->
+          <!-- bar (y,h) descending: represents ~115건→25건 over 25 months -->
+          <rect x="43" y="28" width="11" height="67" rx="1" fill="#89B2F7"/>
+          <rect x="62" y="30" width="11" height="65" rx="1" fill="#89B2F7"/>
+          <rect x="80" y="32" width="11" height="63" rx="1" fill="#89B2F7"/>
+          <rect x="99" y="34" width="11" height="61" rx="1" fill="#89B2F7"/>
+          <rect x="117" y="36" width="11" height="59" rx="1" fill="#89B2F7"/>
+          <rect x="136" y="38" width="11" height="57" rx="1" fill="#89B2F7"/>
+          <rect x="154" y="40" width="11" height="55" rx="1" fill="#89B2F7"/>
+          <rect x="172" y="42" width="11" height="53" rx="1" fill="#89B2F7"/>
+          <rect x="191" y="44" width="11" height="51" rx="1" fill="#89B2F7"/>
+          <rect x="209" y="46" width="11" height="49" rx="1" fill="#89B2F7"/>
+          <rect x="228" y="47" width="11" height="48" rx="1" fill="#89B2F7"/>
+          <rect x="246" y="50" width="11" height="45" rx="1" fill="#89B2F7"/>
+          <rect x="265" y="52" width="11" height="43" rx="1" fill="#89B2F7"/>
+          <rect x="283" y="53" width="11" height="42" rx="1" fill="#89B2F7"/>
+          <rect x="302" y="56" width="11" height="39" rx="1" fill="#89B2F7"/>
+          <rect x="320" y="57" width="11" height="38" rx="1" fill="#89B2F7"/>
+          <rect x="339" y="59" width="11" height="36" rx="1" fill="#89B2F7"/>
+          <rect x="357" y="61" width="11" height="34" rx="1" fill="#89B2F7"/>
+          <rect x="376" y="63" width="11" height="32" rx="1" fill="#89B2F7"/>
+          <rect x="394" y="65" width="11" height="30" rx="1" fill="#89B2F7"/>
+          <rect x="412" y="67" width="11" height="28" rx="1" fill="#89B2F7"/>
+          <rect x="431" y="69" width="11" height="26" rx="1" fill="#89B2F7"/>
+          <rect x="449" y="71" width="11" height="24" rx="1" fill="#89B2F7"/>
+          <rect x="468" y="73" width="11" height="22" rx="1" fill="#89B2F7"/>
+          <rect x="486" y="75" width="11" height="20" rx="1" fill="#89B2F7"/>
+          <!-- 꺾은선 26개 (24.03~26.04) | y값 하강: 비율 ~17%→1% -->
+          <polyline points="49,55 68,57 86,58 105,60 123,64 142,67 160,71 178,74 197,78 215,79 234,81 252,83 271,84 289,85 308,86 326,87 345,88 363,89 382,90 400,91 418,92 437,92 455,93 474,93 492,93 511,93"
+            fill="none" stroke="#F29135" stroke-width="1.5" stroke-linejoin="round"/>
+          <circle cx="49" cy="55" r="3" fill="#F29135"/>
+          <text x="49" y="50" text-anchor="middle" font-size="8" fill="#F29135">17%</text>
+          <circle cx="511" cy="93" r="3" fill="#F29135"/>
+          <text x="511" y="89" text-anchor="middle" font-size="8" fill="#F29135">1%</text>
+          <!-- Baseline -->
+          <line x1="40" y1="95" x2="520" y2="95" stroke="#E5E7EB" stroke-width="1"/>
+          <!-- X labels (every 3 months + last point) -->
+          <text x="49"  y="108" text-anchor="middle" font-size="7" fill="#666">24.03</text>
+          <text x="105" y="108" text-anchor="middle" font-size="7" fill="#666">24.06</text>
+          <text x="160" y="108" text-anchor="middle" font-size="7" fill="#666">24.09</text>
+          <text x="215" y="108" text-anchor="middle" font-size="7" fill="#666">24.12</text>
+          <text x="271" y="108" text-anchor="middle" font-size="7" fill="#666">25.03</text>
+          <text x="326" y="108" text-anchor="middle" font-size="7" fill="#666">25.06</text>
+          <text x="382" y="108" text-anchor="middle" font-size="7" fill="#666">25.09</text>
+          <text x="437" y="108" text-anchor="middle" font-size="7" fill="#666">25.12</text>
+          <text x="492" y="108" text-anchor="middle" font-size="7" fill="#666">26.03</text>
+          <text x="511" y="115" text-anchor="middle" font-size="7" fill="#F29135">26.04</text>
         </svg>
       </div>
     </div>
@@ -298,11 +315,10 @@
 
       <!-- VoC 건수 -->
       <div class="card">
-        <div class="card-title">VoC 건수
-          <div class="ctrl-row">
-            <select class="ctrl-select"><option>Month</option><option>Quarter</option></select>
-            <select class="ctrl-select"><option>전체</option><option>오류</option><option>개선</option></select>
-          </div>
+        <div class="card-title">VoC 건수</div>
+        <div class="ctrl-row">
+          <select class="ctrl-select"><option>Month</option><option>Quarter</option></select>
+          <select class="ctrl-select"><option>전체</option><option>오류</option><option>개선</option></select>
         </div>
         <div class="kpi-row">
           <div class="kpi-box">
@@ -331,8 +347,6 @@
           <text x="462" y="59" text-anchor="start" font-size="8" fill="#F29135">0%</text>
           <text x="462" y="109" text-anchor="start" font-size="8" fill="#F29135">-60%</text>
           <line x1="40" y1="54" x2="458" y2="54" stroke="#F3F4F6" stroke-width="1" stroke-dasharray="3,2"/>
-          <!-- 9개 분기 막대 (v=400,420,380,440,410,390,430,395,386) y=108-(v/600)*100 -->
-          <!-- 400→41.3 | 420→38 | 380→44.7 | 440→34.7 | 410→40 | 390→43 | 430→36.7 | 395→42.2 | 386→43.7 -->
           <rect x="38" y="41" width="28" height="67" rx="2" fill="#89B2F7"/>
           <rect x="86" y="38" width="28" height="70" rx="2" fill="#89B2F7"/>
           <rect x="134" y="45" width="28" height="63" rx="2" fill="#89B2F7"/>
@@ -342,7 +356,6 @@
           <rect x="326" y="37" width="28" height="71" rx="2" fill="#89B2F7"/>
           <rect x="374" y="42" width="28" height="66" rx="2" fill="#89B2F7"/>
           <rect x="422" y="44" width="28" height="64" rx="2" fill="#89B2F7"/>
-          <!-- YoY Change 선 -->
           <polyline points="52,44 100,40 148,48 196,36 244,42 292,46 340,38 388,44 436,43"
             fill="none" stroke="#F29135" stroke-width="2" stroke-linejoin="round"/>
           <circle cx="52" cy="44" r="3" fill="#F29135"/>
@@ -355,7 +368,7 @@
           <circle cx="388" cy="44" r="3" fill="#F29135"/>
           <circle cx="436" cy="43" r="3" fill="#F29135"/>
           <line x1="40" y1="108" x2="458" y2="108" stroke="#E5E7EB" stroke-width="1"/>
-          <text x="52" y="119" text-anchor="middle" font-size="7" fill="#666">22.4Q</text>
+          <text x="52"  y="119" text-anchor="middle" font-size="7" fill="#666">22.4Q</text>
           <text x="100" y="119" text-anchor="middle" font-size="7" fill="#666">23.1Q</text>
           <text x="148" y="119" text-anchor="middle" font-size="7" fill="#666">23.2Q</text>
           <text x="196" y="119" text-anchor="middle" font-size="7" fill="#666">23.3Q</text>
@@ -369,10 +382,9 @@
 
       <!-- VoC 발생률 -->
       <div class="card">
-        <div class="card-title">VoC 발생률
-          <div class="ctrl-row">
-            <select class="ctrl-select"><option>Month</option><option>Quarter</option></select>
-          </div>
+        <div class="card-title">VoC 발생률</div>
+        <div class="ctrl-row">
+          <select class="ctrl-select"><option>Month</option><option>Quarter</option></select>
         </div>
         <div class="kpi-row">
           <div class="kpi-box">
@@ -389,7 +401,6 @@
         <div class="legend">
           <div class="legend-item"><div class="leg-bar" style="background:#89B2F7"></div>발생률</div>
         </div>
-        <!-- y=108-(v/100)*100 -->
         <svg width="100%" height="128" viewBox="0 0 500 128">
           <line x1="40" y1="8" x2="40" y2="108" stroke="#E5E7EB" stroke-width="1"/>
           <text x="36" y="11" text-anchor="end" font-size="8" fill="#9E9E9E">100%</text>
@@ -397,8 +408,6 @@
           <text x="36" y="109" text-anchor="end" font-size="8" fill="#9E9E9E">0%</text>
           <line x1="40" y1="11" x2="458" y2="11" stroke="#F3F4F6" stroke-width="1"/>
           <line x1="40" y1="59" x2="458" y2="59" stroke="#F3F4F6" stroke-width="1"/>
-          <!-- v=60,64,52,57,54,50,48,52,50 y=108-(v/100)*100 -->
-          <!-- 60→48 | 64→44 | 52→56 | 57→51 | 54→54 | 50→58 | 48→60 | 52→56 | 50→58 -->
           <rect x="38" y="48" width="28" height="60" rx="2" fill="#89B2F7"/>
           <text x="52" y="45" text-anchor="middle" font-size="8" font-weight="600" fill="#4A90E2">60%</text>
           <rect x="86" y="44" width="28" height="64" rx="2" fill="#89B2F7"/>
@@ -418,7 +427,7 @@
           <rect x="422" y="58" width="28" height="50" rx="2" fill="#89B2F7"/>
           <text x="436" y="55" text-anchor="middle" font-size="8" font-weight="600" fill="#4A90E2">50%</text>
           <line x1="40" y1="108" x2="458" y2="108" stroke="#E5E7EB" stroke-width="1"/>
-          <text x="52" y="119" text-anchor="middle" font-size="7" fill="#666">22.4Q</text>
+          <text x="52"  y="119" text-anchor="middle" font-size="7" fill="#666">22.4Q</text>
           <text x="100" y="119" text-anchor="middle" font-size="7" fill="#666">23.1Q</text>
           <text x="148" y="119" text-anchor="middle" font-size="7" fill="#666">23.2Q</text>
           <text x="196" y="119" text-anchor="middle" font-size="7" fill="#666">23.3Q</text>
@@ -436,18 +445,15 @@
 
       <!-- VoC 오류 건수 및 비중 -->
       <div class="card">
-        <div class="card-title">VoC 오류 건수 및 비중
-          <div class="ctrl-row">
-            <span class="card-unit" style="margin-right:4px">건/%</span>
-            <select class="ctrl-select"><option>Month</option><option>Quarter</option></select>
-          </div>
+        <div class="card-title">VoC 오류 건수 및 비중 <span class="card-unit">건/%</span></div>
+        <div class="ctrl-row">
+          <select class="ctrl-select"><option>Month</option><option>Quarter</option></select>
         </div>
         <div class="legend">
           <div class="legend-item"><div class="leg-bar" style="background:#89B2F7"></div>전체</div>
           <div class="legend-item"><div class="leg-bar" style="background:#4A90E2"></div>오류</div>
           <div class="legend-item"><div class="leg-line" style="background:#F29135"></div>비중</div>
         </div>
-        <!-- 누적막대 | 우축 0-60% | y_bar=115-(v/150)*107 | 비중 y=115-(v/60)*107 -->
         <svg width="100%" height="143" viewBox="0 0 500 143">
           <line x1="40" y1="8" x2="40" y2="115" stroke="#E5E7EB" stroke-width="1"/>
           <text x="36" y="11" text-anchor="end" font-size="8" fill="#9E9E9E">150</text>
@@ -457,58 +463,42 @@
           <text x="462" y="11" text-anchor="start" font-size="8" fill="#F29135">60%</text>
           <text x="462" y="62" text-anchor="start" font-size="8" fill="#F29135">30%</text>
           <text x="462" y="116" text-anchor="start" font-size="8" fill="#F29135">0%</text>
-          <!-- 전체=59,65,52,68,62,60,52,57,54 | h=(v/150)*107 | y=115-h -->
-          <!-- 오류=22(고정) h=(22/150)*107=15.7≈16 | rest=h-16 -->
-          <!-- 전체59: h=42 y=73 | rest=26 | 전체65: h=46 y=69 | rest=30 | 전체52: h=37 y=78 | rest=21 -->
-          <!-- 전체68: h=48 y=67 | rest=32 | 전체62: h=44 y=71 | rest=28 | 전체60: h=43 y=72 | rest=27 -->
-          <!-- 전체52: h=37 y=78 | rest=21 | 전체57: h=41 y=74 | rest=25 | 전체54: h=39 y=76 | rest=23 -->
           <rect x="38" y="73" width="28" height="26" fill="#89B2F7"/>
           <rect x="38" y="99" width="28" height="16" fill="#4A90E2"/>
           <text x="52" y="70" text-anchor="middle" font-size="8" font-weight="600" fill="#333">59</text>
           <text x="52" y="110" text-anchor="middle" font-size="7" fill="#fff" font-weight="600">22</text>
-
           <rect x="86" y="69" width="28" height="30" fill="#89B2F7"/>
           <rect x="86" y="99" width="28" height="16" fill="#4A90E2"/>
           <text x="100" y="66" text-anchor="middle" font-size="8" font-weight="600" fill="#333">65</text>
-
           <rect x="134" y="78" width="28" height="21" fill="#89B2F7"/>
           <rect x="134" y="99" width="28" height="16" fill="#4A90E2"/>
           <text x="148" y="75" text-anchor="middle" font-size="8" font-weight="600" fill="#333">52</text>
-
           <rect x="182" y="67" width="28" height="32" fill="#89B2F7"/>
           <rect x="182" y="99" width="28" height="16" fill="#4A90E2"/>
           <text x="196" y="64" text-anchor="middle" font-size="8" font-weight="600" fill="#333">68</text>
-
           <rect x="230" y="71" width="28" height="28" fill="#89B2F7"/>
           <rect x="230" y="99" width="28" height="16" fill="#4A90E2"/>
           <text x="244" y="68" text-anchor="middle" font-size="8" font-weight="600" fill="#333">62</text>
-
           <rect x="278" y="72" width="28" height="27" fill="#89B2F7"/>
           <rect x="278" y="99" width="28" height="16" fill="#4A90E2"/>
           <text x="292" y="69" text-anchor="middle" font-size="8" font-weight="600" fill="#333">60</text>
-
           <rect x="326" y="78" width="28" height="21" fill="#89B2F7"/>
           <rect x="326" y="99" width="28" height="16" fill="#4A90E2"/>
           <text x="340" y="75" text-anchor="middle" font-size="8" font-weight="600" fill="#333">52</text>
-
           <rect x="374" y="74" width="28" height="25" fill="#89B2F7"/>
           <rect x="374" y="99" width="28" height="16" fill="#4A90E2"/>
           <text x="388" y="71" text-anchor="middle" font-size="8" font-weight="600" fill="#333">57</text>
-
           <rect x="422" y="76" width="28" height="23" fill="#89B2F7"/>
           <rect x="422" y="99" width="28" height="16" fill="#4A90E2"/>
           <text x="436" y="73" text-anchor="middle" font-size="8" font-weight="600" fill="#333">54</text>
-
-          <!-- 비중 선 ~35-37% | y=115-(v/60)*107 | 37%→y=115-66=49 | 35%→y=115-62.4=52.6≈53 -->
           <polyline points="52,49 100,49 148,53 196,51 244,52 292,52 340,53 388,53 436,53"
             fill="none" stroke="#F29135" stroke-width="2" stroke-linejoin="round"/>
           <circle cx="52" cy="49" r="3" fill="#F29135"/>
           <text x="52" y="45" text-anchor="middle" font-size="7" fill="#F29135">37%</text>
           <circle cx="436" cy="53" r="3" fill="#F29135"/>
           <text x="436" y="49" text-anchor="middle" font-size="7" fill="#F29135">35%</text>
-
           <line x1="40" y1="115" x2="458" y2="115" stroke="#E5E7EB" stroke-width="1"/>
-          <text x="52" y="126" text-anchor="middle" font-size="7" fill="#666">22.4Q</text>
+          <text x="52"  y="126" text-anchor="middle" font-size="7" fill="#666">22.4Q</text>
           <text x="100" y="126" text-anchor="middle" font-size="7" fill="#666">23.1Q</text>
           <text x="148" y="126" text-anchor="middle" font-size="7" fill="#666">23.2Q</text>
           <text x="196" y="126" text-anchor="middle" font-size="7" fill="#666">23.3Q</text>
@@ -522,11 +512,9 @@
 
       <!-- VoC 개선 건수 및 비중 -->
       <div class="card">
-        <div class="card-title">VoC 개선 건수 및 비중
-          <div class="ctrl-row">
-            <span class="card-unit" style="margin-right:4px">건/%</span>
-            <select class="ctrl-select"><option>Month</option><option>Quarter</option></select>
-          </div>
+        <div class="card-title">VoC 개선 건수 및 비중 <span class="card-unit">건/%</span></div>
+        <div class="ctrl-row">
+          <select class="ctrl-select"><option>Month</option><option>Quarter</option></select>
         </div>
         <div class="legend">
           <div class="legend-item"><div class="leg-bar" style="background:#89B2F7"></div>전체</div>
@@ -542,47 +530,35 @@
           <text x="462" y="11" text-anchor="start" font-size="8" fill="#F29135">80%</text>
           <text x="462" y="62" text-anchor="start" font-size="8" fill="#F29135">40%</text>
           <text x="462" y="116" text-anchor="start" font-size="8" fill="#F29135">0%</text>
-          <!-- 전체 동일, 개선비중 더 높음 62~59% | y=115-(v/80)*107 | 62%→y=115-82.9→32 | 59%→y=115-78.9→36 -->
           <rect x="38" y="73" width="28" height="26" fill="#89B2F7"/>
           <rect x="38" y="99" width="28" height="16" fill="#4A90E2"/>
           <text x="52" y="70" text-anchor="middle" font-size="8" font-weight="600" fill="#333">59</text>
-
           <rect x="86" y="69" width="28" height="30" fill="#89B2F7"/>
           <rect x="86" y="99" width="28" height="16" fill="#4A90E2"/>
           <text x="100" y="66" text-anchor="middle" font-size="8" font-weight="600" fill="#333">65</text>
-
           <rect x="134" y="78" width="28" height="21" fill="#89B2F7"/>
           <rect x="134" y="99" width="28" height="16" fill="#4A90E2"/>
-
           <rect x="182" y="67" width="28" height="32" fill="#89B2F7"/>
           <rect x="182" y="99" width="28" height="16" fill="#4A90E2"/>
-
           <rect x="230" y="71" width="28" height="28" fill="#89B2F7"/>
           <rect x="230" y="99" width="28" height="16" fill="#4A90E2"/>
-
           <rect x="278" y="72" width="28" height="27" fill="#89B2F7"/>
           <rect x="278" y="99" width="28" height="16" fill="#4A90E2"/>
-
           <rect x="326" y="78" width="28" height="21" fill="#89B2F7"/>
           <rect x="326" y="99" width="28" height="16" fill="#4A90E2"/>
-
           <rect x="374" y="74" width="28" height="25" fill="#89B2F7"/>
           <rect x="374" y="99" width="28" height="16" fill="#4A90E2"/>
-
           <rect x="422" y="76" width="28" height="23" fill="#89B2F7"/>
           <rect x="422" y="99" width="28" height="16" fill="#4A90E2"/>
           <text x="436" y="73" text-anchor="middle" font-size="8" font-weight="600" fill="#333">54</text>
-
-          <!-- 개선 비중 62%→59% -->
           <polyline points="52,32 100,31 148,34 196,29 244,31 292,32 340,35 388,32 436,36"
             fill="none" stroke="#F29135" stroke-width="2" stroke-linejoin="round"/>
           <circle cx="52" cy="32" r="3" fill="#F29135"/>
           <text x="52" y="28" text-anchor="middle" font-size="7" fill="#F29135">63%</text>
           <circle cx="436" cy="36" r="3" fill="#F29135"/>
           <text x="436" y="32" text-anchor="middle" font-size="7" fill="#F29135">59%</text>
-
           <line x1="40" y1="115" x2="458" y2="115" stroke="#E5E7EB" stroke-width="1"/>
-          <text x="52" y="126" text-anchor="middle" font-size="7" fill="#666">22.4Q</text>
+          <text x="52"  y="126" text-anchor="middle" font-size="7" fill="#666">22.4Q</text>
           <text x="100" y="126" text-anchor="middle" font-size="7" fill="#666">23.1Q</text>
           <text x="148" y="126" text-anchor="middle" font-size="7" fill="#666">23.2Q</text>
           <text x="196" y="126" text-anchor="middle" font-size="7" fill="#666">23.3Q</text>
@@ -618,21 +594,18 @@
           <div class="legend-item"><div class="leg-line" style="background:#F29135"></div>2024</div>
           <div class="legend-item"><div class="leg-line" style="background:#4A90E2"></div>2025</div>
         </div>
-        <!-- y=98-(v/30)*90 | 22.2→31.4 | 17.8→44.6 | 16.2→49.4 | 9.7→68.9 -->
         <svg width="100%" height="115" viewBox="0 0 490 115">
           <line x1="40" y1="8" x2="40" y2="98" stroke="#E5E7EB" stroke-width="1"/>
           <text x="36" y="11" text-anchor="end" font-size="8" fill="#9E9E9E">30h</text>
           <text x="36" y="54" text-anchor="end" font-size="8" fill="#9E9E9E">15h</text>
           <text x="36" y="99" text-anchor="end" font-size="8" fill="#9E9E9E">0h</text>
           <line x1="40" y1="54" x2="450" y2="54" stroke="#F3F4F6" stroke-width="1"/>
-          <!-- 2024 (1~12월): 22.2→21.5→21→20.5→20→19.5→19→18.5→18→18→17.8→17.8 -->
           <polyline points="52,31 87,34 122,35 157,37 192,38 227,40 262,41 297,43 332,44 367,44 402,45 437,45"
             fill="none" stroke="#F29135" stroke-width="2" stroke-linejoin="round"/>
           <circle cx="52" cy="31" r="3" fill="#F29135"/>
           <text x="52" y="27" text-anchor="middle" font-size="8" font-weight="600" fill="#F29135">22.2</text>
           <circle cx="437" cy="45" r="3" fill="#F29135"/>
           <text x="437" y="41" text-anchor="middle" font-size="8" font-weight="600" fill="#F29135">17.8</text>
-          <!-- 2025 (1~8월): 16.2→15.5→14.8→14→13.2→12.5→11.5→9.7 -->
           <polyline points="52,49 87,52 122,56 157,60 192,63 227,67 262,71 297,69"
             fill="none" stroke="#4A90E2" stroke-width="2" stroke-linejoin="round"/>
           <circle cx="52" cy="49" r="3" fill="#4A90E2"/>
@@ -640,8 +613,8 @@
           <circle cx="297" cy="69" r="3" fill="#4A90E2"/>
           <text x="312" y="74" text-anchor="middle" font-size="8" font-weight="600" fill="#4A90E2">9.7</text>
           <line x1="40" y1="98" x2="450" y2="98" stroke="#E5E7EB" stroke-width="1"/>
-          <text x="52" y="109" text-anchor="middle" font-size="7" fill="#666">1월</text>
-          <text x="87" y="109" text-anchor="middle" font-size="7" fill="#666">2월</text>
+          <text x="52"  y="109" text-anchor="middle" font-size="7" fill="#666">1월</text>
+          <text x="87"  y="109" text-anchor="middle" font-size="7" fill="#666">2월</text>
           <text x="122" y="109" text-anchor="middle" font-size="7" fill="#666">3월</text>
           <text x="157" y="109" text-anchor="middle" font-size="7" fill="#666">4월</text>
           <text x="192" y="109" text-anchor="middle" font-size="7" fill="#666">5월</text>
@@ -675,29 +648,25 @@
           <div class="legend-item"><div class="leg-line" style="background:#4A90E2"></div>단기</div>
           <div class="legend-item"><div class="leg-line" style="background:#9E9E9E"></div>전체</div>
         </div>
-        <!-- Y 30-70건 | y=98-((v-30)/40)*90 -->
         <svg width="100%" height="115" viewBox="0 0 490 115">
           <line x1="40" y1="8" x2="40" y2="98" stroke="#E5E7EB" stroke-width="1"/>
           <text x="36" y="11" text-anchor="end" font-size="8" fill="#9E9E9E">70</text>
           <text x="36" y="54" text-anchor="end" font-size="8" fill="#9E9E9E">50</text>
           <text x="36" y="99" text-anchor="end" font-size="8" fill="#9E9E9E">30</text>
           <line x1="40" y1="54" x2="450" y2="54" stroke="#F3F4F6" stroke-width="1"/>
-          <!-- 전체(회색 점선): ~58~65건 -->
           <polyline points="52,32 87,35 122,29 157,34 192,32 227,37 262,33 297,30 332,34 367,28 402,32 437,30"
             fill="none" stroke="#9E9E9E" stroke-width="1.5" stroke-linejoin="round" stroke-dasharray="4,3"/>
-          <!-- 장기(오렌지): ~45~52건 -->
           <polyline points="52,54 87,58 122,52 157,56 192,54 227,59 262,55 297,52 332,56 367,50 402,54 437,52"
             fill="none" stroke="#F29135" stroke-width="2" stroke-linejoin="round"/>
           <circle cx="52" cy="54" r="3" fill="#F29135"/>
           <circle cx="437" cy="52" r="3" fill="#F29135"/>
-          <!-- 단기(파랑): ~35~42건 -->
           <polyline points="52,70 87,74 122,68 157,72 192,70 227,75 262,71 297,68 332,72 367,66 402,70 437,68"
             fill="none" stroke="#4A90E2" stroke-width="2" stroke-linejoin="round"/>
           <circle cx="52" cy="70" r="3" fill="#4A90E2"/>
           <circle cx="437" cy="68" r="3" fill="#4A90E2"/>
           <line x1="40" y1="98" x2="450" y2="98" stroke="#E5E7EB" stroke-width="1"/>
-          <text x="52" y="109" text-anchor="middle" font-size="7" fill="#666">1월</text>
-          <text x="87" y="109" text-anchor="middle" font-size="7" fill="#666">2월</text>
+          <text x="52"  y="109" text-anchor="middle" font-size="7" fill="#666">1월</text>
+          <text x="87"  y="109" text-anchor="middle" font-size="7" fill="#666">2월</text>
           <text x="122" y="109" text-anchor="middle" font-size="7" fill="#666">3월</text>
           <text x="157" y="109" text-anchor="middle" font-size="7" fill="#666">4월</text>
           <text x="192" y="109" text-anchor="middle" font-size="7" fill="#666">5월</text>
@@ -715,19 +684,17 @@
     <!-- ── Row 5: 서비스 활성화 현황 (분기) ── -->
     <div class="row row-2">
 
-      <!-- MAU Change -->
+      <!-- MAU Change | 필터: 분析주기(Month) + Change Rate(YoY) -->
       <div class="card">
-        <div class="card-title">서비스 활성화 현황
-          <div class="ctrl-row">
-            <select class="ctrl-select"><option>Month</option><option>Quarter</option></select>
-            <select class="ctrl-select"><option>Change Rate YoY</option><option>YoY</option></select>
-          </div>
+        <div class="card-title">서비스 활성화 현황</div>
+        <div class="ctrl-row">
+          <select class="ctrl-select"><option>Month</option><option>Quarter</option></select>
+          <select class="ctrl-select"><option>Change Rate YoY</option><option>YoY</option></select>
         </div>
         <div class="legend">
           <div class="legend-item"><div class="leg-bar" style="background:#89B2F7"></div>MAU 건수</div>
           <div class="legend-item"><div class="leg-line" style="background:#F29135"></div>Change %</div>
         </div>
-        <!-- 좌축 0-150 | 우축 -50~100% | 0%기준 y=115-((0+50)/150)*107=115-35.7=79.3≈79 -->
         <svg width="100%" height="143" viewBox="0 0 500 143">
           <line x1="40" y1="8" x2="40" y2="115" stroke="#E5E7EB" stroke-width="1"/>
           <text x="36" y="11" text-anchor="end" font-size="8" fill="#9E9E9E">150</text>
@@ -738,7 +705,6 @@
           <text x="462" y="62" text-anchor="start" font-size="8" fill="#F29135">25%</text>
           <text x="462" y="116" text-anchor="start" font-size="8" fill="#F29135">-50%</text>
           <line x1="40" y1="79" x2="458" y2="79" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="3,2"/>
-          <!-- 막대 y=115-(v/150)*107 | 115→33 | 102→42 | 80→57 | 65→69 | 55→76 | 60→72 | 50→79 | 55→76 | 50→79 -->
           <rect x="38" y="33" width="28" height="82" rx="2" fill="#89B2F7"/>
           <text x="52" y="30" text-anchor="middle" font-size="8" font-weight="600" fill="#4A90E2">115</text>
           <rect x="86" y="42" width="28" height="73" rx="2" fill="#89B2F7"/>
@@ -752,7 +718,6 @@
           <rect x="374" y="76" width="28" height="39" rx="2" fill="#89B2F7"/>
           <rect x="422" y="79" width="28" height="36" rx="2" fill="#89B2F7"/>
           <text x="436" y="76" text-anchor="middle" font-size="8" font-weight="600" fill="#4A90E2">50</text>
-          <!-- 선 y=79-(v/150)*107 | 66%→y=79-47=32 | -18.7%→y=79+13.3=92 | -45.4%→y=79+32.3=111 -->
           <polyline points="52,32 100,52 148,65 196,79 244,85 292,81 340,88 388,85 436,93"
             fill="none" stroke="#F29135" stroke-width="2" stroke-linejoin="round"/>
           <circle cx="52" cy="32" r="3" fill="#F29135"/>
@@ -762,7 +727,7 @@
           <circle cx="436" cy="93" r="3" fill="#F29135"/>
           <text x="436" y="89" text-anchor="middle" font-size="7" fill="#F29135">-45.4%</text>
           <line x1="40" y1="115" x2="458" y2="115" stroke="#E5E7EB" stroke-width="1"/>
-          <text x="52" y="126" text-anchor="middle" font-size="7" fill="#666">22.4Q</text>
+          <text x="52"  y="126" text-anchor="middle" font-size="7" fill="#666">22.4Q</text>
           <text x="100" y="126" text-anchor="middle" font-size="7" fill="#666">23.1Q</text>
           <text x="148" y="126" text-anchor="middle" font-size="7" fill="#666">23.2Q</text>
           <text x="196" y="126" text-anchor="middle" font-size="7" fill="#666">23.3Q</text>
@@ -774,9 +739,12 @@
         </svg>
       </div>
 
-      <!-- MAU Ratio -->
+      <!-- MAU Ratio | 필터: 분析주기(Month)만 -->
       <div class="card">
         <div class="card-title">서비스 활성화 현황 (비중) <span class="card-unit">건/%</span></div>
+        <div class="ctrl-row">
+          <select class="ctrl-select"><option>Month</option><option>Quarter</option></select>
+        </div>
         <div class="legend">
           <div class="legend-item"><div class="leg-bar" style="background:#89B2F7"></div>전체</div>
           <div class="legend-item"><div class="leg-bar" style="background:#4A90E2"></div>MAU</div>
@@ -791,49 +759,37 @@
           <text x="462" y="11" text-anchor="start" font-size="8" fill="#F29135">60%</text>
           <text x="462" y="62" text-anchor="start" font-size="8" fill="#F29135">30%</text>
           <text x="462" y="116" text-anchor="start" font-size="8" fill="#F29135">0%</text>
-          <!-- 누적 막대 (전체=상단#89B2F7 + MAU=하단#4A90E2) -->
           <rect x="38" y="33" width="28" height="60" fill="#89B2F7"/>
           <rect x="38" y="93" width="28" height="22" fill="#4A90E2"/>
           <text x="52" y="30" text-anchor="middle" font-size="8" font-weight="600" fill="#333">115</text>
           <text x="52" y="107" text-anchor="middle" font-size="7" fill="#fff" font-weight="600">22</text>
-
           <rect x="86" y="42" width="28" height="51" fill="#89B2F7"/>
           <rect x="86" y="93" width="28" height="22" fill="#4A90E2"/>
           <text x="100" y="39" text-anchor="middle" font-size="8" font-weight="600" fill="#333">102</text>
-
           <rect x="134" y="57" width="28" height="36" fill="#89B2F7"/>
           <rect x="134" y="93" width="28" height="22" fill="#4A90E2"/>
-
           <rect x="182" y="69" width="28" height="24" fill="#89B2F7"/>
           <rect x="182" y="93" width="28" height="22" fill="#4A90E2"/>
           <text x="196" y="66" text-anchor="middle" font-size="8" font-weight="600" fill="#333">65</text>
-
           <rect x="230" y="76" width="28" height="17" fill="#89B2F7"/>
           <rect x="230" y="93" width="28" height="22" fill="#4A90E2"/>
-
           <rect x="278" y="72" width="28" height="21" fill="#89B2F7"/>
           <rect x="278" y="93" width="28" height="22" fill="#4A90E2"/>
-
           <rect x="326" y="79" width="28" height="14" fill="#89B2F7"/>
           <rect x="326" y="93" width="28" height="22" fill="#4A90E2"/>
-
           <rect x="374" y="76" width="28" height="17" fill="#89B2F7"/>
           <rect x="374" y="93" width="28" height="22" fill="#4A90E2"/>
-
           <rect x="422" y="79" width="28" height="14" fill="#89B2F7"/>
           <rect x="422" y="93" width="28" height="22" fill="#4A90E2"/>
           <text x="436" y="76" text-anchor="middle" font-size="8" font-weight="600" fill="#333">50</text>
-
-          <!-- Ratio 선 32%→38% | y=115-(v/60)*107 | 32%→y=115-57=58 | 38%→y=115-67.8=47 -->
           <polyline points="52,58 100,60 148,62 196,57 244,56 292,54 340,51 388,54 436,47"
             fill="none" stroke="#F29135" stroke-width="2" stroke-linejoin="round"/>
           <circle cx="52" cy="58" r="3" fill="#F29135"/>
           <text x="52" y="54" text-anchor="middle" font-size="7" fill="#F29135">32%</text>
           <circle cx="436" cy="47" r="3" fill="#F29135"/>
           <text x="436" y="43" text-anchor="middle" font-size="7" fill="#F29135">38%</text>
-
           <line x1="40" y1="115" x2="458" y2="115" stroke="#E5E7EB" stroke-width="1"/>
-          <text x="52" y="126" text-anchor="middle" font-size="7" fill="#666">22.4Q</text>
+          <text x="52"  y="126" text-anchor="middle" font-size="7" fill="#666">22.4Q</text>
           <text x="100" y="126" text-anchor="middle" font-size="7" fill="#666">23.1Q</text>
           <text x="148" y="126" text-anchor="middle" font-size="7" fill="#666">23.2Q</text>
           <text x="196" y="126" text-anchor="middle" font-size="7" fill="#666">23.3Q</text>

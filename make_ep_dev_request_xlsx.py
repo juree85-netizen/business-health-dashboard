@@ -137,14 +137,14 @@ r = blank(ws, r, 8)
 r = section_title(ws, r, "1. 요청 배경")
 ws.merge_cells(start_row=r, start_column=1, end_row=r, end_column=6)
 cell = ws.cell(row=r, column=1,
-    value="사업건전성 대시보드의 효율/수익 영역 지표 산출 로직을 드리니, 화면 개발을 요청합니다.")
+    value="사업건전성 대시보드의 효율/수익 영역 지표 산출 로직 개발을 요청합니다.")
 cell.font = normal_font(size=10)
 cell.alignment = Alignment(horizontal="left", vertical="center", wrap_text=True)
 ws.row_dimensions[r].height = 32
 r += 1
 ws.merge_cells(start_row=r, start_column=1, end_row=r, end_column=6)
 cell = ws.cell(row=r, column=1,
-    value="원천 데이터(vf219, vf599 등)는 당사 DB에 이미 수신 중이며, Row 1~6 화면은 Tableau로 기 구현되어 있어 본 요청서의 개발 범위에서 제외합니다.")
+    value="원천 데이터(l_sap.orderlist.vf219, vf599)는 당사 DB에 이미 수신 중이며, Row 1~6 화면은 Tableau로 기 구현되어 있어 본 요청서의 개발 범위에서 제외합니다. 신규 지표(LTV·CAC·LTV:CAC·CAC Payback)는 Row 2에 배치 예정입니다.")
 cell.font = normal_font(size=10)
 cell.alignment = Alignment(horizontal="left", vertical="center", wrap_text=True)
 ws.row_dimensions[r].height = 24
@@ -166,33 +166,23 @@ r = blank(ws, r)
 # ══ 3. 원천 데이터 현황 ══
 r = section_title(ws, r, "3. 원천 데이터 현황")
 r = note_row(ws, r, "아래 데이터는 당사 DB에 이미 수신 중이며, 별도 인터페이스 요청 없이 사용 가능합니다.", bg=WHITE, color="1A1A1A")
-r = table_header(ws, r, ["#", "필드/테이블", "내용", "조회 조건", "히스토리 범위", "활용 지표"])
+r = table_header(ws, r, ["#", "필드/테이블", "내용", "필요 범위", "활용 지표", ""])
 rows3 = [
-    ["1", "l_sap.orderlist.vf219", "매출총계 (상품별 연도별)", "상품 코드 · 연도 기준 컬럼 — SDSC 확인 필요", "2022년 ~ 현재", "LTV · ARPA · 이탈률"],
-    ["2", "l_sap.orderlist.vf599", "영업/마케팅 비용 (상품별 연도별)", "상품 코드 · 연도 기준 컬럼 — SDSC 확인 필요", "2022년 ~ 현재", "CAC"],
-    ["3", "기타", "Revenue · Operating Profit · Plan · FTE · ARR 등", "SDSC 확인 필요", "Row 5 기준: 2023.10 ~ 현재", "Row 1·3·4·5·6 지표"],
+    ["1", "l_sap.orderlist.vf219", "매출총계 (상품별 연도별)", "2021년 ~ 현재", "LTV · ARPA · 이탈률", ""],
+    ["2", "l_sap.orderlist.vf599", "영업/마케팅 비용 (상품별 연도별)", "2021년 ~ 현재", "CAC", ""],
 ]
 for i, row_data in enumerate(rows3):
     r = table_row(ws, r, row_data, even=(i%2==1))
-r = note_row(ws, r, "※ vf219는 RC/NRC 데이터 분리가 어려우므로, 실무 적용 시 전체 매출을 Recurring Revenue로 간주하여 사용합니다.")
+r = note_row(ws, r, "※ 2023년 LTV/CAC 산출 시 N-2년(2021년) 데이터까지 필요하므로 원천 데이터 범위는 2021년부터 확보 필요")
+r = note_row(ws, r, "※ 상품 구분 컬럼명 / 연도 기준 컬럼명 / 고객 식별 키 컬럼명 — SDSC 확인 필요")
+r = note_row(ws, r, "※ vf219는 RC/NRC 데이터 분리 불가로 전체 매출을 Recurring Revenue로 간주하여 사용")
 r = blank(ws, r)
 
-# ══ 4. 마스터 데이터 요청 ══
-r = section_title(ws, r, "4. 마스터 데이터 요청 (화면 필터용)")
-r = note_row(ws, r, "화면 상단 상품 드롭다운 필터 구현을 위해 아래 마스터 데이터가 필요합니다.", bg=WHITE, color="1A1A1A")
-r = table_header(ws, r, ["#", "항목", "내용", "샘플값", "", ""])
-rows4 = [
-    ["1", "상품 목록", "필터 드롭다운에 표시될 상품명 목록 (코드 + 표시명)", "ZTM · Nexprime SCM · Knox Portal · EMS 등 13개", "", ""],
-    ["2", "상품 그룹핑", "상품 개별 / 전체(All) 선택 구분", "Knox (All) = Knox Portal + Knox Meeting + Knox EFSS/Drive", "", ""],
-    ["3", "EMS 예외 처리", "EMS / EMS(All) 선택 시 LTV:CAC 관련 카드 N/A 표시 처리용 플래그", "is_ltv_applicable: Y/N", "", ""],
-]
-for i, row_data in enumerate(rows4):
-    r = table_row(ws, r, row_data, even=(i%2==1))
-r = note_row(ws, r, "※ 상품 코드 체계 및 마스터 테이블명은 개발팀 확인 후 공유 바랍니다.")
 r = blank(ws, r)
 
-# ══ 5. 상품 분류 및 지표 산출 가능 여부 ══
-r = section_title(ws, r, "5. 상품 분류 및 지표 산출 가능 여부")
+# ══ 4. 상품 분류 및 지표 산출 가능 여부 ══
+r = section_title(ws, r, "4. 상품 분류 및 지표 산출 가능 여부")
+r = note_row(ws, r, "※ EMS vs EMS(All) 구분 기준(코드 범위, 포함 기준 등) — SDSC 확인 필요")
 r = table_header(ws, r, ["상품", "License Type", "Price Type", "RC/NRC", "LTV / CAC / LTV:CAC / CAC Payback", ""])
 products = [
     ["ZTM", "Term", "Fixed", "RC", "✅ / ✅ / ✅ / ✅", ""],
@@ -214,39 +204,46 @@ for i, row_data in enumerate(products):
 r = note_row(ws, r, "※ EMS / EMS (All): Recurring 비중 약 9% (라이선스+운영 149억 / 전체 1,572억), 데이터 분리 불가로 LTV · LTV:CAC · CAC Payback 산출 제외. CAC만 산출.")
 r = blank(ws, r)
 
-# ══ 6. 지표별 산출 기준 ══
-r = section_title(ws, r, "6. 지표별 산출 기준")
+# ══ 5. 지표별 산출 기준 ══
+r = section_title(ws, r, "5. 지표별 산출 기준")
+r = note_row(ws, r, "※ 이탈률은 소수 표기 (예: 5% → 0.05). LTV 산식 적용 시 /100 변환 불필요.")
+r = note_row(ws, r, "※ 상품 구분 컬럼명 / 고객 식별 키 컬럼명 / EMS vs EMS(All) 구분 기준 — SDSC 확인 필요")
 
 indicators = [
-    ("6-1. LTV (Customer Lifetime Value)", [
+    ("5-1. LTV (Customer Lifetime Value)", [
         ["산식 (이론)", "(Recurring 매출에 대한 ARPA ÷ 이탈률) + (연 일회성 매출 ÷ 고객 수)", "", "", "", ""],
-        ["실무 적용 산식", "(sum(vf219) ÷ 고객 수 ÷ 이탈률) + (연 일회성 매출 ÷ 고객 수)", "", "", "", ""],
+        ["실무 적용 산식", "(N년 ARPA ÷ N년 이탈률) + (연 일회성 매출 ÷ 고객 수)", "", "", "", ""],
+        ["실무 전개", "(sum(N년 vf219) ÷ 고객 수(N년) ÷ 이탈률(N년)) + (연 일회성 매출 ÷ 고객 수)", "", "", "", ""],
         ["비고", "RC/NRC 데이터 분리 불가로 vf219 전체를 Recurring으로 간주", "", "", "", ""],
         ["적용 상품", "EMS / EMS(All) 제외 전 상품", "", "", "", ""],
         ["표시 주기", "Yearly (2023 / 2024 / 2025)", "", "", "", ""],
         ["단위", "억원", "", "", "", ""],
     ]),
     ("  └ 구성 요소: ARPA / 이탈률", [
-        ["ARPA 산식", "sum(vf219) ÷ 고객 수  (해당 연도 vf219 ≠ 0인 고객 수 기준)", "", "", "", ""],
-        ["이탈률 산식", "(1 - (N-1년 sum(vf219) ÷ N-2년 sum(vf219))) × 100  ※ N-1년 ≥ N-2년이면 0 → LTV 빈칸", "", "", "", ""],
+        ["N년 ARPA 산식", "sum(N년 l_sap.orderlist.vf219) ÷ N년 고객 수  (N년 vf219 ≠ 0인 고객 수 기준)", "", "", "", ""],
+        ["N년 이탈률 산식", "1 - (N년 sum(vf219) ÷ N-1년 sum(vf219))  ※ 소수 표기. N년 ≥ N-1년이면 0 → LTV 빈칸", "", "", "", ""],
     ]),
-    ("6-2. CAC (Customer Acquisition Cost)", [
-        ["산식", "N-2년 sum(vf599) ÷ N-1년 신규 고객 수", "", "", "", ""],
+    ("5-2. CAC (Customer Acquisition Cost)", [
+        ["산식", "N-2년 sum(l_sap.orderlist.vf599) ÷ N-1년 신규 고객 수", "", "", "", ""],
         ["신규 고객 정의", "N-2년 vf219 = 0 AND N-1년 vf219 ≠ 0", "", "", "", ""],
+        ["고객 식별 키", "SDSC 확인 필요 (예: customer_id, bp_code 등)", "", "", "", ""],
+        ["연도 매핑 예시", "2023년 CAC = 2021년 vf599 ÷ 2022년 신규 고객 수", "", "", "", ""],
         ["적용 상품", "전체 (EMS 포함)", "", "", "", ""],
         ["표시 주기", "Yearly (2023 / 2024 / 2025)", "", "", "", ""],
         ["단위", "억원", "", "", "", ""],
         ["예외", "신규 고객 수 = 0이면 빈칸", "", "", "", ""],
     ]),
-    ("6-3. LTV:CAC Ratio", [
-        ["산식", "LTV ÷ CAC", "", "", "", ""],
+    ("5-3. LTV:CAC Ratio", [
+        ["산식", "N년 LTV ÷ N년 CAC", "", "", "", ""],
+        ["연도 매핑", "N년 LTV와 N년 CAC(N-2/N-1년 원천 기준)를 동일 표시 연도(N년)로 대응", "", "", "", ""],
         ["적용 상품", "EMS / EMS(All) 제외 전 상품", "", "", "", ""],
         ["단위", "배수 (예: 1.6배)", "", "", "", ""],
         ["참고 기준", "LTV : CAC = 3 : 1이 적정 수준", "", "", "", ""],
         ["예외", "LTV 또는 CAC 빈칸이면 빈칸", "", "", "", ""],
     ]),
-    ("6-4. CAC Payback Period", [
-        ["산식", "(CAC ÷ ARPA) × 12", "", "", "", ""],
+    ("5-4. CAC Payback Period", [
+        ["산식", "(N년 CAC ÷ N년 ARPA) × 12", "", "", "", ""],
+        ["ARPA 기준", "N년 ARPA (5-1의 구성 요소 산식과 동일 기준)", "", "", "", ""],
         ["적용 상품", "EMS / EMS(All) 제외 전 상품", "", "", "", ""],
         ["단위", "개월", "", "", "", ""],
         ["참고 기준", "B2B SaaS 적정 수준: 12개월 이하", "", "", "", ""],
@@ -271,8 +268,8 @@ for title, rows in indicators:
         ws.row_dimensions[r].height = 18
         r += 1
 
-# 6-7 TBD
-r = sub_title(ws, r, "6-7. Row 1 · 3 · 4 · 5 · 6 지표 (산식 확인 필요)")
+# 5-5 참고
+r = sub_title(ws, r, "5-5 ~ 5-9. [참고] Row 1 · 3 · 4 · 5 · 6 지표 (Tableau 기 적용 산식)")
 r = tbd_row(ws, r, "※ 아래 지표는 사내 기존 BI 시스템에서 이미 산출 중입니다. 개발팀은 기존 산출 로직 및 데이터 출처(테이블/필드명)를 확인하여 동일 기준으로 적용하되, 확인된 산식을 기획팀에 공유 바랍니다.")
 r = table_header(ws, r, ["Row", "지표명", "비고", "", "", ""])
 tbd_rows = [

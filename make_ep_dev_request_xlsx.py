@@ -168,9 +168,9 @@ r = section_title(ws, r, "3. 원천 데이터 현황")
 r = note_row(ws, r, "아래 데이터는 당사 DB에 이미 수신 중이며, 별도 인터페이스 요청 없이 사용 가능합니다.", bg=WHITE, color="1A1A1A")
 r = table_header(ws, r, ["#", "필드/테이블", "내용", "조회 조건", "히스토리 범위", "활용 지표"])
 rows3 = [
-    ["1", "vf219", "매출총계 (상품별 연도별)", "상품 코드 · 연도 기준 컬럼 — 개발팀 확인 필요", "2022년 ~ 현재", "LTV · ARPA · 이탈률"],
-    ["2", "vf599", "영업/마케팅 비용 (상품별 연도별)", "상품 코드 · 연도 기준 컬럼 — 개발팀 확인 필요", "2022년 ~ 현재", "CAC"],
-    ["3", "기타", "Revenue · Operating Profit · Plan · FTE · ARR 등", "개발팀 확인 필요", "Row 5 기준: 2023.10 ~ 현재", "Row 1·3·4·5·6 지표"],
+    ["1", "l_sap.orderlist.vf219", "매출총계 (상품별 연도별)", "상품 코드 · 연도 기준 컬럼 — SDSC 확인 필요", "2022년 ~ 현재", "LTV · ARPA · 이탈률"],
+    ["2", "l_sap.orderlist.vf599", "영업/마케팅 비용 (상품별 연도별)", "상품 코드 · 연도 기준 컬럼 — SDSC 확인 필요", "2022년 ~ 현재", "CAC"],
+    ["3", "기타", "Revenue · Operating Profit · Plan · FTE · ARR 등", "SDSC 확인 필요", "Row 5 기준: 2023.10 ~ 현재", "Row 1·3·4·5·6 지표"],
 ]
 for i, row_data in enumerate(rows3):
     r = table_row(ws, r, row_data, even=(i%2==1))

@@ -72,7 +72,7 @@
 
 ---
 
-## 5. 산출 예정 지표 (참고)
+## 6. 산출 예정 지표 (참고)
 
 | # | 지표명 | 계산식 | 비고 |
 |---|--------|--------|------|
@@ -102,7 +102,35 @@
 
 ---
 
-## 2. 변경 사항 요약
+## 2. 대상 상품/서비스
+
+아래 32개 상품/서비스에 대한 VoC 건을 모두 대상으로 합니다.
+**향후 CS 대시보드(SCC)에 신규 상품/서비스가 등록될 경우, 별도 요청 없이 자동으로 수신 대상에 포함됩니다.**
+
+| # | 상품/서비스 | # | 상품/서비스 |
+|---|------------|---|------------|
+| 1 | Anyframe | 17 | Knox EFSS |
+| 2 | Brightics AI | 18 | Knox Meeting |
+| 3 | Brity Assistant | 19 | Knox Portal |
+| 4 | Brity Automation | 20 | Knox Portal Mobile |
+| 5 | Brity Drive | 21 | Knox Teams |
+| 6 | Brity Mail | 22 | Mobile u-Ready |
+| 7 | Brity Mail Mobile | 23 | Nexplant MCS |
+| 8 | Brity Meeting | 24 | Nexplant MES |
+| 9 | Brity Messenger | 25 | Nexplant TC |
+| 10 | EMM | 26 | Nexprime HCM |
+| 11 | EMM (Cloud) | 27 | Nexprime SCM |
+| 12 | Endpoint Security | 28 | RBS |
+| 13 | FabriX | 29 | SCP |
+| 14 | FMC | 30 | SVPN |
+| 15 | IAM | 31 | VDI |
+| 16 | Knox Drive | 32 | 인터넷전화 |
+
+> ※ 상품/서비스 목록은 CS 대시보드(SCC) 등록 기준을 따르며, 신규 상품 추가 시 자동 반영됩니다. 별도 인터페이스 변경 요청 불필요.
+
+---
+
+## 3. 변경 사항 요약
 
 | 구분 | 내용 |
 |------|------|
@@ -113,7 +141,7 @@
 
 ---
 
-## 3. 기존 인터페이스 수정 — 신규 GUBUN 추가
+## 4. 기존 인터페이스 수정 — 신규 GUBUN 추가
 
 기존 `/datalake/QualitySummary` 창구의 GUBUN 값에 아래 3개를 추가 요청합니다.
 
@@ -133,7 +161,7 @@
 
 ---
 
-## 4. 신규 인터페이스 추가 — 지연건수
+## 5. 신규 인터페이스 추가 — 지연건수
 
 현재 시점 기준 시스템에 잔존하는 누계 지연건수를 수신하기 위해 인터페이스 1건 신규 추가를 요청합니다.
 
@@ -157,7 +185,7 @@
 
 ---
 
-## 5. 산출 예정 지표
+## 6. 산출 예정 지표
 
 | # | 지표명 | 계산식 | 활용 GUBUN |
 |---|--------|--------|-----------|

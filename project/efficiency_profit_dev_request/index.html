@@ -1,0 +1,919 @@
+<!DOCTYPE html><html lang="ko" dir="ltr" data-theme="dark" data-has-toc data-has-sidebar class="astro-bguv2lll"> <head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>효율/수익 지표 개발 요청서 | Biz Healthcheck Dashboard</title><link rel="shortcut icon" href="/docs-hub/dist/favicon.svg" type="image/svg+xml"/><meta name="generator" content="Astro v6.1.8"/><meta name="generator" content="Starlight v0.38.3"/><meta property="og:title" content="효율/수익 지표 개발 요청서"/><meta property="og:type" content="article"/><meta property="og:locale" content="ko"/><meta property="og:site_name" content="Biz Healthcheck Dashboard"/><meta name="twitter:card" content="summary_large_image"/><script>
+	window.StarlightThemeProvider = (() => {
+		const storedTheme =
+			typeof localStorage !== 'undefined' && localStorage.getItem('starlight-theme');
+		const theme =
+			storedTheme ||
+			(window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+		document.documentElement.dataset.theme = theme === 'light' ? 'light' : 'dark';
+		return {
+			updatePickers(theme = storedTheme || 'auto') {
+				document.querySelectorAll('starlight-theme-select').forEach((picker) => {
+					const select = picker.querySelector('select');
+					if (select) select.value = theme;
+					/** @type {HTMLTemplateElement | null} */
+					const tmpl = document.querySelector(`#theme-icons`);
+					const newIcon = tmpl && tmpl.content.querySelector('.' + theme);
+					if (newIcon) {
+						const oldIcon = picker.querySelector('svg.label-icon');
+						if (oldIcon) {
+							oldIcon.replaceChildren(...newIcon.cloneNode(true).childNodes);
+						}
+					}
+				});
+			},
+		};
+	})();
+</script><template id="theme-icons"><svg aria-hidden="true" class="light astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M5 12a1 1 0 0 0-1-1H3a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1Zm.64 5-.71.71a1 1 0 0 0 0 1.41 1 1 0 0 0 1.41 0l.71-.71A1 1 0 0 0 5.64 17ZM12 5a1 1 0 0 0 1-1V3a1 1 0 0 0-2 0v1a1 1 0 0 0 1 1Zm5.66 2.34a1 1 0 0 0 .7-.29l.71-.71a1 1 0 1 0-1.41-1.41l-.66.71a1 1 0 0 0 0 1.41 1 1 0 0 0 .66.29Zm-12-.29a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.71-.71a1.004 1.004 0 1 0-1.43 1.41l.73.71ZM21 11h-1a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2Zm-2.64 6A1 1 0 0 0 17 18.36l.71.71a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.76-.66ZM12 6.5a5.5 5.5 0 1 0 5.5 5.5A5.51 5.51 0 0 0 12 6.5Zm0 9a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Zm0 3.5a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 0-1-1Z"/></svg><svg aria-hidden="true" class="dark astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.64 13a1 1 0 0 0-1.05-.14 8.049 8.049 0 0 1-3.37.73 8.15 8.15 0 0 1-8.14-8.1 8.59 8.59 0 0 1 .25-2A1 1 0 0 0 8 2.36a10.14 10.14 0 1 0 14 11.69 1 1 0 0 0-.36-1.05Zm-9.5 6.69A8.14 8.14 0 0 1 7.08 5.22v.27a10.15 10.15 0 0 0 10.14 10.14 9.784 9.784 0 0 0 2.1-.22 8.11 8.11 0 0 1-7.18 4.32v-.04Z"/></svg><svg aria-hidden="true" class="auto astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg></template><link rel="stylesheet" href="/docs-hub/dist/_astro/print.DNXP8c50.css" media="print"><link rel="stylesheet" href="/docs-hub/dist/_astro/common.D7oqlvXR.css"><script type="module" src="/docs-hub/dist/_astro/page.BIhdncjw.js"></script></head> <body class="astro-bguv2lll"> <a href="#_top" class="astro-7q3lir66">콘텐츠로 이동</a> <div class="page sl-flex astro-vrdttmbt"> <header class="header astro-vrdttmbt"><div class="header astro-kmkmnagf"> <div class="title-wrapper sl-flex astro-kmkmnagf"> <a href="/docs-hub/dist/" class="site-title sl-flex astro-m46x6ez3">  <span class="astro-m46x6ez3" translate="no"> Biz Healthcheck Dashboard </span> </a> </div> <div class="sl-flex print:hidden astro-kmkmnagf"> <site-search class="astro-kmkmnagf astro-v37mnknz" data-translations="{&#34;placeholder&#34;:&#34;검색&#34;}"> <button data-open-modal disabled aria-label="검색" aria-keyshortcuts="Control+K" class="astro-v37mnknz"> <svg aria-hidden="true" class="astro-v37mnknz astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.71 20.29 18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14Z"/></svg> <span class="sl-hidden md:sl-block astro-v37mnknz" aria-hidden="true">검색</span> <kbd class="sl-hidden md:sl-flex astro-v37mnknz" style="display: none;"> <kbd class="astro-v37mnknz">Ctrl</kbd><kbd class="astro-v37mnknz">K</kbd> </kbd> </button> <dialog style="padding:0" aria-label="검색" class="astro-v37mnknz"> <div class="dialog-frame sl-flex astro-v37mnknz">  <button data-close-modal class="sl-flex md:sl-hidden astro-v37mnknz"> 취소 </button> <div class="search-container astro-v37mnknz"> <div id="starlight__search" class="astro-v37mnknz"></div> </div> </div> </dialog> </site-search>  <script>
+	(() => {
+		const openBtn = document.querySelector('button[data-open-modal]');
+		const shortcut = openBtn?.querySelector('kbd');
+		if (!openBtn || !(shortcut instanceof HTMLElement)) return;
+		const platformKey = shortcut.querySelector('kbd');
+		if (platformKey && /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)) {
+			platformKey.textContent = '⌘';
+			openBtn.setAttribute('aria-keyshortcuts', 'Meta+K');
+		}
+		shortcut.style.display = '';
+	})();
+</script> <script type="module" src="/docs-hub/dist/_astro/Search.astro_astro_type_script_index_0_lang.M7RyQEcv.js"></script>  </div> <div class="sl-hidden md:sl-flex print:hidden right-group astro-kmkmnagf"> <div class="sl-flex social-icons astro-kmkmnagf">  </div> <starlight-theme-select>  <label style="--sl-select-width: 6.25em" class="astro-4yphtoen"> <span class="sr-only astro-4yphtoen">테마 선택</span> <svg aria-hidden="true" class="icon label-icon astro-4yphtoen astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg> <select autocomplete="off" class="astro-4yphtoen"> <option value="dark" class="astro-4yphtoen">어두운 테마</option><option value="light" class="astro-4yphtoen">밝은 테마</option><option value="auto" selected class="astro-4yphtoen">자동</option> </select> <svg aria-hidden="true" class="icon caret astro-4yphtoen astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg> </label> </starlight-theme-select>  <script>
+	StarlightThemeProvider.updatePickers();
+</script> <script type="module">const r="starlight-theme",o=e=>e==="auto"||e==="dark"||e==="light"?e:"auto",c=()=>o(typeof localStorage<"u"&&localStorage.getItem(r));function n(e){typeof localStorage<"u"&&localStorage.setItem(r,e==="light"||e==="dark"?e:"")}const l=()=>matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";function t(e){StarlightThemeProvider.updatePickers(e),document.documentElement.dataset.theme=e==="auto"?l():e,n(e)}matchMedia("(prefers-color-scheme: light)").addEventListener("change",()=>{c()==="auto"&&t("auto")});class s extends HTMLElement{constructor(){super(),t(c()),this.querySelector("select")?.addEventListener("change",a=>{a.currentTarget instanceof HTMLSelectElement&&t(o(a.currentTarget.value))})}}customElements.define("starlight-theme-select",s);</script> <script type="module">class s extends HTMLElement{constructor(){super();const e=this.querySelector("select");e&&(e.addEventListener("change",t=>{t.currentTarget instanceof HTMLSelectElement&&(window.location.pathname=t.currentTarget.value)}),window.addEventListener("pageshow",t=>{if(!t.persisted)return;const n=e.querySelector("option[selected]")?.index;n!==e.selectedIndex&&(e.selectedIndex=n??0)}))}}customElements.define("starlight-lang-select",s);</script> </div> </div></header> <nav class="sidebar print:hidden astro-vrdttmbt" aria-label="메인"> <starlight-menu-button class="print:hidden astro-jif73yzw"> <button aria-expanded="false" aria-label="메뉴" aria-controls="starlight__sidebar" class="sl-flex md:sl-hidden astro-jif73yzw"> <svg aria-hidden="true" class="open-menu astro-jif73yzw astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M3 8h18a1 1 0 1 0 0-2H3a1 1 0 0 0 0 2Zm18 8H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Zm0-5H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Z"/></svg> <svg aria-hidden="true" class="close-menu astro-jif73yzw astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="m13.41 12 6.3-6.29a1.004 1.004 0 1 0-1.42-1.42L12 10.59l-6.29-6.3a1.004 1.004 0 0 0-1.42 1.42l6.3 6.29-6.3 6.29a1 1 0 0 0 0 1.42.998.998 0 0 0 1.42 0l6.29-6.3 6.29 6.3a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.42L13.41 12Z"/></svg> </button> </starlight-menu-button> <script type="module">class s extends HTMLElement{constructor(){super(),this.btn=this.querySelector("button"),this.btn.addEventListener("click",()=>this.toggleExpanded());const t=this.closest("nav");t&&t.addEventListener("keyup",e=>this.closeOnEscape(e))}setExpanded(t){this.setAttribute("aria-expanded",String(t)),document.body.toggleAttribute("data-mobile-menu-expanded",t)}toggleExpanded(){this.setExpanded(this.getAttribute("aria-expanded")!=="true")}closeOnEscape(t){t.code==="Escape"&&(this.setExpanded(!1),this.btn.focus())}}customElements.define("starlight-menu-button",s);</script>  <div id="starlight__sidebar" class="sidebar-pane astro-vrdttmbt"> <div class="sidebar-content sl-flex astro-vrdttmbt"> <sl-sidebar-state-persist data-hash="1swvtpc" class="astro-kku4brbg"> <script aria-hidden="true">
+		(() => {
+			try {
+				if (!matchMedia('(min-width: 50em)').matches) return;
+				/** @type {HTMLElement | null} */
+				const target = document.querySelector('sl-sidebar-state-persist');
+				const state = JSON.parse(sessionStorage.getItem('sl-sidebar-state') || '0');
+				if (!target || !state || target.dataset.hash !== state.hash) return;
+				window._starlightScrollRestore = state.scroll;
+				customElements.define(
+					'sl-sidebar-restore',
+					class SidebarRestore extends HTMLElement {
+						connectedCallback() {
+							try {
+								const idx = parseInt(this.dataset.index || '');
+								const details = this.closest('details');
+								if (details && typeof state.open[idx] === 'boolean') details.open = state.open[idx];
+							} catch {}
+						}
+					}
+				);
+			} catch {}
+		})();
+	</script>  <ul class="top-level astro-3ii7xxms"> <li class="astro-3ii7xxms"> <details open class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">프로젝트 문서</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="0"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/docs-hub/dist/project/dashboard_background_purpose/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">사업건전성 대시보드 추진 배경 및 목적</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/docs-hub/dist/project/efficiency_profit_dev_request/" aria-current="page" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">효율/수익 지표 개발 요청서</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/docs-hub/dist/project/voc_interface_request/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">VoC 데이터 인터페이스 요청서</span>  </a> </li> </ul> </details> </li><li class="astro-3ii7xxms"> <details open class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">HTML 문서 (와이어프레임/요청서)</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="1"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/docs-hub/dist/html-docs/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">HTML 문서 목록</span>  </a> </li> </ul> </details> </li><li class="astro-3ii7xxms"> <a href="/docs-hub/dist/html/upload" class="large astro-3ii7xxms" target="_blank"> <span class="astro-3ii7xxms">📂 파일 업로드</span>  </a> </li> </ul>  <script aria-hidden="true">
+		(() => {
+			const scroller = document.getElementById('starlight__sidebar');
+			if (!window._starlightScrollRestore || !scroller) return;
+			scroller.scrollTop = window._starlightScrollRestore;
+			delete window._starlightScrollRestore;
+		})();
+	</script> </sl-sidebar-state-persist> <div class="md:sl-hidden"> <div class="mobile-preferences sl-flex astro-wu23bvmt"> <div class="social-icons astro-wu23bvmt">  </div> <starlight-theme-select>  <label style="--sl-select-width: 6.25em" class="astro-4yphtoen"> <span class="sr-only astro-4yphtoen">테마 선택</span> <svg aria-hidden="true" class="icon label-icon astro-4yphtoen astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg> <select autocomplete="off" class="astro-4yphtoen"> <option value="dark" class="astro-4yphtoen">어두운 테마</option><option value="light" class="astro-4yphtoen">밝은 테마</option><option value="auto" selected class="astro-4yphtoen">자동</option> </select> <svg aria-hidden="true" class="icon caret astro-4yphtoen astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg> </label> </starlight-theme-select>  <script>
+	StarlightThemeProvider.updatePickers();
+</script>   </div> </div> </div> </div> </nav> <div class="main-frame astro-vrdttmbt">  <script type="module">const a=document.getElementById("starlight__sidebar"),n=a?.querySelector("sl-sidebar-state-persist"),o="sl-sidebar-state",i=()=>{let t=[];const e=n?.dataset.hash||"";try{const s=sessionStorage.getItem(o),r=JSON.parse(s||"{}");Array.isArray(r.open)&&r.hash===e&&(t=r.open)}catch{}return{hash:e,open:t,scroll:a?.scrollTop||0}},c=t=>{try{sessionStorage.setItem(o,JSON.stringify(t))}catch{}},d=()=>c(i()),l=(t,e)=>{const s=i();s.open[e]=t,c(s)};n?.addEventListener("click",t=>{if(!(t.target instanceof Element))return;const e=t.target.closest("summary")?.closest("details");if(!e)return;const s=e.querySelector("sl-sidebar-restore"),r=parseInt(s?.dataset.index||"");isNaN(r)||l(!e.open,r)});addEventListener("visibilitychange",()=>{document.visibilityState==="hidden"&&d()});addEventListener("pageHide",d);</script> <div class="lg:sl-flex astro-67yu43on"> <aside class="right-sidebar-container print:hidden astro-67yu43on"> <div class="right-sidebar astro-67yu43on"> <div class="lg:sl-hidden astro-pb3aqygn"><mobile-starlight-toc data-min-h="2" data-max-h="3" class="astro-doynk5tl"><nav aria-labelledby="starlight__on-this-page--mobile" class="astro-doynk5tl"><details id="starlight__mobile-toc" class="astro-doynk5tl"><summary id="starlight__on-this-page--mobile" class="sl-flex astro-doynk5tl"><span class="toggle sl-flex astro-doynk5tl">목차<svg aria-hidden="true" class="caret astro-doynk5tl astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></span><span class="display-current astro-doynk5tl"></span></summary><div class="dropdown astro-doynk5tl"><ul class="isMobile astro-gnoq344e" style="--depth: 0;"> <li class="astro-gnoq344e" style="--depth: 0;"> <a href="#_top" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">개요</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#1-요청-배경" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">1. 요청 배경</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#2-요청-사항-요약" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">2. 요청 사항 요약</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#3-원천-데이터-현황" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">3. 원천 데이터 현황</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#4-상품-분류-및-지표-산출-가능-여부" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">4. 상품 분류 및 지표 산출 가능 여부</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#5-지표별-산출-기준" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">5. 지표별 산출 기준</span> </a> <ul class="isMobile astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#5-1-ltv-customer-lifetime-value" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">5-1. LTV (Customer Lifetime Value)</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#5-2-cac-customer-acquisition-cost" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">5-2. CAC (Customer Acquisition Cost)</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#5-3-ltvcac-ratio" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">5-3. LTV:CAC Ratio</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#5-4-cac-payback-period" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">5-4. CAC Payback Period</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#5-5-참고-row-1--sales-efficiency" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">5-5. [참고] Row 1 — Sales Efficiency</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#5-6-참고-row-3--arpa-추이" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">5-6. [참고] Row 3 — ARPA 추이</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#5-7-참고-row-4--효율-지표" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">5-7. [참고] Row 4 — 효율 지표</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#5-8-참고-row-5--수익성-추이" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">5-8. [참고] Row 5 — 수익성 추이</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#5-9-참고-row-6--목표-대비-실적" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">5-9. [참고] Row 6 — 목표 대비 실적</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#6-예외-처리-기준-공통" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">6. 예외 처리 기준 (공통)</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#7-화면-스펙-참고" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">7. 화면 스펙 (참고)</span> </a> <ul class="isMobile astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#6-1-전체-레이아웃" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">6-1. 전체 레이아웃</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#6-2-row별-카드-스펙" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">6-2. Row별 카드 스펙</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#6-3-색상-시스템" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">6-3. 색상 시스템</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#6-4-타이포그래피" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">6-4. 타이포그래피</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#6-5-카드-스타일" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">6-5. 카드 스타일</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#8-문의처" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">8. 문의처</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#첨부-파일" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">첨부 파일</span> </a>  </li> </ul></div></details></nav></mobile-starlight-toc><script type="module" src="/docs-hub/dist/_astro/MobileTableOfContents.astro_astro_type_script_index_0_lang.hwBsy0Mo.js"></script></div><div class="right-sidebar-panel sl-hidden lg:sl-block astro-pb3aqygn"><div class="sl-container astro-pb3aqygn"><starlight-toc data-min-h="2" data-max-h="3"><nav aria-labelledby="starlight__on-this-page"><h2 id="starlight__on-this-page">목차</h2><ul class="astro-gnoq344e" style="--depth: 0;"> <li class="astro-gnoq344e" style="--depth: 0;"> <a href="#_top" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">개요</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#1-요청-배경" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">1. 요청 배경</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#2-요청-사항-요약" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">2. 요청 사항 요약</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#3-원천-데이터-현황" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">3. 원천 데이터 현황</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#4-상품-분류-및-지표-산출-가능-여부" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">4. 상품 분류 및 지표 산출 가능 여부</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#5-지표별-산출-기준" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">5. 지표별 산출 기준</span> </a> <ul class="astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#5-1-ltv-customer-lifetime-value" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">5-1. LTV (Customer Lifetime Value)</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#5-2-cac-customer-acquisition-cost" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">5-2. CAC (Customer Acquisition Cost)</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#5-3-ltvcac-ratio" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">5-3. LTV:CAC Ratio</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#5-4-cac-payback-period" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">5-4. CAC Payback Period</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#5-5-참고-row-1--sales-efficiency" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">5-5. [참고] Row 1 — Sales Efficiency</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#5-6-참고-row-3--arpa-추이" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">5-6. [참고] Row 3 — ARPA 추이</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#5-7-참고-row-4--효율-지표" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">5-7. [참고] Row 4 — 효율 지표</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#5-8-참고-row-5--수익성-추이" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">5-8. [참고] Row 5 — 수익성 추이</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#5-9-참고-row-6--목표-대비-실적" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">5-9. [참고] Row 6 — 목표 대비 실적</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#6-예외-처리-기준-공통" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">6. 예외 처리 기준 (공통)</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#7-화면-스펙-참고" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">7. 화면 스펙 (참고)</span> </a> <ul class="astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#6-1-전체-레이아웃" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">6-1. 전체 레이아웃</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#6-2-row별-카드-스펙" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">6-2. Row별 카드 스펙</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#6-3-색상-시스템" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">6-3. 색상 시스템</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#6-4-타이포그래피" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">6-4. 타이포그래피</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#6-5-카드-스타일" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">6-5. 카드 스타일</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#8-문의처" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">8. 문의처</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#첨부-파일" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">첨부 파일</span> </a>  </li> </ul></nav></starlight-toc><script type="module" src="/docs-hub/dist/_astro/TableOfContents.astro_astro_type_script_index_0_lang.FuRcXuRY.js"></script></div></div> </div> </aside> <div class="main-pane astro-67yu43on">  <main data-pagefind-body class="astro-bguv2lll" lang="ko" dir="ltr">    <div class="content-panel astro-7nkwcw3z"> <div class="sl-container astro-7nkwcw3z"> <h1 id="_top" class="astro-j6tvhyss">효율/수익 지표 개발 요청서</h1> </div> </div> <div class="content-panel astro-7nkwcw3z"> <div class="sl-container astro-7nkwcw3z"> <div class="sl-markdown-content"> <blockquote>
+<p>대상 시스템: 사업건전성 대시보드 | 작성: 솔루션사업부 기획팀 | 작성일: 2026-04-20 | v0.3</p>
+</blockquote>
+<p><strong>시각화 버전 →</strong> <a href="/docs-hub/dist/html/efficiency_profit_dev_request.html">HTML 문서로 보기</a></p>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="1-요청-배경">1. 요청 배경</h2><a class="sl-anchor-link" href="#1-요청-배경"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “1. 요청 배경”</span></a></div>
+<p>사업건전성 대시보드의 <strong>효율/수익 영역</strong> 지표 산출 로직 개발을 요청합니다.</p>
+<ul>
+<li>원천 데이터: <code dir="auto">l_sap.orderlist.vf219</code> (매출총계), <code dir="auto">l_sap.orderlist.vf599</code> (영업/마케팅 비용) — 당사 DB 기 수신</li>
+<li>Row 1~6 화면은 Tableau로 기 구현되어 있으며, 본 요청서의 개발 범위에서 제외</li>
+<li>신규 지표(LTV · CAC · LTV:CAC · CAC Payback)는 <strong>Row 2</strong>에 배치 예정</li>
+</ul>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="2-요청-사항-요약">2. 요청 사항 요약</h2><a class="sl-anchor-link" href="#2-요청-사항-요약"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “2. 요청 사항 요약”</span></a></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>구분</th><th>내용</th></tr></thead><tbody><tr><td>신규 산출 로직</td><td>LTV · CAC · LTV:CAC Ratio · CAC Payback Period</td></tr><tr><td>화면</td><td>Tableau 기 구현 — 본 요청 범위 제외 (와이어프레임 별도 제공 예정)</td></tr></tbody></table>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="3-원천-데이터-현황">3. 원천 데이터 현황</h2><a class="sl-anchor-link" href="#3-원천-데이터-현황"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “3. 원천 데이터 현황”</span></a></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>#</th><th>필드/테이블</th><th>내용</th><th>필요 범위</th><th>활용 지표</th></tr></thead><tbody><tr><td>1</td><td><code dir="auto">l_sap.orderlist.vf219</code></td><td>매출총계 (상품별 연도별)</td><td><strong>2021년 ~ 현재</strong></td><td>LTV · ARPA · 이탈률</td></tr><tr><td>2</td><td><code dir="auto">l_sap.orderlist.vf599</code></td><td>영업/마케팅 비용 (상품별 연도별)</td><td><strong>2021년 ~ 현재</strong></td><td>CAC</td></tr></tbody></table>
+<blockquote>
+<p>※ 2023년 LTV/CAC 산출 시 N-2년(2021년) 데이터까지 필요하므로 원천 데이터 범위는 2021년부터 확보 필요
+※ 상품 구분 컬럼명, 연도 기준 컬럼명, 고객 식별 키 컬럼명 — <strong>SDSC 확인 필요</strong></p>
+</blockquote>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="4-상품-분류-및-지표-산출-가능-여부">4. 상품 분류 및 지표 산출 가능 여부</h2><a class="sl-anchor-link" href="#4-상품-분류-및-지표-산출-가능-여부"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “4. 상품 분류 및 지표 산출 가능 여부”</span></a></div>
+<blockquote>
+<p>※ EMS vs EMS(All) 구분 기준(코드 범위, 포함 기준 등) — <strong>SDSC 확인 필요</strong></p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>상품</th><th>License Type</th><th>Price Type</th><th>RC/NRC</th><th align="center">LTV</th><th align="center">CAC</th><th align="center">LTV/CAC</th><th align="center">CAC Payback</th></tr></thead><tbody><tr><td>ZTM</td><td>Term</td><td>Fixed</td><td>RC</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td></tr><tr><td>Nexprime SCM</td><td>Term</td><td>Fixed</td><td>RC</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td></tr><tr><td>Nexprime SCM Mobile</td><td>Term</td><td>Fixed</td><td>RC</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td></tr><tr><td>Nexprime SCM (All)</td><td>Term</td><td>Fixed</td><td>RC</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td></tr><tr><td>Nexprime HCM</td><td>Term</td><td>Fixed</td><td>RC</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td></tr><tr><td>Knox Portal</td><td>Term</td><td>Usage</td><td>RC</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td></tr><tr><td>Knox Meeting</td><td>Term</td><td>Usage</td><td>RC</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td></tr><tr><td>Knox EFSS/Drive</td><td>Term</td><td>Usage</td><td>RC</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td></tr><tr><td>Knox (All)</td><td>Term</td><td>Usage</td><td>RC</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td></tr><tr><td>EMM Cloud</td><td>Term</td><td>Usage</td><td>RC</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td></tr><tr><td>Brity Automation</td><td>Term+Perpetual</td><td>Fixed+One-time</td><td>RC+Non-RC</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td></tr><tr><td>EMS</td><td>Term+Perpetual</td><td>Fixed+One-time</td><td>RC+Non-RC</td><td align="center">❌</td><td align="center">✅</td><td align="center">❌</td><td align="center">❌</td></tr><tr><td>EMS (All)</td><td>Term+Perpetual</td><td>Fixed+One-time</td><td>RC+Non-RC</td><td align="center">❌</td><td align="center">✅</td><td align="center">❌</td><td align="center">❌</td></tr></tbody></table>
+<blockquote>
+<p>※ EMS / EMS(All): Recurring 비중 약 9% (라이선스+운영 149억 / 전체 1,572억), 데이터 분리 불가로 LTV · LTV:CAC · CAC Payback 산출 제외. CAC만 산출.</p>
+</blockquote>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="5-지표별-산출-기준">5. 지표별 산출 기준</h2><a class="sl-anchor-link" href="#5-지표별-산출-기준"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “5. 지표별 산출 기준”</span></a></div>
+<blockquote>
+<p>※ 이탈률은 소수로 표기 (예: 5% → 0.05). LTV 산식 적용 시 <code dir="auto">/100</code> 변환 불필요.
+※ 상품 구분 컬럼명 / 고객 식별 키 컬럼명 / EMS vs EMS(All) 구분 기준 — <strong>SDSC 확인 필요</strong></p>
+</blockquote>
+<div class="sl-heading-wrapper level-h3"><h3 id="5-1-ltv-customer-lifetime-value">5-1. LTV (Customer Lifetime Value)</h3><a class="sl-anchor-link" href="#5-1-ltv-customer-lifetime-value"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “5-1. LTV (Customer Lifetime Value)”</span></a></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>항목</th><th>내용</th></tr></thead><tbody><tr><td>산식 (이론)</td><td><code dir="auto">(Recurring 매출에 대한 ARPA ÷ 이탈률) + (연 일회성 매출 ÷ 고객 수)</code></td></tr><tr><td>실무 적용 산식</td><td><code dir="auto">(N년 ARPA ÷ N년 이탈률) + (연 일회성 매출 ÷ 고객 수)</code></td></tr><tr><td>실무 전개</td><td><code dir="auto">(sum(N년 vf219) ÷ 고객 수(N년) ÷ 이탈률(N년)) + (연 일회성 매출 ÷ 고객 수)</code></td></tr><tr><td>비고</td><td>RC/NRC 데이터 분리 불가로 vf219 전체를 Recurring으로 간주</td></tr><tr><td>적용 상품</td><td>EMS / EMS(All) 제외 전 상품</td></tr><tr><td>표시 주기</td><td>Yearly (2023 / 2024 / 2025)</td></tr><tr><td>단위</td><td>억원</td></tr></tbody></table>
+<p><strong>구성 요소 산식</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>요소</th><th>산식</th><th>비고</th></tr></thead><tbody><tr><td>N년 ARPA</td><td><code dir="auto">sum(N년 l_sap.orderlist.vf219) ÷ N년 고객 수</code></td><td>N년 vf219 ≠ 0인 고객 수 기준</td></tr><tr><td>N년 이탈률</td><td><code dir="auto">1 - (N년 sum(vf219) ÷ N-1년 sum(vf219))</code></td><td><strong>소수 표기</strong> (예: 0.05). N년 ≥ N-1년이면 이탈률 = 0 → LTV 빈칸</td></tr></tbody></table>
+<div class="sl-heading-wrapper level-h3"><h3 id="5-2-cac-customer-acquisition-cost">5-2. CAC (Customer Acquisition Cost)</h3><a class="sl-anchor-link" href="#5-2-cac-customer-acquisition-cost"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “5-2. CAC (Customer Acquisition Cost)”</span></a></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>항목</th><th>내용</th></tr></thead><tbody><tr><td>산식</td><td><code dir="auto">N-2년 sum(l_sap.orderlist.vf599) ÷ N-1년 신규 고객 수</code></td></tr><tr><td>신규 고객 정의</td><td>N-2년 vf219 = 0 <strong>AND</strong> N-1년 vf219 ≠ 0</td></tr><tr><td>고객 식별 키</td><td><strong>SDSC 확인 필요</strong> (예: customer_id, bp_code 등)</td></tr><tr><td>연도 매핑 (예)</td><td>2023년 CAC = 2021년 vf599 ÷ 2022년 신규 고객 수</td></tr><tr><td>적용 상품</td><td>전체 (EMS 포함)</td></tr><tr><td>표시 주기</td><td>Yearly (2023 / 2024 / 2025)</td></tr><tr><td>단위</td><td>억원</td></tr><tr><td>예외</td><td>신규 고객 수 = 0이면 빈칸</td></tr></tbody></table>
+<div class="sl-heading-wrapper level-h3"><h3 id="5-3-ltvcac-ratio">5-3. LTV:CAC Ratio</h3><a class="sl-anchor-link" href="#5-3-ltvcac-ratio"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “5-3. LTV:CAC Ratio”</span></a></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>항목</th><th>내용</th></tr></thead><tbody><tr><td>산식</td><td><code dir="auto">N년 LTV ÷ N년 CAC</code></td></tr><tr><td>연도 매핑</td><td>N년 LTV(N년 기준)와 N년 CAC(N-2/N-1년 원천 기준)를 동일 표시 연도(N년)로 대응</td></tr><tr><td>적용 상품</td><td>EMS / EMS(All) 제외 전 상품</td></tr><tr><td>단위</td><td>배수 (예: 1.6배)</td></tr><tr><td>참고 기준</td><td>LTV : CAC = 3 : 1이 적정 수준</td></tr><tr><td>예외</td><td>LTV 또는 CAC 빈칸이면 빈칸</td></tr></tbody></table>
+<div class="sl-heading-wrapper level-h3"><h3 id="5-4-cac-payback-period">5-4. CAC Payback Period</h3><a class="sl-anchor-link" href="#5-4-cac-payback-period"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “5-4. CAC Payback Period”</span></a></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>항목</th><th>내용</th></tr></thead><tbody><tr><td>산식</td><td><code dir="auto">(N년 CAC ÷ N년 ARPA) × 12</code></td></tr><tr><td>ARPA 기준</td><td>N년 ARPA (5-1의 구성 요소 산식과 동일 기준)</td></tr><tr><td>단위</td><td>개월</td></tr><tr><td>적용 상품</td><td>EMS / EMS(All) 제외 전 상품</td></tr><tr><td>참고 기준</td><td>B2B SaaS 적정 수준: 12개월 이하</td></tr><tr><td>예외</td><td>ARPA = 0 또는 CAC 빈칸이면 빈칸</td></tr></tbody></table>
+<hr>
+<blockquote>
+<p>※ 아래 5-5 ~ 5-9는 <strong>개발 요청 사항이 아닌 참고 자료</strong>입니다. Tableau에 기 적용된 산식을 기록한 것으로, 화면 개발 범위에서 제외됩니다.</p>
+</blockquote>
+<div class="sl-heading-wrapper level-h3"><h3 id="5-5-참고-row-1--sales-efficiency">5-5. [참고] Row 1 — Sales Efficiency</h3><a class="sl-anchor-link" href="#5-5-참고-row-1--sales-efficiency"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “5-5. [참고] Row 1 — Sales Efficiency”</span></a></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>항목</th><th>Gross Sales Efficiency</th><th>Net Sales Efficiency</th></tr></thead><tbody><tr><td>산식</td><td><code dir="auto">당 분기 총 신규 ARR ÷ 전 분기 영업/마케팅 비용</code></td><td><code dir="auto">당 분기 Net New ARR ÷ 전 분기 영업/마케팅 비용</code></td></tr><tr><td>분자</td><td>New ARR + Expansion ARR</td><td>당기 ARR − 전기 ARR</td></tr><tr><td>분모</td><td><code dir="auto">l_sap.orderlist.vf599</code> (전 분기)</td><td>동일</td></tr><tr><td>집계 주기</td><td>분기별 (22.4Q ~ 25.3Q)</td><td>동일</td></tr><tr><td>단위</td><td>배수</td><td>동일</td></tr><tr><td>적정 수준</td><td>0.8 ~ 1.2</td><td>0.6 ~ 0.8</td></tr></tbody></table>
+<div class="sl-heading-wrapper level-h3"><h3 id="5-6-참고-row-3--arpa-추이">5-6. [참고] Row 3 — ARPA 추이</h3><a class="sl-anchor-link" href="#5-6-참고-row-3--arpa-추이"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “5-6. [참고] Row 3 — ARPA 추이”</span></a></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>항목</th><th>ARPA by ACV</th><th>ARPA by MRR</th></tr></thead><tbody><tr><td>산식</td><td><code dir="auto">ACV 총합 ÷ 총 고객 수</code></td><td><code dir="auto">MRR ÷ 총 유료 고객사 수</code></td></tr><tr><td>집계 주기</td><td>분기별 (22.4Q ~ 25.3Q)</td><td>동일</td></tr><tr><td>단위</td><td>억원</td><td>천만원</td></tr></tbody></table>
+<div class="sl-heading-wrapper level-h3"><h3 id="5-7-참고-row-4--효율-지표">5-7. [참고] Row 4 — 효율 지표</h3><a class="sl-anchor-link" href="#5-7-참고-row-4--효율-지표"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “5-7. [참고] Row 4 — 효율 지표”</span></a></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>항목</th><th>Revenue on FTE</th><th>Rule of 40</th></tr></thead><tbody><tr><td>산식</td><td><code dir="auto">Revenue ÷ FTE 수</code></td><td><code dir="auto">% ARR Growth YoY + EBITDA 마진</code></td></tr><tr><td>집계 주기</td><td>반기</td><td>분기별 (22.4Q ~ 25.3Q)</td></tr><tr><td>단위</td><td>억원/명</td><td>%</td></tr><tr><td>적정 수준</td><td>—</td><td>40% 이상</td></tr></tbody></table>
+<div class="sl-heading-wrapper level-h3"><h3 id="5-8-참고-row-5--수익성-추이">5-8. [참고] Row 5 — 수익성 추이</h3><a class="sl-anchor-link" href="#5-8-참고-row-5--수익성-추이"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “5-8. [참고] Row 5 — 수익성 추이”</span></a></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>항목</th><th>Revenue &#x26; Operating Profit</th><th>% Gross Margin &#x26; % Operating Margin</th></tr></thead><tbody><tr><td>산식</td><td>절대값 표시 (기존 BI 로직 준용)</td><td>Gross Margin = <code dir="auto">(매출−직접원가−간접원가) ÷ 매출 × 100</code></td></tr><tr><td>집계 주기</td><td>월별 (2023.10 ~ 2025.10)</td><td>동일</td></tr><tr><td>단위</td><td>억원</td><td>%</td></tr></tbody></table>
+<div class="sl-heading-wrapper level-h3"><h3 id="5-9-참고-row-6--목표-대비-실적">5-9. [참고] Row 6 — 목표 대비 실적</h3><a class="sl-anchor-link" href="#5-9-참고-row-6--목표-대비-실적"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “5-9. [참고] Row 6 — 목표 대비 실적”</span></a></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>항목</th><th>Revenue vs. Plan</th><th>Operating Profit vs. Plan</th></tr></thead><tbody><tr><td>산식</td><td><code dir="auto">실적 Revenue ÷ Plan Revenue × 100</code></td><td><code dir="auto">실적 OP ÷ Plan OP × 100</code></td></tr><tr><td>집계 주기</td><td>월별 (해당 연도 1~7월)</td><td>동일</td></tr><tr><td>단위</td><td>억원 / % (달성률)</td><td>동일</td></tr></tbody></table>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="6-예외-처리-기준-공통">6. 예외 처리 기준 (공통)</h2><a class="sl-anchor-link" href="#6-예외-처리-기준-공통"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “6. 예외 처리 기준 (공통)”</span></a></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>조건</th><th>처리 방식</th><th>영향 지표</th></tr></thead><tbody><tr><td>이탈률 = 0</td><td>빈칸 표시</td><td>LTV · LTV:CAC · CAC Payback</td></tr><tr><td>신규 고객 수 = 0</td><td>빈칸 표시</td><td>CAC · LTV:CAC · CAC Payback</td></tr><tr><td>ARPA = 0</td><td>빈칸 표시</td><td>CAC Payback</td></tr><tr><td>EMS / EMS(All) 선택 시</td><td>N/A 표시</td><td>Row 2 전체 (LTV · LTV:CAC · CAC Payback)</td></tr></tbody></table>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="7-화면-스펙-참고">7. 화면 스펙 (참고)</h2><a class="sl-anchor-link" href="#7-화면-스펙-참고"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “7. 화면 스펙 (참고)”</span></a></div>
+<blockquote>
+<p>※ 화면은 Tableau 기 구현 범위이며, 와이어프레임으로 별도 제공 예정입니다.</p>
+</blockquote>
+<div class="sl-heading-wrapper level-h3"><h3 id="6-1-전체-레이아웃">6-1. 전체 레이아웃</h3><a class="sl-anchor-link" href="#6-1-전체-레이아웃"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “6-1. 전체 레이아웃”</span></a></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>항목</th><th>내용</th></tr></thead><tbody><tr><td>구성</td><td>6 Row × 2 카드 (총 12 카드)</td></tr><tr><td>상단 필터</td><td>상품 드롭다운 (전체 / 상품별 선택)</td></tr><tr><td>페이지 배경</td><td><code dir="auto">#F5F5F5</code></td></tr><tr><td>카드 간격</td><td>16~20px</td></tr></tbody></table>
+<p><strong>사이드바</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>항목</th><th>내용</th></tr></thead><tbody><tr><td>배경</td><td><code dir="auto">#1E2A3A → #2C3E50</code> (그라데이션)</td></tr><tr><td>현재 페이지</td><td><code dir="auto">#17B9A6</code> 배경 + 흰색 텍스트</td></tr><tr><td>메뉴 경로</td><td>사업건전성 영역별 현황 > 재무 > <strong>효율/수익</strong></td></tr></tbody></table>
+<div class="sl-heading-wrapper level-h3"><h3 id="6-2-row별-카드-스펙">6-2. Row별 카드 스펙</h3><a class="sl-anchor-link" href="#6-2-row별-카드-스펙"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “6-2. Row별 카드 스펙”</span></a></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Row</th><th>카드 (좌)</th><th>카드 (우)</th><th>차트 타입</th><th>X축</th><th>Y축 범위</th></tr></thead><tbody><tr><td>1</td><td>Gross Sales Efficiency</td><td>Net Sales Efficiency</td><td>단색 바</td><td>연도</td><td>0~100%</td></tr><tr><td>2</td><td>CAC / LTV / LTV:CAC</td><td>CAC Payback Period</td><td>콤비네이션 / 라인</td><td>연도</td><td>억원+배수 / 0~60개월</td></tr><tr><td>3</td><td>ARPA by ACV</td><td>ARPA by MRR</td><td>다중 라인</td><td>22.4Q~25.3Q</td><td>0<del>1.4억 / 0</del>0.4천만</td></tr><tr><td>4</td><td>Revenue on FTE</td><td>Rule of 40</td><td>라인 / 다중 라인</td><td>반기 / 분기</td><td>0<del>4억 / -40</del>40%</td></tr><tr><td>5</td><td>Revenue &#x26; Op.Profit</td><td>% Gross / Op. Margin</td><td>콤비네이션 / 다중 라인</td><td>월별</td><td>-20<del>60억 / -60</del>80%</td></tr><tr><td>6</td><td>Revenue vs. Plan</td><td>Op.Profit vs. Plan</td><td>트리플 바+달성률 라인</td><td>월별</td><td>0<del>80억 / -20</del>20억</td></tr></tbody></table>
+<div class="sl-heading-wrapper level-h3"><h3 id="6-3-색상-시스템">6-3. 색상 시스템</h3><a class="sl-anchor-link" href="#6-3-색상-시스템"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “6-3. 색상 시스템”</span></a></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>요소</th><th>색상</th></tr></thead><tbody><tr><td>라이트 블루 (주요 바)</td><td><code dir="auto">#90CAF9</code></td></tr><tr><td>미디엄 블루</td><td><code dir="auto">#42A5F5</code></td></tr><tr><td>다크 블루</td><td><code dir="auto">#1E88E5</code></td></tr><tr><td>오렌지 (라인/YoY)</td><td><code dir="auto">#FF9800</code></td></tr><tr><td>퍼플</td><td><code dir="auto">#7E57C2</code></td></tr><tr><td>그레이</td><td><code dir="auto">#9E9E9E</code></td></tr><tr><td>사이드바 배경</td><td><code dir="auto">#1E2A3A ~ #2C3E50</code></td></tr><tr><td>현재 페이지 하이라이트</td><td><code dir="auto">#17B9A6</code></td></tr></tbody></table>
+<div class="sl-heading-wrapper level-h3"><h3 id="6-4-타이포그래피">6-4. 타이포그래피</h3><a class="sl-anchor-link" href="#6-4-타이포그래피"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “6-4. 타이포그래피”</span></a></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>요소</th><th>스펙</th></tr></thead><tbody><tr><td>카드 타이틀</td><td>16px · semi-bold · <code dir="auto">#333</code></td></tr><tr><td>KPI 메인 숫자</td><td>32~36px · bold · 그라데이션 텍스트</td></tr><tr><td>KPI 라벨</td><td>11~12px · regular</td></tr><tr><td>차트 데이터 라벨</td><td>10~11px · regular</td></tr><tr><td>축 레이블</td><td>9~10px · regular · <code dir="auto">#666</code></td></tr><tr><td>단위 표시</td><td>10px · light · <code dir="auto">#999</code></td></tr></tbody></table>
+<div class="sl-heading-wrapper level-h3"><h3 id="6-5-카드-스타일">6-5. 카드 스타일</h3><a class="sl-anchor-link" href="#6-5-카드-스타일"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “6-5. 카드 스타일”</span></a></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>항목</th><th>값</th></tr></thead><tbody><tr><td>border-radius</td><td>8~10px</td></tr><tr><td>테두리</td><td>1px solid <code dir="auto">#E0E0E0</code></td></tr><tr><td>box-shadow</td><td>0 2px 8px rgba(0,0,0,0.08)</td></tr><tr><td>내부 패딩</td><td>20~24px</td></tr><tr><td>KPI–차트 분리선</td><td>1px solid <code dir="auto">#F0F0F0</code></td></tr></tbody></table>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="8-문의처">8. 문의처</h2><a class="sl-anchor-link" href="#8-문의처"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “8. 문의처”</span></a></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>항목</th><th>내용</th></tr></thead><tbody><tr><td>담당자</td><td>미정</td></tr><tr><td>부서</td><td>솔루션사업부 기획팀</td></tr><tr><td>연락처</td><td>미정</td></tr></tbody></table>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="첨부-파일">첨부 파일</h2><a class="sl-anchor-link" href="#첨부-파일"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “첨부 파일”</span></a></div>
+<ul>
+<li><a href="/files/efficiency_profit_dev_request.xlsx">📥 Excel 다운로드</a></li>
+</ul> </div> <footer class="sl-flex astro-3yyafb3n"> <div class="meta sl-flex astro-3yyafb3n">   </div> <div class="pagination-links print:hidden astro-u2l5gyhi" dir="ltr"> <a href="/docs-hub/dist/project/dashboard_background_purpose/" rel="prev" class="astro-u2l5gyhi"> <svg aria-hidden="true" class="astro-u2l5gyhi astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17 11H9.41l3.3-3.29a1.004 1.004 0 1 0-1.42-1.42l-5 5a1 1 0 0 0-.21.33 1 1 0 0 0 0 .76 1 1 0 0 0 .21.33l5 5a1.002 1.002 0 0 0 1.639-.325 1 1 0 0 0-.219-1.095L9.41 13H17a1 1 0 0 0 0-2Z"/></svg> <span class="astro-u2l5gyhi"> 이전 페이지 <br class="astro-u2l5gyhi"> <span class="link-title astro-u2l5gyhi">사업건전성 대시보드 추진 배경 및 목적</span> </span> </a> <a href="/docs-hub/dist/project/voc_interface_request/" rel="next" class="astro-u2l5gyhi"> <svg aria-hidden="true" class="astro-u2l5gyhi astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17.92 11.62a1.001 1.001 0 0 0-.21-.33l-5-5a1.003 1.003 0 1 0-1.42 1.42l3.3 3.29H7a1 1 0 0 0 0 2h7.59l-3.3 3.29a1.002 1.002 0 0 0 .325 1.639 1 1 0 0 0 1.095-.219l5-5a1 1 0 0 0 .21-.33 1 1 0 0 0 0-.76Z"/></svg> <span class="astro-u2l5gyhi"> 다음 페이지 <br class="astro-u2l5gyhi"> <span class="link-title astro-u2l5gyhi">VoC 데이터 인터페이스 요청서</span> </span> </a> </div>  </footer> </div> </div>  </main> </div> </div> </div> </div> </body></html>

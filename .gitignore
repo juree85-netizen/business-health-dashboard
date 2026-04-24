@@ -3,3 +3,16 @@ __pycache__/
 *.pyc
 *.log
 .env
+docs-hub/node_modules/
+.bash_history
+.bash_logout
+.bashrc
+.bash_profile
+.profile
+.cache/
+.config/
+.local/
+.npm/
+.ssh/
+.sudo_as_admin_successful
+.claude.json

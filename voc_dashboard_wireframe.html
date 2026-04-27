@@ -681,123 +681,134 @@
       </div>
     </div>
 
-    <!-- ── Row 5: 서비스 활성화 현황 (분기) ── -->
+    <!-- ── Row 5: 서비스 활성화 현황 (Meeting 기준, 실데이터 26.01~26.03) ── -->
     <div class="row row-2">
 
-      <!-- MAU Change | 필터: 분析주기(Month) + Change Rate(YoY) -->
+      <!-- Graph 1: MAU 건수 + MoM 변화율 -->
       <div class="card">
-        <div class="card-title">서비스 활성화 현황</div>
-        <div class="ctrl-row">
-          <select class="ctrl-select"><option>Month</option><option>Quarter</option></select>
-          <select class="ctrl-select"><option>Change Rate YoY</option><option>YoY</option></select>
+        <div class="card-title">서비스 활성화 현황 <span class="card-unit">(Meeting 기준)</span></div>
+        <div class="kpi-row">
+          <div class="kpi-box">
+            <div class="kpi-label">MAU (26.03)</div>
+            <div class="kpi-value sm">20.6만명</div>
+            <div class="kpi-change up">▲ +11.0% MoM</div>
+          </div>
+          <div class="kpi-box">
+            <div class="kpi-label">등록고객수 / 활성률</div>
+            <div class="kpi-value sm">33.4만명</div>
+            <div class="kpi-change">활성률 61.7%</div>
+          </div>
         </div>
         <div class="legend">
           <div class="legend-item"><div class="leg-bar" style="background:#89B2F7"></div>MAU 건수</div>
-          <div class="legend-item"><div class="leg-line" style="background:#F29135"></div>Change %</div>
+          <div class="legend-item"><div class="leg-line" style="background:#F29135"></div>MoM 변화율</div>
         </div>
+        <!-- 3개월(26.01~26.03) | Y좌축 0~25만(107px) | Y우축 -15%~+15% | centers: 140,250,360 | bar w=75 -->
         <svg width="100%" height="143" viewBox="0 0 500 143">
-          <line x1="40" y1="8" x2="40" y2="115" stroke="#E5E7EB" stroke-width="1"/>
-          <text x="36" y="11" text-anchor="end" font-size="8" fill="#9E9E9E">150</text>
-          <text x="36" y="62" text-anchor="end" font-size="8" fill="#9E9E9E">75</text>
-          <text x="36" y="116" text-anchor="end" font-size="8" fill="#9E9E9E">0</text>
-          <line x1="458" y1="8" x2="458" y2="115" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="2,2"/>
-          <text x="462" y="11" text-anchor="start" font-size="8" fill="#F29135">100%</text>
-          <text x="462" y="62" text-anchor="start" font-size="8" fill="#F29135">25%</text>
-          <text x="462" y="116" text-anchor="start" font-size="8" fill="#F29135">-50%</text>
-          <line x1="40" y1="79" x2="458" y2="79" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="3,2"/>
-          <rect x="38" y="33" width="28" height="82" rx="2" fill="#89B2F7"/>
-          <text x="52" y="30" text-anchor="middle" font-size="8" font-weight="600" fill="#4A90E2">115</text>
-          <rect x="86" y="42" width="28" height="73" rx="2" fill="#89B2F7"/>
-          <text x="100" y="39" text-anchor="middle" font-size="8" font-weight="600" fill="#4A90E2">102</text>
-          <rect x="134" y="57" width="28" height="58" rx="2" fill="#89B2F7"/>
-          <rect x="182" y="69" width="28" height="46" rx="2" fill="#89B2F7"/>
-          <text x="196" y="66" text-anchor="middle" font-size="8" font-weight="600" fill="#4A90E2">65</text>
-          <rect x="230" y="76" width="28" height="39" rx="2" fill="#89B2F7"/>
-          <rect x="278" y="72" width="28" height="43" rx="2" fill="#89B2F7"/>
-          <rect x="326" y="79" width="28" height="36" rx="2" fill="#89B2F7"/>
-          <rect x="374" y="76" width="28" height="39" rx="2" fill="#89B2F7"/>
-          <rect x="422" y="79" width="28" height="36" rx="2" fill="#89B2F7"/>
-          <text x="436" y="76" text-anchor="middle" font-size="8" font-weight="600" fill="#4A90E2">50</text>
-          <polyline points="52,32 100,52 148,65 196,79 244,85 292,81 340,88 388,85 436,93"
+          <!-- 좌축 -->
+          <line x1="50" y1="8" x2="50" y2="115" stroke="#E5E7EB" stroke-width="1"/>
+          <text x="46" y="11" text-anchor="end" font-size="8" fill="#9E9E9E">25만</text>
+          <text x="46" y="62" text-anchor="end" font-size="8" fill="#9E9E9E">12만</text>
+          <text x="46" y="116" text-anchor="end" font-size="8" fill="#9E9E9E">0</text>
+          <!-- 우축 MoM% (-15~+15%) -->
+          <line x1="470" y1="8" x2="470" y2="115" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="2,2"/>
+          <text x="474" y="11" text-anchor="start" font-size="8" fill="#F29135">+15%</text>
+          <text x="474" y="62" text-anchor="start" font-size="8" fill="#F29135">0%</text>
+          <text x="474" y="116" text-anchor="start" font-size="8" fill="#F29135">-15%</text>
+          <!-- 0% 기준선 -->
+          <line x1="50" y1="62" x2="470" y2="62" stroke="#F3F4F6" stroke-width="1" stroke-dasharray="3,2"/>
+          <!-- 막대: 26.01 MAU=200,037 → h=86 y=29 | x=103 -->
+          <rect x="103" y="29" width="75" height="86" rx="3" fill="#89B2F7"/>
+          <text x="140" y="26" text-anchor="middle" font-size="9" font-weight="600" fill="#4A90E2">20.0만</text>
+          <!-- 막대: 26.02 MAU=185,793 → h=80 y=35 | x=213 -->
+          <rect x="213" y="35" width="75" height="80" rx="3" fill="#89B2F7"/>
+          <text x="250" y="32" text-anchor="middle" font-size="9" font-weight="600" fill="#4A90E2">18.6만</text>
+          <!-- 막대: 26.03 MAU=206,153 → h=88 y=27 | x=323 -->
+          <rect x="323" y="27" width="75" height="88" rx="3" fill="#89B2F7"/>
+          <text x="360" y="24" text-anchor="middle" font-size="9" font-weight="600" fill="#4A90E2">20.6만</text>
+          <!-- MoM 꺾은선: Jan=0%(y=62), Feb=-7.1%(y=87), Mar=+11.0%(y=23) -->
+          <polyline points="140,62 250,87 360,23"
             fill="none" stroke="#F29135" stroke-width="2" stroke-linejoin="round"/>
-          <circle cx="52" cy="32" r="3" fill="#F29135"/>
-          <text x="52" y="28" text-anchor="middle" font-size="7" fill="#F29135">66.0%</text>
-          <circle cx="100" cy="52" r="3" fill="#F29135"/>
-          <text x="100" y="48" text-anchor="middle" font-size="7" fill="#F29135">-18.7%</text>
-          <circle cx="436" cy="93" r="3" fill="#F29135"/>
-          <text x="436" y="89" text-anchor="middle" font-size="7" fill="#F29135">-45.4%</text>
-          <line x1="40" y1="115" x2="458" y2="115" stroke="#E5E7EB" stroke-width="1"/>
-          <text x="52"  y="126" text-anchor="middle" font-size="7" fill="#666">22.4Q</text>
-          <text x="100" y="126" text-anchor="middle" font-size="7" fill="#666">23.1Q</text>
-          <text x="148" y="126" text-anchor="middle" font-size="7" fill="#666">23.2Q</text>
-          <text x="196" y="126" text-anchor="middle" font-size="7" fill="#666">23.3Q</text>
-          <text x="244" y="126" text-anchor="middle" font-size="7" fill="#666">23.4Q</text>
-          <text x="292" y="126" text-anchor="middle" font-size="7" fill="#666">24.1Q</text>
-          <text x="340" y="126" text-anchor="middle" font-size="7" fill="#666">24.2Q</text>
-          <text x="388" y="126" text-anchor="middle" font-size="7" fill="#666">24.3Q</text>
-          <text x="436" y="126" text-anchor="middle" font-size="7" fill="#666">25.1Q</text>
+          <circle cx="140" cy="62" r="3" fill="#F29135"/>
+          <text x="140" y="78" text-anchor="middle" font-size="8" fill="#F29135">기준</text>
+          <circle cx="250" cy="87" r="3" fill="#F29135"/>
+          <text x="250" y="97" text-anchor="middle" font-size="8" fill="#F29135">-7.1%</text>
+          <circle cx="360" cy="23" r="3" fill="#F29135"/>
+          <text x="360" y="19" text-anchor="middle" font-size="8" fill="#F29135">+11.0%</text>
+          <!-- baseline -->
+          <line x1="50" y1="115" x2="470" y2="115" stroke="#E5E7EB" stroke-width="1"/>
+          <!-- X labels -->
+          <text x="140" y="127" text-anchor="middle" font-size="9" fill="#666">26.01</text>
+          <text x="250" y="127" text-anchor="middle" font-size="9" fill="#666">26.02</text>
+          <text x="360" y="127" text-anchor="middle" font-size="9" fill="#666">26.03</text>
         </svg>
       </div>
 
-      <!-- MAU Ratio | 필터: 분析주기(Month)만 -->
+      <!-- Graph 2: Meeting 유형별 현황 (WC/VC/AC 누적 막대 + MAU 활성률) -->
       <div class="card">
-        <div class="card-title">서비스 활성화 현황 (비중) <span class="card-unit">건/%</span></div>
-        <div class="ctrl-row">
-          <select class="ctrl-select"><option>Month</option><option>Quarter</option></select>
+        <div class="card-title">Meeting 유형별 현황 <span class="card-unit">(Meeting 기준) 건/%</span></div>
+        <div class="kpi-row">
+          <div class="kpi-box">
+            <div class="kpi-label">전체 Meeting (26.03)</div>
+            <div class="kpi-value sm">21.9만건</div>
+            <div class="kpi-change up">▲ +17.6% MoM</div>
+          </div>
+          <div class="kpi-box">
+            <div class="kpi-label">MAU 활성률 (26.03)</div>
+            <div class="kpi-value sm">61.7%</div>
+            <div class="kpi-change up">▲ +6.0%p vs. 전월</div>
+          </div>
         </div>
         <div class="legend">
-          <div class="legend-item"><div class="leg-bar" style="background:#89B2F7"></div>전체</div>
-          <div class="legend-item"><div class="leg-bar" style="background:#4A90E2"></div>MAU</div>
-          <div class="legend-item"><div class="leg-line" style="background:#F29135"></div>Ratio</div>
+          <div class="legend-item"><div class="leg-bar" style="background:#89B2F7"></div>WC (78~81%)</div>
+          <div class="legend-item"><div class="leg-bar" style="background:#4A90E2"></div>VC (12~15%)</div>
+          <div class="legend-item"><div class="leg-bar" style="background:#B0BEC5"></div>AC (5~8%)</div>
+          <div class="legend-item"><div class="leg-line" style="background:#F29135"></div>MAU 활성률</div>
         </div>
+        <!-- 3개월 | Y좌축 0~25만(107px) | Y우축 MAU활성률 50~70% | centers: 140,250,360 | bar w=75 -->
         <svg width="100%" height="143" viewBox="0 0 500 143">
-          <line x1="40" y1="8" x2="40" y2="115" stroke="#E5E7EB" stroke-width="1"/>
-          <text x="36" y="11" text-anchor="end" font-size="8" fill="#9E9E9E">150</text>
-          <text x="36" y="62" text-anchor="end" font-size="8" fill="#9E9E9E">75</text>
-          <text x="36" y="116" text-anchor="end" font-size="8" fill="#9E9E9E">0</text>
-          <line x1="458" y1="8" x2="458" y2="115" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="2,2"/>
-          <text x="462" y="11" text-anchor="start" font-size="8" fill="#F29135">60%</text>
-          <text x="462" y="62" text-anchor="start" font-size="8" fill="#F29135">30%</text>
-          <text x="462" y="116" text-anchor="start" font-size="8" fill="#F29135">0%</text>
-          <rect x="38" y="33" width="28" height="60" fill="#89B2F7"/>
-          <rect x="38" y="93" width="28" height="22" fill="#4A90E2"/>
-          <text x="52" y="30" text-anchor="middle" font-size="8" font-weight="600" fill="#333">115</text>
-          <text x="52" y="107" text-anchor="middle" font-size="7" fill="#fff" font-weight="600">22</text>
-          <rect x="86" y="42" width="28" height="51" fill="#89B2F7"/>
-          <rect x="86" y="93" width="28" height="22" fill="#4A90E2"/>
-          <text x="100" y="39" text-anchor="middle" font-size="8" font-weight="600" fill="#333">102</text>
-          <rect x="134" y="57" width="28" height="36" fill="#89B2F7"/>
-          <rect x="134" y="93" width="28" height="22" fill="#4A90E2"/>
-          <rect x="182" y="69" width="28" height="24" fill="#89B2F7"/>
-          <rect x="182" y="93" width="28" height="22" fill="#4A90E2"/>
-          <text x="196" y="66" text-anchor="middle" font-size="8" font-weight="600" fill="#333">65</text>
-          <rect x="230" y="76" width="28" height="17" fill="#89B2F7"/>
-          <rect x="230" y="93" width="28" height="22" fill="#4A90E2"/>
-          <rect x="278" y="72" width="28" height="21" fill="#89B2F7"/>
-          <rect x="278" y="93" width="28" height="22" fill="#4A90E2"/>
-          <rect x="326" y="79" width="28" height="14" fill="#89B2F7"/>
-          <rect x="326" y="93" width="28" height="22" fill="#4A90E2"/>
-          <rect x="374" y="76" width="28" height="17" fill="#89B2F7"/>
-          <rect x="374" y="93" width="28" height="22" fill="#4A90E2"/>
-          <rect x="422" y="79" width="28" height="14" fill="#89B2F7"/>
-          <rect x="422" y="93" width="28" height="22" fill="#4A90E2"/>
-          <text x="436" y="76" text-anchor="middle" font-size="8" font-weight="600" fill="#333">50</text>
-          <polyline points="52,58 100,60 148,62 196,57 244,56 292,54 340,51 388,54 436,47"
+          <!-- 좌축 -->
+          <line x1="50" y1="8" x2="50" y2="115" stroke="#E5E7EB" stroke-width="1"/>
+          <text x="46" y="11" text-anchor="end" font-size="8" fill="#9E9E9E">25만</text>
+          <text x="46" y="62" text-anchor="end" font-size="8" fill="#9E9E9E">12만</text>
+          <text x="46" y="116" text-anchor="end" font-size="8" fill="#9E9E9E">0</text>
+          <!-- 우축 MAU활성률 (50~70%) -->
+          <line x1="470" y1="8" x2="470" y2="115" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="2,2"/>
+          <text x="474" y="11" text-anchor="start" font-size="8" fill="#F29135">70%</text>
+          <text x="474" y="62" text-anchor="start" font-size="8" fill="#F29135">60%</text>
+          <text x="474" y="116" text-anchor="start" font-size="8" fill="#F29135">50%</text>
+          <!-- 60% 기준선 -->
+          <line x1="50" y1="62" x2="470" y2="62" stroke="#F3F4F6" stroke-width="1" stroke-dasharray="3,2"/>
+          <!-- 26.01: WC=164,894(h=71) VC=29,589(h=13) AC=15,438(h=7) total=209,921(h=90) -->
+          <rect x="103" y="25" width="75" height="71" rx="0" fill="#89B2F7"/>
+          <rect x="103" y="96" width="75" height="13" rx="0" fill="#4A90E2"/>
+          <rect x="103" y="109" width="75" height="6" rx="0" fill="#B0BEC5"/>
+          <text x="140" y="22" text-anchor="middle" font-size="9" font-weight="600" fill="#4A90E2">21.0만</text>
+          <!-- 26.02: WC=148,199(h=63) VC=23,054(h=10) AC=15,437(h=7) total=186,690(h=80) -->
+          <rect x="213" y="35" width="75" height="63" rx="0" fill="#89B2F7"/>
+          <rect x="213" y="98" width="75" height="10" rx="0" fill="#4A90E2"/>
+          <rect x="213" y="108" width="75" height="7" rx="0" fill="#B0BEC5"/>
+          <text x="250" y="32" text-anchor="middle" font-size="9" font-weight="600" fill="#4A90E2">18.7만</text>
+          <!-- 26.03: WC=176,761(h=76) VC=31,930(h=13) AC=10,788(h=5) total=219,479(h=94) -->
+          <rect x="323" y="21" width="75" height="75" rx="0" fill="#89B2F7"/>
+          <rect x="323" y="96" width="75" height="14" rx="0" fill="#4A90E2"/>
+          <rect x="323" y="110" width="75" height="5" rx="0" fill="#B0BEC5"/>
+          <text x="360" y="18" text-anchor="middle" font-size="9" font-weight="600" fill="#4A90E2">21.9만</text>
+          <!-- MAU활성률 꺾은선: Jan=59.9%(y=62), Feb=55.7%(y=85), Mar=61.7%(y=52) -->
+          <polyline points="140,62 250,85 360,52"
             fill="none" stroke="#F29135" stroke-width="2" stroke-linejoin="round"/>
-          <circle cx="52" cy="58" r="3" fill="#F29135"/>
-          <text x="52" y="54" text-anchor="middle" font-size="7" fill="#F29135">32%</text>
-          <circle cx="436" cy="47" r="3" fill="#F29135"/>
-          <text x="436" y="43" text-anchor="middle" font-size="7" fill="#F29135">38%</text>
-          <line x1="40" y1="115" x2="458" y2="115" stroke="#E5E7EB" stroke-width="1"/>
-          <text x="52"  y="126" text-anchor="middle" font-size="7" fill="#666">22.4Q</text>
-          <text x="100" y="126" text-anchor="middle" font-size="7" fill="#666">23.1Q</text>
-          <text x="148" y="126" text-anchor="middle" font-size="7" fill="#666">23.2Q</text>
-          <text x="196" y="126" text-anchor="middle" font-size="7" fill="#666">23.3Q</text>
-          <text x="244" y="126" text-anchor="middle" font-size="7" fill="#666">23.4Q</text>
-          <text x="292" y="126" text-anchor="middle" font-size="7" fill="#666">24.1Q</text>
-          <text x="340" y="126" text-anchor="middle" font-size="7" fill="#666">24.2Q</text>
-          <text x="388" y="126" text-anchor="middle" font-size="7" fill="#666">24.3Q</text>
-          <text x="436" y="126" text-anchor="middle" font-size="7" fill="#666">25.1Q</text>
+          <circle cx="140" cy="62" r="3" fill="#F29135"/>
+          <text x="140" y="58" text-anchor="middle" font-size="8" fill="#F29135">59.9%</text>
+          <circle cx="250" cy="85" r="3" fill="#F29135"/>
+          <text x="250" y="95" text-anchor="middle" font-size="8" fill="#F29135">55.7%</text>
+          <circle cx="360" cy="52" r="3" fill="#F29135"/>
+          <text x="360" y="48" text-anchor="middle" font-size="8" fill="#F29135">61.7%</text>
+          <!-- baseline -->
+          <line x1="50" y1="115" x2="470" y2="115" stroke="#E5E7EB" stroke-width="1"/>
+          <!-- X labels -->
+          <text x="140" y="127" text-anchor="middle" font-size="9" fill="#666">26.01</text>
+          <text x="250" y="127" text-anchor="middle" font-size="9" fill="#666">26.02</text>
+          <text x="360" y="127" text-anchor="middle" font-size="9" fill="#666">26.03</text>
         </svg>
       </div>
     </div>

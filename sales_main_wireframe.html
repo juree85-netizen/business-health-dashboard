@@ -93,10 +93,10 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
   <div class="header">
     <span class="header-title">영업 (Sales)</span>
     <div class="header-spacer"></div>
-    <div class="badge">기준월: 2024년 08월</div>
+    <div class="badge">기준월: 2025년 08월</div>
     <div class="badge">업데이트: 매월 10일</div>
     <div class="header-meta">
-      <div class="header-date">2024-08-10</div>
+      <div class="header-date">2025-08-10</div>
     </div>
   </div>
 
@@ -281,6 +281,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
       <div class="ctrl-row">
         <select class="ctrl-select"><option>분석주기: Month</option><option>Quarter</option></select>
         <select class="ctrl-select"><option>분석단위: BO Amount</option><option>BO Count</option></select>
+        <select class="ctrl-select"><option>대내외: 전체</option><option>대내</option><option>대외</option></select>
       </div>
     </div>
 
@@ -389,7 +390,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
           <rect x="433" y="45" width="12" height="85" rx="2" fill="#6B9BD8"/>
           <rect x="450" y="49" width="12" height="81" rx="2" fill="#6B9BD8"/>
           <text x="48"  y="77" text-anchor="middle" font-size="9" font-weight="700" fill="#333">60</text>
-          <text x="456" y="45" text-anchor="middle" font-size="9" font-weight="700" fill="#333">100</text>
+          <text x="456" y="37" text-anchor="middle" font-size="9" font-weight="700" fill="#333">100</text>
           <polyline points="48,110 150,96 252,80 354,64 456,50" fill="none" stroke="#F4A460" stroke-width="2"/>
           <circle cx="48" cy="110" r="3" fill="#F4A460"/>
           <text x="48" y="105" text-anchor="middle" font-size="9" fill="#F4A460">-8%</text>
@@ -737,7 +738,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
             fill="none" stroke="#9370DB" stroke-width="2"/>
           <polyline points="48,126.8 65,120.2 82,123.5 99,116.9 116,120.2 133,113.6 150,116.9 167,107.0 184,110.3 201,103.7 218,107.0 235,100.4 252,103.7 269,97.1 286,100.4 303,93.8 320,100.4 337,93.8 354,100.4 371,90.5 388,97.1 405,90.5 422,100.4 439,87.2 456,93.8"
             fill="none" stroke="#A9A9A9" stroke-width="2"/>
-          <circle cx="48"  cy="67.4"  r="3" fill="#F4A460"/>
+          <circle cx="48"  cy="70.7"  r="3" fill="#F4A460"/>
           <circle cx="456" cy="24.5" r="3" fill="#F4A460"/>
           <circle cx="48"  cy="100.4"  r="3" fill="#9370DB"/>
           <circle cx="456" cy="60.8" r="3" fill="#9370DB"/>
@@ -1008,55 +1009,47 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
           <div class="legend-item"><span class="leg-bar" style="background:#87CEEB;"></span>전망</div>
           <div class="legend-item"><span class="leg-line" style="background:#F4A460;"></span>계획</div>
         </div>
+        <!-- scale: y=168→0억, y=10→600억, 1억=0.2633px -->
+        <!-- 계획: 500억/월 → y=168-131.65=36 (평선) -->
+        <!-- 실적(1~8월): 380,350,420,370,400,350,430,380 / 전망(9~12월): 340,360,320,300 -->
         <svg width="100%" height="200" viewBox="0 0 560 200">
-          <line x1="40" y1="8"   x2="40"  y2="168" stroke="#E5E7EB"/>
-          <line x1="40" y1="8"   x2="550" y2="8"   stroke="#E5E7EB" stroke-dasharray="3,3"/>
-          <line x1="40" y1="47"  x2="550" y2="47"  stroke="#E5E7EB" stroke-dasharray="3,3"/>
-          <line x1="40" y1="86"  x2="550" y2="86"  stroke="#E5E7EB" stroke-dasharray="3,3"/>
-          <line x1="40" y1="125" x2="550" y2="125" stroke="#E5E7EB" stroke-dasharray="3,3"/>
+          <line x1="40" y1="10"  x2="40"  y2="168" stroke="#E5E7EB"/>
+          <line x1="40" y1="10"  x2="550" y2="10"  stroke="#E5E7EB" stroke-dasharray="3,3"/>
+          <line x1="40" y1="50"  x2="550" y2="50"  stroke="#E5E7EB" stroke-dasharray="3,3"/>
+          <line x1="40" y1="89"  x2="550" y2="89"  stroke="#E5E7EB" stroke-dasharray="3,3"/>
+          <line x1="40" y1="129" x2="550" y2="129" stroke="#E5E7EB" stroke-dasharray="3,3"/>
           <line x1="40" y1="168" x2="550" y2="168" stroke="#E5E7EB"/>
-          <text x="36" y="11"  text-anchor="end" font-size="9" fill="#6B7280">150</text>
-          <text x="36" y="50"  text-anchor="end" font-size="9" fill="#6B7280">100</text>
-          <text x="36" y="89"  text-anchor="end" font-size="9" fill="#6B7280">60</text>
-          <text x="36" y="128" text-anchor="end" font-size="9" fill="#6B7280">30</text>
+          <text x="36" y="13"  text-anchor="end" font-size="9" fill="#6B7280">600</text>
+          <text x="36" y="53"  text-anchor="end" font-size="9" fill="#6B7280">450</text>
+          <text x="36" y="92"  text-anchor="end" font-size="9" fill="#6B7280">300</text>
+          <text x="36" y="132" text-anchor="end" font-size="9" fill="#6B7280">150</text>
           <text x="36" y="171" text-anchor="end" font-size="9" fill="#6B7280">0</text>
-          <!-- 12 months, bar width 18, spacing 42: centers 61,103,145,187,229,271,313,355,397,439,481,523 -->
-          <!-- 실적(파란색) for 1~8월, 전망(하늘색) for 9~12월 -->
-          <!-- 1월: 115 => y=168-(115/150*160)=168-122.7=45.3≈45 -->
-          <rect x="50"  y="45"  width="18" height="123" rx="2" fill="#0047AB"/>
-          <text x="59"  y="41"  text-anchor="middle" font-size="9" font-weight="700" fill="#333">115</text>
-          <text x="59"  y="53"  text-anchor="middle" font-size="8" fill="#fff">66.0%</text>
-          <!-- 2월: 95 -->
-          <rect x="92"  y="66"  width="18" height="102" rx="2" fill="#0047AB"/>
-          <text x="101" y="62"  text-anchor="middle" font-size="9" font-weight="700" fill="#333">95</text>
-          <!-- 3월: 108 -->
-          <rect x="134" y="52"  width="18" height="116" rx="2" fill="#0047AB"/>
-          <!-- 4월: 88 -->
-          <rect x="176" y="74"  width="18" height="94"  rx="2" fill="#0047AB"/>
-          <!-- 5월: 102 -->
-          <rect x="218" y="58"  width="18" height="110" rx="2" fill="#0047AB"/>
-          <!-- 6월: 78 -->
-          <rect x="260" y="84"  width="18" height="84"  rx="2" fill="#0047AB"/>
-          <!-- 7월: 92 -->
-          <rect x="302" y="69"  width="18" height="99"  rx="2" fill="#0047AB"/>
-          <!-- 8월: 86 -->
-          <rect x="344" y="76"  width="18" height="92"  rx="2" fill="#0047AB"/>
+          <!-- 실적 1~8월 -->
+          <rect x="50"  y="68" width="18" height="100" rx="2" fill="#0047AB"/>
+          <text x="59"  y="64" text-anchor="middle" font-size="9" font-weight="700" fill="#333">380</text>
+          <rect x="92"  y="76" width="18" height="92"  rx="2" fill="#0047AB"/>
+          <rect x="134" y="57" width="18" height="111" rx="2" fill="#0047AB"/>
+          <text x="143" y="53" text-anchor="middle" font-size="9" font-weight="700" fill="#333">420</text>
+          <rect x="176" y="71" width="18" height="97"  rx="2" fill="#0047AB"/>
+          <rect x="218" y="63" width="18" height="105" rx="2" fill="#0047AB"/>
+          <rect x="260" y="76" width="18" height="92"  rx="2" fill="#0047AB"/>
+          <rect x="302" y="55" width="18" height="113" rx="2" fill="#0047AB"/>
+          <text x="311" y="51" text-anchor="middle" font-size="9" font-weight="700" fill="#333">430</text>
+          <rect x="344" y="68" width="18" height="100" rx="2" fill="#0047AB"/>
+          <text x="353" y="64" text-anchor="middle" font-size="9" font-weight="700" fill="#333">380</text>
           <!-- 전망 9~12월 -->
-          <!-- 9월: 70 -->
-          <rect x="386" y="93"  width="18" height="75"  rx="2" fill="#87CEEB"/>
-          <!-- 10월: 65 -->
-          <rect x="428" y="99"  width="18" height="69"  rx="2" fill="#87CEEB"/>
-          <!-- 11월: 58 -->
-          <rect x="470" y="106" width="18" height="62"  rx="2" fill="#87CEEB"/>
-          <!-- 12월: 52 -->
-          <rect x="512" y="113" width="18" height="55"  rx="2" fill="#87CEEB"/>
-          <text x="521" y="109" text-anchor="middle" font-size="9" font-weight="700" fill="#333">52</text>
-          <text x="521" y="120" text-anchor="middle" font-size="8" fill="#555">-45.4%</text>
-          <!-- 계획 선 (오렌지) -->
-          <polyline points="59,100 101,105 143,95 185,108 227,98 269,112 311,102 353,107 395,115 437,118 479,122 521,126"
+          <rect x="386" y="79" width="18" height="89"  rx="2" fill="#87CEEB"/>
+          <rect x="428" y="73" width="18" height="95"  rx="2" fill="#87CEEB"/>
+          <rect x="470" y="84" width="18" height="84"  rx="2" fill="#87CEEB"/>
+          <rect x="512" y="89" width="18" height="79"  rx="2" fill="#87CEEB"/>
+          <text x="521" y="85" text-anchor="middle" font-size="9" font-weight="700" fill="#555">300</text>
+          <!-- 계획 선 (500억/월 고정) -->
+          <polyline points="59,36 101,36 143,36 185,36 227,36 269,36 311,36 353,36 395,36 437,36 479,36 521,36"
             fill="none" stroke="#F4A460" stroke-width="2"/>
-          <circle cx="59"  cy="100" r="3" fill="#F4A460"/>
-          <circle cx="521" cy="126" r="3" fill="#F4A460"/>
+          <circle cx="59"  cy="36" r="3" fill="#F4A460"/>
+          <circle cx="521" cy="36" r="3" fill="#F4A460"/>
+          <text x="59"  y="30" text-anchor="middle" font-size="9" fill="#F4A460">500</text>
+          <text x="521" y="30" text-anchor="middle" font-size="9" fill="#F4A460">500</text>
           <!-- X axis -->
           <text x="59"  y="181" text-anchor="middle" font-size="9" fill="#6B7280">1월</text>
           <text x="101" y="181" text-anchor="middle" font-size="9" fill="#6B7280">2월</text>
@@ -1077,37 +1070,37 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
       <div class="card">
         <div class="card-title">YTM / YEAR 요약 <span class="card-unit">단위: 억원</span></div>
         <div class="legend" style="flex-direction:column; gap:4px;">
-          <div class="legend-item"><span class="leg-bar" style="background:#B0C4DE;"></span>2025(전년)</div>
+          <div class="legend-item"><span class="leg-bar" style="background:#B0C4DE;"></span>2024(전년)</div>
           <div class="legend-item"><span class="leg-bar" style="background:#87CEEB;"></span>계획</div>
           <div class="legend-item"><span class="leg-bar" style="background:#0047AB;"></span>실적/전망</div>
         </div>
-<svg width="100%" height="200" viewBox="0 0 220 200">
+        <!-- scale: y=168→0억, y=8→6000억, 1억=0.02667px -->
+        <!-- gridlines: 0=168, 2000=114.7, 4000=61.3, 6000=8 -->
+        <svg width="100%" height="200" viewBox="0 0 220 200">
           <line x1="30" y1="8"   x2="30"  y2="168" stroke="#E5E7EB"/>
           <line x1="30" y1="8"   x2="210" y2="8"   stroke="#E5E7EB" stroke-dasharray="3,3"/>
-          <line x1="30" y1="48"  x2="210" y2="48"  stroke="#E5E7EB" stroke-dasharray="3,3"/>
-          <line x1="30" y1="88"  x2="210" y2="88"  stroke="#E5E7EB" stroke-dasharray="3,3"/>
-          <line x1="30" y1="128" x2="210" y2="128" stroke="#E5E7EB" stroke-dasharray="3,3"/>
+          <line x1="30" y1="61"  x2="210" y2="61"  stroke="#E5E7EB" stroke-dasharray="3,3"/>
+          <line x1="30" y1="115" x2="210" y2="115" stroke="#E5E7EB" stroke-dasharray="3,3"/>
           <line x1="30" y1="168" x2="210" y2="168" stroke="#E5E7EB"/>
-          <text x="26" y="11"  text-anchor="end" font-size="8" fill="#6B7280">1,000</text>
-          <text x="26" y="51"  text-anchor="end" font-size="8" fill="#6B7280">750</text>
-          <text x="26" y="91"  text-anchor="end" font-size="8" fill="#6B7280">500</text>
-          <text x="26" y="131" text-anchor="end" font-size="8" fill="#6B7280">250</text>
+          <text x="26" y="11"  text-anchor="end" font-size="8" fill="#6B7280">6,000</text>
+          <text x="26" y="64"  text-anchor="end" font-size="8" fill="#6B7280">4,000</text>
+          <text x="26" y="118" text-anchor="end" font-size="8" fill="#6B7280">2,000</text>
           <text x="26" y="171" text-anchor="end" font-size="8" fill="#6B7280">0</text>
-          <!-- YTM: 2025=700억, 계획=750억, 실적=649억 -->
-          <rect x="44"  y="56.0"  width="14" height="112.0"  rx="1" fill="#B0C4DE"/>
-          <text x="51"  y="53.0" text-anchor="middle" font-size="8" fill="#555">700</text>
-          <rect x="61"  y="48.0"   width="14" height="120.0"   rx="1" fill="#87CEEB"/>
-          <text x="68"  y="45.0"  text-anchor="middle" font-size="8" fill="#555">750</text>
-          <rect x="78"  y="64.2"    width="14" height="103.8"    rx="1" fill="#0047AB"/>
-          <text x="85"  y="61.2"   text-anchor="middle" font-size="8" fill="#0047AB" font-weight="700">649</text>
+          <!-- YTM(1~8월): 2024전년=2,500 / 계획=4,000 / 실적=2,980 -->
+          <rect x="44"  y="101" width="14" height="67"  rx="1" fill="#B0C4DE"/>
+          <text x="51"  y="97"  text-anchor="middle" font-size="7" fill="#555">2,500</text>
+          <rect x="61"  y="61"  width="14" height="107" rx="1" fill="#87CEEB"/>
+          <text x="68"  y="57"  text-anchor="middle" font-size="7" fill="#555">4,000</text>
+          <rect x="78"  y="88"  width="14" height="80"  rx="1" fill="#0047AB"/>
+          <text x="85"  y="84"  text-anchor="middle" font-size="7" fill="#0047AB" font-weight="700">2,980</text>
           <text x="69"  y="181" text-anchor="middle" font-size="10" font-weight="600" fill="#1A1A1A">YTM</text>
-          <!-- YEAR: 2025=840억, 계획=900억, 전망=780억 -->
-          <rect x="130" y="33.6"  width="14" height="134.4"  rx="1" fill="#B0C4DE"/>
-          <text x="137" y="30.6" text-anchor="middle" font-size="8" fill="#555">840</text>
-          <rect x="147" y="24.0"   width="14" height="144.0"   rx="1" fill="#87CEEB"/>
-          <text x="154" y="21.0"  text-anchor="middle" font-size="8" fill="#555">900</text>
-          <rect x="164" y="43.2"   width="14" height="124.8"   rx="1" fill="#0047AB"/>
-          <text x="171" y="40.2"  text-anchor="middle" font-size="8" fill="#0047AB" font-weight="700">780</text>
+          <!-- YEAR: 2024전년=3,800 / 계획=6,000 / 전망=4,260 -->
+          <rect x="130" y="67"  width="14" height="101" rx="1" fill="#B0C4DE"/>
+          <text x="137" y="63"  text-anchor="middle" font-size="7" fill="#555">3,800</text>
+          <rect x="147" y="8"   width="14" height="160" rx="1" fill="#87CEEB"/>
+          <text x="154" y="6"   text-anchor="middle" font-size="7" fill="#555">6,000</text>
+          <rect x="164" y="54"  width="14" height="114" rx="1" fill="#0047AB"/>
+          <text x="171" y="50"  text-anchor="middle" font-size="7" fill="#0047AB" font-weight="700">4,260</text>
           <text x="154" y="181" text-anchor="middle" font-size="10" font-weight="600" fill="#1A1A1A">YEAR</text>
         </svg>
       </div>
@@ -1167,7 +1160,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
       <div class="card">
         <div class="card-title">수주 확도별 계획/실적 전망 <span class="card-unit">단위: 억원</span></div>
         <div class="legend">
-          <div class="legend-item"><span class="leg-bar" style="background:#B0C4DE;"></span>2025</div>
+          <div class="legend-item"><span class="leg-bar" style="background:#B0C4DE;"></span>2024(전년)</div>
           <div class="legend-item"><span class="leg-bar" style="background:#6B9BD8;"></span>계획</div>
           <div class="legend-item"><span class="leg-bar" style="background:#0047AB;"></span>실적/전망</div>
         </div>
@@ -1257,7 +1250,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
       <div class="card">
         <div class="card-title">YTM / YEAR 요약 <span class="card-unit">단위: 억원</span></div>
         <div class="legend" style="flex-direction:column; gap:4px;">
-          <div class="legend-item"><span class="leg-bar" style="background:#B0C4DE;"></span>2025</div>
+          <div class="legend-item"><span class="leg-bar" style="background:#B0C4DE;"></span>2024(전년)</div>
           <div class="legend-item"><span class="leg-bar" style="background:#6B9BD8;"></span>계획</div>
           <div class="legend-item"><span class="leg-bar" style="background:#0047AB;"></span>실적/전망</div>
         </div>
@@ -1291,6 +1284,449 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
         </svg>
       </div>
 
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════
+         섹션 5 — BO Pipeline 분석
+    ═══════════════════════════════════════════════ -->
+    <div class="section-title" style="margin-top:10px;">BO Pipeline 분석</div>
+
+    <!-- 섹션 필터 -->
+    <div class="card" style="margin-bottom:14px;">
+      <div class="ctrl-row">
+        <select class="ctrl-select"><option>분석주기: Month</option><option>Quarter</option><option>Half-Year</option><option>Year</option></select>
+        <select class="ctrl-select"><option>대내외: 전체</option><option>대내</option><option>대외</option></select>
+        <div class="ctrl-spacer"></div>
+        <button class="ctrl-btn">Reset</button>
+        <button class="ctrl-btn primary">Search</button>
+      </div>
+    </div>
+
+    <!-- Row 1: Time Passed | Status Trace -->
+    <div class="row row-2">
+
+      <!-- 카드 A: BO Time Passed (In-process) -->
+      <div class="card">
+        <div class="card-title">BO Time Passed (In-process) <span class="card-unit">단위: 건</span></div>
+        <div class="card-note">*진행 중인 BO의 경과기간 구간별 분포 (스냅샷)</div>
+        <div class="legend" style="flex-wrap:wrap; gap:8px;">
+          <div class="legend-item"><span class="leg-bar" style="background:#C8DCEF;"></span>~3M</div>
+          <div class="legend-item"><span class="leg-bar" style="background:#93C4E8;"></span>4~6M</div>
+          <div class="legend-item"><span class="leg-bar" style="background:#6B9BD8;"></span>7~9M</div>
+          <div class="legend-item"><span class="leg-bar" style="background:#4A7EC7;"></span>10~12M</div>
+          <div class="legend-item"><span class="leg-bar" style="background:#2F5CA8;"></span>13~18M</div>
+          <div class="legend-item"><span class="leg-bar" style="background:#1A3F8A;"></span>19~24M</div>
+          <div class="legend-item"><span class="leg-bar" style="background:#0A1F60;"></span>25M+</div>
+        </div>
+        <!-- Scale: max total=166, baseline y=170, 1unit≈0.93px -->
+        <svg width="100%" height="200" viewBox="0 0 540 200">
+          <line x1="40" y1="10" x2="40" y2="170" stroke="#E5E7EB" stroke-width="1"/>
+          <line x1="40" y1="10" x2="530" y2="10" stroke="#E5E7EB" stroke-dasharray="3,3"/>
+          <line x1="40" y1="50" x2="530" y2="50" stroke="#E5E7EB" stroke-dasharray="3,3"/>
+          <line x1="40" y1="90" x2="530" y2="90" stroke="#E5E7EB" stroke-dasharray="3,3"/>
+          <line x1="40" y1="130" x2="530" y2="130" stroke="#E5E7EB" stroke-dasharray="3,3"/>
+          <line x1="40" y1="170" x2="530" y2="170" stroke="#E5E7EB" stroke-width="1"/>
+          <text x="36" y="13" text-anchor="end" font-size="9" fill="#6B7280">180</text>
+          <text x="36" y="53" text-anchor="end" font-size="9" fill="#6B7280">135</text>
+          <text x="36" y="93" text-anchor="end" font-size="9" fill="#6B7280">90</text>
+          <text x="36" y="133" text-anchor="end" font-size="9" fill="#6B7280">45</text>
+          <text x="36" y="173" text-anchor="end" font-size="9" fill="#6B7280">0</text>
+          <!-- 202411 total=133 -->
+          <rect x="55" y="151" width="54" height="19" rx="1" fill="#0A1F60"/>
+          <rect x="55" y="142" width="54" height="9"  rx="1" fill="#1A3F8A"/>
+          <rect x="55" y="137" width="54" height="5"  rx="1" fill="#2F5CA8"/>
+          <rect x="55" y="130" width="54" height="7"  rx="1" fill="#4A7EC7"/>
+          <rect x="55" y="121" width="54" height="9"  rx="1" fill="#6B9BD8"/>
+          <rect x="55" y="93"  width="54" height="28" rx="1" fill="#93C4E8"/>
+          <rect x="55" y="46"  width="54" height="47" rx="1" fill="#C8DCEF"/>
+          <text x="82" y="42" text-anchor="middle" font-size="9" font-weight="700" fill="#1A1A1A">133</text>
+          <text x="82" y="183" text-anchor="middle" font-size="9" fill="#6B7280">202411</text>
+          <!-- 202412 total=147 -->
+          <rect x="143" y="150" width="54" height="20" rx="1" fill="#0A1F60"/>
+          <rect x="143" y="139" width="54" height="11" rx="1" fill="#1A3F8A"/>
+          <rect x="143" y="133" width="54" height="6"  rx="1" fill="#2F5CA8"/>
+          <rect x="143" y="125" width="54" height="8"  rx="1" fill="#4A7EC7"/>
+          <rect x="143" y="115" width="54" height="10" rx="1" fill="#6B9BD8"/>
+          <rect x="143" y="85"  width="54" height="30" rx="1" fill="#93C4E8"/>
+          <rect x="143" y="34"  width="54" height="51" rx="1" fill="#C8DCEF"/>
+          <text x="170" y="30" text-anchor="middle" font-size="9" font-weight="700" fill="#1A1A1A">147</text>
+          <text x="170" y="183" text-anchor="middle" font-size="9" fill="#6B7280">202412</text>
+          <!-- 202501 total=153 -->
+          <rect x="231" y="148" width="54" height="22" rx="1" fill="#0A1F60"/>
+          <rect x="231" y="139" width="54" height="9"  rx="1" fill="#1A3F8A"/>
+          <rect x="231" y="135" width="54" height="4"  rx="1" fill="#2F5CA8"/>
+          <rect x="231" y="125" width="54" height="10" rx="1" fill="#4A7EC7"/>
+          <rect x="231" y="112" width="54" height="13" rx="1" fill="#6B9BD8"/>
+          <rect x="231" y="84"  width="54" height="28" rx="1" fill="#93C4E8"/>
+          <rect x="231" y="28"  width="54" height="56" rx="1" fill="#C8DCEF"/>
+          <text x="258" y="24" text-anchor="middle" font-size="9" font-weight="700" fill="#1A1A1A">153</text>
+          <text x="258" y="183" text-anchor="middle" font-size="9" fill="#6B7280">202501</text>
+          <!-- 202502 total=166 (max) -->
+          <rect x="319" y="149" width="54" height="21" rx="1" fill="#0A1F60"/>
+          <rect x="319" y="136" width="54" height="13" rx="1" fill="#1A3F8A"/>
+          <rect x="319" y="133" width="54" height="3"  rx="1" fill="#2F5CA8"/>
+          <rect x="319" y="124" width="54" height="9"  rx="1" fill="#4A7EC7"/>
+          <rect x="319" y="109" width="54" height="15" rx="1" fill="#6B9BD8"/>
+          <rect x="319" y="76"  width="54" height="33" rx="1" fill="#93C4E8"/>
+          <rect x="319" y="15"  width="54" height="61" rx="1" fill="#C8DCEF"/>
+          <text x="346" y="11" text-anchor="middle" font-size="9" font-weight="700" fill="#1A1A1A">166</text>
+          <text x="346" y="183" text-anchor="middle" font-size="9" fill="#6B7280">202502</text>
+          <!-- 202503 total=156 -->
+          <rect x="407" y="147" width="54" height="23" rx="1" fill="#0A1F60"/>
+          <rect x="407" y="138" width="54" height="9"  rx="1" fill="#1A3F8A"/>
+          <rect x="407" y="133" width="54" height="5"  rx="1" fill="#2F5CA8"/>
+          <rect x="407" y="124" width="54" height="9"  rx="1" fill="#4A7EC7"/>
+          <rect x="407" y="112" width="54" height="12" rx="1" fill="#6B9BD8"/>
+          <rect x="407" y="81"  width="54" height="31" rx="1" fill="#93C4E8"/>
+          <rect x="407" y="25"  width="54" height="56" rx="1" fill="#C8DCEF"/>
+          <text x="434" y="21" text-anchor="middle" font-size="9" font-weight="700" fill="#1A1A1A">156</text>
+          <text x="434" y="183" text-anchor="middle" font-size="9" fill="#6B7280">202503</text>
+        </svg>
+      </div>
+
+      <!-- 카드 B: BO Status Trace (New) -->
+      <div class="card">
+        <div class="card-title">BO Status Trace (New) <span class="card-unit">단위: 건</span></div>
+        <div class="card-note">*신규 유입(In) 기준 Status별 월별 건수 추이</div>
+        <div class="legend" style="flex-wrap:wrap; gap:8px;">
+          <div class="legend-item"><span class="leg-line" style="background:#4A7EC7;"></span>Identified(new)</div>
+          <div class="legend-item"><span class="leg-line" style="background:#5BA85C;"></span>Solutioned(New)</div>
+          <div class="legend-item"><span class="leg-line" style="background:#27AE60;"></span>Won</div>
+          <div class="legend-item"><span class="leg-line" style="background:#E74C3C;"></span>Lost</div>
+          <div class="legend-item"><span class="leg-line" style="background:#F39C12;"></span>Dropped</div>
+          <div class="legend-item"><span class="leg-line" style="background:#8E44AD;"></span>Lost&amp;Dropped</div>
+        </div>
+        <!-- X: 202411=120, 202412=280, 202501=440  Y scale: 0~12, y=150-val*12 -->
+        <svg width="100%" height="200" viewBox="0 0 560 200">
+          <line x1="40" y1="6"  x2="40"  y2="156" stroke="#E5E7EB" stroke-width="1"/>
+          <line x1="40" y1="6"  x2="540" y2="6"   stroke="#E5E7EB" stroke-dasharray="3,3"/>
+          <line x1="40" y1="42" x2="540" y2="42"  stroke="#E5E7EB" stroke-dasharray="3,3"/>
+          <line x1="40" y1="78" x2="540" y2="78"  stroke="#E5E7EB" stroke-dasharray="3,3"/>
+          <line x1="40" y1="114" x2="540" y2="114" stroke="#E5E7EB" stroke-dasharray="3,3"/>
+          <line x1="40" y1="156" x2="540" y2="156" stroke="#E5E7EB" stroke-width="1"/>
+          <text x="36" y="9"   text-anchor="end" font-size="9" fill="#6B7280">12</text>
+          <text x="36" y="45"  text-anchor="end" font-size="9" fill="#6B7280">9</text>
+          <text x="36" y="81"  text-anchor="end" font-size="9" fill="#6B7280">6</text>
+          <text x="36" y="117" text-anchor="end" font-size="9" fill="#6B7280">3</text>
+          <text x="36" y="159" text-anchor="end" font-size="9" fill="#6B7280">0</text>
+          <!-- Identified(new): 5→96, 10→36, 9→48 -->
+          <polyline points="120,96 280,36 440,48" fill="none" stroke="#4A7EC7" stroke-width="2.5"/>
+          <circle cx="120" cy="96" r="4" fill="#4A7EC7"/>
+          <text x="120" y="89" text-anchor="middle" font-size="9" font-weight="700" fill="#4A7EC7">5</text>
+          <circle cx="280" cy="36" r="4" fill="#4A7EC7"/>
+          <text x="280" y="29" text-anchor="middle" font-size="9" font-weight="700" fill="#4A7EC7">10</text>
+          <circle cx="440" cy="48" r="4" fill="#4A7EC7"/>
+          <text x="440" y="41" text-anchor="middle" font-size="9" font-weight="700" fill="#4A7EC7">9</text>
+          <!-- Solutioned(New): 2→132, 3→120, 5→96 -->
+          <polyline points="120,132 280,120 440,96" fill="none" stroke="#5BA85C" stroke-width="2.5"/>
+          <circle cx="120" cy="132" r="4" fill="#5BA85C"/>
+          <text x="104" y="130" font-size="9" font-weight="700" fill="#5BA85C">2</text>
+          <circle cx="280" cy="120" r="4" fill="#5BA85C"/>
+          <text x="264" y="118" font-size="9" font-weight="700" fill="#5BA85C">3</text>
+          <circle cx="440" cy="96" r="4" fill="#5BA85C"/>
+          <text x="424" y="94" font-size="9" font-weight="700" fill="#5BA85C">5</text>
+          <!-- Won: 1→144, 2→132, 1→144 -->
+          <polyline points="120,144 280,132 440,144" fill="none" stroke="#27AE60" stroke-width="2"/>
+          <circle cx="120" cy="144" r="3" fill="#27AE60"/>
+          <text x="120" y="140" text-anchor="middle" font-size="8" fill="#27AE60">1</text>
+          <circle cx="280" cy="132" r="3" fill="#27AE60"/>
+          <text x="280" y="128" text-anchor="middle" font-size="8" fill="#27AE60">2</text>
+          <circle cx="440" cy="144" r="3" fill="#27AE60"/>
+          <text x="440" y="140" text-anchor="middle" font-size="8" fill="#27AE60">1</text>
+          <!-- Lost: (1),(1),(1) → 1,1,1 → y=144 -->
+          <polyline points="120,144 280,144 440,144" fill="none" stroke="#E74C3C" stroke-width="2" stroke-dasharray="5,3"/>
+          <circle cx="120" cy="144" r="3" fill="#E74C3C"/>
+          <circle cx="280" cy="144" r="3" fill="#E74C3C"/>
+          <circle cx="440" cy="144" r="3" fill="#E74C3C"/>
+          <!-- Dropped: 0→156, (1)→144, (1)→144 -->
+          <polyline points="120,156 280,144 440,144" fill="none" stroke="#F39C12" stroke-width="2" stroke-dasharray="5,3"/>
+          <circle cx="120" cy="156" r="3" fill="#F39C12"/>
+          <text x="120" y="152" text-anchor="middle" font-size="8" fill="#F39C12">0</text>
+          <circle cx="280" cy="144" r="3" fill="#F39C12"/>
+          <circle cx="440" cy="144" r="3" fill="#F39C12"/>
+          <!-- Lost&Dropped: (1)→144, (2)→132, (2)→132 -->
+          <polyline points="120,144 280,132 440,132" fill="none" stroke="#8E44AD" stroke-width="2"/>
+          <circle cx="120" cy="144" r="3" fill="#8E44AD"/>
+          <text x="120" y="165" text-anchor="middle" font-size="8" fill="#8E44AD">(1)</text>
+          <circle cx="280" cy="132" r="3" fill="#8E44AD"/>
+          <text x="280" y="165" text-anchor="middle" font-size="8" fill="#8E44AD">(2)</text>
+          <circle cx="440" cy="132" r="3" fill="#8E44AD"/>
+          <text x="440" y="165" text-anchor="middle" font-size="8" fill="#8E44AD">(2)</text>
+          <!-- X labels -->
+          <text x="120" y="178" text-anchor="middle" font-size="9" fill="#6B7280">202411</text>
+          <text x="280" y="178" text-anchor="middle" font-size="9" fill="#6B7280">202412</text>
+          <text x="440" y="178" text-anchor="middle" font-size="9" fill="#6B7280">202501</text>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Row 2: Change Rate + Stage Count Table -->
+    <div class="row row-2">
+
+      <!-- 카드 C: BO Status Change Rate (이중축) -->
+      <div class="card">
+        <div class="card-title">BO Status Change Rate <span class="card-unit">단위: 건, %</span></div>
+        <div class="card-note">*좌축: BO Count (막대) / 우축: Change Rate % (꺾은선)</div>
+        <div class="legend">
+          <div class="legend-item"><span class="leg-bar" style="background:#6B9BD8;"></span>BO Count</div>
+          <div class="legend-item"><span class="leg-line" style="background:#F4A460;"></span>Change Rate (%)</div>
+        </div>
+        <svg width="100%" height="210" viewBox="0 0 520 210">
+          <line x1="40" y1="10" x2="40" y2="165" stroke="#E5E7EB" stroke-width="1"/>
+          <line x1="40" y1="10"  x2="478" y2="10"  stroke="#E5E7EB" stroke-dasharray="3,3"/>
+          <line x1="40" y1="50"  x2="478" y2="50"  stroke="#E5E7EB" stroke-dasharray="3,3"/>
+          <line x1="40" y1="90"  x2="478" y2="90"  stroke="#E5E7EB" stroke-dasharray="3,3"/>
+          <line x1="40" y1="130" x2="478" y2="130" stroke="#E5E7EB" stroke-dasharray="3,3"/>
+          <line x1="40" y1="165" x2="478" y2="165" stroke="#E5E7EB" stroke-width="1"/>
+          <line x1="478" y1="10" x2="478" y2="165" stroke="#F4A460" stroke-width="1" opacity="0.5"/>
+          <text x="36" y="13"  text-anchor="end" font-size="9" fill="#6B7280">55</text>
+          <text x="36" y="53"  text-anchor="end" font-size="9" fill="#6B7280">41</text>
+          <text x="36" y="93"  text-anchor="end" font-size="9" fill="#6B7280">28</text>
+          <text x="36" y="133" text-anchor="end" font-size="9" fill="#6B7280">14</text>
+          <text x="36" y="168" text-anchor="end" font-size="9" fill="#6B7280">0</text>
+          <text x="482" y="13"  text-anchor="start" font-size="9" fill="#F4A460">60%</text>
+          <text x="482" y="53"  text-anchor="start" font-size="9" fill="#F4A460">45%</text>
+          <text x="482" y="93"  text-anchor="start" font-size="9" fill="#F4A460">30%</text>
+          <text x="482" y="133" text-anchor="start" font-size="9" fill="#F4A460">15%</text>
+          <text x="482" y="168" text-anchor="start" font-size="9" fill="#F4A460">0%</text>
+          <rect x="90"  y="49" width="60" height="116" rx="2" fill="#6B9BD8" opacity="0.75"/>
+          <text x="120" y="44" text-anchor="middle" font-size="11" font-weight="700" fill="#4A7EC7">40</text>
+          <rect x="230" y="49" width="60" height="116" rx="2" fill="#6B9BD8" opacity="0.75"/>
+          <text x="260" y="44" text-anchor="middle" font-size="11" font-weight="700" fill="#4A7EC7">40</text>
+          <rect x="370" y="31" width="60" height="134" rx="2" fill="#6B9BD8" opacity="0.75"/>
+          <text x="400" y="26" text-anchor="middle" font-size="11" font-weight="700" fill="#4A7EC7">46</text>
+          <polyline points="120,57 260,52 400,55" fill="none" stroke="#F4A460" stroke-width="2.5"/>
+          <circle cx="120" cy="57" r="5" fill="#F4A460"/>
+          <text x="120" y="47" text-anchor="middle" font-size="10" font-weight="700" fill="#F4A460">40.5%</text>
+          <circle cx="260" cy="52" r="5" fill="#F4A460"/>
+          <text x="260" y="42" text-anchor="middle" font-size="10" font-weight="700" fill="#F4A460">42.5%</text>
+          <circle cx="400" cy="55" r="5" fill="#F4A460"/>
+          <text x="400" y="45" text-anchor="middle" font-size="10" font-weight="700" fill="#F4A460">41.3%</text>
+          <text x="120" y="180" text-anchor="middle" font-size="9" fill="#6B7280">202411</text>
+          <text x="260" y="180" text-anchor="middle" font-size="9" fill="#6B7280">202412</text>
+          <text x="400" y="180" text-anchor="middle" font-size="9" fill="#6B7280">202501</text>
+          <text x="260" y="197" text-anchor="middle" font-size="8" fill="#9CA3AF">* 변화율 = 직전 In합 / 직직전 소계합</text>
+        </svg>
+      </div>
+
+      <!-- 카드 E: BO Stage 현황 테이블 -->
+      <div class="card">
+        <div class="card-title">BO Stage 현황 <span class="card-unit">단위: 건</span></div>
+        <div class="card-note">*기간별 각 스테이지 잔여 건수 (최종상태 기준)</div>
+        <table style="width:100%;border-collapse:collapse;font-size:11px;margin-top:10px;">
+          <thead>
+            <tr style="border-bottom:2px solid #E5E7EB;">
+              <th style="text-align:left;padding:5px 8px;color:#6B7280;font-weight:600;">Stage</th>
+              <th style="text-align:right;padding:5px 8px;color:#6B7280;font-weight:600;">202411</th>
+              <th style="text-align:right;padding:5px 8px;color:#6B7280;font-weight:600;">202412</th>
+              <th style="text-align:right;padding:5px 8px;color:#6B7280;font-weight:600;">202501</th>
+              <th style="text-align:right;padding:5px 8px;color:#6B7280;font-weight:600;">증감</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid #F3F4F6;">
+              <td style="padding:5px 8px;"><span style="display:inline-block;width:10px;height:10px;background:#93C4E8;border-radius:2px;margin-right:5px;vertical-align:middle;"></span>Identified</td>
+              <td style="text-align:right;padding:5px 8px;">5</td><td style="text-align:right;padding:5px 8px;">9</td><td style="text-align:right;padding:5px 8px;">12</td>
+              <td style="text-align:right;padding:5px 8px;color:#27AE60;font-weight:600;">▲7</td>
+            </tr>
+            <tr style="border-bottom:1px solid #F3F4F6;">
+              <td style="padding:5px 8px;"><span style="display:inline-block;width:10px;height:10px;background:#6B9BD8;border-radius:2px;margin-right:5px;vertical-align:middle;"></span>Validated</td>
+              <td style="text-align:right;padding:5px 8px;">21</td><td style="text-align:right;padding:5px 8px;">23</td><td style="text-align:right;padding:5px 8px;">24</td>
+              <td style="text-align:right;padding:5px 8px;color:#27AE60;font-weight:600;">▲3</td>
+            </tr>
+            <tr style="border-bottom:1px solid #F3F4F6;">
+              <td style="padding:5px 8px;"><span style="display:inline-block;width:10px;height:10px;background:#5BA85C;border-radius:2px;margin-right:5px;vertical-align:middle;"></span>Qualified</td>
+              <td style="text-align:right;padding:5px 8px;">11</td><td style="text-align:right;padding:5px 8px;">12</td><td style="text-align:right;padding:5px 8px;">11</td>
+              <td style="text-align:right;padding:5px 8px;color:#9CA3AF;">—</td>
+            </tr>
+            <tr style="border-bottom:1px solid #F3F4F6;">
+              <td style="padding:5px 8px;"><span style="display:inline-block;width:10px;height:10px;background:#F4A460;border-radius:2px;margin-right:5px;vertical-align:middle;"></span>Solutioned</td>
+              <td style="text-align:right;padding:5px 8px;">3</td><td style="text-align:right;padding:5px 8px;">2</td><td style="text-align:right;padding:5px 8px;">5</td>
+              <td style="text-align:right;padding:5px 8px;color:#27AE60;font-weight:600;">▲2</td>
+            </tr>
+            <tr style="border-bottom:1px solid #F3F4F6;">
+              <td style="padding:5px 8px;"><span style="display:inline-block;width:10px;height:10px;background:#27AE60;border-radius:2px;margin-right:5px;vertical-align:middle;"></span>Won</td>
+              <td style="text-align:right;padding:5px 8px;">1</td><td style="text-align:right;padding:5px 8px;">2</td><td style="text-align:right;padding:5px 8px;">1</td>
+              <td style="text-align:right;padding:5px 8px;color:#9CA3AF;">—</td>
+            </tr>
+            <tr style="border-bottom:1px solid #F3F4F6;">
+              <td style="padding:5px 8px;"><span style="display:inline-block;width:10px;height:10px;background:#E74C3C;border-radius:2px;margin-right:5px;vertical-align:middle;"></span>Lost</td>
+              <td style="text-align:right;padding:5px 8px;">1</td><td style="text-align:right;padding:5px 8px;">1</td><td style="text-align:right;padding:5px 8px;">1</td>
+              <td style="text-align:right;padding:5px 8px;color:#9CA3AF;">—</td>
+            </tr>
+            <tr style="border-bottom:1px solid #F3F4F6;">
+              <td style="padding:5px 8px;"><span style="display:inline-block;width:10px;height:10px;background:#9CA3AF;border-radius:2px;margin-right:5px;vertical-align:middle;"></span>Dropped</td>
+              <td style="text-align:right;padding:5px 8px;">0</td><td style="text-align:right;padding:5px 8px;">1</td><td style="text-align:right;padding:5px 8px;">1</td>
+              <td style="text-align:right;padding:5px 8px;color:#E74C3C;font-weight:600;">▲1</td>
+            </tr>
+            <tr style="background:#F9FAFB;font-weight:700;">
+              <td style="padding:5px 8px;">Total</td>
+              <td style="text-align:right;padding:5px 8px;">42</td><td style="text-align:right;padding:5px 8px;">50</td><td style="text-align:right;padding:5px 8px;">55</td>
+              <td style="text-align:right;padding:5px 8px;color:#27AE60;">▲13</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Row 3: BO Stage Flow (Alluvial) — 전체 너비 -->
+    <div class="row">
+      <div class="card">
+        <div class="card-title">BO Stage Flow <span class="card-unit">스테이지 분포 시계열 추이</span></div>
+        <div class="card-note">*리본 색 = 출발 스테이지. 단계 진행(↘) 외 직접 이탈(Lost·Dropped) 가능 — 리본이 다른 스테이지를 가로질러 연결됨</div>
+        <div class="legend" style="flex-wrap:wrap; gap:10px; margin-bottom:12px;">
+          <div class="legend-item"><span class="leg-bar" style="background:#93C4E8;"></span>Identified</div>
+          <div class="legend-item"><span class="leg-bar" style="background:#6B9BD8;"></span>Validated</div>
+          <div class="legend-item"><span class="leg-bar" style="background:#5BA85C;"></span>Qualified</div>
+          <div class="legend-item"><span class="leg-bar" style="background:#F4A460;"></span>Solutioned</div>
+          <div class="legend-item"><span class="leg-bar" style="background:#27AE60;"></span>Won</div>
+          <div class="legend-item"><span class="leg-bar" style="background:#E74C3C;"></span>Lost</div>
+          <div class="legend-item"><span class="leg-bar" style="background:#9CA3AF;"></span>Dropped</div>
+        </div>
+        <!--
+          Scale: 2.91px/unit, baseline y=210
+          Bar left-x / width=65 / right-x:
+            202411: x=90,  right=155,  center=122
+            202412: x=270, right=335, center=302
+            202501: x=450, right=515, center=482
+          Ribbon cx:
+            cx1=(155+270)/2=212   cx2=(335+450)/2=392
+
+          Stage y-spans (top,bottom) from bottom=210 upward:
+          202411 (total=42):
+            Dropped(0): —
+            Lost   (1): [207,210]
+            Won    (1): [204,207]
+            Solutioned(3): [195,204]
+            Qualified(11): [163,195]
+            Validated(21): [102,163]
+            Identified(5): [87,102]
+          202412 (total=50):
+            Dropped(1): [207,210]
+            Lost   (1): [204,207]
+            Won    (2): [198,204]
+            Solutioned(2): [192,198]
+            Qualified(12): [157,192]
+            Validated(23): [90,157]
+            Identified(9): [64,90]
+          202501 (total=55):
+            Dropped(1): [207,210]
+            Lost   (1): [204,207]
+            Won    (1): [201,204]
+            Solutioned(5): [186,201]
+            Qualified(11): [154,186]
+            Validated(24): [84,154]
+            Identified(12): [49,84]
+        -->
+        <svg width="100%" height="250" viewBox="0 0 600 250">
+          <!-- Y-axis -->
+          <line x1="60" y1="20" x2="60" y2="210" stroke="#E5E7EB" stroke-width="1"/>
+          <line x1="60" y1="20"  x2="560" y2="20"  stroke="#E5E7EB" stroke-dasharray="3,3"/>
+          <line x1="60" y1="62"  x2="560" y2="62"  stroke="#E5E7EB" stroke-dasharray="3,3"/>
+          <line x1="60" y1="104" x2="560" y2="104" stroke="#E5E7EB" stroke-dasharray="3,3"/>
+          <line x1="60" y1="146" x2="560" y2="146" stroke="#E5E7EB" stroke-dasharray="3,3"/>
+          <line x1="60" y1="210" x2="560" y2="210" stroke="#E5E7EB" stroke-width="1"/>
+          <text x="56" y="23"  text-anchor="end" font-size="9" fill="#6B7280">65</text>
+          <text x="56" y="65"  text-anchor="end" font-size="9" fill="#6B7280">49</text>
+          <text x="56" y="107" text-anchor="end" font-size="9" fill="#6B7280">32</text>
+          <text x="56" y="149" text-anchor="end" font-size="9" fill="#6B7280">16</text>
+          <text x="56" y="213" text-anchor="end" font-size="9" fill="#6B7280">0</text>
+
+          <!-- ── 리본 (일반 전환 먼저, bypass 마지막에) ── -->
+          <!-- ==== 202411→202501 일반 전환 ==== -->
+          <!-- Identified → Identified(stay,3): [87,96]→[64,73] -->
+          <path d="M 155,87 C 212,87 212,64 270,64 L 270,73 C 212,73 212,96 155,96 Z" fill="#93C4E8" opacity="0.35"/>
+          <!-- Identified → Validated(진행,2): [96,102]→[90,97] -->
+          <path d="M 155,96 C 212,96 212,90 270,90 L 270,97 C 212,97 212,102 155,102 Z" fill="#93C4E8" opacity="0.45"/>
+          <!-- Validated → Validated(stay,17): [102,150]→[97,138] -->
+          <path d="M 155,102 C 212,102 212,97 270,97 L 270,138 C 212,138 212,150 155,150 Z" fill="#6B9BD8" opacity="0.3"/>
+          <!-- Validated → Qualified(진행,3): [150,158]→[157,166] ↘ 아래 스테이지로 내려감 -->
+          <path d="M 155,150 C 212,150 212,157 270,157 L 270,166 C 212,166 212,158 155,158 Z" fill="#6B9BD8" opacity="0.45"/>
+          <!-- Qualified → Qualified(stay,8): [163,187]→[166,187] -->
+          <path d="M 155,163 C 212,163 212,166 270,166 L 270,187 C 212,187 212,187 155,187 Z" fill="#5BA85C" opacity="0.3"/>
+          <!-- Qualified → Solutioned(진행,2): [187,193]→[192,196] -->
+          <path d="M 155,187 C 212,187 212,192 270,192 L 270,196 C 212,196 212,193 155,193 Z" fill="#5BA85C" opacity="0.45"/>
+          <!-- Solutioned → Won(exit,2): [195,204]→[198,204] -->
+          <path d="M 155,195 C 212,195 212,198 270,198 L 270,204 C 212,204 212,204 155,204 Z" fill="#F4A460" opacity="0.5"/>
+
+          <!-- ==== 202412→202501 일반 전환 ==== -->
+          <!-- Identified → Identified(stay,6): [64,78]→[49,63] -->
+          <path d="M 335,64 C 392,64 392,49 450,49 L 450,63 C 392,63 392,78 335,78 Z" fill="#93C4E8" opacity="0.35"/>
+          <!-- Identified → Validated(진행,3): [78,90]→[84,93] -->
+          <path d="M 335,78 C 392,78 392,84 450,84 L 450,93 C 392,93 392,90 335,90 Z" fill="#93C4E8" opacity="0.45"/>
+          <!-- Validated → Validated(stay,18): [90,142]→[93,138] -->
+          <path d="M 335,90 C 392,90 392,93 450,93 L 450,138 C 392,138 392,142 335,142 Z" fill="#6B9BD8" opacity="0.3"/>
+          <!-- Validated → Qualified(진행,4): [142,152]→[154,165] ↘ -->
+          <path d="M 335,142 C 392,142 392,154 450,154 L 450,165 C 392,165 392,152 335,152 Z" fill="#6B9BD8" opacity="0.45"/>
+          <!-- Qualified → Qualified(stay,9): [157,183]→[165,183] -->
+          <path d="M 335,157 C 392,157 392,165 450,165 L 450,183 C 392,183 392,183 335,183 Z" fill="#5BA85C" opacity="0.3"/>
+          <!-- Qualified → Solutioned(진행,3): [183,192]→[186,196] -->
+          <path d="M 335,183 C 392,183 392,186 450,186 L 450,196 C 392,196 392,192 335,192 Z" fill="#5BA85C" opacity="0.45"/>
+          <!-- Solutioned → Won(exit,1): [192,198]→[201,204] -->
+          <path d="M 335,192 C 392,192 392,201 450,201 L 450,204 C 392,204 392,198 335,198 Z" fill="#F4A460" opacity="0.5"/>
+
+          <!-- ==== BYPASS 리본 (단계 건너뛰기 — 마지막에 그려 앞에 나타남) ==== -->
+          <!-- [202411→202412] Validated → Lost 직접 이탈 (Qualified 구간 가로지름!) -->
+          <path d="M 155,158 C 212,158 212,204 270,204 L 270,207 C 212,207 212,163 155,163 Z" fill="#E74C3C" opacity="0.65"/>
+          <text x="213" y="175" text-anchor="middle" font-size="8" font-weight="700" fill="#E74C3C">Lost↓</text>
+
+          <!-- [202411→202412] Qualified → Dropped 직접 이탈 (Solutioned 구간 가로지름!) -->
+          <path d="M 155,193 C 212,193 212,207 270,207 L 270,210 C 212,210 212,195 155,195 Z" fill="#9CA3AF" opacity="0.65"/>
+          <text x="213" y="202" text-anchor="middle" font-size="8" font-weight="700" fill="#777">Drop↓</text>
+
+          <!-- [202412→202501] Validated → Lost 직접 이탈 (Qualified 구간 가로지름!) -->
+          <path d="M 335,152 C 392,152 392,204 450,204 L 450,207 C 392,207 392,157 335,157 Z" fill="#E74C3C" opacity="0.65"/>
+          <text x="393" y="173" text-anchor="middle" font-size="8" font-weight="700" fill="#E74C3C">Lost↓</text>
+
+          <!-- [202412→202501] Solutioned → Dropped 직접 이탈 -->
+          <path d="M 335,198 C 392,198 392,207 450,207 L 450,210 C 392,210 392,198 335,198 Z" fill="#9CA3AF" opacity="0.55"/>
+
+          <!-- bypass 범례 -->
+          <text x="212" y="222" text-anchor="middle" font-size="8" fill="#E74C3C">▲ 단계 건너뛰기 (bypass)</text>
+
+          <!-- ── 202411 Stacked Bar ── -->
+          <rect x="90" y="207" width="65" height="3"  rx="1" fill="#E74C3C"/>
+          <rect x="90" y="204" width="65" height="3"  rx="1" fill="#27AE60"/>
+          <rect x="90" y="195" width="65" height="9"  rx="1" fill="#F4A460"/>
+          <rect x="90" y="163" width="65" height="32" rx="1" fill="#5BA85C"/>
+          <rect x="90" y="102" width="65" height="61" rx="1" fill="#6B9BD8"/>
+          <rect x="90" y="87"  width="65" height="15" rx="1" fill="#93C4E8"/>
+          <text x="122" y="82" text-anchor="middle" font-size="10" font-weight="700" fill="#1A1A1A">42건</text>
+          <text x="122" y="225" text-anchor="middle" font-size="10" font-weight="600" fill="#1A1A1A">202411</text>
+
+          <!-- ── 202412 Stacked Bar ── -->
+          <rect x="270" y="207" width="65" height="3"  rx="1" fill="#9CA3AF"/>
+          <rect x="270" y="204" width="65" height="3"  rx="1" fill="#E74C3C"/>
+          <rect x="270" y="198" width="65" height="6"  rx="1" fill="#27AE60"/>
+          <rect x="270" y="192" width="65" height="6"  rx="1" fill="#F4A460"/>
+          <rect x="270" y="157" width="65" height="35" rx="1" fill="#5BA85C"/>
+          <rect x="270" y="90"  width="65" height="67" rx="1" fill="#6B9BD8"/>
+          <rect x="270" y="64"  width="65" height="26" rx="1" fill="#93C4E8"/>
+          <text x="302" y="59" text-anchor="middle" font-size="10" font-weight="700" fill="#1A1A1A">50건</text>
+          <text x="302" y="225" text-anchor="middle" font-size="10" font-weight="600" fill="#1A1A1A">202412</text>
+
+          <!-- ── 202501 Stacked Bar ── -->
+          <rect x="450" y="207" width="65" height="3"  rx="1" fill="#9CA3AF"/>
+          <rect x="450" y="204" width="65" height="3"  rx="1" fill="#E74C3C"/>
+          <rect x="450" y="201" width="65" height="3"  rx="1" fill="#27AE60"/>
+          <rect x="450" y="186" width="65" height="15" rx="1" fill="#F4A460"/>
+          <rect x="450" y="154" width="65" height="32" rx="1" fill="#5BA85C"/>
+          <rect x="450" y="84"  width="65" height="70" rx="1" fill="#6B9BD8"/>
+          <rect x="450" y="49"  width="65" height="35" rx="1" fill="#93C4E8"/>
+          <text x="482" y="44" text-anchor="middle" font-size="10" font-weight="700" fill="#1A1A1A">55건</text>
+          <text x="482" y="225" text-anchor="middle" font-size="10" font-weight="600" fill="#1A1A1A">202501</text>
+
+          <!-- 스테이지 레이블 (1번 막대 왼쪽) -->
+          <text x="85" y="95"  text-anchor="end" font-size="9" fill="#93C4E8">Identified</text>
+          <text x="85" y="135" text-anchor="end" font-size="9" fill="#6B9BD8">Validated</text>
+          <text x="85" y="181" text-anchor="end" font-size="9" fill="#5BA85C">Qualified</text>
+          <text x="85" y="200" text-anchor="end" font-size="8" fill="#F4A460">Solutioned</text>
+          <text x="85" y="206" text-anchor="end" font-size="7" fill="#27AE60">Won</text>
+          <text x="85" y="210" text-anchor="end" font-size="7" fill="#E74C3C">Lost</text>
+          <text x="85" y="214" text-anchor="end" font-size="7" fill="#9CA3AF">Dropped</text>
+        </svg>
+      </div>
     </div>
 
   </div><!-- /content -->

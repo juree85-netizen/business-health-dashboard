@@ -9,14 +9,17 @@
 body { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; display:flex; height:100vh; background:#F5F7FA; font-size:12px; }
 
 /* ── Sidebar ── */
-.sidebar { width:180px; min-width:180px; background:#2B457A; color:#fff; display:flex; flex-direction:column; }
-.sidebar-logo { padding:18px 16px 14px; font-size:13px; font-weight:700; color:#fff; border-bottom:1px solid rgba(255,255,255,0.1); }
+.sidebar { width:200px; min-width:200px; background:#1E3079; color:#B8C6DB; display:flex; flex-direction:column; padding:0; }
+.sidebar-logo { padding:18px 16px 14px; font-size:13px; font-weight:700; color:#fff; border-bottom:1px solid rgba(255,255,255,0.08); }
 .sidebar-menu { flex:1; overflow-y:auto; padding:8px 0; }
-.nav-item { padding:13px 20px; font-size:13px; color:#fff; opacity:0.75; cursor:pointer; display:flex; align-items:center; gap:6px; }
-.nav-item:hover { opacity:1; background:rgba(255,255,255,0.08); }
-.nav-item.active { background:#1ECAD6; opacity:1; font-weight:600; }
-.nav-arrow { margin-left:auto; font-size:9px; opacity:0.6; }
-.nav-divider { height:1px; background:rgba(255,255,255,0.1); margin:4px 0; }
+.menu-item { padding:9px 16px; cursor:pointer; font-size:11.5px; color:#B8C6DB; display:flex; align-items:center; gap:6px; }
+.menu-item:hover { background:rgba(255,255,255,0.07); }
+.menu-item.active { background:#17B8B8; color:#fff; font-weight:600; border-radius:0 20px 20px 0; margin-right:8px; }
+.menu-item.parent { font-weight:600; color:#CBD8E8; }
+.menu-item.sub { padding-left:28px; font-size:11px; }
+.menu-item.sub2 { padding-left:40px; font-size:11px; }
+.menu-divider { height:1px; background:rgba(255,255,255,0.07); margin:6px 0; }
+.menu-arrow { margin-left:auto; font-size:9px; opacity:0.6; }
 
 /* ── Main ── */
 .main { flex:1; display:flex; flex-direction:column; overflow:hidden; }
@@ -89,17 +92,25 @@ svg text { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; }
 <div class="sidebar">
   <div class="sidebar-logo">&#128202; 사업건전성</div>
   <div class="sidebar-menu">
-    <div class="nav-item" onclick="window.location.href='bizunit_dashboard_wireframe.html'">사업부 대시보드</div>
-    <div class="nav-item active">사업건전성 현황</div>
-    <div class="nav-divider"></div>
-    <div class="nav-item" onclick="window.location.href='efficiency_profit_wireframe.html'">사업건전성 영역별 현황 <span class="nav-arrow">▼</span></div>
-    <div class="nav-divider"></div>
-    <div class="nav-item" onclick="window.location.href='customer_status_wireframe.html'">고객 현황</div>
-    <div class="nav-item">매출/원가 현황</div>
-    <div class="nav-divider"></div>
-    <div class="nav-item" onclick="window.location.href='indicator_info_wireframe.html'">지표 정보 <span class="nav-arrow">▼</span></div>
-    <div class="nav-divider"></div>
-    <div class="nav-item">로그아웃</div>
+    <div class="menu-item" onclick="window.location.href='bizunit_dashboard_wireframe.html'">사업부 대시보드</div>
+    <div class="menu-item active">사업건전성 현황</div>
+    <div class="menu-divider"></div>
+    <div class="menu-item parent">사업건전성 영역별 현황 <span class="menu-arrow">&#9662;</span></div>
+    <div class="menu-item sub parent">재무 <span class="menu-arrow">&#9662;</span></div>
+    <div class="menu-item sub2" onclick="window.location.href='efficiency_profit_wireframe.html'">효율/수익</div>
+    <div class="menu-item sub2" onclick="window.location.href='market_wireframe.html'">시장</div>
+    <div class="menu-item sub">성장</div>
+    <div class="menu-item sub" onclick="window.location.href='sales_main_wireframe.html'">영업</div>
+    <div class="menu-divider"></div>
+    <div class="menu-item" onclick="window.location.href='customer_status_wireframe.html'">고객 현황</div>
+    <div class="menu-item">매출/원가 현황</div>
+    <div class="menu-divider"></div>
+    <div class="menu-item parent">지표 정보 <span class="menu-arrow">&#9662;</span></div>
+    <div class="menu-item sub" onclick="window.location.href='indicator_info_wireframe.html'">지표</div>
+    <div class="menu-item sub">지표 테이블</div>
+    <div class="menu-item sub">지표 원천데이터</div>
+    <div class="menu-divider"></div>
+    <div class="menu-item">로그아웃</div>
   </div>
 </div>
 

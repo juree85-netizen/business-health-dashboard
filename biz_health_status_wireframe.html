@@ -13,8 +13,8 @@ body { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; display:flex; heig
 .sidebar-logo { padding:18px 16px 14px; font-size:13px; font-weight:700; color:#fff; border-bottom:1px solid rgba(255,255,255,0.12); }
 .sidebar-menu { flex:1; overflow-y:auto; padding:8px 0; }
 .nav-item { padding:12px 20px; font-size:12px; color:rgba(255,255,255,0.72); cursor:pointer; display:flex; align-items:center; gap:6px; line-height:1.4; }
-.nav-item:hover { opacity:1; background:rgba(255,255,255,0.09); color:#fff; }
-.nav-item.active { background:#1ECAD6; color:#fff; font-weight:700; opacity:1; }
+.nav-item:hover { background:rgba(255,255,255,0.09); color:#fff; }
+.nav-item.active { background:#1ECAD6; color:#fff; font-weight:700; }
 .nav-arrow { margin-left:auto; font-size:9px; opacity:0.6; }
 .nav-divider { height:1px; background:rgba(255,255,255,0.1); margin:5px 0; }
 
@@ -157,8 +157,8 @@ svg text { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; }
         <div class="kpi-label">Rule of 40</div>
         <div class="kpi-value neg">-2.6%</div>
         <div class="kpi-sub">
-          전분기: <span style="color:#E53935;font-weight:600;">4.5%</span><br>
-          &nbsp;
+          전분기 4.5% <span style="color:#E53935;">▼</span><br>
+          QoQ <span style="color:#E53935;font-weight:600;">-7.1%p</span>
         </div>
       </div>
 
@@ -205,52 +205,49 @@ svg text { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; }
           <div class="legend-item"><div class="leg-box" style="background:#6EA8FF;"></div> ARR</div>
           <div class="legend-item"><div class="leg-line" style="background:#F7931E;"></div> YoY Monthly Growth(%)</div>
         </div>
-        <!-- SVG ARR -->
+        <!-- SVG ARR: 좌축 0~350억, 우축 -10%~+15% -->
         <svg width="100%" viewBox="0 0 580 215" xmlns="http://www.w3.org/2000/svg">
-          <!-- Y축(좌) 그리드 -->
+          <!-- 좌축 -->
           <line x1="44" y1="20" x2="44" y2="195" stroke="#CBD5E0" stroke-width="1"/>
-          <line x1="44" y1="20" x2="540" y2="20" stroke="#E5E7EB" stroke-width="0.7" stroke-dasharray="3,3"/>
+          <line x1="44" y1="20"  x2="540" y2="20"  stroke="#E5E7EB" stroke-width="0.7" stroke-dasharray="3,3"/>
           <line x1="44" y1="103" x2="540" y2="103" stroke="#E5E7EB" stroke-width="0.7" stroke-dasharray="3,3"/>
           <line x1="44" y1="185" x2="540" y2="185" stroke="#E5E7EB" stroke-width="0.7"/>
-          <!-- 좌축 레이블 -->
-          <text x="40" y="23" text-anchor="end" font-size="9.5" fill="#A0A8B8">350억</text>
+          <text x="40" y="23"  text-anchor="end" font-size="9.5" fill="#A0A8B8">350억</text>
           <text x="40" y="106" text-anchor="end" font-size="9.5" fill="#A0A8B8">175억</text>
           <text x="40" y="188" text-anchor="end" font-size="9.5" fill="#A0A8B8">0억</text>
-          <!-- 우축 그리드 -->
+          <!-- 우축 -->
           <line x1="540" y1="20" x2="540" y2="195" stroke="#CBD5E0" stroke-width="1" stroke-dasharray="2,2"/>
-          <!-- 우축 레이블 -->
-          <text x="545" y="23" text-anchor="start" font-size="9.5" fill="#F7931E">+15%</text>
+          <text x="545" y="23"  text-anchor="start" font-size="9.5" fill="#F7931E">+15%</text>
           <text x="545" y="106" text-anchor="start" font-size="9.5" fill="#F7931E">0%</text>
           <text x="545" y="188" text-anchor="start" font-size="9.5" fill="#F7931E">-10%</text>
 
-          <!-- ARR 막대 (15개월 x간격 34px, 시작 cx=51) -->
-          <!-- bar_height = (val/350)*165, y=185-bar_height, barW=20 -->
-          <!-- 25.01=240 h=113.1 y=71.9 --> <rect x="41" y="72" width="20" height="113" fill="#6EA8FF" opacity="0.85"/>
-          <!-- 25.02=243 h=114.5 y=70.5 --> <rect x="75" y="71" width="20" height="114" fill="#6EA8FF" opacity="0.85"/>
-          <!-- 25.03=245 h=115.5 y=69.5 --> <rect x="109" y="70" width="20" height="115" fill="#6EA8FF" opacity="0.85"/>
-          <!-- 25.04=248 h=116.9 y=68.1 --> <rect x="143" y="68" width="20" height="117" fill="#6EA8FF" opacity="0.85"/>
-          <!-- 25.05=251 h=118.3 y=66.7 --> <rect x="177" y="67" width="20" height="118" fill="#6EA8FF" opacity="0.85"/>
-          <!-- 25.06=254 h=119.7 y=65.3 --> <rect x="211" y="65" width="20" height="120" fill="#6EA8FF" opacity="0.85"/>
-          <!-- 25.07=257 h=121.1 y=63.9 --> <rect x="245" y="64" width="20" height="121" fill="#6EA8FF" opacity="0.85"/>
-          <!-- 25.08=260 h=122.6 y=62.4 --> <rect x="279" y="62" width="20" height="123" fill="#6EA8FF" opacity="0.85"/>
-          <!-- 25.09=262 h=123.5 y=61.5 --> <rect x="313" y="62" width="20" height="123" fill="#6EA8FF" opacity="0.85"/>
-          <!-- 25.10=265 h=124.9 y=60.1 --> <rect x="347" y="60" width="20" height="125" fill="#6EA8FF" opacity="0.85"/>
-          <!-- 25.11=268 h=126.3 y=58.7 --> <rect x="381" y="59" width="20" height="126" fill="#6EA8FF" opacity="0.85"/>
-          <!-- 25.12=270 h=127.3 y=57.7 --> <rect x="415" y="58" width="20" height="127" fill="#6EA8FF" opacity="0.85"/>
-          <!-- 26.01=268 h=126.3 y=58.7 --> <rect x="449" y="59" width="20" height="126" fill="#6EA8FF" opacity="0.85"/>
-          <!-- 26.02=271 h=127.8 y=57.2 --> <rect x="483" y="57" width="20" height="128" fill="#6EA8FF" opacity="0.85"/>
-          <!-- 26.03=273 h=128.7 y=56.3 --> <rect x="517" y="56" width="20" height="129" fill="#6EA8FF" opacity="0.9"/>
+          <!-- ARR 막대 (bar_height=(val/350)*165, y=185-h, barW=20, x=41+i*34) -->
+          <rect x="41"  y="72" width="20" height="113" fill="#6EA8FF" opacity="0.85"/><!-- 240 -->
+          <rect x="75"  y="71" width="20" height="114" fill="#6EA8FF" opacity="0.85"/><!-- 243 -->
+          <rect x="109" y="70" width="20" height="115" fill="#6EA8FF" opacity="0.85"/><!-- 245 -->
+          <rect x="143" y="68" width="20" height="117" fill="#6EA8FF" opacity="0.85"/><!-- 248 -->
+          <rect x="177" y="67" width="20" height="118" fill="#6EA8FF" opacity="0.85"/><!-- 251 -->
+          <rect x="211" y="65" width="20" height="120" fill="#6EA8FF" opacity="0.85"/><!-- 254 -->
+          <rect x="245" y="64" width="20" height="121" fill="#6EA8FF" opacity="0.85"/><!-- 257 -->
+          <rect x="279" y="62" width="20" height="123" fill="#6EA8FF" opacity="0.85"/><!-- 260 -->
+          <rect x="313" y="62" width="20" height="123" fill="#6EA8FF" opacity="0.85"/><!-- 262 -->
+          <rect x="347" y="60" width="20" height="125" fill="#6EA8FF" opacity="0.85"/><!-- 265 -->
+          <rect x="381" y="59" width="20" height="126" fill="#6EA8FF" opacity="0.85"/><!-- 268 -->
+          <rect x="415" y="58" width="20" height="127" fill="#6EA8FF" opacity="0.85"/><!-- 270 -->
+          <rect x="449" y="59" width="20" height="126" fill="#6EA8FF" opacity="0.85"/><!-- 268 -->
+          <rect x="483" y="57" width="20" height="128" fill="#6EA8FF" opacity="0.85"/><!-- 271 -->
+          <rect x="517" y="56" width="20" height="129" fill="#6EA8FF" opacity="0.9"/><!-- 273 -->
 
-          <!-- YoY Growth 꺾은선 (우축 기준: +15%→y=20, 0%→y=103, -10%→y=185) -->
-          <polyline points="51,85 85,78 119,72 153,72 187,68 221,65 255,62 289,58 323,58 357,55 391,52 425,50 459,55 493,52 527,48"
+          <!-- YoY Growth 꺾은선 (우축: +15%→y=20, 0%→y=103, -10%→y=185, 1%=165/25=6.6px) -->
+          <!-- +7%→y=103-(7*6.6)=103-46=57, +9.7%→y=103-(9.7*6.6)=103-64=39 -->
+          <polyline points="51,57 85,50 119,44 153,44 187,40 221,37 255,34 289,30 323,30 357,27 391,24 425,22 459,27 493,24 527,20"
                     fill="none" stroke="#F7931E" stroke-width="1.8" stroke-linejoin="round"/>
-          <!-- 시작/끝 데이터 레이블 -->
-          <circle cx="51" cy="85" r="3" fill="#F7931E"/>
-          <text x="51" y="81" text-anchor="middle" font-size="9" fill="#F7931E">+7%</text>
-          <circle cx="527" cy="48" r="3" fill="#F7931E"/>
-          <text x="527" y="44" text-anchor="middle" font-size="9" fill="#F7931E">+9.7%</text>
+          <circle cx="51" cy="57" r="3" fill="#F7931E"/>
+          <text x="51" y="53" text-anchor="middle" font-size="9" fill="#F7931E">+7%</text>
+          <circle cx="527" cy="20" r="3" fill="#F7931E"/>
+          <text x="527" y="16" text-anchor="middle" font-size="9" fill="#F7931E">+9.7%</text>
 
-          <!-- X축 레이블 (일부 표기) -->
+          <!-- X축 레이블 -->
           <text x="51"  y="207" text-anchor="middle" font-size="9" fill="#A0A8B8">25.01</text>
           <text x="119" y="207" text-anchor="middle" font-size="9" fill="#A0A8B8">25.03</text>
           <text x="221" y="207" text-anchor="middle" font-size="9" fill="#A0A8B8">25.06</text>
@@ -262,6 +259,7 @@ svg text { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; }
       </div>
 
       <!-- ══════ 차트 2: ACV (우상) ══════ -->
+      <!-- #1 수정: YoY 시작값 -2% → -25.1% (bizunit 사업부 대시보드 기준) -->
       <div class="chart-card">
         <div class="chart-card-head">
           <span class="c-title">ACV</span>
@@ -279,49 +277,48 @@ svg text { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; }
           <div class="legend-item"><div class="leg-box" style="background:#6EA8FF;"></div> ACV</div>
           <div class="legend-item"><div class="leg-line" style="background:#F7931E;"></div> YoY Monthly Growth(%)</div>
         </div>
-        <!-- SVG ACV -->
+        <!-- SVG ACV: 좌축 0~300억, 우축 0%~-30% -->
+        <!-- 우축: 0%→y=20, -15%→y=103, -30%→y=185, 1%=165/30=5.5px -->
+        <!-- -25.1%→y=20+25.1*5.5=158, -16%→y=20+16*5.5=108 -->
         <svg width="100%" viewBox="0 0 580 215" xmlns="http://www.w3.org/2000/svg">
-          <!-- 그리드 -->
           <line x1="44" y1="20" x2="44" y2="195" stroke="#CBD5E0" stroke-width="1"/>
-          <line x1="44" y1="20" x2="540" y2="20" stroke="#E5E7EB" stroke-width="0.7" stroke-dasharray="3,3"/>
+          <line x1="44" y1="20"  x2="540" y2="20"  stroke="#E5E7EB" stroke-width="0.7" stroke-dasharray="3,3"/>
           <line x1="44" y1="103" x2="540" y2="103" stroke="#E5E7EB" stroke-width="0.7" stroke-dasharray="3,3"/>
           <line x1="44" y1="185" x2="540" y2="185" stroke="#E5E7EB" stroke-width="0.7"/>
-          <!-- 좌축 -->
-          <text x="40" y="23" text-anchor="end" font-size="9.5" fill="#A0A8B8">300억</text>
+          <text x="40" y="23"  text-anchor="end" font-size="9.5" fill="#A0A8B8">300억</text>
           <text x="40" y="106" text-anchor="end" font-size="9.5" fill="#A0A8B8">150억</text>
           <text x="40" y="188" text-anchor="end" font-size="9.5" fill="#A0A8B8">0억</text>
-          <!-- 우축 -->
           <line x1="540" y1="20" x2="540" y2="195" stroke="#CBD5E0" stroke-width="1" stroke-dasharray="2,2"/>
-          <text x="545" y="23" text-anchor="start" font-size="9.5" fill="#F7931E">0%</text>
+          <text x="545" y="23"  text-anchor="start" font-size="9.5" fill="#F7931E">0%</text>
           <text x="545" y="106" text-anchor="start" font-size="9.5" fill="#F7931E">-15%</text>
           <text x="545" y="188" text-anchor="start" font-size="9.5" fill="#F7931E">-30%</text>
 
-          <!-- ACV 막대 (bar_height=(val/300)*165, y=185-bar_height, barW=20) -->
-          <!-- 25.01=275 h=151.3 y=33.7 --> <rect x="41"  y="34"  width="20" height="151" fill="#6EA8FF" opacity="0.85"/>
-          <!-- 25.02=271 h=149.1 y=35.9 --> <rect x="75"  y="36"  width="20" height="149" fill="#6EA8FF" opacity="0.85"/>
-          <!-- 25.03=268 h=147.4 y=37.6 --> <rect x="109" y="38"  width="20" height="147" fill="#6EA8FF" opacity="0.85"/>
-          <!-- 25.04=262 h=144.1 y=40.9 --> <rect x="143" y="41"  width="20" height="144" fill="#6EA8FF" opacity="0.85"/>
-          <!-- 25.05=258 h=141.9 y=43.1 --> <rect x="177" y="43"  width="20" height="142" fill="#6EA8FF" opacity="0.85"/>
-          <!-- 25.06=253 h=139.2 y=45.8 --> <rect x="211" y="46"  width="20" height="139" fill="#6EA8FF" opacity="0.85"/>
-          <!-- 25.07=249 h=136.9 y=48.1 --> <rect x="245" y="48"  width="20" height="137" fill="#6EA8FF" opacity="0.85"/>
-          <!-- 25.08=244 h=134.2 y=50.8 --> <rect x="279" y="51"  width="20" height="134" fill="#6EA8FF" opacity="0.85"/>
-          <!-- 25.09=240 h=132.0 y=53.0 --> <rect x="313" y="53"  width="20" height="132" fill="#6EA8FF" opacity="0.85"/>
-          <!-- 25.10=237 h=130.4 y=54.6 --> <rect x="347" y="55"  width="20" height="130" fill="#6EA8FF" opacity="0.85"/>
-          <!-- 25.11=233 h=128.2 y=56.8 --> <rect x="381" y="57"  width="20" height="128" fill="#6EA8FF" opacity="0.85"/>
-          <!-- 25.12=230 h=126.5 y=58.5 --> <rect x="415" y="59"  width="20" height="127" fill="#6EA8FF" opacity="0.85"/>
-          <!-- 26.01=232 h=127.6 y=57.4 --> <rect x="449" y="57"  width="20" height="128" fill="#6EA8FF" opacity="0.85"/>
-          <!-- 26.02=229 h=125.9 y=59.1 --> <rect x="483" y="59"  width="20" height="126" fill="#6EA8FF" opacity="0.85"/>
-          <!-- 26.03=227 h=124.9 y=60.1 --> <rect x="517" y="60"  width="20" height="125" fill="#6EA8FF" opacity="0.9"/>
+          <!-- ACV 막대 (bar_height=(val/300)*165, y=185-h, barW=20) -->
+          <rect x="41"  y="34"  width="20" height="151" fill="#6EA8FF" opacity="0.85"/><!-- 275 -->
+          <rect x="75"  y="36"  width="20" height="149" fill="#6EA8FF" opacity="0.85"/><!-- 271 -->
+          <rect x="109" y="38"  width="20" height="147" fill="#6EA8FF" opacity="0.85"/><!-- 268 -->
+          <rect x="143" y="41"  width="20" height="144" fill="#6EA8FF" opacity="0.85"/><!-- 262 -->
+          <rect x="177" y="43"  width="20" height="142" fill="#6EA8FF" opacity="0.85"/><!-- 258 -->
+          <rect x="211" y="46"  width="20" height="139" fill="#6EA8FF" opacity="0.85"/><!-- 253 -->
+          <rect x="245" y="48"  width="20" height="137" fill="#6EA8FF" opacity="0.85"/><!-- 249 -->
+          <rect x="279" y="51"  width="20" height="134" fill="#6EA8FF" opacity="0.85"/><!-- 244 -->
+          <rect x="313" y="53"  width="20" height="132" fill="#6EA8FF" opacity="0.85"/><!-- 240 -->
+          <rect x="347" y="55"  width="20" height="130" fill="#6EA8FF" opacity="0.85"/><!-- 237 -->
+          <rect x="381" y="57"  width="20" height="128" fill="#6EA8FF" opacity="0.85"/><!-- 233 -->
+          <rect x="415" y="59"  width="20" height="127" fill="#6EA8FF" opacity="0.85"/><!-- 230 -->
+          <rect x="449" y="57"  width="20" height="128" fill="#6EA8FF" opacity="0.85"/><!-- 232 -->
+          <rect x="483" y="59"  width="20" height="126" fill="#6EA8FF" opacity="0.85"/><!-- 229 -->
+          <rect x="517" y="60"  width="20" height="125" fill="#6EA8FF" opacity="0.9"/><!-- 227 -->
 
-          <!-- YoY Growth 꺾은선 (우축: 0%→y=20, -15%→y=103, -30%→y=185) -->
-          <polyline points="51,43 85,49 119,55 153,60 187,67 221,73 255,78 289,85 323,90 357,93 391,98 425,103 459,97 493,101 527,106"
+          <!-- YoY Growth 꺾은선: -25.1%→y=158 ~ -16%→y=108 (점진 개선) -->
+          <polyline points="51,158 85,152 119,147 153,141 187,136 221,133 255,127 289,122 323,119 357,116 391,114 425,112 459,111 493,109 527,108"
                     fill="none" stroke="#F7931E" stroke-width="1.8" stroke-linejoin="round"/>
-          <circle cx="51" cy="43" r="3" fill="#F7931E"/>
-          <text x="51" y="38" text-anchor="middle" font-size="9" fill="#F7931E">-2%</text>
-          <circle cx="527" cy="106" r="3" fill="#F7931E"/>
-          <text x="527" y="119" text-anchor="middle" font-size="9" fill="#F7931E">-16%</text>
+          <circle cx="51" cy="158" r="3" fill="#F7931E"/>
+          <text x="68" y="163" font-size="9" fill="#F7931E">-25.1%</text>
+          <circle cx="527" cy="108" r="3" fill="#F7931E"/>
+          <text x="527" y="121" text-anchor="middle" font-size="9" fill="#F7931E">-16%</text>
 
-          <!-- X축 레이블 -->
+          <!-- X축 -->
           <text x="51"  y="207" text-anchor="middle" font-size="9" fill="#A0A8B8">25.01</text>
           <text x="119" y="207" text-anchor="middle" font-size="9" fill="#A0A8B8">25.03</text>
           <text x="221" y="207" text-anchor="middle" font-size="9" fill="#A0A8B8">25.06</text>
@@ -330,6 +327,7 @@ svg text { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; }
           <text x="493" y="207" text-anchor="middle" font-size="9" fill="#A0A8B8">26.02</text>
           <text x="527" y="207" text-anchor="middle" font-size="9" fill="#354052" font-weight="700">26.03</text>
         </svg>
+        <!-- #7 수정: insight 유지 (Revenue 카드에도 동일 추가로 레이아웃 균형) -->
         <div class="insight">&#9658; ARR ↑ · ACV ↓: 고객수 증가 vs. 계약 단가 하락 추세</div>
       </div>
 
@@ -357,41 +355,35 @@ svg text { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; }
           <div class="legend-item"><div class="leg-line" style="background:#F7931E;"></div> % Growth</div>
         </div>
         <!-- SVG Customers Stacked Bar + Line -->
+        <!-- 좌축: 0~400개, zero-line y=155 -->
+        <!-- bar_unit=0.3375px per 1명, Existing기준 y=155-h_exist, New 위에 적층 -->
+        <!-- #6 수정: 첫/마지막 막대 총계 레이블 추가로 New 시각적 맥락 제공 -->
         <svg width="100%" viewBox="0 0 580 215" xmlns="http://www.w3.org/2000/svg">
-          <!-- 기준선 (zero line) y=148 → 전체 400 중 0 위치 -->
-          <!-- 좌축: 0~400, 그리드 기준: 400→y=20, 200→y=103, 0→y=185 -->
-          <!-- Churn은 0 아래로 내려가므로 zero-line=y=185 -->
           <line x1="44" y1="20"  x2="44"  y2="195" stroke="#CBD5E0" stroke-width="1"/>
           <line x1="44" y1="20"  x2="540" y2="20"  stroke="#E5E7EB" stroke-width="0.7" stroke-dasharray="3,3"/>
           <line x1="44" y1="103" x2="540" y2="103" stroke="#E5E7EB" stroke-width="0.7" stroke-dasharray="3,3"/>
           <line x1="44" y1="155" x2="540" y2="155" stroke="#CBD5E0" stroke-width="1"/>
           <line x1="44" y1="185" x2="540" y2="185" stroke="#E5E7EB" stroke-width="0.7"/>
-          <!-- 좌축 레이블 -->
           <text x="40" y="23"  text-anchor="end" font-size="9.5" fill="#A0A8B8">400</text>
           <text x="40" y="106" text-anchor="end" font-size="9.5" fill="#A0A8B8">200</text>
           <text x="40" y="158" text-anchor="end" font-size="9.5" fill="#A0A8B8">0</text>
-          <!-- zero-line 텍스트 -->
           <text x="545" y="158" text-anchor="start" font-size="9.5" fill="#A0A8B8">0</text>
-          <!-- 우축 라인 -->
           <line x1="540" y1="20" x2="540" y2="195" stroke="#CBD5E0" stroke-width="1" stroke-dasharray="2,2"/>
           <text x="545" y="23"  text-anchor="start" font-size="9.5" fill="#F7931E">20%</text>
           <text x="545" y="106" text-anchor="start" font-size="9.5" fill="#F7931E">10%</text>
 
-          <!-- Stacked Bars (15개월 x=41+i*34, zero-base y=155) -->
-          <!-- bar_unit = (1/400)*135 = 0.3375px per 1명 -->
-          <!-- zero line y=155. Existing from y=155-h_exist, New from y=existing_top-h_new, Churn below y=155 -->
-
-          <!-- 25.01: E=255, N=22, C=12 -->
-          <rect x="41"  y="69"  width="18" height="86" fill="#A8C9FF"/><!-- Existing: 255*0.3375=86 y=155-86=69 -->
-          <rect x="41"  y="62"  width="18" height="7"  fill="#6EA8FF"/><!-- New: 22*0.3375≈7 -->
-          <rect x="41"  y="155" width="18" height="4"  fill="#CCCCCC"/><!-- Churn: 12*0.3375≈4 -->
+          <!-- 25.01: E=255,N=22,C=12 / total=277 -->
+          <rect x="41"  y="69"  width="18" height="86" fill="#A8C9FF"/>
+          <rect x="41"  y="62"  width="18" height="7"  fill="#6EA8FF"/>
+          <rect x="41"  y="155" width="18" height="4"  fill="#CCCCCC"/>
+          <text x="50"  y="58"  text-anchor="middle" font-size="9" font-weight="700" fill="#354052">277</text>
 
           <!-- 25.02 -->
           <rect x="75"  y="70"  width="18" height="85" fill="#A8C9FF"/>
           <rect x="75"  y="64"  width="18" height="6"  fill="#6EA8FF"/>
           <rect x="75"  y="155" width="18" height="4"  fill="#CCCCCC"/>
 
-          <!-- 25.03: E=255,N=22,C=12 -->
+          <!-- 25.03 -->
           <rect x="109" y="69"  width="18" height="86" fill="#A8C9FF"/>
           <rect x="109" y="62"  width="18" height="7"  fill="#6EA8FF"/>
           <rect x="109" y="155" width="18" height="4"  fill="#CCCCCC"/>
@@ -451,12 +443,12 @@ svg text { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; }
           <rect x="483" y="63"  width="18" height="2"  fill="#6EA8FF"/>
           <rect x="483" y="155" width="18" height="3"  fill="#CCCCCC"/>
 
-          <!-- 26.03: E=272,N=15,C=0 -->
-          <rect x="517" y="63"  width="18" height="92" fill="#A8C9FF" opacity="1"/>
-          <rect x="517" y="58"  width="18" height="5"  fill="#6EA8FF" opacity="1"/>
+          <!-- 26.03: E=272,N=15,C=0 / total=287 -->
+          <rect x="517" y="63"  width="18" height="92" fill="#A8C9FF"/>
+          <rect x="517" y="58"  width="18" height="5"  fill="#6EA8FF"/>
+          <text x="526" y="54"  text-anchor="middle" font-size="9" font-weight="700" fill="#354052">287</text>
 
-          <!-- % Growth 꺾은선 (우축: 20%→y=20, 10%→y=103, 0%→y=185 → 1.4%는 y≈185-13≈172) -->
-          <!-- 평탄하게 y=168~172 수준 -->
+          <!-- % Growth 꺾은선 (우축: 20%→y=20, 10%→y=103, 0%→y=185, 1.4%≈y=173) -->
           <polyline points="51,170 85,170 119,170 153,171 187,171 221,171 255,171 289,171 323,170 357,170 391,170 425,170 459,170 493,171 527,172"
                     fill="none" stroke="#F7931E" stroke-width="1.8" stroke-linejoin="round"/>
           <circle cx="51" cy="170" r="3" fill="#F7931E"/>
@@ -476,30 +468,31 @@ svg text { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; }
       </div>
 
       <!-- ══════ 차트 4: Revenue & Profit (우하) ══════ -->
+      <!-- 수정: 우축 40%→60%, OP 25.01~25.03 음수 반영, 흑자전환 마커 ▲, viewBox 205→215 -->
+      <!-- 우축: 60%→y=20, 30%→y=82, 0%→y=144, -20%→y=185 (80% range, 1%=2.0625px) -->
       <div class="chart-card">
         <div class="chart-card-head" style="align-items:flex-start;">
           <div>
             <span class="c-title">Revenue &amp; Profit</span>
           </div>
           <div class="c-spacer"></div>
-          <!-- 3-col inline KPI -->
           <div class="c-kpi-row" style="min-width:260px;">
             <div class="c-kpi-col">
               <span class="c-kpi-col-label">Revenue</span>
               <span class="c-kpi-col-val">35.4억</span>
-              <span class="c-kpi-col-delta pos">+3.8억</span>
+              <span class="c-kpi-col-delta pos" style="color:#24A148;">+3.8억</span>
               <span class="c-kpi-col-period">vs YoY Monthly</span>
             </div>
             <div class="c-kpi-col">
               <span class="c-kpi-col-label">Gross Margin</span>
               <span class="c-kpi-col-val">33.6%</span>
-              <span class="c-kpi-col-delta neg">-17.6%</span>
+              <span class="c-kpi-col-delta neg" style="color:#E53935;">-17.6%p</span>
               <span class="c-kpi-col-period">vs YoY Monthly</span>
             </div>
             <div class="c-kpi-col">
               <span class="c-kpi-col-label">Operating Profit</span>
               <span class="c-kpi-col-val">6.7%</span>
-              <span class="c-kpi-col-delta pos">+7.8%</span>
+              <span class="c-kpi-col-delta pos" style="color:#24A148;">+7.8%p</span>
               <span class="c-kpi-col-period">vs YoY Monthly</span>
             </div>
           </div>
@@ -509,72 +502,82 @@ svg text { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; }
           <div class="legend-item"><div class="leg-line" style="background:#F7931E;"></div> Gross Margin</div>
           <div class="legend-item"><div class="leg-line" style="background:#9B7EFF;"></div> Operating Profit</div>
         </div>
-        <!-- SVG Revenue & Profit (viewBox 580×205) -->
-        <svg width="100%" viewBox="0 0 580 205" xmlns="http://www.w3.org/2000/svg">
-          <!-- 그리드 (좌축: 0~60억, y: 60억→y=20, 30억→y=103, 0억→y=185) -->
+        <svg width="100%" viewBox="0 0 580 215" xmlns="http://www.w3.org/2000/svg">
+          <!-- 좌축 그리드 (Revenue 막대): 0~60억 -->
           <line x1="44" y1="20"  x2="44"  y2="195" stroke="#CBD5E0" stroke-width="1"/>
           <line x1="44" y1="20"  x2="540" y2="20"  stroke="#E5E7EB" stroke-width="0.7" stroke-dasharray="3,3"/>
           <line x1="44" y1="103" x2="540" y2="103" stroke="#E5E7EB" stroke-width="0.7" stroke-dasharray="3,3"/>
           <line x1="44" y1="185" x2="540" y2="185" stroke="#E5E7EB" stroke-width="0.7"/>
+          <!-- 우축 0% 기준선 (y=144) — 흑자전환 기준 -->
+          <line x1="44" y1="144" x2="540" y2="144" stroke="#94A3B8" stroke-width="0.8" stroke-dasharray="4,3" opacity="0.6"/>
           <!-- 좌축 레이블 -->
           <text x="40" y="23"  text-anchor="end" font-size="9.5" fill="#A0A8B8">60억</text>
           <text x="40" y="106" text-anchor="end" font-size="9.5" fill="#A0A8B8">30억</text>
           <text x="40" y="188" text-anchor="end" font-size="9.5" fill="#A0A8B8">0억</text>
-          <!-- 우축 -->
+          <!-- 우축 레이블: 60%/30%/0%/-20% -->
           <line x1="540" y1="20" x2="540" y2="195" stroke="#CBD5E0" stroke-width="1" stroke-dasharray="2,2"/>
-          <!-- 우축 Y: 40%→y=20, 0%→y=90, -20%→y=185 (총범위60%, 165px) -->
-          <text x="545" y="23"  text-anchor="start" font-size="9.5" fill="#F7931E">40%</text>
-          <text x="545" y="93"  text-anchor="start" font-size="9.5" fill="#F7931E">0%</text>
-          <text x="545" y="188" text-anchor="start" font-size="9.5" fill="#F7931E">-20%</text>
+          <text x="545" y="23"  text-anchor="start" font-size="9.5" fill="#F7931E">60%</text>
+          <text x="545" y="85"  text-anchor="start" font-size="9.5" fill="#F7931E">30%</text>
+          <text x="545" y="147" text-anchor="start" font-size="9.5" fill="#9B7EFF">0%</text>
+          <text x="545" y="188" text-anchor="start" font-size="9.5" fill="#9B7EFF">-20%</text>
 
-          <!-- Revenue 막대 (bar_height=(val/60)*160, y=185-bar_height, barW=20) -->
-          <!-- 25.01=24 h=64 y=121 --> <rect x="41"  y="121" width="18" height="64"  fill="#6EA8FF" opacity="0.85"/>
-          <!-- 25.02=25 h=66.7 y=118.3 --> <rect x="75"  y="118" width="18" height="67"  fill="#6EA8FF" opacity="0.85"/>
-          <!-- 25.03=26 h=69.3 y=115.7 --> <rect x="109" y="116" width="18" height="69"  fill="#6EA8FF" opacity="0.85"/>
-          <!-- 25.04=28 h=74.7 y=110.3 --> <rect x="143" y="110" width="18" height="75"  fill="#6EA8FF" opacity="0.85"/>
-          <!-- 25.05=30 h=80 y=105 --> <rect x="177" y="105" width="18" height="80"  fill="#6EA8FF" opacity="0.85"/>
-          <!-- 25.06=31 h=82.7 y=102.3 --> <rect x="211" y="102" width="18" height="83"  fill="#6EA8FF" opacity="0.85"/>
-          <!-- 25.07=32 h=85.3 y=99.7 --> <rect x="245" y="100" width="18" height="85"  fill="#6EA8FF" opacity="0.85"/>
-          <!-- 25.08=33 h=88 y=97 --> <rect x="279" y="97"  width="18" height="88"  fill="#6EA8FF" opacity="0.85"/>
-          <!-- 25.09=33 h=88 y=97 --> <rect x="313" y="97"  width="18" height="88"  fill="#6EA8FF" opacity="0.85"/>
-          <!-- 25.10=34 h=90.7 y=94.3 --> <rect x="347" y="94"  width="18" height="91"  fill="#6EA8FF" opacity="0.85"/>
-          <!-- 25.11=34 h=90.7 y=94.3 --> <rect x="381" y="94"  width="18" height="91"  fill="#6EA8FF" opacity="0.85"/>
-          <!-- 25.12=35 h=93.3 y=91.7 --> <rect x="415" y="92"  width="18" height="93"  fill="#6EA8FF" opacity="0.85"/>
-          <!-- 26.01=34 h=90.7 y=94.3 --> <rect x="449" y="94"  width="18" height="91"  fill="#6EA8FF" opacity="0.85"/>
-          <!-- 26.02=35 h=93.3 y=91.7 --> <rect x="483" y="92"  width="18" height="93"  fill="#6EA8FF" opacity="0.85"/>
-          <!-- 26.03=35 h=93.3 y=91.7 --> <rect x="517" y="92"  width="18" height="93"  fill="#6EA8FF" opacity="0.9"/>
+          <!-- Revenue 막대 (bar_height=(val/60)*160, y=185-h, barW=18) -->
+          <rect x="41"  y="121" width="18" height="64"  fill="#6EA8FF" opacity="0.85"/><!-- 24억 -->
+          <rect x="75"  y="118" width="18" height="67"  fill="#6EA8FF" opacity="0.85"/><!-- 25억 -->
+          <rect x="109" y="116" width="18" height="69"  fill="#6EA8FF" opacity="0.85"/><!-- 26억 -->
+          <rect x="143" y="110" width="18" height="75"  fill="#6EA8FF" opacity="0.85"/><!-- 28억 -->
+          <rect x="177" y="105" width="18" height="80"  fill="#6EA8FF" opacity="0.85"/><!-- 30억 -->
+          <rect x="211" y="102" width="18" height="83"  fill="#6EA8FF" opacity="0.85"/><!-- 31억 -->
+          <rect x="245" y="100" width="18" height="85"  fill="#6EA8FF" opacity="0.85"/><!-- 32억 -->
+          <rect x="279" y="97"  width="18" height="88"  fill="#6EA8FF" opacity="0.85"/><!-- 33억 -->
+          <rect x="313" y="97"  width="18" height="88"  fill="#6EA8FF" opacity="0.85"/><!-- 33억 -->
+          <rect x="347" y="94"  width="18" height="91"  fill="#6EA8FF" opacity="0.85"/><!-- 34억 -->
+          <rect x="381" y="94"  width="18" height="91"  fill="#6EA8FF" opacity="0.85"/><!-- 34억 -->
+          <rect x="415" y="92"  width="18" height="93"  fill="#6EA8FF" opacity="0.85"/><!-- 35억 -->
+          <rect x="449" y="94"  width="18" height="91"  fill="#6EA8FF" opacity="0.85"/><!-- 34억 -->
+          <rect x="483" y="92"  width="18" height="93"  fill="#6EA8FF" opacity="0.85"/><!-- 35억 -->
+          <rect x="517" y="92"  width="18" height="93"  fill="#6EA8FF" opacity="0.9"/><!-- 35억 -->
 
-          <!-- 흑자전환 마커 (25.04 x=152) -->
-          <line x1="152" y1="25" x2="152" y2="185" stroke="#E53935" stroke-width="1" stroke-dasharray="4,3" opacity="0.6"/>
-          <polygon points="152,55 148,62 156,62" fill="#E53935" opacity="0.8"/>
-          <text x="155" y="51" font-size="8.5" fill="#E53935">흑자전환</text>
-          <text x="155" y="61" font-size="8.5" fill="#E53935">('25.04)</text>
+          <!-- #8 수정: Revenue 막대 시작/끝 레이블 추가 -->
+          <text x="50"  y="117" text-anchor="middle" font-size="9" fill="#6EA8FF" font-weight="600">24억</text>
+          <text x="526" y="88"  text-anchor="middle" font-size="9" fill="#6EA8FF" font-weight="600">35.4억</text>
 
-          <!-- Gross Margin 꺾은선 (우축: 40%→y=20, 0%→y=90, -20%→y=185) -->
-          <!-- 25.01~25.03: 50~51% (→y 범위 초과이므로 클리핑 없이 표현, ~y=14) -->
-          <!-- 25.04 이후 33~34% → 0%→y=90, 40%→y=20, 즉 1%=1.65px, 33%→y=90-(33*1.65)=90-54.5=35.5≈36 -->
-          <polyline points="51,14 85,14 119,17 153,36 187,37 221,37 255,38 289,38 323,38 357,38 391,38 425,38 459,37 493,38 527,36"
+          <!-- #4 수정: 흑자전환 마커 ▲ (▼→▲, 녹색, 0%선 y=144 위치) -->
+          <line x1="152" y1="22" x2="152" y2="183" stroke="#24A148" stroke-width="1" stroke-dasharray="3,3" opacity="0.7"/>
+          <polygon points="152,137 147,144 157,144" fill="#24A148" opacity="0.9"/>
+          <text x="156" y="132" font-size="8.5" fill="#24A148" font-weight="600">흑자전환</text>
+          <text x="156" y="141" font-size="8.5" fill="#24A148">('25.04)</text>
+
+          <!-- #3 수정: Gross Margin 꺾은선 (우축 60%→y=20, 0%→y=144, -20%→y=185) -->
+          <!-- 1%=2.0625px, y=20+(60-val)*2.0625 -->
+          <!-- 51%→y=39, 34%→y=74, 33.6%→y=75 -->
+          <polyline points="51,39 85,39 119,39 153,74 187,76 221,76 255,76 289,76 323,76 357,76 391,76 425,76 459,75 493,75 527,75"
                     fill="none" stroke="#F7931E" stroke-width="1.8" stroke-linejoin="round"/>
-          <circle cx="51" cy="14" r="3" fill="#F7931E"/>
-          <text x="51" y="11" text-anchor="middle" font-size="9" fill="#F7931E">51%</text>
-          <circle cx="527" cy="36" r="3" fill="#F7931E"/>
-          <text x="527" y="32" text-anchor="middle" font-size="9" fill="#F7931E">33.6%</text>
+          <circle cx="51" cy="39" r="3" fill="#F7931E"/>
+          <text x="51" y="35" text-anchor="middle" font-size="9" fill="#F7931E">51%</text>
+          <circle cx="527" cy="75" r="3" fill="#F7931E"/>
+          <text x="527" y="71" text-anchor="middle" font-size="9" fill="#F7931E">33.6%</text>
 
-          <!-- Operating Profit 꺾은선 (보라, ~6~8% → y=90-(7*1.65)=90-11.5=78.5≈79) -->
-          <polyline points="51,79 85,79 119,79 153,79 187,78 221,78 255,78 289,77 323,77 357,77 391,77 425,77 459,78 493,77 527,77"
-                    fill="none" stroke="#9B7EFF" stroke-width="1.8" stroke-linejoin="round" stroke-dasharray="0"/>
-          <circle cx="527" cy="77" r="3" fill="#9B7EFF"/>
-          <text x="527" y="73" text-anchor="middle" font-size="9" fill="#9B7EFF">6.7%</text>
+          <!-- #2 수정: Operating Profit 꺾은선 — 25.01~25.03 음수 반영 -->
+          <!-- -8%→y=160, -6%→y=156, -3%→y=150, 0%→y=144, 3%→y=138, 6%→y=131, 6.7%→y=130 -->
+          <polyline points="51,160 85,156 119,150 153,144 187,138 221,136 255,133 289,132 323,131 357,131 391,130 425,130 459,130 493,130 527,130"
+                    fill="none" stroke="#9B7EFF" stroke-width="1.8" stroke-linejoin="round"/>
+          <circle cx="51" cy="160" r="3" fill="#9B7EFF"/>
+          <text x="51" y="170" text-anchor="middle" font-size="9" fill="#9B7EFF">-8%</text>
+          <circle cx="527" cy="130" r="3" fill="#9B7EFF"/>
+          <text x="527" y="126" text-anchor="middle" font-size="9" fill="#9B7EFF">6.7%</text>
 
           <!-- X축 레이블 -->
-          <text x="51"  y="198" text-anchor="middle" font-size="9" fill="#A0A8B8">25.01</text>
-          <text x="119" y="198" text-anchor="middle" font-size="9" fill="#A0A8B8">25.03</text>
-          <text x="221" y="198" text-anchor="middle" font-size="9" fill="#A0A8B8">25.06</text>
-          <text x="323" y="198" text-anchor="middle" font-size="9" fill="#A0A8B8">25.09</text>
-          <text x="425" y="198" text-anchor="middle" font-size="9" fill="#A0A8B8">25.12</text>
-          <text x="493" y="198" text-anchor="middle" font-size="9" fill="#A0A8B8">26.02</text>
-          <text x="527" y="198" text-anchor="middle" font-size="9" fill="#354052" font-weight="700">26.03</text>
+          <text x="51"  y="207" text-anchor="middle" font-size="9" fill="#A0A8B8">25.01</text>
+          <text x="119" y="207" text-anchor="middle" font-size="9" fill="#A0A8B8">25.03</text>
+          <text x="221" y="207" text-anchor="middle" font-size="9" fill="#A0A8B8">25.06</text>
+          <text x="323" y="207" text-anchor="middle" font-size="9" fill="#A0A8B8">25.09</text>
+          <text x="425" y="207" text-anchor="middle" font-size="9" fill="#A0A8B8">25.12</text>
+          <text x="493" y="207" text-anchor="middle" font-size="9" fill="#A0A8B8">26.02</text>
+          <text x="527" y="207" text-anchor="middle" font-size="9" fill="#354052" font-weight="700">26.03</text>
         </svg>
+        <!-- #7 수정: ACV와 동일 위치에 insight 추가 → 카드 높이 균형 -->
+        <div class="insight">&#9658; Gross Margin 급락 후 안정화: 흑자전환('25.04) 이후 OP 6~7% 유지</div>
       </div>
 
     </div><!-- /chart-grid -->

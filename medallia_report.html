@@ -53,7 +53,7 @@
     border-left: 3px solid #555;
   }
 
-  /* 챕터 번호 */
+  /* 챕터 */
   .chapter {
     margin-bottom: 32px;
   }
@@ -64,9 +64,6 @@
     margin-bottom: 14px;
     padding-bottom: 6px;
     border-bottom: 1px solid #ccc;
-  }
-  .chapter-title .num {
-    margin-right: 4px;
   }
 
   /* □ 항목 */
@@ -96,6 +93,7 @@
     position: absolute;
     left: 0;
   }
+
   /* 2단계 bullet */
   ul.dot {
     list-style: none;
@@ -150,10 +148,10 @@
     background: #f7f7f7;
   }
   table.report td.center { text-align: center; }
-  table.report td.right { text-align: right; }
   table.report td.bold { font-weight: 700; }
   table.report td.red { color: #c0392b; font-weight: 700; }
   table.report td.highlight { background: #fff3cd !important; }
+  table.report td.blue-bg { background: #eef4ff !important; }
 
   /* 강조 박스 */
   .callout {
@@ -225,27 +223,27 @@
 
   <!-- 문서 헤더 -->
   <div class="doc-header">
-    <div class="doc-title">Medallia 사례 분석: SaaS 기업 평가 기준 및 AI 시대 시사점</div>
+    <div class="doc-title">Medallia 사례 분석 및 사업건전성 대시보드 운영 방향</div>
     <div class="doc-date">'26.5.6&nbsp;&nbsp;솔루션사업부 기획팀</div>
   </div>
 
   <div class="doc-lead">
-    Thoma Bravo의 Medallia 투자 손실($5B) 사례를 중심으로 SaaS 기업의 올바른 평가 기준(Rule of 40 / FCF / NRR)을 살펴보고,
-    AI 시대 소프트웨어 기업에 대한 시장의 반응과 향후 예상 방향을 분석함
+    Thoma Bravo의 Medallia 투자 손실($5B) 사례를 통해 SaaS 기업의 올바른 평가 기준(Rule of 40 / FCF / NRR)을
+    살펴보고, 이를 우리 사업건전성 대시보드 운영에 어떻게 연결할지 방향을 제시함
   </div>
 
 
   <!-- 1. Medallia 개요 -->
   <div class="chapter">
-    <div class="chapter-title"><span class="num">1.</span> Medallia 개요</div>
+    <div class="chapter-title">1. Medallia 개요</div>
 
     <div class="item">
       <div class="item-head">기업 현황</div>
       <ul class="dash">
         <li>설립 2001년, 미국 샌프란시스코 소재 CX(고객경험) 관리 플랫폼 전문 기업</li>
         <li>주요 오퍼링: 고객 피드백 수집·분석, NPS(고객순추천지수) 측정, 직원경험(EX) 플랫폼, 옴니채널 고객 인텔리전스</li>
-        <li>주요 고객군: 금융, 항공, 호텔, 통신 등 글로벌 대기업 (Fortune 500 다수 포함)</li>
-        <li>2019년 NYSE 상장 (티커: MDLA) → 2021년 Thoma Bravo 인수 후 상장 폐지</li>
+        <li>주요 고객군: 금융, 항공, 호텔, 통신 등 글로벌 대기업(Fortune 500 다수 포함)</li>
+        <li>2019년 NYSE 상장(티커: MDLA) → 2021년 Thoma Bravo 인수 후 상장 폐지</li>
       </ul>
     </div>
 
@@ -253,11 +251,7 @@
       <div class="item-head">재무 현황 요약 (비상장 전환 후)</div>
       <table class="report">
         <thead>
-          <tr>
-            <th>항목</th>
-            <th>내용</th>
-            <th>비고</th>
-          </tr>
+          <tr><th>항목</th><th>내용</th><th>비고</th></tr>
         </thead>
         <tbody>
           <tr>
@@ -278,7 +272,7 @@
           <tr>
             <td>연간 이자비용</td>
             <td class="center red">약 $300M</td>
-            <td class="highlight">이자 > EBITDA → 구조적 적자</td>
+            <td class="highlight">이자 &gt; EBITDA → 구조적 적자</td>
           </tr>
           <tr>
             <td>인수 Valuation</td>
@@ -292,7 +286,7 @@
 
     <div class="arrow-item">
       <span class="arr">→</span>
-      <span>상세 기업 프로필(설립 이력, 제품 구성, 경쟁사 비교)은 <strong>별첨</strong> 참조</span>
+      <span>상세 기업 프로필(설립 이력·제품 구성·경쟁사 비교)은 <strong>별첨</strong> 참조</span>
     </div>
   </div>
 
@@ -300,21 +294,18 @@
 
   <!-- 2. 인수/투자 History -->
   <div class="chapter">
-    <div class="chapter-title"><span class="num">2.</span> Medallia 인수·투자 History</div>
+    <div class="chapter-title">2. Medallia 인수·투자 History</div>
 
     <div class="item">
       <div class="item-head">주요 투자 이력</div>
       <table class="report">
         <thead>
-          <tr>
-            <th style="width:80px">시기</th>
-            <th>주요 내용</th>
-          </tr>
+          <tr><th style="width:80px">시기</th><th>주요 내용</th></tr>
         </thead>
         <tbody>
           <tr>
             <td class="center bold">'01년</td>
-            <td>미국 샌프란시스코에서 설립. CX 피드백 관리 솔루션으로 시작</td>
+            <td>미국 샌프란시스코에서 설립. CX 피드백 관리 솔루션으로 시장 진입</td>
           </tr>
           <tr>
             <td class="center bold">'15~'18년</td>
@@ -322,7 +313,7 @@
           </tr>
           <tr>
             <td class="center bold">'19년</td>
-            <td>NYSE 상장 (티커: MDLA). IPO 공모가 $18 → 이후 주가 $30~40대 형성</td>
+            <td>NYSE 상장(티커: MDLA). IPO 공모가 $18 → 상장 후 $30~40대 형성</td>
           </tr>
           <tr>
             <td class="center bold">'21년</td>
@@ -335,7 +326,7 @@
           <tr>
             <td class="center bold">'22~'23년</td>
             <td>
-              美 연준 금리 인상 (→ SOFR 5.4%)으로 이자부담 급증<br>
+              美 연준 금리 인상(→ SOFR 5.4%)으로 이자부담 급증<br>
               · 연이자 $135M → $300M으로 2배 이상 급등<br>
               · PIK(현물이자) 조항 전환으로 부채 원금 $1.8B → $2.8B 누적
             </td>
@@ -370,17 +361,17 @@
 
   <!-- 3. 현재 상황 분석 -->
   <div class="chapter">
-    <div class="chapter-title"><span class="num">3.</span> 현재 Thoma Bravo / Medallia 상황 분석</div>
+    <div class="chapter-title">3. 현재 Thoma Bravo / Medallia 상황 분석</div>
 
     <div class="item">
       <div class="item-head">경영권 이전 구조</div>
       <ul class="dash">
-        <li>TB의 지분(에쿼티) → 채권단으로 이전 (Debt-to-Equity Swap)</li>
+        <li>TB의 에쿼티 지분 → 채권단으로 이전(Debt-to-Equity Swap)</li>
         <li>Blackstone 등 기존 대출자가 실질적 최대주주로 전환</li>
         <li>기존 TB 에쿼티 투자자: 투자 원금 $5B 전액 손실 확정</li>
       </ul>
-      <ul class="dot">
-        <li>현재 투자자 구성: Blackstone 주도 채권단 (대주주), TB(지분 소멸), 기타 민간 신용 펀드</li>
+      <ul class="dot" style="padding-left:16px; margin-top:4px">
+        <li>현재 투자자 구성: Blackstone 주도 채권단(대주주), TB(지분 소멸), 기타 민간 신용 펀드</li>
       </ul>
     </div>
 
@@ -388,19 +379,16 @@
       <div class="item-head">구조적 실패 요인 진단</div>
       <table class="report">
         <thead>
-          <tr>
-            <th>실패 요인</th>
-            <th>내용</th>
-          </tr>
+          <tr><th style="width:160px">실패 요인</th><th>내용</th></tr>
         </thead>
         <tbody>
           <tr>
             <td class="bold">① 부채구조 취약성</td>
-            <td>변동금리 대출 → 금리 인상으로 이자 $135M → $300M. PIK 이자 누적으로 원금 자체가 $1B 이상 불어남</td>
+            <td>변동금리 대출 → 금리 인상으로 이자 $135M → $300M. PIK 이자 누적으로 원금 자체가 $1B 이상 증가</td>
           </tr>
           <tr>
             <td class="bold">② 성장률 과대 추정</td>
-            <td>인수 당시 고성장 지속을 전제한 9배 밸류에이션. 실제로는 성장 정체 + AI 경쟁 심화로 사업 기반 약화</td>
+            <td>인수 당시 고성장 지속 전제로 매출 9배 밸류에이션. 실제로는 성장 정체 + AI 경쟁 심화로 사업 기반 약화</td>
           </tr>
           <tr>
             <td class="bold">③ 출구 경로 차단</td>
@@ -422,107 +410,89 @@
         <li><strong>민간 신용 시장:</strong> 부실 소프트웨어 대출 관련 손실 본격 가시화</li>
         <li><strong>소프트웨어 M&amp;A 시장:</strong> PE 참여 매물 급증 예상, 바이어 협상력 강화</li>
       </ul>
-      <p class="footnote">OnlyCFO 분석: "향후 2년간 2021년 저금리 시대에 9~10배 이상 배수로 인수된 소프트웨어 기업 상당수가 동일한 구조적 문제에 직면할 것"</p>
+      <p class="footnote">2021년 저금리 시대에 9~10배 이상 배수로 인수된 소프트웨어 기업 상당수가 동일한 구조적 문제에 직면할 것으로 전망 (OnlyCFO, 2026.5.1)</p>
     </div>
   </div>
 
   <hr class="divider">
 
-  <!-- 4. 시장 반응 및 향후 방향 -->
+  <!-- 4. 사업건전성 대시보드 운영 방향 -->
   <div class="chapter">
-    <div class="chapter-title"><span class="num">4.</span> 시장 반응 및 향후 예상 방향</div>
+    <div class="chapter-title">4. 사업건전성 대시보드 운영 방향</div>
 
     <div class="item">
-      <div class="item-head">S/W에 투자한 PE의 투자 여력 한계</div>
+      <div class="item-head">Medallia 사례의 핵심 교훈</div>
       <ul class="dash">
-        <li>Medallia 사례는 2021년 초저금리·고밸류에이션 시대 PE 소프트웨어 LBO의 구조적 모순을 단적으로 노출</li>
-        <li>향후 PE의 소프트웨어 투자 기준 변화 예상
-          <ul class="dot">
-            <li>과거: 성장률 중심 밸류에이션, 변동금리 레버리지 극대화</li>
-            <li>향후: FCF 실질 창출력 검증, 고정금리 조달, 보수적 레버리지 적용</li>
-          </ul>
-        </li>
-        <li>2021~2022년 유사 구조 인수 기업 중 상당수가 '26~'27년 만기 도래 → 연쇄 부실화 가능성</li>
+        <li>매출 외형(성장률)만 보면 안 됨 → 수익성과의 균형(Rule of 40)이 지속 가능성의 기준</li>
+        <li>영업이익보다 실질 현금 흐름(FCF)이 기업 생존을 결정 → 이자·부채 상환 후 남는 현금이 핵심</li>
+        <li>신규 고객 유치보다 기존 고객 유지·확장(NRR)이 사업의 근본 건전성을 반영</li>
       </ul>
-      <p class="footnote">민간 신용(Private Credit) 시장 내 소프트웨어 대출 잔액 약 $2.5T. 밸류에이션을 인위적으로 유지하다 순차적으로 손실이 현실화되는 패턴 반복 경고</p>
+
+      <div class="callout key" style="margin-top:10px">
+        <strong>사업부장님 메시지 핵심</strong><br>
+        "SaaS 기업의 평가 기준을 <strong>Rule of 40 / FCF / NRR</strong>로 해야 하는 이유를 보여주는 사례"<br>
+        → 우리 사업건전성 대시보드가 관리해야 할 지표의 방향을 명확히 제시
+      </div>
     </div>
 
     <div class="item">
-      <div class="item-head">SaaS 기업 평가 기준의 재정립: Rule of 40 / FCF / NRR</div>
-
-      <div class="callout key">
-        사업부장님 메시지 핵심: <strong>"SaaS 기업의 평가 기준을 Rule of 40, FCF, NRR로 해야 하는 이유를 보여주는 사례"</strong><br>
-        → Medallia는 세 지표 모두에서 사전에 경고 신호가 있었음에도 고배수 인수가 이루어진 반면교사(反面敎師)
-      </div>
-
-      <table class="report" style="margin-top:12px">
+      <div class="item-head">SaaS 3대 평가 지표와 대시보드 연계 방향</div>
+      <table class="report">
         <thead>
           <tr>
-            <th>지표</th>
-            <th>정의</th>
-            <th>Medallia 관점</th>
+            <th style="width:120px">지표</th>
+            <th style="width:220px">정의</th>
+            <th>대시보드 연계 방향</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td class="bold center">Rule of 40</td>
-            <td>매출성장률 + 영업이익률 ≥ 40%<br>성장과 수익의 균형을 한 수치로 측정</td>
-            <td>성장률 둔화 + 이자 과부담으로 Rule of 40 지속 악화<br>→ 인수 후 급격히 40 이하로 하락</td>
+            <td>매출성장률 + 영업이익률 ≥ 40%<br>성장과 수익의 균형을 단일 수치로 측정</td>
+            <td>현재 관리 중인 성장/효율수익 지표를 Rule of 40 관점으로 재해석·통합 표시<br>· 12개 상품별 Rule of 40 수치를 메인 화면에 노출</td>
           </tr>
           <tr>
             <td class="bold center">FCF<br>(잉여현금흐름)</td>
-            <td>영업활동 현금흐름 – 설비투자<br>부채 상환·이자 납부 후 실질 현금 창출력</td>
-            <td>이자 $300M 납부 후 FCF 마이너스<br>→ 혁신 투자 불가, 생존 자체가 목표</td>
+            <td>영업 현금흐름 – 설비투자<br>실질 현금 창출 능력 측정</td>
+            <td>매출 계약 금액 외 실현 매출·비용 구조 추적 체계 반영<br>· 현재 효율수익 지표의 Margin 항목과 연결</td>
           </tr>
           <tr>
             <td class="bold center">NRR<br>(순매출유지율)</td>
-            <td>기존 고객의 확장·유지·이탈을 반영한 매출 지속성 지표<br>(100% 이상 = 기존 고객에서 성장)</td>
-            <td>AI 경쟁 심화로 신규 투자 없이 경쟁사에 고객 이탈<br>→ NRR 하락으로 매출 기반 약화</td>
+            <td>기존 고객의 갱신·확장·이탈을 반영한 매출 지속성 지표<br>(100% 이상 = 기존 고객에서 순성장)</td>
+            <td>VoC 지표의 이탈·불만 신호를 NRR 조기 경보로 활용<br>· 고객사별 갱신율·해지율 트렌드 시각화</td>
           </tr>
         </tbody>
       </table>
-
-      <div class="arrow-item" style="margin-top:10px">
-        <span class="arr">→</span>
-        <span>세 지표 중 어느 하나라도 악화되면 SaaS 기업의 지속 가능성에 의문이 생기며, 레버리지 환경에서는 이 악화가 기하급수적으로 증폭됨</span>
-      </div>
+      <p class="footnote">현재 대시보드에서 관리 중인 효율/수익·VoC·고객사 현황 지표가 각각 Rule of 40 / FCF / NRR의 구성 요소에 대응됨</p>
     </div>
 
     <div class="item">
-      <div class="item-head">AI·SaaSocalypse 관점에서의 예상 파급효과</div>
+      <div class="item-head">운영 우선순위 제언</div>
       <ul class="dash">
-        <li><strong>(AI 대체 위협)</strong> Medallia의 핵심 기능(고객 피드백 수집·분석)은 LLM 기반 AI가 직접 대체 가능한 영역
+        <li><strong>(지표 재구성)</strong> 현재 각 탭에 분산된 지표를 Rule of 40 / NRR 관점으로 묶어 경영진이 한눈에 읽을 수 있도록 재배치
           <ul class="dot">
-            <li>Alap Shah 분석: 에이전틱 AI가 6~7개월마다 자율 작업 가능 시간을 2배씩 확장 → 2028년 중반 1개월 분량 자율 작업 예상</li>
-            <li>AI가 CX 관리 플랫폼 수요 자체를 잠식할 가능성 → NRR 지속 하락 압력</li>
+            <li>성장+수익 동시 악화 상품을 최우선 모니터링 대상으로 분류</li>
+            <li>VoC 개선리드타임·지연건수를 NRR 선행지표로 연결</li>
           </ul>
         </li>
-        <li><strong>(AI 반발 역풍)</strong> AI 활용을 공격적으로 밀어붙이는 기업도 사회적 저항에 직면
+        <li><strong>(조기 경보 기준)</strong> 임계값(Threshold) 기반 알람 체계 설계
           <ul class="dot">
-            <li>Gary Marcus 분석: Gen Z 근로자 44%가 "회사의 AI 전략을 최소 한 가지 방식으로 저항하고 있다"고 응답</li>
-            <li>AI 반발이 소비자 운동('QuitGPT')·정치 의제화(2028년 대선)로 확산 조짐</li>
+            <li>예시: Rule of 40 &lt; 20 지속 2분기, NRR &lt; 90% 도달 시 즉시 리뷰 트리거</li>
+            <li>임계값은 사업부 협의 후 12개 상품별 특성에 맞게 차등 적용</li>
           </ul>
         </li>
-        <li><strong>(딜레마 구조)</strong> SaaS 기업이 직면한 이중 압박
+        <li><strong>(보고 체계)</strong> 분기 1회 Rule of 40 / NRR 트렌드 리뷰를 사업부장 보고 아이템으로 정례화
           <ul class="dot">
-            <li>AI를 활용하지 않으면 경쟁력 상실 → 고객 이탈, NRR 하락</li>
-            <li>AI를 무리하게 추진하면 사회적·조직적 반발 → 내부 실행 저항</li>
+            <li>Medallia 사례처럼 "성장률 낙관" 오류를 사전에 차단하는 데이터 기반 의사결정 구조 확립</li>
           </ul>
         </li>
+        <li><strong>(상품 우선순위)</strong> 구독형 SaaS 상품에 NRR 집중 관리, 신규 도입 상품은 FCF 흑자 전환 시점을 KPI로 명시</li>
       </ul>
     </div>
 
-    <div class="item">
-      <div class="item-head">화이트칼라 고용 위기와 B2B SaaS 수요 전망</div>
-      <ul class="dash">
-        <li>Alap Shah: 정보 산업 고용 이미 최고치 대비 -8% 하락, 2020년 수준 이하로 후퇴</li>
-        <li>화이트칼라 고용 감소 → 기업의 SaaS 라이선스·좌석 수(Seat) 축소 → NRR 하락 직격</li>
-        <li>동시에, 고용 감소를 AI로 대응하는 기업의 증가 → AI Native 솔루션으로 시장 재편</li>
-      </ul>
-      <div class="arrow-item">
-        <span class="arr">→</span>
-        <span>기존 SaaS 모델(좌석 기반 과금)의 수익 기반 약화 불가피. Rule of 40 / FCF / NRR 지표 관리가 생존의 기본 조건으로 부상</span>
-      </div>
+    <div class="arrow-item" style="margin-top:4px">
+      <span class="arr">→</span>
+      <span>사업건전성 대시보드는 단순 현황 집계를 넘어, Medallia 사례와 같은 <strong>구조적 위험 신호를 사전에 감지하는 조기 경보 시스템</strong>으로 발전시키는 것이 목표</span>
     </div>
   </div>
 
@@ -540,8 +510,8 @@
           <tr><td class="bold">설립자</td><td>Borge Hald, Amy Pressman</td></tr>
           <tr><td class="bold">본사</td><td>San Francisco, CA</td></tr>
           <tr><td class="bold">사업 영역</td><td>CX(고객경험) 관리 플랫폼, EX(직원경험), 고객 피드백 분석</td></tr>
-          <tr><td class="bold">주요 경쟁사</td><td>Qualtrics (SAP 계열), NICE Satmetrix, Salesforce, Sprinklr</td></tr>
-          <tr><td class="bold">IPO</td><td>2019년 NYSE 상장 (MDLA) → 2021년 Thoma Bravo 인수로 상장 폐지</td></tr>
+          <tr><td class="bold">주요 경쟁사</td><td>Qualtrics(SAP 계열), NICE Satmetrix, Salesforce, Sprinklr</td></tr>
+          <tr><td class="bold">상장 이력</td><td>2019년 NYSE 상장(MDLA) → 2021년 Thoma Bravo 인수로 상장 폐지</td></tr>
           <tr><td class="bold">현재 상태</td><td>채권단(Blackstone 등) 관리하 구조조정 중 (2026년)</td></tr>
         </tbody>
       </table>
@@ -550,29 +520,30 @@
     <div class="item">
       <div class="item-head">Thoma Bravo 소개</div>
       <ul class="dash">
-        <li>미국 샌프란시스코 / 시카고 소재 사모펀드(PE), 소프트웨어·기술 기업 전문 투자</li>
-        <li>운용자산(AUM): 약 $1,500억 (2024년 기준), 대표 투자: SolarWinds, Sophos, Proofpoint 등</li>
-        <li>Medallia 외에도 다수의 소프트웨어 LBO 진행 → 금리 인상기 유사 리스크 노출</li>
+        <li>미국 샌프란시스코/시카고 소재 사모펀드(PE), 소프트웨어·기술 기업 전문 투자사</li>
+        <li>운용자산(AUM): 약 $1,500억(2024년 기준), 대표 투자: SolarWinds, Sophos, Proofpoint 등</li>
+        <li>Medallia 외에도 다수 소프트웨어 LBO 진행 → 금리 인상기 유사 리스크 노출</li>
       </ul>
     </div>
 
     <div class="item">
-      <div class="item-head">인수 실패의 구조적 요약</div>
+      <div class="item-head">인수 실패 메커니즘 요약</div>
       <div class="callout">
         <strong>부채 시한폭탄 메커니즘</strong><br>
-        인수 시 변동금리 $1.8B 조달 (LIBOR 0.75%) → 연준 인상으로 SOFR 5.4% 도달 →
-        연이자 $135M → $300M 급등 → PIK 이자 누적으로 원금 $2.8B →
-        EBITDA $200M으로 이자조차 충당 불가 → 채무불이행(Default) → 경영권 상실
+        인수 시 변동금리 $1.8B 조달 (LIBOR 0.75%)
+        → 연준 인상으로 SOFR 5.4% 도달
+        → 연이자 $135M → $300M 급등
+        → PIK 이자 누적으로 원금 $2.8B
+        → EBITDA $200M으로 이자조차 충당 불가
+        → 채무불이행(Default) → 경영권 상실
       </div>
       <p class="footnote">PIK(Payment-In-Kind): 현금 대신 부채를 추가로 쌓는 방식으로 이자를 납부하는 조항. 부채 원금 자체를 기하급수적으로 증가시키는 구조</p>
     </div>
 
     <div class="item">
-      <div class="item-head">참고 기사 출처</div>
+      <div class="item-head">참고 기사</div>
       <ul class="dash">
         <li>OnlyCFO, "Thoma Bravo's $5B Medallia Loss | The PE Reckoning is Coming..." (2026.5.1)</li>
-        <li>Alap Shah, "The Global Intelligence Crisis" (2026.2.22)</li>
-        <li>Gary Marcus, "The Growing AI Backlash" (2026.5.4)</li>
       </ul>
     </div>
   </div>

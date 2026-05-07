@@ -1,1236 +1,563 @@
-<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>보고서 문서 디자인 스펙 가이드 (Word 기준)</title><style>@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>보고서 문서 디자인 스펙 가이드 (Word 기준)</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
- * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Batang', 'BatangChe', '바탕', '바탕체', 'Gungsuh', Georgia, serif;
+    font-size: 14px;
+    line-height: 1.85;
+    color: #000;
+    background: #d8d8d8;
+    padding: 32px 0 60px;
+  }
 
- body {
- font-family: 'Noto Sans KR', '맑은 고딕', sans-serif;
- font-size: 13.5px;
- line-height: 1.8;
- color: #111;
- background: #e8e8e8;
- padding: 32px 0 60px;
- }
+  /* ── A4 페이지 ── */
+  .doc-page {
+    width: 794px;
+    min-height: 1122px;
+    margin: 0 auto 28px auto;
+    background: #fff;
+    padding: 64px 56px 72px 56px;   /* 상25mm / 좌우20mm / 하25mm */
+    box-shadow: 0 3px 12px rgba(0,0,0,0.18);
+    position: relative;
+  }
 
- .page {
- width: 880px;
- margin: 0 auto 28px;
- background: #fff;
- border-radius: 4px;
- box-shadow: 0 3px 14px rgba(0,0,0,0.13);
- overflow: hidden;
- }
+  /* ── 문서 헤더 ── */
+  .doc-hd-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    letter-spacing: -0.2px;
+  }
+  .doc-hd-bar {
+    border-top: 2.5px solid #000;
+    border-bottom: 1px solid #000;
+  }
+  .doc-hd-meta {
+    font-size: 13px;
+    text-align: right;
+    padding: 3px 0;
+    color: #222;
+  }
+  .page-badge {
+    font-size: 11px;
+    font-weight: 500;
+    color: #fff;
+    background: #555;
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-left: 10px;
+    vertical-align: middle;
+    letter-spacing: 0.8px;
+  }
 
- /* ── 커버 ── */
- .cover {
- background: #1c2b4a;
- color: #fff;
- padding: 44px 60px 38px;
- }
- .cover-eyebrow {
- font-size: 11px;
- font-weight: 500;
- letter-spacing: 2.5px;
- color: #7a99cc;
- text-transform: uppercase;
- margin-bottom: 10px;
- }
- .cover-title {
- font-size: 26px;
- font-weight: 700;
- margin-bottom: 6px;
- letter-spacing: -0.5px;
- }
- .cover-sub {
- font-size: 13px;
- color: #8aa8d0;
- line-height: 1.7;
- margin-bottom: 24px;
- }
- .cover-pills {
- display: flex;
- gap: 8px;
- flex-wrap: wrap;
- }
- .pill {
- font-size: 11.5px;
- font-weight: 600;
- padding: 4px 12px;
- border-radius: 20px;
- border: 1px solid;
- }
- .pill-blue { border-color: #4477cc; color: #88bbff; }
- .pill-green { border-color: #338855; color: #66cc99; }
- .pill-gold { border-color: #886622; color: #ffcc66; }
+  /* ── 제목 (20pt Bold Underline Center) ── */
+  .pv-title {
+    font-size: 20px;
+    font-weight: 700;
+    text-decoration: underline;
+    text-align: center;
+    margin: 22px 0 6px 0;
+    line-height: 1.4;
+    letter-spacing: -0.5px;
+  }
 
- /* ── 목차 ── */
- .toc-page { padding: 36px 60px 40px; }
- .toc-title {
- font-size: 13px;
- font-weight: 700;
- letter-spacing: 1.5px;
- color: #889;
- text-transform: uppercase;
- margin-bottom: 18px;
- }
- .toc-grid {
- display: grid;
- grid-template-columns: 1fr 1fr;
- gap: 8px 24px;
- }
- .toc-item {
- display: flex;
- align-items: center;
- gap: 10px;
- padding: 8px 12px;
- border-radius: 6px;
- border: 1px solid #e8ecf4;
- font-size: 13px;
- color: #334;
- }
- .toc-num {
- display: inline-flex;
- align-items: center;
- justify-content: center;
- width: 22px;
- height: 22px;
- border-radius: 50%;
- background: #1c2b4a;
- color: #fff;
- font-size: 11px;
- font-weight: 700;
- flex-shrink: 0;
- }
+  /* ── 보고 날짜 (14pt Regular Right) ── */
+  .pv-date {
+    font-size: 14px;
+    text-align: right;
+    margin-bottom: 8px;
+  }
 
- /* ── 섹션 ── */
- .body { padding: 44px 60px 40px; }
- .section { margin-bottom: 44px; }
- .section:last-child { margin-bottom: 0; }
+  /* ── 요약 문단: 1행 3열 표, 중간 셀 테두리 없음 ── */
+  .summary-tbl {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 4px 0 20px 0;
+  }
+  .summary-tbl .s-pad  { border: none; width: 3%; }
+  .summary-tbl .s-main {
+    border: 1px solid #000;
+    padding: 9px 14px;
+    font-size: 14px;
+    line-height: 1.85;
+    text-align: left;
+  }
 
- .section-hd {
- font-size: 17px;
- font-weight: 700;
- color: #1c2b4a;
- margin-bottom: 20px;
- padding-bottom: 10px;
- border-bottom: 2.5px solid #1c2b4a;
- display: flex;
- align-items: center;
- gap: 10px;
- }
- .sec-num {
- display: inline-flex;
- align-items: center;
- justify-content: center;
- width: 26px; height: 26px;
- border-radius: 50%;
- background: #1c2b4a;
- color: #fff;
- font-size: 12px;
- font-weight: 700;
- flex-shrink: 0;
- }
- .sub-hd {
- font-size: 13.5px;
- font-weight: 700;
- color: #1c2b4a;
- margin: 22px 0 10px;
- padding-left: 10px;
- border-left: 3px solid #4477cc;
- }
+  /* ── 목차 행 ── */
+  .toc-lv1 {
+    font-size: 14px;
+    font-weight: 700;
+    margin: 7px 0 2px 0;
+    padding-bottom: 4px;
+    border-bottom: 1px dotted #ccc;
+  }
+  .toc-lv2 {
+    font-size: 13px;
+    margin: 2px 0;
+    padding-left: 1em;
+    color: #333;
+  }
+  .toc-lv2::before { content: '□ '; }
 
- /* ── 스펙 테이블 ── */
- .spec-tbl {
- width: 100%;
- border-collapse: collapse;
- font-size: 13px;
- }
- .spec-tbl thead th {
- background: #1c2b4a;
- color: #fff;
- font-weight: 600;
- padding: 9px 14px;
- text-align: left;
- border: 1px solid #1c2b4a;
- font-size: 12.5px;
- letter-spacing: 0.3px;
- }
- .spec-tbl tbody td {
- padding: 9px 14px;
- border: 1px solid #dde3ef;
- color: #222;
- vertical-align: top;
- line-height: 1.6;
- }
- .spec-tbl tbody tr:nth-child(even) td { background: #f7f9fc; }
- .spec-tbl .lbl {
- font-weight: 600;
- color: #334;
- background: #f0f4fa !important;
- white-space: nowrap;
- }
- .spec-tbl .val-main {
- font-weight: 700;
- color: #1c2b4a;
- }
+  /* ── Lv1 소제목 (14pt Bold) ── */
+  .lv1 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-top: 18px;
+    margin-bottom: 12px;
+    line-height: 1.7;
+  }
+  .lv1-first { margin-top: 4px; }
 
- /* ── 배지 ── */
- .badge {
- display: inline-block;
- font-size: 11px;
- font-weight: 700;
- padding: 2px 8px;
- border-radius: 3px;
- letter-spacing: 0.2px;
- white-space: nowrap;
- }
- .bd-blue { background: #e4eaff; color: #1c3a99; }
- .bd-red { background: #ffeaea; color: #aa2222; }
- .bd-green { background: #e4f5ea; color: #1a6e38; }
- .bd-gold { background: #fff5d6; color: #7a5200; }
- .bd-gray { background: #ebebeb; color: #444; }
- .bd-navy { background: #1c2b4a; color: #fff; }
+  /* ── Lv2 □ (14pt, 공백 1칸, 뒤 16pt) ── */
+  .lv2 {
+    font-size: 14px;
+    margin-bottom: 16px;
+    line-height: 1.8;
+  }
 
- /* ── Word 메뉴 경로 ── */
- .menu-path {
- display: inline-flex;
- align-items: center;
- gap: 3px;
- font-size: 11.5px;
- font-family: 'Consolas', monospace;
- background: #f4f4f4;
- border: 1px solid #ccc;
- border-radius: 4px;
- padding: 2px 8px;
- color: #333;
- }
- .menu-path .sep { color: #aaa; margin: 0 1px; }
+  /* ── Lv3 - (14pt, 공백 3칸, 뒤 16pt) ── */
+  .lv3 {
+    font-size: 14px;
+    margin-bottom: 16px;
+    line-height: 1.8;
+  }
 
- /* ── 설정값 블록 ── */
- .setting-block {
- background: #f7f9fc;
- border: 1px solid #dde3ef;
- border-radius: 6px;
- padding: 16px 20px;
- font-size: 13px;
- line-height: 1.9;
- }
- .setting-row {
- display: flex;
- gap: 0;
- padding: 4px 0;
- border-bottom: 1px dashed #e4e8f0;
- align-items: baseline;
- }
- .setting-row:last-child { border-bottom: none; }
- .sr-key {
- min-width: 170px;
- color: #556;
- font-size: 12.5px;
- }
- .sr-val {
- font-weight: 700;
- color: #1c2b4a;
- }
- .sr-note {
- margin-left: 12px;
- font-size: 11.5px;
- color: #888;
- }
+  /* ── 동일 레벨 연속 → 뒤 9pt ── */
+  .lv2 + .lv2 { margin-bottom: 9px; }
+  .lv3 + .lv3 { margin-bottom: 9px; }
+  .lv4 + .lv4 { margin-bottom: 9px; }
+  .lv5 + .lv5 { margin-bottom: 9px; }
 
- /* ── 계층 다이어그램 ── */
- .hier-box {
- background: #f7f9fc;
- border: 1px solid #dde3ef;
- border-radius: 6px;
- padding: 20px 24px;
- }
- .hier-row {
- display: flex;
- align-items: stretch;
- gap: 0;
- margin: 5px 0;
- font-size: 13px;
- }
- .hier-lv {
- min-width: 46px;
- font-size: 11px;
- font-weight: 700;
- color: #fff;
- border-radius: 3px;
- padding: 2px 6px;
- text-align: center;
- flex-shrink: 0;
- align-self: flex-start;
- margin-top: 3px;
- }
- .hier-sym {
- min-width: 36px;
- font-weight: 700;
- font-size: 15px;
- color: #1c2b4a;
- text-align: center;
- flex-shrink: 0;
- padding: 0 4px;
- align-self: flex-start;
- margin-top: 1px;
- }
- .hier-body { flex: 1; }
- .hier-title { font-weight: 700; color: #222; }
- .hier-desc { font-size: 12px; color: #778; margin-top: 1px; }
- .hier-sub {
- display: flex;
- gap: 6px;
- flex-wrap: wrap;
- margin-top: 4px;
- }
+  /* ── Lv4 · (14pt, 공백 5칸, 뒤 12pt) ── */
+  .lv4 {
+    font-size: 14px;
+    margin-bottom: 12px;
+    line-height: 1.8;
+  }
 
- /* ── 들여쓰기 시각화 ── */
- .indent-vis {
- background: #1e1e2e;
- border-radius: 6px;
- padding: 20px 24px;
- font-family: 'Consolas', 'D2Coding', monospace;
- font-size: 13px;
- line-height: 2;
- color: #cdd6f4;
- }
- .iv-row { display: flex; align-items: baseline; }
- .iv-ruler {
- font-size: 10px;
- color: #45475a;
- min-width: 56px;
- text-align: right;
- margin-right: 12px;
- font-family: 'Consolas', monospace;
- }
- .iv-sym { color: #cba6f7; font-weight: 700; min-width: 20px; }
- .iv-txt { color: #cdd6f4; }
- .iv-note { color: #45475a; font-size: 11px; margin-left: 10px; }
+  /* ── Lv5 ※ (10pt, 공백 7칸, 뒤 12pt) ── */
+  .lv5 {
+    font-size: 10px;
+    margin-bottom: 12px;
+    line-height: 1.8;
+    color: #222;
+  }
 
- /* ── 줄바꿈 시각화 ── */
- .wrap-vis {
- background: #1e1e2e;
- border-radius: 6px;
- padding: 20px 24px;
- font-family: 'Consolas', 'D2Coding', monospace;
- font-size: 13px;
- line-height: 2;
- color: #cdd6f4;
- }
- .wv-arrow { color: #f38ba8; }
- .wv-align { color: #a6e3a1; }
- .wv-dim { color: #45475a; }
+  /* ── 표 (table.t) ── */
+  table.t {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin: 6px 0 16px 0;
+    font-family: 'Batang', 'BatangChe', '바탕', Georgia, serif;
+  }
+  table.t th {
+    background: #1e1e1e;
+    color: #fff;
+    padding: 6px 9px;
+    text-align: center;
+    font-weight: 700;
+    border: 1px solid #444;
+    font-size: 13px;
+  }
+  table.t td {
+    padding: 5px 9px;
+    border: 1px solid #bbb;
+    vertical-align: top;
+    line-height: 1.7;
+  }
+  table.t td.c  { text-align: center; }
+  table.t td.b  { font-weight: 700; }
+  table.t td.lbl {
+    background: #f5f5f5;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  table.t tr.hl > td { background: #fef9e5; }
 
- /* ── 라이브 프리뷰 ── */
- .preview-wrap {
- display: flex;
- gap: 0;
- align-items: flex-start;
- }
- .preview-doc {
- flex: 1;
- background: #fff;
- border: 1.5px solid #bbb;
- border-radius: 3px;
- padding: 52px 64px 60px;
- font-family: '바탕', 'Batang', 'Gungsuh', Georgia, serif;
- line-height: 2;
- color: #000;
- font-size: 12pt;
- min-height: 640px;
- position: relative;
- box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
- }
- .preview-anno {
- width: 180px;
- flex-shrink: 0;
- padding-left: 16px;
- display: flex;
- flex-direction: column;
- gap: 0;
- }
+  /* 표 들여쓰기 (Lv2 하위) */
+  .tbl-in {
+    margin-left: 1em;
+    width: calc(100% - 1em);
+  }
 
- /* 프리뷰 내 요소 */
- .pv-title {
- font-size: 20pt;
- font-weight: 700;
- text-decoration: underline;
- text-align: center;
- margin-bottom: 6px;
- letter-spacing: -0.5px;
- }
- .pv-date {
- text-align: right;
- font-size: 14pt;
- color: #111;
- margin-bottom: 4px;
- }
- .pv-summary {
- text-align: left;
- font-size: 14pt;
- line-height: 1.9;
- margin-bottom: 10px;
- color: #111;
- border: 1px solid #000;
- }
- .pv-summary-cell {
- display: inline-block;
- padding: 6px 10px;
- width: 100%;
- }
- .pv-lv1 {
- font-size: 14pt;
- font-weight: 700;
- margin: 10px 0 4px;
- }
- .pv-lv2 { padding-left: 0.5em; margin: 2px 0; }
- .pv-lv2::before { content: '□ '; font-weight: 700; }
- .pv-lv3 { padding-left: 1.5em; margin: 1px 0; }
- .pv-lv3::before { content: '- '; }
- .pv-lv4 { padding-left: 2.5em; margin: 1px 0; }
- .pv-lv4::before { content: '· '; }
- .pv-note { padding-left: 3.5em; font-size: 10pt; }
- .pv-note::before { content: '※ '; font-weight: 700; }
- .pv-end {
- text-align: right;
- margin-top: 36px;
- letter-spacing: 6px;
- font-size: 14pt;
- }
- .pv-pageno {
- position: absolute;
- bottom: 20px;
- left: 0; right: 0;
- text-align: center;
- font-family: 'Noto Sans KR', sans-serif;
- font-size: 12pt;
- color: #555;
- letter-spacing: 3px;
- }
+  /* ── 구분선 ── */
+  .sep { border: none; border-top: 1px solid #ccc; margin: 14px 0; }
 
- /* 어노테이션 */
- .an-item {
- display: flex;
- align-items: flex-start;
- gap: 6px;
- margin-bottom: 10px;
- font-size: 11.5px;
- color: #334;
- line-height: 1.5;
- }
- .an-dot {
- width: 8px; height: 8px;
- border-radius: 50%;
- flex-shrink: 0;
- margin-top: 4px;
- }
- .an-dot-navy { background: #1c2b4a; }
- .an-dot-blue { background: #4477cc; }
- .an-dot-green { background: #228844; }
- .an-dot-gold { background: #cc8800; }
- .an-dot-red { background: #cc3333; }
- .an-dot-gray { background: #888; }
- .an-key { font-weight: 700; color: #1c2b4a; }
+  /* ── 페이지 번호 (12pt center) ── */
+  .page-no {
+    position: absolute;
+    bottom: 24px;
+    left: 0; right: 0;
+    text-align: center;
+    font-size: 12px;
+    color: #555;
+    letter-spacing: 0.5px;
+  }
 
- /* ── 구분선 ── */
- .divider { border: none; border-top: 1px solid #eee; margin: 32px 0; }
+  /* ── 문서 끝 (14pt right) ── */
+  .doc-end {
+    text-align: right;
+    font-size: 14px;
+    letter-spacing: 6px;
+    margin-top: 28px;
+  }
 
- /* ── 콜아웃 ── */
- .callout {
- border-left: 4px solid #4477cc;
- background: #f0f4fb;
- border-radius: 0 6px 6px 0;
- padding: 11px 16px;
- font-size: 13px;
- color: #223;
- margin: 10px 0;
- line-height: 1.7;
- }
- .callout.warn {
- border-left-color: #cc7700;
- background: #fffbf0;
- color: #5a3a00;
- }
- .callout.tip {
- border-left-color: #228844;
- background: #f0faf4;
- color: #1a4a28;
- }
+  /* ── 인쇄 ── */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .doc-page {
+      width: 100%;
+      min-height: auto;
+      margin: 0;
+      padding: 25mm 20mm 25mm 20mm;
+      box-shadow: none;
+      page-break-after: always;
+      break-after: page;
+    }
+    .page-no { display: none; }
+  }
+</style>
+</head>
+<body>
 
- /* ── 체크리스트 ── */
- .checklist { list-style: none; }
- .checklist li {
- display: flex;
- align-items: flex-start;
- gap: 10px;
- padding: 8px 0;
- border-bottom: 1px dashed #eee;
- font-size: 13px;
- color: #223;
- }
- .checklist li:last-child { border-bottom: none; }
- .chk-box {
- width: 18px; height: 18px;
- border: 2px solid #4477cc;
- border-radius: 3px;
- flex-shrink: 0;
- margin-top: 2px;
- }
- .chk-label { font-weight: 600; color: #1c2b4a; min-width: 120px; }
- .chk-desc { color: #556; }
 
- /* ── 페이지 번호 ── */
- .pg { text-align: center; font-size: 12px; color: #aaa; margin-top: 36px; letter-spacing: 2px; }
+<!-- ════════════════════════════════════════
+     PAGE 1 — 목차
+════════════════════════════════════════ -->
+<div class="doc-page">
 
- /* ── Word 단축키 ── */
- .kbd {
- display: inline-block;
- background: #f0f0f0;
- border: 1px solid #bbb;
- border-bottom: 2px solid #999;
- border-radius: 4px;
- padding: 1px 7px;
- font-family: 'Consolas', monospace;
- font-size: 11.5px;
- color: #333;
- }
+  <div class="doc-hd-title">보고서 문서 디자인 스펙 가이드 (Word 기준)<span class="page-badge">목차</span></div>
+  <div class="doc-hd-bar"></div>
+  <div class="doc-hd-meta">'26.05.07&nbsp;&nbsp;&nbsp;솔루션사업부 기획팀</div>
 
- /* ── 2컬럼 ── */
- .two-col {
- display: grid;
- grid-template-columns: 1fr 1fr;
- gap: 16px;
- }
- .col-box {
- background: #f7f9fc;
- border: 1px solid #dde3ef;
- border-radius: 6px;
- padding: 16px 18px;
- }
- .col-box-title {
- font-size: 12px;
- font-weight: 700;
- color: #1c2b4a;
- margin-bottom: 10px;
- padding-bottom: 6px;
- border-bottom: 1px solid #dde3ef;
- }
+  <div class="pv-title">보고서 문서 디자인 스펙 가이드</div>
+  <div class="pv-date">'26.05.07</div>
 
- /* ── 단락 간격 조건표 ── */
- .cond-tbl {
- width: 100%;
- border-collapse: collapse;
- font-size: 12.5px;
- margin-top: 6px;
- }
- .cond-tbl td {
- padding: 5px 10px;
- border: 1px solid #dde3ef;
- vertical-align: top;
- line-height: 1.6;
- }
- .cond-tbl .cond-lv {
- font-weight: 700;
- color: #1c2b4a;
- background: #f0f4fa;
- white-space: nowrap;
- width: 110px;
- }
- .cond-tbl .cond-base {
- background: #f7f9fc;
- white-space: nowrap;
- width: 90px;
- text-align: center;
- }
- .cond-tbl .cond-rule { color: #333; }
- .cond-tbl thead th {
- background: #1c2b4a;
- color: #fff;
- font-weight: 600;
- padding: 7px 10px;
- text-align: left;
- border: 1px solid #1c2b4a;
- font-size: 12px;
- }
-</style></head><body>
-
-<!-- ══ 커버 ══ -->
-<div class="page">
-<div class="cover">
- <div class="cover-eyebrow">Document Design Specification · Microsoft Word</div>
- <div class="cover-title">보고서 문서 디자인 스펙 가이드</div>
- <div class="cover-sub">Microsoft Word 기반 내부 보고 문서의 서식·타이포그래피·단락·들여쓰기를 정의한 가이드입니다.<br>아래 스펙을 Word에 그대로 적용하면 통일된 형식의 보고서를 작성할 수 있습니다.</div>
- <div class="cover-pills">
-  <span class="pill pill-blue">Microsoft Word 기준</span>
-  <span class="pill pill-green">한국어 보고서</span>
-  <span class="pill pill-gold">v1.1 · 2026.05.07</span>
- </div>
-</div>
-<!-- 목차 -->
-<div class="toc-page">
- <div class="toc-title">목차 · Contents</div>
- <div class="toc-grid">
-  <div class="toc-item"><span class="toc-num">1</span>페이지 설정 (용지·여백·방향)</div>
-  <div class="toc-item"><span class="toc-num">2</span>기본 폰트 & 타이포그래피</div>
-  <div class="toc-item"><span class="toc-num">3</span>단락 설정 (간격·줄간격)</div>
-  <div class="toc-item"><span class="toc-num">4</span>글머리 기호 계층 구조</div>
-  <div class="toc-item"><span class="toc-num">5</span>들여쓰기 & 줄바꿈 규칙</div>
-  <div class="toc-item"><span class="toc-num">6</span>페이지 번호 & 문서 끝 표시</div>
-  <div class="toc-item"><span class="toc-num">7</span>Word 스타일 설정 요약표</div>
-  <div class="toc-item"><span class="toc-num">8</span>라이브 프리뷰 & 체크리스트</div>
- </div>
-</div>
-</div>
-
-<!-- ══ p.2 — 01·02 ══ -->
-<div class="page"><div class="body">
-
-<!-- 01 페이지 설정 -->
-<div class="section">
- <div class="section-hd"><span class="sec-num">1</span>페이지 설정 (용지·여백·방향)</div>
- <div class="callout" style="margin-bottom:14px;">
-  <span class="menu-path">레이아웃 탭 <span class="sep">›</span>페이지 설정 <span class="sep">›</span>여백·용지</span>&nbsp;에서 설정합니다.
- </div>
- <div class="setting-block">
-  <div class="setting-row"><span class="sr-key">용지 크기</span><span class="sr-val">A4 &nbsp;(210 × 297 mm)</span></div>
-  <div class="setting-row"><span class="sr-key">방향</span><span class="sr-val">세로 (Portrait)</span></div>
-  <div class="setting-row"><span class="sr-key">여백 — 위 (상단)</span><span class="sr-val">25 mm</span><span class="sr-note">≒ 2.5 cm</span></div>
-  <div class="setting-row"><span class="sr-key">여백 — 아래 (하단)</span><span class="sr-val">25 mm</span><span class="sr-note">≒ 2.5 cm</span></div>
-  <div class="setting-row"><span class="sr-key">여백 — 왼쪽</span><span class="sr-val">20 mm</span><span class="sr-note">≒ 2.0 cm</span></div>
-  <div class="setting-row"><span class="sr-key">여백 — 오른쪽</span><span class="sr-val">20 mm</span><span class="sr-note">≒ 2.0 cm</span></div>
-  <div class="setting-row"><span class="sr-key">머리글 여백</span><span class="sr-val">15 mm</span></div>
-  <div class="setting-row"><span class="sr-key">바닥글 여백</span><span class="sr-val">8 mm</span><span class="sr-note">페이지 번호 위치 기준</span></div>
- </div>
-</div>
-
-<hr class="divider">
-
-<!-- 02 폰트 & 타이포그래피 -->
-<div class="section">
- <div class="section-hd"><span class="sec-num">2</span>기본 폰트 & 타이포그래피</div>
- <div class="callout" style="margin-bottom:14px;">
-  <span class="menu-path">홈 탭 <span class="sep">›</span>글꼴</span>&nbsp;에서 각 텍스트 요소 선택 후 설정합니다.
- </div>
- <table class="spec-tbl">
-  <thead>
-   <tr><th style="width:130px">요소</th><th style="width:90px">글꼴</th><th style="width:60px">크기</th><th style="width:145px">스타일</th><th>정렬</th></tr>
-  </thead>
-  <tbody>
-   <tr>
-    <td class="lbl">제목</td>
-    <td><span class="badge bd-navy">바탕체</span></td>
-    <td><span class="badge bd-gold">20 pt</span></td>
-    <td><span class="badge bd-red">굵게 (Bold)</span>&nbsp;<span class="badge bd-blue">밑줄</span></td>
-    <td><span class="badge bd-green">가운데</span></td>
-   </tr>
-   <tr>
-    <td class="lbl">보고 날짜</td>
-    <td><span class="badge bd-gray">바탕체</span></td>
-    <td><span class="badge bd-gold">14 pt</span></td>
-    <td>보통 (Regular)</td>
-    <td><span class="badge bd-blue">오른쪽</span></td>
-   </tr>
-   <tr>
-    <td class="lbl">요약 문단</td>
-    <td><span class="badge bd-gray">바탕체</span></td>
-    <td><span class="badge bd-gold">14 pt</span></td>
-    <td>보통 (Regular)</td>
-    <td><span class="badge bd-blue">왼쪽</span>&nbsp;<span class="badge bd-gray" style="font-size:10px;">1행3열 표 · 중간 셀</span></td>
-   </tr>
-   <tr>
-    <td class="lbl">소제목 (Lv1)</td>
-    <td><span class="badge bd-navy">바탕체</span></td>
-    <td><span class="badge bd-gold">14 pt</span></td>
-    <td><span class="badge bd-red">굵게 (Bold)</span></td>
-    <td>왼쪽</td>
-   </tr>
-   <tr>
-    <td class="lbl">□ 소소제목 (Lv2)</td>
-    <td><span class="badge bd-gray">바탕체</span></td>
-    <td><span class="badge bd-gold">14 pt</span></td>
-    <td>보통 (Regular)</td>
-    <td>왼쪽</td>
-   </tr>
-   <tr>
-    <td class="lbl">- 내용 (Lv3)</td>
-    <td><span class="badge bd-gray">바탕체</span></td>
-    <td><span class="badge bd-gold">14 pt</span></td>
-    <td>보통 (Regular)</td>
-    <td>왼쪽</td>
-   </tr>
-   <tr>
-    <td class="lbl">· 내용 (Lv4)</td>
-    <td><span class="badge bd-gray">바탕체</span></td>
-    <td><span class="badge bd-gold">14 pt</span></td>
-    <td>보통 (Regular)</td>
-    <td>왼쪽</td>
-   </tr>
-   <tr>
-    <td class="lbl">※ 보충 (Lv5)</td>
-    <td><span class="badge bd-gray">바탕체</span></td>
-    <td><span class="badge bd-gold">10 pt</span></td>
-    <td>보통 (Regular)</td>
-    <td>왼쪽</td>
-   </tr>
-  </tbody>
- </table>
- <div class="callout tip" style="margin-top:12px;">
-  <strong>바탕체 (Batang) 글꼴 안내</strong>
-  <table style="width:100%; border-collapse:collapse; margin-top:8px; font-size:12.5px;">
-   <thead>
+  <table class="summary-tbl">
     <tr>
-     <th style="background:#1c2b4a; color:#fff; padding:6px 10px; text-align:left; border:1px solid #1c2b4a; width:130px;">환경</th>
-     <th style="background:#1c2b4a; color:#fff; padding:6px 10px; text-align:left; border:1px solid #1c2b4a; width:140px;">글꼴 이름</th>
-     <th style="background:#1c2b4a; color:#fff; padding:6px 10px; text-align:left; border:1px solid #1c2b4a;">비고</th>
+      <td class="s-pad"></td>
+      <td class="s-main">Microsoft Word 기반 내부 보고 문서의 서식·타이포그래피·단락·들여쓰기를 정의한 스펙 가이드입니다. 이 문서 자체가 아래에 정의된 스펙을 그대로 적용하여 작성되었습니다.</td>
+      <td class="s-pad"></td>
     </tr>
-   </thead>
-   <tbody>
-    <tr>
-     <td style="padding:5px 10px; border:1px solid #c8d8c0; background:#f0faf4;">Windows (한글 버전)</td>
-     <td style="padding:5px 10px; border:1px solid #c8d8c0; font-weight:700;">바탕 / 바탕체</td>
-     <td style="padding:5px 10px; border:1px solid #c8d8c0;">OS 기본 제공 — 별도 설치 불필요</td>
-    </tr>
-    <tr>
-     <td style="padding:5px 10px; border:1px solid #c8d8c0; background:#f0faf4;">Windows (영문 버전)</td>
-     <td style="padding:5px 10px; border:1px solid #c8d8c0; font-weight:700;">Batang / BatangChe</td>
-     <td style="padding:5px 10px; border:1px solid #c8d8c0;">동일 글꼴, 영문 이름으로 표시됨</td>
-    </tr>
-    <tr>
-     <td style="padding:5px 10px; border:1px solid #c8d8c0; background:#f0faf4;">한컴오피스 설치 시</td>
-     <td style="padding:5px 10px; border:1px solid #c8d8c0; font-weight:700;">함초롬바탕</td>
-     <td style="padding:5px 10px; border:1px solid #c8d8c0;">바탕체 대체 가능 — 자형 유사</td>
-    </tr>
-    <tr>
-     <td style="padding:5px 10px; border:1px solid #c8d8c0; background:#f0faf4;">HY 폰트 라이선스 보유 시</td>
-     <td style="padding:5px 10px; border:1px solid #c8d8c0; font-weight:700;">HY바탕</td>
-     <td style="padding:5px 10px; border:1px solid #c8d8c0;">바탕체 대체 가능</td>
-    </tr>
-   </tbody>
   </table>
-  <div style="margin-top:6px; font-size:12px; color:#1a4a28;">※ Word에서 글꼴 이름을 검색할 때 "바탕"으로 검색하면 바탕·바탕체·BatangChe 모두 표시됩니다.</div>
- </div>
- <div class="callout" style="margin-top:10px;">
-  <strong>요약 문단 표 설정 방법:</strong> 삽입 › 표 › 1행 3열 삽입 →
-  중간 셀 선택 → 표 디자인 › 테두리 › <strong>테두리 없음</strong> 적용 → 중간 셀에 요약 내용 작성.
-  좌측·우측 셀은 여백 확보용으로 내용 없이 둡니다.
- </div>
+
+  <div class="lv1 lv1-first">목&nbsp;&nbsp;차</div>
+
+  <div class="toc-lv1">1. 페이지 설정 (용지·여백·방향)</div>
+  <div class="toc-lv1">2. 기본 폰트 & 타이포그래피</div>
+  <div class="toc-lv2">바탕체 글꼴 환경별 안내</div>
+  <div class="toc-lv2">요소별 서식 정의</div>
+  <div class="toc-lv1">3. 단락 설정 (간격·줄간격)</div>
+  <div class="toc-lv2">기본 간격 (제목·날짜·요약·Lv1)</div>
+  <div class="toc-lv2">본문 레벨별 조건부 단락 뒤 간격</div>
+  <div class="toc-lv1">4. 글머리 기호 계층 구조</div>
+  <div class="toc-lv2">Lv1~Lv5 기호 및 입력 방법</div>
+  <div class="toc-lv2">나열 기호(1) 2) / ① ②) 사용 규칙</div>
+  <div class="toc-lv1">5. 들여쓰기 & 줄바꿈 규칙</div>
+  <div class="toc-lv2">5.1 들여쓰기 설정값</div>
+  <div class="toc-lv2">5.2 줄바꿈 정렬 원칙</div>
+  <div class="toc-lv1">6. 페이지 번호 & 문서 끝 표시</div>
+  <div class="toc-lv1">7. Word 스타일 설정 요약표</div>
+  <div class="toc-lv1">8. 작성 전 체크리스트</div>
+
+  <div class="page-no">— 1 —</div>
 </div>
 
-<div class="pg">— 2 —</div>
-</div></div>
 
-<!-- ══ p.3 — 03 ══ -->
-<div class="page"><div class="body">
+<!-- ════════════════════════════════════════
+     PAGE 2 — 1. 페이지 설정 / 2. 폰트
+════════════════════════════════════════ -->
+<div class="doc-page">
 
-<!-- 03 단락 설정 -->
-<div class="section">
- <div class="section-hd"><span class="sec-num">3</span>단락 설정 (간격·줄간격)</div>
- <div class="callout" style="margin-bottom:14px;">
-  해당 단락 선택 후 &nbsp;<span class="menu-path">홈 탭 <span class="sep">›</span>단락 <span class="sep">›</span>줄 및 단락 간격</span>&nbsp; 또는 단락 대화상자(<kbd class="kbd">Alt</kbd>+<kbd class="kbd">H</kbd>+<kbd class="kbd">PG</kbd>)에서 설정합니다.
- </div>
+  <div class="doc-hd-title">보고서 문서 디자인 스펙 가이드 (Word 기준)<span class="page-badge">본문</span></div>
+  <div class="doc-hd-bar"></div>
+  <div class="doc-hd-meta">'26.05.07&nbsp;&nbsp;&nbsp;솔루션사업부 기획팀</div>
 
- <!-- 기본 간격표 -->
- <table class="spec-tbl" style="margin-bottom:18px;">
-  <thead>
-   <tr><th style="width:130px">요소</th><th style="width:100px">줄 간격</th><th style="width:90px">단락 앞</th><th style="width:90px">단락 뒤</th><th>비고</th></tr>
-  </thead>
-  <tbody>
-   <tr>
-    <td class="lbl">제목</td>
-    <td><span class="badge bd-gold">1줄 (Single)</span></td>
-    <td>0 pt</td>
-    <td><span class="badge bd-blue">12 pt</span></td>
-    <td></td>
-   </tr>
-   <tr>
-    <td class="lbl">보고 날짜</td>
-    <td><span class="badge bd-gold">1줄 (Single)</span></td>
-    <td>0 pt</td>
-    <td><span class="badge bd-blue">9 pt</span></td>
-    <td></td>
-   </tr>
-   <tr>
-    <td class="lbl">요약 문단</td>
-    <td><span class="badge bd-gold">1줄 (Single)</span></td>
-    <td>3 pt</td>
-    <td>6 pt</td>
-    <td></td>
-   </tr>
-   <tr>
-    <td class="lbl">소제목 (Lv1)</td>
-    <td><span class="badge bd-gold">1줄 (Single)</span></td>
-    <td>0 pt<br><span style="font-size:11.5px; color:#888;">요약 문단 바로 다음: <strong>16 pt</strong></span></td>
-    <td><span class="badge bd-blue">12 pt</span></td>
-    <td></td>
-   </tr>
-  </tbody>
- </table>
+  <div class="lv1 lv1-first">1. 페이지 설정 (용지·여백·방향)</div>
 
- <!-- 본문 레벨별 조건 간격표 -->
- <div class="sub-hd" style="margin-top:0;">본문 레벨별 단락 뒤 간격 — 다음 줄 레벨에 따른 조건</div>
- <table class="cond-tbl">
-  <thead>
-   <tr>
-    <th style="width:110px">현재 레벨</th>
-    <th style="width:100px">기본 뒤 간격</th>
-    <th>다음 줄 조건에 따른 뒤 간격</th>
-   </tr>
-  </thead>
-  <tbody>
-   <tr>
-    <td class="cond-lv">본문 Lv2 (□)</td>
-    <td class="cond-base"><strong>16 pt</strong></td>
-    <td class="cond-rule">
-     동일 Lv2 줄바꿈 → <strong>9 pt</strong><br>
-     다음 Lv1 → <strong>20 pt</strong>
-    </td>
-   </tr>
-   <tr>
-    <td class="cond-lv">본문 Lv3 (-)</td>
-    <td class="cond-base"><strong>16 pt</strong></td>
-    <td class="cond-rule">
-     동일 Lv3 줄바꿈 → <strong>9 pt</strong><br>
-     다음 Lv4 → <strong>12 pt</strong><br>
-     다음 Lv1~Lv2 → <strong>20 pt</strong>
-    </td>
-   </tr>
-   <tr>
-    <td class="cond-lv">본문 Lv4 (·)</td>
-    <td class="cond-base"><strong>12 pt</strong></td>
-    <td class="cond-rule">
-     동일 Lv4 줄바꿈 → <strong>9 pt</strong><br>
-     다음 Lv3 → <strong>16 pt</strong><br>
-     다음 Lv1~Lv2 → <strong>20 pt</strong>
-    </td>
-   </tr>
-   <tr>
-    <td class="cond-lv">보충 Lv5 (※)</td>
-    <td class="cond-base"><strong>12 pt</strong></td>
-    <td class="cond-rule">
-     동일 Lv5 줄바꿈 → <strong>9 pt</strong><br>
-     다음 Lv4 → <strong>12 pt</strong><br>
-     다음 Lv3 → <strong>16 pt</strong><br>
-     다음 Lv1~Lv2 → <strong>20 pt</strong>
-    </td>
-   </tr>
-  </tbody>
- </table>
+  <div class="lv2">□ 설정 경로: 레이아웃 탭 &gt; 페이지 설정 &gt; 여백·용지</div>
 
- <div class="callout warn" style="margin-top:12px;">
-  <strong>주의:</strong> 줄 간격을 <strong>고정값(Exactly)</strong>으로 설정하면 글자가 잘릴 수 있습니다.
-  모든 레벨은 <strong>1줄(Single)</strong> 옵션을 사용하세요.
- </div>
+  <table class="t tbl-in">
+    <thead>
+      <tr><th style="width:160px;">항목</th><th style="width:130px;">설정값</th><th>비고</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="lbl">용지 크기</td><td class="c">A4 (210 × 297 mm)</td><td></td></tr>
+      <tr><td class="lbl">방향</td><td class="c">세로 (Portrait)</td><td></td></tr>
+      <tr><td class="lbl">여백 — 위 / 아래</td><td class="c">25 mm</td><td></td></tr>
+      <tr><td class="lbl">여백 — 왼쪽 / 오른쪽</td><td class="c b">20 mm</td><td></td></tr>
+      <tr><td class="lbl">머리글 여백</td><td class="c">15 mm</td><td></td></tr>
+      <tr><td class="lbl">바닥글 여백</td><td class="c b">8 mm</td><td>페이지 번호 위치 기준</td></tr>
+    </tbody>
+  </table>
+
+  <div class="lv1">2. 기본 폰트 & 타이포그래피</div>
+
+  <div class="lv2">□ 설정 경로: 홈 탭 &gt; 글꼴</div>
+  <div class="lv2">□ 기본 글꼴: 바탕체 (Batang)</div>
+
+  <table class="t tbl-in">
+    <thead>
+      <tr><th style="width:160px;">환경</th><th style="width:160px;">글꼴 이름</th><th>비고</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="lbl">Windows 한글 버전</td><td class="c b">바탕 / 바탕체</td><td>OS 기본 제공 — 별도 설치 불필요</td></tr>
+      <tr><td class="lbl">Windows 영문 버전</td><td class="c b">Batang / BatangChe</td><td>동일 글꼴, 영문 이름으로 표시</td></tr>
+      <tr><td class="lbl">한컴오피스 설치 시</td><td class="c b">함초롬바탕</td><td>바탕체 대체 가능 (자형 유사)</td></tr>
+      <tr><td class="lbl">HY 폰트 보유 시</td><td class="c b">HY바탕</td><td>바탕체 대체 가능</td></tr>
+    </tbody>
+  </table>
+  <div class="lv5">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;※ Word 글꼴 검색 시 "바탕"으로 검색하면 바탕·바탕체·BatangChe 모두 표시됩니다.</div>
+
+  <div class="lv2" style="margin-top:4px;">□ 요소별 서식 정의</div>
+
+  <table class="t tbl-in">
+    <thead>
+      <tr><th style="width:130px;">요소</th><th style="width:80px;">글꼴</th><th style="width:60px;">크기</th><th style="width:140px;">스타일</th><th>정렬</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="lbl">제목</td><td class="c">바탕체</td><td class="c b">20 pt</td><td>굵게 + 밑줄</td><td class="c">가운데</td></tr>
+      <tr><td class="lbl">보고 날짜</td><td class="c">바탕체</td><td class="c b">14 pt</td><td>보통</td><td class="c">오른쪽</td></tr>
+      <tr><td class="lbl">요약 문단</td><td class="c">바탕체</td><td class="c b">14 pt</td><td>보통</td><td class="c">왼쪽<br><span style="font-size:11px;">(1행3열 표 중간 셀)</span></td></tr>
+      <tr><td class="lbl">소제목 Lv1</td><td class="c">바탕체</td><td class="c b">14 pt</td><td>굵게</td><td class="c">왼쪽</td></tr>
+      <tr><td class="lbl">□ 소소제목 Lv2</td><td class="c">바탕체</td><td class="c b">14 pt</td><td>보통</td><td class="c">왼쪽</td></tr>
+      <tr><td class="lbl">- 내용 Lv3</td><td class="c">바탕체</td><td class="c b">14 pt</td><td>보통</td><td class="c">왼쪽</td></tr>
+      <tr><td class="lbl">· 내용 Lv4</td><td class="c">바탕체</td><td class="c b">14 pt</td><td>보통</td><td class="c">왼쪽</td></tr>
+      <tr><td class="lbl">※ 보충 Lv5</td><td class="c">바탕체</td><td class="c b">10 pt</td><td>보통</td><td class="c">왼쪽</td></tr>
+    </tbody>
+  </table>
+
+  <div class="lv2">□ 요약 문단 표 설정 방법</div>
+  <div class="lv3">-  삽입 &gt; 표 &gt; 1행 3열 삽입</div>
+  <div class="lv3">-  중간 셀 선택 → 표 디자인 &gt; 테두리 &gt; 테두리 없음 적용</div>
+  <div class="lv3">-  중간 셀에 요약 내용 작성 (좌·우 셀은 여백 확보용, 내용 없음)</div>
+
+  <div class="page-no">— 2 —</div>
 </div>
 
-<div class="pg">— 3 —</div>
-</div></div>
 
-<!-- ══ p.4 — 04 ══ -->
-<div class="page"><div class="body">
+<!-- ════════════════════════════════════════
+     PAGE 3 — 3. 단락 설정
+════════════════════════════════════════ -->
+<div class="doc-page">
 
-<!-- 04 글머리 기호 계층 -->
-<div class="section">
- <div class="section-hd"><span class="sec-num">4</span>글머리 기호 계층 구조</div>
- <div class="hier-box">
-  <div class="hier-row">
-   <span class="hier-lv" style="background:#1c2b4a;">Lv 1</span>
-   <span class="hier-sym" style="font-size:13px; color:#1c2b4a; min-width:28px;">1.</span>
-   <div class="hier-body">
-    <div class="hier-title">소제목 &nbsp;<span style="font-size:11px; font-weight:400; color:#888;">(바탕체 14pt Bold)</span></div>
-    <div class="hier-desc">숫자 및 마침표를 직접 입력 (자동 번호 매기기 사용 안 함)</div>
-    <div class="hier-sub">
-     <span class="badge bd-blue">직접 입력 (1.)</span>
-     <span class="badge bd-gray">들여쓰기 없음</span>
-    </div>
-   </div>
-  </div>
+  <div class="doc-hd-title">보고서 문서 디자인 스펙 가이드 (Word 기준)<span class="page-badge">본문</span></div>
+  <div class="doc-hd-bar"></div>
+  <div class="doc-hd-meta">'26.05.07&nbsp;&nbsp;&nbsp;솔루션사업부 기획팀</div>
 
-  <div class="hier-row" style="margin-top:10px; padding-left:20px;">
-   <span class="hier-lv" style="background:#4477cc;">Lv 2</span>
-   <span class="hier-sym">□</span>
-   <div class="hier-body">
-    <div class="hier-title">소소제목 / 항목 도입</div>
-    <div class="hier-desc">특수문자 □ 직접 입력. &nbsp;<span class="menu-path">삽입 <span class="sep">›</span>기호 <span class="sep">›</span>기타 기호</span>&nbsp; 또는 유니코드 <kbd class="kbd">25A1</kbd>+<kbd class="kbd">Alt+X</kbd></div>
-    <div class="hier-sub">
-     <span class="badge bd-blue">직접 입력 (□)</span>
-     <span class="badge bd-gray">공백 1칸</span>
-    </div>
-   </div>
-  </div>
+  <div class="lv1 lv1-first">3. 단락 설정 (간격·줄간격)</div>
 
-  <div class="hier-row" style="margin-top:10px; padding-left:40px;">
-   <span class="hier-lv" style="background:#5588cc;">Lv 3</span>
-   <span class="hier-sym" style="font-size:18px;">-</span>
-   <div class="hier-body">
-    <div class="hier-title">세부 내용</div>
-    <div class="hier-desc">하이픈(-) 직접 입력. 자동고침으로 em dash로 변환되지 않도록 주의</div>
-    <div class="hier-sub">
-     <span class="badge bd-blue">직접 입력 (-)</span>
-     <span class="badge bd-gray">공백 3칸</span>
-    </div>
-   </div>
-  </div>
+  <div class="lv2">□ 설정 경로: 홈 탭 &gt; 단락 &gt; 줄 및 단락 간격 또는 단락 대화상자 (Alt + H + PG)</div>
+  <div class="lv2">□ 기본 간격 (제목·날짜·요약·Lv1)</div>
 
-  <div class="hier-row" style="margin-top:10px; padding-left:60px;">
-   <span class="hier-lv" style="background:#338855;">Lv 4</span>
-   <span class="hier-sym">·</span>
-   <div class="hier-body">
-    <div class="hier-title">세세부 내용</div>
-    <div class="hier-desc">가운뎃점(·) 직접 입력. 유니코드 <kbd class="kbd">00B7</kbd>+<kbd class="kbd">Alt+X</kbd></div>
-    <div class="hier-sub">
-     <span class="badge bd-green">직접 입력 (·)</span>
-     <span class="badge bd-gray">공백 5칸</span>
-    </div>
-   </div>
-  </div>
+  <table class="t tbl-in">
+    <thead>
+      <tr><th style="width:120px;">요소</th><th style="width:90px;">줄 간격</th><th style="width:80px;">단락 앞</th><th style="width:80px;">단락 뒤</th><th>비고</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="lbl">제목</td><td class="c">1줄 (Single)</td><td class="c">0 pt</td><td class="c b">12 pt</td><td></td></tr>
+      <tr><td class="lbl">보고 날짜</td><td class="c">1줄 (Single)</td><td class="c">0 pt</td><td class="c b">9 pt</td><td></td></tr>
+      <tr><td class="lbl">요약 문단</td><td class="c">1줄 (Single)</td><td class="c">3 pt</td><td class="c">6 pt</td><td></td></tr>
+      <tr><td class="lbl">소제목 Lv1</td><td class="c">1줄 (Single)</td><td class="c">0 pt</td><td class="c b">12 pt</td><td>요약 문단 바로 다음: 앞 16 pt</td></tr>
+    </tbody>
+  </table>
 
-  <div class="hier-row" style="margin-top:10px; padding-left:80px;">
-   <span class="hier-lv" style="background:#777;">Lv 5</span>
-   <span class="hier-sym" style="font-size:13px;">※</span>
-   <div class="hier-body">
-    <div class="hier-title">보충 · 주석 설명</div>
-    <div class="hier-desc">※ 직접 입력. 보충·예외·강조 내용에 사용</div>
-    <div class="hier-sub">
-     <span class="badge bd-gray">직접 입력 (※)</span>
-     <span class="badge bd-gray">공백 7칸</span>
-     <span class="badge bd-gold">크기 10pt</span>
-    </div>
-   </div>
-  </div>
- </div>
+  <div class="lv2">□ 본문 레벨별 단락 뒤 간격 — 다음 줄 레벨에 따른 조건</div>
 
- <div class="callout" style="margin-top:14px;">
-  <strong>※ 나열 기호 사용 규칙:</strong> Lv3~Lv4에서 동일한 수준의 내용이 나열되거나 순차적인 진행 순서를 표시할 필요가 있을 때는
-  <strong>1) 2) 3)</strong> 또는 <strong>① ② ③</strong> 등을 사용할 수 있습니다.
-  이러한 나열 기호가 사용될 경우 기존의 글머리 기호(- · 등)는 모두 한 단계씩 하위 레벨로 내려갑니다.
- </div>
+  <table class="t tbl-in">
+    <thead>
+      <tr><th style="width:100px;">현재 레벨</th><th style="width:90px;">기본 뒤 간격</th><th>다음 줄 조건에 따른 뒤 간격</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="lbl">Lv2 (□)</td>
+        <td class="c b">16 pt</td>
+        <td>동일 Lv2 줄바꿈 → 9 pt &nbsp;/&nbsp; 다음 Lv1 → 20 pt</td>
+      </tr>
+      <tr>
+        <td class="lbl">Lv3 (-)</td>
+        <td class="c b">16 pt</td>
+        <td>동일 Lv3 줄바꿈 → 9 pt &nbsp;/&nbsp; 다음 Lv4 → 12 pt &nbsp;/&nbsp; 다음 Lv1~Lv2 → 20 pt</td>
+      </tr>
+      <tr>
+        <td class="lbl">Lv4 (·)</td>
+        <td class="c b">12 pt</td>
+        <td>동일 Lv4 줄바꿈 → 9 pt &nbsp;/&nbsp; 다음 Lv3 → 16 pt &nbsp;/&nbsp; 다음 Lv1~Lv2 → 20 pt</td>
+      </tr>
+      <tr>
+        <td class="lbl">Lv5 (※)</td>
+        <td class="c b">12 pt</td>
+        <td>동일 Lv5 줄바꿈 → 9 pt &nbsp;/&nbsp; 다음 Lv4 → 12 pt &nbsp;/&nbsp; 다음 Lv3 → 16 pt &nbsp;/&nbsp; 다음 Lv1~Lv2 → 20 pt</td>
+      </tr>
+    </tbody>
+  </table>
 
- <div class="callout tip" style="margin-top:10px;">
-  <strong>Tip (자동 고침 방지):</strong> "-"가 "—"으로 자동 변환되는 경우
-  <span class="menu-path">파일 <span class="sep">›</span>옵션 <span class="sep">›</span>언어 교정 <span class="sep">›</span>자동 고침 옵션 <span class="sep">›</span>입력할 때 자동 서식 <span class="sep">›</span>"하이픈을 대시로" 해제</span>하세요.
- </div>
+  <div class="lv5">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;※ 줄 간격을 고정값(Exactly)으로 설정하면 글자가 잘릴 수 있습니다. 모든 레벨은 1줄(Single) 옵션을 사용하세요.</div>
+
+  <div class="page-no">— 3 —</div>
 </div>
 
-<div class="pg">— 4 —</div>
-</div></div>
 
-<!-- ══ p.5 — 05·06 ══ -->
-<div class="page"><div class="body">
+<!-- ════════════════════════════════════════
+     PAGE 4 — 4. 글머리 기호 / 5. 들여쓰기
+════════════════════════════════════════ -->
+<div class="doc-page">
 
-<!-- 05 들여쓰기 & 줄바꿈 -->
-<div class="section">
- <div class="section-hd"><span class="sec-num">5</span>들여쓰기 & 줄바꿈 규칙</div>
+  <div class="doc-hd-title">보고서 문서 디자인 스펙 가이드 (Word 기준)<span class="page-badge">본문</span></div>
+  <div class="doc-hd-bar"></div>
+  <div class="doc-hd-meta">'26.05.07&nbsp;&nbsp;&nbsp;솔루션사업부 기획팀</div>
 
- <div class="sub-hd" style="margin-top:0;">5.1 &nbsp;들여쓰기 설정값</div>
- <table class="spec-tbl" style="margin-bottom:14px;">
-  <thead>
-   <tr>
-    <th style="width:55px">레벨</th>
-    <th style="width:50px">기호</th>
-    <th style="width:120px">왼쪽 들여쓰기</th>
-    <th style="width:130px">내어쓰기 (Hanging)</th>
-    <th>비고</th>
-   </tr>
-  </thead>
-  <tbody>
-   <tr>
-    <td class="lbl" style="text-align:center;">Lv 1</td>
-    <td style="text-align:center; font-weight:700;">1.</td>
-    <td><span class="badge bd-gold">공백 0칸</span></td>
-    <td>없음</td>
-    <td>직접 입력, 자동 번호 매기기 사용 안 함</td>
-   </tr>
-   <tr>
-    <td class="lbl" style="text-align:center;">Lv 2</td>
-    <td style="text-align:center; font-weight:700;">□</td>
-    <td><span class="badge bd-gold">공백 1칸</span></td>
-    <td>없음</td>
-    <td>일반 공백(Space) 사용</td>
-   </tr>
-   <tr>
-    <td class="lbl" style="text-align:center;">Lv 3</td>
-    <td style="text-align:center; font-weight:700;">-</td>
-    <td><span class="badge bd-gold">공백 3칸</span></td>
-    <td>없음</td>
-    <td>일반 공백(Space) 사용</td>
-   </tr>
-   <tr>
-    <td class="lbl" style="text-align:center;">Lv 4</td>
-    <td style="text-align:center; font-weight:700;">·</td>
-    <td><span class="badge bd-gold">공백 5칸</span></td>
-    <td>없음</td>
-    <td>일반 공백(Space) 사용</td>
-   </tr>
-   <tr>
-    <td class="lbl" style="text-align:center;">Lv 5</td>
-    <td style="text-align:center; font-weight:700;">※</td>
-    <td><span class="badge bd-gold">공백 7칸</span></td>
-    <td>없음</td>
-    <td>일반 공백(Space) 사용</td>
-   </tr>
-  </tbody>
- </table>
+  <div class="lv1 lv1-first">4. 글머리 기호 계층 구조</div>
 
- <div class="callout" style="margin-bottom:16px;">
-  <strong>들여쓰기 원칙:</strong> 내어쓰기(Hanging Indent)를 적용하지 않습니다. 모든 들여쓰기는 <strong>일반 공백(Space)</strong>으로 처리합니다.
- </div>
+  <div class="lv2">□ Lv1~Lv5 기호 및 입력 방법</div>
 
- <div class="sub-hd">5.2 &nbsp;줄바꿈 정렬 시각화</div>
- <div class="wrap-vis">
-  <div><span style="color:#45475a;">│</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#f38ba8; font-weight:700;">□</span> 소소제목 내용이 길어서 한 줄을 넘어갈 경우에는</div>
-  <div><span style="color:#45475a;">│</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#a6e3a1;">↳ Enter로 강제 개행 후 공백 3칸(1칸+2칸 추가)으로 맞춤 정렬</span></div>
-  <div style="margin-top:10px;"><span style="color:#45475a;">│</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#f38ba8; font-weight:700;">-</span> 세부 내용이 길어서 한 줄을 넘어갈 경우에는</div>
-  <div><span style="color:#45475a;">│</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#a6e3a1;">↳ Enter로 강제 개행 후 공백 5칸(3칸+2칸 추가)으로 맞춤 정렬</span></div>
-  <div style="margin-top:10px; color:#45475a; font-size:11px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↑ 줄바꿈 시 해당 레벨 공백 수에 2칸을 추가하여 들여쓰기 정렬</div>
- </div>
+  <table class="t tbl-in">
+    <thead>
+      <tr><th style="width:55px;">레벨</th><th style="width:50px;">기호</th><th style="width:200px;">입력 방법</th><th>비고</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="c lbl">Lv 1</td><td class="c b">1.</td><td>숫자 및 마침표 직접 입력</td><td>자동 번호 매기기 사용 안 함</td></tr>
+      <tr><td class="c lbl">Lv 2</td><td class="c b">□</td><td>직접 입력 (유니코드 25A1 + Alt+X)</td><td>공백 1칸</td></tr>
+      <tr><td class="c lbl">Lv 3</td><td class="c b">-</td><td>하이픈 직접 입력</td><td>공백 3칸 / 자동 대시 변환 주의</td></tr>
+      <tr><td class="c lbl">Lv 4</td><td class="c b">·</td><td>직접 입력 (유니코드 00B7 + Alt+X)</td><td>공백 5칸</td></tr>
+      <tr><td class="c lbl">Lv 5</td><td class="c b">※</td><td>직접 입력</td><td>공백 7칸 / 10pt / 보충·주석</td></tr>
+    </tbody>
+  </table>
+
+  <div class="lv2">□ 나열 기호 사용 규칙</div>
+  <div class="lv3">-  Lv3~Lv4에서 동일 수준 내용 나열 또는 순서 표시 시 1) 2) 3) 또는 ① ② ③ 사용 가능</div>
+  <div class="lv3">-  이 경우 기존 글머리 기호(- · 등)는 한 단계씩 하위 레벨로 내려감</div>
+  <div class="lv5">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;※ 하이픈(-)이 대시(—)로 자동 변환되는 경우: 파일 &gt; 옵션 &gt; 언어 교정 &gt; 자동 고침 옵션 &gt; "하이픈을 대시로" 해제</div>
+
+  <div class="lv1">5. 들여쓰기 & 줄바꿈 규칙</div>
+
+  <div class="lv2">□ 5.1 들여쓰기 설정값</div>
+
+  <table class="t tbl-in">
+    <thead>
+      <tr><th style="width:55px;">레벨</th><th style="width:50px;">기호</th><th style="width:130px;">왼쪽 들여쓰기</th><th style="width:130px;">내어쓰기 (Hanging)</th><th>비고</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="c lbl">Lv 1</td><td class="c">1.</td><td class="c b">공백 0칸</td><td class="c">없음</td><td>직접 입력, 자동 번호 매기기 사용 안 함</td></tr>
+      <tr><td class="c lbl">Lv 2</td><td class="c">□</td><td class="c b">공백 1칸</td><td class="c">없음</td><td>일반 공백(Space) 사용</td></tr>
+      <tr><td class="c lbl">Lv 3</td><td class="c">-</td><td class="c b">공백 3칸</td><td class="c">없음</td><td>일반 공백(Space) 사용</td></tr>
+      <tr><td class="c lbl">Lv 4</td><td class="c">·</td><td class="c b">공백 5칸</td><td class="c">없음</td><td>일반 공백(Space) 사용</td></tr>
+      <tr><td class="c lbl">Lv 5</td><td class="c">※</td><td class="c b">공백 7칸</td><td class="c">없음</td><td>일반 공백(Space) 사용</td></tr>
+    </tbody>
+  </table>
+
+  <div class="lv5">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;※ 내어쓰기(Hanging Indent)를 적용하지 않습니다. 모든 들여쓰기는 일반 공백(Space)으로 처리합니다.</div>
+
+  <div class="lv2">□ 5.2 줄바꿈 정렬 원칙</div>
+  <div class="lv3">-  한 줄 안에 내용이 마무리되지 않을 경우 Enter로 강제 개행</div>
+  <div class="lv3">-  동일 레벨 줄바꿈 후 왼쪽 들여쓰기는 해당 레벨의 공백 수에 2칸 추가</div>
+  <div class="lv4">·  예시: Lv3(-) 줄바꿈 후 → 공백 5칸 (3칸 + 2칸 추가) 으로 맞춤 정렬</div>
+  <div class="lv4">·  예시: Lv2(□) 줄바꿈 후 → 공백 3칸 (1칸 + 2칸 추가) 으로 맞춤 정렬</div>
+
+  <div class="page-no">— 4 —</div>
 </div>
 
-<hr class="divider">
 
-<!-- 06 페이지 번호 & 문서 끝 -->
-<div class="section">
- <div class="section-hd"><span class="sec-num">6</span>페이지 번호 & 문서 끝 표시</div>
- <div class="two-col">
-  <div class="col-box">
-   <div class="col-box-title">페이지 번호</div>
-   <div class="setting-block" style="background:#fff; border:none; padding:0;">
-    <div class="setting-row"><span class="sr-key">삽입 위치</span><span class="sr-val">바닥글 · 가운데</span></div>
-    <div class="setting-row"><span class="sr-key">형식</span><span class="sr-val">- 1 -</span><span class="sr-note">숫자 양측 공백+대시</span></div>
-    <div class="setting-row"><span class="sr-key">글꼴 크기</span><span class="sr-val">12 pt</span></div>
-    <div class="setting-row"><span class="sr-key">Word 메뉴</span><span style="font-size:12px;"><span class="menu-path">삽입 <span class="sep">›</span>머리글/바닥글 <span class="sep">›</span>페이지 번호</span></span></div>
-   </div>
-  </div>
-  <div class="col-box">
-   <div class="col-box-title">문서 끝 표시</div>
-   <div class="setting-block" style="background:#fff; border:none; padding:0;">
-    <div class="setting-row"><span class="sr-key">텍스트</span><span class="sr-val">- 以 上 -</span></div>
-    <div class="setting-row"><span class="sr-key">정렬</span><span class="sr-val">오른쪽 정렬</span></div>
-    <div class="setting-row"><span class="sr-key">글꼴 크기</span><span class="sr-val">14 pt</span></div>
-    <div class="setting-row"><span class="sr-key">자간</span><span class="sr-val">넓게 (6 pt)</span><span class="sr-note">以 上 사이 공백</span></div>
-    <div class="setting-row"><span class="sr-key">위치</span><span class="sr-val">마지막 본문 아래</span></div>
-   </div>
-  </div>
- </div>
+<!-- ════════════════════════════════════════
+     PAGE 5 — 6. 페이지번호 / 7. 요약표
+════════════════════════════════════════ -->
+<div class="doc-page">
+
+  <div class="doc-hd-title">보고서 문서 디자인 스펙 가이드 (Word 기준)<span class="page-badge">본문</span></div>
+  <div class="doc-hd-bar"></div>
+  <div class="doc-hd-meta">'26.05.07&nbsp;&nbsp;&nbsp;솔루션사업부 기획팀</div>
+
+  <div class="lv1 lv1-first">6. 페이지 번호 & 문서 끝 표시</div>
+
+  <div class="lv2">□ 페이지 번호</div>
+  <div class="lv3">-  삽입 위치: 바닥글 가운데</div>
+  <div class="lv3">-  형식: - 1 - &nbsp;(숫자 양측 공백 + 대시)</div>
+  <div class="lv3">-  글꼴 크기: 12 pt</div>
+  <div class="lv3">-  설정 경로: 삽입 &gt; 머리글/바닥글 &gt; 페이지 번호</div>
+
+  <div class="lv2">□ 문서 끝 표시</div>
+  <div class="lv3">-  텍스트: - 以 上 -</div>
+  <div class="lv3">-  정렬: 오른쪽 정렬</div>
+  <div class="lv3">-  글꼴 크기: 14 pt &nbsp;/&nbsp; 자간 넓게 (6 pt)</div>
+  <div class="lv3">-  위치: 마지막 본문 아래</div>
+
+  <div class="lv1">7. Word 스타일 설정 요약표</div>
+
+  <table class="t">
+    <thead>
+      <tr>
+        <th style="width:115px;">요소</th>
+        <th style="width:65px;">글꼴</th>
+        <th style="width:50px;">크기</th>
+        <th style="width:105px;">스타일</th>
+        <th style="width:62px;">정렬</th>
+        <th style="width:62px;">줄간격</th>
+        <th style="width:100px;">단락 간격</th>
+        <th>들여쓰기</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="lbl">제목</td><td class="c">바탕체</td><td class="c b">20 pt</td><td>Bold + 밑줄</td><td class="c">가운데</td><td class="c">1줄</td><td>뒤 12 pt</td><td>없음</td></tr>
+      <tr><td class="lbl">날짜</td><td class="c">바탕체</td><td class="c b">14 pt</td><td>Regular</td><td class="c">오른쪽</td><td class="c">1줄</td><td>뒤 9 pt</td><td>없음</td></tr>
+      <tr><td class="lbl">요약 (표 중간 셀)</td><td class="c">바탕체</td><td class="c b">14 pt</td><td>Regular</td><td class="c">왼쪽</td><td class="c">1줄</td><td>앞3/뒤6 pt</td><td>없음</td></tr>
+      <tr><td class="lbl">소제목 Lv1</td><td class="c">바탕체</td><td class="c b">14 pt</td><td>Bold</td><td class="c">왼쪽</td><td class="c">1줄</td><td>뒤 12 pt<br><span style="font-size:11px;">요약 다음: 앞 16pt</span></td><td>공백 0칸</td></tr>
+      <tr><td class="lbl">□ Lv2</td><td class="c">바탕체</td><td class="c b">14 pt</td><td>Regular</td><td class="c">왼쪽</td><td class="c">1줄</td><td>기본 뒤 16 pt<br><span style="font-size:11px;">조건별 9~20 pt</span></td><td>공백 1칸</td></tr>
+      <tr><td class="lbl">- Lv3</td><td class="c">바탕체</td><td class="c b">14 pt</td><td>Regular</td><td class="c">왼쪽</td><td class="c">1줄</td><td>기본 뒤 16 pt<br><span style="font-size:11px;">조건별 9~20 pt</span></td><td>공백 3칸</td></tr>
+      <tr><td class="lbl">· Lv4</td><td class="c">바탕체</td><td class="c b">14 pt</td><td>Regular</td><td class="c">왼쪽</td><td class="c">1줄</td><td>기본 뒤 12 pt<br><span style="font-size:11px;">조건별 9~20 pt</span></td><td>공백 5칸</td></tr>
+      <tr><td class="lbl">※ Lv5</td><td class="c">바탕체</td><td class="c b">10 pt</td><td>Regular</td><td class="c">왼쪽</td><td class="c">1줄</td><td>기본 뒤 12 pt<br><span style="font-size:11px;">조건별 9~20 pt</span></td><td>공백 7칸</td></tr>
+      <tr><td class="lbl">- 以 上 -</td><td class="c">바탕체</td><td class="c b">14 pt</td><td>Regular</td><td class="c">오른쪽</td><td class="c">1줄</td><td>앞 24 pt</td><td>없음</td></tr>
+      <tr><td class="lbl">페이지 번호</td><td class="c">바탕체</td><td class="c b">12 pt</td><td>Regular</td><td class="c">가운데</td><td class="c">1줄</td><td>—</td><td>바닥글 내</td></tr>
+    </tbody>
+  </table>
+
+  <div class="page-no">— 5 —</div>
 </div>
 
-<div class="pg">— 5 —</div>
-</div></div>
 
-<!-- ══ p.6 — 07 스타일 요약표 ══ -->
-<div class="page"><div class="body">
-<div class="section">
- <div class="section-hd"><span class="sec-num">7</span>Word 스타일 설정 요약표</div>
- <div class="callout" style="margin-bottom:14px;">
-  아래 표 한 장으로 Word 설정 전체를 확인할 수 있습니다. 문서 작성 전 이 표를 참고하여 스타일을 먼저 등록하세요.
- </div>
- <table class="spec-tbl">
-  <thead>
-   <tr>
-    <th style="width:120px">요소</th>
-    <th style="width:70px">글꼴</th>
-    <th style="width:50px">크기</th>
-    <th style="width:110px">스타일</th>
-    <th style="width:70px">정렬</th>
-    <th style="width:80px">줄 간격</th>
-    <th style="width:100px">단락 간격</th>
-    <th>들여쓰기</th>
-   </tr>
-  </thead>
-  <tbody>
-   <tr>
-    <td class="lbl">제목</td>
-    <td>바탕체</td><td class="val-main">20 pt</td>
-    <td>Bold + Underline</td><td>가운데</td><td>1줄</td>
-    <td>뒤 12 pt</td><td>없음</td>
-   </tr>
-   <tr>
-    <td class="lbl">날짜</td>
-    <td>바탕체</td><td class="val-main">14 pt</td>
-    <td>Regular</td><td>오른쪽</td><td>1줄</td>
-    <td>뒤 9 pt</td><td>없음</td>
-   </tr>
-   <tr>
-    <td class="lbl">요약 (표 중간 셀)</td>
-    <td>바탕체</td><td class="val-main">14 pt</td>
-    <td>Regular</td><td>왼쪽</td><td>1줄</td>
-    <td>앞 3 / 뒤 6 pt</td><td>없음</td>
-   </tr>
-   <tr>
-    <td class="lbl">소제목 (Lv1)</td>
-    <td>바탕체</td><td class="val-main">14 pt</td>
-    <td>Bold</td><td>왼쪽</td><td>1줄</td>
-    <td>앞 0 / 뒤 12 pt<br><span style="font-size:11px; color:#888;">요약 다음: 앞 16 pt</span></td>
-    <td>공백 0칸</td>
-   </tr>
-   <tr>
-    <td class="lbl">□ 소소제목 (Lv2)</td>
-    <td>바탕체</td><td class="val-main">14 pt</td>
-    <td>Regular</td><td>왼쪽</td><td>1줄</td>
-    <td>기본 뒤 16 pt<br><span style="font-size:11px; color:#888;">조건별 9~20 pt</span></td>
-    <td>공백 1칸</td>
-   </tr>
-   <tr>
-    <td class="lbl">- 내용 (Lv3)</td>
-    <td>바탕체</td><td class="val-main">14 pt</td>
-    <td>Regular</td><td>왼쪽</td><td>1줄</td>
-    <td>기본 뒤 16 pt<br><span style="font-size:11px; color:#888;">조건별 9~20 pt</span></td>
-    <td>공백 3칸</td>
-   </tr>
-   <tr>
-    <td class="lbl">· 내용 (Lv4)</td>
-    <td>바탕체</td><td class="val-main">14 pt</td>
-    <td>Regular</td><td>왼쪽</td><td>1줄</td>
-    <td>기본 뒤 12 pt<br><span style="font-size:11px; color:#888;">조건별 9~20 pt</span></td>
-    <td>공백 5칸</td>
-   </tr>
-   <tr>
-    <td class="lbl">※ 보충 (Lv5)</td>
-    <td>바탕체</td><td class="val-main">10 pt</td>
-    <td>Regular</td><td>왼쪽</td><td>1줄</td>
-    <td>기본 뒤 12 pt<br><span style="font-size:11px; color:#888;">조건별 9~20 pt</span></td>
-    <td>공백 7칸</td>
-   </tr>
-   <tr>
-    <td class="lbl">- 以 上 -</td>
-    <td>바탕체</td><td class="val-main">14 pt</td>
-    <td>Regular</td><td>오른쪽</td><td>1줄</td>
-    <td>앞 24 pt</td><td>없음</td>
-   </tr>
-   <tr>
-    <td class="lbl">페이지 번호</td>
-    <td>바탕체</td><td class="val-main">12 pt</td>
-    <td>Regular</td><td>가운데</td><td>1줄</td>
-    <td>—</td><td>바닥글 내</td>
-   </tr>
-  </tbody>
- </table>
-</div>
-<div class="pg">— 6 —</div>
-</div></div>
+<!-- ════════════════════════════════════════
+     PAGE 6 — 8. 체크리스트 + 以上
+════════════════════════════════════════ -->
+<div class="doc-page">
 
-<!-- ══ p.7 — 08 라이브 프리뷰 & 체크리스트 ══ -->
-<div class="page"><div class="body">
-<div class="section">
- <div class="section-hd"><span class="sec-num">8</span>라이브 프리뷰 — 실제 Word 문서 모습</div>
- <div class="callout" style="margin-bottom:16px;">
-  아래는 위 스펙을 적용했을 때의 실제 보고서 레이아웃입니다.
- </div>
- <div class="preview-wrap">
-  <!-- 문서 프리뷰 -->
-  <div class="preview-doc">
-   <div class="pv-title">[보고서 제목] (바탕체 20pt Bold Underline)</div>
-   <div class="pv-date">'26.05.07</div>
-   <!-- 요약: 1행 3열 표, 중간 셀만 표시 -->
-   <table style="width:100%; border-collapse:collapse; margin-bottom:10px; font-family:inherit; font-size:14pt;">
-    <tr>
-     <td style="border:none; width:5%;"></td>
-     <td style="border:1px solid #000; padding:6px 10px; font-size:14pt; line-height:1.9;">보고 내용의 목적·배경을 2~3줄로 요약합니다. 독자가 가장 먼저 읽는 문장으로 간결하게 작성합니다.</td>
-     <td style="border:none; width:5%;"></td>
-    </tr>
-   </table>
-   <div class="pv-lv1">1. 소제목 (바탕체 14pt Bold)</div>
-   <div class="pv-lv2">소소제목 또는 항목 도입 문장</div>
-   <div class="pv-lv3">세부 내용을 여기에 작성합니다. 장문의 경우</div>
-   <div class="pv-lv3" style="padding-left:3.5em;">Enter 개행 후 공백 5칸으로 맞춤 정렬</div>
-   <div class="pv-lv4">세세부 내용 — 보조 설명</div>
-   <div class="pv-note">보충·예외·강조 사항을 여기에 기재합니다.</div>
-   <div class="pv-lv1">2. 두 번째 소제목</div>
-   <div class="pv-lv2">항목 내용</div>
-   <div class="pv-lv3">세부 내용</div>
-   <div class="pv-end">- 以 上 -</div>
-   <div class="pv-pageno">- 1 -</div>
-  </div>
-  <!-- 어노테이션 -->
-  <div class="preview-anno">
-   <div style="height:16px;"></div>
-   <div class="an-item"><span class="an-dot an-dot-navy"></span><div><span class="an-key">제목</span><br>바탕체 20pt<br>Bold + 밑줄<br>가운데 정렬</div></div>
-   <div style="height:6px;"></div>
-   <div class="an-item"><span class="an-dot an-dot-blue"></span><div><span class="an-key">날짜</span><br>14pt · 오른쪽</div></div>
-   <div style="height:4px;"></div>
-   <div class="an-item"><span class="an-dot an-dot-green"></span><div><span class="an-key">요약 문단</span><br>14pt · 왼쪽<br>1행3열 표<br>중간 셀만 작성</div></div>
-   <div style="height:6px;"></div>
-   <div class="an-item"><span class="an-dot an-dot-navy"></span><div><span class="an-key">Lv1 소제목</span><br>14pt · Bold<br>뒤 12pt 간격</div></div>
-   <div style="height:2px;"></div>
-   <div class="an-item"><span class="an-dot an-dot-blue"></span><div><span class="an-key">Lv2 □</span><br>14pt · 공백 1칸</div></div>
-   <div class="an-item"><span class="an-dot an-dot-green"></span><div><span class="an-key">Lv3 -</span><br>14pt · 공백 3칸</div></div>
-   <div class="an-item"><span class="an-dot an-dot-gold"></span><div><span class="an-key">Lv4 ·</span><br>14pt · 공백 5칸</div></div>
-   <div class="an-item"><span class="an-dot an-dot-gray"></span><div><span class="an-key">Lv5 ※</span><br>10pt · 공백 7칸</div></div>
-   <div style="height:30px;"></div>
-   <div class="an-item"><span class="an-dot an-dot-red"></span><div><span class="an-key">- 以 上 -</span><br>14pt · 오른쪽<br>앞 24pt</div></div>
-   <div style="height:4px;"></div>
-   <div class="an-item"><span class="an-dot an-dot-gray"></span><div><span class="an-key">페이지 번호</span><br>12pt · 바닥글</div></div>
-  </div>
- </div>
+  <div class="doc-hd-title">보고서 문서 디자인 스펙 가이드 (Word 기준)<span class="page-badge">본문</span></div>
+  <div class="doc-hd-bar"></div>
+  <div class="doc-hd-meta">'26.05.07&nbsp;&nbsp;&nbsp;솔루션사업부 기획팀</div>
+
+  <div class="lv1 lv1-first">8. 작성 전 체크리스트</div>
+
+  <div class="lv2">□ 페이지 설정: A4 / 좌우 여백 20 mm / 바닥글 여백 8 mm 확인</div>
+  <div class="lv2">□ 제목: 바탕체 20pt · Bold · 밑줄 · 가운데 정렬 적용</div>
+  <div class="lv2">□ 날짜 형식</div>
+  <div class="lv3">-  보고 날짜: 'YY.MM.DD 형식 / 오른쪽 정렬</div>
+  <div class="lv3">-  본문 중 날짜: 'YY.M월 또는 'YY/MM/DD 형식</div>
+  <div class="lv2">□ 요약 문단: 1행 3열 표 삽입 · 중간 셀 테두리 없음 · 14pt 왼쪽 정렬</div>
+  <div class="lv2">□ 소제목: 14pt Bold · 자동 번호 매기기 해제 · 숫자+마침표 직접 입력</div>
+  <div class="lv2">□ 계층 순서: 1. → □ → - → · → ※ 준수 (레벨 건너뛰기 금지)</div>
+  <div class="lv2">□ 들여쓰기: 내어쓰기(Hanging Indent) 적용하지 않음 · 일반 공백(Space) 사용</div>
+  <div class="lv2">□ 페이지 번호: - N - 형식 · 바닥글 가운데 · 12pt</div>
+  <div class="lv2">□ 문서 끝: - 以 上 - 오른쪽 정렬 · 14pt</div>
+  <div class="lv2">□ Word 자동 고침 옵션 해제 (파일 &gt; 옵션 &gt; 언어 교정 &gt; 자동 고침 옵션)</div>
+  <div class="lv3">-  곧은 따옴표를 둥근 따옴표로</div>
+  <div class="lv3">-  하이픈을 대시로</div>
+  <div class="lv3">-  첫 줄을 들여쓴 단락의 맨 첫 부분 간격</div>
+  <div class="lv3">-  자동으로 글머리 기호 넣기</div>
+  <div class="lv3">-  자동으로 번호 매기기</div>
+  <div class="lv3">-  목록 항목의 첫 부분을 이전 항목과 같게 서식 적용</div>
+  <div class="lv3">-  탭과 백스페이스 넣을 때 첫 부분에 왼쪽으로 들여쓰기</div>
+
+  <div class="doc-end">- 以 上 -</div>
+
+  <div class="page-no">— 6 —</div>
 </div>
 
-<hr class="divider">
 
-<div class="section">
- <div class="section-hd"><span class="sec-num"></span>작성 전 체크리스트</div>
- <ul class="checklist">
-  <li>
-   <span class="chk-box"></span>
-   <span class="chk-label">페이지 설정</span>
-   <span class="chk-desc">A4 / 여백 상하 25mm · 좌우 20mm / 바닥글 여백 8mm 확인</span>
-  </li>
-  <li>
-   <span class="chk-box"></span>
-   <span class="chk-label">제목</span>
-   <span class="chk-desc">바탕체 20pt · Bold · 밑줄 · 가운데 정렬 적용 여부</span>
-  </li>
-  <li>
-   <span class="chk-box"></span>
-   <span class="chk-label">날짜 형식</span>
-   <span class="chk-desc">보고 날짜는 'YY.MM.DD 형식 · 오른쪽 정렬 / 본문 중 날짜는 'YY.M월 또는 'YY/MM/DD</span>
-  </li>
-  <li>
-   <span class="chk-box"></span>
-   <span class="chk-label">요약 문단</span>
-   <span class="chk-desc">1행 3열 표 삽입 · 중간 셀 테두리 없음 · 14pt 왼쪽 정렬</span>
-  </li>
-  <li>
-   <span class="chk-box"></span>
-   <span class="chk-label">소제목</span>
-   <span class="chk-desc">바탕체 14pt Bold · 자동 번호 매기기 해제 · 숫자+마침표 직접 입력</span>
-  </li>
-  <li>
-   <span class="chk-box"></span>
-   <span class="chk-label">계층 순서</span>
-   <span class="chk-desc">1. → □ → - → · → ※ 순서 준수 (레벨 건너뛰기 금지)</span>
-  </li>
-  <li>
-   <span class="chk-box"></span>
-   <span class="chk-label">들여쓰기</span>
-   <span class="chk-desc">내어쓰기(Hanging Indent) 적용하지 않고, 일반 공백(Space) 사용</span>
-  </li>
-  <li>
-   <span class="chk-box"></span>
-   <span class="chk-label">페이지 번호</span>
-   <span class="chk-desc">- N - 형식 · 바닥글 가운데 배치 · 12pt</span>
-  </li>
-  <li>
-   <span class="chk-box"></span>
-   <span class="chk-label">문서 끝</span>
-   <span class="chk-desc">- 以 上 - 오른쪽 정렬 · 14pt · 마지막 페이지 배치</span>
-  </li>
-  <li>
-   <span class="chk-box"></span>
-   <span class="chk-label">Word 자동 고침</span>
-   <span class="chk-desc" style="line-height:1.7;">
-    파일 › 옵션 › 언어 교정 › 자동 고침 옵션에서 아래 항목 모두 <strong>해제</strong><br>
-    · 곧은 따옴표를 둥근 따옴표로<br>
-    · 하이픈을 대시로<br>
-    · 첫 줄을 들여쓴 단락의 맨 첫 부분 간격<br>
-    · 자동으로 글머리 기호 넣기<br>
-    · 자동으로 번호 매기기<br>
-    · 목록 항목의 첫 부분을 이전 항목과 같게 서식 적용<br>
-    · 탭과 백스페이스 넣을 때 첫 부분에 왼쪽으로 들여쓰기
-   </span>
-  </li>
- </ul>
-</div>
-
-<div class="pg">— 7 —</div>
-</div></div>
-
-</body></html>
+</body>
+</html>

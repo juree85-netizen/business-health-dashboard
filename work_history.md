@@ -40,6 +40,16 @@
 - 기존 v1.0 파일 변경 없음
 - `medallia_report_v2_feedback.html` / `files/medallia_report_v2_feedback.html` 생성
 
+### v4.2.2 — v2.0 보고서 검증루프 8개 항목 전체 수정
+- [Fix 1] 1장·4장 본문 `<b>v2.0 추가:</b>` 메타태그 2건 제거 → 자연스러운 본문으로 통합
+- [Fix 2] "의도적 고위험 베팅" → "사후적으로 FCF 전환 가정이 지나치게 낙관적이었음이 확인된다"로 완화
+- [Fix 3] FCF 표 각주: FY2020(–$30M) → '21년(+$90M) 갭 설명 추가 (Thoma Bravo 비용 최적화)
+- [Fix 4] EV/Par Coverage 표 각주: EV 추정 방법론 명시 (추정 매출 × EV/Revenue 멀티플 역산)
+- [Fix 5] GenAI 섹션 앞 박스 삽입: "GenAI는 직접 현금 부족 원인이 아니라 Exit 가능성 차단 요인"
+- [Fix 6] "- 以 上 -" 위치 수정: 5장 내부 → 별첨 1 페이지 상단(본문-별첨 경계)
+- [Fix 7] 별첨 3 표: Qualtrics(Silver Lake·CPP, '23년 $12.5B) 행 신규 추가
+- [Fix 8] 목차 "(신규)/(전면 보완)/(보완)/(강화)" 표기 전면 제거
+
 ### v4.2.1 — v2.0 보고서 docs-hub 등록 + work_history 업데이트
 - `docs-hub/src/content/docs/project/medallia_report_v2_feedback.md` 신규 등록
 - `docs-hub/src/content/docs/html-docs/index.mdx` v2.0 링크 + GPT 버전 링크 추가
@@ -50,12 +60,12 @@
 - `medallia_report_final.md` / `.html` / `.docx` (v4.0.0 수정)
 - `medallia_meeting_summary_20260514.html` (v4.1.0 신규)
 - `medallia_gpt_analysis_20260514.html` (v4.1.2 신규)
-- `medallia_report_v2_feedback.html` (v4.2.0 신규)
+- `medallia_report_v2_feedback.html` (v4.2.0 신규 / v4.2.2 수정)
 - `docs-hub/src/content/docs/project/` — MD 2건 신규 등록
 - `docs-hub/src/content/docs/html-docs/index.mdx` (v4.1.1·v4.2.1 수정)
 - `work_history.md` (현 세션)
 
-**Git 태그:** v4.0.0 / v4.1.0 / v4.1.1 / v4.1.2 / v4.2.0 / v4.2.1
+**Git 태그:** v4.0.0 / v4.1.0 / v4.1.1 / v4.1.2 / v4.2.0 / v4.2.1 / v4.2.2
 
 ---
 

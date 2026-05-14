@@ -4,6 +4,61 @@
 
 ---
 
+## 2026-05-14 (v4.0.0 ~ v4.2.1)
+
+**완료 작업**
+
+### v4.0.0 — Medallia 보고서 5장 구조 전면 개정
+- 기존 4장 → 5장 구조 재편: 1.보고개요 / 2.Medallia개요 / 3.투자인수현황 / 4.주요분석 / 5.시사점
+- 자금조달 구조 시각화 표, SOFR 이자율 추이표, 별첨 3(동일구조 위험사례) 신규 추가
+- 별첨 4(참고문헌) 분리, 날짜 '26.05.14 업데이트
+- `medallia_report_final.md` / `medallia_report_final.html` / `make_medallia_standard_report.py` 수정
+- `files/medallia_report_final.html` / `files/medallia_report_final.docx` 생성
+
+### v4.1.0 — Medallia 보고서 검토 및 M&A 전략 회의록 분석 HTML 생성
+- 60분 회의 STT 기록 분석 → 4페이지 A4 형식 HTML 작성
+- 회의 흐름 타임라인, 재무 수치 표, 실패 원인 3중 구조, Blackstone 포지션 분석,
+  M&A 평가 기준표, 거시 리스크(OpenAI/SpaceX IPO), 후속 액션 아이템 7건 포함
+- `medallia_meeting_summary_20260514.html` / `files/medallia_meeting_summary_20260514.html` 생성
+
+### v4.1.1 — 회의록 분석 docs-hub 프로젝트 문서 등록
+- `docs-hub/src/content/docs/project/medallia_meeting_summary_20260514.md` 신규 등록
+- `docs-hub/src/content/docs/html-docs/index.mdx` 분석 보고서 섹션에 링크 추가
+- Astro 빌드 완료 (12 pages)
+
+### v4.1.2 — GPT 버전 Medallia M&A 평가 프레임워크 HTML 추가
+- Claude 버전과 비교용 GPT 버전 HTML 배포
+- `medallia_gpt_analysis_20260514.html` / `files/medallia_gpt_analysis_20260514.html` 생성
+
+### v4.2.0 — Medallia 보고서 v2.0 사업부장님 피드백 반영 전면 재작성
+- **관점 전환:** 외부 충격론(금리 인상) → 구조적 설계 실패론(FCF 커버리지 0.67×)
+- 신규 추가 표: FCF 커버리지 추이 / PIK 원금 누적 시뮬레이션 / EV/Par Coverage 이탈 과정
+- 신규 분석 섹션: GenAI 대체 가능성 레이어별 분석 / Exit 실패 구조적 원인 / Thoma Bravo 추가투자 거절 의미
+- 별첨 3 보완: 현재 상태 컬럼 추가 + SailPoint vs Medallia 비교
+- 별첨 5 신규: EBITDA vs FCF 해설
+- 별첨 6 신규: SaaS M&A 평가 프레임워크 (11페이지, 4단계 기준표)
+- 기존 v1.0 파일 변경 없음
+- `medallia_report_v2_feedback.html` / `files/medallia_report_v2_feedback.html` 생성
+
+### v4.2.1 — v2.0 보고서 docs-hub 등록 + work_history 업데이트
+- `docs-hub/src/content/docs/project/medallia_report_v2_feedback.md` 신규 등록
+- `docs-hub/src/content/docs/html-docs/index.mdx` v2.0 링크 + GPT 버전 링크 추가
+- Astro 빌드 완료 (13 pages)
+- `work_history.md` 현 세션 기록 추가
+
+**생성/수정 파일**
+- `medallia_report_final.md` / `.html` / `.docx` (v4.0.0 수정)
+- `medallia_meeting_summary_20260514.html` (v4.1.0 신규)
+- `medallia_gpt_analysis_20260514.html` (v4.1.2 신규)
+- `medallia_report_v2_feedback.html` (v4.2.0 신규)
+- `docs-hub/src/content/docs/project/` — MD 2건 신규 등록
+- `docs-hub/src/content/docs/html-docs/index.mdx` (v4.1.1·v4.2.1 수정)
+- `work_history.md` (현 세션)
+
+**Git 태그:** v4.0.0 / v4.1.0 / v4.1.1 / v4.1.2 / v4.2.0 / v4.2.1
+
+---
+
 ## 2026-05-08 (v3.9.0 ~ v3.9.5)
 
 **완료 작업**

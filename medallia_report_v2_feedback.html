@@ -214,6 +214,7 @@
         <span class="new">Exit 실패의 구조적 원인</span>
         <span class="new">Thoma Bravo의 추가 투자 거절이 의미하는 것</span>
         <span>예상 파급 효과</span>
+        <span class="new">이해관계자 관점 분석 — Thoma Bravo vs Blackstone</span>
       </div>
     </div>
   </div>
@@ -749,7 +750,126 @@
 
 
 <!-- ═══════════════════════════════════════
-     PAGE 6 — 5장 시사점 (전면 보완)
+     PAGE 5 — 4장 이해관계자 관점 분석
+════════════════════════════════════════ -->
+<div class="doc-page">
+
+  <p class="sq" style="margin-top:0;">이해관계자 관점 분석 — Thoma Bravo vs Blackstone</p>
+
+  <!-- Thoma Bravo -->
+  <div style="border:1px solid #aaa; border-left:3px solid #1e3a5f; margin:8px 0 0; padding:0;">
+    <div style="background:#1e3a5f; color:#fff; padding:5px 12px; font-size:13px; font-weight:700;">
+      Thoma Bravo — PE 투자자 (Equity) 관점
+    </div>
+    <div style="padding:6px 10px;">
+      <table class="t" style="margin:4px 0;">
+        <tr>
+          <th style="width:16%">단계</th><th>당시 판단</th><th class="sub" style="width:36%">사후 평가</th>
+        </tr>
+        <tr>
+          <td><b>투자 논거</b></td>
+          <td>EV/Revenue 9× = 업계 평균(15~20×) 대비 저렴. ARR 23~26% 고성장, Gartner MQ Leader, Fortune 500 고객 기반</td>
+          <td class="warn">저렴한 멀티플이 낮은 FCF 창출력을 가렸음. FCF 커버리지 0.67×는 "저렴함"이 아니라 "위험 신호"였다</td>
+        </tr>
+        <tr>
+          <td><b>FCF 개선 기대</b></td>
+          <td>TB 플레이북(S&M 절감·헤드카운트 최적화) 적용 → 3~5년 내 FCF 커버리지 1.5× 달성 전망</td>
+          <td class="warn">실제 FCF 개선 속도 &lt; 이자 상승 속도. 성장 둔화 + 금리 인상이 겹쳐 플레이북이 작동 불가</td>
+        </tr>
+        <tr>
+          <td><b>금리 리스크</b></td>
+          <td>초저금리(LIBOR 0.75%) 환경에서 연이자 $135M은 감당 가능. 금리 헤지 불필요로 판단</td>
+          <td class="r">SOFR 100% 변동금리 노출 → 이자 $135M → $300M. 금리 스왑 미실행이 결정적 패착</td>
+        </tr>
+        <tr>
+          <td><b>Exit 전략</b></td>
+          <td>"3~5년 내 IPO 또는 전략 매각" — 시장 회복 시 멀티플 재팽창 기대</td>
+          <td class="r">SaaS 멀티플 수축 + GenAI 대체 압력 + 부채 $2.78B → IPO·매각·재조정·추가투자 4가지 경로 모두 차단</td>
+        </tr>
+        <tr class="danger-row">
+          <td><b>추가 투자 거절</b></td>
+          <td colspan="2"><b>Bloomberg '26.4월 보도:</b> 추가 $500M 투입해도 EV/Par Coverage 1.0× 미달. LP(출자자) 신뢰 손상 우려 → 거절. 이 결정이 실질적 손실 확정 선언이었음</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Blackstone -->
+  <div style="border:1px solid #aaa; border-left:3px solid #6b2020; margin:10px 0 6px; padding:0;">
+    <div style="background:#6b2020; color:#fff; padding:5px 12px; font-size:13px; font-weight:700;">
+      Blackstone — 채권자 (Debt) 관점
+    </div>
+    <div style="padding:6px 10px;">
+      <table class="t" style="margin:4px 0;">
+        <tr>
+          <th style="width:16%">단계</th><th>당시 판단</th><th class="sub" style="width:36%">사후 평가</th>
+        </tr>
+        <tr>
+          <td><b>대출 논거</b></td>
+          <td>TB 포트폴리오사 → PE 최상위 보증 효과. Senior Secured 구조로 원금 보호. 담보: Medallia 전체 자산</td>
+          <td class="warn">PE 보증 효과는 TB의 추가 투자 거절로 소멸. EV가 원금 아래로 하락하면 담보 효과도 소멸</td>
+        </tr>
+        <tr>
+          <td><b>변동금리 설계</b></td>
+          <td>SOFR 연동: 금리 상승 시 이자 수익 자동 증가 — 대출자에게 구조적으로 유리</td>
+          <td class="r">금리 상승으로 이자 수익은 증가했으나, 동시에 Medallia 상환 능력을 파괴 — 자기 파괴적 역설</td>
+        </tr>
+        <tr>
+          <td><b>PIK 허용</b></td>
+          <td>초기 현금 부담 완화 → 포트폴리오 생존 기간 연장 → 대출 상환 가능성 제고</td>
+          <td class="r">PIK 복리 누적으로 원금 $1.8B → $2.78B. EV/Par Coverage 급락의 직접 원인이 됨</td>
+        </tr>
+        <tr class="danger-row">
+          <td><b>D/E Swap 결과</b></td>
+          <td colspan="2"><b>헤어컷(부채 감면) 거부 → Debt-to-Equity Swap 선택:</b> 명목상 Medallia 대주주 취득. 그러나 실제 Exit 가치는 원금 $2.78B 미만으로 추정 — <b>"원하지 않은 Equity"를 보유하게 된 아이러니</b></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <p class="sq" style="margin-top:12px;">이해관계자별 개선 기준 — 사례 역산</p>
+  <table class="t">
+    <tr>
+      <th style="width:20%">항목</th><th>Thoma Bravo (PE 투자자)</th><th>Blackstone (채권자)</th>
+    </tr>
+    <tr>
+      <td><b>FCF 커버리지 기준</b></td>
+      <td>인수 대상 FCF 커버리지 <b>≥ 1.5×</b> 이상만 변동금리 LBO 진행</td>
+      <td>차입자 FCF 커버리지 <b>≥ 1.5×</b> 이상 대출 승인 (미달 시 고정금리 요구)</td>
+    </tr>
+    <tr>
+      <td><b>금리 헤지</b></td>
+      <td>변동금리 차입액의 30~50% 금리 스왑(IRS) 헤지 의무화</td>
+      <td>차입자에게 금리 캡(Interest Rate Cap) 취득 요구 조항 삽입</td>
+    </tr>
+    <tr>
+      <td><b>PIK 제한</b></td>
+      <td>PIK 비중 50% 이하, 허용 기간 최대 2년으로 계약 제한</td>
+      <td>PIK 허용 기간 최대 2년. 이후 현금 이자 전환 의무화 (원금 팽창 상한)</td>
+    </tr>
+    <tr>
+      <td><b>EV/Par 경보</b></td>
+      <td>EV/Par Coverage 2.0× 이하 → 추가 Equity 투입 또는 Exit 가속화</td>
+      <td>EV/Par Coverage 1.5× 이하 → 조기 상환 요구 또는 금리 재협상 트리거</td>
+    </tr>
+    <tr>
+      <td><b>Exit 조건 명시</b></td>
+      <td>"시장 회복 시"가 아닌 <b>FCF 커버리지 2.0× 달성 시</b> Exit 추진으로 계약에 명시</td>
+      <td>대출 만기 내 Exit 미실현 시 원금 상환 유예 조건 엄격화 및 조기 상환권 확보</td>
+    </tr>
+    <tr>
+      <td><b>GenAI 대체 평가</b></td>
+      <td>핵심 기능 중 LLM 대체 가능 비중 ≥ 40% 기업 → 투자 제한 또는 멀티플 할인</td>
+      <td>GenAI 고대체 위험 기업 대출 시 리스크 프리미엄(spread) 추가 100bp 적용</td>
+    </tr>
+  </table>
+
+  <div class="page-no">— 5 —</div>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     PAGE 6 — 5장 시사점
 ════════════════════════════════════════ -->
 <div class="doc-page">
 
@@ -845,7 +965,7 @@
   <p class="fn2" style="padding-left:0; font-size:10px;">※ FCF·EV 관련 수치는 Bloomberg, OnlyCFO 기사 기반 역산 추정치. 상장폐지 이후 재무 정보 비공개로 일부 추정 포함.</p>
   <p class="fn2" style="padding-left:0; font-size:10px;">※ M&A 최소 기준(안)은 자사 내부 적용을 위한 초안이며, 시범 산출 후 사업부 협의를 통해 확정 필요.</p>
 
-  <div class="page-no">— 5 —</div>
+  <div class="page-no">— 6 —</div>
 </div>
 
 
@@ -894,7 +1014,7 @@
   </table>
   <p class="fn2">'21년 상장폐지 후 재무 정보 비공개. 이자비용 급증으로 인한 FCF 악화는 OnlyCFO 분석('26.5월) 기반 역산 추정.</p>
 
-  <div class="page-no">— 6 —</div>
+  <div class="page-no">— 7 —</div>
 </div>
 
 
@@ -938,7 +1058,7 @@
     <tr class="danger-row"><td class="c b">6단계</td><td>Thoma Bravo 추가 투자 거절 → Debt-to-Equity Swap → 채권단 경영권 취득</td><td class="c r"><b>PE 최대 SaaS LBO 손실</b></td></tr>
   </table>
 
-  <div class="page-no">— 7 —</div>
+  <div class="page-no">— 8 —</div>
 </div>
 
 
@@ -1014,7 +1134,7 @@
     <b>시사점:</b> 인수 가격이나 멀티플이 아니라 "FCF 전환 속도"와 "기술 대체 가능성"이 LBO 성패를 가름
   </div>
 
-  <div class="page-no">— 8 —</div>
+  <div class="page-no">— 9 —</div>
 </div>
 
 
@@ -1092,7 +1212,7 @@
     <b>반드시 FCF 기준으로 이자 커버리지를 계산해야 한다.</b>
   </div>
 
-  <div class="page-no">— 9 —</div>
+  <div class="page-no">— 10 —</div>
 </div>
 
 
@@ -1193,7 +1313,7 @@
     ※ 멀티플 기준: EV/Revenue 단독 사용 금지. FCF 커버리지·Rule of 40과 반드시 병행 검토.
   </p>
 
-  <div class="page-no">— 10 —</div>
+  <div class="page-no">— 11 —</div>
 </div>
 
 

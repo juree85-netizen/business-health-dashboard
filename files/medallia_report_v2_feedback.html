@@ -65,6 +65,8 @@
   .sq { font-size: 14px; font-weight: 400; margin: 10px 0 6px 0; padding-left: 1em; }
   .sq::before { content: '□ '; }
 
+  .sq-num { font-size: 14px; font-weight: 400; margin: 10px 0 6px 0; padding-left: 1em; }
+
   .body-p { padding-left: 3em; margin-bottom: 9px; font-size: 14px; }
 
   ul.dash { list-style: none; padding-left: 3em; margin: 4px 0; }
@@ -249,15 +251,15 @@
     <div class="ol-body"><div class="ol-title">참고문헌</div></div>
   </div>
   <div class="ol-row">
-    <div class="ol-num" class="new">별첨 5</div>
+    <div class="ol-num">별첨 5</div>
     <div class="ol-body">
-      <div class="ol-title">EBITDA vs FCF — 왜 다른가 <span class="new-tag">신규</span></div>
+      <div class="ol-title">EBITDA vs FCF — 왜 다른가</div>
     </div>
   </div>
   <div class="ol-row">
     <div class="ol-num">별첨 6</div>
     <div class="ol-body">
-      <div class="ol-title">SaaS M&A 평가 프레임워크 <span class="new-tag">신규</span></div>
+      <div class="ol-title">SaaS M&A 평가 프레임워크</div>
     </div>
   </div>
 
@@ -427,7 +429,7 @@
     <b>시사점:</b> 동일 세그먼트, 유사한 LBO 구조임에도 Qualtrics가 상대적으로 안정적인 이유는 ① 더 큰 매출 기반(~2×), ② SAP ERP 생태계 연동으로 고객 이탈 방어, ③ XM 4축 통합 플랫폼으로 GenAI 대체 분산 때문으로 분석됨. <b>Qualtrics도 LBO 구조상 잠재 위험은 동일하게 존재한다.</b>
   </div>
 
-  <p class="sq" style="margin-top:14px;">인수 시점 재무 현황 요약 <span class="new-tag">신규</span></p>
+  <p class="sq" style="margin-top:14px;">인수 시점 재무 현황 요약</p>
   <table class="t">
     <tr>
       <th>항목</th><th>수치</th><th>의미 해석</th>
@@ -484,9 +486,9 @@
     <tr><td>변동금리 차입금 (Debt)</td><td class="c">$1.8B</td><td>Blackstone 등 민간대출업자 / LIBOR+spread 연동</td></tr>
     <tr class="hl-row"><td><b>총 인수가격</b></td><td class="c b">$6.4B</td><td>EV/Revenue ≈ 9×, EV/EBITDA ≈ 40× 이상 (EBITDA 기준)</td></tr>
   </table>
-  <p class="fn2">인수 당시 LIBOR 0.75%, SOFR 전환 이전 시점. 초저금리 환경에서의 연이자 = $1.8B × 0.75% ≈ $135M</p>
+  <p class="fn2">인수 당시 LIBOR 기준금리 0.75% + credit spread 약 7.0% = 실효 이자율 약 7.5%. 연이자 = $1.8B × 7.5% ≈ $135M. SOFR 전환 이전 시점.</p>
 
-  <p class="sq" style="margin-top:14px;">① FCF 추이 및 이자 커버리지 악화 과정 <span class="new-tag">신규</span></p>
+  <p class="sq-num" style="margin-top:14px;">① FCF 추이 및 이자 커버리지 악화 과정</p>
   <table class="t">
     <tr>
       <th>연도</th><th>추정 매출</th><th>EBITDA 추정</th><th>FCF 추정</th><th>연이자</th><th class="sub">FCF 커버리지</th><th class="sub">상태</th>
@@ -519,7 +521,7 @@
     금리 상승은 이 취약성을 파국으로 전환한 트리거였다.
   </div>
 
-  <p class="sq" style="margin-top:14px;">② PIK 원금 누적 시뮬레이션 <span class="new-tag">신규</span></p>
+  <p class="sq-num" style="margin-top:14px;">② PIK 원금 누적 시뮬레이션</p>
   <table class="t">
     <tr>
       <th>기간</th><th>PIK 비중</th><th>기초 원금</th><th>PIK 이자 누적</th><th>현금 이자 지급</th><th>기타 증감</th><th class="sub">기말 원금</th>
@@ -543,7 +545,7 @@
   </table>
   <p class="fn2">PIK(Payment-in-Kind): 현금 대신 원금 증가로 이자를 갚는 구조. 단기 현금 부담을 줄이되 원금이 복리로 불어나는 덫.</p>
 
-  <p class="sq" style="margin-top:14px;">③ EV/Par Coverage 임계치 이탈 과정 <span class="new-tag">신규</span></p>
+  <p class="sq-num" style="margin-top:14px;">③ EV/Par Coverage 임계치 이탈 과정</p>
   <table class="t">
     <tr>
       <th>시점</th><th>추정 EV</th><th>Loan Par</th><th class="sub">EV/Par Coverage</th><th>상태 판정</th>
@@ -569,7 +571,7 @@
   <div class="ch" style="margin-top:0;">4. 주요 분석</div>
 
   <div class="box-insight" style="margin-bottom:14px;">
-    <b>관점 전환 <span class="new-tag">신규</span></b><br>
+    <b>관점 전환</b><br>
     <div class="compare-wrap" style="margin-top:8px;">
       <div class="compare-box old">
         <span class="compare-label">기존 관점 (v1.0)</span>
@@ -584,7 +586,7 @@
     </div>
   </div>
 
-  <p class="sq">실패 원인 — 심층 재분석 (전면 보완)</p>
+  <p class="sq">실패 원인 — 심층 재분석</p>
 
   <div class="arr"><div class="a">①</div><div>성장률 과대 추정: 고성장 지속 전제로 9배 멀티플(EV/Revenue) 적용</div></div>
   <ul class="dot">
@@ -593,7 +595,7 @@
     <li>단순 성장률 과대 추정이 아니라, FCF 전환 속도를 과대 추정한 것이 본질적 오류</li>
   </ul>
 
-  <div class="arr"><div class="a">②</div><div>인수 당시부터 FCF 커버리지 1.0× 미만 <span class="new-tag">신규</span></div></div>
+  <div class="arr"><div class="a">②</div><div>인수 당시부터 FCF 커버리지 1.0× 미만</div></div>
   <ul class="dot">
     <li>역산 추정 결과 인수 첫 해('21년) FCF ≈ $90M, 이자 $135M → 커버리지 <b>0.67×</b></li>
     <li>이는 금리 인상 없이 기준금리 동결만 지속됐어도 FCF 성장 없이는 5~7년 내 유사한 문제에 봉착할 구조</li>
@@ -616,7 +618,7 @@
 
   <div class="sep"></div>
 
-  <p class="sq">Medallia 사업 구조와 GenAI 대체 가능성 분석 <span class="new-tag">신규</span></p>
+  <p class="sq">Medallia 사업 구조와 GenAI 대체 가능성 분석</p>
 
   <div class="box-insight" style="margin-bottom:10px; font-size:12px;">
     <b>전제:</b> GenAI는 Medallia의 직접적 현금 부족 원인이 아니다. 다만 Exit 가능성을 구조적으로 차단한 핵심 요인으로 작용했다 — 잠재 인수자의 지불 의향가를 낮추고, IPO 재진입 시 투자자 수요를 감소시켰다.
@@ -669,7 +671,7 @@
 ════════════════════════════════════════ -->
 <div class="doc-page">
 
-  <p class="sq" style="margin-top:0;">Exit 실패의 구조적 원인 <span class="new-tag">신규</span></p>
+  <p class="sq" style="margin-top:0;">Exit 실패의 구조적 원인</p>
 
   <p class="body-p">v1.0에서는 "협상 난항"으로만 기술됐으나, 왜 협상이 불가능했는지 구조를 분석한다.</p>
 
@@ -697,7 +699,7 @@
     → 4가지 탈출구가 모두 막힘 → 경영권 이전이 유일한 결말
   </div>
 
-  <p class="sq">Thoma Bravo의 추가 투자 거절이 의미하는 것 <span class="new-tag">신규</span></p>
+  <p class="sq">Thoma Bravo의 추가 투자 거절이 의미하는 것</p>
 
   <p class="body-p">"Thoma Bravo Declines to Invest More in Troubled Medallia" (Bloomberg, '26.4월) — 이 결정의 함의</p>
 
@@ -751,9 +753,9 @@
 ════════════════════════════════════════ -->
 <div class="doc-page">
 
-  <div class="ch" style="margin-top:0;">5. 시사점 (전면 보완)</div>
+  <div class="ch" style="margin-top:0;">5. 시사점</div>
 
-  <p class="sq">① SaaS 기업가치 평가 — 관점 전환 <span class="new-tag">강화</span></p>
+  <p class="sq-num">① SaaS 기업가치 평가 — 관점 전환</p>
 
   <table class="t">
     <tr>
@@ -781,7 +783,7 @@
     </tr>
   </table>
 
-  <p class="sq" style="margin-top:14px;">② 향후 M&A 검토 시 필수 체크리스트 <span class="new-tag">신규</span></p>
+  <p class="sq-num" style="margin-top:14px;">② 향후 M&A 검토 시 필수 체크리스트</p>
 
   <table class="t">
     <tr>
@@ -831,7 +833,7 @@
     </tr>
   </table>
 
-  <p class="sq" style="margin-top:14px;">③ 사업건전성 대시보드 운영 방향</p>
+  <p class="sq-num" style="margin-top:14px;">③ 사업건전성 대시보드 운영 방향</p>
   <ul class="dash">
     <li>잉여현금흐름(FCF) 지표 시범 산출 → 사업부 관리 협의 → 대시보드 적용 기준 확정</li>
     <li>Rule of 40·NRR·FCF 통합 모니터링 체계 구축 — 단일 지표가 아닌 복합 지표 기준 경보 체계</li>
@@ -945,7 +947,7 @@
 ════════════════════════════════════════ -->
 <div class="doc-page">
 
-  <div class="app-ch">별첨 3. 동일 구조 위험 노출 대표 사례 ('21~'22년) <span class="new-tag">현재 상태 추가</span></div>
+  <div class="app-ch">별첨 3. 동일 구조 위험 노출 대표 사례 ('21~'22년)</div>
 
   <table class="t">
     <tr>
@@ -955,7 +957,7 @@
       <th>인수금액</th>
       <th>Multiple<br>(Revenue)</th>
       <th>사업 영역</th>
-      <th class="sub">현재 상태 ('26년) <span class="new-tag">신규</span></th>
+      <th class="sub">현재 상태 ('26년)</th>
       <th class="sub">위험도</th>
     </tr>
     <tr>
@@ -1046,7 +1048,7 @@
 
   <hr class="sep" style="margin:22px 0;">
 
-  <div class="app-ch">별첨 5. EBITDA vs FCF — 왜 다른가 <span class="new-tag">신규</span></div>
+  <div class="app-ch">별첨 5. EBITDA vs FCF — 왜 다른가</div>
 
   <p style="font-size:13px; margin-bottom:8px;">
     보고서 내에서 "EBITDA 흑자인데 현금흐름 적자"가 반복적으로 언급된다. 이 개념을 정확히 이해하기 위한 해설.
@@ -1099,7 +1101,7 @@
 ════════════════════════════════════════ -->
 <div class="doc-page">
 
-  <div class="app-ch">별첨 6. SaaS M&A 평가 프레임워크 <span class="new-tag">신규</span></div>
+  <div class="app-ch">별첨 6. SaaS M&A 평가 프레임워크</div>
 
   <p style="font-size:13px; margin-bottom:10px;">
     Medallia 사례에서 도출한 자사 적용 M&A 평가 기준표. 향후 SaaS 기업 인수 검토 시 체크리스트로 활용.
@@ -1116,7 +1118,7 @@
     <tr>
       <td>FCF Margin</td><td>FCF ÷ 매출</td>
       <td class="c safe">≥ 15%</td><td class="c warn">5~15%</td><td class="c r">&lt; 5%</td>
-      <td class="c r">~12~23%</td>
+      <td class="c warn">~12~23%<br><span style="font-size:10px; color:#555;">※ 절대 이자 $135~300M으로 커버리지는 별도 확인</span></td>
     </tr>
     <tr>
       <td>EV/Par Coverage</td><td>EV ÷ Loan Par</td>

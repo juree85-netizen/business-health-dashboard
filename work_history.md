@@ -4,6 +4,37 @@
 
 ---
 
+## 2026-05-08 (v3.9.0 ~ v3.9.5)
+
+**완료 작업**
+
+### v3.9.0 — Medallia 보고서 analysis-report-standard.md 기준 전면 재작성
+- 분석보고서 작성 기준(analysis-report-standard.md) 기준으로 보고서 구조 재편
+- `medallia_report_final.md`, `medallia_report.html`, `medallia_report_outline.html` 갱신
+
+### v3.9.1 — 분석보고서 디자인 스펙 Claude 최적화 v2.0 작성
+- `shared/analysis-report-standard.md` 451줄, Claude 최적화 버전 신규 작성
+
+### v3.9.2 — docs-hub 등록 및 GitHub 푸시
+- 분석보고서 작성 기준 v2.0 docs-hub Starlight 등록 및 빌드
+- 세션 스냅샷 태그: v3.9.2-snapshot
+
+### v3.9.3 — docs-hub HTML 목록에 디자인 스펙 가이드 링크 추가
+
+### v3.9.4 — 자가검증 날짜형식 수정 ('26.4.30 → '26.04.30)
+
+### v3.9.5 — Medallia 보고서 제목 일괄 변경
+- '사업건전성 관리 기준의 재정립' → 'SaaS 기업 가치 평가 기준'
+
+**생성/수정 파일**
+- `shared/analysis-report-standard.md` (v2.0 신규)
+- `medallia_report_final.md` / `medallia_report.html` / `medallia_report_outline.html` (수정)
+- docs-hub Starlight 페이지 등록
+
+**Git 태그:** v3.9.0 / v3.9.1 / v3.9.2 / v3.9.3 / v3.9.4 / v3.9.5
+
+---
+
 ## 2026-05-07 (v3.7.7 ~ v3.8.3)
 
 **완료 작업**

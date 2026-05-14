@@ -4,7 +4,43 @@
 
 ---
 
-## 2026-05-14 (v4.0.0 ~ v4.2.1)
+## 2026-05-14 (v4.2.3 ~ v4.2.5)
+
+**완료 작업**
+
+### v4.2.3 — v2.0 보고서 2장 시장 포지셔닝 + Qualtrics 비교 표 추가
+- 기업 개요 하단에 시장 세그먼트 계층 표 신규 추가
+  (CRM → CX Management → XM/VoC, Gartner MQ "Voice of the Customer" 공식 분류 명시)
+- Qualtrics vs Medallia 포지셔닝 비교 표 신규 추가 (13개 항목: 기업·상품·AI·재무·Exit)
+- 별첨 3에 Qualtrics(Silver Lake·CPP, '23년 $12.5B) 행 추가 (이전 v4.2.2에서 포함)
+- 목차 2장 항목 업데이트
+
+### v4.2.4 — 검증루프 4건 + □/① 혼재 서식 수정
+- **서식** `.sq-num` CSS 클래스 신규 추가 (□ prefix 없는 번호 소제목 전용)
+  - ①②③ 소제목 6곳 `class="sq"` → `class="sq-num"` 교체 (□와 ① 혼재 제거)
+  - 3장: FCF추이·PIK시뮬레이션·EV/Par Coverage, 5장: ①②③ 전체
+- **Critical** LIBOR 각주 이자 계산 오류 수정
+  - "$1.8B × 0.75% ≈ $135M" (오류) → 기준금리 0.75% + credit spread 7.0% = 실효 7.5%, $1.8B × 7.5% ≈ $135M
+- **Important** 본문 "(전면 보완)" 잔존 2건 제거 (4장 소제목, 5장 챕터 제목)
+- **Important** 별첨 6 FCF Margin 셀에 "절대 이자 $135~300M으로 커버리지 별도 확인" 주석 추가
+- **Minor** 목차 별첨 5 HTML 속성 중복(class 이중 선언) 제거
+
+### v4.2.5 — docs-hub MD 갱신 + Astro 빌드 + work_history 업데이트
+- `docs-hub/src/content/docs/project/medallia_report_v2_feedback.md` 전면 갱신
+  (세그먼트 계층·Qualtrics 비교·LIBOR 수정 내용 반영)
+- Astro 빌드 완료 (13 pages)
+- `work_history.md` 현 세션 v4.2.3~v4.2.5 기록 추가
+
+**생성/수정 파일 (v4.2.3~v4.2.5)**
+- `medallia_report_v2_feedback.html` / `files/medallia_report_v2_feedback.html` (v4.2.3·v4.2.4 수정)
+- `docs-hub/src/content/docs/project/medallia_report_v2_feedback.md` (v4.2.5 전면 갱신)
+- `work_history.md` (현 세션)
+
+**Git 태그:** v4.2.3 / v4.2.4 / v4.2.5
+
+---
+
+## 2026-05-14 (v4.0.0 ~ v4.2.2)
 
 **완료 작업**
 
@@ -60,12 +96,13 @@
 - `medallia_report_final.md` / `.html` / `.docx` (v4.0.0 수정)
 - `medallia_meeting_summary_20260514.html` (v4.1.0 신규)
 - `medallia_gpt_analysis_20260514.html` (v4.1.2 신규)
-- `medallia_report_v2_feedback.html` (v4.2.0 신규 / v4.2.2 수정)
-- `docs-hub/src/content/docs/project/` — MD 2건 신규 등록
+- `medallia_report_v2_feedback.html` / `files/medallia_report_v2_feedback.html` (v4.2.0 신규 / v4.2.2~v4.2.4 수정)
+- `docs-hub/src/content/docs/project/medallia_report_v2_feedback.md` (v4.2.1 신규 / v4.2.5 갱신)
+- `docs-hub/src/content/docs/project/medallia_meeting_summary_20260514.md` (v4.1.1 신규)
 - `docs-hub/src/content/docs/html-docs/index.mdx` (v4.1.1·v4.2.1 수정)
 - `work_history.md` (현 세션)
 
-**Git 태그:** v4.0.0 / v4.1.0 / v4.1.1 / v4.1.2 / v4.2.0 / v4.2.1 / v4.2.2
+**Git 태그:** v4.0.0 / v4.1.0 / v4.1.1 / v4.1.2 / v4.2.0 / v4.2.1 / v4.2.2 / v4.2.3 / v4.2.4 / v4.2.5
 
 ---
 

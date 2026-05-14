@@ -4,6 +4,40 @@
 
 ---
 
+## 2026-05-14 (v4.3.0 ~ v4.3.3)
+
+**완료 작업**
+
+### v4.3.0 — 이해관계자 관점 분석 신규 페이지 추가 (4장)
+- Thoma Bravo(PE 투자자) · Blackstone(채권자) 관점 분석표 신규 추가
+  - 각 이해관계자별 단계/당시 판단/사후 평가 3열 구조
+  - 이해관계자별 개선 기준 비교표 (FCF 기준·금리 헤지·PIK 제한·EV/Par 경보·Exit 조건·GenAI 평가)
+- 기존 p5~p10 → p6~p11로 재번호 후 새 p5로 삽입
+- 총 11페이지 구조 유지 (목차+p1~p11)
+
+### v4.3.1 — 불필요 요소 삭제 + 국문화
+- 관점 전환 compare box (`box-insight`) 삭제
+- "v1.0에서는 '협상 난항'으로만 기술됐으나…" 메타 문장 삭제
+- 트리거/근본 원인 표기 영→한 전환 ("방아쇠(트리거)", "근본 원인(Root Cause)" 표현 정리)
+
+### v4.3.2 — "방아쇠" 표기 제거
+- `방아쇠(트리거)` → `트리거` 2곳 수정 (4장 p3 본문)
+
+### v4.3.3 — docs-hub MD 갱신 + Astro 빌드 + GitHub 저장
+- `docs-hub/src/content/docs/project/medallia_report_v2_feedback.md` 전면 갱신
+  (이해관계자 관점 분석 3개 표 추가, 목차 업데이트, 트리거 표현 통일)
+- Astro 빌드 완료 (13 pages)
+- `work_history.md` 현 세션 v4.3.0~v4.3.3 기록 추가
+
+**생성/수정 파일 (v4.3.0~v4.3.3)**
+- `medallia_report_v2_feedback.html` / `files/medallia_report_v2_feedback.html` (v4.3.0~v4.3.2 수정)
+- `docs-hub/src/content/docs/project/medallia_report_v2_feedback.md` (v4.3.3 전면 갱신)
+- `work_history.md` (현 세션)
+
+**Git 태그:** v4.3.0 / v4.3.1 / v4.3.2 / v4.3.3
+
+---
+
 ## 2026-05-14 (v4.2.3 ~ v4.2.5)
 
 **완료 작업**

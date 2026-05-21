@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>회의 내용 요약</title>
+  <style>
+    body {
+      font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+      font-size: 14px;
+      color: #172B4D;
+      line-height: 1.6;
+      padding: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    h2 {
+      font-size: 20px;
+      border-bottom: 2px solid #0052CC;
+      padding-bottom: 8px;
+      margin-top: 40px;
+    }
+    h3 {
+      font-size: 16px;
+      margin-top: 28px;
+      color: #0052CC;
+    }
+    ul {
+      margin: 8px 0;
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 4px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 12px;
+      font-size: 13px;
+    }
+    th {
+      background-color: #0052CC;
+      color: #ffffff;
+      padding: 8px 10px;
+      text-align: center;
+      white-space: nowrap;
+    }
+    td {
+      border: 1px solid #DFE1E6;
+      padding: 8px 10px;
+      vertical-align: top;
+    }
+    tr:nth-child(even) td {
+      background-color: #F4F5F7;
+    }
+    .badge-done {
+      background-color: #00875A;
+      color: white;
+      padding: 2px 8px;
+      border-radius: 3px;
+      font-size: 12px;
+    }
+    .badge-wip {
+      background-color: #FF8B00;
+      color: white;
+      padding: 2px 8px;
+      border-radius: 3px;
+      font-size: 12px;
+    }
+    .badge-wait {
+      background-color: #6554C0;
+      color: white;
+      padding: 2px 8px;
+      border-radius: 3px;
+      font-size: 12px;
+    }
+    .badge-check {
+      background-color: #0065FF;
+      color: white;
+      padding: 2px 8px;
+      border-radius: 3px;
+      font-size: 12px;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #DFE1E6;
+      margin: 28px 0;
+    }
+    strong { color: #172B4D; }
+  </style>
+</head>
+<body>
+
+<h2>회의 내용 요약</h2>
+
+<h3>1. 속도 개선 후 화면 이슈</h3>
+<ul>
+  <li>기존 설계와 달라진 부분 다수 발견 (오른쪽 정렬, 기준 연월 표시, 한 화면 레이아웃 등)</li>
+  <li><strong>액션:</strong> 솔루션전략이 이슈 리스트업 후 메일 공유 예정</li>
+</ul>
+
+<hr>
+
+<h3>2. 기준 연월 오류</h3>
+<ul>
+  <li>화면에 4월이 아닌 3월로 표시됨 (4월 실적 미반영)</li>
+  <li><strong>액션:</strong> 회의 후 즉시 확인</li>
+</ul>
+
+<hr>
+
+<h3>3. SR별 진행 현황</h3>
+<table>
+  <thead>
+    <tr>
+      <th>SR No.</th>
+      <th>업무 내용</th>
+      <th>요청자</th>
+      <th>처리 담당자</th>
+      <th>생성일</th>
+      <th>완료 요청일</th>
+      <th>완료 여부</th>
+      <th>완료일</th>
+      <th>현황</th>
+      <th>이슈</th>
+      <th>액션</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>S26030004582</td>
+      <td>재무_시장 R&amp;D/S&amp;M 비용 업데이트, 고객/상품 CES·CSAT·NPS 업데이트 요청</td>
+      <td>유주리</td>
+      <td>-</td>
+      <td>2026-03-18</td>
+      <td>2026-03-19</td>
+      <td><span class="badge-wip">진행 중</span></td>
+      <td>-</td>
+      <td><span class="badge-check">확인 필요</span></td>
+      <td>엑셀 데이터 기반, 3년치 데이터 미표시 오류 / 엑셀 공유됨</td>
+      <td>업데이트 엑셀 재공유 후 피드백</td>
+    </tr>
+    <tr>
+      <td>S26030007696</td>
+      <td>접속 속도 개선 요청</td>
+      <td>유주리</td>
+      <td>염효결</td>
+      <td>2026-03-27</td>
+      <td>2026-03-28</td>
+      <td><span class="badge-done">완료</span></td>
+      <td>2026-04-24</td>
+      <td><span class="badge-done">완료</span></td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>S26040004737</td>
+      <td>VoC 데이터 테이블 생성</td>
+      <td>유주리</td>
+      <td>-</td>
+      <td>2026-04-20</td>
+      <td>2026-04-30</td>
+      <td><span class="badge-wip">진행 중</span></td>
+      <td>-</td>
+      <td><span class="badge-wait">대기 중</span></td>
+      <td>오은성 프로님 쪽 인터페이스 작업 선행 필요 (6월 완료 예정)</td>
+      <td>일정 업데이트 공유</td>
+    </tr>
+    <tr>
+      <td>S26040005889</td>
+      <td>효율/수익 페이지 내 LTV, CAC, LTV:CAC Ratio, CAC Payback Ratio 개발 요청</td>
+      <td>유주리</td>
+      <td>-</td>
+      <td>2026-04-22</td>
+      <td>2026-04-23</td>
+      <td><span class="badge-wip">진행 중</span></td>
+      <td>-</td>
+      <td><span class="badge-check">확인 필요</span></td>
+      <td>진행 현황 미파악</td>
+      <td>담당자 확인 후 공유</td>
+    </tr>
+    <tr>
+      <td>S26050000095</td>
+      <td>사업기회 데이터 테이블 생성</td>
+      <td>김범준</td>
+      <td>-</td>
+      <td>2026-05-04</td>
+      <td>2026-05-14</td>
+      <td><span class="badge-wip">진행 중</span></td>
+      <td>-</td>
+      <td><span class="badge-wip">진행 중</span></td>
+      <td>중복 데이터 문제로 뷰 테이블 스크립트 미완성</td>
+      <td>이번 달 말 완료 가능 여부 확인 후 회신</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<h3>4. 6월 개발 지연 예고</h3>
+<ul>
+  <li><strong>원인 2가지:</strong>
+    <ul>
+      <li>데이터 레이크 전체 개인정보 암호화 작업 (6월 말 마감)</li>
+      <li>NiFi → Airflow 전환 작업 (1월부터 지연되어 6월 마감)</li>
+    </ul>
+  </li>
+  <li><strong>결론:</strong> 단순 작업(엑셀 업로드 등)은 우선순위 조정하여 진행, 복잡한 작업은 일정 공유 필요</li>
+</ul>
+
+<hr>
+
+<h3>5. 전체 액션 아이템</h3>
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>담당</th>
+      <th>내용</th>
+      <th>기한</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>전체</td>
+      <td>6월 개발 지연 감안하여 사업기회·VoC 6월 2주 내 완료 목표 관리</td>
+      <td>6월 2주차</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>솔루션전략</td>
+      <td>속도 개선 후 달라진 화면 이슈 리스트 메일 공유</td>
+      <td>회의 후 즉시</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>솔루션전략</td>
+      <td>4월 실적 기준 연월 오류 확인</td>
+      <td>회의 후 즉시</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>SDSC</td>
+      <td>사업기회 뷰 테이블 완료 일정 확인 후 메신저 공유</td>
+      <td>회의 후 즉시</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>솔루션전략</td>
+      <td>재무_시장·고객·상품 엑셀 파일 재공유</td>
+      <td>회의 후 즉시</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>SDSC</td>
+      <td>중복 데이터 샘플 담당자에게 공유</td>
+      <td>추후</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>SDSC</td>
+      <td>VoC 오은성 프로님 인터페이스 작업 일정 업데이트 공유</td>
+      <td>추후</td>
+    </tr>
+  </tbody>
+</table>
+
+</body>
+</html>

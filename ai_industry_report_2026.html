@@ -90,6 +90,7 @@
   .toc-act-badge.appx{background:var(--gray2);color:var(--gray4);}
   .toc-act-title{font-size:14px;font-weight:800;color:var(--primary);}
   .toc-act-sub{font-size:11px;color:var(--gray3);margin-left:auto;}
+  .toc-act-quote{font-size:11px;color:var(--gray3);font-style:italic;padding:2px 0 4px 44px;line-height:1.5;}
   .toc-sub-list{list-style:none;padding-left:44px;margin-bottom:2px;}
   .toc-sub-list li{font-size:12px;color:var(--gray4);padding:3px 0;border-bottom:1px dashed var(--gray2);display:flex;align-items:center;gap:7px;}
   .toc-sub-list li:last-child{border-bottom:none;}
@@ -333,7 +334,7 @@
 <!-- ══ COVER ══ -->
 <div class="cover">
   <div class="cover-badge">Research Report · 2026.05</div>
-  <h1>AI 산업에 대한<br><span>최근 트렌드와 시사점</span></h1>
+  <h1>AI 진보의 이면<br><span>재무·수요·규제·에너지·조직, 5개의 벽</span></h1>
   <p class="cover-thesis">
     AI 기술의 진보는 실재한다. 다만 2026년 현재 AI 산업의 병목은 모델 성능이 아니라,<br>
     수익화·조직 수용성·규제 대응·전력/반도체 인프라라는 비기술적 제약으로 이동하고 있다.
@@ -355,14 +356,17 @@
       <div class="toc-headline">목차</div>
       <div class="toc-act">
         <div class="toc-act-header"><span class="toc-act-badge intro">서론</span><span class="toc-act-title">핵심 주장과 분석 배경</span></div>
+        <div class="toc-act-quote">"AI 기술의 진보는 실재한다. 다만 2026년 현재 병목은 기술이 아니라 비기술적 제약으로 이동했다."</div>
       </div>
       <hr class="toc-divider">
       <div class="toc-act">
-        <div class="toc-act-header"><span class="toc-act-badge act1">1막</span><span class="toc-act-title">기술은 실재한다</span><span class="toc-act-sub">기술 진보 + 버블 논쟁 해소</span></div>
+        <div class="toc-act-header"><span class="toc-act-badge act1">1막</span><span class="toc-act-title">기술은 실재한다 — 그러나 수치를 읽는 맥락이 중요하다</span><span class="toc-act-sub">기술 진보 측정 + 버블 논쟁 해소</span></div>
+        <div class="toc-act-quote">"METR 측정 결과 AI 자율 작업 능력은 7개월마다 2배씩 성장 중. '버블이냐 아니냐'는 잘못된 질문이다."</div>
       </div>
       <hr class="toc-divider">
       <div class="toc-act">
         <div class="toc-act-header"><span class="toc-act-badge act2">2막</span><span class="toc-act-title">그러나 4대 장벽이 존재한다</span><span class="toc-act-sub">재무 · 수요 · 규제 · 에너지</span></div>
+        <div class="toc-act-quote">"매출은 3배씩 성장하지만 손실도 함께 폭증. 9억 명 중 유료 전환은 5%. 기술 바깥의 장벽이 사업화를 막고 있다."</div>
         <ul class="toc-sub-list">
           <li><span class="barrier-dot">1</span>돈이 되는가? — 재무 지속가능성</li>
           <li><span class="barrier-dot">2</span>원하는가? — 미국 Gen Z의 반감 확대</li>
@@ -373,10 +377,12 @@
       <hr class="toc-divider">
       <div class="toc-act">
         <div class="toc-act-header"><span class="toc-act-badge act3">3막</span><span class="toc-act-title">조직이 따라가지 못하고 있다</span><span class="toc-act-sub">심리적 간극 + 중간 관리자 딜레마</span></div>
+        <div class="toc-act-quote">"기술 투자의 95%는 시스템에, 5%만 사람에게 투입된다. 중간 관리자가 무너지면 AI 도입은 실패한다."</div>
       </div>
       <hr class="toc-divider">
       <div class="toc-act">
         <div class="toc-act-header"><span class="toc-act-badge concl">결론</span><span class="toc-act-title">3가지 시나리오와 시사점</span></div>
+        <div class="toc-act-quote">"기술은 살고, 비즈니스 모델과 생태계는 재편된다. 2028~2030년이 분기점이다."</div>
       </div>
       <hr class="toc-divider">
       <div class="toc-act">
@@ -408,8 +414,8 @@
     <!-- 1막 -->
     <div class="act-header act1">
       <div class="act-label">1막</div>
-      <div class="act-title">기술은 실재한다</div>
-      <div class="act-desc">버블 논쟁의 전제를 먼저 해소한다. AI 기술의 진보는 측정 가능하고 가속 중이다. 다만 수치를 읽는 맥락이 중요하다. → <em style="opacity:.75;font-size:12px;">수치 해석 주의사항은 오른쪽 메모 참조</em></div>
+      <div class="act-title">기술은 실재한다 — 그러나 수치를 읽는 맥락이 중요하다</div>
+      <div class="act-desc">버블 논쟁의 전제를 먼저 해소한다. AI 기술의 진보는 측정 가능하고 가속 중이다. METR가 측정한 자율 작업 능력, J-Curve로 읽는 생산성 역설. "버블이냐 아니냐"는 잘못된 질문이다 — 진짜 논쟁은 <em>누가, 언제, 어떤 형태로 수익화에 성공하는가</em>다. → <em style="opacity:.75;font-size:12px;">수치 해석 주의사항은 오른쪽 메모 참조</em></div>
     </div>
     <div class="section">
       <div class="section-label">1막</div>

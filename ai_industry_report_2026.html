@@ -157,6 +157,7 @@
   .big.blue{color:var(--accent);}.big.red{color:var(--danger);}.big.orange{color:var(--warning);}.big.green{color:var(--success);}.big.purple{color:var(--purple);}
   .stat-card .desc{font-size:12px;color:var(--gray4);}
   .stat-card .change{font-size:10px;margin-top:2px;font-weight:600;}
+  .stat-card .explain{font-size:10px;color:var(--gray3);margin-top:5px;line-height:1.5;text-align:left;border-top:1px solid var(--gray2);padding-top:5px;}
   .change.up{color:var(--danger);}.change.dn{color:var(--success);}
 
   /* ── CHARTS ── */
@@ -414,9 +415,24 @@
       <div class="section-label">1막</div>
       <div class="section-title">기술 진보의 실체 — 그리고 버블 논쟁의 해소</div>
       <div class="stat-grid">
-        <div class="stat-card"><div class="big blue">50%</div><div class="desc"><span class="term">METR<span class="tip">Evaluating AI Systems. AI 자율성·안전성을 독립적으로 평가하는 비영리 연구기관.</span></span> 16시간+ 작업 성공률</div><div class="change" style="color:var(--gray4);">228개 중 5개 해당 → 메모 참조</div></div>
-        <div class="stat-card"><div class="big green">7개월</div><div class="desc">AI 자율 작업 시간 2배 주기</div><div class="change dn">2024~25년 4개월로 가속</div></div>
-        <div class="stat-card"><div class="big orange">80%</div><div class="desc">기업 앱 에이전트 내장 전환</div><div class="change" style="color:var(--gray4);">Gartner 2025 전망 기준</div></div>
+        <div class="stat-card">
+          <div class="big blue">50%</div>
+          <div class="desc"><span class="term">METR<span class="tip">Evaluating AI Systems. AI 자율성·안전성을 독립적으로 평가하는 비영리 연구기관.</span></span> 16시간+ 작업 성공률</div>
+          <div class="change" style="color:var(--gray4);">228개 중 5개 해당 · 소규모 샘플 주의</div>
+          <div class="explain">인간이 약 16시간 걸리는 복잡한 소프트웨어 과제(설계·코딩·디버깅 포함)를 AI가 <strong>사람 개입 없이 혼자</strong> 완료한 비율. "AI가 엔지니어 수준의 자율 작업을 일부 수행 가능"을 의미.</div>
+        </div>
+        <div class="stat-card">
+          <div class="big green">7개월</div>
+          <div class="desc">AI 자율 작업 처리 시간 2배 주기</div>
+          <div class="change dn">2024~25년 4개월로 가속 중</div>
+          <div class="explain">AI가 혼자 처리 가능한 작업의 <strong>복잡도(소요 시간 기준)가 2배로 늘어나는 속도</strong>. 즉 7개월 전에는 8시간짜리 과제가 한계였다면, 지금은 16시간짜리를 처리한다는 뜻 — 기술 진보 속도의 척도.</div>
+        </div>
+        <div class="stat-card">
+          <div class="big orange">80%</div>
+          <div class="desc">2026년 말 기업용 앱 에이전트 내장 비율 전망</div>
+          <div class="change" style="color:var(--gray4);">Gartner 2025 전망 기준</div>
+          <div class="explain"><strong>AI 에이전트</strong>란 단순 답변이 아닌 "알아서 계획 수립 → 실행 → 결과 확인"을 반복하는 자율 AI. 기업 앱(CRM·ERP·HR 등)의 80%가 이런 AI를 탑재할 것이라는 Gartner 예측.</div>
+        </div>
       </div>
 
       <hr class="divider">
@@ -464,18 +480,39 @@
           <div class="barrier-num-badge b1">1</div>
           <div><div class="barrier-section-title">돈이 되는가? — 재무 지속가능성</div><div class="barrier-section-sub">매출은 성장하지만 수익 구조는 취약하다 / 인프라 약정 주의사항 → 오른쪽 메모 참조</div></div>
         </div>
+        <div class="chart-title" style="margin-bottom:8px;">OpenAI 연도별 매출 vs 손실 추이</div>
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:10px;font-size:10px;font-weight:700;color:var(--gray4);">
+          <span><span style="display:inline-block;width:14px;height:10px;border-radius:2px;background:linear-gradient(90deg,#2563eb,#60a5fa);vertical-align:middle;margin-right:4px;"></span>매출</span>
+          <span><span style="display:inline-block;width:14px;height:10px;border-radius:2px;background:linear-gradient(90deg,#dc2626,#f87171);vertical-align:middle;margin-right:4px;"></span>손실</span>
+          <span style="color:var(--warning);">2026 수치는 애널리스트/언론 추정 기준</span>
+        </div>
         <div class="mini-rev-bar">
           <div class="mini-rev-row"><span class="mini-rev-yr">2023</span><div class="mini-rev-bars"><div class="mini-bar-r" style="width:7%;">$20</div><div class="mini-bar-l" style="width:17%;">$50억 손실</div></div></div>
           <div class="mini-rev-row"><span class="mini-rev-yr">2024</span><div class="mini-rev-bars"><div class="mini-bar-r" style="width:20%;">$60억</div><div class="mini-bar-l" style="width:27%;">$80억 손실</div></div></div>
           <div class="mini-rev-row"><span class="mini-rev-yr">2025</span><div class="mini-rev-bars"><div class="mini-bar-r" style="width:44%;">$130억 (연환산 $200억)</div><div class="mini-bar-l" style="width:17%;">$50억</div></div></div>
           <div class="mini-rev-row"><span class="mini-rev-yr" style="color:var(--warning);">2026 전망</span><div class="mini-rev-bars"><div class="mini-bar-r" style="width:100%;">$294억</div><div class="mini-bar-l" style="width:47%;">$140억 손실 추정 (2025 대비 3배)</div></div></div>
         </div>
-        <p class="note" style="margin-bottom:12px;">■ 파란: 매출 ■ 빨간: 손실 (단위: 억 달러) · 2026 수치는 애널리스트/언론 추정 기준</p>
+        <p class="note" style="margin-bottom:12px;">단위: 억 달러 (미국 달러 기준)</p>
         <h4 style="font-size:12px;font-weight:700;color:var(--gray4);margin-bottom:9px;text-transform:uppercase;letter-spacing:.5px;">매출 구성 — B2C vs B2B (2026년)</h4>
         <div class="rev-mix">
-          <div class="rev-seg b2c"><div class="seg-pct">24%</div><div class="seg-label">ChatGPT Plus</div><div class="seg-desc">월 $20 · ~1,500만 명</div></div>
-          <div class="rev-seg ent"><div class="seg-pct">50%</div><div class="seg-label">Team / <span class="term" style="border-bottom-color:#15803d;">Enterprise<span class="tip">기업 고객 대상 AI 구독 플랜. 평균 $42/월/시트. 보안·관리 기능 포함.</span></span></div><div class="seg-desc">~350~400만 시트 · 평균 $42/월<br><span class="term">ARPU<span class="tip">Average Revenue Per User. 사용자 1인당 평균 수익. 유료 사용자 기준 $35~40/월.</span></span> $35~40 / 2026년 내 B2C 추월 전망</div></div>
-          <div class="rev-seg api"><div class="seg-pct">26%</div><div class="seg-label">API</div><div class="seg-desc">개발자·파트너 사용량 기반<br>900만+ 비즈니스 사용자</div></div>
+          <div class="rev-seg b2c">
+            <div class="seg-pct">24%</div>
+            <div class="seg-label">ChatGPT Plus</div>
+            <div class="seg-desc"><strong>개인 유료 구독 플랜.</strong> GPT-4o·이미지 생성·코드 실행 등 고급 기능 제공.<br>월 $20 · ~1,500만 명 구독</div>
+          </div>
+          <div class="rev-seg ent">
+            <div class="seg-pct">50%</div>
+            <div class="seg-label">Team / <span class="term" style="border-bottom-color:#15803d;">Enterprise<span class="tip">기업 고객 대상 AI 구독 플랜. 평균 $42/월/시트. 보안·관리 기능 포함.</span></span></div>
+            <div class="seg-desc">
+              <strong>기업 전용 플랜.</strong> Team(소규모·월 $25/인)은 높은 사용 한도 + 데이터 학습 제외. Enterprise(대기업)는 SSO·감사 로그·전용 인스턴스 등 보안 기능 추가.<br>
+              ~350~400만 시트 · 평균 $42/월 · <span class="term">ARPU<span class="tip">Average Revenue Per User. 사용자 1인당 평균 수익. 유료 사용자 기준 $35~40/월.</span></span> $35~40 / 2026년 내 B2C 추월 전망
+            </div>
+          </div>
+          <div class="rev-seg api">
+            <div class="seg-pct">26%</div>
+            <div class="seg-label">API</div>
+            <div class="seg-desc"><strong>개발자 연동 방식.</strong> 외부 기업이 OpenAI의 GPT 모델을 자사 서비스에 직접 연결해 사용. 사용량(토큰 수) 기반 과금 — 구독이 아닌 종량제.<br>900만+ 비즈니스 사용자</div>
+          </div>
         </div>
         <div class="insight insight-blue">
           <strong>왜 95%가 돈을 안 내는가</strong>

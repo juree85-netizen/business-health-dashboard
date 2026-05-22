@@ -86,6 +86,38 @@
       margin: 28px 0;
     }
     strong { color: #172B4D; }
+    .gantt-cat td {
+      background-color: #172B4D;
+      color: white;
+      font-weight: bold;
+      padding: 6px 12px;
+    }
+    .gantt-sub td:first-child {
+      padding-left: 22px;
+      background-color: #FAFBFC;
+      color: #344563;
+    }
+    .gantt-sub td { vertical-align: middle; }
+    .cell-done  { background-color: #00875A !important; padding: 8px 0 !important; }
+    .cell-wip   { background-color: #FF8B00 !important; padding: 8px 0 !important; }
+    .cell-plan  { background-color: #97A0AF !important; padding: 8px 0 !important; }
+    .cell-empty { background-color: #F4F5F7 !important; padding: 8px 0 !important; }
+    .sr-group {
+      background-color: #EAF0FF !important;
+      text-align: center; vertical-align: middle;
+      font-size: 12px; padding: 6px 8px !important;
+    }
+    .activity-group {
+      background-color: #DEEBFF !important;
+      font-size: 11px; text-align: center; vertical-align: middle;
+      color: #0052CC; font-weight: bold; padding: 4px 6px !important;
+    }
+    .gantt-sub-item { font-size: 12px; padding: 5px 8px !important; vertical-align: middle; }
+    .gantt-legend { font-size: 12px; color: #6B778C; margin: 6px 0 8px; }
+    .gantt-legend .dot {
+      display: inline-block; width: 12px; height: 12px;
+      border-radius: 2px; vertical-align: middle; margin-right: 3px;
+    }
   </style>
 </head>
 <body>
@@ -108,18 +140,18 @@
 
 <hr>
 
-<h3>3. SR별 진행 현황</h3>
+<h3>3. '신규 지표/상품 추가' 관련 업무 진척</h3>
+
+<p style="font-size:13px; font-weight:bold; color:#172B4D; margin:12px 0 6px;">SR 진행현황</p>
 <table>
   <thead>
     <tr>
+      <th style="text-align:left;">구분</th>
       <th>SR No.</th>
-      <th>업무 내용</th>
       <th>요청자</th>
       <th>처리 담당자</th>
-      <th>생성일</th>
       <th>완료 요청일</th>
       <th>완료 여부</th>
-      <th>완료일</th>
       <th>현황</th>
       <th>이슈</th>
       <th>액션</th>
@@ -127,70 +159,722 @@
   </thead>
   <tbody>
     <tr>
-      <td>S26030004582</td>
-      <td>재무_시장 R&amp;D/S&amp;M 비용 업데이트, 고객/상품 CES·CSAT·NPS 업데이트 요청</td>
-      <td>유주리</td>
-      <td>-</td>
-      <td>2026-03-18</td>
-      <td>2026-03-19</td>
-      <td><span class="badge-wip">진행 중</span></td>
-      <td>-</td>
-      <td><span class="badge-check">확인 필요</span></td>
-      <td>엑셀 데이터 기반, 3년치 데이터 미표시 오류 / 엑셀 공유됨</td>
-      <td>업데이트 엑셀 재공유 후 피드백</td>
-    </tr>
-    <tr>
-      <td>S26030007696</td>
-      <td>접속 속도 개선 요청</td>
-      <td>유주리</td>
-      <td>염효결</td>
-      <td>2026-03-27</td>
-      <td>2026-03-28</td>
-      <td><span class="badge-done">완료</span></td>
-      <td>2026-04-24</td>
-      <td><span class="badge-done">완료</span></td>
-      <td>-</td>
-      <td>-</td>
-    </tr>
-    <tr>
-      <td>S26040004737</td>
-      <td>VoC 데이터 테이블 생성</td>
-      <td>유주리</td>
-      <td>-</td>
-      <td>2026-04-20</td>
-      <td>2026-04-30</td>
-      <td><span class="badge-wip">진행 중</span></td>
-      <td>-</td>
-      <td><span class="badge-wait">대기 중</span></td>
-      <td>오은성 프로님 쪽 인터페이스 작업 선행 필요 (6월 완료 예정)</td>
-      <td>일정 업데이트 공유</td>
-    </tr>
-    <tr>
+      <td><strong>재무 · 효율/수익</strong></td>
       <td>S26040005889</td>
-      <td>효율/수익 페이지 내 LTV, CAC, LTV:CAC Ratio, CAC Payback Ratio 개발 요청</td>
       <td>유주리</td>
       <td>-</td>
-      <td>2026-04-22</td>
       <td>2026-04-23</td>
       <td><span class="badge-wip">진행 중</span></td>
-      <td>-</td>
       <td><span class="badge-check">확인 필요</span></td>
       <td>진행 현황 미파악</td>
       <td>담당자 확인 후 공유</td>
     </tr>
     <tr>
+      <td><strong>고객/상품 · VoC</strong></td>
+      <td>S26040004737</td>
+      <td>유주리</td>
+      <td>-</td>
+      <td>2026-04-30</td>
+      <td><span class="badge-wip">진행 중</span></td>
+      <td><span class="badge-wait">대기 중</span></td>
+      <td>오은성 프로님 인터페이스 작업 선행 필요 (6월 완료 예정)</td>
+      <td>일정 업데이트 공유</td>
+    </tr>
+    <tr>
+      <td><strong>영업 · 사업기회</strong></td>
       <td>S26050000095</td>
-      <td>사업기회 데이터 테이블 생성</td>
       <td>김범준</td>
       <td>-</td>
-      <td>2026-05-04</td>
       <td>2026-05-14</td>
       <td><span class="badge-wip">진행 중</span></td>
-      <td>-</td>
       <td><span class="badge-wip">진행 중</span></td>
       <td>중복 데이터 문제로 뷰 테이블 스크립트 미완성</td>
       <td>이번 달 말 완료 가능 여부 확인 후 회신</td>
     </tr>
+    <tr>
+      <td><strong>시장/고객 · 데이터 업데이트</strong></td>
+      <td>S26030004582</td>
+      <td>유주리</td>
+      <td>-</td>
+      <td>2026-03-19</td>
+      <td><span class="badge-wip">진행 중</span></td>
+      <td><span class="badge-check">확인 필요</span></td>
+      <td>엑셀 데이터 기반, 3년치 데이터 미표시 오류 / 엑셀 공유됨</td>
+      <td>업데이트 엑셀 재공유 후 피드백</td>
+    </tr>
+    <tr>
+      <td><strong>성능개선</strong></td>
+      <td>S26030007696</td>
+      <td>유주리</td>
+      <td>염효결</td>
+      <td>2026-03-28</td>
+      <td><span class="badge-done">완료</span></td>
+      <td><span class="badge-done">완료</span></td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+  </tbody>
+</table>
+
+<p style="font-size:13px; font-weight:bold; color:#172B4D; margin:24px 0 6px;">월별 업무 진척</p>
+<p class="gantt-legend">
+  <span class="dot" style="background:#00875A;"></span>완료 &nbsp;
+  <span class="dot" style="background:#FF8B00;"></span>진행 중 &nbsp;
+  <span class="dot" style="background:#97A0AF;"></span>예정
+</p>
+<table style="font-size:12px; table-layout:fixed;">
+  <thead>
+    <tr>
+      <th rowspan="2" style="width:90px; text-align:center; vertical-align:middle;">구분</th>
+      <th rowspan="2" style="width:90px; text-align:center; vertical-align:middle;">SR No.</th>
+      <th rowspan="2" style="width:105px; text-align:center; vertical-align:middle;">업무 구분</th>
+      <th rowspan="2" style="width:120px; text-align:left; vertical-align:middle; padding-left:8px;">세부 업무</th>
+      <th colspan="12">'26년 월별 업무 진척</th>
+    </tr>
+    <tr>
+      <th>1월</th><th>2월</th><th>3월</th><th>4월</th><th>5월</th><th>6월</th>
+      <th>7월</th><th>8월</th><th>9월</th><th>10월</th><th>11월</th><th>12월</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <!-- ===== 재무·효율/수익 ===== -->
+    <tr>
+      <td rowspan="12" class="sr-group">재무<br>효율/수익</td>
+      <td rowspan="12" class="sr-group" style="font-size:11px;">S26040005889</td>
+      <td rowspan="4" class="activity-group">지표 수립 및<br>화면 기획</td>
+      <td class="gantt-sub-item">지표 수립</td>
+      <td class="cell-done"></td><td class="cell-done"></td><td class="cell-done"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">지표 산출식 정의</td>
+      <td class="cell-done"></td><td class="cell-done"></td><td class="cell-done"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">화면 계획</td>
+      <td class="cell-done"></td><td class="cell-done"></td><td class="cell-done"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">화면 디자인</td>
+      <td class="cell-done"></td><td class="cell-done"></td><td class="cell-done"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td rowspan="5" class="activity-group">데이터 연계 및<br>화면 개발</td>
+      <td class="gantt-sub-item">데이터 분석 및 연계</td>
+      <td class="cell-done"></td><td class="cell-done"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">지표 기술정의서</td>
+      <td class="cell-empty"></td><td class="cell-done"></td><td class="cell-done"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">데이터 모델링, 테이블 개발</td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">Tableau 화면 개발</td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-wip"></td><td class="cell-wip"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">데이터 정합성 검증</td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-wip"></td><td class="cell-plan"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td rowspan="3" class="activity-group">대시보드 운영 및<br>개선 업무</td>
+      <td class="gantt-sub-item">데이터 업로드</td>
+      <td class="cell-done"></td><td class="cell-done"></td><td class="cell-done"></td>
+      <td class="cell-done"></td><td class="cell-wip"></td><td class="cell-plan"></td>
+      <td class="cell-plan"></td><td class="cell-plan"></td><td class="cell-plan"></td>
+      <td class="cell-plan"></td><td class="cell-plan"></td><td class="cell-plan"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">데이터 정합성 검증</td>
+      <td class="cell-done"></td><td class="cell-done"></td><td class="cell-done"></td>
+      <td class="cell-done"></td><td class="cell-wip"></td><td class="cell-plan"></td>
+      <td class="cell-plan"></td><td class="cell-plan"></td><td class="cell-plan"></td>
+      <td class="cell-plan"></td><td class="cell-plan"></td><td class="cell-plan"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">대시보드 성능 개선</td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+
+    <!-- ===== 고객/상품·VoC ===== -->
+    <tr>
+      <td rowspan="12" class="sr-group">고객/상품<br>VoC</td>
+      <td rowspan="12" class="sr-group" style="font-size:11px;">S26040004737</td>
+      <td rowspan="4" class="activity-group">지표 수립 및<br>화면 기획</td>
+      <td class="gantt-sub-item">지표 수립</td>
+      <td class="cell-done"></td><td class="cell-done"></td><td class="cell-done"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">지표 산출식 정의</td>
+      <td class="cell-done"></td><td class="cell-done"></td><td class="cell-done"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">화면 계획</td>
+      <td class="cell-done"></td><td class="cell-done"></td><td class="cell-done"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">화면 디자인</td>
+      <td class="cell-done"></td><td class="cell-done"></td><td class="cell-done"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td rowspan="5" class="activity-group">데이터 연계 및<br>화면 개발</td>
+      <td class="gantt-sub-item">데이터 분석 및 연계</td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-wip"></td>
+      <td class="cell-wip"></td><td class="cell-wip"></td><td class="cell-plan"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">지표 기술정의서</td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-done"></td>
+      <td class="cell-wip"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">데이터 모델링, 테이블 개발</td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-wip"></td><td class="cell-wip"></td><td class="cell-plan"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">Tableau 화면 개발</td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-plan"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">데이터 정합성 검증</td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-plan"></td>
+      <td class="cell-plan"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td rowspan="3" class="activity-group">대시보드 운영 및<br>개선 업무</td>
+      <td class="gantt-sub-item">데이터 업로드</td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-plan"></td>
+      <td class="cell-plan"></td><td class="cell-plan"></td><td class="cell-plan"></td>
+      <td class="cell-plan"></td><td class="cell-plan"></td><td class="cell-plan"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">데이터 정합성 검증</td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-plan"></td>
+      <td class="cell-plan"></td><td class="cell-plan"></td><td class="cell-plan"></td>
+      <td class="cell-plan"></td><td class="cell-plan"></td><td class="cell-plan"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">대시보드 성능 개선</td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+
+    <!-- ===== 영업·사업기회 ===== -->
+    <tr>
+      <td rowspan="12" class="sr-group">영업<br>사업기회</td>
+      <td rowspan="12" class="sr-group" style="font-size:11px;">S26050000095</td>
+      <td rowspan="4" class="activity-group">지표 수립 및<br>화면 기획</td>
+      <td class="gantt-sub-item">지표 수립</td>
+      <td class="cell-done"></td><td class="cell-done"></td><td class="cell-done"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">지표 산출식 정의</td>
+      <td class="cell-done"></td><td class="cell-done"></td><td class="cell-done"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">화면 계획</td>
+      <td class="cell-done"></td><td class="cell-done"></td><td class="cell-done"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">화면 디자인</td>
+      <td class="cell-done"></td><td class="cell-done"></td><td class="cell-done"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td rowspan="5" class="activity-group">데이터 연계 및<br>화면 개발</td>
+      <td class="gantt-sub-item">데이터 분석 및 연계</td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-done"></td>
+      <td class="cell-wip"></td><td class="cell-wip"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">지표 기술정의서</td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-done"></td>
+      <td class="cell-wip"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">데이터 모델링, 테이블 개발</td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-wip"></td><td class="cell-wip"></td><td class="cell-plan"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">Tableau 화면 개발</td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-wip"></td><td class="cell-wip"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">데이터 정합성 검증</td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-wip"></td><td class="cell-plan"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td rowspan="3" class="activity-group">대시보드 운영 및<br>개선 업무</td>
+      <td class="gantt-sub-item">데이터 업로드</td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-plan"></td>
+      <td class="cell-plan"></td><td class="cell-plan"></td><td class="cell-plan"></td>
+      <td class="cell-plan"></td><td class="cell-plan"></td><td class="cell-plan"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">데이터 정합성 검증</td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-plan"></td>
+      <td class="cell-plan"></td><td class="cell-plan"></td><td class="cell-plan"></td>
+      <td class="cell-plan"></td><td class="cell-plan"></td><td class="cell-plan"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">대시보드 성능 개선</td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+
+    <!-- ===== 시장/고객·데이터 업데이트 ===== -->
+    <tr>
+      <td rowspan="12" class="sr-group">시장/고객<br>데이터 업데이트</td>
+      <td rowspan="12" class="sr-group" style="font-size:11px;">S26030004582</td>
+      <td rowspan="4" class="activity-group">지표 수립 및<br>화면 기획</td>
+      <td class="gantt-sub-item">지표 수립</td>
+      <td class="cell-done"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">지표 산출식 정의</td>
+      <td class="cell-done"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">화면 계획</td>
+      <td class="cell-done"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">화면 디자인</td>
+      <td class="cell-done"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td rowspan="5" class="activity-group">데이터 연계 및<br>화면 개발</td>
+      <td class="gantt-sub-item">데이터 분석 및 연계</td>
+      <td class="cell-done"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">지표 기술정의서</td>
+      <td class="cell-done"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">데이터 모델링, 테이블 개발</td>
+      <td class="cell-done"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">Tableau 화면 개발</td>
+      <td class="cell-done"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">데이터 정합성 검증</td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-wip"></td>
+      <td class="cell-wip"></td><td class="cell-wip"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td rowspan="3" class="activity-group">대시보드 운영 및<br>개선 업무</td>
+      <td class="gantt-sub-item">데이터 업로드</td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-wip"></td>
+      <td class="cell-wip"></td><td class="cell-wip"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">데이터 정합성 검증</td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-wip"></td>
+      <td class="cell-wip"></td><td class="cell-wip"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">대시보드 성능 개선</td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+
+    <!-- ===== 성능개선 ===== -->
+    <tr>
+      <td rowspan="12" class="sr-group">성능개선</td>
+      <td rowspan="12" class="sr-group" style="font-size:11px;">S26030007696</td>
+      <td rowspan="4" class="activity-group">지표 수립 및<br>화면 기획</td>
+      <td class="gantt-sub-item">지표 수립</td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">지표 산출식 정의</td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">화면 계획</td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">화면 디자인</td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td rowspan="5" class="activity-group">데이터 연계 및<br>화면 개발</td>
+      <td class="gantt-sub-item">데이터 분석 및 연계</td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">지표 기술정의서</td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">데이터 모델링, 테이블 개발</td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">Tableau 화면 개발</td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">데이터 정합성 검증</td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td rowspan="3" class="activity-group">대시보드 운영 및<br>개선 업무</td>
+      <td class="gantt-sub-item">데이터 업로드</td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">데이터 정합성 검증</td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+    <tr>
+      <td class="gantt-sub-item">대시보드 성능 개선</td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-wip"></td>
+      <td class="cell-done"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+      <td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td>
+    </tr>
+
+  </tbody>
+</table>
+
+<p style="font-size:13px; font-weight:bold; color:#172B4D; margin:32px 0 6px;">업무 구분별 SR 진행현황</p>
+<table style="font-size:12px;">
+  <thead>
+    <tr>
+      <th style="text-align:center; width:90px;">구분</th>
+      <th style="text-align:center; width:90px;">SR No.</th>
+      <th style="text-align:center; width:105px;">업무 구분</th>
+      <th style="text-align:left; width:130px; padding-left:8px;">세부 업무</th>
+      <th style="width:55px;">요청자</th>
+      <th style="width:70px;">처리 담당자</th>
+      <th style="width:90px;">완료 요청일</th>
+      <th style="width:65px;">완료 여부</th>
+      <th style="width:65px;">현황</th>
+      <th>이슈</th>
+      <th style="width:130px;">액션</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <!-- ===== 재무·효율/수익 ===== -->
+    <tr>
+      <td rowspan="12" class="sr-group">재무<br>효율/수익</td>
+      <td rowspan="12" class="sr-group" style="font-size:11px;">S26040005889</td>
+      <td rowspan="4" class="activity-group">지표 수립 및<br>화면 기획</td>
+      <td class="gantt-sub-item">지표 수립</td>
+      <td rowspan="12" style="text-align:center; vertical-align:middle;">유주리</td>
+      <td rowspan="12" style="text-align:center; vertical-align:middle;">-</td>
+      <td rowspan="12" style="text-align:center; vertical-align:middle;">2026-04-23</td>
+      <td rowspan="12" style="text-align:center; vertical-align:middle;"><span class="badge-wip">진행 중</span></td>
+      <td rowspan="12" style="text-align:center; vertical-align:middle;"><span class="badge-check">확인 필요</span></td>
+      <td rowspan="12" style="vertical-align:middle;">진행 현황 미파악</td>
+      <td rowspan="12" style="vertical-align:middle;">담당자 확인 후 공유</td>
+    </tr>
+    <tr><td class="gantt-sub-item">지표 산출식 정의</td></tr>
+    <tr><td class="gantt-sub-item">화면 계획</td></tr>
+    <tr><td class="gantt-sub-item">화면 디자인</td></tr>
+    <tr>
+      <td rowspan="5" class="activity-group">데이터 연계 및<br>화면 개발</td>
+      <td class="gantt-sub-item">데이터 분석 및 연계</td>
+    </tr>
+    <tr><td class="gantt-sub-item">지표 기술정의서</td></tr>
+    <tr><td class="gantt-sub-item">데이터 모델링, 테이블 개발</td></tr>
+    <tr><td class="gantt-sub-item">Tableau 화면 개발</td></tr>
+    <tr><td class="gantt-sub-item">데이터 정합성 검증</td></tr>
+    <tr>
+      <td rowspan="3" class="activity-group">대시보드 운영 및<br>개선 업무</td>
+      <td class="gantt-sub-item">데이터 업로드</td>
+    </tr>
+    <tr><td class="gantt-sub-item">데이터 정합성 검증</td></tr>
+    <tr><td class="gantt-sub-item">대시보드 성능 개선</td></tr>
+
+    <!-- ===== 고객/상품·VoC ===== -->
+    <tr>
+      <td rowspan="12" class="sr-group">고객/상품<br>VoC</td>
+      <td rowspan="12" class="sr-group" style="font-size:11px;">S26040004737</td>
+      <td rowspan="4" class="activity-group">지표 수립 및<br>화면 기획</td>
+      <td class="gantt-sub-item">지표 수립</td>
+      <td rowspan="12" style="text-align:center; vertical-align:middle;">유주리</td>
+      <td rowspan="12" style="text-align:center; vertical-align:middle;">-</td>
+      <td rowspan="12" style="text-align:center; vertical-align:middle;">2026-04-30</td>
+      <td rowspan="12" style="text-align:center; vertical-align:middle;"><span class="badge-wip">진행 중</span></td>
+      <td rowspan="12" style="text-align:center; vertical-align:middle;"><span class="badge-wait">대기 중</span></td>
+      <td rowspan="12" style="vertical-align:middle;">오은성 프로님 인터페이스 작업 선행 필요 (6월 완료 예정)</td>
+      <td rowspan="12" style="vertical-align:middle;">일정 업데이트 공유</td>
+    </tr>
+    <tr><td class="gantt-sub-item">지표 산출식 정의</td></tr>
+    <tr><td class="gantt-sub-item">화면 계획</td></tr>
+    <tr><td class="gantt-sub-item">화면 디자인</td></tr>
+    <tr>
+      <td rowspan="5" class="activity-group">데이터 연계 및<br>화면 개발</td>
+      <td class="gantt-sub-item">데이터 분석 및 연계</td>
+    </tr>
+    <tr><td class="gantt-sub-item">지표 기술정의서</td></tr>
+    <tr><td class="gantt-sub-item">데이터 모델링, 테이블 개발</td></tr>
+    <tr><td class="gantt-sub-item">Tableau 화면 개발</td></tr>
+    <tr><td class="gantt-sub-item">데이터 정합성 검증</td></tr>
+    <tr>
+      <td rowspan="3" class="activity-group">대시보드 운영 및<br>개선 업무</td>
+      <td class="gantt-sub-item">데이터 업로드</td>
+    </tr>
+    <tr><td class="gantt-sub-item">데이터 정합성 검증</td></tr>
+    <tr><td class="gantt-sub-item">대시보드 성능 개선</td></tr>
+
+    <!-- ===== 영업·사업기회 ===== -->
+    <tr>
+      <td rowspan="12" class="sr-group">영업<br>사업기회</td>
+      <td rowspan="12" class="sr-group" style="font-size:11px;">S26050000095</td>
+      <td rowspan="4" class="activity-group">지표 수립 및<br>화면 기획</td>
+      <td class="gantt-sub-item">지표 수립</td>
+      <td rowspan="12" style="text-align:center; vertical-align:middle;">김범준</td>
+      <td rowspan="12" style="text-align:center; vertical-align:middle;">-</td>
+      <td rowspan="12" style="text-align:center; vertical-align:middle;">2026-05-14</td>
+      <td rowspan="12" style="text-align:center; vertical-align:middle;"><span class="badge-wip">진행 중</span></td>
+      <td rowspan="12" style="text-align:center; vertical-align:middle;"><span class="badge-wip">진행 중</span></td>
+      <td rowspan="12" style="vertical-align:middle;">중복 데이터 문제로 뷰 테이블 스크립트 미완성</td>
+      <td rowspan="12" style="vertical-align:middle;">이번 달 말 완료 가능 여부 확인 후 회신</td>
+    </tr>
+    <tr><td class="gantt-sub-item">지표 산출식 정의</td></tr>
+    <tr><td class="gantt-sub-item">화면 계획</td></tr>
+    <tr><td class="gantt-sub-item">화면 디자인</td></tr>
+    <tr>
+      <td rowspan="5" class="activity-group">데이터 연계 및<br>화면 개발</td>
+      <td class="gantt-sub-item">데이터 분석 및 연계</td>
+    </tr>
+    <tr><td class="gantt-sub-item">지표 기술정의서</td></tr>
+    <tr><td class="gantt-sub-item">데이터 모델링, 테이블 개발</td></tr>
+    <tr><td class="gantt-sub-item">Tableau 화면 개발</td></tr>
+    <tr><td class="gantt-sub-item">데이터 정합성 검증</td></tr>
+    <tr>
+      <td rowspan="3" class="activity-group">대시보드 운영 및<br>개선 업무</td>
+      <td class="gantt-sub-item">데이터 업로드</td>
+    </tr>
+    <tr><td class="gantt-sub-item">데이터 정합성 검증</td></tr>
+    <tr><td class="gantt-sub-item">대시보드 성능 개선</td></tr>
+
+    <!-- ===== 시장/고객·데이터 업데이트 ===== -->
+    <tr>
+      <td rowspan="12" class="sr-group">시장/고객<br>데이터 업데이트</td>
+      <td rowspan="12" class="sr-group" style="font-size:11px;">S26030004582</td>
+      <td rowspan="4" class="activity-group">지표 수립 및<br>화면 기획</td>
+      <td class="gantt-sub-item">지표 수립</td>
+      <td rowspan="12" style="text-align:center; vertical-align:middle;">유주리</td>
+      <td rowspan="12" style="text-align:center; vertical-align:middle;">-</td>
+      <td rowspan="12" style="text-align:center; vertical-align:middle;">2026-03-19</td>
+      <td rowspan="12" style="text-align:center; vertical-align:middle;"><span class="badge-wip">진행 중</span></td>
+      <td rowspan="12" style="text-align:center; vertical-align:middle;"><span class="badge-check">확인 필요</span></td>
+      <td rowspan="12" style="vertical-align:middle;">엑셀 데이터 기반, 3년치 데이터 미표시 오류 / 엑셀 공유됨</td>
+      <td rowspan="12" style="vertical-align:middle;">업데이트 엑셀 재공유 후 피드백</td>
+    </tr>
+    <tr><td class="gantt-sub-item">지표 산출식 정의</td></tr>
+    <tr><td class="gantt-sub-item">화면 계획</td></tr>
+    <tr><td class="gantt-sub-item">화면 디자인</td></tr>
+    <tr>
+      <td rowspan="5" class="activity-group">데이터 연계 및<br>화면 개발</td>
+      <td class="gantt-sub-item">데이터 분석 및 연계</td>
+    </tr>
+    <tr><td class="gantt-sub-item">지표 기술정의서</td></tr>
+    <tr><td class="gantt-sub-item">데이터 모델링, 테이블 개발</td></tr>
+    <tr><td class="gantt-sub-item">Tableau 화면 개발</td></tr>
+    <tr><td class="gantt-sub-item">데이터 정합성 검증</td></tr>
+    <tr>
+      <td rowspan="3" class="activity-group">대시보드 운영 및<br>개선 업무</td>
+      <td class="gantt-sub-item">데이터 업로드</td>
+    </tr>
+    <tr><td class="gantt-sub-item">데이터 정합성 검증</td></tr>
+    <tr><td class="gantt-sub-item">대시보드 성능 개선</td></tr>
+
+    <!-- ===== 성능개선 ===== -->
+    <tr>
+      <td rowspan="12" class="sr-group">성능개선</td>
+      <td rowspan="12" class="sr-group" style="font-size:11px;">S26030007696</td>
+      <td rowspan="4" class="activity-group">지표 수립 및<br>화면 기획</td>
+      <td class="gantt-sub-item">지표 수립</td>
+      <td rowspan="12" style="text-align:center; vertical-align:middle;">유주리</td>
+      <td rowspan="12" style="text-align:center; vertical-align:middle;">염효결</td>
+      <td rowspan="12" style="text-align:center; vertical-align:middle;">2026-03-28</td>
+      <td rowspan="12" style="text-align:center; vertical-align:middle;"><span class="badge-done">완료</span></td>
+      <td rowspan="12" style="text-align:center; vertical-align:middle;"><span class="badge-done">완료</span></td>
+      <td rowspan="12" style="text-align:center; vertical-align:middle;">-</td>
+      <td rowspan="12" style="text-align:center; vertical-align:middle;">-</td>
+    </tr>
+    <tr><td class="gantt-sub-item">지표 산출식 정의</td></tr>
+    <tr><td class="gantt-sub-item">화면 계획</td></tr>
+    <tr><td class="gantt-sub-item">화면 디자인</td></tr>
+    <tr>
+      <td rowspan="5" class="activity-group">데이터 연계 및<br>화면 개발</td>
+      <td class="gantt-sub-item">데이터 분석 및 연계</td>
+    </tr>
+    <tr><td class="gantt-sub-item">지표 기술정의서</td></tr>
+    <tr><td class="gantt-sub-item">데이터 모델링, 테이블 개발</td></tr>
+    <tr><td class="gantt-sub-item">Tableau 화면 개발</td></tr>
+    <tr><td class="gantt-sub-item">데이터 정합성 검증</td></tr>
+    <tr>
+      <td rowspan="3" class="activity-group">대시보드 운영 및<br>개선 업무</td>
+      <td class="gantt-sub-item">데이터 업로드</td>
+    </tr>
+    <tr><td class="gantt-sub-item">데이터 정합성 검증</td></tr>
+    <tr><td class="gantt-sub-item">대시보드 성능 개선</td></tr>
+
   </tbody>
 </table>
 

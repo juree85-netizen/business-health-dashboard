@@ -522,19 +522,28 @@
 </table>
 
 <p style="font-size:13px; font-weight:bold; color:#172B4D; margin:32px 0 6px;">업무 구분별 세부 진행 현황</p>
-<table style="font-size:12px;">
+<table style="font-size:11px; table-layout:fixed; width:100%;">
+  <colgroup>
+    <col style="width:70px;"><col style="width:90px;"><col style="width:130px;">
+    <col style="width:75px;"><col style="width:50px;"><col style="width:50px;">
+    <col style="width:105px;"><col style="width:105px;"><col style="width:105px;">
+    <col style="width:85px;"><col style="width:48px;"><col style="width:65px;"><col style="width:80px;">
+  </colgroup>
   <thead>
     <tr>
-      <th style="text-align:center; width:85px;">구분</th>
-      <th style="text-align:center; width:100px;">업무 구분</th>
-      <th style="text-align:left; width:145px; padding-left:8px;">세부 업무</th>
-      <th style="width:95px;">진행 일정</th>
-      <th style="width:120px;">업무 현황</th>
-      <th style="width:88px;">SR No.</th>
-      <th style="width:50px;">SR<br>요청자</th>
-      <th style="width:68px;">SR 처리<br>담당자</th>
-      <th style="width:85px;">SR 완료<br>요청일</th>
-      <th style="width:115px;">비고</th>
+      <th style="text-align:center;">구분</th>
+      <th style="text-align:center;">주요 업무</th>
+      <th style="text-align:left; padding-left:8px;">상세 업무</th>
+      <th>일정</th>
+      <th>Owner</th>
+      <th>담당</th>
+      <th>산출물</th>
+      <th>업무 현황</th>
+      <th>비고</th>
+      <th>SR No.</th>
+      <th>SR<br>요청자</th>
+      <th>SR 처리<br>담당자</th>
+      <th>SR 완료<br>요청일</th>
     </tr>
   </thead>
   <tbody>
@@ -545,72 +554,120 @@
       <td rowspan="4" class="activity-group">지표 수립 및<br>화면 기획</td>
       <td class="gantt-sub-item">지표 수립</td>
       <td style="text-align:center; font-size:11px; color:#00875A;">완료 (1-3월)</td>
-      <td style="text-align:center;">-</td>
-      <td style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">-</td>
-      <td>-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="font-size:11px;">지표 정의서</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
     </tr>
     <tr>
       <td class="gantt-sub-item">지표 산출식 정의</td>
       <td style="text-align:center; font-size:11px; color:#00875A;">완료 (1-3월)</td>
-      <td style="text-align:center;">-</td>
-      <td style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">-</td>
-      <td>-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="font-size:11px;">지표 정의서</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
     </tr>
     <tr>
       <td class="gantt-sub-item">화면 계획</td>
       <td style="text-align:center; font-size:11px; color:#00875A;">완료 (1-3월)</td>
-      <td style="text-align:center;">-</td>
-      <td style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">-</td>
-      <td>-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="font-size:11px;">화면 기획서</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
     </tr>
     <tr>
       <td class="gantt-sub-item">화면 디자인</td>
       <td style="text-align:center; font-size:11px; color:#00875A;">완료 (1-3월)</td>
-      <td style="text-align:center;">-</td>
-      <td style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">-</td>
-      <td>-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="font-size:11px;">화면 시안</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
     </tr>
     <tr>
       <td rowspan="5" class="activity-group">데이터 연계 및<br>화면 개발</td>
       <td class="gantt-sub-item">데이터 분석 및 연계</td>
       <td style="text-align:center; font-size:11px; color:#00875A;">완료 (1-2월)</td>
-      <td style="text-align:center;">-</td>
-      <td style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">-</td>
-      <td>-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="font-size:11px;">데이터 분석서</td>
+      <td style="font-size:11px;">Orderlist 데이터 연계 완료</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
     </tr>
     <tr>
       <td class="gantt-sub-item">지표 기술정의서</td>
       <td style="text-align:center; font-size:11px; color:#00875A;">완료 (2-3월)</td>
-      <td style="text-align:center;">-</td>
-      <td style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">-</td>
-      <td>-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="font-size:11px;">지표 기술 정의서</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
     </tr>
     <tr>
-      <td class="gantt-sub-item">데이터 모델링, 테이블 개발</td>
+      <td class="gantt-sub-item">데이터 모델링,<br>테이블 개발</td>
       <td style="text-align:center; font-size:11px;">-</td>
-      <td style="font-size:11px;">진행 현황 미파악</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="font-size:11px;">DB 테이블 요구사항 정의서,<br>DB 테이블 설계서, SR 요청서</td>
+      <td style="font-size:11px;">(SDSC) 진행 현황 미파악</td>
+      <td style="font-size:11px;">(SDSC) 담당자 확인 후 공유</td>
       <td style="text-align:center; font-size:11px;">S26040005889</td>
       <td style="text-align:center; font-size:11px;">유주리</td>
-      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">김연홍</td>
       <td style="text-align:center; font-size:11px;">2026-04-23</td>
-      <td style="font-size:11px;">담당자 확인 후 공유</td>
     </tr>
     <tr>
       <td class="gantt-sub-item">Tableau 화면 개발</td>
       <td style="text-align:center; font-size:11px; color:#FF8B00;">진행 중 (4-5월)</td>
-      <td style="font-size:11px;">진행 현황 미파악</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="font-size:11px;">화면 기능 개발 요구사항<br>정의서, SR 요청서</td>
+      <td style="font-size:11px;">(SDSC) 진행 현황 미파악</td>
+      <td style="font-size:11px;">(SDSC) 담당자 확인 후 공유</td>
       <td style="text-align:center; font-size:11px;">S26040005889</td>
       <td style="text-align:center; font-size:11px;">유주리</td>
-      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">김연홍</td>
       <td style="text-align:center; font-size:11px;">2026-04-23</td>
-      <td style="font-size:11px;">담당자 확인 후 공유</td>
     </tr>
     <tr>
       <td class="gantt-sub-item">데이터 정합성 검증</td>
       <td style="text-align:center; font-size:11px; color:#97A0AF;">예정 (5-6월)</td>
-      <td style="text-align:center;">-</td>
-      <td style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">-</td>
-      <td style="font-size:11px;">5-6월 진행 예정</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="font-size:11px;">(SDSC) 5-6월 진행 예정</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
     </tr>
 
     <!-- ===== 고객/상품 ===== -->
@@ -619,72 +676,120 @@
       <td rowspan="4" class="activity-group">지표 수립 및<br>화면 기획</td>
       <td class="gantt-sub-item">지표 수립</td>
       <td style="text-align:center; font-size:11px; color:#00875A;">완료 (1-3월)</td>
-      <td style="text-align:center;">-</td>
-      <td style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">-</td>
-      <td>-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="font-size:11px;">지표 정의서</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
     </tr>
     <tr>
       <td class="gantt-sub-item">지표 산출식 정의</td>
       <td style="text-align:center; font-size:11px; color:#00875A;">완료 (1-3월)</td>
-      <td style="text-align:center;">-</td>
-      <td style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">-</td>
-      <td>-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="font-size:11px;">지표 정의서</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
     </tr>
     <tr>
       <td class="gantt-sub-item">화면 계획</td>
       <td style="text-align:center; font-size:11px; color:#00875A;">완료 (1-3월)</td>
-      <td style="text-align:center;">-</td>
-      <td style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">-</td>
-      <td>-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="font-size:11px;">화면 기획서</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
     </tr>
     <tr>
       <td class="gantt-sub-item">화면 디자인</td>
       <td style="text-align:center; font-size:11px; color:#00875A;">완료 (1-3월)</td>
-      <td style="text-align:center;">-</td>
-      <td style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">-</td>
-      <td>-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="font-size:11px;">화면 시안</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
     </tr>
     <tr>
       <td rowspan="5" class="activity-group">데이터 연계 및<br>화면 개발</td>
       <td class="gantt-sub-item">데이터 분석 및 연계</td>
       <td style="text-align:center; font-size:11px; color:#FF8B00;">진행 중 (3-6월)</td>
-      <td style="text-align:center;">-</td>
-      <td style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">-</td>
-      <td>-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="font-size:11px;">데이터 분석서</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
     </tr>
     <tr>
       <td class="gantt-sub-item">지표 기술정의서</td>
-      <td style="text-align:center; font-size:11px; color:#FF8B00;">진행 중 (3-4월)</td>
-      <td style="text-align:center;">-</td>
-      <td style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">-</td>
-      <td>-</td>
+      <td style="text-align:center; font-size:11px; color:#00875A;">완료 (3-4월)</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="font-size:11px;">지표 기술 정의서</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
     </tr>
     <tr>
-      <td class="gantt-sub-item">데이터 모델링, 테이블 개발</td>
+      <td class="gantt-sub-item">데이터 모델링,<br>테이블 개발</td>
       <td style="text-align:center; font-size:11px; color:#FF8B00;">진행 중 (4-6월)</td>
-      <td style="font-size:11px;">오은성 프로님 인터페이스 작업 선행 필요 (6월 완료 예정)</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="font-size:11px;">DB 테이블 요구사항 정의서,<br>DB 테이블 설계서, SR 요청서</td>
+      <td style="font-size:11px;">(상품CS관리그룹) 오은성 프로님 인터페이스 작업 선행 필요 (6월 완료 예정)</td>
+      <td style="font-size:11px;">(상품CS관리그룹) 오은성 프로님 일정 업데이트 공유 예정</td>
       <td style="text-align:center; font-size:11px;">S26040004737</td>
       <td style="text-align:center; font-size:11px;">유주리</td>
-      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">오은성</td>
       <td style="text-align:center; font-size:11px;">2026-04-30</td>
-      <td style="font-size:11px;">오은성 프로님 일정 업데이트 공유 예정</td>
     </tr>
     <tr>
       <td class="gantt-sub-item">Tableau 화면 개발</td>
       <td style="text-align:center; font-size:11px; color:#97A0AF;">예정 (6월)</td>
-      <td style="text-align:center;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="font-size:11px;">화면 기능 개발 요구사항<br>정의서, SR 요청서</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
       <td style="text-align:center; font-size:11px;">S26040004737</td>
       <td style="text-align:center; font-size:11px;">유주리</td>
       <td style="text-align:center; font-size:11px;">-</td>
       <td style="text-align:center; font-size:11px;">2026-04-30</td>
-      <td>-</td>
     </tr>
     <tr>
       <td class="gantt-sub-item">데이터 정합성 검증</td>
       <td style="text-align:center; font-size:11px; color:#97A0AF;">예정 (6-7월)</td>
-      <td style="text-align:center;">-</td>
-      <td style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">-</td>
-      <td>-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
     </tr>
 
     <!-- ===== 영업 ===== -->
@@ -693,74 +798,121 @@
       <td rowspan="4" class="activity-group">지표 수립 및<br>화면 기획</td>
       <td class="gantt-sub-item">지표 수립</td>
       <td style="text-align:center; font-size:11px; color:#00875A;">완료 (1-3월)</td>
-      <td style="text-align:center;">-</td>
-      <td style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">-</td>
-      <td>-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="font-size:11px;">지표 정의서</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
     </tr>
     <tr>
       <td class="gantt-sub-item">지표 산출식 정의</td>
       <td style="text-align:center; font-size:11px; color:#00875A;">완료 (1-3월)</td>
-      <td style="text-align:center;">-</td>
-      <td style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">-</td>
-      <td>-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="font-size:11px;">지표 정의서</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
     </tr>
     <tr>
       <td class="gantt-sub-item">화면 계획</td>
       <td style="text-align:center; font-size:11px; color:#00875A;">완료 (1-3월)</td>
-      <td style="text-align:center;">-</td>
-      <td style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">-</td>
-      <td>-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="font-size:11px;">화면 기획서</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
     </tr>
     <tr>
       <td class="gantt-sub-item">화면 디자인</td>
       <td style="text-align:center; font-size:11px; color:#00875A;">완료 (1-3월)</td>
-      <td style="text-align:center;">-</td>
-      <td style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">-</td>
-      <td>-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="font-size:11px;">화면 시안</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
     </tr>
     <tr>
       <td rowspan="5" class="activity-group">데이터 연계 및<br>화면 개발</td>
       <td class="gantt-sub-item">데이터 분석 및 연계</td>
       <td style="text-align:center; font-size:11px; color:#FF8B00;">진행 중 (3-5월)</td>
-      <td style="text-align:center;">-</td>
-      <td style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">-</td>
-      <td>-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="font-size:11px;">데이터 분석서</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
     </tr>
     <tr>
       <td class="gantt-sub-item">지표 기술정의서</td>
       <td style="text-align:center; font-size:11px; color:#FF8B00;">진행 중 (3-4월)</td>
-      <td style="text-align:center;">-</td>
-      <td style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">-</td>
-      <td>-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="font-size:11px;">지표 기술 정의서</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
     </tr>
     <tr>
-      <td class="gantt-sub-item">데이터 모델링, 테이블 개발</td>
+      <td class="gantt-sub-item">데이터 모델링,<br>테이블 개발</td>
       <td style="text-align:center; font-size:11px; color:#FF8B00;">진행 중 (4-6월)</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="font-size:11px;">DB 테이블 요구사항 정의서,<br>DB 테이블 설계서, SR 요청서</td>
       <td style="font-size:11px;">중복 데이터 문제로 뷰 테이블 스크립트 미완성</td>
+      <td style="font-size:11px;">이번 달 말 완료 가능 여부 확인 후 회신</td>
       <td style="text-align:center; font-size:11px;">S26050000095</td>
       <td style="text-align:center; font-size:11px;">김범준</td>
       <td style="text-align:center; font-size:11px;">-</td>
       <td style="text-align:center; font-size:11px;">2026-05-14</td>
-      <td style="font-size:11px;">이번 달 말 완료 가능 여부 확인 후 회신</td>
     </tr>
     <tr>
       <td class="gantt-sub-item">Tableau 화면 개발</td>
       <td style="text-align:center; font-size:11px; color:#FF8B00;">진행 중 (4-5월)</td>
-      <td style="font-size:11px;">중복 데이터 문제로 뷰 테이블 스크립트 미완성</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="font-size:11px;">화면 기능 개발 요구사항<br>정의서, SR 요청서</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
       <td style="text-align:center; font-size:11px;">S26050000095</td>
       <td style="text-align:center; font-size:11px;">김범준</td>
       <td style="text-align:center; font-size:11px;">-</td>
       <td style="text-align:center; font-size:11px;">2026-05-14</td>
-      <td style="font-size:11px;">이번 달 말 완료 가능 여부 확인 후 회신</td>
     </tr>
     <tr>
       <td class="gantt-sub-item">데이터 정합성 검증</td>
       <td style="text-align:center; font-size:11px; color:#FF8B00;">진행 중 (5-6월)</td>
-      <td style="text-align:center;">-</td>
-      <td style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">-</td>
-      <td>-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
     </tr>
-
 
     <!-- ===== 대시보드 개선 ===== -->
     <tr>
@@ -769,22 +921,28 @@
       <td class="gantt-sub-item">-</td>
       <td style="text-align:center; font-size:11px; color:#00875A;">완료 (3-4월)</td>
       <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="font-size:11px;">Tableau 통합 문서 분리하여 화면 로딩 및 처리 속도 개선 (기존 45초 → 10초로 단축)</td>
+      <td style="text-align:center; font-size:11px;">-</td>
       <td style="text-align:center; font-size:11px;">S26030007696</td>
       <td style="text-align:center; font-size:11px;">유주리</td>
       <td style="text-align:center; font-size:11px;">염효결</td>
       <td style="text-align:center; font-size:11px;">2026-03-28</td>
-      <td style="text-align:center; font-size:11px;">-</td>
     </tr>
     <tr>
       <td class="activity-group">속도 개선 후<br>화면 수정</td>
       <td class="gantt-sub-item">-</td>
       <td style="text-align:center; font-size:11px; color:#97A0AF;">예정 (6월 1주)</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
       <td style="font-size:11px;">기존 설계와 달라진 부분 다수 발견 (오른쪽 정렬, 기준 연월 표시, 한 화면 레이아웃 등)</td>
-      <td style="text-align:center; font-size:11px;">-</td>
-      <td style="text-align:center; font-size:11px;">-</td>
-      <td style="text-align:center; font-size:11px;">-</td>
-      <td style="text-align:center; font-size:11px;">-</td>
       <td style="font-size:11px;">솔루션전략이 이슈 리스트업 후 메일 공유 예정</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
     </tr>
 
     <!-- ===== 대시보드 운영 ===== -->
@@ -793,27 +951,36 @@
       <td class="activity-group">데이터 업로드</td>
       <td class="gantt-sub-item">기준 연월 오류</td>
       <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
       <td style="font-size:11px;">화면에 4월이 아닌 3월로 표시됨 (4월 실적 미반영)</td>
-      <td style="text-align:center; font-size:11px;">-</td>
-      <td style="text-align:center; font-size:11px;">-</td>
-      <td style="text-align:center; font-size:11px;">-</td>
-      <td style="text-align:center; font-size:11px;">-</td>
       <td style="font-size:11px;">회의 후 즉시 확인</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
     </tr>
     <tr>
       <td class="activity-group">데이터 수작업 업로드</td>
-      <td class="gantt-sub-item">-</td>
+      <td class="gantt-sub-item">데이터 수작업 업로드<br>(시장/고객)</td>
+      <td style="text-align:center; font-size:11px; color:#97A0AF;">예정 (5월)</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
       <td style="text-align:center; font-size:11px;">-</td>
       <td style="font-size:11px;">엑셀 데이터 기반, 3년치 데이터 미표시 오류 / 엑셀 공유됨</td>
+      <td style="font-size:11px;">업데이트 엑셀 재공유 후 피드백</td>
       <td style="text-align:center; font-size:11px;">S26030004582</td>
       <td style="text-align:center; font-size:11px;">유주리</td>
       <td style="text-align:center; font-size:11px;">-</td>
       <td style="text-align:center; font-size:11px;">2026-03-19</td>
-      <td style="font-size:11px;">업데이트 엑셀 재공유 후 피드백</td>
     </tr>
     <tr>
       <td class="activity-group">데이터 정합성 검증</td>
       <td class="gantt-sub-item">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
+      <td style="text-align:center; font-size:11px;">-</td>
       <td style="text-align:center; font-size:11px;">-</td>
       <td style="text-align:center; font-size:11px;">-</td>
       <td style="text-align:center; font-size:11px;">-</td>

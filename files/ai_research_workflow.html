@@ -326,14 +326,14 @@
       <div class="page-eyebrow">Workflow Guide</div>
       <div class="page-title">AI 활용 기업조사 &amp;<br>보고용 Word 문서 작성</div>
       <div class="page-desc">
-        Claude(루나)를 활용하여 기업·시장 조사부터 보고용 Word 문서 완성까지
+        AI 에이전트를 활용하여 기업·시장 조사부터 보고용 Word 문서 완성까지
         이어지는 전체 프로세스 가이드입니다. 기사 링크, 사람의 관점, AI의 리서치 능력을
         결합하면 수 시간의 작업을 30~60분으로 단축할 수 있습니다.
       </div>
       <div style="margin-top:16px;">
         <span class="badge b-blue">솔루션전략그룹</span>&nbsp;
         <span class="badge b-org">'26.05.27 작성</span>&nbsp;
-        <span class="badge b-purple">Claude Code(루나) 활용</span>
+        <span class="badge b-purple">AI 에이전트 활용</span>
       </div>
     </div>
 
@@ -367,7 +367,7 @@
           <!-- 3 -->
           <rect x="288" y="30" width="120" height="48" rx="8" fill="#EAE6FF" stroke="#6554C0" stroke-width="1.2"/>
           <text x="348" y="52" text-anchor="middle" font-size="12" font-weight="700" fill="#403294">③ AI 리서치</text>
-          <text x="348" y="68" text-anchor="middle" font-size="10" fill="#6B778C">루나가 수행</text>
+          <text x="348" y="68" text-anchor="middle" font-size="10" fill="#6B778C">AI가 수행</text>
 
           <line x1="408" y1="54" x2="432" y2="54" stroke="#C0C8D8" stroke-width="1.5" marker-end="url(#arr)"/>
 
@@ -385,9 +385,9 @@
 
           <!-- Role labels -->
           <text x="174" y="100" text-anchor="middle" font-size="10" fill="#974F0C">👤 사람</text>
-          <text x="348" y="100" text-anchor="middle" font-size="10" fill="#403294">🤖 AI (루나)</text>
+          <text x="348" y="100" text-anchor="middle" font-size="10" fill="#403294">🤖 AI 에이전트</text>
           <text x="492" y="100" text-anchor="middle" font-size="10" fill="#974F0C">👤 사람</text>
-          <text x="641" y="100" text-anchor="middle" font-size="10" fill="#006644">🤖 AI (루나)</text>
+          <text x="641" y="100" text-anchor="middle" font-size="10" fill="#006644">🤖 AI 에이전트</text>
         </svg>
       </div>
 
@@ -412,7 +412,7 @@
         </tr>
         <tr>
           <td><strong>③ AI 리서치</strong></td>
-          <td><span class="badge b-purple">AI(루나)</span></td>
+          <td><span class="badge b-purple">AI 에이전트</span></td>
           <td>링크 분석, 웹 검색, 구조화 초안 작성</td>
           <td>10~20분</td>
         </tr>
@@ -424,7 +424,7 @@
         </tr>
         <tr>
           <td><strong>⑤ Word 생성</strong></td>
-          <td><span class="badge b-purple">AI(루나)</span></td>
+          <td><span class="badge b-purple">AI 에이전트</span></td>
           <td>sds-word-writer 스킬로 .docx 자동 생성</td>
           <td>5분</td>
         </tr>
@@ -521,12 +521,12 @@
 
     <!-- ── STEP 3 ── -->
     <div class="section" id="step3">
-      <div class="section-title">3단계 · AI 리서치 (루나가 수행)</div>
+      <div class="section-title">3단계 · AI 리서치 (AI가 수행)</div>
       <p style="margin-bottom:20px; color:#344563;">
-        Input을 받은 루나가 수행하는 작업입니다. 사람은 기다리기만 하면 됩니다.
+        Input을 받은 AI가 수행하는 작업입니다. 사람은 기다리기만 하면 됩니다.
       </p>
 
-      <h3 class="sub">루나가 하는 것</h3>
+      <h3 class="sub">AI가 하는 것</h3>
       <div class="card-grid" style="grid-template-columns: repeat(2, 1fr);">
         <div class="card">
           <div class="card-title">🔍 링크 내용 분석</div>
@@ -546,18 +546,38 @@
         </div>
       </div>
 
-      <h3 class="sub">루나가 하지 않는 것 (사람이 해야 할 것)</h3>
-      <ul class="dash">
-        <li>내부 회의에서 나온 비공개 정보 (직접 알려줘야 함)</li>
-        <li>우리 회사만 아는 사업 맥락과 전략 방향</li>
-        <li>보고 받는 분의 관심 포인트 (경험에서 나오는 판단)</li>
-        <li>최종 수치의 사실 확인 (AI 수치는 반드시 검증 필요)</li>
-      </ul>
+      <h3 class="sub">AI가 하지 않는 것 — 사람이 반드시 해야 할 것</h3>
+      <div class="card-grid" style="grid-template-columns: repeat(2, 1fr); margin-bottom:16px;">
+        <div class="card" style="border-left:3px solid #F9A825;">
+          <div class="card-title">📌 제목 선정</div>
+          <div class="card-desc">보고서 제목은 독자의 관심을 결정합니다. AI는 내용을 요약한 제목을 제안하지만, <strong>"이 보고를 왜 하는가"</strong>를 담은 제목은 사람만이 정할 수 있습니다.</div>
+        </div>
+        <div class="card" style="border-left:3px solid #F9A825;">
+          <div class="card-title">📎 데이터 참고문헌의 명확성</div>
+          <div class="card-desc">AI가 인용하는 수치의 출처가 명확한지 확인하세요. "추정치", "Bloomberg 기반", "공시 기준" 등 <strong>데이터 신뢰도와 출처를 직접 검증</strong>하고 표기해야 합니다.</div>
+        </div>
+        <div class="card" style="border-left:3px solid #6554C0;">
+          <div class="card-title">🤔 왜 저런 행동을 하지? — 동기·이해관계 해석</div>
+          <div class="card-desc">AI는 사실을 나열하지만, <strong>"누가 손해고 누가 이익인가"</strong>, <strong>"왜 저 시점에 그 결정을 했나"</strong>는 업계 경험과 인간의 직관이 있어야 해석됩니다.</div>
+        </div>
+        <div class="card" style="border-left:3px solid #6554C0;">
+          <div class="card-title">🔍 데이터가 없을 때 — 논리적 추론</div>
+          <div class="card-desc">공개 데이터가 없는 영역에서 AI는 추정을 거부하거나 일반론을 답합니다. <strong>유사 사례 비교, 업계 평균 적용, 상황 추론</strong>은 사람의 판단이 필요합니다.</div>
+        </div>
+        <div class="card" style="border-left:3px solid #6B778C;">
+          <div class="card-title">🏢 내부 비공개 정보</div>
+          <div class="card-desc">내부 회의 내용, 우리 회사만 아는 사업 맥락과 전략 방향. AI가 접근할 수 없으므로 직접 알려줘야 합니다.</div>
+        </div>
+        <div class="card" style="border-left:3px solid #6B778C;">
+          <div class="card-title">👁 최종 수치 검증</div>
+          <div class="card-desc">AI 수치는 반드시 원본 대조 확인. 보고 받는 분의 관심 포인트 파악은 경험에서 나오는 판단입니다.</div>
+        </div>
+      </div>
 
       <div class="info-box info-note">
         <strong>소요 시간:</strong> 기사 3~5개 + 웹 검색 기준 약 10~20분.
         복잡한 재무 분석이 포함되면 30분까지 소요될 수 있습니다.
-        루나가 작업 중이면 다른 업무를 병행해도 됩니다.
+        AI가 작업 중이면 다른 업무를 병행해도 됩니다.
       </div>
     </div>
 
@@ -581,7 +601,7 @@
       <h3 class="sub">수정 요청 방법</h3>
       <div class="prompt-block">
         <div class="prompt-label">수정 요청 예시</div>
-        <div class="prompt-text"><span class="hl">루나</span>, 3장 시사점 섹션에서
+        <div class="prompt-text"><span class="hl">[AI 에이전트명]</span>, 3장 시사점 섹션에서
 <span class="hl">"우리 솔루션의 Gen AI 대체 가능성"</span> 파트를 좀 더 구체적으로 써줘.
 <span class="cm"># 우리 회사 솔루션 중 Knox Suite는 데이터 폐쇄성이 높아서 대체 가능성이 낮다는 점을 넣고,</span>
 <span class="cm"># Brity Automation은 반대로 대체 위험이 있다는 걸 언급해줘.</span>
@@ -605,7 +625,7 @@
       <h3 class="sub">Word 생성 트리거 방법</h3>
       <div class="prompt-block">
         <div class="prompt-label">프롬프트 예시</div>
-        <div class="prompt-text"><span class="hl">루나</span>, 지금까지 정리한 내용으로
+        <div class="prompt-text"><span class="hl">[AI 에이전트명]</span>, 지금까지 정리한 내용으로
 <span class="hl">sds-word-writer 스킬</span>을 써서 보고용 Word 파일 만들어줘.
 파일명: <span class="hl">medallia_lbo_analysis_20260527.docx</span>
 저장 위치: <span class="hl">files/</span>
@@ -650,7 +670,7 @@
       <h3 class="sub">A. 기사 링크 기반 기업 조사 시작</h3>
       <div class="prompt-block">
         <div class="prompt-label">처음 요청할 때</div>
-        <div class="prompt-text"><span class="hl">루나</span>, 기업 조사 부탁해.
+        <div class="prompt-text"><span class="hl">[AI 에이전트명]</span>, 기업 조사 부탁해.
 
 <span class="cm">## 목적</span>
 Qualtrics가 SAP에서 분리된 이후 어떻게 됐는지 알고 싶어.
@@ -671,7 +691,7 @@ A4 5장 분량 보고서 초안 → 나중에 Word로 변환 예정</div>
       <h3 class="sub">B. 내부 정보 추가 주입</h3>
       <div class="prompt-block">
         <div class="prompt-label">사람의 통찰을 넣을 때</div>
-        <div class="prompt-text"><span class="hl">루나</span>, 시사점 섹션에 아래 내용을 반영해줘.
+        <div class="prompt-text"><span class="hl">[AI 에이전트명]</span>, 시사점 섹션에 아래 내용을 반영해줘.
 
 <span class="cm"># 우리 팀 내부 논의에서 나온 건데,</span>
 우리 솔루션 중 Brity Works는 워크플로우 자동화라서
@@ -684,7 +704,7 @@ AI 대체 가능성이 낮다는 점도 균형 있게 써줘.</div>
       <h3 class="sub">C. Word 파일 생성 요청</h3>
       <div class="prompt-block">
         <div class="prompt-label">최종 Word 생성 시</div>
-        <div class="prompt-text"><span class="hl">루나</span>, 지금까지 정리한 내용으로
+        <div class="prompt-text"><span class="hl">[AI 에이전트명]</span>, 지금까지 정리한 내용으로
 sds-word-writer 스킬로 Word 파일 만들어줘.
 
 파일명: qualtrics_analysis_20260527.docx
@@ -763,7 +783,7 @@ sds-word-writer 스킬로 Word 파일 만들어줘.
     </div>
 
     <div class="footer">
-      솔루션전략그룹(솔루션) &nbsp;·&nbsp; '26.05.27 작성 &nbsp;·&nbsp; Claude Code(루나) 활용 가이드
+      솔루션전략그룹(솔루션) &nbsp;·&nbsp; '26.05.27 작성 &nbsp;·&nbsp; AI 에이전트 활용 가이드
     </div>
 
   </main>

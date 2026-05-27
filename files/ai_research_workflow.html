@@ -560,13 +560,26 @@
           <div class="card-title">🤔 왜 저런 행동을 하지? — 동기·이해관계 해석</div>
           <div class="card-desc">AI는 사실을 나열하지만, <strong>"누가 손해고 누가 이익인가"</strong>, <strong>"왜 저 시점에 그 결정을 했나"</strong>는 업계 경험과 인간의 직관이 있어야 해석됩니다.</div>
         </div>
-        <div class="card" style="border-left:3px solid #6554C0;">
-          <div class="card-title">🔍 데이터가 없을 때 — 논리적 추론</div>
-          <div class="card-desc">공개 데이터가 없는 영역에서 AI는 추정을 거부하거나 일반론을 답합니다. <strong>유사 사례 비교, 업계 평균 적용, 상황 추론</strong>은 사람의 판단이 필요합니다.</div>
+        <div class="card" style="border-left:3px solid #6554C0; grid-column: span 2;">
+          <div class="card-title">🔍 데이터가 없을 때 — 논리적 추론 (2가지 접근법)</div>
+          <div class="card-desc" style="margin-bottom:12px;">공개 데이터가 없는 영역에서 AI는 추정을 거부하거나 일반론을 답합니다. 아래 두 가지 방법으로 사람이 직접 추론을 이끌어야 합니다.</div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:4px;">
+            <div style="background:#F4F0FF; border-radius:8px; padding:14px 16px;">
+              <div style="font-size:12px; font-weight:700; color:#6554C0; margin-bottom:6px;">4.1 데이터 → 추정</div>
+              <div style="font-size:13px; color:#344563; line-height:1.65;">연관된 <strong>확인 가능한 데이터를 최대한 수집</strong>하고, 그것을 기반으로 논리적 추론을 통해 원하는 데이터를 추정한다.<br><span style="color:#6B778C; font-size:12px;">예: 비공개 매출 → 유사 기업 멀티플 적용하여 역산</span></div>
+            </div>
+            <div style="background:#F4F0FF; border-radius:8px; padding:14px 16px;">
+              <div style="font-size:12px; font-weight:700; color:#6554C0; margin-bottom:6px;">4.2 가설 → 검증</div>
+              <div style="font-size:13px; color:#344563; line-height:1.65;"><strong>논리적 추론으로 가설을 먼저 세운 뒤</strong>, 이를 뒷받침하거나 반증할 확인 가능한 데이터를 수집하여 가설을 정교화한다.<br><span style="color:#6B778C; font-size:12px;">예: "이자 부담이 한계였을 것" → FCF Coverage 수치로 검증</span></div>
+            </div>
+          </div>
         </div>
-        <div class="card" style="border-left:3px solid #6B778C;">
+        <div class="card" style="border-left:3px solid #FF5630;">
           <div class="card-title">🏢 내부 비공개 정보</div>
           <div class="card-desc">내부 회의 내용, 우리 회사만 아는 사업 맥락과 전략 방향. AI가 접근할 수 없으므로 직접 알려줘야 합니다.</div>
+          <div style="margin-top:10px; background:#FFEBE6; border-radius:6px; padding:10px 12px; font-size:12px; color:#BF2600; line-height:1.6;">
+            <strong>⚠ 보안 주의:</strong> 내부 민감정보(미공개 실적, 계약 조건, 인사 정보 등)를 외부 AI 서비스에 입력하는 것은 보안 사고로 이어질 수 있습니다. 보고서 작성 시 <strong>공개 가능한 수준의 정보만 활용</strong>하고, 민감정보는 익명화하거나 일반화하여 전달하세요.
+          </div>
         </div>
         <div class="card" style="border-left:3px solid #6B778C;">
           <div class="card-title">👁 최종 수치 검증</div>

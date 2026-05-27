@@ -315,6 +315,7 @@
     <div class="sidebar-section">실전 가이드</div>
     <a href="#prompts">프롬프트 예시</a>
     <a href="#tips">Tips &amp; 주의사항</a>
+    <a href="#casestudy">실전 사례 — Medallia</a>
     <a href="#examples">산출물 예시</a>
   </nav>
 
@@ -792,6 +793,158 @@ sds-word-writer 스킬로 Word 파일 만들어줘.
     </div>
 
     <!-- ── EXAMPLES ── -->
+    <!-- ── 실전 사례 ── -->
+    <div class="section" id="casestudy">
+      <div class="section-title">실전 사례 — Medallia FY2022~2026 재무 데이터 추정</div>
+
+      <p style="color:#344563; margin-bottom:20px;">
+        Medallia는 2021년 상장폐지 후 재무 정보를 비공개로 전환했습니다.
+        보고서에 수록된 <strong>FY2022~2026 추정 수치</strong>는 4.1·4.2·4.3 원칙을 그대로 적용하여 산출한 것입니다.
+        아래에 추론 과정과 근거를 공개합니다.
+      </p>
+
+      <!-- 알 수 있는 것 vs 없는 것 -->
+      <h3 class="sub">출발점 — 공개 데이터 vs 추정이 필요한 데이터</h3>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px;">
+        <div class="card" style="border-top:3px solid #1868DB;">
+          <div class="card-title" style="color:#0052CC; margin-bottom:10px;">✅ 확인 가능한 공개 데이터</div>
+          <ul class="dash">
+            <li>인수 전 SEC 공시: FY2019~2021 매출·EBITDA·FCF</li>
+            <li>인수 조건: 총 인수가 $6.4B, 차입금 $1.8B (변동금리)</li>
+            <li>PIK 비중 변화: 100% → 50% → 35% → 0% (언론 보도)</li>
+            <li>SOFR 금리 추이: 연도별 미 연준 발표치</li>
+            <li>Bloomberg·OnlyCFO 분석가 추정치 (부분 공개)</li>
+            <li>Medallia를 통한 추가 M&A 차입금 $0.6B (보도)</li>
+          </ul>
+        </div>
+        <div class="card" style="border-top:3px solid #FF5630;">
+          <div class="card-title" style="color:#BF2600; margin-bottom:10px;">❓ 추정이 필요한 데이터</div>
+          <ul class="dash">
+            <li>FY2022~2026 연간 매출 (비공개)</li>
+            <li>연도별 EBITDA (비공개)</li>
+            <li>연도별 FCF (비공개)</li>
+            <li>정확한 연이자 비용</li>
+            <li>PIK 누적 원금 잔액</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 추정 과정 3단계 -->
+      <h3 class="sub">추정 과정 — 4.1 + 4.2 + 4.3 적용</h3>
+
+      <!-- 연이자 추정 -->
+      <div style="border:1px solid #DFE1E6; border-radius:10px; overflow:hidden; margin-bottom:16px;">
+        <div style="background:#0D1B35; padding:12px 20px; display:flex; align-items:center; gap:12px;">
+          <span style="background:#1868DB; color:#fff; font-size:11px; font-weight:700; padding:3px 10px; border-radius:20px;">4.1 데이터→추정</span>
+          <span style="color:#fff; font-size:14px; font-weight:700;">연이자 추정 — 확인 가능한 데이터 조합</span>
+        </div>
+        <div style="padding:16px 20px;">
+          <table class="t" style="margin:0;">
+            <tr>
+              <th>연도</th>
+              <th>SOFR (공개)</th>
+              <th>가산금리 추정</th>
+              <th>적용 금리</th>
+              <th>차입 잔액 추정</th>
+              <th>연이자 추정</th>
+            </tr>
+            <tr>
+              <td><strong>FY2022</strong></td>
+              <td>0.75% → 2.5%</td>
+              <td>~5.5%p</td>
+              <td>평균 ~7.5%</td>
+              <td>$1.8B</td>
+              <td><strong>~$135M</strong></td>
+            </tr>
+            <tr>
+              <td><strong>FY2023</strong></td>
+              <td>~4.5%</td>
+              <td>~5.5%p</td>
+              <td>~10%</td>
+              <td>$1.8B</td>
+              <td><strong>~$180M</strong></td>
+            </tr>
+            <tr>
+              <td><strong>FY2024</strong></td>
+              <td>~5.4%</td>
+              <td>~5.5%p</td>
+              <td>~10.9%</td>
+              <td>$2.2B (PIK 누적)</td>
+              <td><strong>~$300M</strong></td>
+            </tr>
+            <tr>
+              <td><strong>FY2025</strong></td>
+              <td>~3.7%</td>
+              <td>~5.5%p</td>
+              <td>~9.2%</td>
+              <td>$2.8B (M&A 추가)</td>
+              <td><strong>~$270M</strong></td>
+            </tr>
+          </table>
+          <div style="margin-top:10px; font-size:12px; color:#6B778C; line-height:1.6;">
+            <strong>근거:</strong> 차입금 $1.8B × (SOFR + 가산금리 추정 5.5%p) = 연이자.
+            가산금리는 2021년 당시 PE LBO 거래의 일반적 스프레드(Bloomberg 기준 5~6%p) 적용.
+            PIK 원금 누적은 현금이자 미지급분이 원금 가산되는 구조로 계산.
+          </div>
+        </div>
+      </div>
+
+      <!-- 매출·EBITDA 추정 -->
+      <div style="border:1px solid #DFE1E6; border-radius:10px; overflow:hidden; margin-bottom:16px;">
+        <div style="background:#0D1B35; padding:12px 20px; display:flex; align-items:center; gap:12px;">
+          <span style="background:#6554C0; color:#fff; font-size:11px; font-weight:700; padding:3px 10px; border-radius:20px;">4.2 가설→검증</span>
+          <span style="color:#fff; font-size:14px; font-weight:700;">매출·EBITDA 추정 — 가설 수립 후 데이터로 검증</span>
+        </div>
+        <div style="padding:16px 20px;">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+            <div>
+              <div style="font-size:12px; font-weight:700; color:#6554C0; margin-bottom:8px;">가설 설정</div>
+              <ul class="dash" style="font-size:13px;">
+                <li>인수 후 매출 성장률은 둔화되나 유지 (업계 평균 ~10~15% → 후반 정체)</li>
+                <li>PE 인수 후 비용 절감 단행 → EBITDA 개선 (업계 패턴)</li>
+                <li>이자 부담 증가로 FCF는 지속 악화</li>
+              </ul>
+            </div>
+            <div>
+              <div style="font-size:12px; font-weight:700; color:#6554C0; margin-bottom:8px;">검증 데이터</div>
+              <ul class="dash" style="font-size:13px;">
+                <li>OnlyCFO: Medallia 매출 $700M대 추정치 일치 확인</li>
+                <li>Zendesk·Qualtrics 유사 사례: PE 인수 후 EBITDA 마진 회복 패턴 확인</li>
+                <li>Blackstone 채권자 보고서 일부 내용 (보도 인용) 수치 교차 검증</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4.3 근거 명시 -->
+      <div style="border:1px solid #C0B6F2; border-radius:10px; overflow:hidden; margin-bottom:20px;">
+        <div style="background:#EAE6FF; padding:12px 20px; display:flex; align-items:center; gap:12px;">
+          <span style="background:#403294; color:#fff; font-size:11px; font-weight:700; padding:3px 10px; border-radius:20px;">4.3 근거 명시</span>
+          <span style="color:#403294; font-size:14px; font-weight:700;">보고서에 실제 표기한 방식</span>
+        </div>
+        <div style="padding:16px 20px; background:#FAFAFA;">
+          <div style="font-family:'SF Mono','Consolas',monospace; font-size:12.5px; background:#fff; border:1px solid #DFE1E6; border-radius:6px; padding:14px 16px; line-height:1.8; color:#172B4D;">
+            재무 수치 출처: <strong>Bloomberg, OnlyCFO 분석 기반 추정치</strong><br>
+            연이자: 차입금 × (SOFR + 가산금리 5.5%p) 산식 적용<br>
+            매출·EBITDA: 유사 PE 인수 SaaS 기업 패턴 + 분석가 추정 교차 검증<br>
+            <span style="color:#BF2600;">※ 상장폐지 이후 재무 정보는 비공개. 본 수치는 추정이며 실제와 차이가 있을 수 있음</span>
+          </div>
+          <div style="margin-top:12px; font-size:13px; color:#344563; line-height:1.7;">
+            <strong>효과:</strong> 보고 중 "이 $300M 이자 수치 어디서 나온 거냐"는 질문에
+            "SOFR 5.4% + 가산금리 5.5%p 적용, 원금은 PIK 누적분 포함 $2.2B 기준"이라고
+            즉시 답변 가능. 근거가 없으면 신뢰를 잃습니다.
+          </div>
+        </div>
+      </div>
+
+      <div class="info-box info-tip">
+        <strong>핵심 원칙:</strong>
+        추정치를 쓸 때는 항상 <strong>"이 숫자는 ___을 근거로 ___방식으로 추정한 값이며, ___% 오차 가능성이 있다"</strong>는 문장이 보고서 어딘가에 있어야 합니다.
+        그게 없으면 AI가 만들어낸 숫자와 구별되지 않습니다.
+      </div>
+    </div>
+
     <div class="section" id="examples">
       <div class="section-title">산출물 예시</div>
 

@@ -136,6 +136,7 @@
   <div class="dot" onclick="go(11)"></div>
   <div class="dot" onclick="go(12)"></div>
   <div class="dot" onclick="go(13)"></div>
+  <div class="dot" onclick="go(14)"></div>
 </div>
 
 <!-- ══════════════════════════════════
@@ -154,11 +155,11 @@
     <div style="display:flex; gap:36px; margin-top:4px;">
       <span style="font-size:12px; opacity:.4;">솔루션전략그룹(솔루션)</span>
       <span style="font-size:12px; opacity:.4;">'26.05.27</span>
-      <span style="font-size:12px; opacity:.4;">14 Slides</span>
+      <span style="font-size:12px; opacity:.4;">15 Slides</span>
     </div>
   </div>
   <div style="position:absolute; right:72px; top:50%; transform:translateY(-50%); opacity:.06; font-size:140px; font-weight:700; line-height:1; color:#1868DB;">AI</div>
-  <div class="pg">01 / 13</div>
+  <div class="pg">01 / 15</div>
 </section>
 
 <!-- ══════════════════════════════════
@@ -222,7 +223,7 @@
     <tr><td><strong>⑤ Word 생성</strong></td><td><span class="tag t-pu">AI</span></td><td>sds-word-writer 스킬로 .docx 자동 생성</td><td>5분</td></tr>
   </table>
 
-  <div class="pg">02 / 14</div>
+  <div class="pg">02 / 15</div>
 </section>
 
 <!-- ══════════════════════════════════
@@ -254,15 +255,75 @@
     </div>
   </div>
 
-  <div class="ib ib-tip">
+  <div class="ib ib-tip" style="margin-bottom:10px;">
     <strong>좋은 목적 정의 예시:</strong> "PE가 SaaS 기업을 인수할 때 어떤 기준으로 평가하는지, Medallia 실패 사례를 통해 분석하여 우리 솔루션 M&amp;A 검토 시 적용 가능한 평가 기준을 도출하고 싶다."
   </div>
+  <div style="background:#FFEBE6; border-left:4px solid #FF5630; border-radius:0 6px 6px 0; padding:10px 16px; font-size:13px; color:#BF2600; line-height:1.6;">
+    <strong>⚠ 배경·목적·제목을 한 문장으로 말하지 못하면 분석이 산으로 가고 있다는 신호입니다.</strong><br>
+    <span style="font-size:12px; opacity:.85;">AI에게 지시하기 전에 이 3가지를 소리 내어 말해보세요. 막히는 지점이 바로 불명확한 부분입니다.</span>
+  </div>
 
-  <div class="pg">03 / 14</div>
+  <div class="pg">03 / 15</div>
 </section>
 
 <!-- ══════════════════════════════════
-     S04 · 2단계 Input 수집
+     S04 · 분석 접근 방법론
+══════════════════════════════════ -->
+<section class="slide light" id="s3-5">
+  <div class="eyebrow">Analysis Framework · Step 01+</div>
+  <div class="h2" style="font-size:24px; margin-bottom:6px;">분석 접근 방법론 — 초반에 방향을 정한다</div>
+  <p style="font-size:13px; color:#6B778C; margin-bottom:18px;">목적을 정했다면, 어떤 방식으로 분석할지 접근법을 먼저 선택하세요. AI에게 지시하기 전에 방법론이 정해져 있어야 결과물의 깊이가 달라집니다.</p>
+
+  <div class="g4" style="margin-bottom:16px;">
+
+    <div class="card" style="border-top:4px solid #1868DB;">
+      <div style="font-size:22px; margin-bottom:8px;">📌</div>
+      <div class="ct" style="font-size:13px; margin-bottom:6px; color:#0052CC;">정의 우선</div>
+      <div class="cd" style="font-size:12px;">모든 것은 <strong>정의에서 시작</strong>합니다. 배경·목적·제목을 한 문장씩 먼저 확정하세요.<br><br>분석 대상, 분석 범위, 핵심 용어도 사전에 정의해두면 AI 지시가 훨씬 정확해집니다.</div>
+    </div>
+
+    <div class="card" style="border-top:4px solid #6554C0;">
+      <div style="font-size:22px; margin-bottom:8px;">🗂</div>
+      <div class="ct" style="font-size:13px; margin-bottom:6px; color:#403294;">구조·메가 프로세스</div>
+      <div class="cd" style="font-size:12px;">세부 사실보다 <strong>전체 흐름을 먼저 파악</strong>합니다. 이 현상은 어떤 큰 흐름의 일부인가?<br><br>예: Medallia 실패 → PE LBO 메가 프로세스 → 이자 구조 → FCF 압박 → 실패 순서 파악</div>
+    </div>
+
+    <div class="card" style="border-top:4px solid #FF5630;">
+      <div style="font-size:22px; margin-bottom:8px;">🔍</div>
+      <div class="ct" style="font-size:13px; margin-bottom:6px; color:#BF2600;">5 Why — 근본 원인 추적</div>
+      <div class="cd" style="font-size:12px;">표면적 원인에서 멈추지 않습니다. <strong>"왜?"를 5번 반복</strong>하여 진짜 원인에 도달합니다.<br><br>
+        <div style="font-size:11px; background:#FFF0EE; border-radius:4px; padding:5px 8px; line-height:1.65; color:#7A1010;">
+          Why① 실적 부진 → Why② 이자 과부담 → Why③ PIK 차입 → Why④ 과도한 LBO → Why⑤ 성장 과대 평가
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="border-top:4px solid #00875A;">
+      <div style="font-size:22px; margin-bottom:8px;">💡</div>
+      <div class="ct" style="font-size:13px; margin-bottom:6px; color:#006644;">현실화 — "우리라면?"</div>
+      <div class="cd" style="font-size:12px;">추상적 분석을 <strong>현실로 내려오게 만드는 질문</strong>입니다. 같은 상황에 우리가 처했다면 어떻게 했을까?<br><br>
+        <div style="font-size:11px; background:#E3FCEF; border-radius:4px; padding:5px 8px; line-height:1.65; color:#006644;">
+          "우리가 Medallia처럼 LBO로 인수된다면, 어떤 재무 조건을 협상했어야 하는가?"
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="g2" style="gap:12px;">
+    <div class="ib ib-info" style="font-size:12.5px;">
+      <strong>사례 분석에 적합한 조합:</strong> 정의 우선 → 구조·메가 프로세스 파악 → 5 Why로 근본 원인 추적 → "우리라면?" 시뮬레이션으로 시사점 도출
+    </div>
+    <div class="ib ib-warn" style="font-size:12.5px;">
+      <strong>AI 지시 시 방법론 명시:</strong> "5 Why 방식으로 근본 원인을 추적해줘" 또는 "우리가 같은 상황이라면 어떻게 했을지 시사점을 포함해줘"라고 명시하면 분석 깊이가 달라집니다.
+    </div>
+  </div>
+
+  <div class="pg">04 / 15</div>
+</section>
+
+<!-- ══════════════════════════════════
+     S05 · 2단계 Input 수집
 ══════════════════════════════════ -->
 <section class="slide dark" id="s3">
   <div class="eyebrow">Step 02</div>
@@ -301,7 +362,7 @@
     <strong style="color:#fff;">"이 링크에서 특히 자금 구조와 실패 원인 파트를 중심으로 분석해줘"</strong>처럼 집중 포인트를 함께 지정하면 정확도가 크게 올라갑니다.
   </div>
 
-  <div class="pg">04 / 14</div>
+  <div class="pg">05 / 15</div>
 </section>
 
 <!-- ══════════════════════════════════
@@ -350,7 +411,7 @@
     </div>
   </div>
 
-  <div class="pg">05 / 14</div>
+  <div class="pg">06 / 15</div>
 </section>
 
 <!-- ══════════════════════════════════
@@ -394,7 +455,7 @@
     </div>
   </div>
 
-  <div class="pg">06 / 14</div>
+  <div class="pg">07 / 15</div>
 </section>
 
 <!-- ══════════════════════════════════
@@ -431,7 +492,7 @@
     근거 없는 숫자는 보고 자리에서 신뢰를 잃습니다.
   </div>
 
-  <div class="pg">07 / 14</div>
+  <div class="pg">08 / 15</div>
 </section>
 
 <!-- ══════════════════════════════════
@@ -470,7 +531,7 @@
     </div>
   </div>
 
-  <div class="pg">08 / 14</div>
+  <div class="pg">09 / 15</div>
 </section>
 
 <!-- ══════════════════════════════════
@@ -536,7 +597,7 @@
     약어 참고표는 마지막 슬라이드(약어 사전)를 함께 열어두면 편합니다.
   </div>
 
-  <div class="pg">09 / 14</div>
+  <div class="pg">10 / 15</div>
 </section>
 
 <!-- ══════════════════════════════════
@@ -603,7 +664,7 @@ GenAI 대체 위험이 높은 편이야.
     </div>
   </div>
 
-  <div class="pg">10 / 14</div>
+  <div class="pg">11 / 15</div>
 </section>
 
 <!-- ══════════════════════════════════
@@ -655,7 +716,7 @@ GenAI 대체 위험이 높은 편이야.
     <div style="margin-top:8px; font-size:11px; color:#6B778C;">가산금리: Bloomberg 기준 PE LBO 거래 스프레드 5~6%p 적용. PIK 원금 누적: 현금 미지급 이자가 원금에 가산되는 구조.</div>
   </div>
 
-  <div class="pg">11 / 14</div>
+  <div class="pg">12 / 15</div>
 </section>
 
 <!-- ══════════════════════════════════
@@ -710,7 +771,7 @@ GenAI 대체 위험이 높은 편이야.
     <strong style="color:#7BB4FF;">핵심 원칙:</strong> "이 숫자는 <strong style="color:#fff;">___을 근거로 ___방식으로 추정</strong>한 값이며, ___% 오차 가능성이 있다"는 문장이 보고서 어딘가에 반드시 있어야 합니다. 그게 없으면 AI가 만들어낸 숫자와 구별되지 않습니다.
   </div>
 
-  <div class="pg">12 / 14</div>
+  <div class="pg">13 / 15</div>
 </section>
 
 <!-- ══════════════════════════════════
@@ -760,7 +821,7 @@ GenAI 대체 위험이 높은 편이야.
     </div>
   </div>
 
-  <div class="pg" style="color:rgba(255,255,255,.3);">13 / 14</div>
+  <div class="pg" style="color:rgba(255,255,255,.3);">14 / 15</div>
 </section>
 
 <!-- ══════════════════════════════════
@@ -839,7 +900,7 @@ GenAI 대체 위험이 높은 편이야.
 
   </div>
 
-  <div class="pg">14 / 14</div>
+  <div class="pg">15 / 15</div>
 </section>
 
 <!-- ── Script ── -->

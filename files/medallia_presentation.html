@@ -410,46 +410,50 @@
       <div style="font-size:12px; color:rgba(255,255,255,.4); margin-bottom:10px;">
         FCF Coverage (FCF ÷ 연이자) — 1.0× 미만이면 이자를 FCF로 감당 불가
       </div>
-      <svg width="100%" height="230" viewBox="0 0 500 230" preserveAspectRatio="xMidYMid meet">
+      <svg width="100%" height="250" viewBox="0 0 520 250" preserveAspectRatio="xMidYMid meet">
         <!-- Axes -->
-        <line x1="50" y1="20" x2="50" y2="185" stroke="rgba(255,255,255,.15)" stroke-width="1.5"/>
-        <line x1="50" y1="185" x2="480" y2="185" stroke="rgba(255,255,255,.15)" stroke-width="1.5"/>
+        <line x1="50" y1="28" x2="50" y2="200" stroke="rgba(255,255,255,.15)" stroke-width="1.5"/>
+        <line x1="50" y1="200" x2="495" y2="200" stroke="rgba(255,255,255,.15)" stroke-width="1.5"/>
 
-        <!-- 1.0× line -->
-        <line x1="50" y1="20" x2="480" y2="20" stroke="rgba(255,255,255,.2)" stroke-width="1" stroke-dasharray="5,4"/>
-        <text x="43" y="24" text-anchor="end" font-size="11" fill="rgba(255,255,255,.4)">1.0×</text>
-        <text x="300" y="14" text-anchor="middle" font-size="10" fill="rgba(255,255,255,.3)">이자 감당 가능 기준선</text>
+        <!-- 1.0× 기준선 (170px = 1.0×, baseline y=200, top y=30) -->
+        <line x1="50" y1="30" x2="495" y2="30" stroke="rgba(255,255,255,.22)" stroke-width="1" stroke-dasharray="5,4"/>
+        <text x="43" y="34" text-anchor="end" font-size="11" fill="rgba(255,255,255,.4)">1.0×</text>
+        <text x="295" y="22" text-anchor="middle" font-size="10" fill="rgba(255,255,255,.3)">이자 감당 가능 기준선</text>
 
-        <!-- FY2022: coverage 0.85 → bar height = 0.85×165 = 140 → y = 185-140 = 45 -->
-        <rect x="68"  y="45"  width="52" height="140" rx="5" fill="#4C9AFF" opacity=".75"/>
-        <text x="94"  y="39"  text-anchor="middle" font-size="12" font-weight="700" fill="#4C9AFF">0.85×</text>
-        <text x="94"  y="200" text-anchor="middle" font-size="11" fill="rgba(255,255,255,.5)">FY2022</text>
-        <text x="94"  y="213" text-anchor="middle" font-size="10" fill="rgba(255,255,255,.3)">인수년</text>
+        <!-- FY2022: 0.85×170=144.5 → y=55.5→56, h=144 -->
+        <rect x="68" y="56" width="52" height="144" rx="5" fill="#4C9AFF" opacity=".75"/>
+        <text x="94" y="49" text-anchor="middle" font-size="12" font-weight="700" fill="#4C9AFF">0.85×</text>
+        <text x="94" y="216" text-anchor="middle" font-size="11" fill="rgba(255,255,255,.5)">FY2022</text>
+        <text x="94" y="229" text-anchor="middle" font-size="10" fill="rgba(255,255,255,.3)">인수년</text>
 
-        <!-- FY2023: 0.06 → 0.06×165 = 9.9 → y = 175.1 -->
-        <rect x="152" y="175" width="52" height="10" rx="3" fill="#FF5630"/>
-        <text x="178" y="166" text-anchor="middle" font-size="12" font-weight="700" fill="#FF5630">0.06×</text>
-        <text x="178" y="200" text-anchor="middle" font-size="11" fill="rgba(255,255,255,.5)">FY2023</text>
+        <!-- FY2023: 0.06×170=10.2 → y=189.8→190, h=10 -->
+        <rect x="152" y="190" width="52" height="10" rx="3" fill="#FF5630"/>
+        <!-- 레이블→막대 연결 점선 -->
+        <line x1="178" y1="149" x2="178" y2="188" stroke="#FF5630" stroke-width="1" stroke-dasharray="3,3" opacity=".55"/>
+        <text x="178" y="143" text-anchor="middle" font-size="12" font-weight="700" fill="#FF5630">0.06×</text>
+        <text x="178" y="216" text-anchor="middle" font-size="11" fill="rgba(255,255,255,.5)">FY2023</text>
 
-        <!-- FY2024: 0.03 → 5 → y=180 -->
-        <rect x="236" y="180" width="52" height="5" rx="2" fill="#FF5630"/>
-        <text x="262" y="166" text-anchor="middle" font-size="12" font-weight="700" fill="#FF5630">0.03×</text>
-        <text x="262" y="200" text-anchor="middle" font-size="11" fill="rgba(255,255,255,.5)">FY2024</text>
+        <!-- FY2024: 0.03×170=5.1 → y=194.9→195, h=5 -->
+        <rect x="236" y="195" width="52" height="5" rx="2" fill="#FF5630"/>
+        <line x1="262" y1="149" x2="262" y2="193" stroke="#FF5630" stroke-width="1" stroke-dasharray="3,3" opacity=".55"/>
+        <text x="262" y="143" text-anchor="middle" font-size="12" font-weight="700" fill="#FF5630">0.03×</text>
+        <text x="262" y="216" text-anchor="middle" font-size="11" fill="rgba(255,255,255,.5)">FY2024</text>
 
-        <!-- FY2025: 0.02 → 3 → y=182 -->
-        <rect x="320" y="182" width="52" height="3" rx="2" fill="#FF5630"/>
-        <text x="346" y="166" text-anchor="middle" font-size="12" font-weight="700" fill="#FF5630">0.02×</text>
-        <text x="346" y="200" text-anchor="middle" font-size="11" fill="rgba(255,255,255,.5)">FY2025</text>
+        <!-- FY2025: 0.02×170=3.4 → y=196.6→197, h=3 -->
+        <rect x="320" y="197" width="52" height="3" rx="2" fill="#FF5630"/>
+        <line x1="346" y1="149" x2="346" y2="195" stroke="#FF5630" stroke-width="1" stroke-dasharray="3,3" opacity=".55"/>
+        <text x="346" y="143" text-anchor="middle" font-size="12" font-weight="700" fill="#FF5630">0.02×</text>
+        <text x="346" y="216" text-anchor="middle" font-size="11" fill="rgba(255,255,255,.5)">FY2025</text>
 
-        <!-- FY2026: 0.28 → 46 → y=139 -->
-        <rect x="404" y="139" width="52" height="46" rx="5" fill="#F59E0B" opacity=".8"/>
-        <text x="430" y="130" text-anchor="middle" font-size="12" font-weight="700" fill="#F59E0B">0.28×</text>
-        <text x="430" y="200" text-anchor="middle" font-size="11" fill="rgba(255,255,255,.5)">FY2026</text>
-        <text x="430" y="213" text-anchor="middle" font-size="10" fill="rgba(255,255,255,.3)">경영권 이전</text>
+        <!-- FY2026: 0.28×170=47.6 → y=152.4→152, h=48 -->
+        <rect x="404" y="152" width="52" height="48" rx="5" fill="#F59E0B" opacity=".8"/>
+        <text x="430" y="145" text-anchor="middle" font-size="12" font-weight="700" fill="#F59E0B">0.28×</text>
+        <text x="430" y="216" text-anchor="middle" font-size="11" fill="rgba(255,255,255,.5)">FY2026</text>
+        <text x="430" y="229" text-anchor="middle" font-size="10" fill="rgba(255,255,255,.3)">경영권 이전</text>
 
-        <!-- Danger zone annotation -->
-        <rect x="140" y="155" width="248" height="24" rx="4" fill="rgba(191,38,0,.25)"/>
-        <text x="264" y="171" text-anchor="middle" font-size="11" fill="rgba(255,130,100,.9)">4년 연속 0.1× 미만 — 구조적 부실</text>
+        <!-- Danger zone annotation (레이블 아래, 막대 위에 배치) -->
+        <rect x="140" y="158" width="248" height="22" rx="4" fill="rgba(191,38,0,.25)"/>
+        <text x="264" y="173" text-anchor="middle" font-size="11" fill="rgba(255,130,100,.9)">4년 연속 0.1× 미만 — 구조적 부실</text>
       </svg>
     </div>
 

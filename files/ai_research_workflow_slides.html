@@ -93,6 +93,9 @@
     .ib-info { background:#DEEBFF; border-left:4px solid #0052CC; color:#172B4D; }
     .ib-dan  { background:rgba(191,38,0,.1); border:1px solid rgba(191,38,0,.25); color:rgba(255,255,255,.85); }
     .ib-sec  { background:#FFEBE6; border-radius:6px; padding:10px 12px; font-size:11.5px; color:#BF2600; line-height:1.6; }
+    .tip-lbl { display:inline-block; font-size:10px; font-weight:700; padding:2px 8px; border-radius:10px; letter-spacing:.5px; margin-bottom:6px; color:#fff; }
+    .tip-lbl-ai    { background:#0052CC; }
+    .tip-lbl-human { background:#00875A; }
 
     /* ── Prompt block ── */
     .pb { background:#0D1B35; border-radius:8px; padding:14px 18px; }
@@ -137,6 +140,9 @@
   <div class="dot" onclick="go(12)"></div>
   <div class="dot" onclick="go(13)"></div>
   <div class="dot" onclick="go(14)"></div>
+  <div class="dot" onclick="go(15)"></div>
+  <div class="dot" onclick="go(16)"></div>
+  <div class="dot" onclick="go(17)"></div>
 </div>
 
 <!-- ══════════════════════════════════
@@ -155,11 +161,11 @@
     <div style="display:flex; gap:36px; margin-top:4px;">
       <span style="font-size:12px; opacity:.4;">솔루션전략그룹(솔루션)</span>
       <span style="font-size:12px; opacity:.4;">'26.05.27</span>
-      <span style="font-size:12px; opacity:.4;">15 Slides</span>
+      <span style="font-size:12px; opacity:.4;">18 Slides</span>
     </div>
   </div>
   <div style="position:absolute; right:72px; top:50%; transform:translateY(-50%); opacity:.06; font-size:140px; font-weight:700; line-height:1; color:#1868DB;">AI</div>
-  <div class="pg">01 / 15</div>
+  <div class="pg">01 / 18</div>
 </section>
 
 <!-- ══════════════════════════════════
@@ -168,6 +174,11 @@
 <section class="slide light" id="s1">
   <div class="eyebrow">Overview</div>
   <div class="h2">전체 Workflow 흐름</div>
+
+  <div style="background:#0D1B35; border-left:4px solid #1868DB; border-radius:0 8px 8px 0; padding:12px 18px; margin-bottom:20px; font-size:13px; color:rgba(255,255,255,.85); line-height:1.65;">
+    본 자료는 기사 링크와 사람의 관점을 기반으로 AI 에이전트를 활용해 기업조사 보고서를 빠르게 작성하되,
+    <strong style="color:#7BB4FF;">사람이 최종 검증과 통찰을 책임지는</strong> 표준 Workflow를 제시합니다.
+  </div>
 
   <svg width="100%" height="110" viewBox="0 0 1100 110" preserveAspectRatio="xMidYMid meet" style="margin-bottom:20px; overflow:visible;">
     <defs>
@@ -223,7 +234,7 @@
     <tr><td><strong>⑤ Word 생성</strong></td><td><span class="tag t-pu">AI</span></td><td>sds-word-writer 스킬로 .docx 자동 생성</td><td>5분</td></tr>
   </table>
 
-  <div class="pg">02 / 15</div>
+  <div class="pg">02 / 18</div>
 </section>
 
 <!-- ══════════════════════════════════
@@ -256,14 +267,10 @@
   </div>
 
   <div class="ib ib-tip" style="margin-bottom:10px;">
+    <div class="tip-lbl tip-lbl-human">✍️ 공동저자</div>
     <strong>좋은 목적 정의 예시:</strong> "PE가 SaaS 기업을 인수할 때 어떤 기준으로 평가하는지, Medallia 실패 사례를 통해 분석하여 우리 솔루션 M&amp;A 검토 시 적용 가능한 평가 기준을 도출하고 싶다."
   </div>
-  <div style="background:#FFEBE6; border-left:4px solid #FF5630; border-radius:0 6px 6px 0; padding:10px 16px; font-size:13px; color:#BF2600; line-height:1.6;">
-    <strong>⚠ 배경·목적·제목을 한 문장으로 말하지 못하면 분석이 산으로 가고 있다는 신호입니다.</strong><br>
-    <span style="font-size:12px; opacity:.85;">AI에게 지시하기 전에 이 3가지를 소리 내어 말해보세요. 막히는 지점이 바로 불명확한 부분입니다.</span>
-  </div>
-
-  <div class="pg">03 / 15</div>
+  <div class="pg">03 / 18</div>
 </section>
 
 <!-- ══════════════════════════════════
@@ -322,14 +329,16 @@
 
   <div class="g2" style="gap:12px;">
     <div class="ib ib-info" style="font-size:12.5px;">
+      <div class="tip-lbl tip-lbl-human">✍️ 공동저자</div>
       <strong>사례 분석에 적합한 조합:</strong> 정의 우선 → 구조·메가 프로세스 파악 → 5 Why로 근본 원인 추적 → "우리라면?" 시뮬레이션으로 시사점 도출
     </div>
     <div class="ib ib-warn" style="font-size:12.5px;">
+      <div class="tip-lbl tip-lbl-ai">🤖 AI 지시</div>
       <strong>AI 지시 시 방법론 명시:</strong> "5 Why 방식으로 근본 원인을 추적해줘" 또는 "우리가 같은 상황이라면 어떻게 했을지 시사점을 포함해줘"라고 명시하면 분석 깊이가 달라집니다.
     </div>
   </div>
 
-  <div class="pg">04 / 15</div>
+  <div class="pg">04 / 18</div>
 </section>
 
 <!-- ══════════════════════════════════
@@ -367,12 +376,89 @@
     </div>
   </div>
 
+  <div class="card glass" style="padding:14px 20px; margin-bottom:14px;">
+    <div style="font-size:12px; font-weight:700; color:#57D9A3; margin-bottom:10px;">📎 실제 예시 — Medallia 분석 시 제공한 링크</div>
+    <div style="display:flex; flex-direction:column; gap:6px;">
+      <div style="font-size:12px; color:rgba(255,255,255,.85);">
+        <span style="color:#7BB4FF; font-weight:600;">① OnlyCFO (Substack)</span>
+        <span style="color:rgba(255,255,255,.45); margin:0 6px;">—</span>
+        <a href="https://www.onlycfo.io/p/thoma-bravos-5b-medallia-loss-the" target="_blank" style="color:#4C9AFF; text-decoration:none; font-size:11px;">onlycfo.io/p/thoma-bravos-5b-medallia-loss-the</a>
+        <span style="color:rgba(255,255,255,.5); font-size:11px; margin-left:6px;">Thoma Bravo $5B 손실 분석, SaaS CFO 뷰</span>
+      </div>
+      <div style="font-size:12px; color:rgba(255,255,255,.85);">
+        <span style="color:#7BB4FF; font-weight:600;">② Bloomberg</span>
+        <span style="color:rgba(255,255,255,.45); margin:0 6px;">—</span>
+        <a href="https://www.bloomberg.com/news/articles/2026-04-30/thoma-bravo-refuses-to-inject-fresh-cash-into-ailing-medallia" target="_blank" style="color:#4C9AFF; text-decoration:none; font-size:11px;">bloomberg.com · 2026-04-30</a>
+        <span style="color:rgba(255,255,255,.5); font-size:11px; margin-left:6px;">Thoma Bravo 추가 자금 투입 거부 보도</span>
+      </div>
+      <div style="font-size:12px; color:rgba(255,255,255,.85);">
+        <span style="color:#7BB4FF; font-weight:600;">③ Thoma Bravo 공식 보도자료</span>
+        <span style="color:rgba(255,255,255,.45); margin:0 6px;">—</span>
+        <a href="https://www.thomabravo.com/press-releases/medallia-to-be-acquired-by-thoma-bravo-for-6.4-billion" target="_blank" style="color:#4C9AFF; text-decoration:none; font-size:11px;">thomabravo.com · 인수 발표 ($6.4B)</a>
+        <span style="color:rgba(255,255,255,.5); font-size:11px; margin-left:6px;">2021년 인수 조건 원문</span>
+      </div>
+    </div>
+    <div style="margin-top:10px; font-size:11px; color:rgba(255,255,255,.4); border-top:1px solid rgba(255,255,255,.1); padding-top:8px;">
+      → 링크 3개 + "자금 구조·실패 원인 중심" 지시 → AI가 교차 검증 후 분석 초안 작성
+    </div>
+  </div>
+
   <div class="ib ib-dan">
+    <div class="tip-lbl tip-lbl-ai">🤖 AI 지시</div>
     <strong style="color:#7BB4FF;">Tip:</strong> 링크만 던지면 AI가 방향을 추측합니다.
     <strong style="color:#fff;">"이 링크에서 특히 자금 구조와 실패 원인 파트를 중심으로 분석해줘"</strong>처럼 집중 포인트를 함께 지정하면 정확도가 크게 올라갑니다.
   </div>
 
-  <div class="pg">05 / 15</div>
+  <div class="pg">05 / 18</div>
+</section>
+
+<!-- ══════════════════════════════════
+     S06 · 보안 입력 기준
+══════════════════════════════════ -->
+<section class="slide white" id="s-sec">
+  <div class="eyebrow">Security · Input 제한</div>
+  <div class="h2">외부 AI에 입력할 수 있는 것과 없는 것</div>
+
+  <div class="g3" style="margin-bottom:16px;">
+    <div class="card" style="border-top:3px solid #00875A;">
+      <div style="font-size:13px; font-weight:700; color:#006644; margin-bottom:10px;">✅ 입력 가능</div>
+      <ul class="bl">
+        <li>공개 기사·뉴스 URL</li>
+        <li>공시·IR 자료·SEC 공개 데이터</li>
+        <li>업계 일반 관점·분석 방향</li>
+        <li>일반화된 내부 시각 <span style="font-size:11px; color:#6B778C;">("우리 업에서는 일반적으로...")</span></li>
+        <li>보고 목적·독자 수준 등 맥락 정보</li>
+      </ul>
+    </div>
+    <div class="card" style="border-top:3px solid #F9A825;">
+      <div style="font-size:13px; font-weight:700; color:#974F0C; margin-bottom:10px;">⚠ 입력 주의 (익명화 필요)</div>
+      <ul class="bl">
+        <li>고객사명·파트너사 실명</li>
+        <li>내부 추정 매출·비용 수치</li>
+        <li>진행 중인 계약 조건·협상 내용</li>
+        <li>조직 내부 판단·의사결정 근거</li>
+      </ul>
+      <div style="margin-top:10px; font-size:11px; color:#974F0C; background:#FFFAE6; border-radius:5px; padding:6px 10px;">→ "특정 고객사" 대신 "대형 금융사"처럼 일반화</div>
+    </div>
+    <div class="card" style="border-top:3px solid #FF5630;">
+      <div style="font-size:13px; font-weight:700; color:#BF2600; margin-bottom:10px;">🚫 입력 금지</div>
+      <ul class="bl">
+        <li>미공개 실적·재무 데이터</li>
+        <li>고객 계약서·가격 정책 원문</li>
+        <li>개인정보 (성명·연락처·인사정보)</li>
+        <li>보안등급 문서 원문</li>
+        <li>내부 시스템 계정·접근 정보</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="ib ib-warn">
+    <div class="tip-lbl tip-lbl-human">✍️ 공동저자</div>
+    <strong>판단 기준:</strong> "이 내용이 외부에 공개되어도 괜찮은가?" — 확신이 없으면 입력하지 마세요.
+    민감 정보는 AI 초안 수령 후 <strong>사람이 직접 추가</strong>하는 방식으로 처리하세요.
+  </div>
+
+  <div class="pg">06 / 18</div>
 </section>
 
 <!-- ══════════════════════════════════
@@ -406,7 +492,8 @@
   </div>
 
   <div class="ib ib-info" style="margin-bottom:14px;">
-    <strong>소요 시간:</strong> 기사 3~5개 + 웹 검색 기준 약 10~20분. AI가 작업 중이면 다른 업무를 병행해도 됩니다.
+    <div class="tip-lbl tip-lbl-human">✍️ 공동저자</div>
+    <strong>소요 시간:</strong> 기사 3~5개 + 웹 검색 기준 약 10~20분. AI 리서치 중에는 병행 업무가 가능하나, <strong>결과물은 반드시 출처·수치·논리 검증을 거쳐야 합니다.</strong>
   </div>
 
   <div style="background:#fff; border-radius:10px; padding:14px 20px; box-shadow:0 1px 8px rgba(0,0,0,.06);">
@@ -421,7 +508,7 @@
     </div>
   </div>
 
-  <div class="pg">06 / 15</div>
+  <div class="pg">07 / 18</div>
 </section>
 
 <!-- ══════════════════════════════════
@@ -465,7 +552,7 @@
     </div>
   </div>
 
-  <div class="pg">07 / 15</div>
+  <div class="pg">08 / 18</div>
 </section>
 
 <!-- ══════════════════════════════════
@@ -498,11 +585,12 @@
   </div>
 
   <div class="ib ib-dan">
+    <div class="tip-lbl tip-lbl-ai">🤖 AI 지시</div>
     AI에게 추론을 요청할 때는 항상 <strong style="color:#fff;">"추론 방식·근거 데이터·불확실성 범위를 함께 작성해줘"</strong>라고 지시하세요.
     근거 없는 숫자는 보고 자리에서 신뢰를 잃습니다.
   </div>
 
-  <div class="pg">08 / 15</div>
+  <div class="pg">09 / 18</div>
 </section>
 
 <!-- ══════════════════════════════════
@@ -523,6 +611,7 @@
         <li>분량 조절: 너무 길면 컷, 부족하면 보완 요청</li>
       </ul>
       <div class="ib ib-tip" style="font-size:12px;">
+        <div class="tip-lbl tip-lbl-ai">🤖 AI 지시</div>
         <strong>통찰 주입 팁:</strong> "이렇게 바꿔줘" 대신 <strong>"우리 업에서는 ___이다, 이 맥락을 반영해줘"</strong>처럼 배경 정보를 주면 AI가 더 정확하게 반영합니다.
       </div>
     </div>
@@ -541,7 +630,7 @@
     </div>
   </div>
 
-  <div class="pg">09 / 15</div>
+  <div class="pg">10 / 18</div>
 </section>
 
 <!-- ══════════════════════════════════
@@ -603,11 +692,12 @@
   </div>
 
   <div class="ib ib-dan" style="font-size:12.5px; line-height:1.65;">
+    <div class="tip-lbl tip-lbl-ai">🤖 AI 지시</div>
     <strong style="color:#C0B0FF;">약어 처리 원칙:</strong> sds-word-writer 호출 시 <strong style="color:#fff;">"문서에 사용된 약어(PE·LBO·EBITDA·FCF·SOFR 등)는 첫 등장 위치에 각주 또는 툴팁으로 풀어써줘"</strong>라고 명시하세요.
     약어 참고표는 마지막 슬라이드(약어 사전)를 함께 열어두면 편합니다.
   </div>
 
-  <div class="pg">10 / 15</div>
+  <div class="pg">11 / 18</div>
 </section>
 
 <!-- ══════════════════════════════════
@@ -673,7 +763,51 @@ ARR 성장 정체 제품은 이자 감당이
     </div>
   </div>
 
-  <div class="pg">11 / 15</div>
+  <div class="pg">12 / 18</div>
+</section>
+
+<!-- ══════════════════════════════════
+     S13 · 좋은 vs 나쁜 프롬프트
+══════════════════════════════════ -->
+<section class="slide white" id="s-prompt">
+  <div class="eyebrow">Prompt Quality</div>
+  <div class="h2">좋은 프롬프트 vs 나쁜 프롬프트</div>
+
+  <div class="g2" style="gap:20px; margin-bottom:16px;">
+    <div>
+      <div style="font-size:12px; font-weight:700; color:#BF2600; background:#FFEBE6; border-radius:8px; padding:8px 14px; margin-bottom:12px;">❌ 나쁜 프롬프트 — AI가 방향을 임의 설정</div>
+      <div class="pb" style="margin-bottom:12px;">
+        <div class="pb-lbl">입력 예시</div>
+        <div class="pb-txt">Medallia 조사해줘.</div>
+      </div>
+      <ul class="bl">
+        <li>목적·독자·분량이 없어 AI가 임의 구성</li>
+        <li>어떤 관점으로 분석할지 불명확</li>
+        <li>결과물이 일반 백과사전 수준에 머묾</li>
+        <li>재사용·수정이 어려운 범용 초안 생성</li>
+      </ul>
+    </div>
+    <div>
+      <div style="font-size:12px; font-weight:700; color:#006644; background:#E3FCEF; border-radius:8px; padding:8px 14px; margin-bottom:12px;">✅ 좋은 프롬프트 — 목적·각도·제약이 명확</div>
+      <div class="pb" style="margin-bottom:12px;">
+        <div class="pb-lbl">입력 예시</div>
+        <div class="pb-txt"><span class="hl">[AI 에이전트명]</span>, Medallia의 PE 인수 이후
+FCF 악화 원인을 LBO 구조, PIK 이자,
+SaaS 성장률 둔화 관점에서 분석해줘.
+<span class="cm">## 제약</span>
+확정 사실과 추정값을 구분해서 표기.
+우리 솔루션 M&A 평가 시사점 포함.
+A4 4장 이내, 그룹장 보고용.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ib ib-tip">
+    <div class="tip-lbl tip-lbl-ai">🤖 AI 지시</div>
+    <strong>3요소 체크:</strong> 좋은 프롬프트는 <strong>① 목적·독자</strong> + <strong>② 분석 각도·집중 포인트</strong> + <strong>③ 산출물 형식·분량</strong>을 모두 포함합니다. 하나라도 빠지면 AI가 임의로 채웁니다.
+  </div>
+
+  <div class="pg">13 / 18</div>
 </section>
 
 <!-- ══════════════════════════════════
@@ -708,6 +842,17 @@ ARR 성장 정체 제품은 이자 감당이
     </div>
   </div>
 
+  <div style="background:#fff; border-radius:10px; padding:14px 18px; box-shadow:0 1px 6px rgba(0,0,0,.05); margin-bottom:12px;">
+    <div style="font-size:12px; font-weight:700; color:#172B4D; margin-bottom:10px;">📊 이 보고서 수치의 신뢰도 분류</div>
+    <table class="t">
+      <tr><th>구분</th><th>내용</th><th style="width:16%;">신뢰도</th></tr>
+      <tr><td><span style="background:#E3FCEF; color:#006644; font-size:10px; font-weight:700; padding:2px 7px; border-radius:10px;">확정 사실</span></td><td>인수금액 $6.4B, 인수 시점(2021), SEC 공시 FY2019~2021 재무</td><td style="color:#006644; font-weight:700;">높음</td></tr>
+      <tr><td><span style="background:#DEEBFF; color:#0052CC; font-size:10px; font-weight:700; padding:2px 7px; border-radius:10px;">보도 기반</span></td><td>추가 자금 투입 거부, PIK 이자 구조 변화, 차입 잔액 추이</td><td style="color:#0052CC; font-weight:700;">중간~높음</td></tr>
+      <tr><td><span style="background:#FFF4E5; color:#974F0C; font-size:10px; font-weight:700; padding:2px 7px; border-radius:10px;">추정</span></td><td>FY2022~2026 매출·EBITDA·FCF (비공개, 방법 1·2·3 적용)</td><td style="color:#974F0C; font-weight:700;">중간</td></tr>
+      <tr><td><span style="background:#FFEBE6; color:#BF2600; font-size:10px; font-weight:700; padding:2px 7px; border-radius:10px;">해석</span></td><td>실패 원인 분석, 우리 솔루션에 주는 시사점</td><td style="color:#BF2600; font-weight:700;">검토 필요</td></tr>
+    </table>
+  </div>
+
   <div style="background:#fff; border-radius:10px; padding:14px 18px; box-shadow:0 1px 8px rgba(0,0,0,.06);">
     <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
       <span class="method-pill mp-bl">방법 1 데이터→추정</span>
@@ -725,7 +870,7 @@ ARR 성장 정체 제품은 이자 감당이
     <div style="margin-top:8px; font-size:11px; color:#6B778C;">가산금리: Bloomberg 기준 PE LBO 거래 스프레드 5~6%p 적용. PIK 원금 누적: 현금 미지급 이자가 원금에 가산되는 구조.<br>* FY2025 차입 잔액 $2.8B = PIK 이자 누적($2.2B→) + Medallia의 소규모 인접 기업 추가 인수(보도 기반 추정)에 따른 부채 증가분 반영.</div>
   </div>
 
-  <div class="pg">12 / 15</div>
+  <div class="pg">14 / 18</div>
 </section>
 
 <!-- ══════════════════════════════════
@@ -777,10 +922,64 @@ ARR 성장 정체 제품은 이자 감당이
   </div>
 
   <div class="ib ib-dan">
+    <div class="tip-lbl tip-lbl-human">✍️ 공동저자</div>
     <strong style="color:#7BB4FF;">핵심 원칙:</strong> "이 숫자는 <strong style="color:#fff;">___을 근거로 ___방식으로 추정</strong>한 값이며, ___% 오차 가능성이 있다"는 문장이 보고서 어딘가에 반드시 있어야 합니다. 그게 없으면 AI가 만들어낸 숫자와 구별되지 않습니다.
   </div>
 
-  <div class="pg">13 / 15</div>
+  <div class="pg">15 / 18</div>
+</section>
+
+<!-- ══════════════════════════════════
+     S16 · AI 결과물 검증 5단계
+══════════════════════════════════ -->
+<section class="slide light" id="s-verify">
+  <div class="eyebrow">Verification · 검증 기준</div>
+  <div class="h2">AI 결과물 검증 5단계</div>
+
+  <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:16px;">
+    <div style="background:#fff; border-radius:10px; padding:13px 18px; box-shadow:0 1px 6px rgba(0,0,0,.06); display:flex; align-items:flex-start; gap:14px;">
+      <div style="min-width:30px; height:30px; background:#0052CC; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; color:#fff; flex-shrink:0;">1</div>
+      <div>
+        <div style="font-size:13px; font-weight:700; color:#172B4D; margin-bottom:3px;">출처가 실제로 존재하는가?</div>
+        <div style="font-size:12px; color:#6B778C;">AI가 인용한 기사·보고서·공시가 실제로 열리는지, 해당 내용이 원문에 있는지 직접 확인</div>
+      </div>
+    </div>
+    <div style="background:#fff; border-radius:10px; padding:13px 18px; box-shadow:0 1px 6px rgba(0,0,0,.06); display:flex; align-items:flex-start; gap:14px;">
+      <div style="min-width:30px; height:30px; background:#0052CC; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; color:#fff; flex-shrink:0;">2</div>
+      <div>
+        <div style="font-size:13px; font-weight:700; color:#172B4D; margin-bottom:3px;">수치가 원문과 일치하는가?</div>
+        <div style="font-size:12px; color:#6B778C;">금액·날짜·비율이 원본 데이터와 맞는지 교차 확인. 단위 오류 (M↔B, %↔배수) 특히 주의</div>
+      </div>
+    </div>
+    <div style="background:#fff; border-radius:10px; padding:13px 18px; box-shadow:0 1px 6px rgba(0,0,0,.06); display:flex; align-items:flex-start; gap:14px;">
+      <div style="min-width:30px; height:30px; background:#6554C0; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; color:#fff; flex-shrink:0;">3</div>
+      <div>
+        <div style="font-size:13px; font-weight:700; color:#172B4D; margin-bottom:3px;">추정과 사실이 구분되어 있는가?</div>
+        <div style="font-size:12px; color:#6B778C;">"확정 사실 / 보도 기반 / 추정 / 해석" 4단계가 보고서에 명확히 표기되어 있는지 확인</div>
+      </div>
+    </div>
+    <div style="background:#fff; border-radius:10px; padding:13px 18px; box-shadow:0 1px 6px rgba(0,0,0,.06); display:flex; align-items:flex-start; gap:14px;">
+      <div style="min-width:30px; height:30px; background:#00875A; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; color:#fff; flex-shrink:0;">4</div>
+      <div>
+        <div style="font-size:13px; font-weight:700; color:#172B4D; margin-bottom:3px;">우리 관점의 해석이 포함되어 있는가?</div>
+        <div style="font-size:12px; color:#6B778C;">AI가 쓴 일반론에 "우리 솔루션·사업에 주는 시사점"이 사람의 언어로 추가되어 있는지</div>
+      </div>
+    </div>
+    <div style="background:#fff; border-radius:10px; padding:13px 18px; box-shadow:0 1px 6px rgba(0,0,0,.06); display:flex; align-items:flex-start; gap:14px;">
+      <div style="min-width:30px; height:30px; background:#F9A825; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; color:#172B4D; flex-shrink:0;">5</div>
+      <div>
+        <div style="font-size:13px; font-weight:700; color:#172B4D; margin-bottom:3px;">보고 대상에게 필요한 결론이 앞에 있는가?</div>
+        <div style="font-size:12px; color:#6B778C;">보고 받는 분의 관심사·의사결정 포인트가 첫 페이지에 답으로 나와 있는지 확인</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ib ib-tip">
+    <div class="tip-lbl tip-lbl-human">✍️ 공동저자</div>
+    <strong>최종 책임:</strong> AI는 초안을 쓰고, 검증은 사람이 합니다. 위 5단계 중 하나라도 통과 못 하면 배포 전에 수정하세요.
+  </div>
+
+  <div class="pg">16 / 18</div>
 </section>
 
 <!-- ══════════════════════════════════
@@ -798,7 +997,7 @@ ARR 성장 정체 제품은 이자 감당이
 
     <div class="g2" style="gap:20px; margin-bottom:20px;">
       <div style="background:rgba(255,255,255,.12); border-radius:12px; padding:20px 22px; border:1px solid rgba(255,255,255,.15);">
-        <div style="font-size:13px; font-weight:700; color:#fff; margin-bottom:12px;">🔄 세션·컨텍스트 관리</div>
+        <div style="font-size:13px; font-weight:700; color:#fff; margin-bottom:12px;">🔄 세션·컨텍스트 관리 <span class="tip-lbl tip-lbl-ai" style="vertical-align:middle; margin-bottom:0;">🤖 AI 지시</span></div>
         <ul class="bl">
           <li>대화가 길어지면 중간에 <strong style="color:#fff;">"지금까지 핵심을 3줄로 요약해줘"</strong> 요청 → 컨텍스트 정리</li>
           <li>새 세션 시작 시 이전 결과를 붙여넣으며 <strong style="color:#fff;">"이 내용을 바탕으로 계속해줘"</strong> 활용</li>
@@ -807,7 +1006,7 @@ ARR 성장 정체 제품은 이자 감당이
         </ul>
       </div>
       <div style="background:rgba(255,255,255,.12); border-radius:12px; padding:20px 22px; border:1px solid rgba(255,255,255,.15);">
-        <div style="font-size:13px; font-weight:700; color:#fff; margin-bottom:12px;">🎯 품질을 높이는 역방향 프롬프트</div>
+        <div style="font-size:13px; font-weight:700; color:#fff; margin-bottom:12px;">🎯 품질을 높이는 역방향 프롬프트 <span class="tip-lbl tip-lbl-ai" style="vertical-align:middle; margin-bottom:0;">🤖 AI 지시</span></div>
         <ul class="bl">
           <li><strong style="color:#fff;">"이 보고서의 가장 취약한 논리적 약점이 뭐야?"</strong> → 자가 검증</li>
           <li><strong style="color:#fff;">"반론을 써줘 / 비판적 시각으로 다시 써줘"</strong> → 균형 잡힌 분석</li>
@@ -828,7 +1027,7 @@ ARR 성장 정체 제품은 이자 감당이
     </div>
   </div>
 
-  <div class="pg" style="color:rgba(255,255,255,.3);">14 / 15</div>
+  <div class="pg" style="color:rgba(255,255,255,.3);">17 / 18</div>
 </section>
 
 <!-- ══════════════════════════════════
@@ -908,7 +1107,7 @@ ARR 성장 정체 제품은 이자 감당이
 
   </div>
 
-  <div class="pg">15 / 15</div>
+  <div class="pg">18 / 18</div>
 </section>
 
 <!-- ── Script ── -->

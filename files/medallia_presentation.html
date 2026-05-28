@@ -500,8 +500,8 @@
   <div style="display:flex; align-items:stretch; gap:0; margin-bottom:10px; font-size:12.5px; background:#F4F6FB; border-radius:8px; border:1px solid #DFE1E6; overflow:hidden;">
     <div style="padding:10px 16px; border-right:1px solid #DFE1E6; white-space:nowrap; display:flex; flex-direction:column; justify-content:center; gap:2px;">
       <div style="font-size:10px; font-weight:700; letter-spacing:1px; color:#6B778C; margin-bottom:2px;">이자 부담</div>
-      <div>차입 $1.8B × <span class="abbr-hl" data-abbr-key="LIBOR">LIBOR</span> 0.75% + 스프레드</div>
-      <div>&nbsp;→&nbsp; 연이자 <strong style="color:#172B4D;">~$135M <span style="color:#6B778C; font-weight:400;">(≈1,350억 원)</span></strong></div>
+      <div>차입 $1.8B × <span class="abbr-hl" data-abbr-key="LIBOR">LIBOR</span> 0.75% + <span class="abbr-hl" data-abbr-key="스프레드">스프레드</span></div>
+      <div>&nbsp;→&nbsp; 연이자 <strong style="color:#172B4D;">~$135M <span style="color:#6B778C; font-weight:400;">(≈1,550억 원, 2021년 환율 기준)</span></strong></div>
     </div>
     <div style="padding:10px 16px; border-right:1px solid #DFE1E6; flex:1; display:flex; flex-direction:column; justify-content:center; gap:2px;">
       <div style="font-size:10px; font-weight:700; letter-spacing:1px; color:#0052CC; margin-bottom:2px;">인수 근거</div>
@@ -519,8 +519,9 @@
     <!-- 좌: 멀티플 설명 -->
     <div style="flex:1; background:#F4F6FB; border-radius:8px; border:1px solid #DFE1E6; padding:11px 14px; font-size:12px; display:flex; flex-direction:column; justify-content:center; gap:5px;">
       <div style="font-size:10px; font-weight:700; letter-spacing:1px; color:#6B778C;">EV/Revenue 멀티플 적용 근거</div>
+      <div style="font-size:11.5px; color:#172B4D; font-weight:600; margin-bottom:1px;">멀티플(Multiple)이란?</div>
+      <div style="font-size:11px; color:#6B778C; line-height:1.5;">"이 회사를 어떤 기준의 몇 배 가격으로 평가했는가"<br>EV ÷ 재무지표(매출/이익/FCF) = 시장이 부여하는 가치 수준</div>
       <div>고성장 SaaS 프리미엄 반영 → <strong style="color:#172B4D;"><span class="abbr-hl" data-abbr-key="EV/Revenue">EV/Revenue</span> 약 9× 적용</strong></div>
-      <div style="font-size:11px; color:#6B778C; line-height:1.5;">멀티플 = EV ÷ 재무지표(매출/이익/FCF)<br>시장이 해당 기업 실적에 부여하는 가치 수준</div>
       <div style="background:#DEEBFF; border-left:3px solid #1868DB; border-radius:0 4px 4px 0; padding:4px 10px; color:#0052CC; font-size:11.5px;">
         인수 당시 <strong>9×</strong> → 고성장 SaaS 대비 <strong>상대적으로 저렴한 투자</strong>로 평가
       </div>
@@ -591,6 +592,9 @@
         <text x="440" y="132" text-anchor="end" font-size="6" fill="#CBD5E0">Source: Bloomberg, PitchBook</text>
       </svg>
     </div>
+  </div>
+  <div style="font-size:10.5px; color:#6B778C; padding:0 4px; margin-bottom:8px;">
+    ※ FCF 흑자 SaaS 기업의 EV/NTM FCF 배수 추이 — 2021년 버블 정점(72×) 직후 인수. LT 평균(~22×) 대비 3배 이상 팽창된 환경이었으나, EV/Revenue 9×는 당시 EV/FCF 기준보다 낮아 상대적 저평가로 판단됨.
   </div>
 
   <div class="alert alert-warn">
@@ -997,6 +1001,20 @@
           {key:'EBITDA 양호', val:'이익처럼 보여도'},
           {key:'FCF 적자',    val:'실제 현금 유출 중',        flag:'danger'},
           {key:'교훈',        val:'"EBITDA만 보면 속는다"',  flag:'danger'},
+        ]},
+      ]}
+    },
+    { abbr:'스프레드', full:'신용 스프레드 (Credit Spread)', desc:'기준금리에 추가되는 리스크 프리미엄\nLBO 차입의 경우 통상 5~8% 수준',
+      detail:{sections:[
+        {title:'📐 구성', rows:[
+          {key:'기준금리', val:'LIBOR 또는 SOFR (무위험 금리)'},
+          {key:'스프레드', val:'차주의 신용리스크 반영 추가금리'},
+          {key:'실질금리', val:'기준금리 + 스프레드 = 실제 차입금리'},
+        ]},
+        {title:'💡 Medallia LBO', rows:[
+          {key:'LIBOR',   val:'0.75% (2021년 초저금리)',      flag:'good'},
+          {key:'스프레드', val:'~6~7% (레버리지 론 수준)'},
+          {key:'실질금리', val:'~7.5% → 연이자 ~$135M',       flag:'danger'},
         ]},
       ]}
     },

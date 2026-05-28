@@ -26,6 +26,7 @@ export default defineConfig({
 				{
 					label: 'Medallia 사례 분석',
 					items: [
+						{ label: '📋 발표 목차 (26.05.28) ↗', link: '/files/agenda_20260528.html', attrs: { target: '_blank' } },
 						{ label: '발표 슬라이드 ↗', link: '/files/medallia_presentation.html', attrs: { target: '_blank' } },
 						{ label: '미팅 요약', link: '/medallia/meeting-summary/' },
 						{ label: '분석 보고서 모음', link: '/medallia/reports/' },

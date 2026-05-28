@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>발표 목차 — 2026.05.28</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', 'Apple SD Gothic Neo', sans-serif;
+    background: #0D1B35;
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 64px;
+  }
+
+  .wrap {
+    width: 100%;
+    max-width: 1200px;
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.10);
+  }
+  .header-left .eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: #7BB4FF;
+    margin-bottom: 8px;
+  }
+  .header-left h1 {
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+  }
+  .header-right {
+    text-align: right;
+    font-size: 13px;
+    color: rgba(255,255,255,0.35);
+    line-height: 1.8;
+  }
+
+  /* Two-column grid */
+  .cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  /* Part card */
+  .part {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 28px 30px;
+  }
+  .part-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 22px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .part-badge {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .badge-blue { background: rgba(24,104,219,0.25); color: #7BB4FF; }
+  .badge-teal { background: rgba(0,150,120,0.22); color: #4ECDC4; }
+
+  .part-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.3;
+  }
+  .part-count {
+    margin-left: auto;
+    font-size: 12px;
+    color: rgba(255,255,255,0.3);
+    white-space: nowrap;
+  }
+
+  /* Agenda items */
+  .agenda {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .agenda li {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 7px 10px;
+    border-radius: 6px;
+    transition: background 0.15s;
+  }
+  .agenda li:hover { background: rgba(255,255,255,0.05); }
+
+  .num {
+    font-size: 11px;
+    font-weight: 700;
+    min-width: 18px;
+    text-align: right;
+    opacity: 0.4;
+    flex-shrink: 0;
+  }
+  .item-body { flex: 1; }
+  .item-title {
+    font-size: 13.5px;
+    color: rgba(255,255,255,0.88);
+    line-height: 1.4;
+  }
+  .item-sub {
+    font-size: 11.5px;
+    color: rgba(255,255,255,0.35);
+    margin-top: 1px;
+  }
+  .pg-tag {
+    font-size: 10.5px;
+    color: rgba(255,255,255,0.2);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* Divider row */
+  .divider-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px 4px;
+  }
+  .divider-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.2);
+    white-space: nowrap;
+  }
+  .divider-line {
+    flex: 1;
+    height: 1px;
+    background: rgba(255,255,255,0.07);
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: rgba(255,255,255,0.2);
+  }
+  .total-badge {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.45);
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-left">
+      <div class="eyebrow">Today's Agenda · 2026.05.28</div>
+      <h1>발표 목차</h1>
+    </div>
+    <div class="header-right">
+      솔루션사업부 기획팀<br>
+      총 26 Slides
+    </div>
+  </div>
+
+  <!-- Two columns -->
+  <div class="cols">
+
+    <!-- Part 1: Medallia -->
+    <div class="part">
+      <div class="part-header">
+        <span class="part-badge badge-blue">Part 1</span>
+        <span class="part-title">$6.4B SaaS 인수, 왜 실패했나<br><span style="font-weight:400; font-size:13px; color:rgba(255,255,255,.45);">Medallia 사례로 보는 SaaS 기업 가치 평가</span></span>
+        <span class="part-count">8 Slides</span>
+      </div>
+      <ul class="agenda">
+        <li>
+          <span class="num">01</span>
+          <span class="item-body">
+            <div class="item-title">무슨 일이 있었나</div>
+            <div class="item-sub">Timeline · 2019 상장 → 2021 인수 → 2025 경영권 이전</div>
+          </span>
+          <span class="pg-tag">p.02</span>
+        </li>
+        <li>
+          <span class="num">02</span>
+          <span class="item-body">
+            <div class="item-title">Medallia는 어떤 회사인가</div>
+            <div class="item-sub">Company Profile · CX SaaS · VoC 글로벌 2위</div>
+          </span>
+          <span class="pg-tag">p.03</span>
+        </li>
+        <li>
+          <span class="num">03</span>
+          <span class="item-body">
+            <div class="item-title">인수 자금 구조</div>
+            <div class="item-sub">Deal Structure · Equity $4.6B + Debt $1.8B</div>
+          </span>
+          <span class="pg-tag">p.04</span>
+        </li>
+        <li>
+          <span class="num">04</span>
+          <span class="item-body">
+            <div class="item-title">현금흐름은 어떻게 무너졌나</div>
+            <div class="item-sub">Financial Deterioration · FCF Coverage · PIK</div>
+          </span>
+          <span class="pg-tag">p.05</span>
+        </li>
+        <li>
+          <span class="num">05</span>
+          <span class="item-body">
+            <div class="item-title">왜 빠져나오지 못했나</div>
+            <div class="item-sub">Exit Failure · IPO · M&amp;A · EV/Par Coverage</div>
+          </span>
+          <span class="pg-tag">p.06</span>
+        </li>
+        <li>
+          <span class="num">06</span>
+          <span class="item-body">
+            <div class="item-title">파급 효과</div>
+            <div class="item-sub">Ripple Effect · SaaSpocalypse · PE·민간대출 시장</div>
+          </span>
+          <span class="pg-tag">p.07</span>
+        </li>
+        <li>
+          <span class="num">07</span>
+          <span class="item-body">
+            <div class="item-title">우리의 시사점</div>
+            <div class="item-sub">Our Takeaway · 솔루션사업 모니터링 방향</div>
+          </span>
+          <span class="pg-tag">p.08</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Part 2: AI Workflow -->
+    <div class="part">
+      <div class="part-header">
+        <span class="part-badge badge-teal">Part 2</span>
+        <span class="part-title">AI 활용 기업조사 &amp;<br>보고용 Word 문서 작성 Workflow</span>
+        <span class="part-count">18 Slides</span>
+      </div>
+      <ul class="agenda">
+
+        <li class="divider-row"><span class="divider-label">개요</span><span class="divider-line"></span></li>
+        <li>
+          <span class="num">01</span>
+          <span class="item-body">
+            <div class="item-title">전체 Workflow 흐름</div>
+            <div class="item-sub">Overview · 5단계 프로세스 전체 조감</div>
+          </span>
+          <span class="pg-tag">p.02</span>
+        </li>
+
+        <li class="divider-row"><span class="divider-label">Step 01–03 · Input &amp; Research</span><span class="divider-line"></span></li>
+        <li>
+          <span class="num">02</span>
+          <span class="item-body">
+            <div class="item-title">목적 정의 + 분석 방법론 선택</div>
+            <div class="item-sub">Step 01 · 가장 중요한 첫 질문</div>
+          </span>
+          <span class="pg-tag">p.03–04</span>
+        </li>
+        <li>
+          <span class="num">03</span>
+          <span class="item-body">
+            <div class="item-title">Input 수집 + 보안 가이드</div>
+            <div class="item-sub">Step 02 · 외부 AI 입력 범위 기준</div>
+          </span>
+          <span class="pg-tag">p.05–06</span>
+        </li>
+        <li>
+          <span class="num">04</span>
+          <span class="item-body">
+            <div class="item-title">AI 리서치 + 사람의 역할</div>
+            <div class="item-sub">Step 03 · 데이터 없을 때 3가지 추론법</div>
+          </span>
+          <span class="pg-tag">p.07–09</span>
+        </li>
+
+        <li class="divider-row"><span class="divider-label">Step 04–05 · 완성</span><span class="divider-line"></span></li>
+        <li>
+          <span class="num">05</span>
+          <span class="item-body">
+            <div class="item-title">검토 &amp; 통찰 주입</div>
+            <div class="item-sub">Step 04 · AI 초안을 완성본으로</div>
+          </span>
+          <span class="pg-tag">p.10</span>
+        </li>
+        <li>
+          <span class="num">06</span>
+          <span class="item-body">
+            <div class="item-title">Word 문서 생성</div>
+            <div class="item-sub">Step 05 · sds-word-writer 활용</div>
+          </span>
+          <span class="pg-tag">p.11</span>
+        </li>
+
+        <li class="divider-row"><span class="divider-label">가이드 &amp; 사례</span><span class="divider-line"></span></li>
+        <li>
+          <span class="num">07</span>
+          <span class="item-body">
+            <div class="item-title">프롬프트 예시 + 품질 기준</div>
+            <div class="item-sub">좋은 프롬프트 vs 나쁜 프롬프트</div>
+          </span>
+          <span class="pg-tag">p.12–13</span>
+        </li>
+        <li>
+          <span class="num">08</span>
+          <span class="item-body">
+            <div class="item-title">실전 사례 — Medallia 데이터 추정</div>
+            <div class="item-sub">Case Study · 가설 검증 + 근거 명시 원칙</div>
+          </span>
+          <span class="pg-tag">p.14–15</span>
+        </li>
+        <li>
+          <span class="num">09</span>
+          <span class="item-body">
+            <div class="item-title">AI 결과물 검증 5단계 + Tips</div>
+            <div class="item-sub">Verification · 주의사항 · 약어 사전</div>
+          </span>
+          <span class="pg-tag">p.16–18</span>
+        </li>
+      </ul>
+    </div>
+
+  </div><!-- /cols -->
+
+  <!-- Footer -->
+  <div class="footer">
+    <span>솔루션사업부 기획팀 · 내부 발표용</span>
+    <span class="total-badge">Part 1 · 8 Slides &nbsp;+&nbsp; Part 2 · 18 Slides &nbsp;=&nbsp; 총 26 Slides</span>
+  </div>
+
+</div>
+</body>
+</html>

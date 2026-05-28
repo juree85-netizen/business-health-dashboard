@@ -195,6 +195,18 @@
     #memo-tip .tip-full { font-size:10px; color:#888; font-style:italic; margin-bottom:8px; white-space:pre-line; }
     #memo-tip .tip-sep  { height:1px; background:rgba(24,104,219,0.15); margin-bottom:8px; }
     #memo-tip .tip-desc { font-size:12px; color:#333; line-height:1.65; white-space:pre-line; }
+    #memo-tip.wide { max-width:350px; }
+    #memo-tip .tip-detail { border-top:1px solid rgba(24,104,219,0.15); margin-top:9px; padding-top:9px; display:none; }
+    #memo-tip .tip-dsec { margin-bottom:9px; }
+    #memo-tip .tip-dsec:last-child { margin-bottom:0; }
+    #memo-tip .tip-dtitle { font-size:10px; font-weight:700; color:#1868DB; letter-spacing:0.5px; margin-bottom:5px; }
+    #memo-tip .tip-drow { display:flex; justify-content:space-between; gap:8px; font-size:11px; padding:2.5px 0; border-bottom:1px solid rgba(24,104,219,0.07); }
+    #memo-tip .tip-drow:last-child { border-bottom:none; }
+    #memo-tip .tip-dkey { color:#1868DB; font-weight:600; flex-shrink:0; }
+    #memo-tip .tip-dkey.curr { background:#DEEBFF; border-radius:3px; padding:0 4px; }
+    #memo-tip .tip-dval { color:#555; text-align:right; }
+    #memo-tip .tip-dval.danger { color:#BF2600; font-weight:600; }
+    #memo-tip .tip-dval.good   { color:#006644; font-weight:600; }
   </style>
 </head>
 <body>
@@ -210,6 +222,7 @@
     <div class="tip-full"></div>
     <div class="tip-sep"></div>
     <div class="tip-desc"></div>
+    <div class="tip-detail"></div>
   </div>
 </div>
 
@@ -763,7 +776,21 @@
     { abbr:'SaaSpocalypse', full:'SaaSpocalypse',                                                desc:'SaaS + Apocalypse\n고금리·AI 대체·성장 둔화·멀티플 붕괴가 겹치며\nSaaS 기업 생존환경이 급격히 악화되는 현상' },
     { abbr:'Rule of 40',   full:'Rule of 40',                                                    desc:'성장률(%) + 이익률(%) ≥ 40\n건강한 SaaS 기업의 판단 기준' },
     { abbr:'FCF Coverage', full:'FCF Coverage',                                                  desc:'FCF ÷ 연이자\n1.0× 미만이면 이자를 FCF로 감당 불가' },
-    { abbr:'EV/Revenue',   full:'EV / Revenue 멀티플',                                           desc:'기업가치(EV) ÷ 연매출\nSaaS 기업 가치평가 배수' },
+    { abbr:'EV/Revenue', full:'EV / Revenue 멀티플', desc:'기업가치(EV) ÷ 연매출\nSaaS·고성장 기업 가치평가 배수',
+      detail:{sections:[
+        {title:'📊 멀티플의 종류', rows:[
+          {key:'EV/Revenue',   val:'적자·성장 기업 / SaaS',   flag:'curr'},
+          {key:'EV/EBITDA',    val:'수익성 기업의 범용 기준',  flag:''},
+          {key:'EV/ARR',       val:'SaaS 구독 매출 특화',     flag:''},
+          {key:'P/E',          val:'이익 실현 기업·상장주',   flag:''},
+        ]},
+        {title:'📈 SaaS EV/Revenue 추이', rows:[
+          {key:'2021 고점',         val:'15~40× (SaaS 버블)',  flag:'danger'},
+          {key:'현재 일반 SaaS',    val:'3~8× (멀티플 수축)', flag:''},
+          {key:'AI 프리미엄 SaaS',  val:'15~30× (양극화)',    flag:'good'},
+        ]},
+      ]}
+    },
     { abbr:'EV/Par',       full:'EV / Par Coverage',                                             desc:'기업가치 ÷ 채권 원금(Par)\n부채 커버리지 지표' },
     { abbr:'Gen AI',       full:'Generative AI',                                                 desc:'생성형 인공지능' },
     { abbr:'EBITDA',       full:'Earnings Before Interest, Taxes,\nDepreciation & Amortization', desc:'이자·세금·감가상각 전 영업이익' },
@@ -790,7 +817,7 @@
     let out = '', i = 0, changed = false;
     while (i < text.length) {
       let hit = false;
-      for (const { abbr, full, desc } of ABBRS) {
+      for (const { abbr, full, desc, detail } of ABBRS) {
         if (text.slice(i, i + abbr.length) === abbr) {
           const pre  = i === 0 ? ' ' : text[i - 1];
           const post = i + abbr.length >= text.length ? ' ' : text[i + abbr.length];
@@ -798,7 +825,8 @@
             const ef = full.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/\n/g,'&#10;');
             const ed = desc.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/\n/g,'&#10;');
             const ea = abbr.replace(/&/g,'&amp;');
-            out += `<span class="abbr-hl" data-full="${ef}" data-desc="${ed}">${ea}</span>`;
+            const da = detail ? ` data-detail="${JSON.stringify(detail).replace(/&/g,'&amp;').replace(/"/g,'&quot;')}"` : '';
+            out += `<span class="abbr-hl" data-full="${ef}" data-desc="${ed}"${da}>${ea}</span>`;
             i += abbr.length; hit = true; changed = true; break;
           }
         }
@@ -831,10 +859,11 @@
     nodes.forEach(processTextNode);
   }
 
-  const memoTip = document.getElementById('memo-tip');
-  const tipAbbr = memoTip.querySelector('.tip-abbr');
-  const tipFull = memoTip.querySelector('.tip-full');
-  const tipDesc = memoTip.querySelector('.tip-desc');
+  const memoTip   = document.getElementById('memo-tip');
+  const tipAbbr   = memoTip.querySelector('.tip-abbr');
+  const tipFull   = memoTip.querySelector('.tip-full');
+  const tipDesc   = memoTip.querySelector('.tip-desc');
+  const tipDetail = memoTip.querySelector('.tip-detail');
 
   document.body.addEventListener('mouseover', e => {
     const t = e.target;
@@ -842,11 +871,39 @@
     tipAbbr.textContent = t.textContent;
     tipFull.textContent = t.dataset.full || '';
     tipDesc.textContent = t.dataset.desc || '';
+
+    const detailRaw = t.dataset.detail;
+    if (detailRaw) {
+      try {
+        const d = JSON.parse(detailRaw);
+        tipDetail.innerHTML = d.sections.map(sec =>
+          `<div class="tip-dsec">` +
+          `<div class="tip-dtitle">${sec.title}</div>` +
+          sec.rows.map(r =>
+            `<div class="tip-drow">` +
+            `<span class="tip-dkey${r.flag==='curr'?' curr':''}">${r.key}</span>` +
+            `<span class="tip-dval${r.flag==='danger'?' danger':r.flag==='good'?' good':''}">${r.val}</span>` +
+            `</div>`
+          ).join('') + `</div>`
+        ).join('');
+        tipDetail.style.display = 'block';
+        memoTip.classList.add('wide');
+      } catch(_) {
+        tipDetail.style.display = 'none';
+        memoTip.classList.remove('wide');
+      }
+    } else {
+      tipDetail.style.display = 'none';
+      memoTip.classList.remove('wide');
+    }
+
+    const tipW = detailRaw ? 352 : 262;
+    const tipH = detailRaw ? 310 : 160;
     const r = t.getBoundingClientRect();
     let left = r.right + 12, top = r.top - 8;
-    if (left + 262 > window.innerWidth)  left = r.left - 274;
+    if (left + tipW > window.innerWidth)  left = r.left - tipW - 12;
     if (left < 6) left = 6;
-    if (top + 160 > window.innerHeight)  top = window.innerHeight - 168;
+    if (top + tipH > window.innerHeight)  top = window.innerHeight - tipH - 8;
     if (top < 6)  top = 6;
     memoTip.style.left    = left + 'px';
     memoTip.style.top     = top  + 'px';

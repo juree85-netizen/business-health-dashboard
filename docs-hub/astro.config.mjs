@@ -6,7 +6,7 @@ export default defineConfig({
 	base: '/',
 	integrations: [
 		starlight({
-			title: 'Biz Healthcheck Dashboard',
+			title: 'BizHealth Docs Hub',
 			defaultLocale: 'ko',
 			locales: {
 				root: { label: '한국어', lang: 'ko' },

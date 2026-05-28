@@ -267,10 +267,36 @@
     </div>
   </div>
 
-  <!-- Key number accent -->
-  <div style="position:absolute; right:80px; top:50%; transform:translateY(-50%); text-align:center; opacity:.12;">
-    <div style="font-size:160px; font-weight:700; line-height:1; color:#1868DB;">$6.4B</div>
-    <div style="font-size:24px; font-weight:700; color:#fff; letter-spacing:2px;">FAILED</div>
+  <!-- Timeline card -->
+  <div style="position:absolute; right:80px; top:50%; transform:translateY(-50%);">
+    <div style="background:rgba(24,104,219,0.10); border:1px solid rgba(24,104,219,0.28); border-radius:14px; padding:24px 30px; width:310px;">
+      <div style="font-size:10px; color:rgba(255,255,255,0.35); letter-spacing:2px; margin-bottom:20px; font-weight:600;">TIMELINE</div>
+
+      <!-- 2021 node -->
+      <div style="display:flex; gap:14px; align-items:flex-start;">
+        <div style="display:flex; flex-direction:column; align-items:center; flex-shrink:0;">
+          <div style="width:10px; height:10px; border-radius:50%; background:#1868DB; margin-top:4px;"></div>
+          <div style="width:1px; height:48px; background:rgba(255,255,255,0.15); margin-top:4px;"></div>
+        </div>
+        <div style="padding-bottom:16px;">
+          <div style="font-size:11px; color:rgba(255,255,255,0.4); margin-bottom:3px;">2021.10</div>
+          <div style="font-size:14px; font-weight:700; color:#fff; margin-bottom:3px;">Thoma Bravo 인수</div>
+          <div style="font-size:12.5px; color:#7BB4FF;">$6.4B (Equity $4.6B + Debt $1.8B)</div>
+        </div>
+      </div>
+
+      <!-- 2025 node -->
+      <div style="display:flex; gap:14px; align-items:flex-start;">
+        <div style="display:flex; flex-direction:column; align-items:center; flex-shrink:0;">
+          <div style="width:10px; height:10px; border-radius:50%; background:#FF5630; margin-top:4px;"></div>
+        </div>
+        <div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.4); margin-bottom:3px;">2025.04</div>
+          <div style="font-size:14px; font-weight:700; color:#fff; margin-bottom:3px;">채권단 경영권 이전</div>
+          <div style="font-size:12.5px; color:#FF8F73;">투자금 $4.6B 사실상 전액 손실</div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="pg">01 / 08</div>
@@ -1005,6 +1031,76 @@
           {key:'산식',       val:'시가총액 + 순부채 (부채 − 현금)'},
           {key:'의미',       val:'인수 시 실제 지불하는 총액'},
           {key:'EV vs 시총', val:'부채 많을수록 EV > 시가총액'},
+        ]},
+      ]}
+    },
+    { abbr:'Qualtrics', full:'Qualtrics', desc:'CX/VoC 플랫폼 글로벌 1위 · Medallia의 직접 경쟁자',
+      detail:{sections:[
+        {title:'📋 기본 정보', rows:[
+          {key:'분야',   val:'CX · VoC · EX 플랫폼'},
+          {key:'시장',   val:'Medallia와 같은 카테고리 글로벌 1위'},
+          {key:'역사',   val:'SAP 산하 → 2023년 $3.1B 분리 매각'},
+        ]},
+        {title:'💡 Medallia와의 관계', rows:[
+          {key:'경쟁',   val:'글로벌 VoC 1위 vs Medallia 2위'},
+          {key:'이탈',   val:'Medallia 고객사가 이탈하는 주요 목적지'},
+          {key:'위험',   val:'PE 구조 후 유사 부채 리스크 공유', flag:'danger'},
+        ]},
+      ]}
+    },
+    { abbr:'Zendesk', full:'Zendesk', desc:'고객서비스 SaaS 기업 · Medallia와 유사한 PE LBO 인수 구조',
+      detail:{sections:[
+        {title:'📋 기본 정보', rows:[
+          {key:'분야',   val:'고객서비스(CS) · 헬프데스크 SaaS'},
+          {key:'규모',   val:'고객 10만개+ · ARR $2.1B (2022)'},
+          {key:'인수',   val:'2022년 Permira 등 PE 컨소시엄 $10B'},
+        ]},
+        {title:'💡 Medallia와의 연관', rows:[
+          {key:'구조',   val:'PE LBO 차입 인수 — Medallia와 동일 패턴'},
+          {key:'위험',   val:'고금리 전환 후 이자 부담 급증'},
+          {key:'시사점', val:'SaaSpocalypse 연쇄 위험 종목', flag:'danger'},
+        ]},
+      ]}
+    },
+    { abbr:'Blackstone', full:'Blackstone Inc.', desc:'세계 최대 대체투자사 · Medallia 채권단 주요 참여사',
+      detail:{sections:[
+        {title:'📋 기본 정보', rows:[
+          {key:'유형',   val:'대체투자 · 사모대출 · 부동산'},
+          {key:'AUM',    val:'$1조+ (운용자산) · 글로벌 최대 규모'},
+          {key:'역할',   val:'Medallia 인수 채권단($1.8B) 참여'},
+        ]},
+        {title:'💡 Medallia 관련', rows:[
+          {key:'포지션', val:'선순위 담보 대출 채권자'},
+          {key:'결과',   val:'2025.04 채권→지분 전환, 최대주주 등극'},
+          {key:'압박',   val:'"현금 이자 OR 경영권 이전" 최후통첩', flag:'danger'},
+        ]},
+      ]}
+    },
+    { abbr:'Apollo', full:'Apollo Global Management', desc:'미국 3대 사모대출 운용사 · 운용자산 $650B+',
+      detail:{sections:[
+        {title:'📋 기본 정보', rows:[
+          {key:'유형',   val:'사모대출(Direct Lending) · PE · 부동산'},
+          {key:'AUM',    val:'$650B+ (2024 기준)'},
+          {key:'특징',   val:'비은행 대출 시장의 핵심 플레이어'},
+        ]},
+        {title:'💡 Medallia 파급 관련', rows:[
+          {key:'노출',   val:'고위험 SaaS 대출 포트폴리오 보유'},
+          {key:'조치',   val:'환매 제한(Gate) 발동 비상 조치', flag:'danger'},
+          {key:'의미',   val:'민간 대출 시장 전반 유동성 불안 촉발'},
+        ]},
+      ]}
+    },
+    { abbr:'Ares', full:'Ares Management', desc:'사모대출·부동산 전문 대체투자사 · 운용자산 $420B+',
+      detail:{sections:[
+        {title:'📋 기본 정보', rows:[
+          {key:'유형',   val:'사모대출 · 부동산 · 인프라'},
+          {key:'AUM',    val:'$420B+ (2024 기준)'},
+          {key:'특징',   val:'Direct Lending 글로벌 선두권'},
+        ]},
+        {title:'💡 Medallia 파급 관련', rows:[
+          {key:'노출',   val:'레버리지 SaaS 대출 익스포저 보유'},
+          {key:'조치',   val:'환매 제한(Gate) 발동 비상 조치', flag:'danger'},
+          {key:'의미',   val:'사모대출 리스크 전반 재평가 촉발'},
         ]},
       ]}
     },

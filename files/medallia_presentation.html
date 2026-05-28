@@ -584,9 +584,9 @@
         <!-- Legend -->
         <line x1="40" y1="129" x2="56" y2="129" stroke="#1868DB" stroke-width="1.8"/>
         <circle cx="48" cy="129" r="2" fill="#1868DB"/>
-        <text x="59" y="132" font-size="6.5" fill="#6B778C">FCF Positive Median</text>
+        <text x="59" y="132" font-size="6.5" fill="#6B778C" class="abbr-svg-hl" data-abbr-key="FCF Positive Median" style="cursor:pointer;">FCF Positive Median</text>
         <line x1="138" y1="129" x2="154" y2="129" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,3"/>
-        <text x="157" y="132" font-size="6.5" fill="#94A3B8">LT Average</text>
+        <text x="157" y="132" font-size="6.5" fill="#94A3B8" class="abbr-svg-hl" data-abbr-key="LT Average" style="cursor:pointer;">LT Average</text>
         <line x1="212" y1="129" x2="228" y2="129" stroke="#FF5630" stroke-width="0.8" stroke-dasharray="4,3" opacity="0.6"/>
         <text x="231" y="132" font-size="6.5" fill="#FF5630">100× Ref.</text>
         <text x="440" y="132" text-anchor="end" font-size="6" fill="#CBD5E0">Source: Bloomberg, PitchBook</text>
@@ -1123,6 +1123,34 @@
           {key:'FCF > 0',  val:'자체 성장·부채 상환 가능', flag:'good'},
           {key:'FCF < 0',  val:'외부 자금 없이 지속 불가', flag:'danger'},
           {key:'SaaS 핵심', val:'구독 매출 → FCF 전환율이 관건'},
+        ]},
+      ]}
+    },
+    { abbr:'FCF Positive Median', full:'FCF Positive Median', desc:'FCF 흑자 SaaS 기업의 EV/NTM FCF 배수 중앙값\n차트의 파란 실선',
+      detail:{sections:[
+        {title:'📐 정의', rows:[
+          {key:'대상',   val:'FCF > 0인 상장 SaaS 기업'},
+          {key:'지표',   val:'EV ÷ NTM FCF (향후 12개월 FCF 전망)'},
+          {key:'표시',   val:'업계 중앙값 (Median) 추이'},
+        ]},
+        {title:'📊 추이 (차트)', rows:[
+          {key:"'18",    val:'22× (LT 평균 수준)'},
+          {key:"'21 정점", val:'72× (버블 최고점)',  flag:'danger'},
+          {key:"'24",    val:'22× (정상화)',          flag:'good'},
+        ]},
+      ]}
+    },
+    { abbr:'LT Average', full:'Long-Term Average (장기 평균)', desc:'EV/NTM FCF 배수의 장기 평균선\n차트의 회색 점선 (~22×)',
+      detail:{sections:[
+        {title:'📐 의미', rows:[
+          {key:'수준',   val:'~22× (역사적 장기 평균)'},
+          {key:'역할',   val:'밸류에이션 고평가·저평가 기준선'},
+          {key:'표시',   val:'회색 점선 (-- LT Avg --)'},
+        ]},
+        {title:'💡 Medallia 인수 당시', rows:[
+          {key:'인수 시점', val:"'21.10 — 72× (LT 평균의 3.3배)", flag:'danger'},
+          {key:'판단',     val:'버블 환경이나 EV/Rev 9×로 상대적 저평가 인식'},
+          {key:'결과',     val:'멀티플 수축 후 EXIT 불가',             flag:'danger'},
         ]},
       ]}
     },

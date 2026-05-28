@@ -13,12 +13,24 @@ export default defineConfig({
 			},
 			sidebar: [
 				{
-					label: '프로젝트 문서',
-					autogenerate: { directory: 'project' },
+					label: '대시보드 기획',
+					autogenerate: { directory: 'dashboard' },
 				},
 				{
-					label: 'HTML 문서 (와이어프레임/요청서)',
-					autogenerate: { directory: 'html-docs' },
+					label: 'Medallia 사례 분석',
+					autogenerate: { directory: 'medallia' },
+				},
+				{
+					label: '가이드 & 도구',
+					autogenerate: { directory: 'guides' },
+				},
+				{
+					label: 'HTML 자료',
+					items: [
+						{ label: '발표자료 & 분석 보고서', link: '/html-docs/presentation/' },
+						{ label: '와이어프레임', link: '/html-docs/wireframes/' },
+						{ label: '개발 요청서 & 기획 문서', link: '/html-docs/dev-requests/' },
+					],
 				},
 				{
 					label: '📂 파일 업로드',

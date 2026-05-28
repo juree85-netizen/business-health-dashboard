@@ -308,6 +308,12 @@
     <text x="1040" y="152" text-anchor="middle" font-size="11" fill="#6B778C">SaaS LBO 실패</text>
   </svg>
 
+  <!-- LBO rationale context note -->
+  <div style="background:rgba(24,104,219,0.07); border-left:3px solid #1868DB; border-radius:0 6px 6px 0; padding:9px 18px; margin-bottom:14px; font-size:13px; color:#172B4D; line-height:1.7;">
+    <strong style="color:#1868DB;">왜 9배에 샀나</strong> &nbsp;—&nbsp;
+    초저금리(LIBOR 0.75%) 환경에서 "저금리 차입 × 고성장 SaaS 매수 × 프리미엄 매각"이 PE의 황금 공식이었음.
+    시장도 성장률(ARR 23~26%)이 높으면 수익성 적자를 용인하던 시기.
+  </div>
   <!-- Metric cards -->
   <div style="display:flex; gap:18px;">
     <div class="card" style="flex:1;">
@@ -533,6 +539,9 @@
           <div style="font-size:30px; font-weight:700; color:#FF5630;">$2.8B</div>
         </div>
         <div style="font-size:12px; color:rgba(255,255,255,.35); margin-top:4px;">현금 미지급 이자가 원금에 누적</div>
+        <div style="font-size:11px; color:rgba(255,180,100,.6); margin-top:7px; line-height:1.6;">
+          PIK 구조: 이자 현금 미납 → 원금 가산 → 다음 해 더 많은 이자 → 부채 자동 팽창
+        </div>
       </div>
       <div class="alert alert-danger">
         <span style="color:#FF8F73; font-weight:700;">'25년 결정타</span><br>
@@ -559,6 +568,9 @@
       <div style="font-size:14px; color:#6B778C; line-height:1.65;">
         Gen AI 위협으로 CX SaaS 가치 급락.<br>
         고부채 구조로 전략적 인수자 부재
+      </div>
+      <div style="font-size:12px; color:#974F0C; margin-top:8px; line-height:1.6; background:#FFF4E5; border-radius:4px; padding:6px 10px;">
+        VOC 요약 · 설문 분석 · 인사이트 추출 → LLM으로 빠르게 대체 가능
       </div>
     </div>
     <div class="card" style="border-left:4px solid #FF5630;">
@@ -588,10 +600,24 @@
   </div>
 
   <!-- Bottom summary -->
-  <div style="margin-top:18px; background:#0D1B35; border-radius:10px; padding:14px 24px; font-size:14px; line-height:1.7; color:rgba(255,255,255,.8); display:flex; align-items:center; gap:16px;">
-    <div style="font-size:28px; font-weight:700; color:#FF5630; flex-shrink:0;">결과</div>
-    <div>채권단 보유 $2.8B 채권을 지분 전환 → 채권단이 최대주주 등극. Thoma Bravo 투자 손실 확정.<br>
-    <strong style="color:#fff;">PE 투자 역사상 최대 규모 SaaS LBO 실패 사례</strong></div>
+  <div style="margin-top:18px; background:#0D1B35; border-radius:10px; padding:14px 24px; font-size:14px; line-height:1.7; color:rgba(255,255,255,.8);">
+    <div style="font-size:10px; color:rgba(255,255,255,.3); letter-spacing:1.5px; text-transform:uppercase; margin-bottom:8px;">악순환 구조</div>
+    <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin-bottom:12px;">
+      <span style="background:rgba(255,86,48,.18); border:1px solid rgba(255,86,48,.35); border-radius:4px; padding:3px 10px; font-size:12px; color:#FF8F73;">이자 부담 증가</span>
+      <span style="color:rgba(255,255,255,.25); font-size:13px;">→</span>
+      <span style="background:rgba(255,86,48,.18); border:1px solid rgba(255,86,48,.35); border-radius:4px; padding:3px 10px; font-size:12px; color:#FF8F73;">현금 부족</span>
+      <span style="color:rgba(255,255,255,.25); font-size:13px;">→</span>
+      <span style="background:rgba(255,86,48,.18); border:1px solid rgba(255,86,48,.35); border-radius:4px; padding:3px 10px; font-size:12px; color:#FF8F73;">R&amp;D 축소</span>
+      <span style="color:rgba(255,255,255,.25); font-size:13px;">→</span>
+      <span style="background:rgba(255,86,48,.18); border:1px solid rgba(255,86,48,.35); border-radius:4px; padding:3px 10px; font-size:12px; color:#FF8F73;">경쟁력 약화</span>
+      <span style="color:rgba(255,255,255,.25); font-size:13px;">→</span>
+      <span style="background:rgba(255,86,48,.18); border:1px solid rgba(255,86,48,.35); border-radius:4px; padding:3px 10px; font-size:12px; color:#FF8F73;">고객 이탈</span>
+    </div>
+    <div style="display:flex; align-items:center; gap:16px;">
+      <div style="font-size:24px; font-weight:700; color:#FF5630; flex-shrink:0;">결과</div>
+      <div>채권단 보유 $2.8B 채권을 지분 전환 → 채권단이 최대주주 등극. Thoma Bravo 투자 손실 확정.<br>
+      <strong style="color:#fff;">PE 투자 역사상 최대 규모 SaaS LBO 실패 사례</strong></div>
+    </div>
   </div>
 
   <div class="pg">06 / 08</div>

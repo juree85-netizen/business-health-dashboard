@@ -316,7 +316,7 @@
     <circle cx="730" cy="96" r="13" fill="#FF5630"/>
     <text x="730" y="63" text-anchor="middle" font-size="13" font-weight="700" fill="#172B4D">2022~2025</text>
     <text x="730" y="76" text-anchor="middle" font-size="11" fill="#FF5630">금리 급등</text>
-    <text x="730" y="120" text-anchor="middle" font-size="12" fill="#6B778C">SOFR 0.75% → 5.4%</text>
+    <text x="730" y="120" text-anchor="middle" font-size="12" fill="#6B778C" class="abbr-svg-hl" data-abbr-key="SOFR">SOFR 0.75% → 5.4%</text>
     <text x="730" y="136" text-anchor="middle" font-size="11" fill="#6B778C">연이자 $135M → $300M</text>
 
     <!-- 2026.04 -->
@@ -392,8 +392,8 @@
             <div class="metric-label">EBITDA (FY2021)</div>
           </div>
           <div>
-            <div class="metric" style="color:#7BB4FF; font-size:24px;">116~126%</div>
-            <div class="metric-label">NRR ('18~'19)</div>
+            <div class="metric" style="color:#7BB4FF; font-size:24px;">23~26%</div>
+            <div class="metric-label">ARR 성장률 (FY2021)</div>
           </div>
           <div>
             <div class="metric" style="color:#FF5630;">10</div>
@@ -402,9 +402,9 @@
         </div>
       </div>
       <div class="alert alert-danger">
-        <span style="color:#FF8F73; font-weight:700;">⚠ 인수 당시 이미 알려진 신호</span><br>
-        FCF 적자, Rule of 40 하위 10% 수준임을 인지했음에도<br>
-        <strong style="color:#fff;">고성장(ARR 23~26%)</strong>을 이유로 인수를 결정
+        <span style="color:#FF8F73; font-weight:700;">⚠ 인수 당시 이미 알려진 부정적 신호</span><br>
+        FCF 적자 · Rule of 40 = 10 (하위 10%) · <strong style="color:#FF8F73;">NRR 하락세 (126% → ~108%)</strong><br>
+        그럼에도 <strong style="color:#fff;">고성장(ARR 23~26%)</strong>을 이유로 인수를 결정
       </div>
     </div>
   </div>
@@ -920,9 +920,9 @@
           {key:'100% 미만',  val:'순 이탈 → 성장 한계',    flag:'danger'},
         ]},
         {title:'💡 Medallia 사례', rows:[
-          {key:'NRR',    val:'116~126% → 표면상 우수'},
-          {key:'함정',   val:'수익성(FCF)은 별개 문제',  flag:'danger'},
-          {key:'교훈',   val:'NRR 좋아도 FCF 필수 확인'},
+          {key:'고점',   val:'126% (인수 3년 전)',         flag:'good'},
+          {key:'인수시', val:'~108% (하락 추세)',           flag:'danger'},
+          {key:'교훈',   val:'하락세 NRR + FCF 적자 = 복합 경고', flag:'danger'},
         ]},
       ]}
     },

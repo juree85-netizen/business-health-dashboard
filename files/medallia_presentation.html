@@ -1312,10 +1312,12 @@
   document.body.addEventListener('mouseover', e => {
     const t = e.target;
     if (!t.classList.contains('abbr-hl')) return;
+    // data-full이 없으면 data-abbr-key로 ABBRS_MAP 조회 (수동 마크업 fallback)
+    const mapped = (!t.dataset.full && t.dataset.abbrKey) ? ABBRS_MAP[t.dataset.abbrKey] : null;
     tipAbbr.textContent = t.textContent;
-    tipFull.textContent = t.dataset.full || '';
-    tipDesc.textContent = t.dataset.desc || '';
-    positionTip(t.getBoundingClientRect(), renderDetail(t.dataset.detail));
+    tipFull.textContent = t.dataset.full || (mapped && mapped.full) || '';
+    tipDesc.textContent = t.dataset.desc || (mapped && mapped.desc) || '';
+    positionTip(t.getBoundingClientRect(), renderDetail(t.dataset.detail || (mapped && mapped.detail) || null));
   });
 
   document.body.addEventListener('mouseout', e => {

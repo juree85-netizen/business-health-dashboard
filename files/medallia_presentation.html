@@ -774,57 +774,251 @@
 
   // ── Abbreviation Memo Tooltips ──
   const ABBRS = [
-    { abbr:'SaaSpocalypse', full:'SaaSpocalypse',                                                desc:'SaaS + Apocalypse\n고금리·AI 대체·성장 둔화·멀티플 붕괴가 겹치며\nSaaS 기업 생존환경이 급격히 악화되는 현상' },
-    { abbr:'Rule of 40',   full:'Rule of 40',                                                    desc:'성장률(%) + 이익률(%) ≥ 40\n건강한 SaaS 기업의 판단 기준' },
-    { abbr:'FCF Coverage', full:'FCF Coverage',                                                  desc:'FCF ÷ 연이자\n1.0× 미만이면 이자를 FCF로 감당 불가' },
+    { abbr:'SaaSpocalypse', full:'SaaSpocalypse', desc:'SaaS + Apocalypse\n고금리·AI 대체·성장 둔화·멀티플 붕괴가 겹치며\nSaaS 기업 생존환경이 급격히 악화되는 현상',
+      detail:{sections:[
+        {title:'📐 복합 위기 구조', rows:[
+          {key:'고금리',       val:'LBO 이자 부담 급증',          flag:'danger'},
+          {key:'AI 대체',      val:'범용 SaaS 기능 commoditize', flag:'danger'},
+          {key:'성장 둔화',    val:'멀티플 정당화 근거 소멸',     flag:'danger'},
+          {key:'멀티플 붕괴',  val:'EXIT 불가 → 손실 확정',      flag:'danger'},
+        ]},
+        {title:'💡 시장 맥락', rows:[
+          {key:'첫 사례',   val:'Medallia ($6.4B LBO 실패)'},
+          {key:'잠재 규모', val:'유사 SaaS 12개+, $500B+ 부채'},
+        ]},
+      ]}
+    },
+    { abbr:'Rule of 40', full:'Rule of 40', desc:'성장률(%) + 이익률(%) ≥ 40\n건강한 SaaS 기업의 판단 기준',
+      detail:{sections:[
+        {title:'📐 산식 & 판단 기준', rows:[
+          {key:'산식',     val:'매출 성장률(%) + 영업이익률(%)'},
+          {key:'40 이상',  val:'건강한 SaaS 기업',      flag:'good'},
+          {key:'30~40',    val:'주의 필요 구간'},
+          {key:'30 미만',  val:'성장·수익 동시 부진',   flag:'danger'},
+        ]},
+        {title:'⚠ Medallia 사례', rows:[
+          {key:'성장률',       val:'+23~26%'},
+          {key:'영업이익률',   val:'−23% (EBITDA 기준)'},
+          {key:'결과',         val:'Rule of 40 = 10 → 하위 10%', flag:'danger'},
+        ]},
+      ]}
+    },
+    { abbr:'FCF Coverage', full:'FCF Coverage', desc:'FCF ÷ 연이자\n1.0× 미만이면 이자를 FCF로 감당 불가',
+      detail:{sections:[
+        {title:'📐 산식 & 판단 기준', rows:[
+          {key:'산식',       val:'잉여현금흐름(FCF) ÷ 연이자'},
+          {key:'1.0× 이상',  val:'FCF로 이자 감당 가능',  flag:'good'},
+          {key:'0.5~1.0×',   val:'위험 신호 구간'},
+          {key:'0.5× 미만',  val:'구조적 현금 부족',      flag:'danger'},
+        ]},
+        {title:'📉 Medallia 추이', rows:[
+          {key:'FY2022', val:'0.85× (이미 1.0× 미달)'},
+          {key:'FY2023', val:'0.06× (사실상 붕괴)',  flag:'danger'},
+          {key:'FY2025', val:'0.02× (구조적 부실)',  flag:'danger'},
+        ]},
+      ]}
+    },
     { abbr:'EV/Revenue', full:'EV / Revenue 멀티플', desc:'기업가치(EV) ÷ 연매출\nSaaS·고성장 기업 가치평가 배수',
       detail:{sections:[
         {title:'📊 멀티플의 종류', rows:[
-          {key:'EV/Revenue',   val:'적자·성장 기업 / SaaS',   flag:'curr'},
-          {key:'EV/EBITDA',    val:'수익성 기업의 범용 기준',  flag:''},
-          {key:'EV/ARR',       val:'SaaS 구독 매출 특화',     flag:''},
-          {key:'P/E',          val:'이익 실현 기업·상장주',   flag:''},
+          {key:'EV/Revenue',  val:'적자·성장 기업 / SaaS',  flag:'curr'},
+          {key:'EV/EBITDA',   val:'수익성 기업의 범용 기준', flag:''},
+          {key:'EV/ARR',      val:'SaaS 구독 매출 특화',    flag:''},
+          {key:'P/E',         val:'이익 실현 기업·상장주',  flag:''},
         ]},
         {title:'📈 SaaS EV/Revenue 추이', rows:[
-          {key:'2021 고점',         val:'15~40× (SaaS 버블)',  flag:'danger'},
-          {key:'현재 일반 SaaS',    val:'3~8× (멀티플 수축)', flag:''},
-          {key:'AI 프리미엄 SaaS',  val:'15~30× (양극화)',    flag:'good'},
+          {key:'2021 고점',        val:'15~40× (SaaS 버블)',  flag:'danger'},
+          {key:'현재 일반 SaaS',   val:'3~8× (멀티플 수축)', flag:''},
+          {key:'AI 프리미엄 SaaS', val:'15~30× (양극화)',    flag:'good'},
         ]},
       ]}
     },
     { abbr:'EV/Rev', full:'EV / Revenue 멀티플 (축약)', desc:'EV/Revenue의 축약 표기\n기업가치(EV) ÷ 연매출\nSaaS·고성장 기업 가치평가 배수',
       detail:{sections:[
         {title:'📊 멀티플의 종류', rows:[
-          {key:'EV/Revenue',   val:'적자·성장 기업 / SaaS',   flag:'curr'},
-          {key:'EV/EBITDA',    val:'수익성 기업의 범용 기준',  flag:''},
-          {key:'EV/ARR',       val:'SaaS 구독 매출 특화',     flag:''},
-          {key:'P/E',          val:'이익 실현 기업·상장주',   flag:''},
+          {key:'EV/Revenue',  val:'적자·성장 기업 / SaaS',  flag:'curr'},
+          {key:'EV/EBITDA',   val:'수익성 기업의 범용 기준', flag:''},
+          {key:'EV/ARR',      val:'SaaS 구독 매출 특화',    flag:''},
+          {key:'P/E',         val:'이익 실현 기업·상장주',  flag:''},
         ]},
         {title:'📈 SaaS EV/Revenue 추이', rows:[
-          {key:'2021 고점',         val:'15~40× (SaaS 버블)',  flag:'danger'},
-          {key:'현재 일반 SaaS',    val:'3~8× (멀티플 수축)', flag:''},
-          {key:'AI 프리미엄 SaaS',  val:'15~30× (양극화)',    flag:'good'},
+          {key:'2021 고점',        val:'15~40× (SaaS 버블)',  flag:'danger'},
+          {key:'현재 일반 SaaS',   val:'3~8× (멀티플 수축)', flag:''},
+          {key:'AI 프리미엄 SaaS', val:'15~30× (양극화)',    flag:'good'},
         ]},
       ]}
     },
-    { abbr:'EV/Par',       full:'EV / Par Coverage',                                             desc:'기업가치 ÷ 채권 원금(Par)\n부채 커버리지 지표' },
-    { abbr:'Gen AI',       full:'Generative AI',                                                 desc:'생성형 인공지능' },
-    { abbr:'EBITDA',       full:'Earnings Before Interest, Taxes,\nDepreciation & Amortization', desc:'이자·세금·감가상각 전 영업이익' },
-    { abbr:'LIBOR',        full:'London Interbank Offered Rate',                                 desc:'런던 은행간 기준금리\n현재는 SOFR로 대체됨' },
-    { abbr:'SOFR',         full:'Secured Overnight Financing Rate',                              desc:'담보부 익일물 금리\nLIBOR를 대체한 미국 기준금리' },
-    { abbr:'NYSE',         full:'New York Stock Exchange',                                       desc:'뉴욕증권거래소' },
-    { abbr:'SaaS',         full:'Software as a Service',                                         desc:'구독형 소프트웨어 서비스' },
-    { abbr:'NRR',          full:'Net Revenue Retention',                                         desc:'순 매출 유지율\n기존 고객에서의 매출 증감률' },
-    { abbr:'ARR',          full:'Annual Recurring Revenue',                                      desc:'연간 반복 매출' },
-    { abbr:'LBO',          full:'Leveraged Buyout',                                              desc:'차입매수\n부채를 활용해 기업을 인수하는 방식' },
-    { abbr:'IPO',          full:'Initial Public Offering',                                       desc:'기업공개 (주식시장 상장)' },
-    { abbr:'PIK',          full:'Payment in Kind',                                               desc:'현물지급\n현금 대신 이자를 원금에 누적' },
-    { abbr:'FCF',          full:'Free Cash Flow',                                                desc:'잉여현금흐름\n영업현금흐름 − 설비투자(CAPEX)' },
-    { abbr:'VoC',          full:'Voice of Customer',                                             desc:'고객의 소리' },
-    { abbr:'CX',           full:'Customer Experience',                                           desc:'고객경험' },
-    { abbr:'R&D',          full:'Research & Development',                                        desc:'연구개발' },
-    { abbr:'EV',           full:'Enterprise Value',                                              desc:'기업가치\n시가총액 + 순부채' },
-    { abbr:'PE',           full:'Private Equity',                                                desc:'사모펀드\n비공개 기업에 투자하는 펀드' },
+    { abbr:'EV/Par', full:'EV / Par Coverage', desc:'기업가치(EV) ÷ 채권 원금(Par)\n채권단 원금 회수 가능 여부 판단 지표',
+      detail:{sections:[
+        {title:'📐 산식 & 의미', rows:[
+          {key:'산식',       val:'기업가치(EV) ÷ 채권 원금(Par)'},
+          {key:'1.0× 이상',  val:'채권 원금 전액 회수 가능',   flag:'good'},
+          {key:'1.0× 미만',  val:'채권단도 손실 → 사실상 파산', flag:'danger'},
+        ]},
+        {title:'⚠ Medallia 사례', rows:[
+          {key:'채권 원금',  val:'$2.8B (PIK 누적)'},
+          {key:'EV 추정',    val:'채권 잔액 이하로 하락',      flag:'danger'},
+          {key:'결과',       val:'채권단이 경영권 이전 요구',   flag:'danger'},
+        ]},
+      ]}
+    },
+    { abbr:'Gen AI', full:'Generative AI', desc:'생성형 인공지능',
+      detail:{sections:[
+        {title:'📐 SaaS에 미치는 영향', rows:[
+          {key:'위협',      val:'범용 기능 → LLM으로 대체'},
+          {key:'주요 대상', val:'VOC 분석·설문·인사이트 추출', flag:'danger'},
+          {key:'방어 조건', val:'데이터 폐쇄성·전문성이 핵심'},
+        ]},
+      ]}
+    },
+    { abbr:'EBITDA', full:'Earnings Before Interest, Taxes,\nDepreciation & Amortization', desc:'이자·세금·감가상각 전 영업이익',
+      detail:{sections:[
+        {title:'📐 구성 & 특징', rows:[
+          {key:'산식',  val:'영업이익 + 감가상각(D&A)'},
+          {key:'활용',  val:'기업 영업 수익성 비교 기준'},
+          {key:'한계',  val:'설비투자·이자·세금 미반영'},
+        ]},
+        {title:'📊 EBITDA vs FCF', rows:[
+          {key:'EBITDA 양호', val:'이익처럼 보여도'},
+          {key:'FCF 적자',    val:'실제 현금 유출 중',        flag:'danger'},
+          {key:'교훈',        val:'"EBITDA만 보면 속는다"',  flag:'danger'},
+        ]},
+      ]}
+    },
+    { abbr:'LIBOR', full:'London Interbank Offered Rate', desc:'런던 은행간 기준금리\n현재는 SOFR로 대체됨',
+      detail:{sections:[
+        {title:'📐 금리 변화 (Medallia)', rows:[
+          {key:'2021 인수 시',  val:'LIBOR 0.75% (초저금리)',  flag:'good'},
+          {key:'→ SOFR 전환',  val:'2023년 5.4%로 급등',      flag:'danger'},
+          {key:'결과',          val:'연이자 $135M → $300M',    flag:'danger'},
+        ]},
+      ]}
+    },
+    { abbr:'SOFR', full:'Secured Overnight Financing Rate', desc:'담보부 익일물 금리\nLIBOR를 대체한 미국 기준금리',
+      detail:{sections:[
+        {title:'📐 금리 변화 (Medallia)', rows:[
+          {key:'2021',  val:'0.75% (인수 당시)',          flag:'good'},
+          {key:'2023',  val:'5.4% (최고점)',              flag:'danger'},
+          {key:'영향',  val:'변동금리 이자 2배 이상 급등', flag:'danger'},
+        ]},
+      ]}
+    },
+    { abbr:'NYSE', full:'New York Stock Exchange', desc:'뉴욕증권거래소' },
+    { abbr:'SaaS', full:'Software as a Service', desc:'구독형 소프트웨어 서비스',
+      detail:{sections:[
+        {title:'📐 비즈니스 특징', rows:[
+          {key:'구독 기반',  val:'반복 매출(ARR/MRR) 구조'},
+          {key:'높은 CAC',   val:'고객 유치 비용 선 집행'},
+          {key:'규모 경제',  val:'고객 증가 → 마진 개선'},
+        ]},
+        {title:'📊 가치평가 특징', rows:[
+          {key:'EV/Revenue',   val:'매출 배수 중심 (수익성 무관)'},
+          {key:'고성장 시',    val:'높은 멀티플 정당화',  flag:'good'},
+          {key:'성장 둔화 시', val:'멀티플 급락 위험',    flag:'danger'},
+        ]},
+      ]}
+    },
+    { abbr:'NRR', full:'Net Revenue Retention', desc:'순 매출 유지율\n기존 고객에서의 매출 증감률',
+      detail:{sections:[
+        {title:'📐 의미 & 기준', rows:[
+          {key:'산식',       val:'기말 기존고객 매출 ÷ 기초 매출'},
+          {key:'110% 이상',  val:'기존 고객 확장 → 우수',  flag:'good'},
+          {key:'100%',       val:'이탈 = 확장, 현상 유지'},
+          {key:'100% 미만',  val:'순 이탈 → 성장 한계',    flag:'danger'},
+        ]},
+        {title:'💡 Medallia 사례', rows:[
+          {key:'NRR',    val:'116~126% → 표면상 우수'},
+          {key:'함정',   val:'수익성(FCF)은 별개 문제',  flag:'danger'},
+          {key:'교훈',   val:'NRR 좋아도 FCF 필수 확인'},
+        ]},
+      ]}
+    },
+    { abbr:'ARR', full:'Annual Recurring Revenue', desc:'연간 반복 매출',
+      detail:{sections:[
+        {title:'📐 의미 & 활용', rows:[
+          {key:'산식',    val:'월 반복 매출(MRR) × 12'},
+          {key:'의미',    val:'예측 가능한 연간 수익 규모'},
+          {key:'vs 매출', val:'계약 기반 → 미래 보장 매출'},
+        ]},
+      ]}
+    },
+    { abbr:'LBO', full:'Leveraged Buyout', desc:'차입매수\n부채를 활용해 기업을 인수하는 방식',
+      detail:{sections:[
+        {title:'📐 구조', rows:[
+          {key:'방식',      val:'기업 자산·현금흐름 담보 차입'},
+          {key:'레버리지',  val:'자기자본 少, 부채 多 → 고수익 목표'},
+          {key:'EXIT',      val:'3~7년 내 매각·IPO로 투자금 회수'},
+        ]},
+        {title:'⚠ 리스크', rows:[
+          {key:'금리 상승',  val:'변동금리 이자 급등',      flag:'danger'},
+          {key:'현금 부족',  val:'FCF로 이자 감당 불가',    flag:'danger'},
+          {key:'최악',       val:'투자금 전액 손실 가능',   flag:'danger'},
+        ]},
+      ]}
+    },
+    { abbr:'IPO', full:'Initial Public Offering', desc:'기업공개 (주식시장 상장)',
+      detail:{sections:[
+        {title:'📐 PE의 IPO 활용', rows:[
+          {key:'목적',     val:'투자금 회수(EXIT) 수단'},
+          {key:'조건',     val:'안정적 FCF + 성장성 필요'},
+          {key:'Medallia', val:'멀티플 수축으로 재상장 불가', flag:'danger'},
+        ]},
+      ]}
+    },
+    { abbr:'PIK', full:'Payment in Kind', desc:'현물지급\n현금 대신 이자를 원금에 누적',
+      detail:{sections:[
+        {title:'📐 메커니즘', rows:[
+          {key:'방식',    val:'현금 미납 이자 → 원금 가산'},
+          {key:'효과',    val:'원금 자동 팽창 (복리 효과)', flag:'danger'},
+          {key:'트리거',  val:'FCF 고갈 시 채무자가 선택'},
+        ]},
+        {title:'⚠ Medallia 사례', rows:[
+          {key:'부채 팽창',  val:'$1.8B → $2.8B (+$1B)',     flag:'danger'},
+          {key:'신호',       val:'현금 고갈의 전조 증상'},
+          {key:'결과',       val:'채권단 원금 회수 불가 위기', flag:'danger'},
+        ]},
+      ]}
+    },
+    { abbr:'FCF', full:'Free Cash Flow', desc:'잉여현금흐름\n영업현금흐름 − 설비투자(CAPEX)',
+      detail:{sections:[
+        {title:'📐 산식 & 의미', rows:[
+          {key:'산식',      val:'영업현금흐름 − 설비투자(CAPEX)'},
+          {key:'의미',      val:'"진짜 쓸 수 있는 현금"'},
+          {key:'vs EBITDA', val:'EBITDA는 추정값, FCF는 실제'},
+        ]},
+        {title:'📊 판단 기준', rows:[
+          {key:'FCF > 0',  val:'자체 성장·부채 상환 가능', flag:'good'},
+          {key:'FCF < 0',  val:'외부 자금 없이 지속 불가', flag:'danger'},
+          {key:'SaaS 핵심', val:'구독 매출 → FCF 전환율이 관건'},
+        ]},
+      ]}
+    },
+    { abbr:'VoC', full:'Voice of Customer', desc:'고객의 소리' },
+    { abbr:'CX',  full:'Customer Experience', desc:'고객경험' },
+    { abbr:'R&D', full:'Research & Development', desc:'연구개발' },
+    { abbr:'EV',  full:'Enterprise Value', desc:'기업가치\n시가총액 + 순부채',
+      detail:{sections:[
+        {title:'📐 산식 & 활용', rows:[
+          {key:'산식',       val:'시가총액 + 순부채 (부채 − 현금)'},
+          {key:'의미',       val:'인수 시 실제 지불하는 총액'},
+          {key:'EV vs 시총', val:'부채 많을수록 EV > 시가총액'},
+        ]},
+      ]}
+    },
+    { abbr:'PE',  full:'Private Equity', desc:'사모펀드\n비공개 기업에 투자하는 펀드',
+      detail:{sections:[
+        {title:'📐 운용 구조', rows:[
+          {key:'방식',   val:'비상장 기업 인수 → 가치 제고 → EXIT'},
+          {key:'수익',   val:'초과수익의 20% (Carried Interest)'},
+          {key:'기간',   val:'통상 3~7년 투자 후 매각'},
+        ]},
+        {title:'📊 EXIT 방식', rows:[
+          {key:'전략적 매각', val:'다른 기업에 매각'},
+          {key:'IPO',         val:'주식시장 재상장'},
+          {key:'파산',        val:'EXIT 실패 → 손실 확정', flag:'danger'},
+        ]},
+      ]}
+    },
   ];
 
   function processTextNode(node) {

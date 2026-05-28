@@ -196,6 +196,7 @@
     #memo-tip .tip-sep  { height:1px; background:rgba(24,104,219,0.15); margin-bottom:8px; }
     #memo-tip .tip-desc { font-size:12px; color:#333; line-height:1.65; white-space:pre-line; }
     #memo-tip.wide { max-width:350px; }
+    text.abbr-svg-hl { cursor: help; }
     #memo-tip .tip-detail { border-top:1px solid rgba(24,104,219,0.15); margin-top:9px; padding-top:9px; display:none; }
     #memo-tip .tip-dsec { margin-bottom:9px; }
     #memo-tip .tip-dsec:last-child { margin-bottom:0; }
@@ -303,7 +304,7 @@
     <text x="490" y="59" text-anchor="middle" font-size="13" font-weight="700" fill="#172B4D">2021.07</text>
     <text x="490" y="73" text-anchor="middle" font-size="11" fill="#6B778C">Thoma Bravo 인수</text>
     <text x="490" y="122" text-anchor="middle" font-size="15" font-weight="700" fill="#1868DB">$6.4B</text>
-    <text x="490" y="139" text-anchor="middle" font-size="11" fill="#6B778C">EV/Rev 9× · 상장폐지</text>
+    <text x="490" y="139" text-anchor="middle" font-size="11" fill="#6B778C" class="abbr-svg-hl" data-abbr-key="EV/Revenue">EV/Rev 9× · 상장폐지</text>
 
     <!-- 2022~2025 -->
     <circle cx="730" cy="96" r="13" fill="#FF5630"/>
@@ -446,7 +447,7 @@
     <rect x="400" y="82" width="220" height="110" rx="12" fill="#0D1B35"/>
     <text x="510" y="115" text-anchor="middle" font-size="13" fill="rgba(255,255,255,.55)">총 인수 금액</text>
     <text x="510" y="150" text-anchor="middle" font-size="34" font-weight="700" fill="#fff">$6.4B</text>
-    <text x="510" y="173" text-anchor="middle" font-size="12" fill="rgba(255,255,255,.4)">EV/Revenue 약 9×</text>
+    <text x="510" y="173" text-anchor="middle" font-size="12" fill="rgba(255,255,255,.4)" class="abbr-svg-hl" data-abbr-key="EV/Revenue">EV/Revenue 약 9×</text>
 
     <!-- Arrow → Medallia -->
     <line x1="621" y1="137" x2="790" y2="137" stroke="#0D1B35" stroke-width="2.5" marker-end="url(#aDark)"/>
@@ -791,6 +792,21 @@
         ]},
       ]}
     },
+    { abbr:'EV/Rev', full:'EV / Revenue 멀티플 (축약)', desc:'EV/Revenue의 축약 표기\n기업가치(EV) ÷ 연매출\nSaaS·고성장 기업 가치평가 배수',
+      detail:{sections:[
+        {title:'📊 멀티플의 종류', rows:[
+          {key:'EV/Revenue',   val:'적자·성장 기업 / SaaS',   flag:'curr'},
+          {key:'EV/EBITDA',    val:'수익성 기업의 범용 기준',  flag:''},
+          {key:'EV/ARR',       val:'SaaS 구독 매출 특화',     flag:''},
+          {key:'P/E',          val:'이익 실현 기업·상장주',   flag:''},
+        ]},
+        {title:'📈 SaaS EV/Revenue 추이', rows:[
+          {key:'2021 고점',         val:'15~40× (SaaS 버블)',  flag:'danger'},
+          {key:'현재 일반 SaaS',    val:'3~8× (멀티플 수축)', flag:''},
+          {key:'AI 프리미엄 SaaS',  val:'15~30× (양극화)',    flag:'good'},
+        ]},
+      ]}
+    },
     { abbr:'EV/Par',       full:'EV / Par Coverage',                                             desc:'기업가치 ÷ 채권 원금(Par)\n부채 커버리지 지표' },
     { abbr:'Gen AI',       full:'Generative AI',                                                 desc:'생성형 인공지능' },
     { abbr:'EBITDA',       full:'Earnings Before Interest, Taxes,\nDepreciation & Amortization', desc:'이자·세금·감가상각 전 영업이익' },
@@ -865,53 +881,60 @@
   const tipDesc   = memoTip.querySelector('.tip-desc');
   const tipDetail = memoTip.querySelector('.tip-detail');
 
+  function renderDetail(detail) {
+    if (!detail) { tipDetail.style.display='none'; memoTip.classList.remove('wide'); return false; }
+    try {
+      const d = (typeof detail === 'string') ? JSON.parse(detail) : detail;
+      tipDetail.innerHTML = d.sections.map(sec =>
+        `<div class="tip-dsec"><div class="tip-dtitle">${sec.title}</div>` +
+        sec.rows.map(r =>
+          `<div class="tip-drow">` +
+          `<span class="tip-dkey${r.flag==='curr'?' curr':''}">${r.key}</span>` +
+          `<span class="tip-dval${r.flag==='danger'?' danger':r.flag==='good'?' good':''}">${r.val}</span>` +
+          `</div>`
+        ).join('') + `</div>`
+      ).join('');
+      tipDetail.style.display = 'block'; memoTip.classList.add('wide'); return true;
+    } catch(_) { tipDetail.style.display='none'; memoTip.classList.remove('wide'); return false; }
+  }
+
+  function positionTip(rect, hasDetail) {
+    const tipW = hasDetail ? 352 : 262, tipH = hasDetail ? 310 : 160;
+    let left = rect.right + 12, top = rect.top - 8;
+    if (left + tipW > window.innerWidth)  left = rect.left - tipW - 12;
+    if (left < 6) left = 6;
+    if (top + tipH > window.innerHeight)  top = window.innerHeight - tipH - 8;
+    if (top < 6)  top = 6;
+    memoTip.style.left = left + 'px'; memoTip.style.top = top + 'px'; memoTip.style.display = 'block';
+  }
+
+  // HTML abbr spans
   document.body.addEventListener('mouseover', e => {
     const t = e.target;
     if (!t.classList.contains('abbr-hl')) return;
     tipAbbr.textContent = t.textContent;
     tipFull.textContent = t.dataset.full || '';
     tipDesc.textContent = t.dataset.desc || '';
-
-    const detailRaw = t.dataset.detail;
-    if (detailRaw) {
-      try {
-        const d = JSON.parse(detailRaw);
-        tipDetail.innerHTML = d.sections.map(sec =>
-          `<div class="tip-dsec">` +
-          `<div class="tip-dtitle">${sec.title}</div>` +
-          sec.rows.map(r =>
-            `<div class="tip-drow">` +
-            `<span class="tip-dkey${r.flag==='curr'?' curr':''}">${r.key}</span>` +
-            `<span class="tip-dval${r.flag==='danger'?' danger':r.flag==='good'?' good':''}">${r.val}</span>` +
-            `</div>`
-          ).join('') + `</div>`
-        ).join('');
-        tipDetail.style.display = 'block';
-        memoTip.classList.add('wide');
-      } catch(_) {
-        tipDetail.style.display = 'none';
-        memoTip.classList.remove('wide');
-      }
-    } else {
-      tipDetail.style.display = 'none';
-      memoTip.classList.remove('wide');
-    }
-
-    const tipW = detailRaw ? 352 : 262;
-    const tipH = detailRaw ? 310 : 160;
-    const r = t.getBoundingClientRect();
-    let left = r.right + 12, top = r.top - 8;
-    if (left + tipW > window.innerWidth)  left = r.left - tipW - 12;
-    if (left < 6) left = 6;
-    if (top + tipH > window.innerHeight)  top = window.innerHeight - tipH - 8;
-    if (top < 6)  top = 6;
-    memoTip.style.left    = left + 'px';
-    memoTip.style.top     = top  + 'px';
-    memoTip.style.display = 'block';
+    positionTip(t.getBoundingClientRect(), renderDetail(t.dataset.detail));
   });
 
   document.body.addEventListener('mouseout', e => {
     if (e.target.classList.contains('abbr-hl')) memoTip.style.display = 'none';
+  });
+
+  // SVG text abbr elements
+  const ABBRS_MAP = Object.fromEntries(ABBRS.map(a => [a.abbr, a]));
+  document.querySelectorAll('text.abbr-svg-hl').forEach(el => {
+    el.addEventListener('mouseover', e => {
+      e.stopPropagation();
+      const item = ABBRS_MAP[el.dataset.abbrKey];
+      if (!item) return;
+      tipAbbr.textContent = item.abbr;
+      tipFull.textContent = item.full || '';
+      tipDesc.textContent = item.desc || '';
+      positionTip(el.getBoundingClientRect(), renderDetail(item.detail));
+    });
+    el.addEventListener('mouseout', () => { memoTip.style.display = 'none'; });
   });
 
   initAbbrs();

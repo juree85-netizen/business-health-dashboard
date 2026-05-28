@@ -14,22 +14,32 @@ export default defineConfig({
 			sidebar: [
 				{
 					label: '대시보드 기획',
-					autogenerate: { directory: 'dashboard' },
+					items: [
+						{ label: '추진 배경 및 목적', link: '/dashboard/background/' },
+						{ label: '효율/수익 지표 정의', link: '/dashboard/efficiency-profit/' },
+						{ label: 'VoC 개발 요청서', link: '/dashboard/voc-request/' },
+						{ label: '업무 추진 현황 ↗', link: '/files/dashboard_progress_20260521.html', attrs: { target: '_blank' } },
+						{ label: '화면 설계 · 와이어프레임', link: '/dashboard/wireframes/' },
+						{ label: '파일 다운로드', link: '/dashboard/downloads/' },
+					],
 				},
 				{
 					label: 'Medallia 사례 분석',
-					autogenerate: { directory: 'medallia' },
+					items: [
+						{ label: '발표 슬라이드 ↗', link: '/files/medallia_presentation.html', attrs: { target: '_blank' } },
+						{ label: '미팅 요약', link: '/medallia/meeting-summary/' },
+						{ label: '보고서 최종본 v1', link: '/medallia/report-v1/' },
+						{ label: '피드백 반영 v2', link: '/medallia/report-v2/' },
+						{ label: '분석 보고서 모음', link: '/medallia/reports/' },
+					],
 				},
 				{
 					label: '가이드 & 도구',
-					autogenerate: { directory: 'guides' },
-				},
-				{
-					label: 'HTML 자료',
 					items: [
-						{ label: '발표자료 & 분석 보고서', link: '/html-docs/presentation/' },
-						{ label: '와이어프레임', link: '/html-docs/wireframes/' },
-						{ label: '개발 요청서 & 기획 문서', link: '/html-docs/dev-requests/' },
+						{ label: 'AI 워크플로우 ↗', link: '/files/ai_research_workflow.html', attrs: { target: '_blank' } },
+						{ label: '보고서 기준 v2.0', link: '/guides/analysis-report/' },
+						{ label: '보고서 서식 가이드', link: '/guides/report-format/' },
+						{ label: 'SDS Word Writer', link: '/guides/sds-word-writer/' },
 					],
 				},
 				{

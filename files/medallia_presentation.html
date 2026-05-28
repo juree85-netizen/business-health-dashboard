@@ -152,9 +152,66 @@
     /* ── Divider ── */
     .rule { width: 44px; height: 3px; background: #1868DB; border-radius: 2px; margin-bottom: 20px; }
     .blue .rule { background: rgba(255,255,255,.4); }
+
+    /* ── Abbreviation Highlight & Memo Tooltip ── */
+    .abbr-hl {
+      border-bottom: 1.5px dotted rgba(24,104,219,0.5);
+      cursor: help;
+    }
+    .dark .abbr-hl { border-bottom-color: rgba(123,180,255,0.55); }
+    .blue .abbr-hl { border-bottom-color: rgba(255,255,255,0.45); }
+
+    #memo-tip {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      min-width: 200px;
+      max-width: 260px;
+      border-radius: 2px 8px 8px 8px;
+      overflow: hidden;
+      box-shadow: 4px 6px 20px rgba(0,0,0,0.22);
+      pointer-events: none;
+      font-family: 'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif;
+    }
+    #memo-tip .tip-header {
+      background: #F5C542;
+      padding: 5px 12px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    #memo-tip .tip-label {
+      font-size: 9px; font-weight: 800;
+      letter-spacing: 2px; color: #7A5200;
+      text-transform: uppercase;
+    }
+    #memo-tip .tip-body {
+      background: #FFFEF2;
+      padding: 10px 14px 13px;
+      background-image: repeating-linear-gradient(
+        transparent, transparent 23px,
+        rgba(24,104,219,0.09) 23px, rgba(24,104,219,0.09) 24px
+      );
+    }
+    #memo-tip .tip-abbr { font-size:14px; font-weight:700; color:#1868DB; margin-bottom:2px; }
+    #memo-tip .tip-full { font-size:10px; color:#888; font-style:italic; margin-bottom:8px; white-space:pre-line; }
+    #memo-tip .tip-sep  { height:1px; background:rgba(24,104,219,0.15); margin-bottom:8px; }
+    #memo-tip .tip-desc { font-size:12px; color:#333; line-height:1.65; white-space:pre-line; }
   </style>
 </head>
 <body>
+
+<!-- ── Memo Tooltip ── -->
+<div id="memo-tip">
+  <div class="tip-header">
+    <span style="font-size:11px">📋</span>
+    <span class="tip-label">Memo</span>
+  </div>
+  <div class="tip-body">
+    <div class="tip-abbr"></div>
+    <div class="tip-full"></div>
+    <div class="tip-sep"></div>
+    <div class="tip-desc"></div>
+  </div>
+</div>
 
 <!-- ── Nav dots ── -->
 <div id="nav">
@@ -674,6 +731,107 @@
     if (e.key === 'ArrowDown' || e.key === 'PageDown') go(Math.min(idx + 1, slides.length - 1));
     if (e.key === 'ArrowUp'   || e.key === 'PageUp')   go(Math.max(idx - 1, 0));
   });
+
+  // ── Abbreviation Memo Tooltips ──
+  const ABBRS = [
+    { abbr:'SaaSpocalypse', full:'SaaSpocalypse',                                                desc:'SaaS + Apocalypse\n고금리·AI 대체·성장 둔화·멀티플 붕괴가 겹치며\nSaaS 기업 생존환경이 급격히 악화되는 현상' },
+    { abbr:'Rule of 40',   full:'Rule of 40',                                                    desc:'성장률(%) + 이익률(%) ≥ 40\n건강한 SaaS 기업의 판단 기준' },
+    { abbr:'FCF Coverage', full:'FCF Coverage',                                                  desc:'FCF ÷ 연이자\n1.0× 미만이면 이자를 FCF로 감당 불가' },
+    { abbr:'EV/Revenue',   full:'EV / Revenue 멀티플',                                           desc:'기업가치(EV) ÷ 연매출\nSaaS 기업 가치평가 배수' },
+    { abbr:'EV/Par',       full:'EV / Par Coverage',                                             desc:'기업가치 ÷ 채권 원금(Par)\n부채 커버리지 지표' },
+    { abbr:'Gen AI',       full:'Generative AI',                                                 desc:'생성형 인공지능' },
+    { abbr:'EBITDA',       full:'Earnings Before Interest, Taxes,\nDepreciation & Amortization', desc:'이자·세금·감가상각 전 영업이익' },
+    { abbr:'LIBOR',        full:'London Interbank Offered Rate',                                 desc:'런던 은행간 기준금리\n현재는 SOFR로 대체됨' },
+    { abbr:'SOFR',         full:'Secured Overnight Financing Rate',                              desc:'담보부 익일물 금리\nLIBOR를 대체한 미국 기준금리' },
+    { abbr:'NYSE',         full:'New York Stock Exchange',                                       desc:'뉴욕증권거래소' },
+    { abbr:'SaaS',         full:'Software as a Service',                                         desc:'구독형 소프트웨어 서비스' },
+    { abbr:'NRR',          full:'Net Revenue Retention',                                         desc:'순 매출 유지율\n기존 고객에서의 매출 증감률' },
+    { abbr:'ARR',          full:'Annual Recurring Revenue',                                      desc:'연간 반복 매출' },
+    { abbr:'LBO',          full:'Leveraged Buyout',                                              desc:'차입매수\n부채를 활용해 기업을 인수하는 방식' },
+    { abbr:'IPO',          full:'Initial Public Offering',                                       desc:'기업공개 (주식시장 상장)' },
+    { abbr:'PIK',          full:'Payment in Kind',                                               desc:'현물지급\n현금 대신 이자를 원금에 누적' },
+    { abbr:'FCF',          full:'Free Cash Flow',                                                desc:'잉여현금흐름\n영업현금흐름 − 설비투자(CAPEX)' },
+    { abbr:'VoC',          full:'Voice of Customer',                                             desc:'고객의 소리' },
+    { abbr:'CX',           full:'Customer Experience',                                           desc:'고객경험' },
+    { abbr:'R&D',          full:'Research & Development',                                        desc:'연구개발' },
+    { abbr:'EV',           full:'Enterprise Value',                                              desc:'기업가치\n시가총액 + 순부채' },
+    { abbr:'PE',           full:'Private Equity',                                                desc:'사모펀드\n비공개 기업에 투자하는 펀드' },
+  ];
+
+  function processTextNode(node) {
+    const text = node.textContent;
+    if (!text.trim()) return;
+    let out = '', i = 0, changed = false;
+    while (i < text.length) {
+      let hit = false;
+      for (const { abbr, full, desc } of ABBRS) {
+        if (text.slice(i, i + abbr.length) === abbr) {
+          const pre  = i === 0 ? ' ' : text[i - 1];
+          const post = i + abbr.length >= text.length ? ' ' : text[i + abbr.length];
+          if (!/[a-zA-Z가-힣0-9]/.test(pre) && !/[a-zA-Z가-힣0-9]/.test(post)) {
+            const ef = full.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/\n/g,'&#10;');
+            const ed = desc.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/\n/g,'&#10;');
+            const ea = abbr.replace(/&/g,'&amp;');
+            out += `<span class="abbr-hl" data-full="${ef}" data-desc="${ed}">${ea}</span>`;
+            i += abbr.length; hit = true; changed = true; break;
+          }
+        }
+      }
+      if (!hit) {
+        const c = text[i];
+        out += c==='&'?'&amp;':c==='<'?'&lt;':c==='>'?'&gt;':c;
+        i++;
+      }
+    }
+    if (changed) {
+      const wrap = document.createElement('span');
+      wrap.innerHTML = out;
+      node.parentNode.replaceChild(wrap, node);
+    }
+  }
+
+  function initAbbrs() {
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        const el = node.parentElement;
+        if (!el || el.closest('svg,script,style,#memo-tip,#nav')) return NodeFilter.FILTER_REJECT;
+        if (el.classList.contains('abbr-hl')) return NodeFilter.FILTER_REJECT;
+        return node.textContent.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+      }
+    });
+    const nodes = [];
+    let n;
+    while ((n = walker.nextNode())) nodes.push(n);
+    nodes.forEach(processTextNode);
+  }
+
+  const memoTip = document.getElementById('memo-tip');
+  const tipAbbr = memoTip.querySelector('.tip-abbr');
+  const tipFull = memoTip.querySelector('.tip-full');
+  const tipDesc = memoTip.querySelector('.tip-desc');
+
+  document.body.addEventListener('mouseover', e => {
+    const t = e.target;
+    if (!t.classList.contains('abbr-hl')) return;
+    tipAbbr.textContent = t.textContent;
+    tipFull.textContent = t.dataset.full || '';
+    tipDesc.textContent = t.dataset.desc || '';
+    const r = t.getBoundingClientRect();
+    let left = r.right + 12, top = r.top - 8;
+    if (left + 262 > window.innerWidth)  left = r.left - 274;
+    if (left < 6) left = 6;
+    if (top + 160 > window.innerHeight)  top = window.innerHeight - 168;
+    if (top < 6)  top = 6;
+    memoTip.style.left    = left + 'px';
+    memoTip.style.top     = top  + 'px';
+    memoTip.style.display = 'block';
+  });
+
+  document.body.addEventListener('mouseout', e => {
+    if (e.target.classList.contains('abbr-hl')) memoTip.style.display = 'none';
+  });
+
+  initAbbrs();
 </script>
 </body>
 </html>

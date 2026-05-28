@@ -36,7 +36,8 @@ export default defineConfig({
 				{
 					label: '가이드 & 도구',
 					items: [
-						{ label: 'AI 워크플로우 ↗', link: '/files/ai_research_workflow.html', attrs: { target: '_blank' } },
+						{ label: 'AI 워크플로우 슬라이드 ↗', link: '/files/ai_research_workflow_slides.html', attrs: { target: '_blank' } },
+						{ label: 'AI 워크플로우 문서 ↗', link: '/files/ai_research_workflow.html', attrs: { target: '_blank' } },
 						{ label: '보고서 기준 v2.0', link: '/guides/analysis-report/' },
 						{ label: '보고서 서식 가이드', link: '/guides/report-format/' },
 						{ label: 'SDS Word Writer', link: '/guides/sds-word-writer/' },

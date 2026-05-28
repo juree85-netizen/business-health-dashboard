@@ -59,9 +59,12 @@
       background: rgba(120,130,160,0.35);
       cursor: pointer;
       transition: background .2s, transform .2s;
+      border: none; padding: 0;
     }
     .dot.active { background: #1868DB; transform: scale(1.45); }
     .dark  .dot { background: rgba(255,255,255,0.25); }
+    .dot:focus-visible { outline: 2px solid #1868DB; outline-offset: 4px; }
+    .dark .dot:focus-visible { outline-color: #7BB4FF; }
 
     /* ── Typography ── */
     .eyebrow {
@@ -198,6 +201,9 @@
     #memo-tip.wide { max-width:350px; }
     text.abbr-svg-hl { cursor: help; }
     #memo-tip .tip-detail { border-top:1px solid rgba(24,104,219,0.15); margin-top:9px; padding-top:9px; display:none; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-snap-type: none; }
+    }
     #memo-tip .tip-dsec { margin-bottom:9px; }
     #memo-tip .tip-dsec:last-child { margin-bottom:0; }
     #memo-tip .tip-dtitle { font-size:10px; font-weight:700; color:#1868DB; letter-spacing:0.5px; margin-bottom:5px; }
@@ -228,16 +234,16 @@
 </div>
 
 <!-- ── Nav dots ── -->
-<div id="nav">
-  <div class="dot active" onclick="go(0)" title="표지"></div>
-  <div class="dot" onclick="go(1)" title="타임라인"></div>
-  <div class="dot" onclick="go(2)" title="Medallia 개요"></div>
-  <div class="dot" onclick="go(3)" title="인수 구조"></div>
-  <div class="dot" onclick="go(4)" title="현금흐름 위기"></div>
-  <div class="dot" onclick="go(5)" title="탈출 실패"></div>
-  <div class="dot" onclick="go(6)" title="파급 효과"></div>
-  <div class="dot" onclick="go(7)" title="시사점"></div>
-</div>
+<nav id="nav" aria-label="슬라이드 내비게이션">
+  <button class="dot active" onclick="go(0)" aria-label="슬라이드 1: 표지"></button>
+  <button class="dot" onclick="go(1)" aria-label="슬라이드 2: 타임라인"></button>
+  <button class="dot" onclick="go(2)" aria-label="슬라이드 3: Medallia 개요"></button>
+  <button class="dot" onclick="go(3)" aria-label="슬라이드 4: 인수 구조"></button>
+  <button class="dot" onclick="go(4)" aria-label="슬라이드 5: 현금흐름 위기"></button>
+  <button class="dot" onclick="go(5)" aria-label="슬라이드 6: 탈출 실패"></button>
+  <button class="dot" onclick="go(6)" aria-label="슬라이드 7: 파급 효과"></button>
+  <button class="dot" onclick="go(7)" aria-label="슬라이드 8: 시사점"></button>
+</nav>
 
 <!-- ════════════════════════════════
      SLIDE 1 · 표지
@@ -252,7 +258,7 @@
 
   <div style="max-width:780px; position:relative;">
     <div class="eyebrow">Medallia · Thoma Bravo · PE LBO 사례 분석</div>
-    <div class="h1">$6.4B SaaS 인수,<br>왜 실패했나</div>
+    <h1 class="h1">$6.4B SaaS 인수,<br>왜 실패했나</h1>
     <div class="sub">Medallia 사례로 보는 SaaS 기업 가치 평가</div>
     <div style="display:flex; gap:40px; margin-top:4px;">
       <span style="font-size:13px; opacity:.4;">솔루션전략그룹(솔루션)</span>
@@ -275,7 +281,7 @@
 ════════════════════════════════ -->
 <section class="slide light" id="s1">
   <div class="eyebrow">Timeline</div>
-  <div class="h2">무슨 일이 있었나</div>
+  <h2 class="h2">무슨 일이 있었나</h2>
 
   <!-- Timeline SVG -->
   <svg width="100%" height="200" viewBox="0 0 1100 200" preserveAspectRatio="xMidYMid meet" style="overflow:visible; margin-bottom:28px;">
@@ -360,7 +366,7 @@
 ════════════════════════════════ -->
 <section class="slide dark" id="s2">
   <div class="eyebrow">Company Profile</div>
-  <div class="h2">Medallia는 어떤 회사인가</div>
+  <h2 class="h2">Medallia는 어떤 회사인가</h2>
 
   <div class="cols2" style="align-items:start; gap:40px;">
     <!-- Left: bullets -->
@@ -411,7 +417,7 @@
 ════════════════════════════════ -->
 <section class="slide white" id="s3">
   <div class="eyebrow">Deal Structure</div>
-  <div class="h2">인수 자금 구조</div>
+  <h2 class="h2">인수 자금 구조</h2>
 
   <!-- Flow diagram SVG -->
   <svg width="100%" height="230" viewBox="0 0 1100 230" preserveAspectRatio="xMidYMid meet" style="margin-bottom:20px; overflow:visible;">
@@ -479,7 +485,7 @@
 ════════════════════════════════ -->
 <section class="slide dark" id="s4">
   <div class="eyebrow">Financial Deterioration</div>
-  <div class="h2">현금흐름은 어떻게 무너졌나</div>
+  <h2 class="h2">현금흐름은 어떻게 무너졌나</h2>
 
   <div class="cols2" style="gap:48px; align-items:center;">
     <!-- Bar chart SVG -->
@@ -573,7 +579,7 @@
 ════════════════════════════════ -->
 <section class="slide light" id="s5">
   <div class="eyebrow">Exit Failure</div>
-  <div class="h2">왜 빠져나오지 못했나</div>
+  <h2 class="h2">왜 빠져나오지 못했나</h2>
 
   <div style="display:grid; grid-template-columns:1fr 1fr; gap:18px;">
     <div class="card" style="border-left:4px solid #FF5630;">
@@ -642,7 +648,7 @@
 ════════════════════════════════ -->
 <section class="slide dark" id="s6">
   <div class="eyebrow">Ripple Effect</div>
-  <div class="h2">파급 효과</div>
+  <h2 class="h2">파급 효과</h2>
 
   <div class="cols3" style="margin-bottom:20px;">
     <!-- Medallia -->
@@ -697,7 +703,7 @@
 
   <div style="position:relative;">
     <div class="eyebrow">Our Takeaway</div>
-    <div class="h2" style="color:#fff;">우리의 시사점</div>
+    <h2 class="h2" style="color:#fff;">우리의 시사점</h2>
 
     <div class="cols3" style="margin-bottom:28px;">
       <!-- 01 -->
@@ -747,7 +753,8 @@
   const dots   = document.querySelectorAll('.dot');
 
   function go(i) {
-    slides[i].scrollIntoView({ behavior: 'smooth' });
+    const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+    slides[i].scrollIntoView({ behavior });
   }
 
   const obs = new IntersectionObserver(entries => {
@@ -763,16 +770,28 @@
 
   // Keyboard navigation
   document.addEventListener('keydown', e => {
-    const active = [...slides].findIndex(s => s.getBoundingClientRect().top === 0 ||
-      Math.abs(s.getBoundingClientRect().top) < 5);
-    const cur = [...slides].findIndex(s => s.classList.contains('active')) ??
-      Math.round(window.scrollY / window.innerHeight);
+    if (!['ArrowDown','ArrowUp','PageDown','PageUp'].includes(e.key)) return;
+    e.preventDefault();
     const idx = Math.round(window.scrollY / window.innerHeight);
     if (e.key === 'ArrowDown' || e.key === 'PageDown') go(Math.min(idx + 1, slides.length - 1));
     if (e.key === 'ArrowUp'   || e.key === 'PageUp')   go(Math.max(idx - 1, 0));
   });
 
   // ── Abbreviation Memo Tooltips ──
+  const _evRevDetail = {sections:[
+    {title:'📊 멀티플의 종류', rows:[
+      {key:'EV/Revenue',  val:'적자·성장 기업 / SaaS',  flag:'curr'},
+      {key:'EV/EBITDA',   val:'수익성 기업의 범용 기준', flag:''},
+      {key:'EV/ARR',      val:'SaaS 구독 매출 특화',    flag:''},
+      {key:'P/E',         val:'이익 실현 기업·상장주',  flag:''},
+    ]},
+    {title:'📈 SaaS EV/Revenue 추이', rows:[
+      {key:'2021 고점',        val:'15~40× (SaaS 버블)',  flag:'danger'},
+      {key:'현재 일반 SaaS',   val:'3~8× (멀티플 수축)', flag:''},
+      {key:'AI 프리미엄 SaaS', val:'15~30× (양극화)',    flag:'good'},
+    ]},
+  ]};
+  // !! longest-match-first 순서 필수 — 짧은 약어가 앞에 오면 긴 약어 미인식
   const ABBRS = [
     { abbr:'SaaSpocalypse', full:'SaaSpocalypse', desc:'SaaS + Apocalypse\n고금리·AI 대체·성장 둔화·멀티플 붕괴가 겹치며\nSaaS 기업 생존환경이 급격히 악화되는 현상',
       detail:{sections:[
@@ -819,35 +838,9 @@
       ]}
     },
     { abbr:'EV/Revenue', full:'EV / Revenue 멀티플', desc:'기업가치(EV) ÷ 연매출\nSaaS·고성장 기업 가치평가 배수',
-      detail:{sections:[
-        {title:'📊 멀티플의 종류', rows:[
-          {key:'EV/Revenue',  val:'적자·성장 기업 / SaaS',  flag:'curr'},
-          {key:'EV/EBITDA',   val:'수익성 기업의 범용 기준', flag:''},
-          {key:'EV/ARR',      val:'SaaS 구독 매출 특화',    flag:''},
-          {key:'P/E',         val:'이익 실현 기업·상장주',  flag:''},
-        ]},
-        {title:'📈 SaaS EV/Revenue 추이', rows:[
-          {key:'2021 고점',        val:'15~40× (SaaS 버블)',  flag:'danger'},
-          {key:'현재 일반 SaaS',   val:'3~8× (멀티플 수축)', flag:''},
-          {key:'AI 프리미엄 SaaS', val:'15~30× (양극화)',    flag:'good'},
-        ]},
-      ]}
-    },
+      detail: _evRevDetail },
     { abbr:'EV/Rev', full:'EV / Revenue 멀티플 (축약)', desc:'EV/Revenue의 축약 표기\n기업가치(EV) ÷ 연매출\nSaaS·고성장 기업 가치평가 배수',
-      detail:{sections:[
-        {title:'📊 멀티플의 종류', rows:[
-          {key:'EV/Revenue',  val:'적자·성장 기업 / SaaS',  flag:'curr'},
-          {key:'EV/EBITDA',   val:'수익성 기업의 범용 기준', flag:''},
-          {key:'EV/ARR',      val:'SaaS 구독 매출 특화',    flag:''},
-          {key:'P/E',         val:'이익 실현 기업·상장주',  flag:''},
-        ]},
-        {title:'📈 SaaS EV/Revenue 추이', rows:[
-          {key:'2021 고점',        val:'15~40× (SaaS 버블)',  flag:'danger'},
-          {key:'현재 일반 SaaS',   val:'3~8× (멀티플 수축)', flag:''},
-          {key:'AI 프리미엄 SaaS', val:'15~30× (양극화)',    flag:'good'},
-        ]},
-      ]}
-    },
+      detail: _evRevDetail },
     { abbr:'EV/Par', full:'EV / Par Coverage', desc:'기업가치(EV) ÷ 채권 원금(Par)\n채권단 원금 회수 가능 여부 판단 지표',
       detail:{sections:[
         {title:'📐 산식 & 의미', rows:[
@@ -1093,13 +1086,16 @@
   }
 
   function positionTip(rect, hasDetail) {
-    const tipW = hasDetail ? 352 : 262, tipH = hasDetail ? 310 : 160;
+    const tipW = hasDetail ? 352 : 262;
+    memoTip.style.left = '-9999px'; memoTip.style.top = '-9999px';
+    memoTip.style.display = 'block';
+    const tipH = memoTip.offsetHeight;
     let left = rect.right + 12, top = rect.top - 8;
     if (left + tipW > window.innerWidth)  left = rect.left - tipW - 12;
     if (left < 6) left = 6;
     if (top + tipH > window.innerHeight)  top = window.innerHeight - tipH - 8;
     if (top < 6)  top = 6;
-    memoTip.style.left = left + 'px'; memoTip.style.top = top + 'px'; memoTip.style.display = 'block';
+    memoTip.style.left = left + 'px'; memoTip.style.top = top + 'px';
   }
 
   // HTML abbr spans

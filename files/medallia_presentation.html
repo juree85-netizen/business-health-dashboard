@@ -256,46 +256,83 @@
     <circle cx="-80" cy="800" r="250" fill="rgba(24,104,219,0.04)"/>
   </svg>
 
-  <div style="max-width:780px; position:relative;">
-    <div class="eyebrow">Medallia · Thoma Bravo · PE LBO 사례 분석</div>
-    <h1 class="h1">Medallia로 보는<br>SaaS 기업 가치 평가</h1>
-    <div style="font-size:22px; font-weight:600; opacity:.6; margin-bottom:36px; line-height:1.4;">$6.4B SaaS 인수, 왜 실패했나</div>
-    <div style="display:flex; gap:40px; margin-top:4px;">
-      <span style="font-size:13px; opacity:.4;">솔루션전략그룹(솔루션)</span>
-      <span style="font-size:13px; opacity:.4;">'26.05.19</span>
-      <span style="font-size:13px; opacity:.4;">8 Slides</span>
+  <div style="display:flex; gap:52px; align-items:center; width:100%; position:relative;">
+
+    <!-- LEFT: 제목 영역 -->
+    <div style="flex:1; min-width:0;">
+      <div class="eyebrow">Medallia · Thoma Bravo · PE LBO 사례 분석</div>
+      <h1 class="h1">Medallia로 보는<br>SaaS 기업 가치 평가</h1>
+      <div style="font-size:22px; font-weight:600; opacity:.6; margin-bottom:36px; line-height:1.4;">$6.4B SaaS 인수, 왜 실패했나</div>
+      <div style="display:flex; gap:40px;">
+        <span style="font-size:13px; opacity:.4;">솔루션전략그룹(솔루션)</span>
+        <span style="font-size:13px; opacity:.4;">'26.05.19</span>
+        <span style="font-size:13px; opacity:.4;">8 Slides</span>
+      </div>
     </div>
-  </div>
 
-  <!-- Timeline card -->
-  <div style="position:absolute; right:80px; top:50%; transform:translateY(-50%);">
-    <div style="background:rgba(24,104,219,0.10); border:1px solid rgba(24,104,219,0.28); border-radius:14px; padding:24px 30px; width:310px;">
-      <div style="font-size:10px; color:rgba(255,255,255,0.35); letter-spacing:2px; margin-bottom:20px; font-weight:600;">TIMELINE</div>
+    <!-- RIGHT: 분석 범위 + 분석 목적 + 타임라인 -->
+    <div style="width:360px; flex-shrink:0; display:flex; flex-direction:column; gap:10px;">
 
-      <!-- 2021 node -->
-      <div style="display:flex; gap:14px; align-items:flex-start;">
-        <div style="display:flex; flex-direction:column; align-items:center; flex-shrink:0;">
-          <div style="width:10px; height:10px; border-radius:50%; background:#1868DB; margin-top:4px;"></div>
-          <div style="width:1px; height:48px; background:rgba(255,255,255,0.15); margin-top:4px;"></div>
-        </div>
-        <div style="padding-bottom:16px;">
-          <div style="font-size:11px; color:rgba(255,255,255,0.4); margin-bottom:3px;">2021.10</div>
-          <div style="font-size:14px; font-weight:700; color:#fff; margin-bottom:3px;">Thoma Bravo 인수</div>
-          <div style="font-size:12.5px; color:#7BB4FF;">$6.4B (Equity $4.6B + Debt $1.8B)</div>
+      <!-- 분석 범위 -->
+      <div style="background:rgba(24,104,219,0.12); border:1px solid rgba(24,104,219,0.30); border-radius:12px; padding:16px 20px;">
+        <div style="font-size:9px; font-weight:700; letter-spacing:2px; color:#7BB4FF; text-transform:uppercase; margin-bottom:12px;">분석 범위</div>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <div style="display:flex; gap:10px; font-size:12.5px; line-height:1.5;">
+            <span style="color:rgba(255,255,255,.4); min-width:52px; flex-shrink:0;">대상</span>
+            <span style="color:#fff; font-weight:600;">Medallia / Thoma Bravo</span>
+          </div>
+          <div style="display:flex; gap:10px; font-size:12.5px; line-height:1.5;">
+            <span style="color:rgba(255,255,255,.4); min-width:52px; flex-shrink:0;">기간</span>
+            <span style="color:rgba(255,255,255,.85);">'21년 인수 ~ '26년 채권단 경영권 이전</span>
+          </div>
+          <div style="display:flex; gap:10px; font-size:12.5px; line-height:1.5;">
+            <span style="color:rgba(255,255,255,.4); min-width:52px; flex-shrink:0;">출처</span>
+            <span style="color:rgba(255,255,255,.55);">Bloomberg, OnlyCFO 분석 기반 추정치</span>
+          </div>
         </div>
       </div>
 
-      <!-- 2025 node -->
-      <div style="display:flex; gap:14px; align-items:flex-start;">
-        <div style="display:flex; flex-direction:column; align-items:center; flex-shrink:0;">
-          <div style="width:10px; height:10px; border-radius:50%; background:#FF5630; margin-top:4px;"></div>
-        </div>
-        <div>
-          <div style="font-size:11px; color:rgba(255,255,255,0.4); margin-bottom:3px;">2025.04</div>
-          <div style="font-size:14px; font-weight:700; color:#fff; margin-bottom:3px;">채권단 경영권 이전</div>
-          <div style="font-size:12.5px; color:#FF8F73;">투자금 $4.6B 사실상 전액 손실</div>
+      <!-- 분석 목적 -->
+      <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.10); border-radius:12px; padding:16px 20px;">
+        <div style="font-size:9px; font-weight:700; letter-spacing:2px; color:rgba(255,255,255,.4); text-transform:uppercase; margin-bottom:12px;">분석 목적</div>
+        <div style="display:flex; flex-direction:column; gap:9px;">
+          <div style="display:flex; gap:9px; align-items:flex-start; font-size:12.5px; line-height:1.6;">
+            <span style="color:#7BB4FF; font-weight:700; flex-shrink:0; margin-top:1px;">①</span>
+            <span style="color:rgba(255,255,255,.85);">PE 기반 SaaS 차입매수(LBO) 방식의 실패 원인 분석</span>
+          </div>
+          <div style="display:flex; gap:9px; align-items:flex-start; font-size:12.5px; line-height:1.6;">
+            <span style="color:#7BB4FF; font-weight:700; flex-shrink:0; margin-top:1px;">②</span>
+            <span style="color:rgba(255,255,255,.85);">SaaS 기업가치 및 M&amp;A 추진 시 평가 기준 재점검</span>
+          </div>
         </div>
       </div>
+
+      <!-- 타임라인 (condensed) -->
+      <div style="background:rgba(24,104,219,0.08); border:1px solid rgba(24,104,219,0.20); border-radius:12px; padding:16px 20px;">
+        <div style="font-size:9px; font-weight:700; letter-spacing:2px; color:rgba(255,255,255,.35); text-transform:uppercase; margin-bottom:14px;">Timeline</div>
+        <div style="display:flex; gap:12px; align-items:flex-start;">
+          <div style="display:flex; flex-direction:column; align-items:center; flex-shrink:0;">
+            <div style="width:9px; height:9px; border-radius:50%; background:#1868DB; margin-top:3px;"></div>
+            <div style="width:1px; height:36px; background:rgba(255,255,255,0.12); margin-top:4px;"></div>
+          </div>
+          <div style="padding-bottom:10px;">
+            <div style="font-size:10.5px; color:rgba(255,255,255,.35); margin-bottom:2px;">2021.10</div>
+            <div style="font-size:13px; font-weight:700; color:#fff; margin-bottom:2px;">Thoma Bravo 인수</div>
+            <div style="font-size:12px; color:#7BB4FF;">$6.4B (Equity $4.6B + Debt $1.8B)</div>
+          </div>
+        </div>
+        <div style="display:flex; gap:12px; align-items:flex-start;">
+          <div style="flex-shrink:0; padding-top:3px;">
+            <div style="width:9px; height:9px; border-radius:50%; background:#FF5630;"></div>
+          </div>
+          <div>
+            <div style="font-size:10.5px; color:rgba(255,255,255,.35); margin-bottom:2px;">2026.04</div>
+            <div style="font-size:13px; font-weight:700; color:#fff; margin-bottom:2px;">채권단 경영권 이전</div>
+            <div style="font-size:12px; color:#FF8F73;">투자금 $4.6B 사실상 전액 손실</div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 

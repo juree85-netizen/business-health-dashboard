@@ -1,0 +1,619 @@
+<!DOCTYPE html><html lang="ko" dir="ltr" data-theme="dark" data-has-toc data-has-sidebar class="astro-bguv2lll"> <head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>보고서 문서 디자인 스펙 가이드 (Word 기준) | BizHealth Docs Hub</title><link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml"/><meta name="generator" content="Astro v6.1.8"/><meta name="generator" content="Starlight v0.38.3"/><meta property="og:title" content="보고서 문서 디자인 스펙 가이드 (Word 기준)"/><meta property="og:type" content="article"/><meta property="og:locale" content="ko"/><meta property="og:description" content="Microsoft Word 기반 내부 보고 문서의 서식·타이포그래피·단락·들여쓰기 정의"/><meta property="og:site_name" content="BizHealth Docs Hub"/><meta name="twitter:card" content="summary_large_image"/><meta name="description" content="Microsoft Word 기반 내부 보고 문서의 서식·타이포그래피·단락·들여쓰기 정의"/><script>
+	window.StarlightThemeProvider = (() => {
+		const storedTheme =
+			typeof localStorage !== 'undefined' && localStorage.getItem('starlight-theme');
+		const theme =
+			storedTheme ||
+			(window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+		document.documentElement.dataset.theme = theme === 'light' ? 'light' : 'dark';
+		return {
+			updatePickers(theme = storedTheme || 'auto') {
+				document.querySelectorAll('starlight-theme-select').forEach((picker) => {
+					const select = picker.querySelector('select');
+					if (select) select.value = theme;
+					/** @type {HTMLTemplateElement | null} */
+					const tmpl = document.querySelector(`#theme-icons`);
+					const newIcon = tmpl && tmpl.content.querySelector('.' + theme);
+					if (newIcon) {
+						const oldIcon = picker.querySelector('svg.label-icon');
+						if (oldIcon) {
+							oldIcon.replaceChildren(...newIcon.cloneNode(true).childNodes);
+						}
+					}
+				});
+			},
+		};
+	})();
+</script><template id="theme-icons"><svg aria-hidden="true" class="light astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M5 12a1 1 0 0 0-1-1H3a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1Zm.64 5-.71.71a1 1 0 0 0 0 1.41 1 1 0 0 0 1.41 0l.71-.71A1 1 0 0 0 5.64 17ZM12 5a1 1 0 0 0 1-1V3a1 1 0 0 0-2 0v1a1 1 0 0 0 1 1Zm5.66 2.34a1 1 0 0 0 .7-.29l.71-.71a1 1 0 1 0-1.41-1.41l-.66.71a1 1 0 0 0 0 1.41 1 1 0 0 0 .66.29Zm-12-.29a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.71-.71a1.004 1.004 0 1 0-1.43 1.41l.73.71ZM21 11h-1a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2Zm-2.64 6A1 1 0 0 0 17 18.36l.71.71a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.76-.66ZM12 6.5a5.5 5.5 0 1 0 5.5 5.5A5.51 5.51 0 0 0 12 6.5Zm0 9a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Zm0 3.5a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 0-1-1Z"/></svg><svg aria-hidden="true" class="dark astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.64 13a1 1 0 0 0-1.05-.14 8.049 8.049 0 0 1-3.37.73 8.15 8.15 0 0 1-8.14-8.1 8.59 8.59 0 0 1 .25-2A1 1 0 0 0 8 2.36a10.14 10.14 0 1 0 14 11.69 1 1 0 0 0-.36-1.05Zm-9.5 6.69A8.14 8.14 0 0 1 7.08 5.22v.27a10.15 10.15 0 0 0 10.14 10.14 9.784 9.784 0 0 0 2.1-.22 8.11 8.11 0 0 1-7.18 4.32v-.04Z"/></svg><svg aria-hidden="true" class="auto astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg></template><link rel="stylesheet" href="/_astro/print.DNXP8c50.css" media="print"><link rel="stylesheet" href="/_astro/common.D7oqlvXR.css"><script type="module" src="/_astro/page.BIhdncjw.js"></script></head> <body class="astro-bguv2lll"> <a href="#_top" class="astro-7q3lir66">콘텐츠로 이동</a> <div class="page sl-flex astro-vrdttmbt"> <header class="header astro-vrdttmbt"><div class="header astro-kmkmnagf"> <div class="title-wrapper sl-flex astro-kmkmnagf"> <a href="/" class="site-title sl-flex astro-m46x6ez3">  <span class="astro-m46x6ez3" translate="no"> BizHealth Docs Hub </span> </a> </div> <div class="sl-flex print:hidden astro-kmkmnagf"> <site-search class="astro-kmkmnagf astro-v37mnknz" data-translations="{&#34;placeholder&#34;:&#34;검색&#34;}"> <button data-open-modal disabled aria-label="검색" aria-keyshortcuts="Control+K" class="astro-v37mnknz"> <svg aria-hidden="true" class="astro-v37mnknz astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.71 20.29 18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14Z"/></svg> <span class="sl-hidden md:sl-block astro-v37mnknz" aria-hidden="true">검색</span> <kbd class="sl-hidden md:sl-flex astro-v37mnknz" style="display: none;"> <kbd class="astro-v37mnknz">Ctrl</kbd><kbd class="astro-v37mnknz">K</kbd> </kbd> </button> <dialog style="padding:0" aria-label="검색" class="astro-v37mnknz"> <div class="dialog-frame sl-flex astro-v37mnknz">  <button data-close-modal class="sl-flex md:sl-hidden astro-v37mnknz"> 취소 </button> <div class="search-container astro-v37mnknz"> <div id="starlight__search" class="astro-v37mnknz"></div> </div> </div> </dialog> </site-search>  <script>
+	(() => {
+		const openBtn = document.querySelector('button[data-open-modal]');
+		const shortcut = openBtn?.querySelector('kbd');
+		if (!openBtn || !(shortcut instanceof HTMLElement)) return;
+		const platformKey = shortcut.querySelector('kbd');
+		if (platformKey && /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)) {
+			platformKey.textContent = '⌘';
+			openBtn.setAttribute('aria-keyshortcuts', 'Meta+K');
+		}
+		shortcut.style.display = '';
+	})();
+</script> <script type="module" src="/_astro/Search.astro_astro_type_script_index_0_lang.Rw77DzG6.js"></script>  </div> <div class="sl-hidden md:sl-flex print:hidden right-group astro-kmkmnagf"> <div class="sl-flex social-icons astro-kmkmnagf">  </div> <starlight-theme-select>  <label style="--sl-select-width: 6.25em" class="astro-4yphtoen"> <span class="sr-only astro-4yphtoen">테마 선택</span> <svg aria-hidden="true" class="icon label-icon astro-4yphtoen astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg> <select autocomplete="off" class="astro-4yphtoen"> <option value="dark" class="astro-4yphtoen">어두운 테마</option><option value="light" class="astro-4yphtoen">밝은 테마</option><option value="auto" selected class="astro-4yphtoen">자동</option> </select> <svg aria-hidden="true" class="icon caret astro-4yphtoen astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg> </label> </starlight-theme-select>  <script>
+	StarlightThemeProvider.updatePickers();
+</script> <script type="module">const r="starlight-theme",o=e=>e==="auto"||e==="dark"||e==="light"?e:"auto",c=()=>o(typeof localStorage<"u"&&localStorage.getItem(r));function n(e){typeof localStorage<"u"&&localStorage.setItem(r,e==="light"||e==="dark"?e:"")}const l=()=>matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";function t(e){StarlightThemeProvider.updatePickers(e),document.documentElement.dataset.theme=e==="auto"?l():e,n(e)}matchMedia("(prefers-color-scheme: light)").addEventListener("change",()=>{c()==="auto"&&t("auto")});class s extends HTMLElement{constructor(){super(),t(c()),this.querySelector("select")?.addEventListener("change",a=>{a.currentTarget instanceof HTMLSelectElement&&t(o(a.currentTarget.value))})}}customElements.define("starlight-theme-select",s);</script> <script type="module">class s extends HTMLElement{constructor(){super();const e=this.querySelector("select");e&&(e.addEventListener("change",t=>{t.currentTarget instanceof HTMLSelectElement&&(window.location.pathname=t.currentTarget.value)}),window.addEventListener("pageshow",t=>{if(!t.persisted)return;const n=e.querySelector("option[selected]")?.index;n!==e.selectedIndex&&(e.selectedIndex=n??0)}))}}customElements.define("starlight-lang-select",s);</script> </div> </div></header> <nav class="sidebar print:hidden astro-vrdttmbt" aria-label="메인"> <starlight-menu-button class="print:hidden astro-jif73yzw"> <button aria-expanded="false" aria-label="메뉴" aria-controls="starlight__sidebar" class="sl-flex md:sl-hidden astro-jif73yzw"> <svg aria-hidden="true" class="open-menu astro-jif73yzw astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M3 8h18a1 1 0 1 0 0-2H3a1 1 0 0 0 0 2Zm18 8H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Zm0-5H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Z"/></svg> <svg aria-hidden="true" class="close-menu astro-jif73yzw astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="m13.41 12 6.3-6.29a1.004 1.004 0 1 0-1.42-1.42L12 10.59l-6.29-6.3a1.004 1.004 0 0 0-1.42 1.42l6.3 6.29-6.3 6.29a1 1 0 0 0 0 1.42.998.998 0 0 0 1.42 0l6.29-6.3 6.29 6.3a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.42L13.41 12Z"/></svg> </button> </starlight-menu-button> <script type="module">class s extends HTMLElement{constructor(){super(),this.btn=this.querySelector("button"),this.btn.addEventListener("click",()=>this.toggleExpanded());const t=this.closest("nav");t&&t.addEventListener("keyup",e=>this.closeOnEscape(e))}setExpanded(t){this.setAttribute("aria-expanded",String(t)),document.body.toggleAttribute("data-mobile-menu-expanded",t)}toggleExpanded(){this.setExpanded(this.getAttribute("aria-expanded")!=="true")}closeOnEscape(t){t.code==="Escape"&&(this.setExpanded(!1),this.btn.focus())}}customElements.define("starlight-menu-button",s);</script>  <div id="starlight__sidebar" class="sidebar-pane astro-vrdttmbt"> <div class="sidebar-content sl-flex astro-vrdttmbt"> <sl-sidebar-state-persist data-hash="1nyclu0" class="astro-kku4brbg"> <script aria-hidden="true">
+		(() => {
+			try {
+				if (!matchMedia('(min-width: 50em)').matches) return;
+				/** @type {HTMLElement | null} */
+				const target = document.querySelector('sl-sidebar-state-persist');
+				const state = JSON.parse(sessionStorage.getItem('sl-sidebar-state') || '0');
+				if (!target || !state || target.dataset.hash !== state.hash) return;
+				window._starlightScrollRestore = state.scroll;
+				customElements.define(
+					'sl-sidebar-restore',
+					class SidebarRestore extends HTMLElement {
+						connectedCallback() {
+							try {
+								const idx = parseInt(this.dataset.index || '');
+								const details = this.closest('details');
+								if (details && typeof state.open[idx] === 'boolean') details.open = state.open[idx];
+							} catch {}
+						}
+					}
+				);
+			} catch {}
+		})();
+	</script>  <ul class="top-level astro-3ii7xxms"> <li class="astro-3ii7xxms"> <details open class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">대시보드 운영</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="0"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <details open class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">수작업 데이터 업로드</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="1"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/operations/manual-upload/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">시장 데이터 변환 파일</span>  </a> </li> </ul> </details> </li> </ul> </details> </li><li class="astro-3ii7xxms"> <details open class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">대시보드 기획</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="2"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/dashboard/background/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">추진 배경 및 목적</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/dashboard/efficiency-profit/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">효율/수익 지표 정의</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/dashboard/voc-request/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">VoC 개발 요청서</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/files/dashboard_progress_20260521" class="astro-3ii7xxms" target="_blank"> <span class="astro-3ii7xxms">업무 추진 현황 ↗</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/dashboard/wireframes/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">화면 설계 · 와이어프레임</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/dashboard/downloads/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">파일 다운로드</span>  </a> </li> </ul> </details> </li><li class="astro-3ii7xxms"> <details open class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">Medallia 사례 분석</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="3"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/files/agenda_20260528" class="astro-3ii7xxms" target="_blank"> <span class="astro-3ii7xxms">📋 발표 목차 (26.05.28) ↗</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/files/medallia_presentation" class="astro-3ii7xxms" target="_blank"> <span class="astro-3ii7xxms">발표 슬라이드 ↗</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/medallia/meeting-summary/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">미팅 요약</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/medallia/reports/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">분석 보고서 모음</span>  </a> </li> </ul> </details> </li><li class="astro-3ii7xxms"> <details open class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">가이드 &amp; 도구</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="4"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/files/ai_research_workflow_slides" class="astro-3ii7xxms" target="_blank"> <span class="astro-3ii7xxms">AI 워크플로우 슬라이드 ↗</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/files/ai_research_workflow" class="astro-3ii7xxms" target="_blank"> <span class="astro-3ii7xxms">AI 워크플로우 문서 ↗</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/guides/analysis-report/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">보고서 기준 v2.0</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/guides/report-format/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">보고서 서식 가이드</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/guides/sds-word-writer/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">SDS Word Writer</span>  </a> </li> </ul> </details> </li><li class="astro-3ii7xxms"> <a href="/html/upload" class="large astro-3ii7xxms" target="_blank"> <span class="astro-3ii7xxms">📂 파일 업로드</span>  </a> </li> </ul>  <script aria-hidden="true">
+		(() => {
+			const scroller = document.getElementById('starlight__sidebar');
+			if (!window._starlightScrollRestore || !scroller) return;
+			scroller.scrollTop = window._starlightScrollRestore;
+			delete window._starlightScrollRestore;
+		})();
+	</script> </sl-sidebar-state-persist> <div class="md:sl-hidden"> <div class="mobile-preferences sl-flex astro-wu23bvmt"> <div class="social-icons astro-wu23bvmt">  </div> <starlight-theme-select>  <label style="--sl-select-width: 6.25em" class="astro-4yphtoen"> <span class="sr-only astro-4yphtoen">테마 선택</span> <svg aria-hidden="true" class="icon label-icon astro-4yphtoen astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg> <select autocomplete="off" class="astro-4yphtoen"> <option value="dark" class="astro-4yphtoen">어두운 테마</option><option value="light" class="astro-4yphtoen">밝은 테마</option><option value="auto" selected class="astro-4yphtoen">자동</option> </select> <svg aria-hidden="true" class="icon caret astro-4yphtoen astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg> </label> </starlight-theme-select>  <script>
+	StarlightThemeProvider.updatePickers();
+</script>   </div> </div> </div> </div> </nav> <div class="main-frame astro-vrdttmbt">  <script type="module">const a=document.getElementById("starlight__sidebar"),n=a?.querySelector("sl-sidebar-state-persist"),o="sl-sidebar-state",i=()=>{let t=[];const e=n?.dataset.hash||"";try{const s=sessionStorage.getItem(o),r=JSON.parse(s||"{}");Array.isArray(r.open)&&r.hash===e&&(t=r.open)}catch{}return{hash:e,open:t,scroll:a?.scrollTop||0}},c=t=>{try{sessionStorage.setItem(o,JSON.stringify(t))}catch{}},d=()=>c(i()),l=(t,e)=>{const s=i();s.open[e]=t,c(s)};n?.addEventListener("click",t=>{if(!(t.target instanceof Element))return;const e=t.target.closest("summary")?.closest("details");if(!e)return;const s=e.querySelector("sl-sidebar-restore"),r=parseInt(s?.dataset.index||"");isNaN(r)||l(!e.open,r)});addEventListener("visibilitychange",()=>{document.visibilityState==="hidden"&&d()});addEventListener("pageHide",d);</script> <div class="lg:sl-flex astro-67yu43on"> <aside class="right-sidebar-container print:hidden astro-67yu43on"> <div class="right-sidebar astro-67yu43on"> <div class="lg:sl-hidden astro-pb3aqygn"><mobile-starlight-toc data-min-h="2" data-max-h="3" class="astro-doynk5tl"><nav aria-labelledby="starlight__on-this-page--mobile" class="astro-doynk5tl"><details id="starlight__mobile-toc" class="astro-doynk5tl"><summary id="starlight__on-this-page--mobile" class="sl-flex astro-doynk5tl"><span class="toggle sl-flex astro-doynk5tl">목차<svg aria-hidden="true" class="caret astro-doynk5tl astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></span><span class="display-current astro-doynk5tl"></span></summary><div class="dropdown astro-doynk5tl"><ul class="isMobile astro-gnoq344e" style="--depth: 0;"> <li class="astro-gnoq344e" style="--depth: 0;"> <a href="#_top" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">개요</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#목차" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">목차</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#1-페이지-설정-용지여백방향" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">1. 페이지 설정 (용지·여백·방향)</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#2-기본-폰트--타이포그래피" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">2. 기본 폰트 &amp; 타이포그래피</span> </a> <ul class="isMobile astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#바탕체-글꼴-환경별-안내" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">바탕체 글꼴 환경별 안내</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#요소별-서식-정의" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">요소별 서식 정의</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#3-단락-설정-간격줄간격" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">3. 단락 설정 (간격·줄간격)</span> </a> <ul class="isMobile astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#기본-간격-제목날짜요약lv1" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">기본 간격 (제목·날짜·요약·Lv1)</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#본문-레벨별-단락-뒤-간격--다음-줄-레벨에-따른-조건" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">본문 레벨별 단락 뒤 간격 — 다음 줄 레벨에 따른 조건</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#4-글머리-기호-계층-구조" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">4. 글머리 기호 계층 구조</span> </a> <ul class="isMobile astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#lv1lv5-기호-및-입력-방법" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">Lv1~Lv5 기호 및 입력 방법</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#나열-기호-사용-규칙" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">나열 기호 사용 규칙</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#5-들여쓰기--줄바꿈-규칙" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">5. 들여쓰기 &amp; 줄바꿈 규칙</span> </a> <ul class="isMobile astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#51-들여쓰기-설정값" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">5.1 들여쓰기 설정값</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#52-줄바꿈-정렬-원칙" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">5.2 줄바꿈 정렬 원칙</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#6-페이지-번호--문서-끝-표시" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">6. 페이지 번호 &amp; 문서 끝 표시</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#7-word-스타일-설정-요약표" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">7. Word 스타일 설정 요약표</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#8-작성-전-체크리스트" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">8. 작성 전 체크리스트</span> </a>  </li> </ul></div></details></nav></mobile-starlight-toc><script type="module" src="/_astro/MobileTableOfContents.astro_astro_type_script_index_0_lang.hwBsy0Mo.js"></script></div><div class="right-sidebar-panel sl-hidden lg:sl-block astro-pb3aqygn"><div class="sl-container astro-pb3aqygn"><starlight-toc data-min-h="2" data-max-h="3"><nav aria-labelledby="starlight__on-this-page"><h2 id="starlight__on-this-page">목차</h2><ul class="astro-gnoq344e" style="--depth: 0;"> <li class="astro-gnoq344e" style="--depth: 0;"> <a href="#_top" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">개요</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#목차" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">목차</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#1-페이지-설정-용지여백방향" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">1. 페이지 설정 (용지·여백·방향)</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#2-기본-폰트--타이포그래피" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">2. 기본 폰트 &amp; 타이포그래피</span> </a> <ul class="astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#바탕체-글꼴-환경별-안내" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">바탕체 글꼴 환경별 안내</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#요소별-서식-정의" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">요소별 서식 정의</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#3-단락-설정-간격줄간격" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">3. 단락 설정 (간격·줄간격)</span> </a> <ul class="astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#기본-간격-제목날짜요약lv1" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">기본 간격 (제목·날짜·요약·Lv1)</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#본문-레벨별-단락-뒤-간격--다음-줄-레벨에-따른-조건" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">본문 레벨별 단락 뒤 간격 — 다음 줄 레벨에 따른 조건</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#4-글머리-기호-계층-구조" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">4. 글머리 기호 계층 구조</span> </a> <ul class="astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#lv1lv5-기호-및-입력-방법" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">Lv1~Lv5 기호 및 입력 방법</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#나열-기호-사용-규칙" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">나열 기호 사용 규칙</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#5-들여쓰기--줄바꿈-규칙" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">5. 들여쓰기 &amp; 줄바꿈 규칙</span> </a> <ul class="astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#51-들여쓰기-설정값" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">5.1 들여쓰기 설정값</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#52-줄바꿈-정렬-원칙" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">5.2 줄바꿈 정렬 원칙</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#6-페이지-번호--문서-끝-표시" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">6. 페이지 번호 &amp; 문서 끝 표시</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#7-word-스타일-설정-요약표" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">7. Word 스타일 설정 요약표</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#8-작성-전-체크리스트" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">8. 작성 전 체크리스트</span> </a>  </li> </ul></nav></starlight-toc><script type="module" src="/_astro/TableOfContents.astro_astro_type_script_index_0_lang.FuRcXuRY.js"></script></div></div> </div> </aside> <div class="main-pane astro-67yu43on">  <main data-pagefind-body class="astro-bguv2lll" lang="ko" dir="ltr">    <div class="content-panel astro-7nkwcw3z"> <div class="sl-container astro-7nkwcw3z"> <h1 id="_top" class="astro-j6tvhyss">보고서 문서 디자인 스펙 가이드 (Word 기준)</h1> </div> </div> <div class="content-panel astro-7nkwcw3z"> <div class="sl-container astro-7nkwcw3z"> <div class="sl-markdown-content"> <blockquote>
+<p>Microsoft Word 기반 내부 보고 문서의 서식·타이포그래피·단락·들여쓰기를 정의한 스펙 가이드입니다.<br>
+이 문서 자체가 아래에 정의된 스펙을 그대로 적용하여 작성되었습니다.</p>
+</blockquote>
+<p><strong>작성일:</strong> ‘26.05.07   |   <strong>작성팀:</strong> 솔루션사업부 기획팀</p>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="목차">목차</h2><a class="sl-anchor-link" href="#목차"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “목차”</span></a></div>
+<ol>
+<li>페이지 설정 (용지·여백·방향)</li>
+<li>기본 폰트 &#x26; 타이포그래피
+<ul>
+<li>바탕체 글꼴 환경별 안내</li>
+<li>요소별 서식 정의</li>
+</ul>
+</li>
+<li>단락 설정 (간격·줄간격)
+<ul>
+<li>기본 간격 (제목·날짜·요약·Lv1)</li>
+<li>본문 레벨별 조건부 단락 뒤 간격</li>
+</ul>
+</li>
+<li>글머리 기호 계층 구조
+<ul>
+<li>Lv1~Lv5 기호 및 입력 방법</li>
+<li>나열 기호(1) 2) / ① ②) 사용 규칙</li>
+</ul>
+</li>
+<li>들여쓰기 &#x26; 줄바꿈 규칙
+<ul>
+<li>5.1 들여쓰기 설정값</li>
+<li>5.2 줄바꿈 정렬 원칙</li>
+</ul>
+</li>
+<li>페이지 번호 &#x26; 문서 끝 표시</li>
+<li>Word 스타일 설정 요약표</li>
+<li>작성 전 체크리스트</li>
+</ol>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="1-페이지-설정-용지여백방향">1. 페이지 설정 (용지·여백·방향)</h2><a class="sl-anchor-link" href="#1-페이지-설정-용지여백방향"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “1. 페이지 설정 (용지·여백·방향)”</span></a></div>
+<p>□ 설정 경로: 레이아웃 탭 > 페이지 설정 > 여백·용지</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>항목</th><th>설정값</th><th>비고</th></tr></thead><tbody><tr><td>용지 크기</td><td>A4 (210 × 297 mm)</td><td></td></tr><tr><td>방향</td><td>세로 (Portrait)</td><td></td></tr><tr><td>여백 — 위 / 아래</td><td>25 mm</td><td></td></tr><tr><td><strong>여백 — 왼쪽 / 오른쪽</strong></td><td><strong>20 mm</strong></td><td></td></tr><tr><td>머리글 여백</td><td>15 mm</td><td></td></tr><tr><td><strong>바닥글 여백</strong></td><td><strong>8 mm</strong></td><td>페이지 번호 위치 기준</td></tr></tbody></table>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="2-기본-폰트--타이포그래피">2. 기본 폰트 &#x26; 타이포그래피</h2><a class="sl-anchor-link" href="#2-기본-폰트--타이포그래피"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “2. 기본 폰트 &#x26; 타이포그래피”</span></a></div>
+<p>□ 설정 경로: 홈 탭 > 글꼴<br>
+□ 기본 글꼴: 바탕체 (Batang)</p>
+<div class="sl-heading-wrapper level-h3"><h3 id="바탕체-글꼴-환경별-안내">바탕체 글꼴 환경별 안내</h3><a class="sl-anchor-link" href="#바탕체-글꼴-환경별-안내"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “바탕체 글꼴 환경별 안내”</span></a></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>환경</th><th>글꼴 이름</th><th>비고</th></tr></thead><tbody><tr><td>Windows 한글 버전</td><td><strong>바탕 / 바탕체</strong></td><td>OS 기본 제공 — 별도 설치 불필요</td></tr><tr><td>Windows 영문 버전</td><td><strong>Batang / BatangChe</strong></td><td>동일 글꼴, 영문 이름으로 표시</td></tr><tr><td>한컴오피스 설치 시</td><td><strong>함초롬바탕</strong></td><td>바탕체 대체 가능 (자형 유사)</td></tr><tr><td>HY 폰트 보유 시</td><td><strong>HY바탕</strong></td><td>바탕체 대체 가능</td></tr></tbody></table>
+<p>※ Word 글꼴 검색 시 “바탕”으로 검색하면 바탕·바탕체·BatangChe 모두 표시됩니다.</p>
+<div class="sl-heading-wrapper level-h3"><h3 id="요소별-서식-정의">요소별 서식 정의</h3><a class="sl-anchor-link" href="#요소별-서식-정의"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “요소별 서식 정의”</span></a></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>요소</th><th>글꼴</th><th>크기</th><th>스타일</th><th>정렬</th></tr></thead><tbody><tr><td>제목</td><td>바탕체</td><td><strong>20 pt</strong></td><td>굵게 + 밑줄</td><td>가운데</td></tr><tr><td>보고 날짜</td><td>바탕체</td><td><strong>14 pt</strong></td><td>보통</td><td>오른쪽</td></tr><tr><td>요약 문단</td><td>바탕체</td><td><strong>14 pt</strong></td><td>보통</td><td>왼쪽 (1행3열 표 중간 셀)</td></tr><tr><td>소제목 Lv1</td><td>바탕체</td><td><strong>14 pt</strong></td><td>굵게</td><td>왼쪽</td></tr><tr><td>□ 소소제목 Lv2</td><td>바탕체</td><td><strong>14 pt</strong></td><td>보통</td><td>왼쪽</td></tr><tr><td>- 내용 Lv3</td><td>바탕체</td><td><strong>14 pt</strong></td><td>보통</td><td>왼쪽</td></tr><tr><td>· 내용 Lv4</td><td>바탕체</td><td><strong>14 pt</strong></td><td>보통</td><td>왼쪽</td></tr><tr><td>※ 보충 Lv5</td><td>바탕체</td><td><strong>10 pt</strong></td><td>보통</td><td>왼쪽</td></tr></tbody></table>
+<p>□ 요약 문단 표 설정 방법</p>
+<ul>
+<li>삽입 > 표 > 1행 3열 삽입</li>
+<li>중간 셀 선택 → 표 디자인 > 테두리 > 테두리 없음 적용</li>
+<li>중간 셀에 요약 내용 작성 (좌·우 셀은 여백 확보용, 내용 없음)</li>
+</ul>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="3-단락-설정-간격줄간격">3. 단락 설정 (간격·줄간격)</h2><a class="sl-anchor-link" href="#3-단락-설정-간격줄간격"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “3. 단락 설정 (간격·줄간격)”</span></a></div>
+<p>□ 설정 경로: 홈 탭 > 단락 > 줄 및 단락 간격 또는 단락 대화상자 (Alt + H + PG)</p>
+<div class="sl-heading-wrapper level-h3"><h3 id="기본-간격-제목날짜요약lv1">기본 간격 (제목·날짜·요약·Lv1)</h3><a class="sl-anchor-link" href="#기본-간격-제목날짜요약lv1"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “기본 간격 (제목·날짜·요약·Lv1)”</span></a></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>요소</th><th>줄 간격</th><th>단락 앞</th><th>단락 뒤</th><th>비고</th></tr></thead><tbody><tr><td>제목</td><td>1줄 (Single)</td><td>0 pt</td><td><strong>12 pt</strong></td><td></td></tr><tr><td>보고 날짜</td><td>1줄 (Single)</td><td>0 pt</td><td><strong>9 pt</strong></td><td></td></tr><tr><td>요약 문단</td><td>1줄 (Single)</td><td>3 pt</td><td>6 pt</td><td></td></tr><tr><td>소제목 Lv1</td><td>1줄 (Single)</td><td>0 pt</td><td><strong>12 pt</strong></td><td>요약 문단 바로 다음: 앞 16 pt</td></tr></tbody></table>
+<div class="sl-heading-wrapper level-h3"><h3 id="본문-레벨별-단락-뒤-간격--다음-줄-레벨에-따른-조건">본문 레벨별 단락 뒤 간격 — 다음 줄 레벨에 따른 조건</h3><a class="sl-anchor-link" href="#본문-레벨별-단락-뒤-간격--다음-줄-레벨에-따른-조건"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “본문 레벨별 단락 뒤 간격 — 다음 줄 레벨에 따른 조건”</span></a></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>현재 레벨</th><th>기본 뒤 간격</th><th>다음 줄 조건에 따른 뒤 간격</th></tr></thead><tbody><tr><td>Lv2 (□)</td><td><strong>16 pt</strong></td><td>동일 Lv2 줄바꿈 → 9 pt / 다음 Lv1 → 20 pt</td></tr><tr><td>Lv3 (-)</td><td><strong>16 pt</strong></td><td>동일 Lv3 줄바꿈 → 9 pt / 다음 Lv4 → 12 pt / 다음 Lv1~Lv2 → 20 pt</td></tr><tr><td>Lv4 (·)</td><td><strong>12 pt</strong></td><td>동일 Lv4 줄바꿈 → 9 pt / 다음 Lv3 → 16 pt / 다음 Lv1~Lv2 → 20 pt</td></tr><tr><td>Lv5 (※)</td><td><strong>12 pt</strong></td><td>동일 Lv5 줄바꿈 → 9 pt / 다음 Lv4 → 12 pt / 다음 Lv3 → 16 pt / 다음 Lv1~Lv2 → 20 pt</td></tr></tbody></table>
+<p>※ 줄 간격을 고정값(Exactly)으로 설정하면 글자가 잘릴 수 있습니다. 모든 레벨은 1줄(Single) 옵션을 사용하세요.</p>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="4-글머리-기호-계층-구조">4. 글머리 기호 계층 구조</h2><a class="sl-anchor-link" href="#4-글머리-기호-계층-구조"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “4. 글머리 기호 계층 구조”</span></a></div>
+<div class="sl-heading-wrapper level-h3"><h3 id="lv1lv5-기호-및-입력-방법">Lv1~Lv5 기호 및 입력 방법</h3><a class="sl-anchor-link" href="#lv1lv5-기호-및-입력-방법"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “Lv1~Lv5 기호 및 입력 방법”</span></a></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>레벨</th><th>기호</th><th>입력 방법</th><th>비고</th></tr></thead><tbody><tr><td>Lv 1</td><td><strong>1.</strong></td><td>숫자 및 마침표 직접 입력</td><td>자동 번호 매기기 사용 안 함</td></tr><tr><td>Lv 2</td><td><strong>□</strong></td><td>직접 입력 (유니코드 25A1 + Alt+X)</td><td>공백 1칸</td></tr><tr><td>Lv 3</td><td><strong>-</strong></td><td>하이픈 직접 입력</td><td>공백 3칸 / 자동 대시 변환 주의</td></tr><tr><td>Lv 4</td><td><strong>·</strong></td><td>직접 입력 (유니코드 00B7 + Alt+X)</td><td>공백 5칸</td></tr><tr><td>Lv 5</td><td><strong>※</strong></td><td>직접 입력</td><td>공백 7칸 / 10pt / 보충·주석</td></tr></tbody></table>
+<div class="sl-heading-wrapper level-h3"><h3 id="나열-기호-사용-규칙">나열 기호 사용 규칙</h3><a class="sl-anchor-link" href="#나열-기호-사용-규칙"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “나열 기호 사용 규칙”</span></a></div>
+<ul>
+<li>Lv3~Lv4에서 동일 수준 내용 나열 또는 순서 표시 시 <code dir="auto">1) 2) 3)</code> 또는 <code dir="auto">① ② ③</code> 사용 가능</li>
+<li>이 경우 기존 글머리 기호(- · 등)는 한 단계씩 하위 레벨로 내려감</li>
+</ul>
+<p>※ 하이픈(-)이 대시(—)로 자동 변환되는 경우: 파일 > 옵션 > 언어 교정 > 자동 고침 옵션 > “하이픈을 대시로” 해제</p>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="5-들여쓰기--줄바꿈-규칙">5. 들여쓰기 &#x26; 줄바꿈 규칙</h2><a class="sl-anchor-link" href="#5-들여쓰기--줄바꿈-규칙"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “5. 들여쓰기 &#x26; 줄바꿈 규칙”</span></a></div>
+<div class="sl-heading-wrapper level-h3"><h3 id="51-들여쓰기-설정값">5.1 들여쓰기 설정값</h3><a class="sl-anchor-link" href="#51-들여쓰기-설정값"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “5.1 들여쓰기 설정값”</span></a></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>레벨</th><th>기호</th><th>왼쪽 들여쓰기</th><th>내어쓰기 (Hanging)</th><th>비고</th></tr></thead><tbody><tr><td>Lv 1</td><td>1.</td><td><strong>공백 0칸</strong></td><td>없음</td><td>직접 입력, 자동 번호 매기기 사용 안 함</td></tr><tr><td>Lv 2</td><td>□</td><td><strong>공백 1칸</strong></td><td>없음</td><td>일반 공백(Space) 사용</td></tr><tr><td>Lv 3</td><td>-</td><td><strong>공백 3칸</strong></td><td>없음</td><td>일반 공백(Space) 사용</td></tr><tr><td>Lv 4</td><td>·</td><td><strong>공백 5칸</strong></td><td>없음</td><td>일반 공백(Space) 사용</td></tr><tr><td>Lv 5</td><td>※</td><td><strong>공백 7칸</strong></td><td>없음</td><td>일반 공백(Space) 사용</td></tr></tbody></table>
+<p>※ 내어쓰기(Hanging Indent)를 적용하지 않습니다. 모든 들여쓰기는 일반 공백(Space)으로 처리합니다.</p>
+<div class="sl-heading-wrapper level-h3"><h3 id="52-줄바꿈-정렬-원칙">5.2 줄바꿈 정렬 원칙</h3><a class="sl-anchor-link" href="#52-줄바꿈-정렬-원칙"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “5.2 줄바꿈 정렬 원칙”</span></a></div>
+<ul>
+<li>한 줄 안에 내용이 마무리되지 않을 경우 Enter로 강제 개행</li>
+<li>동일 레벨 줄바꿈 후 왼쪽 들여쓰기는 해당 레벨의 공백 수에 2칸 추가
+· 예시: Lv3(-) 줄바꿈 후 → 공백 5칸 (3칸 + 2칸 추가)으로 맞춤 정렬
+· 예시: Lv2(□) 줄바꿈 후 → 공백 3칸 (1칸 + 2칸 추가)으로 맞춤 정렬</li>
+</ul>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="6-페이지-번호--문서-끝-표시">6. 페이지 번호 &#x26; 문서 끝 표시</h2><a class="sl-anchor-link" href="#6-페이지-번호--문서-끝-표시"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “6. 페이지 번호 &#x26; 문서 끝 표시”</span></a></div>
+<p>□ 페이지 번호</p>
+<ul>
+<li>삽입 위치: 바닥글 가운데</li>
+<li>형식: <code dir="auto">- 1 -</code> (숫자 양측 공백 + 대시)</li>
+<li>글꼴 크기: 12 pt</li>
+<li>설정 경로: 삽입 > 머리글/바닥글 > 페이지 번호</li>
+</ul>
+<p>□ 문서 끝 표시</p>
+<ul>
+<li>텍스트: <code dir="auto">- 以 上 -</code></li>
+<li>정렬: 오른쪽 정렬</li>
+<li>글꼴 크기: 14 pt / 자간 넓게 (6 pt)</li>
+<li>위치: 마지막 본문 아래</li>
+</ul>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="7-word-스타일-설정-요약표">7. Word 스타일 설정 요약표</h2><a class="sl-anchor-link" href="#7-word-스타일-설정-요약표"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “7. Word 스타일 설정 요약표”</span></a></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>요소</th><th>글꼴</th><th>크기</th><th>스타일</th><th>정렬</th><th>줄간격</th><th>단락 간격</th><th>들여쓰기</th></tr></thead><tbody><tr><td>제목</td><td>바탕체</td><td><strong>20 pt</strong></td><td>Bold + 밑줄</td><td>가운데</td><td>1줄</td><td>뒤 12 pt</td><td>없음</td></tr><tr><td>날짜</td><td>바탕체</td><td><strong>14 pt</strong></td><td>Regular</td><td>오른쪽</td><td>1줄</td><td>뒤 9 pt</td><td>없음</td></tr><tr><td>요약 (표 중간 셀)</td><td>바탕체</td><td><strong>14 pt</strong></td><td>Regular</td><td>왼쪽</td><td>1줄</td><td>앞3/뒤6 pt</td><td>없음</td></tr><tr><td>소제목 Lv1</td><td>바탕체</td><td><strong>14 pt</strong></td><td>Bold</td><td>왼쪽</td><td>1줄</td><td>뒤 12 pt (요약 다음: 앞 16pt)</td><td>공백 0칸</td></tr><tr><td>□ Lv2</td><td>바탕체</td><td><strong>14 pt</strong></td><td>Regular</td><td>왼쪽</td><td>1줄</td><td>기본 뒤 16 pt (조건별 9~20 pt)</td><td>공백 1칸</td></tr><tr><td>- Lv3</td><td>바탕체</td><td><strong>14 pt</strong></td><td>Regular</td><td>왼쪽</td><td>1줄</td><td>기본 뒤 16 pt (조건별 9~20 pt)</td><td>공백 3칸</td></tr><tr><td>· Lv4</td><td>바탕체</td><td><strong>14 pt</strong></td><td>Regular</td><td>왼쪽</td><td>1줄</td><td>기본 뒤 12 pt (조건별 9~20 pt)</td><td>공백 5칸</td></tr><tr><td>※ Lv5</td><td>바탕체</td><td><strong>10 pt</strong></td><td>Regular</td><td>왼쪽</td><td>1줄</td><td>기본 뒤 12 pt (조건별 9~20 pt)</td><td>공백 7칸</td></tr><tr><td>- 以 上 -</td><td>바탕체</td><td><strong>14 pt</strong></td><td>Regular</td><td>오른쪽</td><td>1줄</td><td>앞 24 pt</td><td>없음</td></tr><tr><td>페이지 번호</td><td>바탕체</td><td><strong>12 pt</strong></td><td>Regular</td><td>가운데</td><td>1줄</td><td>—</td><td>바닥글 내</td></tr></tbody></table>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="8-작성-전-체크리스트">8. 작성 전 체크리스트</h2><a class="sl-anchor-link" href="#8-작성-전-체크리스트"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “8. 작성 전 체크리스트”</span></a></div>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> 페이지 설정: A4 / 좌우 여백 20 mm / 바닥글 여백 8 mm 확인</li>
+<li class="task-list-item"><input type="checkbox" disabled> 제목: 바탕체 20pt · Bold · 밑줄 · 가운데 정렬 적용</li>
+<li class="task-list-item"><input type="checkbox" disabled> 날짜 형식
+<ul>
+<li>보고 날짜: ‘YY.MM.DD 형식 / 오른쪽 정렬</li>
+<li>본문 중 날짜: ‘YY.M월 또는 ‘YY/MM/DD 형식</li>
+</ul>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled> 요약 문단: 1행 3열 표 삽입 · 중간 셀 테두리 없음 · 14pt 왼쪽 정렬</li>
+<li class="task-list-item"><input type="checkbox" disabled> 소제목: 14pt Bold · 자동 번호 매기기 해제 · 숫자+마침표 직접 입력</li>
+<li class="task-list-item"><input type="checkbox" disabled> 계층 순서: 1. → □ → - → · → ※ 준수 (레벨 건너뛰기 금지)</li>
+<li class="task-list-item"><input type="checkbox" disabled> 들여쓰기: 내어쓰기(Hanging Indent) 적용하지 않음 · 일반 공백(Space) 사용</li>
+<li class="task-list-item"><input type="checkbox" disabled> 페이지 번호: <code dir="auto">- N -</code> 형식 · 바닥글 가운데 · 12pt</li>
+<li class="task-list-item"><input type="checkbox" disabled> 문서 끝: <code dir="auto">- 以 上 -</code> 오른쪽 정렬 · 14pt</li>
+<li class="task-list-item"><input type="checkbox" disabled> Word 자동 고침 옵션 해제 (파일 > 옵션 > 언어 교정 > 자동 고침 옵션)
+<ul>
+<li>곧은 따옴표를 둥근 따옴표로</li>
+<li>하이픈을 대시로</li>
+<li>첫 줄을 들여쓴 단락의 맨 첫 부분 간격</li>
+<li>자동으로 글머리 기호 넣기</li>
+<li>자동으로 번호 매기기</li>
+<li>목록 항목의 첫 부분을 이전 항목과 같게 서식 적용</li>
+<li>탭과 백스페이스 넣을 때 첫 부분에 왼쪽으로 들여쓰기</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><em>- 以 上 -</em></p> </div> <footer class="sl-flex astro-3yyafb3n"> <div class="meta sl-flex astro-3yyafb3n">   </div> <div class="pagination-links print:hidden astro-u2l5gyhi" dir="ltr">   </div>  </footer> </div> </div>  </main> </div> </div> </div> </div> </body></html>

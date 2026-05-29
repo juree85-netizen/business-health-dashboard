@@ -1,0 +1,67 @@
+---
+title: 수작업 데이터 업로드
+description: 시장 데이터 수기 입력본을 기존 문서 틀에 맞춰 변환한 파일 모음
+---
+
+## 시장 데이터 변환 파일
+
+수기(수작업)로 작성된 시장 데이터를 DB 업로드용 포맷(Long format)으로 변환한 파일입니다.
+
+### 파일 정보
+
+| 항목 | 내용 |
+|------|------|
+| 대상 상품 | Brity Automation, Knox (All), Nexprime HCM, Nexprime SCM (All), EMM, ZTM |
+| 기준 연도 | 2023 ~ 2028 (upload_year: 2025) |
+| 출력 행수 | 2,178행 (198 소스 행 × 11 카테고리) |
+| 파일 형식 | TSV (탭 구분, UTF-8 BOM) |
+
+### 다운로드
+
+[⬇ market_data_converted.tsv](/files/market_data_converted.tsv)
+
+---
+
+## 컬럼 구조 (기존 틀 포맷)
+
+| 컬럼 | 설명 |
+|------|------|
+| `year` | 데이터 기준 연도 |
+| `category` | 지표 구분 (tam, ext_sam, rnd 등) |
+| `value` | 값 또는 수식/출처 문자열 |
+| `product` | 상품명 |
+| `domestic_global` | Domestic / Global |
+| `on_prem_cloud` | On-prem / Cloud |
+| `biz_type` | SI/SM / Solution / MSP / SaaS |
+| `ww010` | 상품 코드 |
+| `upload_year` | 입력 기준 연도 |
+
+---
+
+## 카테고리별 value 처리 방식
+
+| category | value 처리 |
+|----------|-----------|
+| `tam` | 수기 입력값 (억원) |
+| `ext_sam` | 수기 입력값 (억원) |
+| `rnd` | 수기 입력값 (억원) |
+| `tam_grw` | 자동 계산: `(TAM_N - TAM_N-1) / TAM_N-1` |
+| `sam_grw` | 자동 계산: `(SAM_N - SAM_N-1) / SAM_N-1` |
+| `revenue` | DB 출처: `l_sap.orderlist > vf219` |
+| `sales_marketing` | DB 출처: `l_sap.orderlist > vf599` |
+| `revenue_grw` | 수식: `(vf219_N - vf219_N-1) / vf219_N-1` |
+| `rnd_rto` | 수식: `rnd / vf219 * 100` |
+| `sales_rto` | 수식: `vf599 / vf219 * 100` |
+| `marketshare` | 수식: `vf219 / TAM` |
+
+---
+
+## Excel에서 열기
+
+1. 위 링크로 파일 다운로드
+2. 확장자 `.tsv` → `.txt` 로 변경
+3. Excel에서 열기 → 텍스트 마법사 실행
+   - 원본 형식: **구분 기호로 분리됨**
+   - 파일 원본: **65001: Unicode (UTF-8)**
+   - 구분 기호: **탭**
+4. 마침 → 확인

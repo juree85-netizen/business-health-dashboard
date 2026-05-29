@@ -1,0 +1,670 @@
+<!DOCTYPE html><html lang="ko" dir="ltr" data-theme="dark" data-has-toc data-has-sidebar class="astro-bguv2lll"> <head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>분석보고서 작성 기준 (Claude 최적화 v2.0) | BizHealth Docs Hub</title><link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml"/><meta name="generator" content="Astro v6.1.8"/><meta name="generator" content="Starlight v0.38.3"/><meta property="og:title" content="분석보고서 작성 기준 (Claude 최적화 v2.0)"/><meta property="og:type" content="article"/><meta property="og:locale" content="ko"/><meta property="og:description" content="Claude가 내부 분석보고서를 Microsoft Word 형식으로 작성할 때 준수해야 할 서식·문체·구성 기준 — 빠른 참조 10대 규칙, Claude 흔한 오류 목록, 자가 검증 체크리스트 포함"/><meta property="og:site_name" content="BizHealth Docs Hub"/><meta name="twitter:card" content="summary_large_image"/><meta name="description" content="Claude가 내부 분석보고서를 Microsoft Word 형식으로 작성할 때 준수해야 할 서식·문체·구성 기준 — 빠른 참조 10대 규칙, Claude 흔한 오류 목록, 자가 검증 체크리스트 포함"/><script>
+	window.StarlightThemeProvider = (() => {
+		const storedTheme =
+			typeof localStorage !== 'undefined' && localStorage.getItem('starlight-theme');
+		const theme =
+			storedTheme ||
+			(window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+		document.documentElement.dataset.theme = theme === 'light' ? 'light' : 'dark';
+		return {
+			updatePickers(theme = storedTheme || 'auto') {
+				document.querySelectorAll('starlight-theme-select').forEach((picker) => {
+					const select = picker.querySelector('select');
+					if (select) select.value = theme;
+					/** @type {HTMLTemplateElement | null} */
+					const tmpl = document.querySelector(`#theme-icons`);
+					const newIcon = tmpl && tmpl.content.querySelector('.' + theme);
+					if (newIcon) {
+						const oldIcon = picker.querySelector('svg.label-icon');
+						if (oldIcon) {
+							oldIcon.replaceChildren(...newIcon.cloneNode(true).childNodes);
+						}
+					}
+				});
+			},
+		};
+	})();
+</script><template id="theme-icons"><svg aria-hidden="true" class="light astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M5 12a1 1 0 0 0-1-1H3a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1Zm.64 5-.71.71a1 1 0 0 0 0 1.41 1 1 0 0 0 1.41 0l.71-.71A1 1 0 0 0 5.64 17ZM12 5a1 1 0 0 0 1-1V3a1 1 0 0 0-2 0v1a1 1 0 0 0 1 1Zm5.66 2.34a1 1 0 0 0 .7-.29l.71-.71a1 1 0 1 0-1.41-1.41l-.66.71a1 1 0 0 0 0 1.41 1 1 0 0 0 .66.29Zm-12-.29a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.71-.71a1.004 1.004 0 1 0-1.43 1.41l.73.71ZM21 11h-1a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2Zm-2.64 6A1 1 0 0 0 17 18.36l.71.71a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.76-.66ZM12 6.5a5.5 5.5 0 1 0 5.5 5.5A5.51 5.51 0 0 0 12 6.5Zm0 9a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Zm0 3.5a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 0-1-1Z"/></svg><svg aria-hidden="true" class="dark astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.64 13a1 1 0 0 0-1.05-.14 8.049 8.049 0 0 1-3.37.73 8.15 8.15 0 0 1-8.14-8.1 8.59 8.59 0 0 1 .25-2A1 1 0 0 0 8 2.36a10.14 10.14 0 1 0 14 11.69 1 1 0 0 0-.36-1.05Zm-9.5 6.69A8.14 8.14 0 0 1 7.08 5.22v.27a10.15 10.15 0 0 0 10.14 10.14 9.784 9.784 0 0 0 2.1-.22 8.11 8.11 0 0 1-7.18 4.32v-.04Z"/></svg><svg aria-hidden="true" class="auto astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg></template><link rel="stylesheet" href="/_astro/print.DNXP8c50.css" media="print"><link rel="stylesheet" href="/_astro/common.D7oqlvXR.css"><script type="module" src="/_astro/page.BIhdncjw.js"></script></head> <body class="astro-bguv2lll"> <a href="#_top" class="astro-7q3lir66">콘텐츠로 이동</a> <div class="page sl-flex astro-vrdttmbt"> <header class="header astro-vrdttmbt"><div class="header astro-kmkmnagf"> <div class="title-wrapper sl-flex astro-kmkmnagf"> <a href="/" class="site-title sl-flex astro-m46x6ez3">  <span class="astro-m46x6ez3" translate="no"> BizHealth Docs Hub </span> </a> </div> <div class="sl-flex print:hidden astro-kmkmnagf"> <site-search class="astro-kmkmnagf astro-v37mnknz" data-translations="{&#34;placeholder&#34;:&#34;검색&#34;}"> <button data-open-modal disabled aria-label="검색" aria-keyshortcuts="Control+K" class="astro-v37mnknz"> <svg aria-hidden="true" class="astro-v37mnknz astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.71 20.29 18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14Z"/></svg> <span class="sl-hidden md:sl-block astro-v37mnknz" aria-hidden="true">검색</span> <kbd class="sl-hidden md:sl-flex astro-v37mnknz" style="display: none;"> <kbd class="astro-v37mnknz">Ctrl</kbd><kbd class="astro-v37mnknz">K</kbd> </kbd> </button> <dialog style="padding:0" aria-label="검색" class="astro-v37mnknz"> <div class="dialog-frame sl-flex astro-v37mnknz">  <button data-close-modal class="sl-flex md:sl-hidden astro-v37mnknz"> 취소 </button> <div class="search-container astro-v37mnknz"> <div id="starlight__search" class="astro-v37mnknz"></div> </div> </div> </dialog> </site-search>  <script>
+	(() => {
+		const openBtn = document.querySelector('button[data-open-modal]');
+		const shortcut = openBtn?.querySelector('kbd');
+		if (!openBtn || !(shortcut instanceof HTMLElement)) return;
+		const platformKey = shortcut.querySelector('kbd');
+		if (platformKey && /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)) {
+			platformKey.textContent = '⌘';
+			openBtn.setAttribute('aria-keyshortcuts', 'Meta+K');
+		}
+		shortcut.style.display = '';
+	})();
+</script> <script type="module" src="/_astro/Search.astro_astro_type_script_index_0_lang.Rw77DzG6.js"></script>  </div> <div class="sl-hidden md:sl-flex print:hidden right-group astro-kmkmnagf"> <div class="sl-flex social-icons astro-kmkmnagf">  </div> <starlight-theme-select>  <label style="--sl-select-width: 6.25em" class="astro-4yphtoen"> <span class="sr-only astro-4yphtoen">테마 선택</span> <svg aria-hidden="true" class="icon label-icon astro-4yphtoen astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg> <select autocomplete="off" class="astro-4yphtoen"> <option value="dark" class="astro-4yphtoen">어두운 테마</option><option value="light" class="astro-4yphtoen">밝은 테마</option><option value="auto" selected class="astro-4yphtoen">자동</option> </select> <svg aria-hidden="true" class="icon caret astro-4yphtoen astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg> </label> </starlight-theme-select>  <script>
+	StarlightThemeProvider.updatePickers();
+</script> <script type="module">const r="starlight-theme",o=e=>e==="auto"||e==="dark"||e==="light"?e:"auto",c=()=>o(typeof localStorage<"u"&&localStorage.getItem(r));function n(e){typeof localStorage<"u"&&localStorage.setItem(r,e==="light"||e==="dark"?e:"")}const l=()=>matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";function t(e){StarlightThemeProvider.updatePickers(e),document.documentElement.dataset.theme=e==="auto"?l():e,n(e)}matchMedia("(prefers-color-scheme: light)").addEventListener("change",()=>{c()==="auto"&&t("auto")});class s extends HTMLElement{constructor(){super(),t(c()),this.querySelector("select")?.addEventListener("change",a=>{a.currentTarget instanceof HTMLSelectElement&&t(o(a.currentTarget.value))})}}customElements.define("starlight-theme-select",s);</script> <script type="module">class s extends HTMLElement{constructor(){super();const e=this.querySelector("select");e&&(e.addEventListener("change",t=>{t.currentTarget instanceof HTMLSelectElement&&(window.location.pathname=t.currentTarget.value)}),window.addEventListener("pageshow",t=>{if(!t.persisted)return;const n=e.querySelector("option[selected]")?.index;n!==e.selectedIndex&&(e.selectedIndex=n??0)}))}}customElements.define("starlight-lang-select",s);</script> </div> </div></header> <nav class="sidebar print:hidden astro-vrdttmbt" aria-label="메인"> <starlight-menu-button class="print:hidden astro-jif73yzw"> <button aria-expanded="false" aria-label="메뉴" aria-controls="starlight__sidebar" class="sl-flex md:sl-hidden astro-jif73yzw"> <svg aria-hidden="true" class="open-menu astro-jif73yzw astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M3 8h18a1 1 0 1 0 0-2H3a1 1 0 0 0 0 2Zm18 8H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Zm0-5H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Z"/></svg> <svg aria-hidden="true" class="close-menu astro-jif73yzw astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="m13.41 12 6.3-6.29a1.004 1.004 0 1 0-1.42-1.42L12 10.59l-6.29-6.3a1.004 1.004 0 0 0-1.42 1.42l6.3 6.29-6.3 6.29a1 1 0 0 0 0 1.42.998.998 0 0 0 1.42 0l6.29-6.3 6.29 6.3a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.42L13.41 12Z"/></svg> </button> </starlight-menu-button> <script type="module">class s extends HTMLElement{constructor(){super(),this.btn=this.querySelector("button"),this.btn.addEventListener("click",()=>this.toggleExpanded());const t=this.closest("nav");t&&t.addEventListener("keyup",e=>this.closeOnEscape(e))}setExpanded(t){this.setAttribute("aria-expanded",String(t)),document.body.toggleAttribute("data-mobile-menu-expanded",t)}toggleExpanded(){this.setExpanded(this.getAttribute("aria-expanded")!=="true")}closeOnEscape(t){t.code==="Escape"&&(this.setExpanded(!1),this.btn.focus())}}customElements.define("starlight-menu-button",s);</script>  <div id="starlight__sidebar" class="sidebar-pane astro-vrdttmbt"> <div class="sidebar-content sl-flex astro-vrdttmbt"> <sl-sidebar-state-persist data-hash="1nyclu0" class="astro-kku4brbg"> <script aria-hidden="true">
+		(() => {
+			try {
+				if (!matchMedia('(min-width: 50em)').matches) return;
+				/** @type {HTMLElement | null} */
+				const target = document.querySelector('sl-sidebar-state-persist');
+				const state = JSON.parse(sessionStorage.getItem('sl-sidebar-state') || '0');
+				if (!target || !state || target.dataset.hash !== state.hash) return;
+				window._starlightScrollRestore = state.scroll;
+				customElements.define(
+					'sl-sidebar-restore',
+					class SidebarRestore extends HTMLElement {
+						connectedCallback() {
+							try {
+								const idx = parseInt(this.dataset.index || '');
+								const details = this.closest('details');
+								if (details && typeof state.open[idx] === 'boolean') details.open = state.open[idx];
+							} catch {}
+						}
+					}
+				);
+			} catch {}
+		})();
+	</script>  <ul class="top-level astro-3ii7xxms"> <li class="astro-3ii7xxms"> <details open class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">대시보드 운영</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="0"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <details open class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">수작업 데이터 업로드</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="1"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/operations/manual-upload/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">시장 데이터 변환 파일</span>  </a> </li> </ul> </details> </li> </ul> </details> </li><li class="astro-3ii7xxms"> <details open class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">대시보드 기획</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="2"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/dashboard/background/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">추진 배경 및 목적</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/dashboard/efficiency-profit/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">효율/수익 지표 정의</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/dashboard/voc-request/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">VoC 개발 요청서</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/files/dashboard_progress_20260521" class="astro-3ii7xxms" target="_blank"> <span class="astro-3ii7xxms">업무 추진 현황 ↗</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/dashboard/wireframes/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">화면 설계 · 와이어프레임</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/dashboard/downloads/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">파일 다운로드</span>  </a> </li> </ul> </details> </li><li class="astro-3ii7xxms"> <details open class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">Medallia 사례 분석</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="3"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/files/agenda_20260528" class="astro-3ii7xxms" target="_blank"> <span class="astro-3ii7xxms">📋 발표 목차 (26.05.28) ↗</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/files/medallia_presentation" class="astro-3ii7xxms" target="_blank"> <span class="astro-3ii7xxms">발표 슬라이드 ↗</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/medallia/meeting-summary/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">미팅 요약</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/medallia/reports/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">분석 보고서 모음</span>  </a> </li> </ul> </details> </li><li class="astro-3ii7xxms"> <details open class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">가이드 &amp; 도구</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="4"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/files/ai_research_workflow_slides" class="astro-3ii7xxms" target="_blank"> <span class="astro-3ii7xxms">AI 워크플로우 슬라이드 ↗</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/files/ai_research_workflow" class="astro-3ii7xxms" target="_blank"> <span class="astro-3ii7xxms">AI 워크플로우 문서 ↗</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/guides/analysis-report/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">보고서 기준 v2.0</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/guides/report-format/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">보고서 서식 가이드</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/guides/sds-word-writer/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">SDS Word Writer</span>  </a> </li> </ul> </details> </li><li class="astro-3ii7xxms"> <a href="/html/upload" class="large astro-3ii7xxms" target="_blank"> <span class="astro-3ii7xxms">📂 파일 업로드</span>  </a> </li> </ul>  <script aria-hidden="true">
+		(() => {
+			const scroller = document.getElementById('starlight__sidebar');
+			if (!window._starlightScrollRestore || !scroller) return;
+			scroller.scrollTop = window._starlightScrollRestore;
+			delete window._starlightScrollRestore;
+		})();
+	</script> </sl-sidebar-state-persist> <div class="md:sl-hidden"> <div class="mobile-preferences sl-flex astro-wu23bvmt"> <div class="social-icons astro-wu23bvmt">  </div> <starlight-theme-select>  <label style="--sl-select-width: 6.25em" class="astro-4yphtoen"> <span class="sr-only astro-4yphtoen">테마 선택</span> <svg aria-hidden="true" class="icon label-icon astro-4yphtoen astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg> <select autocomplete="off" class="astro-4yphtoen"> <option value="dark" class="astro-4yphtoen">어두운 테마</option><option value="light" class="astro-4yphtoen">밝은 테마</option><option value="auto" selected class="astro-4yphtoen">자동</option> </select> <svg aria-hidden="true" class="icon caret astro-4yphtoen astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg> </label> </starlight-theme-select>  <script>
+	StarlightThemeProvider.updatePickers();
+</script>   </div> </div> </div> </div> </nav> <div class="main-frame astro-vrdttmbt">  <script type="module">const a=document.getElementById("starlight__sidebar"),n=a?.querySelector("sl-sidebar-state-persist"),o="sl-sidebar-state",i=()=>{let t=[];const e=n?.dataset.hash||"";try{const s=sessionStorage.getItem(o),r=JSON.parse(s||"{}");Array.isArray(r.open)&&r.hash===e&&(t=r.open)}catch{}return{hash:e,open:t,scroll:a?.scrollTop||0}},c=t=>{try{sessionStorage.setItem(o,JSON.stringify(t))}catch{}},d=()=>c(i()),l=(t,e)=>{const s=i();s.open[e]=t,c(s)};n?.addEventListener("click",t=>{if(!(t.target instanceof Element))return;const e=t.target.closest("summary")?.closest("details");if(!e)return;const s=e.querySelector("sl-sidebar-restore"),r=parseInt(s?.dataset.index||"");isNaN(r)||l(!e.open,r)});addEventListener("visibilitychange",()=>{document.visibilityState==="hidden"&&d()});addEventListener("pageHide",d);</script> <div class="lg:sl-flex astro-67yu43on"> <aside class="right-sidebar-container print:hidden astro-67yu43on"> <div class="right-sidebar astro-67yu43on"> <div class="lg:sl-hidden astro-pb3aqygn"><mobile-starlight-toc data-min-h="2" data-max-h="3" class="astro-doynk5tl"><nav aria-labelledby="starlight__on-this-page--mobile" class="astro-doynk5tl"><details id="starlight__mobile-toc" class="astro-doynk5tl"><summary id="starlight__on-this-page--mobile" class="sl-flex astro-doynk5tl"><span class="toggle sl-flex astro-doynk5tl">목차<svg aria-hidden="true" class="caret astro-doynk5tl astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></span><span class="display-current astro-doynk5tl"></span></summary><div class="dropdown astro-doynk5tl"><ul class="isMobile astro-gnoq344e" style="--depth: 0;"> <li class="astro-gnoq344e" style="--depth: 0;"> <a href="#_top" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">개요</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#0-claude-빠른-참조-10대-핵심-규칙" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">0. Claude 빠른 참조 (10대 핵심 규칙)</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#1-목적-및-적용-범위" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">1. 목적 및 적용 범위</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#2-분석보고서-품질-원칙" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">2. 분석보고서 품질 원칙</span> </a> <ul class="isMobile astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#21-결론-중심" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">2.1. 결론 중심</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#22-사실해석제안의-분리" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">2.2. 사실·해석·제안의 분리</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#23-근거-기반-작성" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">2.3. 근거 기반 작성</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#24-실행-가능성" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">2.4. 실행 가능성</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#3-문체-및-표기-기준" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">3. 문체 및 표기 기준</span> </a> <ul class="isMobile astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#31-어조" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">3.1. 어조</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#32-명사-우선명사형-종결" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">3.2. 명사 우선·명사형 종결</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#33-문장-구조" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">3.3. 문장 구조</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#34-한자-직접-표기" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">3.4. 한자 직접 표기</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#35-영문-병기" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">3.5. 영문 병기</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#36-날짜-표기" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">3.6. 날짜 표기</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#4-권장-보고서-구성" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">4. 권장 보고서 구성</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#5-microsoft-word-문서-디자인-스펙" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">5. Microsoft Word 문서 디자인 스펙</span> </a> <ul class="isMobile astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#51-문서-기본-설정" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">5.1. 문서 기본 설정</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#52-머리말-구성" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">5.2. 머리말 구성</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#53-요약-표-1행-3열" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">5.3. 요약 표 (1행 3열)</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#54-본문-계층-구조" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">5.4. 본문 계층 구조</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#55-계층-작성-규칙" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">5.5. 계층 작성 규칙</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#56-마무리" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">5.6. 마무리</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#6-claude-생성-지침" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">6. Claude 생성 지침</span> </a> <ul class="isMobile astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#61-생성-전-확인사항" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">6.1. 생성 전 확인사항</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#62-claude-생성-순서" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">6.2. Claude 생성 순서</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#63-claude-흔한-오류-목록" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">6.3. Claude 흔한 오류 목록</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#64-행말-자간-보정-사람만-수행" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">6.4. 행말 자간 보정 (사람만 수행)</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#7-예시-출력-형태" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">7. 예시 출력 형태</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#8-word-작업환경-설정-사람-수행" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">8. Word 작업환경 설정 (사람 수행)</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#9-검증-기준" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">9. 검증 기준</span> </a> <ul class="isMobile astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#91-claude-자가-검증-생성-직후" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">9.1. Claude 자가 검증 (생성 직후)</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#92-시각-검증-사람-수행" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">9.2. 시각 검증 (사람 수행)</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#93-완료-조건" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">9.3. 완료 조건</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#10-인코딩-및-문자-보존" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">10. 인코딩 및 문자 보존</span> </a>  </li> </ul></div></details></nav></mobile-starlight-toc><script type="module" src="/_astro/MobileTableOfContents.astro_astro_type_script_index_0_lang.hwBsy0Mo.js"></script></div><div class="right-sidebar-panel sl-hidden lg:sl-block astro-pb3aqygn"><div class="sl-container astro-pb3aqygn"><starlight-toc data-min-h="2" data-max-h="3"><nav aria-labelledby="starlight__on-this-page"><h2 id="starlight__on-this-page">목차</h2><ul class="astro-gnoq344e" style="--depth: 0;"> <li class="astro-gnoq344e" style="--depth: 0;"> <a href="#_top" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">개요</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#0-claude-빠른-참조-10대-핵심-규칙" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">0. Claude 빠른 참조 (10대 핵심 규칙)</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#1-목적-및-적용-범위" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">1. 목적 및 적용 범위</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#2-분석보고서-품질-원칙" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">2. 분석보고서 품질 원칙</span> </a> <ul class="astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#21-결론-중심" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">2.1. 결론 중심</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#22-사실해석제안의-분리" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">2.2. 사실·해석·제안의 분리</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#23-근거-기반-작성" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">2.3. 근거 기반 작성</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#24-실행-가능성" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">2.4. 실행 가능성</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#3-문체-및-표기-기준" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">3. 문체 및 표기 기준</span> </a> <ul class="astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#31-어조" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">3.1. 어조</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#32-명사-우선명사형-종결" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">3.2. 명사 우선·명사형 종결</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#33-문장-구조" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">3.3. 문장 구조</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#34-한자-직접-표기" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">3.4. 한자 직접 표기</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#35-영문-병기" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">3.5. 영문 병기</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#36-날짜-표기" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">3.6. 날짜 표기</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#4-권장-보고서-구성" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">4. 권장 보고서 구성</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#5-microsoft-word-문서-디자인-스펙" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">5. Microsoft Word 문서 디자인 스펙</span> </a> <ul class="astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#51-문서-기본-설정" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">5.1. 문서 기본 설정</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#52-머리말-구성" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">5.2. 머리말 구성</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#53-요약-표-1행-3열" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">5.3. 요약 표 (1행 3열)</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#54-본문-계층-구조" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">5.4. 본문 계층 구조</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#55-계층-작성-규칙" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">5.5. 계층 작성 규칙</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#56-마무리" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">5.6. 마무리</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#6-claude-생성-지침" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">6. Claude 생성 지침</span> </a> <ul class="astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#61-생성-전-확인사항" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">6.1. 생성 전 확인사항</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#62-claude-생성-순서" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">6.2. Claude 생성 순서</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#63-claude-흔한-오류-목록" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">6.3. Claude 흔한 오류 목록</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#64-행말-자간-보정-사람만-수행" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">6.4. 행말 자간 보정 (사람만 수행)</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#7-예시-출력-형태" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">7. 예시 출력 형태</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#8-word-작업환경-설정-사람-수행" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">8. Word 작업환경 설정 (사람 수행)</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#9-검증-기준" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">9. 검증 기준</span> </a> <ul class="astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#91-claude-자가-검증-생성-직후" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">9.1. Claude 자가 검증 (생성 직후)</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#92-시각-검증-사람-수행" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">9.2. 시각 검증 (사람 수행)</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#93-완료-조건" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">9.3. 완료 조건</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#10-인코딩-및-문자-보존" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">10. 인코딩 및 문자 보존</span> </a>  </li> </ul></nav></starlight-toc><script type="module" src="/_astro/TableOfContents.astro_astro_type_script_index_0_lang.FuRcXuRY.js"></script></div></div> </div> </aside> <div class="main-pane astro-67yu43on">  <main data-pagefind-body class="astro-bguv2lll" lang="ko" dir="ltr">    <div class="content-panel astro-7nkwcw3z"> <div class="sl-container astro-7nkwcw3z"> <h1 id="_top" class="astro-j6tvhyss">분석보고서 작성 기준 (Claude 최적화 v2.0)</h1> </div> </div> <div class="content-panel astro-7nkwcw3z"> <div class="sl-container astro-7nkwcw3z"> <div class="sl-markdown-content"> <blockquote>
+<p><strong>이 문서는 Claude가 내부 분석보고서를 Microsoft Word 형식으로 작성할 때
+준수해야 할 서식·문체·구성 기준을 정의한다.</strong>
+사람이 Word에서 직접 검토하는 시각 검증 항목은 별도로 표기한다.</p>
+</blockquote>
+<p><strong>작성일:</strong> ‘26.05.08  |  <strong>관리:</strong> 솔루션사업부 기획팀  |  <strong>버전:</strong> v2.0 (Claude 최적화)</p>
+<p><strong>원본 위치:</strong> <code dir="auto">bennhee4sds-sudo/Projects</code> → <code dir="auto">shared/analysis-report-standard.md</code></p>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="0-claude-빠른-참조-10대-핵심-규칙">0. Claude 빠른 참조 (10대 핵심 규칙)</h2><a class="sl-anchor-link" href="#0-claude-빠른-참조-10대-핵심-규칙"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “0. Claude 빠른 참조 (10대 핵심 규칙)”</span></a></div>
+<p>보고서를 생성하기 전에 아래 10개 규칙을 반드시 확인한다.
+하나라도 어기면 전체를 실패로 판정한다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>#</th><th>규칙</th><th>위반 예시</th></tr></thead><tbody><tr><td>1</td><td>폰트: 바탕체(Batang) <strong>14pt</strong> 전체 통일</td><td>맑은 고딕, 10pt, 12pt 사용</td></tr><tr><td>2</td><td>예외: 제목 <strong>20pt</strong>, 페이지 번호 <strong>12pt</strong> 만 허용</td><td>그 외 크기 혼용</td></tr><tr><td>3</td><td>페이지: A4, <strong>여백 전체 20mm</strong></td><td>25mm, 2.5cm 등</td></tr><tr><td>4</td><td>문장 끝: <strong>명사 또는 명사형 종결</strong>, 마침표 없음</td><td><code dir="auto">~한다.</code>, <code dir="auto">~입니다.</code>, <code dir="auto">~됩니다</code></td></tr><tr><td>5</td><td>들여쓰기: <strong>Space 문자만</strong> 사용</td><td><code dir="auto">left_indent</code>, <code dir="auto">tab</code>, <code dir="auto">hanging_indent</code> 사용</td></tr><tr><td>6</td><td>날짜: <strong><code dir="auto">'YY.MM.DD</code></strong> 형식</td><td><code dir="auto">2026-05-08</code>, <code dir="auto">26.5.8</code></td></tr><tr><td>7</td><td>요약: <strong>1행 3열 표</strong>, 가운데 셀 테두리 없음, 좌우 최소 폭 검은선 셀</td><td>단순 단락, 4면 테두리 박스</td></tr><tr><td>8</td><td>계층 기호: <strong>Lv1(번호.) Lv2(□) Lv3(-) Lv4(·) Lv5(※)</strong></td><td>Word 자동 번호, 글머리 스타일</td></tr><tr><td>9</td><td>페이지 번호: <strong><code dir="auto">- N -</code></strong> 형식, 하단 중앙, 12pt</td><td><code dir="auto">— N —</code>, <code dir="auto">[N]</code>, 상단</td></tr><tr><td>10</td><td>문서 끝: <strong><code dir="auto">- 以 上 -</code></strong>, 오른쪽 정렬, 14pt</td><td><code dir="auto">— 以 上 —</code>, 왼쪽 정렬</td></tr></tbody></table>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="1-목적-및-적용-범위">1. 목적 및 적용 범위</h2><a class="sl-anchor-link" href="#1-목적-및-적용-범위"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “1. 목적 및 적용 범위”</span></a></div>
+<p>이 기준은 Claude가 내부 분석보고서를 작성할 때 Microsoft Word 기반 서식과
+분석보고서 품질 기준을 함께 준수하도록 지시하기 위한 실행 템플릿이다.</p>
+<p><strong>적용 대상:</strong></p>
+<ul>
+<li>내부 업무 분석보고서</li>
+<li>경영진 또는 실무 조직 대상 상황 분석 보고서</li>
+<li>이슈, 원인, 영향, 대응 방향을 정리하는 문서</li>
+<li>의사결정 지원을 위한 근거 기반 보고서</li>
+</ul>
+<p>이 기준은 시각 서식만 정의하지 않는다. 좋은 분석보고서가 갖춰야 할
+논리, 근거, 사실/해석/제안 구분, 검토 기준까지 함께 정의한다.</p>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="2-분석보고서-품질-원칙">2. 분석보고서 품질 원칙</h2><a class="sl-anchor-link" href="#2-분석보고서-품질-원칙"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “2. 분석보고서 품질 원칙”</span></a></div>
+<div class="sl-heading-wrapper level-h3"><h3 id="21-결론-중심">2.1. 결론 중심</h3><a class="sl-anchor-link" href="#21-결론-중심"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “2.1. 결론 중심”</span></a></div>
+<ul>
+<li>핵심 결론은 제목, 요약, 본문 초반에서 빠르게 파악되어야 함</li>
+<li>배경 설명은 결론과 판단에 필요한 범위로 제한</li>
+<li>독자가 어떤 판단이나 행동을 해야 하는지 분명히 드러냄</li>
+</ul>
+<div class="sl-heading-wrapper level-h3"><h3 id="22-사실해석제안의-분리">2.2. 사실·해석·제안의 분리</h3><a class="sl-anchor-link" href="#22-사실해석제안의-분리"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “2.2. 사실·해석·제안의 분리”</span></a></div>
+<ul>
+<li>확인된 사실은 단정형으로 작성</li>
+<li>해석은 “판단됨”, “가능성이 있음”, “시사함”처럼 추론임을 표기</li>
+<li>권고안이나 후속 조치는 사실 및 해석과 구분하여 작성</li>
+<li>근거가 부족한 내용은 “가정” 또는 “확인 필요”로 표시</li>
+</ul>
+<div class="sl-heading-wrapper level-h3"><h3 id="23-근거-기반-작성">2.3. 근거 기반 작성</h3><a class="sl-anchor-link" href="#23-근거-기반-작성"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “2.3. 근거 기반 작성”</span></a></div>
+<ul>
+<li>숫자, 날짜, 조직명, 금액, 고유명사는 원자료 기준으로만 사용</li>
+<li>원자료에 없는 정보는 임의로 보완하지 않음</li>
+<li>필요한 정보가 없으면 보고서 안에 “확인 필요”로 분리 표기</li>
+<li>중요한 주장에는 근거, 출처, 관찰 사실, 비교 기준 중 하나 이상 연결</li>
+</ul>
+<div class="sl-heading-wrapper level-h3"><h3 id="24-실행-가능성">2.4. 실행 가능성</h3><a class="sl-anchor-link" href="#24-실행-가능성"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “2.4. 실행 가능성”</span></a></div>
+<ul>
+<li>분석 결과는 가능한 한 실행 가능한 후속 조치와 연결</li>
+<li>권고안에는 책임 주체, 우선순위, 예상 효과, 유의사항 포함</li>
+<li>불확실성이 큰 경우 즉시 실행안보다 추가 확인 항목 제시</li>
+</ul>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="3-문체-및-표기-기준">3. 문체 및 표기 기준</h2><a class="sl-anchor-link" href="#3-문체-및-표기-기준"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “3. 문체 및 표기 기준”</span></a></div>
+<div class="sl-heading-wrapper level-h3"><h3 id="31-어조">3.1. 어조</h3><a class="sl-anchor-link" href="#31-어조"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “3.1. 어조”</span></a></div>
+<ul>
+<li>매우 건조하고 공식적인 행정/정책 보고서 스타일 유지</li>
+<li>감정적 표현, 홍보성 표현, 구어체, 과장 표현 배제</li>
+<li>판단 내용은 간결하게 쓰되, 근거와 원인-결과 관계가 드러나게 작성</li>
+</ul>
+<div class="sl-heading-wrapper level-h3"><h3 id="32-명사-우선명사형-종결">3.2. 명사 우선·명사형 종결</h3><a class="sl-anchor-link" href="#32-명사-우선명사형-종결"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “3.2. 명사 우선·명사형 종결”</span></a></div>
+<ul>
+<li>모든 문장과 항목의 끝은 <strong>명사 또는 명사형 종결</strong>로 통일</li>
+<li>명사를 우선하고, 의미가 어색한 경우에만 명사형 종결 허용</li>
+<li><strong>서술형 종결(<code dir="auto">~한다</code>, <code dir="auto">~하였다</code>, <code dir="auto">~입니다</code>)은 원칙적으로 사용 금지</strong></li>
+<li><strong>문장 끝의 마침표는 사용하지 않음</strong></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>구분</th><th>예시</th></tr></thead><tbody><tr><td>명사 우선 (권장)</td><td><code dir="auto">추가 확인 필요</code> / <code dir="auto">검토 대상 아님</code> / <code dir="auto">자료 미제출</code></td></tr><tr><td>명사형 허용</td><td><code dir="auto">~함</code> / <code dir="auto">~됨</code> / <code dir="auto">~판단됨</code></td></tr><tr><td>금지</td><td><del><code dir="auto">추가 확인이 필요하다.</code></del> / <del><code dir="auto">검토 대상이 아닙니다.</code></del></td></tr></tbody></table>
+<div class="sl-heading-wrapper level-h3"><h3 id="33-문장-구조">3.3. 문장 구조</h3><a class="sl-anchor-link" href="#33-문장-구조"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “3.3. 문장 구조”</span></a></div>
+<ul>
+<li>시계열 흐름과 원인-결과 관계를 명확히 하는 구조 선호</li>
+<li>필요한 경우 <code dir="auto">'13年 → '18年</code>처럼 기간 흐름을 직접 표시</li>
+<li>“배경 → 변화 → 영향 → 판단”의 밀도 있는 복문 구조 우선</li>
+</ul>
+<div class="sl-heading-wrapper level-h3"><h3 id="34-한자-직접-표기">3.4. 한자 직접 표기</h3><a class="sl-anchor-link" href="#34-한자-직접-표기"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “3.4. 한자 직접 표기”</span></a></div>
+<p>중요한 명사, 조직, 역할, 방향, 범위를 나타낼 때 아래 한자를 직접 사용한다.
+한글 뒤 괄호 병기 방식이 아니라, 필요한 위치에 한자를 직접 쓴다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>한글</th><th>한자</th><th>사용 예</th></tr></thead><tbody><tr><td>미국</td><td>美</td><td>美 연준, 美 클라우드법</td></tr><tr><td>내</td><td>內</td><td>사업부 內</td></tr><tr><td>외</td><td>外</td><td>대외 협력 外</td></tr><tr><td>등</td><td>等</td><td>Blackstone 等</td></tr><tr><td>월</td><td>月</td><td>’26.5月, 月간 보고</td></tr><tr><td>연</td><td>年</td><td>’21年, 3年 내</td></tr><tr><td>때·시</td><td>時</td><td>인수 時, 적용 時</td></tr><tr><td>없음</td><td>無</td><td>실적 無</td></tr><tr><td>있음</td><td>有</td><td>경고 신호 有</td></tr><tr><td>중</td><td>中</td><td>협상 中</td></tr><tr><td>전</td><td>前</td><td>상장폐지 前</td></tr><tr><td>전체</td><td>全</td><td>全 부서</td></tr></tbody></table>
+<div class="sl-heading-wrapper level-h3"><h3 id="35-영문-병기">3.5. 영문 병기</h3><a class="sl-anchor-link" href="#35-영문-병기"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “3.5. 영문 병기”</span></a></div>
+<ul>
+<li>법률 명칭, 기업명, 전문 개념, 원문 용어는 필요 시 괄호 안에 영문 병기</li>
+<li>이미 널리 통용되는 약어는 최초 1회만 병기</li>
+<li>예: <code dir="auto">美 클라우드법(CLOUD Act)</code> / <code dir="auto">관할권(jurisdiction)</code> / <code dir="auto">LBO(Leveraged Buy-Out)</code></li>
+</ul>
+<div class="sl-heading-wrapper level-h3"><h3 id="36-날짜-표기">3.6. 날짜 표기</h3><a class="sl-anchor-link" href="#36-날짜-표기"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “3.6. 날짜 표기”</span></a></div>
+<ul>
+<li>연도+월: <strong><code dir="auto">'YY.M月</code></strong> 형식 → <code dir="auto">'26.5月</code>, <code dir="auto">'18.3月</code></li>
+<li>보고 날짜: <strong><code dir="auto">'YY.MM.DD</code></strong> 형식 → <code dir="auto">'26.05.08</code></li>
+<li>연도만: 필요 시 <strong><code dir="auto">'YY年</code></strong> 형식 → <code dir="auto">'21年</code>, <code dir="auto">'18年</code></li>
+</ul>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="4-권장-보고서-구성">4. 권장 보고서 구성</h2><a class="sl-anchor-link" href="#4-권장-보고서-구성"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “4. 권장 보고서 구성”</span></a></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>장</th><th>구성 요소</th></tr></thead><tbody><tr><td>1</td><td>보고 개요 — 분석 배경 / 분석 목적 / 분석 범위</td></tr><tr><td>2</td><td>주요 발견사항 — 핵심 판단 / 주요 발견 / 의사결정 포인트</td></tr><tr><td>3</td><td>분석 내용 — 현황 / 원인 / 영향 / 비교 또는 추세</td></tr><tr><td>4</td><td>리스크 및 제약 — 불확실성 / 미확인 정보 / 실행상 유의사항</td></tr><tr><td>5</td><td>시사점 및 권고안 — 시사점 / 후속 조치 / 우선순위</td></tr><tr><td>별첨</td><td>참고 및 부록 (선택) — 참고 자료 / 가정 / 용어 또는 산식</td></tr></tbody></table>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="5-microsoft-word-문서-디자인-스펙">5. Microsoft Word 문서 디자인 스펙</h2><a class="sl-anchor-link" href="#5-microsoft-word-문서-디자인-스펙"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “5. Microsoft Word 문서 디자인 스펙”</span></a></div>
+<div class="sl-heading-wrapper level-h3"><h3 id="51-문서-기본-설정">5.1. 문서 기본 설정</h3><a class="sl-anchor-link" href="#51-문서-기본-설정"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “5.1. 문서 기본 설정”</span></a></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>항목</th><th>기준값</th></tr></thead><tbody><tr><td>용지</td><td>A4 세로 (210 × 297mm)</td></tr><tr><td>여백</td><td>좌/우/상/하 <strong>20mm</strong></td></tr><tr><td>기본 폰트</td><td><strong>바탕체(Batang) 14pt</strong></td></tr><tr><td>줄간격</td><td><strong>1줄 (Single)</strong></td></tr><tr><td>제목 폰트</td><td>바탕체 <strong>20pt</strong>, 굵게, 밑줄, 가운데 정렬</td></tr><tr><td>페이지 번호 폰트</td><td>바탕체 <strong>12pt</strong></td></tr></tbody></table>
+<div class="sl-heading-wrapper level-h3"><h3 id="52-머리말-구성">5.2. 머리말 구성</h3><a class="sl-anchor-link" href="#52-머리말-구성"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “5.2. 머리말 구성”</span></a></div>
+<div class="expressive-code"><link rel="stylesheet" href="/_astro/ec.v4551.css"><script type="module" src="/_astro/ec.0vx5m.js"></script><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">[제목]         바탕체 20pt, 굵게, 밑줄, 가운데 정렬  (단락 뒤 12pt)</span></div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">[보고 날짜]    바탕체 14pt, 보통, 오른쪽 정렬. 예: '26.05.08  (단락 뒤 9pt)</span></div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">[요약 표]      1행 3열 표 (5.3 참조)</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="[제목]         바탕체 20pt, 굵게, 밑줄, 가운데 정렬  (단락 뒤 12pt)[보고 날짜]    바탕체 14pt, 보통, 오른쪽 정렬. 예: &#x27;26.05.08  (단락 뒤 9pt)[요약 표]      1행 3열 표 (5.3 참조)"><div></div></button></div></figure></div>
+<div class="sl-heading-wrapper level-h3"><h3 id="53-요약-표-1행-3열">5.3. 요약 표 (1행 3열)</h3><a class="sl-anchor-link" href="#53-요약-표-1행-3열"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “5.3. 요약 표 (1행 3열)”</span></a></div>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">┌───┬─────────────────────────────────────────────────┬───┐</span></div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">│   │  (Space 1칸) 요약 1줄 — 분석 대상과 목적 중심    │   │</span></div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">│   │  (Space 1칸) 요약 2줄 — 핵심 원인 또는 발견사항  │   │</span></div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">│   │  (Space 1칸) 요약 3줄 — 필요한 조치 또는 권고안  │   │</span></div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">└───┴─────────────────────────────────────────────────┴───┘</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53"> </span></span><span style="--0:#d6deeb;--1:#403f53">↑                         ↑                           ↑</span></div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">좌측 셀                  가운데 셀                    우측 셀</span></div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">폭 ~7pt                 폭 ~165mm                   폭 ~7pt</span></div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">검은선(상/좌/하)         테두리 없음                  검은선(상/우/하)</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="┌───┬─────────────────────────────────────────────────┬───┐│   │  (Space 1칸) 요약 1줄 — 분석 대상과 목적 중심    │   ││   │  (Space 1칸) 요약 2줄 — 핵심 원인 또는 발견사항  │   ││   │  (Space 1칸) 요약 3줄 — 필요한 조치 또는 권고안  │   │└───┴─────────────────────────────────────────────────┴───┘ ↑                         ↑                           ↑좌측 셀                  가운데 셀                    우측 셀폭 ~7pt                 폭 ~165mm                   폭 ~7pt검은선(상/좌/하)         테두리 없음                  검은선(상/우/하)"><div></div></button></div></figure></div>
+<p><strong>세부 규칙:</strong></p>
+<ul>
+<li>표 자동 맞춤 해제 (fixed layout)</li>
+<li>좌우 셀: 폭 7pt(140 twips), 셀 여백 0</li>
+<li>가운데 셀: 폭 165mm(9353 twips), 셀 좌우 여백 1.4pt(28 twips), 상하 0pt</li>
+<li>좌측 셀 테두리: 상/좌/하 검은 단선, 우측 없음</li>
+<li>가운데 셀 테두리: 4면 모두 없음</li>
+<li>우측 셀 테두리: 상/우/하 검은 단선, 좌측 없음</li>
+<li>가운데 셀: 3개 문단, 각 선행 Space 1칸, 단락 뒤 9pt</li>
+<li>넘버링, <code dir="auto">요약:</code> 제목, Lv1 기호 없음</li>
+</ul>
+<div class="sl-heading-wrapper level-h3"><h3 id="54-본문-계층-구조">5.4. 본문 계층 구조</h3><a class="sl-anchor-link" href="#54-본문-계층-구조"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “5.4. 본문 계층 구조”</span></a></div>
+<p><strong>모든 들여쓰기는 Space 문자로만 처리한다. Word의 <code dir="auto">left_indent</code> / <code dir="auto">hanging_indent</code> / <code dir="auto">first_line_indent</code> / 탭 문자 사용 금지.</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>레벨</th><th>기호</th><th>스타일</th><th>기호 시작</th><th>줄간격</th><th>단락 앞</th><th>단락 뒤</th></tr></thead><tbody><tr><td>Lv1</td><td><code dir="auto">1.</code></td><td>14pt, <strong>굵게</strong></td><td>0칸</td><td>1줄</td><td><strong>16pt</strong></td><td><strong>12pt</strong></td></tr><tr><td>Lv2</td><td><code dir="auto">□</code></td><td>14pt, <strong>굵게</strong></td><td>1칸</td><td>1줄</td><td>0pt</td><td>9pt</td></tr><tr><td>Lv3</td><td><code dir="auto">-</code></td><td>14pt, 보통</td><td>3칸</td><td>1줄</td><td>0pt</td><td>9pt</td></tr><tr><td>Lv4</td><td><code dir="auto">·</code></td><td>14pt, 보통</td><td>5칸</td><td>1줄</td><td>0pt</td><td>9pt</td></tr><tr><td>Lv5</td><td><code dir="auto">※</code></td><td>14pt, 보통</td><td>3칸</td><td>1줄</td><td>0pt</td><td>9pt</td></tr></tbody></table>
+<p><strong>Lv5는 계층 심화가 아니라 보충 주석 레벨 → Lv3과 동일한 기호 시작 위치 사용</strong></p>
+<p>텍스트 표현 예시:</p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">1. 소제목 내용</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53"> </span></span><span style="--0:#d6deeb;--1:#403f53">□ 주요 항목 내용</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">   </span></span><span style="--0:#d6deeb;--1:#403f53">- 세부 항목 내용</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">· 상세 내용</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">   </span></span><span style="--0:#d6deeb;--1:#403f53">※ 보충 주석 내용</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="1. 소제목 내용 □ 주요 항목 내용   - 세부 항목 내용     · 상세 내용   ※ 보충 주석 내용"><div></div></button></div></figure></div>
+<div class="sl-heading-wrapper level-h3"><h3 id="55-계층-작성-규칙">5.5. 계층 작성 규칙</h3><a class="sl-anchor-link" href="#55-계층-작성-규칙"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “5.5. 계층 작성 규칙”</span></a></div>
+<ul>
+<li>하위 레벨을 사용할 때는 상위 레벨을 먼저 제시</li>
+<li>레벨을 건너뛰지 않음 (Lv1 바로 아래 Lv3 금지)</li>
+<li>기호(<code dir="auto">□</code>, <code dir="auto">-</code>, <code dir="auto">·</code>, <code dir="auto">※</code>, <code dir="auto">1.</code>)를 텍스트에 직접 입력</li>
+<li>Word 자동 번호 매기기·자동 글머리 기능에 의존하지 않음</li>
+<li>하이픈(<code dir="auto">-</code>)이 대시로 자동 변환되지 않도록 일반 하이픈 사용</li>
+</ul>
+<p><strong>Enter 분리(이어쓰기) 규칙:</strong></p>
+<ul>
+<li>글머리 항목이 길어져 별도 문단으로 분리할 때 기호를 반복하지 않음</li>
+<li>이어쓰기 문단 선행 Space: Lv2=5칸, Lv3=6칸, Lv4=7칸</li>
+</ul>
+<p><strong>번호형 나열:</strong></p>
+<ul>
+<li>동일 수준 나열 시 <code dir="auto">1) 2) 3)</code> 또는 <code dir="auto">① ② ③</code> 사용 가능</li>
+<li><code dir="auto">- 1)</code>, <code dir="auto">· 1)</code>처럼 글머리 기호와 번호형 기호를 함께 쓰지 않음</li>
+<li>번호형 나열은 해당 레벨의 기호를 대체함</li>
+</ul>
+<p><strong>강조 표기:</strong></p>
+<ul>
+<li>결론·영향·시사점·핵심 판단은 <code dir="auto">→</code> 기호로 표시 가능</li>
+<li><code dir="auto">→</code> 강조 문장: 바탕체 14pt, 굵게 또는 굵게+밑줄 허용</li>
+<li><code dir="auto">→</code> 강조는 핵심 판단에만 한정하고 남용 금지</li>
+</ul>
+<div class="sl-heading-wrapper level-h3"><h3 id="56-마무리">5.6. 마무리</h3><a class="sl-anchor-link" href="#56-마무리"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “5.6. 마무리”</span></a></div>
+<ul>
+<li>페이지 번호: 페이지 하단 중앙에 <strong><code dir="auto">- N -</code></strong> 형식 (바탕체 12pt)</li>
+<li>문서 끝 표시: 본문 마지막 줄에 오른쪽 정렬로 <strong><code dir="auto">- 以 上 -</code></strong> 삽입 (바탕체 14pt)</li>
+</ul>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="6-claude-생성-지침">6. Claude 생성 지침</h2><a class="sl-anchor-link" href="#6-claude-생성-지침"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “6. Claude 생성 지침”</span></a></div>
+<div class="sl-heading-wrapper level-h3"><h3 id="61-생성-전-확인사항">6.1. 생성 전 확인사항</h3><a class="sl-anchor-link" href="#61-생성-전-확인사항"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “6.1. 생성 전 확인사항”</span></a></div>
+<p>보고서를 생성하기 전에 아래 입력 정보를 확보한다.</p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">- 보고서 제목:</span></div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">- 보고 대상:</span></div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">- 작성 목적:</span></div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">- 핵심 질문:</span></div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">- 원자료:</span></div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">- 분석 기간/범위:</span></div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">- 반드시 포함할 내용:</span></div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">- 제외할 내용:</span></div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">- 원하는 결론 또는 관점:</span></div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">- 분량:</span></div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">- 마감 또는 검토 일정:</span></div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">- 미확인 사항:</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="- 보고서 제목:- 보고 대상:- 작성 목적:- 핵심 질문:- 원자료:- 분석 기간/범위:- 반드시 포함할 내용:- 제외할 내용:- 원하는 결론 또는 관점:- 분량:- 마감 또는 검토 일정:- 미확인 사항:"><div></div></button></div></figure></div>
+<p>필수 정보가 부족하면 먼저 질문하거나, 본문에 “확인 필요”로 분리 표기한다.</p>
+<div class="sl-heading-wrapper level-h3"><h3 id="62-claude-생성-순서">6.2. Claude 생성 순서</h3><a class="sl-anchor-link" href="#62-claude-생성-순서"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “6.2. Claude 생성 순서”</span></a></div>
+<ol>
+<li>제목 단락 생성 (20pt, 굵게, 밑줄, 가운데)</li>
+<li>보고 날짜 단락 생성 (<code dir="auto">'YY.MM.DD 소속</code>, 14pt, 오른쪽)</li>
+<li>요약 표 생성 (1행 3열, 5.3 규칙 준수)</li>
+<li>Lv1<del>Lv5 계층 본문 생성 (5.4</del>5.5 규칙 준수)</li>
+<li>표가 필요한 곳에 데이터 표 삽입</li>
+<li>끝 표시 (<code dir="auto">- 以 上 -</code>, 오른쪽)</li>
+</ol>
+<div class="sl-heading-wrapper level-h3"><h3 id="63-claude-흔한-오류-목록">6.3. Claude 흔한 오류 목록</h3><a class="sl-anchor-link" href="#63-claude-흔한-오류-목록"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “6.3. Claude 흔한 오류 목록”</span></a></div>
+<p>아래 오류는 Claude가 자주 범하는 항목이다. 생성 후 반드시 자가 검증한다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>오류 유형</th><th>금지</th><th>올바른 표현</th></tr></thead><tbody><tr><td>서술형 종결</td><td><code dir="auto">~한다</code>, <code dir="auto">~하였다</code>, <code dir="auto">~입니다</code></td><td><code dir="auto">~함</code>, <code dir="auto">~필요</code>, <code dir="auto">~확인</code></td></tr><tr><td>마침표</td><td>항목 끝 <code dir="auto">.</code></td><td>마침표 없음</td></tr><tr><td>폰트 혼용</td><td>맑은 고딕, 나눔고딕 사용</td><td>바탕체(Batang) 14pt</td></tr><tr><td>Word indent 속성</td><td><code dir="auto">left_indent=Cm(2)</code> 등</td><td>선행 Space 문자로 대체</td></tr><tr><td>날짜 형식</td><td><code dir="auto">2026-05-08</code>, <code dir="auto">26.5.8</code></td><td><code dir="auto">'26.05.08</code></td></tr><tr><td>요약 박스</td><td>4면 테두리 박스 단락</td><td>1행 3열 표 구조</td></tr><tr><td>Lv 건너뜀</td><td>Lv1 바로 아래 Lv3 배치</td><td>Lv1 → Lv2 → Lv3 순서</td></tr><tr><td>글머리+번호 중복</td><td><code dir="auto">- 1)</code>, <code dir="auto">· ①</code></td><td><code dir="auto">1)</code> 또는 <code dir="auto">-</code> 하나만</td></tr><tr><td>원자료 부재 수치</td><td>임의 수치 보완</td><td>”확인 필요”로 표기</td></tr><tr><td>끝 표시 형식</td><td><code dir="auto">— 以 上 —</code></td><td><code dir="auto">- 以 上 -</code></td></tr></tbody></table>
+<div class="sl-heading-wrapper level-h3"><h3 id="64-행말-자간-보정-사람만-수행">6.4. 행말 자간 보정 (사람만 수행)</h3><a class="sl-anchor-link" href="#64-행말-자간-보정-사람만-수행"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “6.4. 행말 자간 보정 (사람만 수행)”</span></a></div>
+<p>행말 자간 보정은 Word에서 사람이 직접 수행하는 작업으로 Claude가 생성 단계에서 처리할 수 없다.
+Claude는 내용 누락 없이 의미 단위별로 분리하는 방식으로 Enter 분리 문단을 생성하고,
+시각 보정은 사람이 Word에서 확인한다.</p>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="7-예시-출력-형태">7. 예시 출력 형태</h2><a class="sl-anchor-link" href="#7-예시-출력-형태"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “7. 예시 출력 형태”</span></a></div>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="text"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">분석보고서 제목</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">                                          </span></span><span style="--0:#d6deeb;--1:#403f53">'26.05.08  소속부서</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">[요약 표 — 1행 3열, 좌우 검은선 셀, 가운데 무테두리]</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53"> </span></span><span style="--0:#d6deeb;--1:#403f53">분석 대상과 목적을 중심으로 작성 (1줄)</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53"> </span></span><span style="--0:#d6deeb;--1:#403f53">핵심 원인 또는 발견사항을 중심으로 작성 (1줄)</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53"> </span></span><span style="--0:#d6deeb;--1:#403f53">필요한 조치 또는 권고안을 중심으로 작성 (1줄)</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">1. 보고 개요</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53"> </span></span><span style="--0:#d6deeb;--1:#403f53">□ 분석 배경</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">   </span></span><span style="--0:#d6deeb;--1:#403f53">- '21.7月 Thoma Bravo, Medallia를 $6.4B(매출 9배)에 인수·상장폐지</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">   </span></span><span style="--0:#d6deeb;--1:#403f53">- '22~'23年 美 연준 금리 인상(SOFR 5.4%)으로 연이자 $135M → $300M 급등</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53"> </span></span><span style="--0:#d6deeb;--1:#403f53">□ 분석 목적</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">   </span></span><span style="--0:#d6deeb;--1:#403f53">- PE·LBO 구조의 구조적 실패 원인 진단</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">   </span></span><span style="--0:#d6deeb;--1:#403f53">- Rule of 40·FCF·NRR 기반 건전성 평가 체계 도출</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">2. 주요 발견사항</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53"> </span></span><span style="--0:#d6deeb;--1:#403f53">□ 핵심 판단</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">   </span></span><span style="--0:#d6deeb;--1:#403f53">- 이자비용($300M)이 EBITDA($200M) 초과 — 표면 지표만으로 실패 감지 불가</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">   </span></span><span style="--0:#d6deeb;--1:#403f53">- PIK 조항 발동으로 부채 $1.8B → $2.8B 복리 팽창 (약 $1B 누적)</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">→ 고배수 LBO + 변동금리 + 성장 과대 추정의 3중 실패 구조</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">   </span></span><span style="--0:#d6deeb;--1:#403f53">※ 비상장 전환 후 재무 정보 비공개 — 핵심 수치는 추정치</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">                                          </span></span><span style="--0:#d6deeb;--1:#403f53">- 以 上 -</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="분석보고서 제목                                          &#x27;26.05.08  소속부서[요약 표 — 1행 3열, 좌우 검은선 셀, 가운데 무테두리] 분석 대상과 목적을 중심으로 작성 (1줄) 핵심 원인 또는 발견사항을 중심으로 작성 (1줄) 필요한 조치 또는 권고안을 중심으로 작성 (1줄)1. 보고 개요 □ 분석 배경   - &#x27;21.7月 Thoma Bravo, Medallia를 $6.4B(매출 9배)에 인수·상장폐지   - &#x27;22~&#x27;23年 美 연준 금리 인상(SOFR 5.4%)으로 연이자 $135M → $300M 급등 □ 분석 목적   - PE·LBO 구조의 구조적 실패 원인 진단   - Rule of 40·FCF·NRR 기반 건전성 평가 체계 도출2. 주요 발견사항 □ 핵심 판단   - 이자비용($300M)이 EBITDA($200M) 초과 — 표면 지표만으로 실패 감지 불가   - PIK 조항 발동으로 부채 $1.8B → $2.8B 복리 팽창 (약 $1B 누적)→ 고배수 LBO + 변동금리 + 성장 과대 추정의 3중 실패 구조   ※ 비상장 전환 후 재무 정보 비공개 — 핵심 수치는 추정치                                          - 以 上 -"><div></div></button></div></figure></div>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="8-word-작업환경-설정-사람-수행">8. Word 작업환경 설정 (사람 수행)</h2><a class="sl-anchor-link" href="#8-word-작업환경-설정-사람-수행"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “8. Word 작업환경 설정 (사람 수행)”</span></a></div>
+<p>Claude가 생성한 텍스트를 Word에 붙여넣기 전에 아래 설정을 먼저 적용한다.</p>
+<p><strong>경로: 파일 → 옵션 → 언어 교정 → 자동 고침 옵션</strong></p>
+<p><code dir="auto">입력할 때 자동서식</code> 탭에서 체크 해제:</p>
+<ul>
+<li>인터넷과 네트워크 경로를 하이퍼링크로 설정</li>
+<li>자동으로 글머리 기호 넣기</li>
+<li>자동으로 번호 매기기</li>
+</ul>
+<p><code dir="auto">자동서식</code> 탭에서 체크 해제:</p>
+<ul>
+<li>기본 제목 스타일 / 자동으로 글머리 기호 넣기 / 목록 스타일</li>
+</ul>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="9-검증-기준">9. 검증 기준</h2><a class="sl-anchor-link" href="#9-검증-기준"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “9. 검증 기준”</span></a></div>
+<div class="sl-heading-wrapper level-h3"><h3 id="91-claude-자가-검증-생성-직후">9.1. Claude 자가 검증 (생성 직후)</h3><a class="sl-anchor-link" href="#91-claude-자가-검증-생성-직후"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “9.1. Claude 자가 검증 (생성 직후)”</span></a></div>
+<p>생성 후 아래 항목을 순서대로 확인한다. 미통과 항목이 있으면 즉시 수정한다.</p>
+<p><strong>서식 검증:</strong></p>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> 바탕체 14pt 적용 여부 (제목 20pt, 페이지 번호 12pt 예외)</li>
+<li class="task-list-item"><input type="checkbox" disabled> Lv1 단락 앞 16pt / 뒤 12pt, Lv2~Lv5 뒤 9pt 적용 여부</li>
+<li class="task-list-item"><input type="checkbox" disabled> 들여쓰기가 Space 문자로만 처리되었는지 (Word indent 속성 없음)</li>
+<li class="task-list-item"><input type="checkbox" disabled> 요약 표가 1행 3열 구조로 생성되었는지</li>
+<li class="task-list-item"><input type="checkbox" disabled> 줄간격이 SINGLE로 설정되었는지</li>
+</ul>
+<p><strong>문체 검증:</strong></p>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> 모든 항목 끝이 명사 또는 명사형 종결인지</li>
+<li class="task-list-item"><input type="checkbox" disabled> 항목 끝에 마침표가 없는지</li>
+<li class="task-list-item"><input type="checkbox" disabled> <code dir="auto">~한다</code>, <code dir="auto">~합니다</code>, <code dir="auto">~입니다</code> 서술형이 없는지</li>
+<li class="task-list-item"><input type="checkbox" disabled> 날짜가 <code dir="auto">'YY.MM.DD</code> 또는 <code dir="auto">'YY.M月</code> 형식인지</li>
+</ul>
+<p><strong>내용 검증:</strong></p>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> 핵심 결론이 요약에 포함되는지</li>
+<li class="task-list-item"><input type="checkbox" disabled> 사실·해석·제안이 혼재하지 않는지</li>
+<li class="task-list-item"><input type="checkbox" disabled> 원자료에 없는 수치나 고유명사를 임의 보완하지 않았는지</li>
+<li class="task-list-item"><input type="checkbox" disabled> 미확인 사항이 “확인 필요”로 표시되었는지</li>
+</ul>
+<p><strong>마무리 검증:</strong></p>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> 페이지 번호 형식이 <code dir="auto">- N -</code>인지</li>
+<li class="task-list-item"><input type="checkbox" disabled> 문서 끝이 <code dir="auto">- 以 上 -</code>이고 오른쪽 정렬인지</li>
+<li class="task-list-item"><input type="checkbox" disabled> 특수문자(<code dir="auto">□</code>, <code dir="auto">·</code>, <code dir="auto">※</code>, <code dir="auto">→</code>, <code dir="auto">以 上</code>)가 깨지지 않았는지</li>
+</ul>
+<div class="sl-heading-wrapper level-h3"><h3 id="92-시각-검증-사람-수행">9.2. 시각 검증 (사람 수행)</h3><a class="sl-anchor-link" href="#92-시각-검증-사람-수행"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “9.2. 시각 검증 (사람 수행)”</span></a></div>
+<p>아래 항목은 Word 또는 렌더링 환경에서 사람이 직접 확인한다.</p>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> 요약 표 좌우 검은선 셀이 세로선처럼 보이는지</li>
+<li class="task-list-item"><input type="checkbox" disabled> 가운데 셀 테두리가 보이지 않는지</li>
+<li class="task-list-item"><input type="checkbox" disabled> 들여쓰기 공백이 레벨별로 시각적으로 일치하는지</li>
+<li class="task-list-item"><input type="checkbox" disabled> 줄간격이 1줄 기준으로 균일하게 보이는지</li>
+<li class="task-list-item"><input type="checkbox" disabled> 폰트 크기가 14pt로 일관되어 보이는지</li>
+<li class="task-list-item"><input type="checkbox" disabled> 특수문자와 한자가 깨지지 않고 표시되는지</li>
+</ul>
+<div class="sl-heading-wrapper level-h3"><h3 id="93-완료-조건">9.3. 완료 조건</h3><a class="sl-anchor-link" href="#93-완료-조건"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “9.3. 완료 조건”</span></a></div>
+<ul>
+<li>Claude 자가 검증 전 항목 통과</li>
+<li>미확인·미통과 항목 없음</li>
+<li>시각 검증 대상 항목은 “시각 검증 필요”로 별도 표기하거나, 사람 확인 후 통과 기록</li>
+</ul>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="10-인코딩-및-문자-보존">10. 인코딩 및 문자 보존</h2><a class="sl-anchor-link" href="#10-인코딩-및-문자-보존"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “10. 인코딩 및 문자 보존”</span></a></div>
+<ul>
+<li>문서는 UTF-8로 저장</li>
+<li>아래 특수문자가 깨지지 않아야 함:
+<code dir="auto">□</code>, <code dir="auto">·</code>, <code dir="auto">※</code>, <code dir="auto">①②③</code>, <code dir="auto">→</code>, <code dir="auto">- 以 上 -</code>,
+<code dir="auto">美</code>, <code dir="auto">社</code>, <code dir="auto">內</code>, <code dir="auto">外</code>, <code dir="auto">等</code>, <code dir="auto">月</code>, <code dir="auto">年</code>, <code dir="auto">時</code>, <code dir="auto">無</code>, <code dir="auto">有</code>, <code dir="auto">可</code>, <code dir="auto">前</code>, <code dir="auto">全</code>, <code dir="auto">中</code></li>
+<li>Word에 붙여넣은 뒤 특수문자와 Space 들여쓰기가 유지되었는지 최종 확인</li>
+</ul> </div> <footer class="sl-flex astro-3yyafb3n"> <div class="meta sl-flex astro-3yyafb3n">   </div> <div class="pagination-links print:hidden astro-u2l5gyhi" dir="ltr">   </div>  </footer> </div> </div>  </main> </div> </div> </div> </div> </body></html>

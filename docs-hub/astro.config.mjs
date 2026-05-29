@@ -13,6 +13,17 @@ export default defineConfig({
 			},
 			sidebar: [
 				{
+					label: '대시보드 운영',
+					items: [
+						{
+							label: '수작업 데이터 업로드',
+							items: [
+								{ label: '시장 데이터 변환 파일', link: '/operations/manual-upload/' },
+							],
+						},
+					],
+				},
+				{
 					label: '대시보드 기획',
 					items: [
 						{ label: '추진 배경 및 목적', link: '/dashboard/background/' },

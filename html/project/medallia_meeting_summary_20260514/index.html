@@ -1,0 +1,415 @@
+<!DOCTYPE html><html lang="ko" dir="ltr" data-theme="dark" data-has-toc data-has-sidebar class="astro-bguv2lll"> <head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Medallia 보고서 검토 및 M&A 전략 회의록 분석 | BizHealth Docs Hub</title><link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml"/><meta name="generator" content="Astro v6.1.8"/><meta name="generator" content="Starlight v0.38.3"/><meta property="og:title" content="Medallia 보고서 검토 및 M&#38;A 전략 회의록 분석"/><meta property="og:type" content="article"/><meta property="og:locale" content="ko"/><meta property="og:description" content="Medallia 사례 보고서 검토 회의(약 60분) 요약 — FCF 분석 방법론, Blackstone·Thoma Bravo 포지션 분석, M&#38;A 평가 기준 정립 방향, 거시 리스크 논의 및 후속 액션 아이템"/><meta property="og:site_name" content="BizHealth Docs Hub"/><meta name="twitter:card" content="summary_large_image"/><meta name="description" content="Medallia 사례 보고서 검토 회의(약 60분) 요약 — FCF 분석 방법론, Blackstone·Thoma Bravo 포지션 분석, M&#38;A 평가 기준 정립 방향, 거시 리스크 논의 및 후속 액션 아이템"/><script>
+	window.StarlightThemeProvider = (() => {
+		const storedTheme =
+			typeof localStorage !== 'undefined' && localStorage.getItem('starlight-theme');
+		const theme =
+			storedTheme ||
+			(window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+		document.documentElement.dataset.theme = theme === 'light' ? 'light' : 'dark';
+		return {
+			updatePickers(theme = storedTheme || 'auto') {
+				document.querySelectorAll('starlight-theme-select').forEach((picker) => {
+					const select = picker.querySelector('select');
+					if (select) select.value = theme;
+					/** @type {HTMLTemplateElement | null} */
+					const tmpl = document.querySelector(`#theme-icons`);
+					const newIcon = tmpl && tmpl.content.querySelector('.' + theme);
+					if (newIcon) {
+						const oldIcon = picker.querySelector('svg.label-icon');
+						if (oldIcon) {
+							oldIcon.replaceChildren(...newIcon.cloneNode(true).childNodes);
+						}
+					}
+				});
+			},
+		};
+	})();
+</script><template id="theme-icons"><svg aria-hidden="true" class="light astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M5 12a1 1 0 0 0-1-1H3a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1Zm.64 5-.71.71a1 1 0 0 0 0 1.41 1 1 0 0 0 1.41 0l.71-.71A1 1 0 0 0 5.64 17ZM12 5a1 1 0 0 0 1-1V3a1 1 0 0 0-2 0v1a1 1 0 0 0 1 1Zm5.66 2.34a1 1 0 0 0 .7-.29l.71-.71a1 1 0 1 0-1.41-1.41l-.66.71a1 1 0 0 0 0 1.41 1 1 0 0 0 .66.29Zm-12-.29a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.71-.71a1.004 1.004 0 1 0-1.43 1.41l.73.71ZM21 11h-1a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2Zm-2.64 6A1 1 0 0 0 17 18.36l.71.71a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.76-.66ZM12 6.5a5.5 5.5 0 1 0 5.5 5.5A5.51 5.51 0 0 0 12 6.5Zm0 9a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Zm0 3.5a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 0-1-1Z"/></svg><svg aria-hidden="true" class="dark astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.64 13a1 1 0 0 0-1.05-.14 8.049 8.049 0 0 1-3.37.73 8.15 8.15 0 0 1-8.14-8.1 8.59 8.59 0 0 1 .25-2A1 1 0 0 0 8 2.36a10.14 10.14 0 1 0 14 11.69 1 1 0 0 0-.36-1.05Zm-9.5 6.69A8.14 8.14 0 0 1 7.08 5.22v.27a10.15 10.15 0 0 0 10.14 10.14 9.784 9.784 0 0 0 2.1-.22 8.11 8.11 0 0 1-7.18 4.32v-.04Z"/></svg><svg aria-hidden="true" class="auto astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg></template><link rel="stylesheet" href="/_astro/print.DNXP8c50.css" media="print"><link rel="stylesheet" href="/_astro/common.D7oqlvXR.css"><script type="module" src="/_astro/page.BIhdncjw.js"></script></head> <body class="astro-bguv2lll"> <a href="#_top" class="astro-7q3lir66">콘텐츠로 이동</a> <div class="page sl-flex astro-vrdttmbt"> <header class="header astro-vrdttmbt"><div class="header astro-kmkmnagf"> <div class="title-wrapper sl-flex astro-kmkmnagf"> <a href="/" class="site-title sl-flex astro-m46x6ez3">  <span class="astro-m46x6ez3" translate="no"> BizHealth Docs Hub </span> </a> </div> <div class="sl-flex print:hidden astro-kmkmnagf"> <site-search class="astro-kmkmnagf astro-v37mnknz" data-translations="{&#34;placeholder&#34;:&#34;검색&#34;}"> <button data-open-modal disabled aria-label="검색" aria-keyshortcuts="Control+K" class="astro-v37mnknz"> <svg aria-hidden="true" class="astro-v37mnknz astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.71 20.29 18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14Z"/></svg> <span class="sl-hidden md:sl-block astro-v37mnknz" aria-hidden="true">검색</span> <kbd class="sl-hidden md:sl-flex astro-v37mnknz" style="display: none;"> <kbd class="astro-v37mnknz">Ctrl</kbd><kbd class="astro-v37mnknz">K</kbd> </kbd> </button> <dialog style="padding:0" aria-label="검색" class="astro-v37mnknz"> <div class="dialog-frame sl-flex astro-v37mnknz">  <button data-close-modal class="sl-flex md:sl-hidden astro-v37mnknz"> 취소 </button> <div class="search-container astro-v37mnknz"> <div id="starlight__search" class="astro-v37mnknz"></div> </div> </div> </dialog> </site-search>  <script>
+	(() => {
+		const openBtn = document.querySelector('button[data-open-modal]');
+		const shortcut = openBtn?.querySelector('kbd');
+		if (!openBtn || !(shortcut instanceof HTMLElement)) return;
+		const platformKey = shortcut.querySelector('kbd');
+		if (platformKey && /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)) {
+			platformKey.textContent = '⌘';
+			openBtn.setAttribute('aria-keyshortcuts', 'Meta+K');
+		}
+		shortcut.style.display = '';
+	})();
+</script> <script type="module" src="/_astro/Search.astro_astro_type_script_index_0_lang.Rw77DzG6.js"></script>  </div> <div class="sl-hidden md:sl-flex print:hidden right-group astro-kmkmnagf"> <div class="sl-flex social-icons astro-kmkmnagf">  </div> <starlight-theme-select>  <label style="--sl-select-width: 6.25em" class="astro-4yphtoen"> <span class="sr-only astro-4yphtoen">테마 선택</span> <svg aria-hidden="true" class="icon label-icon astro-4yphtoen astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg> <select autocomplete="off" class="astro-4yphtoen"> <option value="dark" class="astro-4yphtoen">어두운 테마</option><option value="light" class="astro-4yphtoen">밝은 테마</option><option value="auto" selected class="astro-4yphtoen">자동</option> </select> <svg aria-hidden="true" class="icon caret astro-4yphtoen astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg> </label> </starlight-theme-select>  <script>
+	StarlightThemeProvider.updatePickers();
+</script> <script type="module">const r="starlight-theme",o=e=>e==="auto"||e==="dark"||e==="light"?e:"auto",c=()=>o(typeof localStorage<"u"&&localStorage.getItem(r));function n(e){typeof localStorage<"u"&&localStorage.setItem(r,e==="light"||e==="dark"?e:"")}const l=()=>matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";function t(e){StarlightThemeProvider.updatePickers(e),document.documentElement.dataset.theme=e==="auto"?l():e,n(e)}matchMedia("(prefers-color-scheme: light)").addEventListener("change",()=>{c()==="auto"&&t("auto")});class s extends HTMLElement{constructor(){super(),t(c()),this.querySelector("select")?.addEventListener("change",a=>{a.currentTarget instanceof HTMLSelectElement&&t(o(a.currentTarget.value))})}}customElements.define("starlight-theme-select",s);</script> <script type="module">class s extends HTMLElement{constructor(){super();const e=this.querySelector("select");e&&(e.addEventListener("change",t=>{t.currentTarget instanceof HTMLSelectElement&&(window.location.pathname=t.currentTarget.value)}),window.addEventListener("pageshow",t=>{if(!t.persisted)return;const n=e.querySelector("option[selected]")?.index;n!==e.selectedIndex&&(e.selectedIndex=n??0)}))}}customElements.define("starlight-lang-select",s);</script> </div> </div></header> <nav class="sidebar print:hidden astro-vrdttmbt" aria-label="메인"> <starlight-menu-button class="print:hidden astro-jif73yzw"> <button aria-expanded="false" aria-label="메뉴" aria-controls="starlight__sidebar" class="sl-flex md:sl-hidden astro-jif73yzw"> <svg aria-hidden="true" class="open-menu astro-jif73yzw astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M3 8h18a1 1 0 1 0 0-2H3a1 1 0 0 0 0 2Zm18 8H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Zm0-5H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Z"/></svg> <svg aria-hidden="true" class="close-menu astro-jif73yzw astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="m13.41 12 6.3-6.29a1.004 1.004 0 1 0-1.42-1.42L12 10.59l-6.29-6.3a1.004 1.004 0 0 0-1.42 1.42l6.3 6.29-6.3 6.29a1 1 0 0 0 0 1.42.998.998 0 0 0 1.42 0l6.29-6.3 6.29 6.3a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.42L13.41 12Z"/></svg> </button> </starlight-menu-button> <script type="module">class s extends HTMLElement{constructor(){super(),this.btn=this.querySelector("button"),this.btn.addEventListener("click",()=>this.toggleExpanded());const t=this.closest("nav");t&&t.addEventListener("keyup",e=>this.closeOnEscape(e))}setExpanded(t){this.setAttribute("aria-expanded",String(t)),document.body.toggleAttribute("data-mobile-menu-expanded",t)}toggleExpanded(){this.setExpanded(this.getAttribute("aria-expanded")!=="true")}closeOnEscape(t){t.code==="Escape"&&(this.setExpanded(!1),this.btn.focus())}}customElements.define("starlight-menu-button",s);</script>  <div id="starlight__sidebar" class="sidebar-pane astro-vrdttmbt"> <div class="sidebar-content sl-flex astro-vrdttmbt"> <sl-sidebar-state-persist data-hash="1nyclu0" class="astro-kku4brbg"> <script aria-hidden="true">
+		(() => {
+			try {
+				if (!matchMedia('(min-width: 50em)').matches) return;
+				/** @type {HTMLElement | null} */
+				const target = document.querySelector('sl-sidebar-state-persist');
+				const state = JSON.parse(sessionStorage.getItem('sl-sidebar-state') || '0');
+				if (!target || !state || target.dataset.hash !== state.hash) return;
+				window._starlightScrollRestore = state.scroll;
+				customElements.define(
+					'sl-sidebar-restore',
+					class SidebarRestore extends HTMLElement {
+						connectedCallback() {
+							try {
+								const idx = parseInt(this.dataset.index || '');
+								const details = this.closest('details');
+								if (details && typeof state.open[idx] === 'boolean') details.open = state.open[idx];
+							} catch {}
+						}
+					}
+				);
+			} catch {}
+		})();
+	</script>  <ul class="top-level astro-3ii7xxms"> <li class="astro-3ii7xxms"> <details open class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">대시보드 운영</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="0"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <details open class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">수작업 데이터 업로드</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="1"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/operations/manual-upload/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">시장 데이터 변환 파일</span>  </a> </li> </ul> </details> </li> </ul> </details> </li><li class="astro-3ii7xxms"> <details open class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">대시보드 기획</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="2"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/dashboard/background/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">추진 배경 및 목적</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/dashboard/efficiency-profit/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">효율/수익 지표 정의</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/dashboard/voc-request/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">VoC 개발 요청서</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/files/dashboard_progress_20260521" class="astro-3ii7xxms" target="_blank"> <span class="astro-3ii7xxms">업무 추진 현황 ↗</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/dashboard/wireframes/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">화면 설계 · 와이어프레임</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/dashboard/downloads/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">파일 다운로드</span>  </a> </li> </ul> </details> </li><li class="astro-3ii7xxms"> <details open class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">Medallia 사례 분석</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="3"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/files/agenda_20260528" class="astro-3ii7xxms" target="_blank"> <span class="astro-3ii7xxms">📋 발표 목차 (26.05.28) ↗</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/files/medallia_presentation" class="astro-3ii7xxms" target="_blank"> <span class="astro-3ii7xxms">발표 슬라이드 ↗</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/medallia/meeting-summary/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">미팅 요약</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/medallia/reports/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">분석 보고서 모음</span>  </a> </li> </ul> </details> </li><li class="astro-3ii7xxms"> <details open class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">가이드 &amp; 도구</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="4"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/files/ai_research_workflow_slides" class="astro-3ii7xxms" target="_blank"> <span class="astro-3ii7xxms">AI 워크플로우 슬라이드 ↗</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/files/ai_research_workflow" class="astro-3ii7xxms" target="_blank"> <span class="astro-3ii7xxms">AI 워크플로우 문서 ↗</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/guides/analysis-report/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">보고서 기준 v2.0</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/guides/report-format/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">보고서 서식 가이드</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/guides/sds-word-writer/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">SDS Word Writer</span>  </a> </li> </ul> </details> </li><li class="astro-3ii7xxms"> <a href="/html/upload" class="large astro-3ii7xxms" target="_blank"> <span class="astro-3ii7xxms">📂 파일 업로드</span>  </a> </li> </ul>  <script aria-hidden="true">
+		(() => {
+			const scroller = document.getElementById('starlight__sidebar');
+			if (!window._starlightScrollRestore || !scroller) return;
+			scroller.scrollTop = window._starlightScrollRestore;
+			delete window._starlightScrollRestore;
+		})();
+	</script> </sl-sidebar-state-persist> <div class="md:sl-hidden"> <div class="mobile-preferences sl-flex astro-wu23bvmt"> <div class="social-icons astro-wu23bvmt">  </div> <starlight-theme-select>  <label style="--sl-select-width: 6.25em" class="astro-4yphtoen"> <span class="sr-only astro-4yphtoen">테마 선택</span> <svg aria-hidden="true" class="icon label-icon astro-4yphtoen astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg> <select autocomplete="off" class="astro-4yphtoen"> <option value="dark" class="astro-4yphtoen">어두운 테마</option><option value="light" class="astro-4yphtoen">밝은 테마</option><option value="auto" selected class="astro-4yphtoen">자동</option> </select> <svg aria-hidden="true" class="icon caret astro-4yphtoen astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg> </label> </starlight-theme-select>  <script>
+	StarlightThemeProvider.updatePickers();
+</script>   </div> </div> </div> </div> </nav> <div class="main-frame astro-vrdttmbt">  <script type="module">const a=document.getElementById("starlight__sidebar"),n=a?.querySelector("sl-sidebar-state-persist"),o="sl-sidebar-state",i=()=>{let t=[];const e=n?.dataset.hash||"";try{const s=sessionStorage.getItem(o),r=JSON.parse(s||"{}");Array.isArray(r.open)&&r.hash===e&&(t=r.open)}catch{}return{hash:e,open:t,scroll:a?.scrollTop||0}},c=t=>{try{sessionStorage.setItem(o,JSON.stringify(t))}catch{}},d=()=>c(i()),l=(t,e)=>{const s=i();s.open[e]=t,c(s)};n?.addEventListener("click",t=>{if(!(t.target instanceof Element))return;const e=t.target.closest("summary")?.closest("details");if(!e)return;const s=e.querySelector("sl-sidebar-restore"),r=parseInt(s?.dataset.index||"");isNaN(r)||l(!e.open,r)});addEventListener("visibilitychange",()=>{document.visibilityState==="hidden"&&d()});addEventListener("pageHide",d);</script> <div class="lg:sl-flex astro-67yu43on"> <aside class="right-sidebar-container print:hidden astro-67yu43on"> <div class="right-sidebar astro-67yu43on"> <div class="lg:sl-hidden astro-pb3aqygn"><mobile-starlight-toc data-min-h="2" data-max-h="3" class="astro-doynk5tl"><nav aria-labelledby="starlight__on-this-page--mobile" class="astro-doynk5tl"><details id="starlight__mobile-toc" class="astro-doynk5tl"><summary id="starlight__on-this-page--mobile" class="sl-flex astro-doynk5tl"><span class="toggle sl-flex astro-doynk5tl">목차<svg aria-hidden="true" class="caret astro-doynk5tl astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></span><span class="display-current astro-doynk5tl"></span></summary><div class="dropdown astro-doynk5tl"><ul class="isMobile astro-gnoq344e" style="--depth: 0;"> <li class="astro-gnoq344e" style="--depth: 0;"> <a href="#_top" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">개요</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#핵심-요약-3줄" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">핵심 요약 (3줄)</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#1-회의-구조-및-주요-논의-흐름" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">1. 회의 구조 및 주요 논의 흐름</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#2-보고서-품질-검토--리더-피드백-요지" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">2. 보고서 품질 검토 — 리더 피드백 요지</span> </a> <ul class="isMobile astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#분석-기준-통일-지시" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">분석 기준 통일 지시</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#데이터-정합성-요구" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">데이터 정합성 요구</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#보고서-목적-재정의" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">보고서 목적 재정의</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#3-재무-수치-확인-및-해석-논의" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">3. 재무 수치 확인 및 해석 논의</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#4-실패-원인-심층-분석" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">4. 실패 원인 심층 분석</span> </a> <ul class="isMobile astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#-고금리--가장-직접적-원인" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">① 고금리 — 가장 직접적 원인</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#-성장-정체--예측-실패" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">② 성장 정체 — 예측 실패</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#-사업-대체-가능성-genai-위협--구조적-취약점" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">③ 사업 대체 가능성 (GenAI 위협) — 구조적 취약점</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#5-blackstonethoma-bravo-포지션-분석" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">5. Blackstone·Thoma Bravo 포지션 분석</span> </a> <ul class="isMobile astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#경영권-이전의-구조적-해석" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">경영권 이전의 구조적 해석</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#6-ma-전략-시사점-및-논의" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">6. M&amp;A 전략 시사점 및 논의</span> </a> <ul class="isMobile astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#인수-타이밍-판단" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">인수 타이밍 판단</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#ma-평가-기준-이번-케이스에서-도출" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">M&amp;A 평가 기준 (이번 케이스에서 도출)</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#자사-ma-제약-조건" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">자사 M&amp;A 제약 조건</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#7-거시-리스크--자본시장-흐름-전망" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">7. 거시 리스크 — 자본시장 흐름 전망</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#8-후속-액션-아이템" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">8. 후속 액션 아이템</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#9-종합-평가-및-시사점" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">9. 종합 평가 및 시사점</span> </a>  </li> </ul></div></details></nav></mobile-starlight-toc><script type="module" src="/_astro/MobileTableOfContents.astro_astro_type_script_index_0_lang.hwBsy0Mo.js"></script></div><div class="right-sidebar-panel sl-hidden lg:sl-block astro-pb3aqygn"><div class="sl-container astro-pb3aqygn"><starlight-toc data-min-h="2" data-max-h="3"><nav aria-labelledby="starlight__on-this-page"><h2 id="starlight__on-this-page">목차</h2><ul class="astro-gnoq344e" style="--depth: 0;"> <li class="astro-gnoq344e" style="--depth: 0;"> <a href="#_top" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">개요</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#핵심-요약-3줄" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">핵심 요약 (3줄)</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#1-회의-구조-및-주요-논의-흐름" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">1. 회의 구조 및 주요 논의 흐름</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#2-보고서-품질-검토--리더-피드백-요지" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">2. 보고서 품질 검토 — 리더 피드백 요지</span> </a> <ul class="astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#분석-기준-통일-지시" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">분석 기준 통일 지시</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#데이터-정합성-요구" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">데이터 정합성 요구</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#보고서-목적-재정의" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">보고서 목적 재정의</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#3-재무-수치-확인-및-해석-논의" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">3. 재무 수치 확인 및 해석 논의</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#4-실패-원인-심층-분석" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">4. 실패 원인 심층 분석</span> </a> <ul class="astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#-고금리--가장-직접적-원인" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">① 고금리 — 가장 직접적 원인</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#-성장-정체--예측-실패" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">② 성장 정체 — 예측 실패</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#-사업-대체-가능성-genai-위협--구조적-취약점" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">③ 사업 대체 가능성 (GenAI 위협) — 구조적 취약점</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#5-blackstonethoma-bravo-포지션-분석" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">5. Blackstone·Thoma Bravo 포지션 분석</span> </a> <ul class="astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#경영권-이전의-구조적-해석" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">경영권 이전의 구조적 해석</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#6-ma-전략-시사점-및-논의" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">6. M&amp;A 전략 시사점 및 논의</span> </a> <ul class="astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#인수-타이밍-판단" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">인수 타이밍 판단</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#ma-평가-기준-이번-케이스에서-도출" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">M&amp;A 평가 기준 (이번 케이스에서 도출)</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#자사-ma-제약-조건" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">자사 M&amp;A 제약 조건</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#7-거시-리스크--자본시장-흐름-전망" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">7. 거시 리스크 — 자본시장 흐름 전망</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#8-후속-액션-아이템" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">8. 후속 액션 아이템</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#9-종합-평가-및-시사점" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">9. 종합 평가 및 시사점</span> </a>  </li> </ul></nav></starlight-toc><script type="module" src="/_astro/TableOfContents.astro_astro_type_script_index_0_lang.FuRcXuRY.js"></script></div></div> </div> </aside> <div class="main-pane astro-67yu43on">  <main data-pagefind-body class="astro-bguv2lll" lang="ko" dir="ltr">    <div class="content-panel astro-7nkwcw3z"> <div class="sl-container astro-7nkwcw3z"> <h1 id="_top" class="astro-j6tvhyss">Medallia 보고서 검토 및 M&amp;A 전략 회의록 분석</h1> </div> </div> <div class="content-panel astro-7nkwcw3z"> <div class="sl-container astro-7nkwcw3z"> <div class="sl-markdown-content"> <blockquote>
+<p><strong>회의일시:</strong> ‘26.05.14 (수) | <strong>참석:</strong> 5인 | <strong>작성:</strong> 솔루션전략그룹</p>
+</blockquote>
+<p><strong>HTML 웹페이지 →</strong> <a href="http://13.49.177.238:8090/medallia_meeting_summary_20260514.html">medallia_meeting_summary_20260514.html</a></p>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="핵심-요약-3줄">핵심 요약 (3줄)</h2><a class="sl-anchor-link" href="#핵심-요약-3줄"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “핵심 요약 (3줄)”</span></a></div>
+<ul>
+<li>Medallia 실패의 본질은 <strong>고금리·PIK 누적·성장 정체의 3중 압박</strong>이며, GenAI에 의한 사업 대체 가능성이 구조적 취약점으로 확인됨</li>
+<li>Thoma Bravo → Blackstone 경영권 이전은 PE 입장에서 “담보 실행”이며, 양측 실손 규모는 FCF 데이터 확보 후 정밀 재계산 필요</li>
+<li>SaaS 밸류에이션 정상화 국면에서 M&#x26;A 저점 매수 타이밍이 도래하고 있으며, 평가 기준(NRR 지속성·기술 대체 위험·FCF 커버리지)을 지금 정립해야 함</li>
+</ul>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="1-회의-구조-및-주요-논의-흐름">1. 회의 구조 및 주요 논의 흐름</h2><a class="sl-anchor-link" href="#1-회의-구조-및-주요-논의-흐름"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “1. 회의 구조 및 주요 논의 흐름”</span></a></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>시간</th><th>논의 내용</th></tr></thead><tbody><tr><td>00:00~10:00</td><td>보고서 수치 검증 — FCF·이자비용·매출 숫자 일관성 점검, 분석 기준 통일 지시</td></tr><tr><td>10:00~22:00</td><td>실패 원인 심층 분석 — 금리 환경, 사업 대체 가능성(GenAI), PIK 구조적 문제</td></tr><tr><td>22:00~32:00</td><td>M&#x26;A 전략 논의 — 인수 타이밍, 자사 제약 조건, 평가 기준 정립 방향</td></tr><tr><td>32:00~42:00</td><td>Blackstone·Thoma Bravo 포지션 분석 — 경영권 이전의 재무적 해석</td></tr><tr><td>42:00~60:00</td><td>거시 리스크 논의 + 마무리 — OpenAI·SpaceX IPO 자본시장 영향, 후속 스터디 방향</td></tr></tbody></table>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="2-보고서-품질-검토--리더-피드백-요지">2. 보고서 품질 검토 — 리더 피드백 요지</h2><a class="sl-anchor-link" href="#2-보고서-품질-검토--리더-피드백-요지"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “2. 보고서 품질 검토 — 리더 피드백 요지”</span></a></div>
+<div class="sl-heading-wrapper level-h3"><h3 id="분석-기준-통일-지시">분석 기준 통일 지시</h3><a class="sl-anchor-link" href="#분석-기준-통일-지시"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “분석 기준 통일 지시”</span></a></div>
+<ul>
+<li>FCF를 일관된 분석 기준으로 사용 — EBITDA·영업이익으로 중간에 기준을 바꾸지 말 것</li>
+<li>“FCF가 나와야 이자 커버리지, Par Coverage, 투자 수익성이 한꺼번에 정리된다”고 강조</li>
+<li>EBITDA ≠ FCF 혼용 시 분석 논리가 무너진다고 반복 지적</li>
+</ul>
+<div class="sl-heading-wrapper level-h3"><h3 id="데이터-정합성-요구">데이터 정합성 요구</h3><a class="sl-anchor-link" href="#데이터-정합성-요구"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “데이터 정합성 요구”</span></a></div>
+<ul>
+<li>인수 당시 매출($0.7B) → 현재 매출 성장률을 역산(Hindcast)하여 실제 성장 궤적 확인</li>
+<li>상장 폐지 이후 재무 데이터 미공개 → Substack·Medium 등 영문 서드파티 분석글 검색 지시</li>
+<li>“로직이 다 맞아떨어져야 한다” — 개별 수치가 아니라 전체 이야기(Story)가 일관되어야 함</li>
+</ul>
+<div class="sl-heading-wrapper level-h3"><h3 id="보고서-목적-재정의">보고서 목적 재정의</h3><a class="sl-anchor-link" href="#보고서-목적-재정의"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “보고서 목적 재정의”</span></a></div>
+<ul>
+<li>단순 사실 정리를 넘어 <strong>시사점 도출 → M&#x26;A 평가 기준 정립</strong>까지 연결</li>
+<li>“개선점을 고민하는 게 아니라, 우리가 인수할 때 무슨 기준으로 봐야 하는지 배우는 것”</li>
+<li>콘설팅 관점이 아닌 사업주(사장) 관점으로 문제를 바라볼 것을 주문</li>
+</ul>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="3-재무-수치-확인-및-해석-논의">3. 재무 수치 확인 및 해석 논의</h2><a class="sl-anchor-link" href="#3-재무-수치-확인-및-해석-논의"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “3. 재무 수치 확인 및 해석 논의”</span></a></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>항목</th><th>회의 중 언급 수치</th><th>해석 및 맥락</th></tr></thead><tbody><tr><td>인수 당시 매출</td><td>~$0.7B</td><td>상장 폐지 이후 최근 수치 미공개. 역산 필요</td></tr><tr><td>인수가 (EV)</td><td>~$6.4B</td><td>Equity $4.6B + Debt $1.8B 구조 (Thoma Bravo LBO)</td></tr><tr><td>EV/Revenue 배수</td><td>~9×</td><td>당시 SaaS 시장 평균 대비 “싸게 산” 수준</td></tr><tr><td>Rule of 40 (현재)</td><td>10.8</td><td>SaaS 건전성 기준선(40) 대비 현저히 낮음</td></tr><tr><td>연간 이자 부담</td><td>~$0.3B/년</td><td>PIK 포함 변동금리 구조. 금리 상승으로 2.8B까지 누적</td></tr><tr><td>FCF</td><td>미공개 (적자 추정)</td><td><strong>FCF &#x3C; 연간 이자 — 이것이 파국의 수학적 근거</strong></td></tr><tr><td>Blackstone 채권 원금</td><td>$1.8B → 누적 ~$2.8B</td><td>변동금리 인상으로 채무 누적. 경영권으로 전환</td></tr><tr><td>Thoma Bravo 자기자본</td><td>~$4.8B (추정)</td><td>실질 손실액은 이자 납부분 차감 후 계산 필요</td></tr></tbody></table>
+<p><strong>핵심 수식:</strong></p>
+<div class="expressive-code"><link rel="stylesheet" href="/_astro/ec.v4551.css"><script type="module" src="/_astro/ec.0vx5m.js"></script><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">연간 이자 지출 ≈ $0.3B/년</span></div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">FCF &#x3C; 이자 지출 → FCF 커버리지 &#x3C; 1.0× → 구조적 부실</span></div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">3.1년 × $0.3B ≈ $0.93B 누적 이자 납부 후 경영권 상실</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="연간 이자 지출 ≈ $0.3B/년FCF < 이자 지출 → FCF 커버리지 < 1.0× → 구조적 부실3.1년 × $0.3B ≈ $0.93B 누적 이자 납부 후 경영권 상실"><div></div></button></div></figure></div>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="4-실패-원인-심층-분석">4. 실패 원인 심층 분석</h2><a class="sl-anchor-link" href="#4-실패-원인-심층-분석"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “4. 실패 원인 심층 분석”</span></a></div>
+<div class="sl-heading-wrapper level-h3"><h3 id="-고금리--가장-직접적-원인">① 고금리 — 가장 직접적 원인</h3><a class="sl-anchor-link" href="#-고금리--가장-직접적-원인"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “① 고금리 — 가장 직접적 원인”</span></a></div>
+<ul>
+<li>SOFR 연동 변동금리 → 금리 인상기에 이자 부담이 $1.8B → $2.8B으로 급증</li>
+<li>PIK 비중을 중간에 축소 시도했으나 이미 누적된 부채 구조를 되돌리기 어려웠음</li>
+</ul>
+<div class="sl-heading-wrapper level-h3"><h3 id="-성장-정체--예측-실패">② 성장 정체 — 예측 실패</h3><a class="sl-anchor-link" href="#-성장-정체--예측-실패"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “② 성장 정체 — 예측 실패”</span></a></div>
+<ul>
+<li>인수 당시 매출 성장률 예상: 23~26%p → 실제 성장률 훨씬 작았던 것으로 확인</li>
+<li>Rule of 40 = 10.8 → 성장(G)과 수익성(P) 모두 악화된 결과</li>
+</ul>
+<div class="sl-heading-wrapper level-h3"><h3 id="-사업-대체-가능성-genai-위협--구조적-취약점">③ 사업 대체 가능성 (GenAI 위협) — 구조적 취약점</h3><a class="sl-anchor-link" href="#-사업-대체-가능성-genai-위협--구조적-취약점"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “③ 사업 대체 가능성 (GenAI 위협) — 구조적 취약점”</span></a></div>
+<ul>
+<li>Medallia 사업 = VoC 수집 + 서베이 + 분석 → “이 영역은 대체 가능하다”</li>
+<li>GenAI 등장으로 기존 Survey/VoC SaaS의 차별점이 빠르게 소멸</li>
+<li>SAP 연계 협력 시도도 실패 → 외부 생태계 의존 전략 한계</li>
+</ul>
+<blockquote>
+<p><strong>실패의 3중 압박 구조:</strong> 고금리(외부) + PIK 누적(구조) + 성장 정체(사업)<br>
+세 가지가 동시에 작용해 개별 대응이 불가능했던 케이스. GenAI 가속화로 반전 가능성까지 차단 → 엑시트 실기(失期)</p>
+</blockquote>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="5-blackstonethoma-bravo-포지션-분석">5. Blackstone·Thoma Bravo 포지션 분석</h2><a class="sl-anchor-link" href="#5-blackstonethoma-bravo-포지션-분석"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “5. Blackstone·Thoma Bravo 포지션 분석”</span></a></div>
+<div class="sl-heading-wrapper level-h3"><h3 id="경영권-이전의-구조적-해석">경영권 이전의 구조적 해석</h3><a class="sl-anchor-link" href="#경영권-이전의-구조적-해석"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “경영권 이전의 구조적 해석”</span></a></div>
+<ul>
+<li>Blackstone은 채권자(Lender) 포지션 → Thoma Bravo가 채무 불이행 시 담보(경영권) 실행</li>
+<li>“얘네들이 Blackstone에 돈을 빌린 거잖아. 얘는 그 원금을 회사로 가져간 거지, 돈으로 못 받은 거지”</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>주체</th><th>투입 자원</th><th>회수 내용</th><th>실질 손익 해석</th></tr></thead><tbody><tr><td>Thoma Bravo</td><td>Equity ~$4.8B</td><td>경영권 상실</td><td>이자 납부분 제외 실손. Equity 전액 손실에 가까움</td></tr><tr><td>Blackstone</td><td>Debt $1.8B</td><td>경영권(지분) 가치 ~$2.8B?</td><td>경영권 가치 = $2.8B이면 수익, 실질 가치 미달 시 손실</td></tr></tbody></table>
+<p><strong>리더의 비유적 설명:</strong></p>
+<blockquote>
+<p>“내가 상가를 샀어. 장사가 잘 안 돼서 한 달에 100만원씩 3년 동안 썼는데, 그냥 담보로 은행에 준 거야. 자기네들이 엄청 불쌍한 거 없어요.”<br>
+→ <strong>PE의 LBO는 지자본 손실이 ‘빌린 돈’으로 이루어졌다는 점을 항상 고려해야 함</strong></p>
+</blockquote>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="6-ma-전략-시사점-및-논의">6. M&#x26;A 전략 시사점 및 논의</h2><a class="sl-anchor-link" href="#6-ma-전략-시사점-및-논의"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “6. M&#x26;A 전략 시사점 및 논의”</span></a></div>
+<div class="sl-heading-wrapper level-h3"><h3 id="인수-타이밍-판단">인수 타이밍 판단</h3><a class="sl-anchor-link" href="#인수-타이밍-판단"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “인수 타이밍 판단”</span></a></div>
+<ul>
+<li>“SaaS 밸류에이션 정상화 → 지금이 저점 인수 타이밍이 온다” — 리더 직접 발언</li>
+<li>GenAI 영향으로 핫스팟이 이동 중 → 사업 본질 판단이 더 중요해지는 환경</li>
+</ul>
+<div class="sl-heading-wrapper level-h3"><h3 id="ma-평가-기준-이번-케이스에서-도출">M&#x26;A 평가 기준 (이번 케이스에서 도출)</h3><a class="sl-anchor-link" href="#ma-평가-기준-이번-케이스에서-도출"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “M&#x26;A 평가 기준 (이번 케이스에서 도출)”</span></a></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>평가 항목</th><th>Medallia에서의 문제</th><th>향후 기준</th></tr></thead><tbody><tr><td>FCF 커버리지</td><td>FCF &#x3C; 이자 → 구조적 부실</td><td>FCF ÷ 이자비용 ≥ 1.5× 이상 확인</td></tr><tr><td>NRR 지속성</td><td>성장 정체·NRR 하락</td><td>NRR 110%+ 지속 가능 여부 + 업셀링 경로 확인</td></tr><tr><td>기술 대체 위험</td><td>VoC/Survey → GenAI 대체</td><td>GenAI 대체 불가 영역인지 + 기술 방어력 평가</td></tr><tr><td>금리 시나리오</td><td>변동금리 + 고금리 미대응</td><td>고금리 지속 시 3년 FCF 시뮬레이션 필수</td></tr><tr><td>시장 타이밍</td><td>밸류 피크에 인수</td><td>EV/Revenue 정상화 국면 진입 여부 확인</td></tr></tbody></table>
+<div class="sl-heading-wrapper level-h3"><h3 id="자사-ma-제약-조건">자사 M&#x26;A 제약 조건</h3><a class="sl-anchor-link" href="#자사-ma-제약-조건"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “자사 M&#x26;A 제약 조건”</span></a></div>
+<ul>
+<li>PS(주가·실적) 영향 우려로 공격적 M&#x26;A 결정이 어려운 내부 구조</li>
+<li>“중간 지분 투자가 안 된다. 전부 다 해버려야 한다. 그러면 돈 나온 데 사야 한다”</li>
+<li>“M&#x26;A가 쉬운 게 아니고 우린 제약이 너무 많다” — 리더 발언</li>
+</ul>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="7-거시-리스크--자본시장-흐름-전망">7. 거시 리스크 — 자본시장 흐름 전망</h2><a class="sl-anchor-link" href="#7-거시-리스크--자본시장-흐름-전망"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “7. 거시 리스크 — 자본시장 흐름 전망”</span></a></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>이벤트</th><th>예상 시점</th><th>리더 시각</th></tr></thead><tbody><tr><td>OpenAI IPO</td><td>~‘26 상반기</td><td>현금 고갈 전 상장 강행 가능성. 성공 확률 30% 미만. 실패 시 AI 섹터 충격파</td></tr><tr><td>Anthropic(Claude) IPO</td><td>시점 미정</td><td>성공 확률 50% 수준 평가. OpenAI와 함께 대규모 자본 흡수</td></tr><tr><td>SpaceX IPO</td><td>’26.6~7월</td><td>”스페이스가 다 빨아갈 것” — 초대형 IPO로 유동성 집중 현상 예상</td></tr><tr><td>Hyperscaler 투자 흐름</td><td>진행 중</td><td>미국 자본시장 전체와 연동. 방향성 모니터링 필수</td></tr></tbody></table>
+<blockquote>
+<p>“이 사태가 몇 가지 사건이 결합되면 내년도에 주식시장 전체를 흔들 수 있는 사건이야."<br>
+"26년 5~6월까지만 팩트 돼 있다고. 그 뒤에 있는 건 소설이에요.” (불확실성 명시)</p>
+</blockquote>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="8-후속-액션-아이템">8. 후속 액션 아이템</h2><a class="sl-anchor-link" href="#8-후속-액션-아이템"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “8. 후속 액션 아이템”</span></a></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>No.</th><th>항목</th><th>담당</th><th>비고</th></tr></thead><tbody><tr><td>1</td><td>FCF 데이터 확보 및 역산 검증 (Substack·Medium 영문 분석글 탐색)</td><td>발화자 4</td><td>보고서 수치 정합성 확보</td></tr><tr><td>2</td><td>인수 시점 매출 성장률 검증 — CAGR 산출</td><td>발화자 4</td><td>성장 정체 수치 근거화</td></tr><tr><td>3</td><td>Blackstone 실손익 정밀 계산 — 경영권 가치 비교 모델링</td><td>발화자 2·3</td><td>경영권 인수 후 편익/리스크 분석</td></tr><tr><td>4</td><td>GenAI 대체 가능성 분석 섹션 추가</td><td>발화자 5</td><td>기술 대체 위험 섹션 신설</td></tr><tr><td>5</td><td>NRR 지속성 + 업셀링 경로 분석</td><td>발화자 5</td><td>SaaS 사업 지속가능성 평가 기준</td></tr><tr><td>6</td><td>M&#x26;A 평가 프레임워크 초안 작성</td><td>발화자 2</td><td>차기 M&#x26;A 검토 시 적용</td></tr><tr><td>7</td><td>KKR 유사 통합 사례 추가 조사</td><td>발화자 2</td><td>별첨 사례 확장</td></tr></tbody></table>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="9-종합-평가-및-시사점">9. 종합 평가 및 시사점</h2><a class="sl-anchor-link" href="#9-종합-평가-및-시사점"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “9. 종합 평가 및 시사점”</span></a></div>
+<p><strong>보고서 분석의 핵심 교훈:</strong></p>
+<ul>
+<li>PE LBO의 실패는 이자 부담 단독이 아닌, <strong>성장 정체 + 금리 상승 + 사업 대체 가능성의 복합 작용</strong>으로 발생</li>
+<li>밸류에이션 배수(EV/Revenue 9×)가 “싸 보여도” FCF 미래 추정이 틀리면 의미 없음</li>
+<li>PIK 이자는 현금 부담을 단기 유예할 뿐 — 근본 사업 가치 창출이 없으면 시한폭탄</li>
+</ul>
+<p><strong>자사 적용 관점:</strong></p>
+<ul>
+<li>M&#x26;A 대상 평가 시 FCF 커버리지·NRR·GenAI 대체 가능성을 3대 필수 지표로 활용</li>
+<li>고금리 환경 지속 가능성을 가정한 스트레스 테스트 시나리오 병행 필요</li>
+<li>사업 본질(대체 불가 영역 여부) 판단 없이 재무 지표만으로 인수 결정 시 동일 위험 반복 가능</li>
+</ul>
+<p><strong>리더 발언 인용 — 이번 스터디의 진짜 목적:</strong></p>
+<blockquote>
+<p>“M&#x26;A를 지금부터 진짜 열심히 관찰해야 되고, 그걸 하기 위해서 어떤 준비를 해야 하고,<br>
+우리가 내년에 한다고 대상을 고를 때 무슨 기준으로 봐야 하는지도<br>
+이 보고서에서 배워서 정리하자. 이런 거야.”<br>
+→ <strong>Medallia 케이스 = 실패 분석이 아니라 M&#x26;A 평가 역량을 키우기 위한 훈련</strong></p>
+</blockquote>
+<hr>
+<p><em>본 문서는 내부 회의 STT 기록을 기반으로 작성한 분석용 요약본이며, 공식 회의록이 아닙니다.</em><br>
+<em>수치는 회의 발언 기준이며, 일부는 추정치 또는 검증 중인 값임. 확정 수치는 <a href="/project/medallia_report_final/">Medallia 보고서 최종본</a> 기준.</em></p> </div> <footer class="sl-flex astro-3yyafb3n"> <div class="meta sl-flex astro-3yyafb3n">   </div> <div class="pagination-links print:hidden astro-u2l5gyhi" dir="ltr">   </div>  </footer> </div> </div>  </main> </div> </div> </div> </div> </body></html>

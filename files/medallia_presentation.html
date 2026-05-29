@@ -533,22 +533,42 @@
       </svg>
 
       <!-- EV/NTM FCF Chart -->
-      <svg viewBox="0 0 500 122" width="100%" preserveAspectRatio="xMidYMid meet" style="margin-top:10px;">
-        <text x="248" y="10" text-anchor="middle" font-size="8.5" fill="#6B778C" font-weight="600">EV / NTM FCF Multiple — FCF Positive SaaS (인수 당시 밸류에이션 환경)</text>
+      <svg viewBox="0 0 500 138" width="100%" preserveAspectRatio="xMidYMid meet" style="margin-top:10px;">
+        <!-- Title -->
+        <text x="248" y="10" text-anchor="middle" font-size="8.5" fill="#6B778C" font-weight="600">EV / NTM FCF Multiple — FCF Positive SaaS 기업 중앙값</text>
+
+        <!-- Chart bg -->
         <rect x="40" y="14" width="400" height="88" fill="#F8FAFC" rx="3"/>
+
+        <!-- Grid lines -->
         <line x1="40" y1="102" x2="440" y2="102" stroke="#DFE1E6" stroke-width="0.5"/>
         <line x1="40" y1="80"  x2="440" y2="80"  stroke="#E5E7EB" stroke-width="0.5"/>
         <line x1="40" y1="58"  x2="440" y2="58"  stroke="#E5E7EB" stroke-width="0.5"/>
         <line x1="40" y1="36"  x2="440" y2="36"  stroke="#E5E7EB" stroke-width="0.5"/>
         <line x1="40" y1="14"  x2="440" y2="14"  stroke="#E5E7EB" stroke-width="0.5"/>
+
+        <!-- Y-axis labels (left) -->
         <text x="36" y="105" text-anchor="end" font-size="7" fill="#9CA3AF">0×</text>
         <text x="36" y="61"  text-anchor="end" font-size="7" fill="#9CA3AF">50×</text>
         <text x="36" y="17"  text-anchor="end" font-size="7" fill="#9CA3AF">100×</text>
-        <line x1="40" y1="84" x2="440" y2="84" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,3"/>
-        <text x="443" y="87" font-size="7" fill="#94A3B8">LT Avg</text>
+        <!-- 22× marker aligned with LT Avg line -->
+        <line x1="37" y1="84" x2="40" y2="84" stroke="#94A3B8" stroke-width="1.5"/>
+        <text x="34" y="82" text-anchor="end" font-size="7" fill="#94A3B8" font-weight="700">22×</text>
+
+        <!-- LT Average line -->
+        <line x1="40" y1="84" x2="440" y2="84" stroke="#94A3B8" stroke-width="1.2" stroke-dasharray="4,3"/>
+        <!-- Right-side label (two lines) -->
+        <text x="443" y="82" font-size="7" fill="#94A3B8" font-weight="600">LT Avg</text>
+        <text x="443" y="91" font-size="7" fill="#94A3B8">~22×</text>
+
+        <!-- Area fill -->
         <polygon points="40,82 107,77 173,63 240,37 307,79 373,86 440,82 440,102 40,102" fill="rgba(24,104,219,0.07)"/>
+
+        <!-- Data line -->
         <polyline points="40,82 107,77 173,63 240,37 307,79 373,86 440,82"
           fill="none" stroke="#1868DB" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+
+        <!-- Data dots -->
         <circle cx="40"  cy="82" r="2.5" fill="#1868DB"/>
         <circle cx="107" cy="77" r="2.5" fill="#1868DB"/>
         <circle cx="173" cy="63" r="2.5" fill="#1868DB"/>
@@ -556,9 +576,21 @@
         <circle cx="307" cy="79" r="2.5" fill="#1868DB"/>
         <circle cx="373" cy="86" r="2.5" fill="#1868DB"/>
         <circle cx="440" cy="82" r="2.5" fill="#1868DB"/>
-        <text x="240" y="30" text-anchor="middle" font-size="8.5" fill="#1868DB" font-weight="700">72×</text>
+
+        <!-- Peak label -->
+        <text x="235" y="30" text-anchor="middle" font-size="8.5" fill="#1868DB" font-weight="700">72×</text>
+
+        <!-- Peak callout: LT 평균의 3.3배 -->
+        <rect x="254" y="15" width="98" height="22" rx="3" fill="rgba(24,104,219,0.07)" stroke="rgba(24,104,219,0.20)" stroke-width="0.7"/>
+        <text x="303" y="24" text-anchor="middle" font-size="6.5" fill="#6B778C">LT 평균(22×)의</text>
+        <text x="303" y="34" text-anchor="middle" font-size="7.5" fill="#1868DB" font-weight="700">3.3배 팽창</text>
+        <line x1="254" y1="26" x2="244" y2="36" stroke="rgba(24,104,219,0.25)" stroke-width="0.8" stroke-dasharray="2,2"/>
+
+        <!-- Medallia marker -->
         <line x1="296" y1="14" x2="296" y2="110" stroke="#FF5630" stroke-width="1.2" stroke-dasharray="3,2" opacity="0.85"/>
         <polygon points="296,37 291,29 301,29" fill="#FF5630"/>
+
+        <!-- X-axis labels -->
         <text x="40"  y="114" text-anchor="middle" font-size="7" fill="#6B778C">'18</text>
         <text x="107" y="114" text-anchor="middle" font-size="7" fill="#6B778C">'19</text>
         <text x="173" y="114" text-anchor="middle" font-size="7" fill="#6B778C">'20</text>
@@ -566,13 +598,19 @@
         <text x="307" y="114" text-anchor="middle" font-size="7" fill="#6B778C">'22</text>
         <text x="373" y="114" text-anchor="middle" font-size="7" fill="#6B778C">'23</text>
         <text x="440" y="114" text-anchor="middle" font-size="7" fill="#6B778C">'24</text>
-        <text x="298" y="122" font-size="7" fill="#FF5630" font-weight="600">Medallia 인수 '21.10</text>
-        <line x1="40" y1="119" x2="56" y2="119" stroke="#1868DB" stroke-width="1.8"/>
-        <circle cx="48" cy="119" r="2" fill="#1868DB"/>
-        <text x="59" y="121" font-size="6.5" fill="#6B778C" class="abbr-svg-hl" data-abbr-key="FCF Positive Median" style="cursor:pointer;">FCF Positive Median</text>
-        <line x1="140" y1="119" x2="156" y2="119" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,3"/>
-        <text x="159" y="121" font-size="6.5" fill="#94A3B8" class="abbr-svg-hl" data-abbr-key="LT Average" style="cursor:pointer;">LT Average</text>
-        <text x="440" y="121" text-anchor="end" font-size="6" fill="#CBD5E0">Source: Bloomberg, PitchBook</text>
+
+        <!-- Medallia marker label -->
+        <text x="298" y="122" font-size="7" fill="#FF5630" font-weight="600">인수 '21.10</text>
+
+        <!-- Legend -->
+        <line x1="40" y1="132" x2="56" y2="132" stroke="#1868DB" stroke-width="1.8"/>
+        <circle cx="48" cy="132" r="2" fill="#1868DB"/>
+        <text x="59" y="134" font-size="6.5" fill="#6B778C" class="abbr-svg-hl" data-abbr-key="FCF Positive Median" style="cursor:pointer;">FCF Positive Median</text>
+        <line x1="140" y1="132" x2="156" y2="132" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,3"/>
+        <text x="159" y="134" font-size="6.5" fill="#94A3B8" class="abbr-svg-hl" data-abbr-key="LT Average" style="cursor:pointer;">LT Average (~22×)</text>
+        <line x1="254" y1="132" x2="265" y2="132" stroke="#FF5630" stroke-width="1.2" stroke-dasharray="3,2" opacity="0.85"/>
+        <text x="268" y="134" font-size="6.5" fill="#FF5630">Medallia 인수 시점</text>
+        <text x="440" y="134" text-anchor="end" font-size="6" fill="#CBD5E0">Source: Bloomberg, PitchBook</text>
       </svg>
     </div>
 

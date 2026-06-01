@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>개념 설명 지형도 프롬프트</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+    font-size: 15px;
+    line-height: 1.8;
+    color: #1a1a1a;
+    background: #f4f4f4;
+    padding: 40px 20px;
+  }
+  .page {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 8px;
+    padding: 48px 56px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+  }
+  h1 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    letter-spacing: -0.3px;
+  }
+  .subtitle {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 32px;
+  }
+  h2 {
+    font-size: 14px;
+    font-weight: 700;
+    margin: 28px 0 10px 0;
+    padding-bottom: 4px;
+    border-bottom: 1.5px solid #222;
+  }
+  p { margin-bottom: 10px; font-size: 14px; color: #333; }
+
+  /* 프롬프트 블록 */
+  .prompt-wrap {
+    position: relative;
+    margin: 12px 0 20px 0;
+  }
+  .prompt-box {
+    background: #f7f8fa;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 20px 24px;
+    font-size: 13.5px;
+    line-height: 1.9;
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: #222;
+    font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  }
+  .copy-btn {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    background: #222;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 12px;
+    font-size: 12px;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+  }
+  .copy-btn:hover { background: #444; }
+  .copy-btn.copied { background: #1a6bbf; }
+
+  /* 원칙 표 */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    margin-top: 10px;
+  }
+  th {
+    background: #1e1e1e;
+    color: #fff;
+    padding: 7px 12px;
+    text-align: left;
+    font-weight: 600;
+  }
+  td {
+    padding: 7px 12px;
+    border: 1px solid #ddd;
+    vertical-align: top;
+    line-height: 1.7;
+  }
+  tr:nth-child(even) td { background: #f9f9f9; }
+  td:first-child { font-weight: 600; width: 28%; white-space: nowrap; }
+
+  /* MECE 뱃지 */
+  .badge {
+    display: inline-block;
+    font-size: 10px;
+    background: #1a6bbf;
+    color: #fff;
+    border-radius: 3px;
+    padding: 1px 6px;
+    margin-left: 6px;
+    vertical-align: middle;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+
+  .sep { border: none; border-top: 1px solid #eee; margin: 24px 0; }
+  .note { font-size: 12px; color: #999; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <h1>개념 설명 스타일 가이드</h1>
+  <div class="subtitle">지형도 기반 설명 요청 프롬프트 — MECE + 층위 구조 포함</div>
+
+  <h2>사용법</h2>
+  <p>아래 프롬프트 전체를 복사해서 대화창에 붙여넣은 후, <strong>첫 줄의 빈칸에 설명할 개념</strong>을 입력하세요.</p>
+
+  <h2>프롬프트</h2>
+  <div class="prompt-wrap">
+    <button class="copy-btn" onclick="copyPrompt(this)">복사</button>
+    <div class="prompt-box" id="prompt-text">설명할 개념: ___________
+
+위 개념을 아래 8가지 항목으로 설명해줘.
+단순 정의가 아니라, 이 개념이 속한 시장·기술 지형도 안에서 위치와 맥락을 이해할 수 있도록 설명해줘.
+
+설명 전체에서 기술 / 기업 / 제품 / 시장을 구분해서 서술해줘.
+예: "Rossum은 기업이고, Aurora는 제품이며, T-LLM은 기술이고, IDP는 시장이다."
+
+분류가 필요한 항목(3, 4, 5번)은 MECE 원칙에 따라
+겹치지 않고(Mutually Exclusive) 빠짐없이(Collectively Exhaustive) 구성해줘.
+
+---
+
+### 1. 상위 개념
+이 개념이 속한 더 큰 범주는 무엇인가?
+기술 계층인지, 산업 분류인지, 시장 카테고리인지 명시해줘.
+
+### 2. 존재 목적
+왜 이 개념·제품·기술이 등장했는가?
+어떤 문제나 공백을 해결하기 위해 존재하는가?
+
+### 3. 동일 층위 비교 (MECE)
+같은 레벨에 있는 유사 개념·제품·기업은 무엇인가?
+서로 겹치지 않게, 빠짐없이 구분해서 각각 2~3줄로 비교해줘.
+
+### 4. 대체재 / 경쟁재 (MECE)
+이것을 대체할 수 있는 것은 무엇인가?
+직접 경쟁(같은 방식)과 간접 대체(다른 방식으로 같은 목적 달성)를 나눠서 설명해줘.
+
+### 5. 하위 구성요소 (MECE)
+이 개념을 구성하는 하위 요소들은 무엇인가?
+겹치지 않고 빠짐없이 모듈·기능·레이어·역할로 나눠줘.
+
+### 6. 실제 사용 예시
+실제 기업이나 제품에서 어떻게 쓰이는가?
+구체적인 사례 2~3개를 들어줘.
+
+### 7. 트리 구조
+아래 형식으로 계층 구조를 시각화해줘.
+
+[최상위 개념]
+├── [상위 개념]
+│   ├── [설명할 개념]  ← 여기
+│   │   ├── [하위 요소 1]
+│   │   └── [하위 요소 2]
+│   └── [동일 층위 비교 개념]
+└── [다른 상위 개념]
+
+### 8. 비유
+이 개념을 일상적인 언어나 상황으로 비유해줘.
+기술을 모르는 사람도 이해할 수 있도록.</div>
+  </div>
+
+  <hr class="sep">
+
+  <h2>작성 원칙</h2>
+  <table>
+    <tr>
+      <th>원칙</th>
+      <th>내용</th>
+    </tr>
+    <tr>
+      <td>지형도 우선</td>
+      <td>정의보다 "어디에 속하는가"를 먼저 설명</td>
+    </tr>
+    <tr>
+      <td>4가지 구분</td>
+      <td>기술 / 기업 / 제품 / 시장을 혼용하지 않고 명시</td>
+    </tr>
+    <tr>
+      <td>MECE 분류 <span class="badge">MECE</span></td>
+      <td>3·4·5번 항목은 겹치지 않고(ME) 빠짐없이(CE) 구성</td>
+    </tr>
+    <tr>
+      <td>층위 구조</td>
+      <td>상위 · 동일 층위 · 하위를 명확히 나눠 설명</td>
+    </tr>
+    <tr>
+      <td>비교 중심</td>
+      <td>단독 설명보다 같은 층위의 다른 것과 비교해서 설명</td>
+    </tr>
+    <tr>
+      <td>구조 시각화</td>
+      <td>트리로 계층을 한눈에 파악할 수 있도록 제시</td>
+    </tr>
+    <tr>
+      <td>비유 포함</td>
+      <td>추상적 개념을 일상 언어로 착지시키는 비유 필수</td>
+    </tr>
+  </table>
+
+  <p class="note">파일명: 개념설명_지형도_프롬프트.md / .html &nbsp;|&nbsp; 솔루션사업부 기획팀</p>
+
+</div>
+
+<script>
+function copyPrompt(btn) {
+  const text = document.getElementById('prompt-text').innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = '복사됨 ✓';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = '복사';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+</script>
+</body>
+</html>

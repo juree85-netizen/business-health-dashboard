@@ -44,6 +44,12 @@ export default defineConfig({
 					],
 				},
 				{
+					label: 'Coupa · Rossum M&A 분석',
+					items: [
+						{ label: '📄 인수 분석 보고서 ↗', link: '/coupa_rossum_report.html', attrs: { target: '_blank' } },
+					],
+				},
+				{
 					label: '가이드 & 도구',
 					items: [
 						{ label: 'AI 워크플로우 슬라이드 ↗', link: '/files/ai_research_workflow_slides.html', attrs: { target: '_blank' } },

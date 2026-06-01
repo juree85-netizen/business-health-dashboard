@@ -4,6 +4,55 @@
 
 ---
 
+## 2026-06-01 (v4.8.9 ~ v4.10.0)
+
+**완료 작업**
+
+### v4.8.9 — 5장 시사점 재구성 + 1-4장 팩트 검증
+- 1-4장 전체 팩트 웹서치 검증 (17개 팩트 확인, 1개 수정: 276개 언어/손글씨 30개 언어 구분)
+- 5장 '인수 후보 리스트' 2페이지 → '시사점 및 전략적 함의' 1페이지로 교체
+- 표지 요약문·목차 동시 수정
+
+### v4.9.0 — 용어 주석 (항상 보이는 파란 소형 글씨) 추가
+- 약어·생소 용어 17개에 9.5px 파란 인라인 주석 추가 (첫 등장 위치 기준)
+- ARR·GAAP·tuck-in·T-LLM·DOCile·Human-in-the-Loop·Forrester·Strong Performer·Series A·General Catalyst·PE·LBO·PIK·EV/Revenue·FCF·Rule of 40·NRR
+
+### v4.9.1 — 인용문 국문화 + 별첨 1·2 추가
+- 3장 Leagh Turner 인용문 국문 번역 (원문 소형 영문 병기)
+- 1장·2장 헤딩에 '→ 별첨 1/2 참조' 표기
+- 별첨 1: Coupa 상세 기업 개요 (기본정보·제품군·재무성과·M&A이력·경쟁사)
+- 별첨 2: Rossum 상세 기업 개요 (기본정보·창업스토리·T-LLM 기술표·성과·자금조달·경쟁사)
+
+### v4.9.2 — 참고자료 맨 뒤로 이동
+- 페이지 순서: 본문(1~6) → 별첨 1 → 별첨 2 → 참고자료
+
+### 개념설명 지형도 프롬프트 신규 작성
+- 재사용 가능한 8항목 AI 설명 요청 프롬프트 (MECE + 층위 구조 포함)
+- MD 파일: files/개념설명_지형도_프롬프트.md
+- HTML 파일: files/개념설명_지형도_프롬프트.html
+- docs-hub 가이드 등록: /guides/concept-map-prompt/
+- Claude Code 스킬 생성: /concept-map (글로벌 스킬)
+
+### v4.10.0 — 1장 M&A 시장 생태계 개요 추가 (Option A)
+- 기존 1~5장 → 2~6장으로 번호 일괄 변경
+- 1장 신규: M&A 시장 생태계 개요 (페이지 2)
+  · 기업 외부 역량 취득 4가지 MECE 비교표
+  · M&A 거래 유형별 지형도 (PE LBO·tuck-in·수평·수직)
+  · 주요 참여자 구조 + 분석 범위 핵심 관찰 박스
+- 문서허브 사이드바에 'Coupa·Rossum M&A 분석' 섹션 신규 등록
+
+**생성/수정 파일**
+- `coupa_rossum_report.html` (v4.8.9 ~ v4.10.0)
+- `files/개념설명_지형도_프롬프트.md`
+- `files/개념설명_지형도_프롬프트.html`
+- `docs-hub/src/content/docs/guides/concept-map-prompt.md`
+- `docs-hub/astro.config.mjs`
+- `~/.claude/skills/concept-map/SKILL.md`
+
+**Git 태그:** v4.8.9 (최신 커밋: 3a9bb67)
+
+---
+
 ## 2026-06-01 (v4.8.9)
 
 **완료 작업**

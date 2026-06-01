@@ -51,6 +51,7 @@ export default defineConfig({
 						{ label: '보고서 기준 v2.0', link: '/guides/analysis-report/' },
 						{ label: '보고서 서식 가이드', link: '/guides/report-format/' },
 						{ label: 'SDS Word Writer', link: '/guides/sds-word-writer/' },
+						{ label: '개념 설명 지형도 프롬프트', link: '/guides/concept-map-prompt/' },
 					],
 				},
 				{

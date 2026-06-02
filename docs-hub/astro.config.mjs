@@ -45,9 +45,10 @@ export default defineConfig({
 					],
 				},
 				{
-					label: 'Coupa · Rossum M&A 분석',
+					label: 'Coupa M&A 전략 분석',
 					items: [
-						{ label: '인수 분석 보고서', link: '/project/coupa-rossum/' },
+						{ label: '4건 tuck-in 전략 분석 (v2)', link: '/project/coupa-strategy-v2/' },
+						{ label: 'Rossum 단독 분석 (v1)', link: '/project/coupa-rossum/' },
 					],
 				},
 				{

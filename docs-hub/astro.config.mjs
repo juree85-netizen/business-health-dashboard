@@ -47,6 +47,7 @@ export default defineConfig({
 				{
 					label: 'Coupa M&A 전략 분석',
 					items: [
+						{ label: '(신규) 투자·M&A 관점 분석', link: '/project/coupa-investment/' },
 						{ label: '4건 tuck-in 전략 분석 (v2)', link: '/project/coupa-strategy-v2/' },
 						{ label: 'Rossum 단독 분석 (v1)', link: '/project/coupa-rossum/' },
 					],

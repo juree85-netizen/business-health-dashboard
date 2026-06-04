@@ -59,15 +59,20 @@ export default defineConfig({
 					],
 				},
 				{
+					label: 'Claude 스킬',
+					items: [
+						{ label: '/corp-report 기업조사 분석 보고서', link: '/guides/corp-report/' },
+						{ label: '/concept-map 개념 설명 지형도', link: '/guides/concept-map-prompt/' },
+					],
+				},
+				{
 					label: '가이드 & 도구',
 					items: [
-						{ label: '/corp-report 기업조사 스킬', link: '/guides/corp-report/' },
 						{ label: 'AI 워크플로우 슬라이드', link: '/guides/ai-workflow-slides/' },
 						{ label: 'AI 워크플로우 문서', link: '/guides/ai-workflow-doc/' },
 						{ label: '보고서 기준 v2.0', link: '/guides/analysis-report/' },
 						{ label: '보고서 서식 가이드', link: '/guides/report-format/' },
 						{ label: 'SDS Word Writer', link: '/guides/sds-word-writer/' },
-						{ label: '개념 설명 지형도 프롬프트', link: '/guides/concept-map-prompt/' },
 					],
 				},
 			],

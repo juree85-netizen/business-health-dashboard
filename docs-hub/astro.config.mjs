@@ -53,8 +53,15 @@ export default defineConfig({
 					],
 				},
 				{
+					label: '기업조사 분석 보고서',
+					items: [
+						{ label: 'Thoma Bravo', link: '/project/thoma-bravo/' },
+					],
+				},
+				{
 					label: '가이드 & 도구',
 					items: [
+						{ label: '/corp-report 기업조사 스킬', link: '/guides/corp-report/' },
 						{ label: 'AI 워크플로우 슬라이드', link: '/guides/ai-workflow-slides/' },
 						{ label: 'AI 워크플로우 문서', link: '/guides/ai-workflow-doc/' },
 						{ label: '보고서 기준 v2.0', link: '/guides/analysis-report/' },

@@ -61,6 +61,7 @@ export default defineConfig({
 				{
 					label: 'Claude 스킬',
 					items: [
+						{ label: '/ma-report M&A 인수 분석 보고서', link: '/guides/ma-report/' },
 						{ label: '/corp-report 기업조사 분석 보고서', link: '/guides/corp-report/' },
 						{ label: '/concept-map 개념 설명 지형도', link: '/guides/concept-map-prompt/' },
 					],

@@ -1,0 +1,650 @@
+{
+  "title": "Coupa의 Rossum 인수 분석 보고서",
+  "date": "'26. 6. 4 (木)",
+  "sections": [
+    {
+      "number": 1,
+      "heading": "Coupa 개요",
+      "bullets": []
+    },
+    {
+      "heading": "기본 현황",
+      "bullets": [
+        {
+          "kind": "table",
+          "fontSize": 11,
+          "columns": ["항목", "내용"],
+          "columnWidths": [2, 5],
+          "rows": [
+            ["공식 명칭", "Coupa Software Incorporated"],
+            ["설립 / 본사", "2006年 / 美 캘리포니아 San Mateo"],
+            ["대표이사", "Leagh Turner (CEO, 2022年 취임 — Thoma Bravo 인수 후 경영 총괄)"],
+            ["직원 수", "약 3,500명+ (2025年 기준)"],
+            ["고객 규모", "구매 기업 3,500개社 / 공급업체 네트워크 1,000만 개社 — 누적 거래 $10조"],
+            ["상장 이력", "2016年 나스닥 상장(COUP) → 2023年 2月 Thoma Bravo $8.0B 인수·상장폐지"],
+            ["소유 구조", "Thoma Bravo(PE) 보유 비상장사 / ADIA 소수 지분 공동 참여"],
+            ["기업 인수", "2025∼2026年 tuck-in M&A 4건 단행 (Cirtuo·Scoutbee·Rossum·Tonkean)"]
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "사업 영역 및 업계 위상",
+      "bullets": [
+        {
+          "kind": "dash",
+          "text": "BSM 단일 클라우드 플랫폼 — 조달·인보이스·경비·계약 전 영역 통합",
+          "annotation": {"text": "BSM : Business Spend Management", "anchor": "BSM"}
+        },
+        {
+          "kind": "dot",
+          "text": "S2P 플랫폼으로 업계 분류",
+          "annotation": {"text": "S2P : Source-to-Pay, 전략 구매∼대금 지급 전 과정", "anchor": "S2P"}
+        },
+        {
+          "kind": "dash",
+          "text": "ARR $1B 돌파 (2025年) — 클라우드 조달 기업 최초",
+          "annotation": {"text": "ARR : 연간 반복 매출", "anchor": "ARR"}
+        },
+        {
+          "kind": "dot",
+          "text": "Navi AI 에이전트 : $10조 지출 데이터 기반 조달 AI 차별화"
+        },
+        {
+          "kind": "dash",
+          "text": "핵심 경쟁력 3가지"
+        },
+        {
+          "kind": "dot",
+          "text": "① $10조 지출 데이터 독점"
+        },
+        {
+          "kind": "dot",
+          "text": "② 구매자-공급업체 양방향 네트워크 (공급업체 1,000만 개社)"
+        },
+        {
+          "kind": "dot",
+          "text": "③ TB 인수 후 GAAP 흑자 전환 달성 (2025年)"
+        }
+      ]
+    },
+    {
+      "heading": "경쟁자 현황",
+      "bullets": [
+        {
+          "kind": "table",
+          "fontSize": 11,
+          "columns": ["경쟁사", "본거지", "포지션 및 Coupa 대비 특성"],
+          "columnWidths": [2, 1, 5],
+          "rows": [
+            ["SAP Ariba", "독일 (SAP SE)", "글로벌 최대 시장 점유율. SAP ERP 고착력 — Coupa 최대 경쟁자. AI 전환 지연"],
+            ["Oracle Procurement Cloud", "미국 (Oracle)", "Oracle ERP 연동 구매 모듈. 대형 제조·공공 강세. ERP 번들로 전환 유인 低"],
+            ["Ivalua", "프랑스", "유럽 기반 전략 조달 플랫폼. 직접구매 특화. 커스터마이징 유연성 강점"],
+            ["Jaggaer", "미국", "공공·연구기관·제조업 특화. R&D 조달 강점. Coupa 대비 소형"],
+            ["ServiceNow · Zip (신흥)", "미국", "구매 인테이크에서 경합 확대. AI 네이티브 설계로 S2P 시장 잠식 시도 中"]
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "제품 포트폴리오",
+      "bullets": [
+        {
+          "kind": "table",
+          "fontSize": 11,
+          "columns": ["제품", "주요 기능"],
+          "columnWidths": [2, 5],
+          "rows": [
+            ["Coupa Procurement", "구매 요청·승인·발주 자동화. 카탈로그·계약 연동 관리. S2P 핵심 구매 엔진"],
+            ["Coupa Invoicing", "인보이스 수신·3-way 매칭·승인·지불 자동화. Rossum T-LLM 통합 진행 中"],
+            ["Coupa Sourcing", "공급업체 입찰(RFx)·평가·선정·계약 체결 플랫폼"],
+            ["Coupa Contracts", "CLM — 계약 수명주기 관리·조건 이행 모니터링"],
+            ["Coupa Expense", "임직원 경비 정산·컴플라이언스·카드 통합 자동화"],
+            ["Coupa Supply Chain Design", "공급망 시나리오 모델링·리스크 시뮬레이션"],
+            ["Navi (AI 에이전트)", "$10조 지출 데이터 기반 — 자연어 질의·이상 탐지·절감 추천. 4건 인수 기술 연결 AI 허브"]
+          ]
+        },
+        {
+          "kind": "note",
+          "text": "4개사(Cirtuo·Scoutbee·Rossum·Tonkean)는 위 제품군에 기능 레이어로 순차 통합 中"
+        }
+      ]
+    },
+    {
+      "heading": "재무 성과 — TB 인수 전후 6년",
+      "bullets": [
+        {
+          "kind": "table",
+          "caption": "Coupa 연간 재무 성과",
+          "headerRowCount": 1,
+          "fontSize": 11,
+          "cells": [
+            ["연도", "매출", "GAAP 영업손익", "FCF", "FCF 마진"],
+            ["FY2020 (Jan 2020)", "$389.7M", "▼ -$73M", "▲ +$56M", "14%"],
+            ["FY2021 (Jan 2021)", "$541.6M", "▼ -$167M", "▲ +$114M", "21%"],
+            ["FY2022 (Jan 2022)", "$725.3M", "▼ -$244M", "▲ +$156M", "22%"],
+            [{"text": "▲ Thoma Bravo $8.0B PE 인수 · 2023年 2月 상장폐지 ▼", "colspan": 5, "align": "center", "bold": true}, null, null, null, null],
+            ["2023 (비상장, 추정)", "~$870∼900M", "▲ +$34M", "~$150∼180M", "~17∼20%"],
+            ["2024 (비상장, 추정)", "~$1.05∼1.10B", "▲ ~+$50∼60M", "추정", "—"],
+            ["2025 (비상장, 추정)", "~$1.21B", "▲ +$81M", "추정", "~17∼22%"]
+          ],
+          "columnWidths": [3, 2, 2, 2, 2]
+        },
+        {
+          "kind": "note",
+          "text": "FY2020∼FY2022 SEC 공시(Form 10-K) 확정치. 2023∼2025年 비상장 전환으로 미공개 — 외부 추정치 종합"
+        },
+        {
+          "kind": "note",
+          "text": "GAAP 영업손익 : SBC·무형자산 상각 등 비현금 비용 포함. FCF(잉여현금흐름)와 괴리 발생 → GAAP 적자 ≠ 사업 부실"
+        },
+        {
+          "kind": "dash",
+          "text": "TB의 $8.0B 인수 : GAAP -$244M이지만 FCF +$156M인 사업을 인수",
+          "annotation": {"text": "EV/FCF ≈ 51×", "anchor": "FCF +$156M"}
+        },
+        {
+          "kind": "dot",
+          "text": "GAAP 적자 원인 = SBC·상각 등 비현금 비용 — 인수 후 삭감으로 즉시 흑자 전환"
+        },
+        {
+          "kind": "arrow",
+          "text": "SaaS 기업 가치 평가 시 GAAP 이익 외 FCF·NRR·성장률 병행 검토 필요",
+          "bold": true
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "heading": "Coupa의 Rossum 인수",
+      "bullets": []
+    },
+    {
+      "heading": "인수 배경 및 목적",
+      "bullets": [
+        {
+          "kind": "dash",
+          "text": "2026.05.12 Coupa Inspire 2026(라스베이거스) 공식 발표"
+        },
+        {
+          "kind": "dash",
+          "text": "Rossum : 2017年 체코 설립, IDP 전문 스타트업",
+          "annotation": {"text": "IDP : Intelligent Document Processing, 지능형 문서처리", "anchor": "IDP"}
+        },
+        {
+          "kind": "dot",
+          "text": "T-LLM 「Rossum Aurora」 — 인보이스·PO 비정형 문서 AI 자동 판독",
+          "annotation": {"text": "T-LLM : Transactional LLM, 거래 특화 대형언어모델", "anchor": "T-LLM"}
+        },
+        {
+          "kind": "dot",
+          "text": "누적 $104M 조달 (Series A, General Catalyst 주도, 2021年)"
+        },
+        {
+          "kind": "dot",
+          "text": "2024年 Coupa-Rossum 파트너십 체결 → 2026年 인수 내재화 (2단계 접근)"
+        },
+        {
+          "kind": "dash",
+          "text": "인수 목적"
+        },
+        {
+          "kind": "dot",
+          "text": "① 인보이스·PO 문서 처리 기능 완전 내재화"
+        },
+        {
+          "kind": "dot",
+          "text": "② Rossum 1,100만 건 학습 데이터 + Coupa $10조 데이터셋 결합"
+        },
+        {
+          "kind": "dot",
+          "text": "③ SAP Ariba·Oracle 대비 AI 문서처리 역량 선점"
+        },
+        {
+          "kind": "note",
+          "text": "\"Rossum T-LLM과 Coupa 데이터셋 결합으로 향후 5년간 고객 $3,000억 절감 기여 확신\" — Leagh Turner, CEO (2026.05.12)"
+        }
+      ]
+    },
+    {
+      "heading": "Coupa 사업 전략 — 4단계 진화",
+      "bullets": [
+        {
+          "kind": "dash",
+          "text": "Rossum 인수 : TB 인수 후 체계적 4단계 전략 진화의 3단계에 해당"
+        },
+        {
+          "kind": "table",
+          "fontSize": 11,
+          "columns": ["단계", "시기", "핵심 행동", "목적"],
+          "columnWidths": [1, 2, 4, 3],
+          "rows": [
+            ["1단계", "2023", "인력 15% 감축, SBC 삭감, S&M 합리화 즉각 단행", "연 이자 ~$312M 충당, GAAP 흑자 기반 마련"],
+            ["2단계", "2023∼2025", "GAAP 흑자 전환 달성 (+$34M → +$81M)", "M&A 투자 여력(성장 레버) 확보"],
+            ["3단계", "2025∼2026", "S2P 기능 공백 4개 영역 AI 네이티브 기업 tuck-in 4건 연속 인수", "'Autonomous Spend Management' 완성"],
+            ["4단계 (목표)", "2026∼", "4레이어 에이전틱 스택 완성, Coupa Compose·Navi Agent Studio 상용화", "TB Exit 前 플랫폼 가치 극대화"]
+          ]
+        },
+        {
+          "kind": "note",
+          "text": "TB는 통상 PE 인수 후 4∼7年 내 Exit(재매각 or IPO) 목표 — 4건 인수는 Exit 시점 밸류에이션 극대화 포석"
+        }
+      ]
+    },
+    {
+      "heading": "인수 구조 및 자금 조달",
+      "bullets": [
+        {
+          "kind": "dash",
+          "text": "인수 유형 : tuck-in — 플랫폼 기능 공백 해소 목적 소·중형 전략 인수",
+          "annotation": {"text": "tuck-in : 기능 보완형 소규모 인수", "anchor": "tuck-in"}
+        },
+        {
+          "kind": "dot",
+          "text": "PE LBO와 달리 이자 부담 없이 플랫폼 통합에 집중 가능",
+          "annotation": {"text": "LBO : 레버리지 차입매수 — 부채 기반, 금리·경기 변동 취약", "anchor": "LBO"}
+        },
+        {
+          "kind": "dash",
+          "text": "인수가 미공개 (공식 발표 어디에도 금액 未기재)"
+        },
+        {
+          "kind": "dash",
+          "text": "자금 조달 : FCF 잉여분(연 ~$150M+) 재투자 및/또는 PE 추가 차입 추정"
+        },
+        {
+          "kind": "note",
+          "text": "인수 목적이 재무 차익이 아닌 사업 역량 확보인 경우 tuck-in 구조가 리스크 대비 효과 면에서 유리"
+        }
+      ]
+    },
+    {
+      "heading": "4건 tuck-in 인수 현황",
+      "bullets": [
+        {
+          "kind": "table",
+          "fontSize": 10,
+          "columns": ["기업", "인수일", "보완 기능", "투자 단계", "누적 펀딩", "인수 금액"],
+          "columnWidths": [1, 2, 3, 3, 1, 2],
+          "rows": [
+            ["Cirtuo", "2025.05.13", "카테고리 관리 AI (크로아티아)", "Bootstrap 17年, VC 無", "—", "미공개"],
+            ["Scoutbee", "2025.10.06", "공급업체 탐색·리스크 AI (독일)", "Series B 후 5년 공백", "$76M", "미공개"],
+            ["Rossum", "2026.05.12", "AI 문서처리 IDP (체코)", "Series A 후 3년 (고성장 中)", "$104M", "미공개"],
+            ["Tonkean", "2026.05.21", "에이전틱 인테이크·오케스트레이션 (미국)", "Series B 후 5년 공백", "$83M", "\"수억 달러\" 추정"]
+          ]
+        },
+        {
+          "kind": "note",
+          "text": "Scoutbee·Tonkean : Series B 후 5년 추가 라운드 미달성 → M&A Exit이 사실상 유일한 회수 경로"
+        },
+        {
+          "kind": "note",
+          "text": "Rossum : 4건 중 유일하게 고성장(연평균 +37%, 2024年 매출 $44.9M) 진행 중 조기 내재화"
+        }
+      ]
+    },
+    {
+      "heading": "인수 패턴 분석",
+      "bullets": [
+        {
+          "kind": "table",
+          "fontSize": 11,
+          "columns": ["패턴", "내용 및 해석"],
+          "columnWidths": [2, 5],
+          "rows": [
+            ["① 성장 정체기 기업 선점\n(Series B 후 5년 공백)", "Scoutbee·Tonkean : 기술·제품 검증 완료 + 밸류에이션 프리미엄 미형성 + 창업자·VC Exit 유인 극대 → 인수자 협상력이 최대로 높아지는 시점"],
+            ["② 파트너십 선행 → 내재화\n(2단계 접근)", "Coupa-Rossum 2024年 파트너십 → 2026年 인수. 기술 적합성·고객 반응·운영 연동 가능성 검증 후 결정 — 불확실성·통합 마찰 비용 절감"],
+            ["③ 예외적 조기 인수\n(Rossum — 고성장 中)", "고성장 진행 中 조기 내재화 — SAP Ariba·ServiceNow 선점 前 차단. AI 전환 핵심 기술은 성장 확인 순간 밸류에이션 프리미엄 형성 前 선점 경쟁 시작"]
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "인수 기대 효과 — 사업·상품·기술 관점",
+      "bullets": [
+        {
+          "kind": "table",
+          "fontSize": 11,
+          "columns": ["관점", "항목", "내용"],
+          "columnWidths": [1, 2, 5],
+          "rows": [
+            ["사업", "고객 가치 창출", "인보이스 처리 자동화 → AP 팀 업무량 90%+ 절감. '5년간 고객 $3,000억 절감' 목표의 핵심 기반"],
+            ["사업", "경쟁 방어", "SAP Ariba·ServiceNow가 동일 IDP 기술 확보 前 선점 — 조달 AI 시장 기술 우위 강화"],
+            ["상품", "Coupa Invoicing 강화", "Rossum T-LLM 통합 → 비정형 인보이스·PO·계약서 자동 판독. 3-way 매칭 오류율 대폭 감소"],
+            ["상품", "에이전틱 스택 완성", "[전략] Cirtuo → [탐색] Scoutbee → [문서] Rossum → [실행] Tonkean → [AI허브] Navi AI"],
+            ["기술", "데이터 자산 결합", "Rossum 1,100만 건 실거래 데이터 + Coupa $10조 데이터셋 → Navi AI 예측·이상 탐지 고도화"],
+            ["기술", "AI 내성 확보", "Discriminative Decoder — 할루시네이션 차단, 276개 언어 지원. 범용 LLM 대체 불가 독점 기술"],
+            ["기술", "AI 대체 불가성 검증", "'범용 AI 대체형' vs '범용 AI 강화형' 분리 — Rossum은 후자. 인수 검토 시 AI 대체 가능성이 핵심 체크포인트"]
+          ]
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "heading": "시사점 — 당사 투자·M&A 활용 관점의 함의",
+      "bullets": []
+    },
+    {
+      "heading": "활용 관점별 함의",
+      "bullets": [
+        {
+          "kind": "table",
+          "fontSize": 11,
+          "columns": ["항목", "내용"],
+          "columnWidths": [2, 5],
+          "rows": [
+            ["M&A 타겟 스크리닝 기준", "① 마지막 펀딩 후 3년+ 추가 라운드 미유치 ② ARR $10∼100M 기술 검증 완료 기업 ③ 당사 포트폴리오와 기능 시너지 명확"],
+            ["파트너십 단계 활용", "M&A 前 파트너십·PoC 선행 → 기술·문화 통합 리스크 저비용 검증. 현 당사 SaaS 파트너 중 내재화 후보 사전 식별 고려"],
+            ["Coupa 후속 모니터링", "Rossum·Tonkean 통합 성과(T-LLM + $10조 결합, 에이전틱 스택 상용화)·TB Exit 시나리오 지속 추적"],
+            ["AI 기술 M&A 3대 검증", "① 도메인 특화 독점 데이터 보유 여부 ② 범용 LLM 대체 불가 기술 모트 ③ 주요 ERP·플랫폼 깊은 연동(컴플라이언스·보안 포함)"]
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "종합",
+      "bullets": [
+        {
+          "kind": "dash",
+          "text": "Coupa Rossum 인수 — 3요소 복합 활용 사례"
+        },
+        {
+          "kind": "dot",
+          "text": "① 흑자 전환 후 FCF를 M&A 성장 레버로 전환하는 PE 플레이북"
+        },
+        {
+          "kind": "dot",
+          "text": "② 파트너십 검증 후 내재화하는 2단계 접근"
+        },
+        {
+          "kind": "dot",
+          "text": "③ 성장 정체기 스타트업의 기술·협상 구조 활용"
+        },
+        {
+          "kind": "arrow",
+          "text": "당사 적용 논리 : '기능 공백 블록 정의 → 파트너십 선행 → 타이밍 포착 후 내재화'",
+          "bold": true
+        }
+      ]
+    }
+  ],
+  "appendices": [
+    {
+      "title": "Thoma Bravo의 Coupa 인수 사례 분석",
+      "sections": [
+        {
+          "heading": "Thoma Bravo 개요",
+          "bullets": [
+            {
+              "kind": "table",
+              "fontSize": 11,
+              "columns": ["항목", "내용"],
+              "columnWidths": [2, 5],
+              "rows": [
+                ["설립 / 본사", "1980年 / 美 샌프란시스코·마이애미 (Carl Thoma·Orlando Bravo 공동 설립)"],
+                ["AUM", "$160B+ (2024年) — 소프트웨어·사이버보안 분야 세계 최대 PE 중 하나"],
+                ["투자 전략", "'Buy-Improve-Exit' — 비효율 SaaS 인수 후 비용 최적화 → GAAP 흑자 → 5∼7年 내 재매각/IPO"],
+                ["펀드 구조", "Flagship(대형)·Discover(중형)·Explore(소형) 3개 펀드 병행. Coupa = Flagship 딜"],
+                ["주요 포트폴리오", "Proofpoint, Barracuda Networks, SolarWinds, SailPoint 등 90개+ 소프트웨어 기업"]
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "TB의 Coupa 인수 구조 및 논리",
+          "bullets": [
+            {
+              "kind": "table",
+              "fontSize": 11,
+              "columns": ["항목", "내용"],
+              "columnWidths": [2, 5],
+              "rows": [
+                ["발표 / 완료", "2022.12 합의 발표 → 2023.02 완료 (규제 심사·주주 승인 포함)"],
+                ["인수가", "$8.0B (전액 현금, 주당 $81 — 나스닥 종가 대비 약 77% 프리미엄)"],
+                ["인수 당시 재무", "매출 $725M, GAAP 손실 -$244M, FCF +$156M (EV/Sales ≈11×, EV/FCF ≈51×)"],
+                ["인수 구조", "LBO — TB 에쿼티 + 부채 혼합. ADIA 소수 지분 공동 참여. 추정 레버리지 4∼5× EBITDA"],
+                ["인수 핵심 논리", "GAAP 적자 ≠ 부실. FCF +$156M + ARR 고성장 → 비용 최적화로 GAAP 흑자·ARR $1B 달성"]
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "인수 후 경영 개선 및 성과",
+          "bullets": [
+            {
+              "kind": "table",
+              "fontSize": 11,
+              "columns": ["시기", "주요 조치", "결과"],
+              "columnWidths": [1, 4, 3],
+              "rows": [
+                ["2023", "인력 15% 감축, SBC 대폭 삭감, S&M 합리화", "GAAP +$34M 흑자 전환 (-$244M → +$34M)"],
+                ["2024", "R&D·G&A 추가 합리화, 플랫폼 통합 가속", "GAAP +$50∼60M 추정, ARR 성장 지속"],
+                ["2025", "Cirtuo·Scoutbee 인수, ARR $1B 공표", "GAAP +$81M, ARR $1B 돌파"],
+                ["2026", "Rossum·Tonkean 인수, 에이전틱 스택 완성", "Navi AI 고도화, Exit 前 밸류에이션 극대화 준비"]
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "TB Exit 시나리오",
+          "bullets": [
+            {
+              "kind": "table",
+              "fontSize": 11,
+              "columns": ["시나리오", "예상 시기", "조건 및 가능성"],
+              "columnWidths": [2, 2, 4],
+              "rows": [
+                ["전략적 매각", "2027∼2029", "SAP·Oracle·Microsoft 등 대형사 매각. ARR $1.5B+ 달성 시 $12∼15B+ 밸류. 가장 빠른 경로"],
+                ["IPO 재상장", "2028∼2030", "금리 하락·IPO 시장 회복 시 나스닥 재상장. EV/ARR 10× 이상 멀티플 회복 필요"],
+                ["Secondary PE 매각", "2026∼2027", "타 PE에 지분 매각. 멀티플 낮으나 신속 유동성 확보"]
+              ]
+            },
+            {
+              "kind": "note",
+              "text": "인수 완료(2023.02) 기준 4∼7年 Exit → 2027∼2030年이 핵심 창구. AI 스택 완성도·금리·IPO 시장이 결정 변수"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "주요 기업 개요 — Coupa · Rossum · Tonkean · Scoutbee · Thoma Bravo",
+      "sections": [
+        {
+          "heading": "Coupa Software",
+          "bullets": [
+            {"kind": "table", "fontSize": 11, "columns": ["항목", "내용"], "columnWidths": [2, 5], "rows": [
+              ["설립 / 본사", "2006年 / 美 캘리포니아 San Mateo"],
+              ["사업 영역", "BSM / Source-to-Pay 클라우드 플랫폼"],
+              ["핵심 제품", "Procurement·Invoicing·Sourcing·Contracts·Expense + Navi AI"],
+              ["재무 (2025 추정)", "ARR ~$1.21B (클라우드 조달 최초 $1B 돌파), GAAP +$81M"],
+              ["소유 구조", "Thoma Bravo(PE) 보유 비상장사. ADIA 소수 지분 참여"],
+              ["경쟁 우위", "$10조 지출 데이터 독점 + 공급업체 1,000만 네트워크 + 에이전틱 스택 4레이어"]
+            ]}
+          ]
+        },
+        {
+          "heading": "Rossum",
+          "bullets": [
+            {"kind": "table", "fontSize": 11, "columns": ["항목", "내용"], "columnWidths": [2, 5], "rows": [
+              ["설립 / 본사", "2017年 / 체코 프라하 (Gogar·Baudiš·Doležal 공동 창업)"],
+              ["사업 영역", "IDP — AI 기반 거래 문서 자동 판독·처리"],
+              ["핵심 기술", "T-LLM 「Rossum Aurora」 — Discriminative Decoder, 276개 언어, 할루시네이션 차단"],
+              ["재무", "2024年 매출 $44.9M (연평균 성장률 +37%), 누적 $104M (Series A, General Catalyst)"],
+              ["Coupa 통합 역할", "에이전틱 스택 3단계 [문서 처리] 레이어 — Coupa Invoicing T-LLM 탑재"]
+            ]}
+          ]
+        },
+        {
+          "heading": "Tonkean",
+          "bullets": [
+            {"kind": "table", "fontSize": 11, "columns": ["항목", "내용"], "columnWidths": [2, 5], "rows": [
+              ["설립 / 본사", "2015年 / 美 샌프란시스코 (Sagi Eliyahu·Ofer Ronen 공동 창업)"],
+              ["사업 영역", "에이전틱 인테이크 오케스트레이션 — no-code 조달 프로세스 자동화"],
+              ["핵심 기술", "프로세스 오케스트레이터 + AI 에이전트 — 구매 요청∼결재∼발주 자율 처리"],
+              ["재무", "누적 $83M (Series B, 2021年). 이후 5년 추가 라운드 미유치"],
+              ["인수 금액", "\"수억 달러\" 추정 (CTech 보도, 미공식)"],
+              ["Coupa 통합 역할", "에이전틱 스택 4단계 [요청·실행] 레이어"]
+            ]}
+          ]
+        },
+        {
+          "heading": "Scoutbee",
+          "bullets": [
+            {"kind": "table", "fontSize": 11, "columns": ["항목", "내용"], "columnWidths": [2, 5], "rows": [
+              ["설립 / 본사", "2015年 / 독일 뷔르츠부르크 (Stühler·Doering 공동 창업)"],
+              ["사업 영역", "AI 기반 공급업체 탐색·스크리닝·리스크 평가 플랫폼"],
+              ["핵심 기술", "NLP + 공급업체 데이터 AI — 재무·ESG·지정학적 리스크 자동 평가"],
+              ["고객", "Audi, VW, Siemens, Airbus 등 유럽 대형 제조업체"],
+              ["재무", "누적 $76M (Series B, 2020年). 이후 5년 추가 라운드 미유치"],
+              ["Coupa 통합 역할", "에이전틱 스택 2단계 [공급업체 탐색] 레이어"]
+            ]}
+          ]
+        },
+        {
+          "heading": "Thoma Bravo (TB)",
+          "bullets": [
+            {"kind": "table", "fontSize": 11, "columns": ["항목", "내용"], "columnWidths": [2, 5], "rows": [
+              ["설립 / 본사", "1980年 / 美 샌프란시스코·마이애미·뉴욕"],
+              ["창업자 / 대표", "Carl Thoma·Orlando Bravo 공동 설립. Orlando Bravo 現 Managing Partner"],
+              ["AUM", "$160B+ (2024年) — 소프트웨어·사이버보안 분야 세계 최대 PE 중 하나"],
+              ["투자 전략", "'Buy-Improve-Exit' — SaaS·엔터프라이즈 소프트웨어 LBO 특화"],
+              ["투자 기준", "① 구독 매출 70%+ ② Churn 低 ③ FCF 개선 여지 大 ④ 시장 독과점 위상"],
+              ["대표 Exit", "Proofpoint ($12.3B, 2021年) / Barracuda Networks ($4B, 2022年) / SolarWinds (IPO)"]
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "title": "SAP Ariba vs. Coupa 비교",
+      "sections": [
+        {
+          "heading": "항목별 비교",
+          "bullets": [
+            {
+              "kind": "table",
+              "fontSize": 11,
+              "columns": ["비교 항목", "SAP Ariba", "Coupa"],
+              "columnWidths": [2, 3, 3],
+              "rows": [
+                ["설립 / 기원", "1999年 설립 → SAP SE 2012年 $4.3B 인수", "2006年 설립 → TB $8.0B PE 인수 (2023年)"],
+                ["소유 구조", "SAP SE 100% 자회사 (상장사)", "Thoma Bravo PE 보유 비상장사"],
+                ["ARR / 규모", "$3B+ 추정 (SAP 클라우드 내 포함)", "~$1.21B (2025年 독립 공표)"],
+                ["플랫폼 성격", "SAP ERP 생태계 내 통합 모듈. ERP 의존 구조", "독립형 클라우드 BSM. ERP 독립 구현 可"],
+                ["공급업체 네트워크", "700만+ 개社", "1,000만+ 개社"],
+                ["주요 고객층", "SAP ERP 기사용 대형 제조·공공. 전환 비용 매우 高", "복합 산업 대기업. Ariba 대체 수요 흡수"],
+                ["AI 전략", "SAP Business AI(Joule) 기반. AI 전환 속도 지연", "Navi AI + 4건 tuck-in으로 에이전틱 스택 구축"],
+                ["IDP 기술", "SAP Doc Info Extraction 자체 개발. T-LLM 미확보", "Rossum T-LLM 인수. 276개 언어·할루시네이션 차단"],
+                ["강점", "ERP 고착력, 최대 고객 수, 공공·규제 레퍼런스", "AI 속도, 독립 구현, 데이터 규모, 스택 선점"],
+                ["약점", "AI 속도 지연, ERP 미사용 기업 진입 어려움", "SAP ERP 연동 부족, ARR 규모 격차"]
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "시사점",
+          "bullets": [
+            {"kind": "dash", "text": "SAP Ariba : ERP 고착력 기반 '방어형 시장 지위'"},
+            {"kind": "dash", "text": "Coupa : AI 속도·데이터 독점 기반 '공격형 확장 전략'"},
+            {"kind": "arrow", "text": "SAP S/4HANA 신규 도입 과정서 Best-of-Breed 선택지로 Coupa 진입 확대 전망", "bold": true}
+          ]
+        }
+      ]
+    },
+    {
+      "title": "M&A 대상 기업 후보군 발굴 기준",
+      "sections": [
+        {
+          "heading": "① 투자 단계 기반 스크리닝",
+          "bullets": [
+            {
+              "kind": "table",
+              "fontSize": 11,
+              "columns": ["투자 단계", "M&A 적합성", "특성 및 유의사항"],
+              "columnWidths": [2, 1, 4],
+              "rows": [
+                ["Bootstrap / Pre-Seed", "협상력 최대", "VC 無 — 창업자가 유일한 협상 상대. 밸류에이션 低, Exit 유인 高. 제품 검증 실사 필요 (Cirtuo 유형)"],
+                ["Series A", "선별 적합", "PMF 검증 단계. AI 기술 조기 확보 시 유효. 고성장 중 조기 인수는 프리미엄 불가피 (Rossum 유형)"],
+                ["Series B 후 3∼5년 공백\n(성장 정체기)", "최적 타겟", "기술 검증 완료 + 프리미엄 미형성 + Exit 유인 극대. 인수자 협상력 최대 (Scoutbee·Tonkean)"],
+                ["Series C 이후", "프리미엄 주의", "추가 VC 유입으로 밸류에이션 급등. 전략 당위성 매우 높아야 정당화 可"],
+                ["PE 보유 / 성숙기", "특수 목적", "전략 매각·카브아웃 형태만 접근 可. 협상 복잡도 최고"]
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "② 파트너십·PoC 2단계 접근",
+          "bullets": [
+            {
+              "kind": "table",
+              "fontSize": 11,
+              "columns": ["단계", "주요 활동", "검증 항목"],
+              "columnWidths": [1, 3, 4],
+              "rows": [
+                ["1단계\n파트너십·PoC", "공동 개발·SI 협력·파일럿 운영. 기술 API 연동 확인", "① 기술 적합성 ② 고객 반응 ③ 운영 연동 가능성"],
+                ["2단계\nM&A 내재화", "파트너십 성과 기반 인수 결정. 통합 PM·로드맵 사전 수립", "DD 신뢰도 제고, 통합 마찰 비용 절감, 통합 기간 단축"]
+              ]
+            },
+            {"kind": "note", "text": "현 당사 협력 SaaS 파트너 중 Series B 이후 3년+ 공백 기업 우선 식별 필요"}
+          ]
+        },
+        {
+          "heading": "③ PE 발굴 기준 참고 (Thoma Bravo 방식)",
+          "bullets": [
+            {"kind": "dash", "text": "구독 매출 비중 70%+ — 예측 가능 현금 흐름이 전제"},
+            {"kind": "dash", "text": "Churn 연 10% 이하 — 고객 유지율이 성장 레버 효과 결정"},
+            {"kind": "dash", "text": "FCF 개선 여지 — SBC·S&M·R&D 비효율 클수록 최적화 효과 大"},
+            {"kind": "dash", "text": "기술 독점성 — 도메인 데이터·알고리즘·네트워크 효과 보유"}
+          ]
+        },
+        {
+          "heading": "④ AI 기술 M&A 3대 검증 기준",
+          "bullets": [
+            {"kind": "circled", "index": 1, "text": "도메인 특화 독점 데이터 보유 여부 — 데이터 자체가 기술 모트인 구조"},
+            {"kind": "circled", "index": 2, "text": "범용 LLM 대체 불가 구조적 기술 모트 — '범용 AI 강화형' vs '대체형' 구분"},
+            {"kind": "circled", "index": 3, "text": "ERP·플랫폼 깊은 연동 — 컴플라이언스·보안 포함 고착력이 장기 가치 결정"},
+            {"kind": "arrow", "text": "3가지 기준 충족 기업이 AI 전환기 장기 가치 유지 가능성 高", "bold": true}
+          ]
+        }
+      ]
+    },
+    {
+      "title": "M&A 투자 단계 개요",
+      "sections": [
+        {
+          "heading": "단계별 특성 및 M&A 관점",
+          "bullets": [
+            {
+              "kind": "table",
+              "fontSize": 10,
+              "columns": ["단계", "투자 규모", "기업 상태", "M&A 관점"],
+              "columnWidths": [2, 2, 3, 4],
+              "rows": [
+                ["Pre-Seed / Bootstrap", "$0∼$500K", "아이디어·MVP. 창업자 자체 자금", "기술·팀 인수(Acqui-hire). 밸류에이션 低. 제품 검증 리스크"],
+                ["Seed", "$500K∼$3M", "초기 제품 완성, 소규모 고객 테스트", "기술 조기 확보 가능. 시장 검증 미완 리스크"],
+                ["Series A", "$3M∼$15M", "PMF 검증, ARR $1∼5M", "AI 핵심 기술 조기 확보 유효. 고성장 시 프리미엄 급등"],
+                ["Series B", "$15M∼$50M", "시장 확장, ARR $10∼30M", "기술·고객 검증 완료 + 프리미엄 미형성 — 효율 우수"],
+                ["Series B 후 3∼5년 공백\n(성장 정체기)", "추가 VC 無", "검증 완료, 수익화 집중. ARR $20∼80M", "최적 타겟 구간. 프리미엄 無 + Exit 유인 극대 + 협상력 최대"],
+                ["Series C", "$50M∼$150M", "대규모 확장, ARR $50M+", "밸류에이션 급등. 전략 시너지 매우 명확해야 정당화 可"],
+                ["Series D+ / Pre-IPO", "$150M+", "IPO 준비, ARR $100M+", "수 조원대 인수가. 이사회·VC 전원 동의 필요. 복잡도 최고"],
+                ["PE LBO 보유사", "N/A", "비상장, 비용 최적화 中", "Secondary 매각·카브아웃만 可. PE Exit 시나리오 종속"],
+                ["대기업 자회사 / 카브아웃", "N/A", "대기업 비핵심 사업부 분리", "검증 자산 확보 可. 문화 통합 리스크 高"]
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "당사 M&A 전략 적용 관점",
+          "bullets": [
+            {"kind": "dash", "text": "최적 타겟 구간 : 'Series B 후 3∼5년 공백' 성장 정체기 기업"},
+            {"kind": "dot", "text": "기술 검증 완료 + 프리미엄 未형성 → 협상력 극대화 시점"},
+            {"kind": "dash", "text": "AI 핵심 기술 경쟁사 선점 우려 → Series A 조기 인수 검토 가능"},
+            {"kind": "dot", "text": "파트너십·PoC 선행으로 기술 검증 후 내재화 필수 (2단계 접근)"},
+            {"kind": "arrow", "text": "두 경로 모두 '파트너십 선행 검증 → 타이밍 포착 후 내재화' 원칙 동일", "bold": true}
+          ]
+        }
+      ]
+    }
+  ]
+}

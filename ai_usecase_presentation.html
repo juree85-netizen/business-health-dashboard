@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 기반 데이터 시뮬레이션을 활용한 대시보드 시안 설계 검증 체계 구축</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', 'Noto Sans KR', sans-serif; background: #0f1923; color: #fff; overflow: hidden; height: 100vh; }
+
+  /* Slide container */
+  .deck { width: 100vw; height: 100vh; position: relative; }
+  .slide { position: absolute; inset: 0; display: none; flex-direction: column; }
+  .slide.active { display: flex; }
+
+  /* Navigation */
+  .nav { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; align-items: center; z-index: 100; }
+  .nav button { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); color: #fff; padding: 8px 20px; border-radius: 20px; cursor: pointer; font-size: 13px; backdrop-filter: blur(8px); transition: background .2s; }
+  .nav button:hover { background: rgba(23,185,166,0.4); }
+  .nav .counter { font-size: 12px; color: rgba(255,255,255,0.5); min-width: 50px; text-align: center; }
+  .progress { position: fixed; top: 0; left: 0; height: 3px; background: #17B9A6; transition: width .3s; z-index: 200; }
+
+  /* ── Common layouts ── */
+  .slide-inner { flex: 1; display: flex; flex-direction: column; padding: 48px 64px 80px; }
+  .slide-tag { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #17B9A6; margin-bottom: 12px; }
+  .slide-title { font-size: 32px; font-weight: 700; line-height: 1.25; color: #fff; margin-bottom: 6px; }
+  .slide-sub { font-size: 15px; color: rgba(255,255,255,0.55); margin-bottom: 36px; }
+  .divider { width: 48px; height: 3px; background: #17B9A6; border-radius: 2px; margin-bottom: 32px; }
+
+  /* ── Slide 1: Cover ── */
+  .cover { background: linear-gradient(135deg, #0d1b2a 0%, #1a2f45 50%, #0d1b2a 100%); justify-content: center; align-items: center; text-align: center; position: relative; overflow: hidden; }
+  .cover-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 30%, rgba(23,185,166,0.15) 0%, transparent 60%), radial-gradient(ellipse at 20% 80%, rgba(30,136,229,0.12) 0%, transparent 55%); }
+  .cover-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 48px 48px; }
+  .cover-content { position: relative; z-index: 1; max-width: 820px; padding: 0 32px; }
+  .cover-badge { display: inline-flex; gap: 10px; margin-bottom: 32px; flex-wrap: wrap; justify-content: center; }
+  .badge { background: rgba(23,185,166,0.18); border: 1px solid rgba(23,185,166,0.4); color: #17B9A6; padding: 5px 14px; border-radius: 20px; font-size: 12px; letter-spacing: 0.5px; }
+  .cover-main-title { font-size: 36px; font-weight: 800; line-height: 1.35; color: #fff; margin-bottom: 20px; word-break: keep-all; }
+  .cover-main-title span { color: #17B9A6; }
+  .cover-sub { font-size: 16px; color: rgba(255,255,255,0.5); line-height: 1.6; }
+  .cover-line { width: 60px; height: 3px; background: #17B9A6; margin: 24px auto; border-radius: 2px; }
+
+  /* ── Slide 2: Agenda ── */
+  .agenda-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; flex: 1; }
+  .agenda-item { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 20px 24px; display: flex; align-items: flex-start; gap: 16px; transition: border-color .2s; }
+  .agenda-item:hover { border-color: rgba(23,185,166,0.4); }
+  .agenda-num { font-size: 28px; font-weight: 800; color: rgba(23,185,166,0.4); line-height: 1; min-width: 32px; }
+  .agenda-text { font-size: 15px; font-weight: 600; color: #fff; line-height: 1.4; }
+  .agenda-desc { font-size: 12px; color: rgba(255,255,255,0.45); margin-top: 4px; line-height: 1.5; }
+
+  /* ── Slide 3: Background ── */
+  .bg-flow { display: flex; align-items: center; gap: 0; margin-bottom: 28px; overflow: hidden; }
+  .flow-step { background: rgba(30,136,229,0.15); border: 1px solid rgba(30,136,229,0.3); border-radius: 8px; padding: 10px 14px; font-size: 12px; text-align: center; flex: 1; min-width: 0; }
+  .flow-step.bad { background: rgba(239,83,80,0.15); border-color: rgba(239,83,80,0.3); }
+  .flow-step .step-num { font-size: 10px; color: rgba(255,255,255,0.4); display: block; margin-bottom: 3px; }
+  .flow-arrow { color: rgba(255,255,255,0.3); font-size: 16px; padding: 0 4px; flex-shrink: 0; }
+  .problem-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; flex: 1; }
+  .prob-card { background: rgba(239,83,80,0.08); border: 1px solid rgba(239,83,80,0.25); border-radius: 12px; padding: 22px; }
+  .prob-icon { font-size: 24px; margin-bottom: 12px; }
+  .prob-title { font-size: 14px; font-weight: 700; color: #ef5350; margin-bottom: 8px; }
+  .prob-desc { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.6; }
+
+  /* ── Slide 4: Overview ── */
+  .overview-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; flex: 1; }
+  .ov-card { border-radius: 14px; padding: 28px; display: flex; flex-direction: column; }
+  .ov-card.c1 { background: linear-gradient(135deg, rgba(30,136,229,0.2), rgba(30,136,229,0.05)); border: 1px solid rgba(30,136,229,0.35); }
+  .ov-card.c2 { background: linear-gradient(135deg, rgba(23,185,166,0.2), rgba(23,185,166,0.05)); border: 1px solid rgba(23,185,166,0.35); }
+  .ov-card.c3 { background: linear-gradient(135deg, rgba(126,87,194,0.2), rgba(126,87,194,0.05)); border: 1px solid rgba(126,87,194,0.35); }
+  .ov-num { font-size: 40px; font-weight: 800; margin-bottom: 8px; }
+  .c1 .ov-num { color: #1E88E5; }
+  .c2 .ov-num { color: #17B9A6; }
+  .c3 .ov-num { color: #9575CD; }
+  .ov-title { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 12px; line-height: 1.4; }
+  .ov-tag { display: inline-block; background: rgba(23,185,166,0.2); color: #17B9A6; font-size: 10px; padding: 2px 8px; border-radius: 10px; margin-bottom: 12px; }
+  .ov-list { list-style: none; }
+  .ov-list li { font-size: 13px; color: rgba(255,255,255,0.65); padding: 4px 0; padding-left: 14px; position: relative; line-height: 1.5; }
+  .ov-list li::before { content: '—'; position: absolute; left: 0; color: rgba(255,255,255,0.25); }
+
+  /* ── Slide 5: Workflow ── */
+  .wf-steps { display: flex; gap: 0; flex: 1; align-items: stretch; }
+  .wf-step { flex: 1; display: flex; flex-direction: column; position: relative; }
+  .wf-step:not(:last-child)::after { content: '›'; position: absolute; right: -10px; top: 50%; transform: translateY(-50%); font-size: 24px; color: #17B9A6; z-index: 1; }
+  .wf-box { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 18px 14px; flex: 1; margin: 0 6px; display: flex; flex-direction: column; align-items: center; text-align: center; transition: border-color .2s; }
+  .wf-box:hover { border-color: rgba(23,185,166,0.4); background: rgba(23,185,166,0.05); }
+  .wf-step-num { width: 28px; height: 28px; border-radius: 50%; background: #17B9A6; color: #000; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; flex-shrink: 0; }
+  .wf-step-title { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 8px; line-height: 1.4; }
+  .wf-step-desc { font-size: 11px; color: rgba(255,255,255,0.5); line-height: 1.5; }
+  .wf-highlight { margin-top: 24px; background: rgba(23,185,166,0.1); border: 1px solid rgba(23,185,166,0.3); border-radius: 10px; padding: 14px 24px; text-align: center; font-size: 14px; font-weight: 600; color: #17B9A6; }
+
+  /* ── Slide 6: Input method ── */
+  .input-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; flex: 1; }
+  .input-card { border-radius: 12px; padding: 22px; display: flex; flex-direction: column; }
+  .input-card.ic1 { background: rgba(30,136,229,0.08); border: 1px solid rgba(30,136,229,0.25); }
+  .input-card.ic2 { background: rgba(255,152,0,0.08); border: 1px solid rgba(255,152,0,0.25); }
+  .input-card.ic3 { background: rgba(126,87,194,0.08); border: 1px solid rgba(126,87,194,0.25); }
+  .input-label { font-size: 11px; letter-spacing: 1px; font-weight: 700; margin-bottom: 10px; }
+  .ic1 .input-label { color: #64B5F6; }
+  .ic2 .input-label { color: #FFB74D; }
+  .ic3 .input-label { color: #CE93D8; }
+  .code-box { background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 14px; font-family: 'Consolas', 'D2Coding', monospace; font-size: 12px; color: rgba(255,255,255,0.75); line-height: 1.7; flex: 1; white-space: pre-wrap; word-break: break-all; }
+  .code-box .kw { color: #17B9A6; }
+  .code-box .val { color: #FFB74D; }
+  .input-note { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 10px; font-style: italic; }
+
+  /* ── Slide 7: Outputs ── */
+  .output-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; flex: 1; }
+  .wf-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 16px 12px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; transition: all .2s; cursor: default; }
+  .wf-card:hover { border-color: rgba(23,185,166,0.5); background: rgba(23,185,166,0.06); transform: translateY(-2px); }
+  .wf-icon { width: 44px; height: 36px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+  .wf-card-title { font-size: 12px; font-weight: 700; color: #fff; line-height: 1.4; }
+  .wf-card-desc { font-size: 11px; color: rgba(255,255,255,0.45); line-height: 1.4; }
+  .output-summary { margin-top: 16px; text-align: center; font-size: 13px; color: rgba(255,255,255,0.5); }
+  .output-summary strong { color: #17B9A6; }
+
+  /* ── Slide 8: Verification ── */
+  .verify-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; flex: 1; }
+  .verify-card { border-radius: 12px; padding: 24px; }
+  .verify-card.vc1 { background: rgba(239,83,80,0.06); border: 1px solid rgba(239,83,80,0.2); }
+  .verify-card.vc2 { background: rgba(255,152,0,0.06); border: 1px solid rgba(255,152,0,0.2); }
+  .verify-card.vc3 { background: rgba(30,136,229,0.06); border: 1px solid rgba(30,136,229,0.2); }
+  .verify-case { font-size: 11px; letter-spacing: 1px; font-weight: 700; margin-bottom: 10px; }
+  .vc1 .verify-case { color: #ef5350; }
+  .vc2 .verify-case { color: #FFA726; }
+  .vc3 .verify-case { color: #42A5F5; }
+  .verify-title { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 16px; line-height: 1.4; }
+  .verify-row { margin-bottom: 12px; }
+  .verify-label { font-size: 11px; color: rgba(255,255,255,0.4); margin-bottom: 4px; }
+  .verify-content { font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.5; }
+  .verify-arrow { text-align: center; font-size: 18px; margin: 8px 0; color: rgba(255,255,255,0.25); }
+  .verify-result { background: rgba(23,185,166,0.1); border-radius: 6px; padding: 8px 12px; font-size: 12px; color: #17B9A6; margin-top: 12px; }
+
+  /* ── Slide 9: Before/After ── */
+  .ba-container { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; flex: 1; }
+  .ba-side { border-radius: 14px; padding: 28px; }
+  .ba-side.before { background: rgba(239,83,80,0.07); border: 1px solid rgba(239,83,80,0.2); }
+  .ba-side.after { background: rgba(23,185,166,0.07); border: 1px solid rgba(23,185,166,0.2); }
+  .ba-header { font-size: 12px; font-weight: 700; letter-spacing: 1.5px; margin-bottom: 20px; }
+  .before .ba-header { color: #ef5350; }
+  .after .ba-header { color: #17B9A6; }
+  .ba-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.07); gap: 16px; }
+  .ba-row:last-child { border-bottom: none; }
+  .ba-key { font-size: 12px; color: rgba(255,255,255,0.45); min-width: 90px; flex-shrink: 0; }
+  .ba-val { font-size: 13px; font-weight: 600; color: #fff; text-align: right; }
+  .ba-val.bad { color: #ef7373; }
+  .ba-val.good { color: #4DD0C4; }
+  .ba-flow { margin-top: 16px; }
+  .ba-flow-title { font-size: 11px; color: rgba(255,255,255,0.35); margin-bottom: 10px; letter-spacing: 1px; }
+  .ba-steps { display: flex; flex-wrap: wrap; gap: 6px; }
+  .ba-step { font-size: 11px; padding: 4px 10px; border-radius: 12px; }
+  .before .ba-step { background: rgba(239,83,80,0.15); color: #ef9a9a; }
+  .after .ba-step { background: rgba(23,185,166,0.15); color: #80CBC4; }
+  .ba-step.highlight { font-weight: 700; }
+  .before .ba-step.highlight { background: rgba(239,83,80,0.3); color: #ef5350; }
+  .after .ba-step.highlight { background: rgba(23,185,166,0.3); color: #17B9A6; }
+
+  /* ── Slide 10: Effects ── */
+  .effect-container { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; flex: 1; }
+  .effect-side { border-radius: 14px; padding: 28px; }
+  .effect-side.quant { background: rgba(30,136,229,0.07); border: 1px solid rgba(30,136,229,0.2); }
+  .effect-side.qual { background: rgba(126,87,194,0.07); border: 1px solid rgba(126,87,194,0.2); }
+  .effect-header { font-size: 12px; font-weight: 700; letter-spacing: 1.5px; margin-bottom: 22px; }
+  .quant .effect-header { color: #64B5F6; }
+  .qual .effect-header { color: #CE93D8; }
+  .kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
+  .kpi-box { background: rgba(255,255,255,0.05); border-radius: 10px; padding: 16px; text-align: center; }
+  .kpi-num { font-size: 28px; font-weight: 800; color: #17B9A6; line-height: 1; }
+  .kpi-label { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 6px; line-height: 1.4; }
+  .qual-item { display: flex; gap: 12px; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.07); }
+  .qual-item:last-child { border-bottom: none; }
+  .qual-dot { width: 8px; height: 8px; border-radius: 50%; background: #9575CD; flex-shrink: 0; margin-top: 4px; }
+  .qual-text { font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.6; }
+
+  /* ── Slide 11: Implication ── */
+  .impl-container { display: flex; flex-direction: column; gap: 20px; flex: 1; }
+  .impl-message { background: linear-gradient(135deg, rgba(23,185,166,0.15), rgba(30,136,229,0.1)); border: 1px solid rgba(23,185,166,0.3); border-radius: 14px; padding: 28px 36px; }
+  .impl-quote { font-size: 18px; font-weight: 600; color: #fff; line-height: 1.7; word-break: keep-all; }
+  .impl-quote span { color: #17B9A6; }
+  .impl-ext { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; flex: 1; }
+  .ext-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 22px; display: flex; flex-direction: column; gap: 10px; }
+  .ext-num { font-size: 32px; font-weight: 800; color: rgba(23,185,166,0.35); }
+  .ext-title { font-size: 14px; font-weight: 700; color: #fff; line-height: 1.4; }
+  .ext-desc { font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.6; }
+
+  /* Dark bg for non-cover slides */
+  .slide:not(.slide-cover) { background: #0f1923; }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progressBar"></div>
+
+<div class="deck" id="deck">
+
+  <!-- ══ SLIDE 1: Cover ══ -->
+  <div class="slide slide-cover active cover">
+    <div class="cover-bg"></div>
+    <div class="cover-grid"></div>
+    <div class="cover-content">
+      <div class="cover-badge">
+        <span class="badge">AI 기반 설계</span>
+        <span class="badge">데이터 시뮬레이션</span>
+        <span class="badge">와이어프레임 10종</span>
+      </div>
+      <div class="cover-main-title">
+        AI 기반 데이터 시뮬레이션을 활용한<br>
+        대시보드 시안 <span>설계 검증 체계</span> 구축
+      </div>
+      <div class="cover-line"></div>
+      <div class="cover-sub">
+        Claude AI × 사업건전성 대시보드 설계 — 실전 적용 사례
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 2: Agenda ══ -->
+  <div class="slide">
+    <div class="slide-inner">
+      <div class="slide-tag">Agenda</div>
+      <div class="slide-title">목차</div>
+      <div class="divider"></div>
+      <div class="agenda-grid">
+        <div class="agenda-item">
+          <div class="agenda-num">01</div>
+          <div>
+            <div class="agenda-text">추진 배경 및 문제 인식</div>
+            <div class="agenda-desc">기존 대시보드 설계 방식의 한계와 반복 리워크 문제</div>
+          </div>
+        </div>
+        <div class="agenda-item">
+          <div class="agenda-num">02</div>
+          <div>
+            <div class="agenda-text">AI Use Case 개요</div>
+            <div class="agenda-desc">3대 핵심 과제 — 시안 생성 / 시뮬레이션 / 정합성 확보</div>
+          </div>
+        </div>
+        <div class="agenda-item">
+          <div class="agenda-num">03</div>
+          <div>
+            <div class="agenda-text">실제 협업 워크플로우</div>
+            <div class="agenda-desc">지표 정의 → AI 시안 → 검증 → 확정의 7단계 흐름</div>
+          </div>
+        </div>
+        <div class="agenda-item">
+          <div class="agenda-num">04</div>
+          <div>
+            <div class="agenda-text">실제 입력 방식</div>
+            <div class="agenda-desc">화면 구조 / 산출 로직 / 디자인 스펙 전달 예시</div>
+          </div>
+        </div>
+        <div class="agenda-item">
+          <div class="agenda-num">05</div>
+          <div>
+            <div class="agenda-text">주요 산출물 — 와이어프레임 10종</div>
+            <div class="agenda-desc">사업건전성 대시보드 전 화면 설계 완료</div>
+          </div>
+        </div>
+        <div class="agenda-item">
+          <div class="agenda-num">06</div>
+          <div>
+            <div class="agenda-text">핵심 검증 사례</div>
+            <div class="agenda-desc">집계 기준 정합성 · 산출 로직 · 예외 처리 3가지</div>
+          </div>
+        </div>
+        <div class="agenda-item">
+          <div class="agenda-num">07</div>
+          <div>
+            <div class="agenda-text">Before / After 비교</div>
+            <div class="agenda-desc">프로세스 전환 및 핵심 변화 비교</div>
+          </div>
+        </div>
+        <div class="agenda-item">
+          <div class="agenda-num">08</div>
+          <div>
+            <div class="agenda-text">기대효과 및 시사점</div>
+            <div class="agenda-desc">정량·정성 효과 및 확장 가능성</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 3: Background ══ -->
+  <div class="slide">
+    <div class="slide-inner">
+      <div class="slide-tag">Background</div>
+      <div class="slide-title">추진 배경 — 기존 방식의 한계</div>
+      <div class="divider"></div>
+
+      <div class="bg-flow" style="margin-bottom:24px;">
+        <div class="flow-step"><span class="step-num">①</span>요구사항 정의</div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step"><span class="step-num">②</span>디자이너 시안 제작</div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step"><span class="step-num">③</span>대시보드 개발</div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step"><span class="step-num">④</span>실제 데이터 반영</div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step bad"><span class="step-num">⑤ 문제 발생</span>지표 오류 · 시각화 부적합</div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step bad"><span class="step-num">⑥</span>수정 및 재개발</div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step"><span class="step-num">⑦</span>사용자 분석</div>
+      </div>
+
+      <div class="problem-cards">
+        <div class="prob-card">
+          <div class="prob-icon">📊</div>
+          <div class="prob-title">데이터 검증 부재</div>
+          <div class="prob-desc">설계 단계에서 KPI 산출 로직이 실제 DB 구조와 맞는지 확인할 방법 없음 → 개발 후에야 오류 발견</div>
+        </div>
+        <div class="prob-card">
+          <div class="prob-icon">⚠️</div>
+          <div class="prob-title">집계 기준 불일치</div>
+          <div class="prob-desc">BO 기준 vs 솔루션 기준 혼재로 수치 충돌 발생. 개발 완료 후 발견 시 전면 수정 불가피</div>
+        </div>
+        <div class="prob-card">
+          <div class="prob-icon">🔄</div>
+          <div class="prob-title">반복 리워크 증가</div>
+          <div class="prob-desc">연간 약 20건 기준, 재작업 비율 30%. 개발 리소스·일정 낭비 및 협업 마찰 발생</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 4: Overview ══ -->
+  <div class="slide">
+    <div class="slide-inner">
+      <div class="slide-tag">Use Case Overview</div>
+      <div class="slide-title">AI Use Case 개요 — 3대 핵심 과제</div>
+      <div class="divider"></div>
+      <div class="overview-cards">
+        <div class="ov-card c1">
+          <div class="ov-num">①</div>
+          <div class="ov-title">AI 기반 시안 /<br>와이어프레임 자동 생성</div>
+          <ul class="ov-list">
+            <li>KPI 구조 및 화면 레이아웃 자동 설계</li>
+            <li>요약 → 상세 → 원인 분석 흐름 구성</li>
+            <li>Row / 카드 단위 반복 생성 · 수정</li>
+            <li>실제 배포 가능한 HTML 형태로 산출</li>
+          </ul>
+        </div>
+        <div class="ov-card c2">
+          <div class="ov-num">②</div>
+          <div class="ov-title">데이터 시뮬레이션<br>기반 검증 <span class="ov-tag">핵심</span></div>
+          <ul class="ov-list">
+            <li>실제 / 가상 데이터 적용하여 렌더링 확인</li>
+            <li>지표 산출 로직 검증 (BO 기준 vs 솔루션 기준)</li>
+            <li>시각화 적합성 및 가독성 검증</li>
+            <li>예외 케이스 사전 정의 (N/A 처리 등)</li>
+          </ul>
+        </div>
+        <div class="ov-card c3">
+          <div class="ov-num">③</div>
+          <div class="ov-title">설계 - 데이터<br>정합성 확보</div>
+          <ul class="ov-list">
+            <li>지표 정의 ↔ 화면 구조 불일치 사전 제거</li>
+            <li>집계 기준 명확화 및 개발 스펙 문서화</li>
+            <li>DB 테이블 · 컬럼 · 산식 3자 정합 확인</li>
+            <li>개발팀 전달용 확정본 자동 생성</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 5: Workflow ══ -->
+  <div class="slide">
+    <div class="slide-inner">
+      <div class="slide-tag">Workflow</div>
+      <div class="slide-title">실제 협업 워크플로우 — 7단계</div>
+      <div class="divider"></div>
+      <div class="wf-steps" style="flex:1;">
+        <div class="wf-step">
+          <div class="wf-box">
+            <div class="wf-step-num">1</div>
+            <div class="wf-step-title">지표 정의<br>문서 작성</div>
+            <div class="wf-step-desc">KPI 산식, DB 테이블·컬럼, 집계 기준 텍스트로 정의</div>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-box">
+            <div class="wf-step-num">2</div>
+            <div class="wf-step-title">화면 설계 스펙<br>프롬프트 입력</div>
+            <div class="wf-step-desc">Row/카드 구성, 차트 유형, 색상 코드 함께 전달</div>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-box" style="border-color:rgba(23,185,166,0.4);background:rgba(23,185,166,0.06);">
+            <div class="wf-step-num">3</div>
+            <div class="wf-step-title">AI 시안 생성<br><small style="color:#17B9A6;font-size:10px;">1~3분 이내</small></div>
+            <div class="wf-step-desc">HTML 와이어프레임 + 가상 데이터 포함하여 즉시 렌더링</div>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-box">
+            <div class="wf-step-num">4</div>
+            <div class="wf-step-title">시뮬레이션<br>데이터 검토</div>
+            <div class="wf-step-desc">가상 수치로 차트 가독성 · 레이아웃 적합성 확인</div>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-box">
+            <div class="wf-step-num">5</div>
+            <div class="wf-step-title">지표 산출<br>로직 검증</div>
+            <div class="wf-step-desc">BO 기준 vs 솔루션 기준, 예외 케이스 검토 및 확정</div>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-box">
+            <div class="wf-step-num">6</div>
+            <div class="wf-step-title">피드백 기반<br>반복 수정</div>
+            <div class="wf-step-desc">수정 지시 → 재생성 2~3회 반복으로 빠르게 완성도 향상</div>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-box" style="border-color:rgba(30,136,229,0.4);background:rgba(30,136,229,0.06);">
+            <div class="wf-step-num">7</div>
+            <div class="wf-step-title">확정본 산출<br>배포</div>
+            <div class="wf-step-desc">HTML 파일 저장 + 문서허브 배포 + 개발 스펙 확정</div>
+          </div>
+        </div>
+      </div>
+      <div class="wf-highlight">
+        💡 "기획자가 디자이너 없이 설계 → 검증 → 확정까지 완결 — 당일 반복 생성 가능"
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 6: Input method ══ -->
+  <div class="slide">
+    <div class="slide-inner">
+      <div class="slide-tag">How to Work</div>
+      <div class="slide-title">실제 입력 방식 — 이렇게 지시했습니다</div>
+      <div class="divider"></div>
+      <div class="input-cards">
+        <div class="input-card ic1">
+          <div class="input-label">① 화면 구조 지정</div>
+          <div class="code-box"><span class="kw">"효율/수익 지표 화면을</span>
+<span class="val">6 Row, 12 카드</span> 구조로 만들어줘.
+
+Row 1:
+  좌) <span class="val">Gross Sales Efficiency</span>
+      (바 차트, %)
+  우) <span class="val">Net Sales Efficiency</span>
+      (바 차트, %)
+
+Row 2:
+  좌) CAC/LTV/LTV:CAC Ratio
+      (콤비네이션 차트)
+  우) CAC Payback Period
+      (라인, 단위: 개월)<span class="kw">"</span></div>
+          <div class="input-note">→ 레이아웃·차트 유형까지 텍스트로 명시</div>
+        </div>
+        <div class="input-card ic2">
+          <div class="input-label">② 산출 로직 명시</div>
+          <div class="code-box"><span class="kw">"산출 로직도 함께 반영해줘.</span>
+
+<span class="val">ARPA</span> = sum(vf219) ÷ 고객 수
+  (vf219 ≠ 0인 고객 수 기준)
+
+<span class="val">LTV</span> = ARPA ÷ 이탈률
+
+이탈률 = (1 - N-1년매출
+           ÷ N-2년매출) × 100
+
+⚠ 이탈률 = 0이면
+  LTV / LTV:CAC / CAC Payback
+  모두 <span class="val">빈칸</span>으로 처리<span class="kw">"</span></div>
+          <div class="input-note">→ DB 컬럼명 · 예외 처리까지 함께 전달</div>
+        </div>
+        <div class="input-card ic3">
+          <div class="input-label">③ 디자인 스펙 전달</div>
+          <div class="code-box"><span class="kw">"색상 스펙은 아래와 같아.</span>
+
+라이트블루  <span class="val">#90CAF9</span>
+다크블루    <span class="val">#1E88E5</span>
+오렌지      <span class="val">#FF9800</span>
+퍼플        <span class="val">#7E57C2</span>
+그레이      <span class="val">#9E9E9E</span>
+
+사이드바:
+  딥 네이비 <span class="val">#1E2A3A~#2C3E50</span>
+
+현재 페이지 하이라이트:
+  <span class="val">#17B9A6</span><span class="kw">"</span></div>
+          <div class="input-note">→ HEX 코드 수준까지 명확히 지정하여 일관성 확보</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 7: Outputs ══ -->
+  <div class="slide">
+    <div class="slide-inner">
+      <div class="slide-tag">Outputs</div>
+      <div class="slide-title">주요 산출물 — 와이어프레임 10종</div>
+      <div class="divider"></div>
+      <div class="output-grid">
+        <div class="wf-card">
+          <div class="wf-icon" style="background:rgba(23,185,166,0.15);">🏠</div>
+          <div class="wf-card-title">사업건전성<br>현황 (메인)</div>
+          <div class="wf-card-desc">12개 상품<br>전체 지표 요약</div>
+        </div>
+        <div class="wf-card">
+          <div class="wf-icon" style="background:rgba(30,136,229,0.15);">📦</div>
+          <div class="wf-card-title">사업단위<br>대시보드</div>
+          <div class="wf-card-desc">상품별<br>드릴다운</div>
+        </div>
+        <div class="wf-card">
+          <div class="wf-icon" style="background:rgba(255,152,0,0.15);">💰</div>
+          <div class="wf-card-title">효율/수익<br>(Finance)</div>
+          <div class="wf-card-desc">LTV·CAC·ARPA<br>6 Row 12 카드</div>
+        </div>
+        <div class="wf-card">
+          <div class="wf-icon" style="background:rgba(126,87,194,0.15);">📈</div>
+          <div class="wf-card-title">영업<br>메인</div>
+          <div class="wf-card-desc">파이프라인<br>현황</div>
+        </div>
+        <div class="wf-card">
+          <div class="wf-icon" style="background:rgba(126,87,194,0.12);">🔍</div>
+          <div class="wf-card-title">영업<br>필터</div>
+          <div class="wf-card-desc">상품/기간<br>필터 UX</div>
+        </div>
+        <div class="wf-card">
+          <div class="wf-icon" style="background:rgba(239,83,80,0.12);">👥</div>
+          <div class="wf-card-title">고객<br>현황</div>
+          <div class="wf-card-desc">신규·유지·이탈<br>고객 추이</div>
+        </div>
+        <div class="wf-card">
+          <div class="wf-icon" style="background:rgba(23,185,166,0.12);">💬</div>
+          <div class="wf-card-title">VoC<br>대시보드</div>
+          <div class="wf-card-desc">월별 접수·개선<br>리드타임 현황</div>
+        </div>
+        <div class="wf-card">
+          <div class="wf-icon" style="background:rgba(23,185,166,0.1);">📋</div>
+          <div class="wf-card-title">VoC 대시보드<br>(KD버전)</div>
+          <div class="wf-card-desc">채널별<br>세분화 뷰</div>
+        </div>
+        <div class="wf-card">
+          <div class="wf-icon" style="background:rgba(30,136,229,0.12);">🌐</div>
+          <div class="wf-card-title">시장<br>현황</div>
+          <div class="wf-card-desc">경쟁 포지션<br>시장 트렌드</div>
+        </div>
+        <div class="wf-card">
+          <div class="wf-icon" style="background:rgba(255,152,0,0.12);">📖</div>
+          <div class="wf-card-title">지표<br>정보</div>
+          <div class="wf-card-desc">정의·산식·<br>데이터 출처</div>
+        </div>
+      </div>
+      <div class="output-summary">
+        총 <strong>10종</strong>의 화면을 약 <strong>6주</strong>간 순차 설계·검증 완료 &nbsp;|&nbsp; 전체 HTML 형태로 문서허브 배포
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 8: Verification ══ -->
+  <div class="slide">
+    <div class="slide-inner">
+      <div class="slide-tag">Verification Cases</div>
+      <div class="slide-title">핵심 검증 사례 — 설계 단계에서 해결한 3가지</div>
+      <div class="divider"></div>
+      <div class="verify-grid">
+        <div class="verify-card vc1">
+          <div class="verify-case">CASE 01</div>
+          <div class="verify-title">BO 기준 vs 솔루션 기준 수치 충돌</div>
+          <div class="verify-row">
+            <div class="verify-label">발견된 문제</div>
+            <div class="verify-content">같은 매출 지표가 화면마다 다른 수치로 표시 — 집계 기준이 혼재</div>
+          </div>
+          <div class="verify-arrow">↓</div>
+          <div class="verify-row">
+            <div class="verify-label">AI와 검토 내용</div>
+            <div class="verify-content">orderlist 기준 단일화 / BO 매핑 예외 케이스 목록화</div>
+          </div>
+          <div class="verify-result">✓ 개발 전 집계 기준 확정 → <code>l_sap.orderlist</code> 단일 소스 적용</div>
+        </div>
+        <div class="verify-card vc2">
+          <div class="verify-case">CASE 02</div>
+          <div class="verify-title">LTV 산출 불가 케이스 — 이탈률 = 0</div>
+          <div class="verify-row">
+            <div class="verify-label">발견된 문제</div>
+            <div class="verify-content">이탈률이 0일 때 LTV = ARPA ÷ 0 → 무한대 또는 오류 발생</div>
+          </div>
+          <div class="verify-arrow">↓</div>
+          <div class="verify-row">
+            <div class="verify-label">AI와 검토 내용</div>
+            <div class="verify-content">예외 조건 설계 — 이탈률 0이면 LTV / LTV:CAC / Payback 모두 빈칸</div>
+          </div>
+          <div class="verify-result">✓ 시안 단계 예외 처리 확정 → 개발 스펙에 즉시 반영</div>
+        </div>
+        <div class="verify-card vc3">
+          <div class="verify-case">CASE 03</div>
+          <div class="verify-title">EMS 상품 지표 산출 불가 처리</div>
+          <div class="verify-row">
+            <div class="verify-label">발견된 문제</div>
+            <div class="verify-content">RC/NRC 데이터 분리 불가 → Recurring 비중 약 9%로 LTV 신뢰성 없음</div>
+          </div>
+          <div class="verify-arrow">↓</div>
+          <div class="verify-row">
+            <div class="verify-label">AI와 검토 내용</div>
+            <div class="verify-content">11개 상품 산출 가능 / EMS · EMS(All) 2개 N/A 처리로 화면 설계 반영</div>
+          </div>
+          <div class="verify-result">✓ 상품별 산출 가능 여부 시안에 명시 → 개발 오해 사전 방지</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 9: Before / After ══ -->
+  <div class="slide">
+    <div class="slide-inner">
+      <div class="slide-tag">Before / After</div>
+      <div class="slide-title">프로세스 전환 — 무엇이 달라졌나</div>
+      <div class="divider"></div>
+      <div class="ba-container">
+        <div class="ba-side before">
+          <div class="ba-header">▶ BEFORE — 기존 방식</div>
+          <div class="ba-row"><div class="ba-key">시안 제작자</div><div class="ba-val bad">디자이너 중심</div></div>
+          <div class="ba-row"><div class="ba-key">데이터 검증 시점</div><div class="ba-val bad">개발 완료 후</div></div>
+          <div class="ba-row"><div class="ba-key">지표 오류 발견</div><div class="ba-val bad">개발 후 → 리워크</div></div>
+          <div class="ba-row"><div class="ba-key">집계 기준 확인</div><div class="ba-val bad">개발팀 별도 협의</div></div>
+          <div class="ba-row"><div class="ba-key">시안 제작 속도</div><div class="ba-val bad">디자이너 일정 의존</div></div>
+          <div class="ba-row"><div class="ba-key">재작업 비율</div><div class="ba-val bad">약 30%</div></div>
+          <div class="ba-flow">
+            <div class="ba-flow-title">PROCESS</div>
+            <div class="ba-steps">
+              <span class="ba-step">①요구사항</span>
+              <span class="ba-step">②디자이너 시안</span>
+              <span class="ba-step">③개발</span>
+              <span class="ba-step">④데이터 반영</span>
+              <span class="ba-step highlight">⑤오류 발견</span>
+              <span class="ba-step highlight">⑥수정·재개발</span>
+              <span class="ba-step">⑦완료</span>
+            </div>
+          </div>
+        </div>
+        <div class="ba-side after">
+          <div class="ba-header">▶ AFTER — AI 적용</div>
+          <div class="ba-row"><div class="ba-key">시안 제작자</div><div class="ba-val good">기획자 + AI</div></div>
+          <div class="ba-row"><div class="ba-key">데이터 검증 시점</div><div class="ba-val good">설계 단계 (사전)</div></div>
+          <div class="ba-row"><div class="ba-key">지표 오류 발견</div><div class="ba-val good">시안 단계 → 즉시 수정</div></div>
+          <div class="ba-row"><div class="ba-key">집계 기준 확인</div><div class="ba-val good">AI와 실시간 검토</div></div>
+          <div class="ba-row"><div class="ba-key">시안 제작 속도</div><div class="ba-val good">당일 반복 생성</div></div>
+          <div class="ba-row"><div class="ba-key">재작업 비율</div><div class="ba-val good">목표 10%</div></div>
+          <div class="ba-flow">
+            <div class="ba-flow-title">PROCESS</div>
+            <div class="ba-steps">
+              <span class="ba-step">①요구사항</span>
+              <span class="ba-step highlight">②AI 시안 생성</span>
+              <span class="ba-step highlight">③시뮬레이션</span>
+              <span class="ba-step highlight">④사전 검증</span>
+              <span class="ba-step">⑤개발 완료</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 10: Effects ══ -->
+  <div class="slide">
+    <div class="slide-inner">
+      <div class="slide-tag">Expected Effects</div>
+      <div class="slide-title">기대효과</div>
+      <div class="divider"></div>
+      <div class="effect-container">
+        <div class="effect-side quant">
+          <div class="effect-header">📊 정량적 기대효과</div>
+          <div class="kpi-grid">
+            <div class="kpi-box">
+              <div class="kpi-num">30<span style="font-size:16px;color:rgba(255,255,255,0.4);">%</span> → <span style="color:#4DD0C4;">10%</span></div>
+              <div class="kpi-label">재작업 비율 감소<br>(연간 20건 기준)</div>
+            </div>
+            <div class="kpi-box">
+              <div class="kpi-num" style="font-size:22px;">약 4주</div>
+              <div class="kpi-label">개발 리소스<br>절감</div>
+            </div>
+            <div class="kpi-box">
+              <div class="kpi-num" style="font-size:22px;">~800만</div>
+              <div class="kpi-label">비용 절감<br>(원)</div>
+            </div>
+            <div class="kpi-box">
+              <div class="kpi-num">50<span style="font-size:16px;color:rgba(255,255,255,0.4);">%↑</span></div>
+              <div class="kpi-label">설계 오류<br>발생률 감소</div>
+            </div>
+          </div>
+        </div>
+        <div class="effect-side qual">
+          <div class="effect-header">✨ 정성적 기대효과</div>
+          <div class="qual-item">
+            <div class="qual-dot"></div>
+            <div class="qual-text">KPI 정합성 및 시각화 적합성을 <strong>설계 단계에서 사전 확보</strong></div>
+          </div>
+          <div class="qual-item">
+            <div class="qual-dot"></div>
+            <div class="qual-text">기획자 주도 설계 검증 체계 → <strong>디자이너·개발팀 의존도 감소</strong></div>
+          </div>
+          <div class="qual-item">
+            <div class="qual-dot"></div>
+            <div class="qual-text">지표 정의 ↔ 화면 구조 ↔ DB 로직 <strong>3자 정합성 확보</strong></div>
+          </div>
+          <div class="qual-item">
+            <div class="qual-dot"></div>
+            <div class="qual-text">설계 단계에서 검증 완료로 <strong>개발 리워크 감소 및 협업 효율 향상</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 11: Implication ══ -->
+  <div class="slide">
+    <div class="slide-inner">
+      <div class="slide-tag">Implication</div>
+      <div class="slide-title">시사점 및 확장 가능성</div>
+      <div class="divider"></div>
+      <div class="impl-container">
+        <div class="impl-message">
+          <div class="impl-quote">
+            AI를 단순 초안 도구가 아닌 <span>설계 검증 파트너</span>로 활용 —<br>
+            기획자가 데이터 로직을 직접 검증하는 <span>새로운 협업 방식</span>의 등장
+          </div>
+        </div>
+        <div class="impl-ext">
+          <div class="ext-card">
+            <div class="ext-num">01</div>
+            <div class="ext-title">타 부문 대시보드<br>기획에 동일 방식 적용</div>
+            <div class="ext-desc">지표 정의 → AI 시안 → 시뮬레이션 → 확정 워크플로우를 타 팀 대시보드 기획에도 표준화 적용 가능</div>
+          </div>
+          <div class="ext-card">
+            <div class="ext-num">02</div>
+            <div class="ext-title">개발 요청서<br>자동 생성</div>
+            <div class="ext-desc">확정된 지표 정의 + 화면 설계를 바탕으로 개발팀 전달용 스펙 문서를 AI로 자동 생성하는 단계까지 확장</div>
+          </div>
+          <div class="ext-card">
+            <div class="ext-num">03</div>
+            <div class="ext-title">보고서 · 분석 시안<br>설계에도 동일 적용</div>
+            <div class="ext-desc">대시보드 외 경영 보고서, 분석 문서, M&A 분석 등 다양한 문서 시안 설계에도 동일한 AI 협업 워크플로우 활용 가능</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /deck -->
+
+<!-- Navigation -->
+<div class="nav">
+  <button onclick="prevSlide()">← 이전</button>
+  <span class="counter" id="counter">1 / 11</span>
+  <button onclick="nextSlide()">다음 →</button>
+</div>
+
+<script>
+  let cur = 0;
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+
+  function show(n) {
+    slides[cur].classList.remove('active');
+    cur = (n + total) % total;
+    slides[cur].classList.add('active');
+    document.getElementById('counter').textContent = (cur + 1) + ' / ' + total;
+    document.getElementById('progressBar').style.width = ((cur + 1) / total * 100) + '%';
+  }
+  function nextSlide() { show(cur + 1); }
+  function prevSlide() { show(cur - 1); }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') nextSlide();
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prevSlide();
+  });
+</script>
+</body>
+</html>

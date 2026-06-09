@@ -65,6 +65,7 @@ export default defineConfig({
 						{ label: '/corp-report 기업조사 분석 보고서', link: '/guides/corp-report/' },
 						{ label: '/concept-map 개념 설명 지형도', link: '/guides/concept-map-prompt/' },
 						{ label: '/problem-canvas BMC × 맥킨지 7단계', link: '/guides/problem-canvas/' },
+						{ label: '/business-diagnosis 사업 진단 v2', link: '/guides/business-diagnosis/' },
 					],
 				},
 				{

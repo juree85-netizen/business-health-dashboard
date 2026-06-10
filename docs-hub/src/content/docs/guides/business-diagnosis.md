@@ -8,7 +8,7 @@ import { Aside } from '@astrojs/starlight/components';
 > **BMC는 문제 위치를 찾는 도구, 맥킨지 7단계는 원인 제거 및 실행 우선순위 설계 도구.**  
 > BMC 진단 결과(Root Cause Block)는 반드시 McKinsey Step 2(Issue Tree)의 최상위 노드로 연결됩니다.
 
-**최종 수정:** '26.06.09 &nbsp;|&nbsp; **위치:** `~/.claude/skills/business-diagnosis/` &nbsp;|&nbsp; **이전 이름:** `problem-canvas`
+**최종 수정:** '26.06.10 &nbsp;|&nbsp; **위치:** `~/.claude/skills/business-diagnosis/` &nbsp;|&nbsp; **이전 이름:** `problem-canvas`
 
 ---
 
@@ -28,7 +28,15 @@ mkdir -p ~/.claude/skills/business-diagnosis && curl -o ~/.claude/skills/busines
 
 ---
 
-## v2 개선 내역 (problem-canvas → business-diagnosis)
+## 개선 내역
+
+### v3 (26.06.10)
+
+| # | 개선 항목 | 변경 내용 |
+|---|-----------|-----------|
+| 1 | BMC 설명 블록 | 출력 최상단에 BMC 9개 블록 설명 항상 표시 — 배경지식 없어도 즉시 이해 가능 |
+
+### v2 (problem-canvas → business-diagnosis)
 
 | # | 개선 항목 | 변경 내용 |
 |---|-----------|-----------|
@@ -63,7 +71,9 @@ mkdir -p ~/.claude/skills/business-diagnosis && curl -o ~/.claude/skills/busines
 ## 출력 흐름
 
 ```
-Step 0.  문제 유형 분류 (Growth / Profitability / ...)
+Step 0.  BMC 9개 블록 설명 (항상 출력)
+    ↓
+Step 1.  문제 유형 분류 (Growth / Profitability / ...)
     ↓
 Phase 1. BMC Root Cause Block 특정
     ↓      결과 블록(R$·C$) 아닌 원인 블록을 추적

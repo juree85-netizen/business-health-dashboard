@@ -70,7 +70,7 @@
 		})();
 	</script> </sl-sidebar-state-persist> <div class="md:sl-hidden"> <div class="mobile-preferences sl-flex astro-wu23bvmt"> <div class="social-icons astro-wu23bvmt">  </div> <starlight-theme-select>  <label style="--sl-select-width: 6.25em" class="astro-4yphtoen"> <span class="sr-only astro-4yphtoen">테마 선택</span> <svg aria-hidden="true" class="icon label-icon astro-4yphtoen astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg> <select autocomplete="off" class="astro-4yphtoen"> <option value="dark" class="astro-4yphtoen">어두운 테마</option><option value="light" class="astro-4yphtoen">밝은 테마</option><option value="auto" selected class="astro-4yphtoen">자동</option> </select> <svg aria-hidden="true" class="icon caret astro-4yphtoen astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg> </label> </starlight-theme-select>  <script>
 	StarlightThemeProvider.updatePickers();
-</script>   </div> </div> </div> </div> </nav> <div class="main-frame astro-vrdttmbt">  <script type="module">const a=document.getElementById("starlight__sidebar"),n=a?.querySelector("sl-sidebar-state-persist"),o="sl-sidebar-state",i=()=>{let t=[];const e=n?.dataset.hash||"";try{const s=sessionStorage.getItem(o),r=JSON.parse(s||"{}");Array.isArray(r.open)&&r.hash===e&&(t=r.open)}catch{}return{hash:e,open:t,scroll:a?.scrollTop||0}},c=t=>{try{sessionStorage.setItem(o,JSON.stringify(t))}catch{}},d=()=>c(i()),l=(t,e)=>{const s=i();s.open[e]=t,c(s)};n?.addEventListener("click",t=>{if(!(t.target instanceof Element))return;const e=t.target.closest("summary")?.closest("details");if(!e)return;const s=e.querySelector("sl-sidebar-restore"),r=parseInt(s?.dataset.index||"");isNaN(r)||l(!e.open,r)});addEventListener("visibilitychange",()=>{document.visibilityState==="hidden"&&d()});addEventListener("pageHide",d);</script> <div class="lg:sl-flex astro-67yu43on"> <aside class="right-sidebar-container print:hidden astro-67yu43on"> <div class="right-sidebar astro-67yu43on"> <div class="lg:sl-hidden astro-pb3aqygn"><mobile-starlight-toc data-min-h="2" data-max-h="3" class="astro-doynk5tl"><nav aria-labelledby="starlight__on-this-page--mobile" class="astro-doynk5tl"><details id="starlight__mobile-toc" class="astro-doynk5tl"><summary id="starlight__on-this-page--mobile" class="sl-flex astro-doynk5tl"><span class="toggle sl-flex astro-doynk5tl">목차<svg aria-hidden="true" class="caret astro-doynk5tl astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></span><span class="display-current astro-doynk5tl"></span></summary><div class="dropdown astro-doynk5tl"><ul class="isMobile astro-gnoq344e" style="--depth: 0;"> <li class="astro-gnoq344e" style="--depth: 0;"> <a href="#_top" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">개요</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#-다운로드-및-설치" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">📥 다운로드 및 설치</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#호출-방법" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">호출 방법</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#출력-흐름" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">출력 흐름</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#기획자의-사고-레이어에서의-위치" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">기획자의 사고 레이어에서의 위치</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#스킬-파일-구성" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">스킬 파일 구성</span> </a>  </li> </ul></div></details></nav></mobile-starlight-toc><script type="module" src="/_astro/MobileTableOfContents.astro_astro_type_script_index_0_lang.hwBsy0Mo.js"></script></div><div class="right-sidebar-panel sl-hidden lg:sl-block astro-pb3aqygn"><div class="sl-container astro-pb3aqygn"><starlight-toc data-min-h="2" data-max-h="3"><nav aria-labelledby="starlight__on-this-page"><h2 id="starlight__on-this-page">목차</h2><ul class="astro-gnoq344e" style="--depth: 0;"> <li class="astro-gnoq344e" style="--depth: 0;"> <a href="#_top" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">개요</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#-다운로드-및-설치" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">📥 다운로드 및 설치</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#호출-방법" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">호출 방법</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#출력-흐름" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">출력 흐름</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#기획자의-사고-레이어에서의-위치" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">기획자의 사고 레이어에서의 위치</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#스킬-파일-구성" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">스킬 파일 구성</span> </a>  </li> </ul></nav></starlight-toc><script type="module" src="/_astro/TableOfContents.astro_astro_type_script_index_0_lang.FuRcXuRY.js"></script></div></div> </div> </aside> <div class="main-pane astro-67yu43on">  <main data-pagefind-body class="astro-bguv2lll" lang="ko" dir="ltr">    <div class="content-panel astro-7nkwcw3z"> <div class="sl-container astro-7nkwcw3z"> <h1 id="_top" class="astro-j6tvhyss">/strategy-canvas — 전략 선택지 설계 스킬</h1> </div> </div> <div class="content-panel astro-7nkwcw3z"> <div class="sl-container astro-7nkwcw3z"> <div class="sl-markdown-content"> <p>import { Aside } from ‘@astrojs/starlight/components’;</p>
+</script>   </div> </div> </div> </div> </nav> <div class="main-frame astro-vrdttmbt">  <script type="module">const a=document.getElementById("starlight__sidebar"),n=a?.querySelector("sl-sidebar-state-persist"),o="sl-sidebar-state",i=()=>{let t=[];const e=n?.dataset.hash||"";try{const s=sessionStorage.getItem(o),r=JSON.parse(s||"{}");Array.isArray(r.open)&&r.hash===e&&(t=r.open)}catch{}return{hash:e,open:t,scroll:a?.scrollTop||0}},c=t=>{try{sessionStorage.setItem(o,JSON.stringify(t))}catch{}},d=()=>c(i()),l=(t,e)=>{const s=i();s.open[e]=t,c(s)};n?.addEventListener("click",t=>{if(!(t.target instanceof Element))return;const e=t.target.closest("summary")?.closest("details");if(!e)return;const s=e.querySelector("sl-sidebar-restore"),r=parseInt(s?.dataset.index||"");isNaN(r)||l(!e.open,r)});addEventListener("visibilitychange",()=>{document.visibilityState==="hidden"&&d()});addEventListener("pageHide",d);</script> <div class="lg:sl-flex astro-67yu43on"> <aside class="right-sidebar-container print:hidden astro-67yu43on"> <div class="right-sidebar astro-67yu43on"> <div class="lg:sl-hidden astro-pb3aqygn"><mobile-starlight-toc data-min-h="2" data-max-h="3" class="astro-doynk5tl"><nav aria-labelledby="starlight__on-this-page--mobile" class="astro-doynk5tl"><details id="starlight__mobile-toc" class="astro-doynk5tl"><summary id="starlight__on-this-page--mobile" class="sl-flex astro-doynk5tl"><span class="toggle sl-flex astro-doynk5tl">목차<svg aria-hidden="true" class="caret astro-doynk5tl astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></span><span class="display-current astro-doynk5tl"></span></summary><div class="dropdown astro-doynk5tl"><ul class="isMobile astro-gnoq344e" style="--depth: 0;"> <li class="astro-gnoq344e" style="--depth: 0;"> <a href="#_top" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">개요</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#-다운로드-및-설치" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">📥 다운로드 및 설치</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#호출-방법" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">호출 방법</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#출력-흐름" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">출력 흐름</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#section-6--4p-전략" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Section 6 — 4P 전략</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#section-7--gtm-go-to-market-전략" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Section 7 — GTM (Go-to-Market) 전략</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#기획자의-사고-레이어에서의-위치" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">기획자의 사고 레이어에서의 위치</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#스킬-파일-구성" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">스킬 파일 구성</span> </a>  </li> </ul></div></details></nav></mobile-starlight-toc><script type="module" src="/_astro/MobileTableOfContents.astro_astro_type_script_index_0_lang.hwBsy0Mo.js"></script></div><div class="right-sidebar-panel sl-hidden lg:sl-block astro-pb3aqygn"><div class="sl-container astro-pb3aqygn"><starlight-toc data-min-h="2" data-max-h="3"><nav aria-labelledby="starlight__on-this-page"><h2 id="starlight__on-this-page">목차</h2><ul class="astro-gnoq344e" style="--depth: 0;"> <li class="astro-gnoq344e" style="--depth: 0;"> <a href="#_top" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">개요</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#-다운로드-및-설치" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">📥 다운로드 및 설치</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#호출-방법" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">호출 방법</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#출력-흐름" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">출력 흐름</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#section-6--4p-전략" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Section 6 — 4P 전략</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#section-7--gtm-go-to-market-전략" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Section 7 — GTM (Go-to-Market) 전략</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#기획자의-사고-레이어에서의-위치" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">기획자의 사고 레이어에서의 위치</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#스킬-파일-구성" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">스킬 파일 구성</span> </a>  </li> </ul></nav></starlight-toc><script type="module" src="/_astro/TableOfContents.astro_astro_type_script_index_0_lang.FuRcXuRY.js"></script></div></div> </div> </aside> <div class="main-pane astro-67yu43on">  <main data-pagefind-body class="astro-bguv2lll" lang="ko" dir="ltr">    <div class="content-panel astro-7nkwcw3z"> <div class="sl-container astro-7nkwcw3z"> <h1 id="_top" class="astro-j6tvhyss">/strategy-canvas — 전략 선택지 설계 스킬</h1> </div> </div> <div class="content-panel astro-7nkwcw3z"> <div class="sl-container astro-7nkwcw3z"> <div class="sl-markdown-content"> <p>import { Aside } from ‘@astrojs/starlight/components’;</p>
 <blockquote>
 <p><strong>문제를 알았다면 다음 질문은 “그래서 뭘 해야 하지?”</strong><br>
 /strategy-canvas는 선택지를 만들고, 버릴 것을 결정하고, 권고 전략과 실행 로드맵까지 도출한다.</p>
@@ -130,6 +130,123 @@
 <hr>
 <div class="sl-heading-wrapper level-h2"><h2 id="출력-흐름">출력 흐름</h2><a class="sl-anchor-link" href="#출력-흐름"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “출력 흐름”</span></a></div>
 <div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">Section 0.  전략 질문 + 맥락 (제약 조건 포함)</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">    </span></span><span style="--0:#d6deeb;--1:#403f53">↓</span></div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">Section 1.  현재 상태 (As-Is)</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">    </span></span><span style="--0:#d6deeb;--1:#403f53">핵심 현황 / 가장 큰 제약 / 의사결정 기준 / 아무것도 안 하면?</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">    </span></span><span style="--0:#d6deeb;--1:#403f53">↓</span></div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">Section 2.  전략 선택지 (2~4개, MECE)</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">    </span></span><span style="--0:#d6deeb;--1:#403f53">각 선택지: 핵심 방향 / 핵심 가정 / 리소스 / 임팩트 / 버리는 것</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">    </span></span><span style="--0:#d6deeb;--1:#403f53">↓</span></div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">Section 3.  Trade-off 매트릭스</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">    </span></span><span style="--0:#d6deeb;--1:#403f53">임팩트 / 실행 가능성 / 리스크 / 소요 시간</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">    </span></span><span style="--0:#d6deeb;--1:#403f53">↓</span></div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">Section 4.  권고 전략</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">    </span></span><span style="--0:#d6deeb;--1:#403f53">선택 + 이유 + 버린 것 이유 + 핵심 전제 조건</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">    </span></span><span style="--0:#d6deeb;--1:#403f53">↓</span></div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">Section 5.  실행 로드맵</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">    </span></span><span style="--0:#d6deeb;--1:#403f53">즉시 / 단기(1~3개월) / 중기(3~6개월) / 전략적 베팅(6개월+)</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">    </span></span><span style="--0:#d6deeb;--1:#403f53">↓</span></div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">Section 6.  4P 전략</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">    </span></span><span style="--0:#d6deeb;--1:#403f53">Product / Price / Place / Promotion — As-Is → To-Be + 핵심 레버</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">    </span></span><span style="--0:#d6deeb;--1:#403f53">↓</span></div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">Section 7.  GTM (Go-to-Market) 전략</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">    </span></span><span style="--0:#d6deeb;--1:#403f53">타겟 세그먼트 / 가치 제안 / 진입 채널 / 초기 트랙션 / Land→Expand→Scale</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="Section 0.  전략 질문 + 맥락 (제약 조건 포함)    ↓Section 1.  현재 상태 (As-Is)    핵심 현황 / 가장 큰 제약 / 의사결정 기준 / 아무것도 안 하면?    ↓Section 2.  전략 선택지 (2~4개, MECE)    각 선택지: 핵심 방향 / 핵심 가정 / 리소스 / 임팩트 / 버리는 것    ↓Section 3.  Trade-off 매트릭스    임팩트 / 실행 가능성 / 리스크 / 소요 시간    ↓Section 4.  권고 전략    선택 + 이유 + 버린 것 이유 + 핵심 전제 조건    ↓Section 5.  실행 로드맵    즉시 / 단기(1~3개월) / 중기(3~6개월) / 전략적 베팅(6개월+)    ↓Section 6.  4P 전략    Product / Price / Place / Promotion — As-Is → To-Be + 핵심 레버    ↓Section 7.  GTM (Go-to-Market) 전략    타겟 세그먼트 / 가치 제안 / 진입 채널 / 초기 트랙션 / Land→Expand→Scale"><div></div></button></div></figure></div>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="section-6--4p-전략">Section 6 — 4P 전략</h2><a class="sl-anchor-link" href="#section-6--4p-전략"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “Section 6 — 4P 전략”</span></a></div>
+<p>권고 전략을 실행하기 위한 마케팅 믹스를 정의한다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>4P</th><th>현재 (As-Is)</th><th>전략 방향 (To-Be)</th><th>핵심 결정</th></tr></thead><tbody><tr><td><strong>Product</strong> (제품·서비스)</td><td>[현재 무엇을 제공하는가]</td><td>[무엇을 바꾸거나 추가하는가]</td><td>[핵심 변화 한 줄]</td></tr><tr><td><strong>Price</strong> (가격·수익 모델)</td><td>[현재 가격 구조]</td><td>[어떤 모델로 전환하는가]</td><td>[핵심 변화 한 줄]</td></tr><tr><td><strong>Place</strong> (채널·유통)</td><td>[현재 접점]</td><td>[어느 채널을 강화·신규 개척하는가]</td><td>[핵심 변화 한 줄]</td></tr><tr><td><strong>Promotion</strong> (마케팅·홍보)</td><td>[현재 커뮤니케이션]</td><td>[어떤 메시지·채널로 전달하는가]</td><td>[핵심 변화 한 줄]</td></tr></tbody></table>
+<blockquote>
+<p><strong>4P 핵심 레버:</strong> 권고 전략에서 가장 크게 움직여야 하는 P가 무엇인지, 그 이유를 명시한다.</p>
+</blockquote>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="section-7--gtm-go-to-market-전략">Section 7 — GTM (Go-to-Market) 전략</h2><a class="sl-anchor-link" href="#section-7--gtm-go-to-market-전략"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “Section 7 — GTM (Go-to-Market) 전략”</span></a></div>
+<p>시장 진입 또는 재진입 경로를 설계한다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>항목</th><th>내용</th></tr></thead><tbody><tr><td><strong>타겟 세그먼트</strong></td><td>[누구에게 먼저 — 기업 규모 / 산업 / 직무 / 지역]</td></tr><tr><td><strong>핵심 가치 제안</strong></td><td>[왜 이 고객에게 선택받는가 — 경쟁 대비 차별점]</td></tr><tr><td><strong>진입 채널</strong></td><td>[어떤 경로로 도달하는가 — 직접영업 / 파트너 / 인바운드 등]</td></tr><tr><td><strong>초기 트랙션 목표</strong></td><td>[첫 3개월 내 만들어야 할 지표 — 계약 수 / MQL / ARR 등]</td></tr><tr><td><strong>파트너·에코시스템</strong></td><td>[함께 움직일 플레이어 — SI / ISV / 채널파트너 등]</td></tr><tr><td><strong>킬러 레퍼런스</strong></td><td>[첫 번째로 잡아야 할 고객 유형 — 레퍼런스가 되는 이유]</td></tr></tbody></table>
+<p><strong>GTM 단계별 모션:</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>단계</th><th>타겟</th><th>메시지</th><th>채널</th><th>목표 지표</th></tr></thead><tbody><tr><td><strong>1단계 — 랜드</strong></td><td>[첫 진입 세그먼트]</td><td>[핵심 메시지]</td><td>[채널]</td><td>[지표]</td></tr><tr><td><strong>2단계 — 익스팬드</strong></td><td>[확장 세그먼트]</td><td>[메시지 변화]</td><td>[채널]</td><td>[지표]</td></tr><tr><td><strong>3단계 — 스케일</strong></td><td>[전체 시장]</td><td>[브랜드 메시지]</td><td>[채널]</td><td>[지표]</td></tr></tbody></table>
+<blockquote>
+<p><strong>GTM 핵심 베팅:</strong> 이 GTM이 성공하려면 무엇이 맞아야 하는가 — 검증해야 할 핵심 가정을 명시한다.</p>
+</blockquote>
 <hr>
 <aside type="caution">
 **재진입 조건** — 02 포지셔닝(brand-house)에서 핵심 포지셔닝이 설득력을 잃는다면, 전략 선택 자체가 흔들리고 있다는 신호다. strategy-canvas로 돌아와 권고 전략의 전제 조건을 재검토한다.

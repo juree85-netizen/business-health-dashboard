@@ -36,17 +36,12 @@ export default defineConfig({
 					],
 				},
 				{
-					label: 'Medallia 사례 분석',
+					label: '기업 분석 보고서',
 					items: [
-						{ label: '발표 목차 (26.05.28)', link: '/medallia/agenda/' },
-						{ label: '발표 슬라이드', link: '/medallia/slides/' },
-						{ label: '미팅 요약', link: '/medallia/meeting-summary/' },
-						{ label: '분석 보고서 모음', link: '/medallia/reports/' },
-					],
-				},
-				{
-					label: '기업·M&A 분석 보고서',
-					items: [
+						{ label: 'Medallia — 분석 보고서 모음', link: '/medallia/reports/' },
+						{ label: 'Medallia — 미팅 요약', link: '/medallia/meeting-summary/' },
+						{ label: 'Medallia — 발표 슬라이드', link: '/medallia/slides/' },
+						{ label: 'Medallia — 발표 목차 (26.05.28)', link: '/medallia/agenda/' },
 						{ label: 'Coupa — 투자·M&A 관점 분석', link: '/project/coupa-investment/' },
 						{ label: 'Coupa — tuck-in 전략 분석 (v2)', link: '/project/coupa-strategy-v2/' },
 						{ label: 'Coupa — Rossum 단독 분석 (v1)', link: '/project/coupa-rossum/' },

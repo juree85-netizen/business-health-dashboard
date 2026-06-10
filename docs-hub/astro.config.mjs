@@ -49,13 +49,13 @@ export default defineConfig({
 					],
 				},
 				{
-					label: '기획 프레임워크 스킬',
+					label: '대상(기업)에 대한 이해 및 분석 스킬',
 					items: [
 						{ label: '01 이해 — /concept-map', link: '/guides/concept-map-prompt/' },
-						{ label: '02 작동원리 — /mental-model', link: '/guides/mental-model/' },
-						{ label: '03 진단 — /business-diagnosis', link: '/guides/business-diagnosis/' },
-						{ label: '04 설계 — /strategy-canvas', link: '/guides/strategy-canvas/' },
-						{ label: '05 메시지 — /brand-house', link: '/guides/brand-house/' },
+						{ label: '02 포지셔닝 — /brand-house', link: '/guides/brand-house/' },
+						{ label: '03 비즈니스 성장 및 작동원리 — /mental-model', link: '/guides/mental-model/' },
+						{ label: '04 비즈니스 진단 — /business-diagnosis', link: '/guides/business-diagnosis/' },
+						{ label: '05 전략 — /strategy-canvas', link: '/guides/strategy-canvas/' },
 					],
 				},
 				{

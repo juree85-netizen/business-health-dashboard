@@ -45,17 +45,12 @@ export default defineConfig({
 					],
 				},
 				{
-					label: 'Coupa M&A 전략 분석',
+					label: '기업·M&A 분석 보고서',
 					items: [
-						{ label: '(신규) 투자·M&A 관점 분석', link: '/project/coupa-investment/' },
-						{ label: '4건 tuck-in 전략 분석 (v2)', link: '/project/coupa-strategy-v2/' },
-						{ label: 'Rossum 단독 분석 (v1)', link: '/project/coupa-rossum/' },
-					],
-				},
-				{
-					label: '기업조사 분석 보고서',
-					items: [
-						{ label: 'Thoma Bravo', link: '/project/thoma-bravo/' },
+						{ label: 'Coupa — 투자·M&A 관점 분석', link: '/project/coupa-investment/' },
+						{ label: 'Coupa — tuck-in 전략 분석 (v2)', link: '/project/coupa-strategy-v2/' },
+						{ label: 'Coupa — Rossum 단독 분석 (v1)', link: '/project/coupa-rossum/' },
+						{ label: 'Thoma Bravo — 기업 분석', link: '/project/thoma-bravo/' },
 					],
 				},
 				{
@@ -73,14 +68,18 @@ export default defineConfig({
 					items: [
 						{ label: '/corp-report 기업조사 분석 보고서', link: '/guides/corp-report/' },
 						{ label: '/ma-report M&A 인수 분석 보고서', link: '/guides/ma-report/' },
-						{ label: '/problem-canvas BMC × 맥킨지 7단계', link: '/guides/problem-canvas/' },
 					],
 				},
 				{
-					label: '가이드 & 도구',
+					label: 'AI 발표 자료',
 					items: [
-						{ label: 'AI Use Case PoC 슬라이드', link: '/guides/ai-usecase/' },
 						{ label: 'AI 스킬과 기획의 단계', link: '/guides/ai-planner-skills/' },
+						{ label: 'AI Use Case PoC 슬라이드', link: '/guides/ai-usecase/' },
+					],
+				},
+				{
+					label: '작성 가이드 & 도구',
+					items: [
 						{ label: 'AI 워크플로우 슬라이드', link: '/guides/ai-workflow-slides/' },
 						{ label: 'AI 워크플로우 문서', link: '/guides/ai-workflow-doc/' },
 						{ label: '보고서 기준 v2.0', link: '/guides/analysis-report/' },

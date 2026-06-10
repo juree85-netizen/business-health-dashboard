@@ -67,6 +67,8 @@ export default defineConfig({
 						{ label: '/problem-canvas BMC × 맥킨지 7단계', link: '/guides/problem-canvas/' },
 						{ label: '/business-diagnosis 사업 진단 v2', link: '/guides/business-diagnosis/' },
 						{ label: '/mental-model 비즈니스 작동원리 분석', link: '/guides/mental-model/' },
+						{ label: '/strategy-canvas 전략 선택지 설계', link: '/guides/strategy-canvas/' },
+						{ label: '/brand-house 브랜드·포지셔닝 메시지 설계', link: '/guides/brand-house/' },
 					],
 				},
 				{

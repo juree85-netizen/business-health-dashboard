@@ -72,6 +72,7 @@ export default defineConfig({
 					label: '가이드 & 도구',
 					items: [
 						{ label: 'AI Use Case PoC 슬라이드', link: '/guides/ai-usecase/' },
+						{ label: 'AI 스킬과 기획의 단계', link: '/guides/ai-planner-skills/' },
 						{ label: 'AI 워크플로우 슬라이드', link: '/guides/ai-workflow-slides/' },
 						{ label: 'AI 워크플로우 문서', link: '/guides/ai-workflow-doc/' },
 						{ label: '보고서 기준 v2.0', link: '/guides/analysis-report/' },

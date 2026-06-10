@@ -83,12 +83,28 @@ IDP → 시장
 
 ---
 
-## 스킬 파일 구성
+## 스킬 파일 구성 및 다운로드
 
 | 파일 | 설명 |
 |------|------|
 | `~/.claude/skills/concept-map/SKILL.md` | 개체 분류 규칙 + 8개 항목 출력 규칙 정의 |
-| `github.com/juree85-netizen/my-prompts` | Custom GPT용 원본 (GitHub) |
+| [github.com/juree85-netizen/my-prompts](https://github.com/juree85-netizen/my-prompts) | GitHub 원본 레포 (공개) |
+
+### 다운로드
+
+- **GitHub 레포:** [https://github.com/juree85-netizen/my-prompts](https://github.com/juree85-netizen/my-prompts)
+- **파일 직접 다운로드:** [concept-map.md](https://raw.githubusercontent.com/juree85-netizen/my-prompts/main/concept-map.md)
+
+### Claude Code 설치 방법
+
+```bash
+# 1. 스킬 디렉토리 생성
+mkdir -p ~/.claude/skills/concept-map
+
+# 2. 파일 다운로드
+curl -o ~/.claude/skills/concept-map/SKILL.md \
+  https://raw.githubusercontent.com/juree85-netizen/my-prompts/main/concept-map.md
+```
 
 ---
 

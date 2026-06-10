@@ -178,10 +178,30 @@ Feasibility 1~5점 (현실적 해결 가능성)
 
 ---
 
-## 스킬 파일 구성
+## 스킬 파일 구성 및 다운로드
 
 | 파일 | 설명 |
 |------|------|
 | `~/.claude/skills/business-diagnosis/SKILL.md` | v2 전체 실행 규칙 |
 | `~/.claude/skills/problem-canvas/SKILL.md` | v1 유지 (하위 호환) |
-| `github.com/juree85-netizen/my-prompts` | Custom GPT용 원본 |
+| [github.com/juree85-netizen/my-prompts](https://github.com/juree85-netizen/my-prompts) | GitHub 원본 레포 (공개) |
+
+### 다운로드
+
+- **GitHub 레포:** [https://github.com/juree85-netizen/my-prompts](https://github.com/juree85-netizen/my-prompts)
+- **v2 파일 직접 다운로드:** [business-diagnosis.md](https://raw.githubusercontent.com/juree85-netizen/my-prompts/main/business-diagnosis.md)
+- **v1 파일 직접 다운로드:** [problem-canvas.md](https://raw.githubusercontent.com/juree85-netizen/my-prompts/main/problem-canvas.md)
+
+### Claude Code 설치 방법
+
+```bash
+# v2 설치 (권장)
+mkdir -p ~/.claude/skills/business-diagnosis
+curl -o ~/.claude/skills/business-diagnosis/SKILL.md \
+  https://raw.githubusercontent.com/juree85-netizen/my-prompts/main/business-diagnosis.md
+
+# v1 설치 (하위 호환)
+mkdir -p ~/.claude/skills/problem-canvas
+curl -o ~/.claude/skills/problem-canvas/SKILL.md \
+  https://raw.githubusercontent.com/juree85-netizen/my-prompts/main/problem-canvas.md
+```

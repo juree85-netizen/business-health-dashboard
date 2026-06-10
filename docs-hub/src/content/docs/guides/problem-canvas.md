@@ -104,9 +104,29 @@ Step 7. 권고안:
 
 ---
 
-## 스킬 파일 구성
+## 스킬 파일 구성 및 다운로드
 
 | 파일 | 설명 |
 |------|------|
 | `~/.claude/skills/problem-canvas/SKILL.md` | BMC 진단 + 맥킨지 7단계 실행 규칙 |
-| `github.com/juree85-netizen/my-prompts` | Custom GPT용 원본 (GitHub) |
+| [github.com/juree85-netizen/my-prompts](https://github.com/juree85-netizen/my-prompts) | GitHub 원본 레포 (공개) |
+
+### 다운로드
+
+- **GitHub 레포:** [https://github.com/juree85-netizen/my-prompts](https://github.com/juree85-netizen/my-prompts)
+- **파일 직접 다운로드:** [problem-canvas.md](https://raw.githubusercontent.com/juree85-netizen/my-prompts/main/problem-canvas.md)
+
+:::note
+v1 스킬입니다. 개선된 v2 버전은 [/business-diagnosis](/guides/business-diagnosis/) 를 사용하세요.
+:::
+
+### Claude Code 설치 방법
+
+```bash
+# 1. 스킬 디렉토리 생성
+mkdir -p ~/.claude/skills/problem-canvas
+
+# 2. 파일 다운로드
+curl -o ~/.claude/skills/problem-canvas/SKILL.md \
+  https://raw.githubusercontent.com/juree85-netizen/my-prompts/main/problem-canvas.md
+```

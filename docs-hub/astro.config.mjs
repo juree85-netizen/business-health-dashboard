@@ -6,7 +6,7 @@ export default defineConfig({
 	base: '/',
 	integrations: [
 		starlight({
-			title: 'BizHealth Docs Hub',
+			title: 'PLAN HUB',
 			defaultLocale: 'ko',
 			locales: {
 				root: { label: '한국어', lang: 'ko' },

@@ -59,16 +59,21 @@ export default defineConfig({
 					],
 				},
 				{
-					label: 'Claude 스킬',
+					label: '기획 프레임워크 스킬',
 					items: [
-						{ label: '/ma-report M&A 인수 분석 보고서', link: '/guides/ma-report/' },
+						{ label: '01 이해 — /concept-map', link: '/guides/concept-map-prompt/' },
+						{ label: '02 작동원리 — /mental-model', link: '/guides/mental-model/' },
+						{ label: '03 진단 — /business-diagnosis', link: '/guides/business-diagnosis/' },
+						{ label: '04 설계 — /strategy-canvas', link: '/guides/strategy-canvas/' },
+						{ label: '05 메시지 — /brand-house', link: '/guides/brand-house/' },
+					],
+				},
+				{
+					label: '분석·리포트 스킬',
+					items: [
 						{ label: '/corp-report 기업조사 분석 보고서', link: '/guides/corp-report/' },
-						{ label: '/concept-map 개념 설명 지형도', link: '/guides/concept-map-prompt/' },
+						{ label: '/ma-report M&A 인수 분석 보고서', link: '/guides/ma-report/' },
 						{ label: '/problem-canvas BMC × 맥킨지 7단계', link: '/guides/problem-canvas/' },
-						{ label: '/business-diagnosis 사업 진단 v2', link: '/guides/business-diagnosis/' },
-						{ label: '/mental-model 비즈니스 작동원리 분석', link: '/guides/mental-model/' },
-						{ label: '/strategy-canvas 전략 선택지 설계', link: '/guides/strategy-canvas/' },
-						{ label: '/brand-house 브랜드·포지셔닝 메시지 설계', link: '/guides/brand-house/' },
 					],
 				},
 				{

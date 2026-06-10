@@ -122,15 +122,28 @@
   .uc-result strong { color: #17B9A6; }
 
   /* Slide 6: Implication */
-  .impl-wrap { display: flex; flex-direction: column; gap: 24px; flex: 1; }
-  .impl-quote-box { background: linear-gradient(135deg, rgba(23,185,166,0.12), rgba(126,87,194,0.08)); border: 1px solid rgba(23,185,166,0.3); border-radius: 14px; padding: 32px 40px; }
-  .impl-quote { font-size: 19px; font-weight: 600; color: #fff; line-height: 1.75; word-break: keep-all; }
+  .impl-wrap { display: flex; flex-direction: column; gap: 16px; flex: 1; }
+  .impl-quote-box { background: linear-gradient(135deg, rgba(23,185,166,0.12), rgba(126,87,194,0.08)); border: 1px solid rgba(23,185,166,0.3); border-radius: 14px; padding: 20px 28px; }
+  .impl-quote { font-size: 17px; font-weight: 600; color: #fff; line-height: 1.7; word-break: keep-all; }
   .impl-quote span { color: #17B9A6; }
-  .impl-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
-  .impl-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 22px; }
+  .impl-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .impl-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 16px; }
   .impl-card-icon { font-size: 22px; margin-bottom: 10px; }
-  .impl-card-title { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 8px; line-height: 1.4; }
+  .impl-card-title { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 6px; line-height: 1.4; }
   .impl-card-desc { font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.65; }
+  .impl-card-num { font-size: 16px; font-weight: 800; color: #17B9A6; margin-bottom: 6px; }
+  .impl-mini-flow { margin: 7px 0; }
+  .impl-mini-label { font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 4px; }
+  .impl-mini-steps { display: flex; align-items: center; gap: 3px; flex-wrap: wrap; }
+  .impl-mini-step { font-size: 10px; padding: 2px 7px; border-radius: 4px; white-space: nowrap; }
+  .impl-mini-step.before-step { background: rgba(239,83,80,0.1); border: 1px solid rgba(239,83,80,0.2); color: #ef9a9a; }
+  .impl-mini-step.after-step  { background: rgba(23,185,166,0.1); border: 1px solid rgba(23,185,166,0.2); color: #80CBC4; }
+  .impl-mini-arrow { font-size: 10px; color: rgba(255,255,255,0.25); }
+  .impl-divider { border: none; border-top: 1px solid rgba(255,255,255,0.08); margin: 9px 0; }
+  .impl-message { font-size: 11.5px; color: rgba(255,255,255,0.5); line-height: 1.6; }
+  .impl-message strong { color: rgba(23,185,166,0.9); font-weight: 600; }
+  .impl-final { text-align: center; padding: 12px 20px; font-size: 13px; color: rgba(255,255,255,0.55); background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; line-height: 1.6; }
+  .impl-final strong { color: #17B9A6; font-weight: 700; }
 </style>
 </head>
 <body>
@@ -204,12 +217,12 @@
               <div class="fstep output">산출물</div>
             </div>
           </div>
-          <div style="margin-top:10px;font-size:12px;color:rgba(23,185,166,0.7);padding-left:0px;">→ 기획자가 각 단계를 직접 주도하고, AI는 그 사고를 구조화하는 파트너</div>
+          <div style="margin-top:10px;font-size:12px;color:rgba(23,185,166,0.7);padding-left:0px;">→ 기획자가 각 단계를 직접 주도. AI는 그 사고를 구조화하는 도구.</div>
         </div>
 
         <div class="flow-insight">
           <div class="flow-insight-text">
-            스킬은 "보고서를 빨리 쓰는 도구"가 아니다. <span>기획자가 대상을 정의하고, 구조를 파악하고, 문제를 규정하는</span> — 보고서 이전의 사고 단계를 설계한다.
+            스킬은 "보고서 속도"의 문제가 아님. <span>기획자가 대상을 정의하고, 구조를 파악하고, 문제를 규정하는</span> — 보고서 이전의 사고 단계 설계.
           </div>
         </div>
       </div>
@@ -230,7 +243,7 @@
           </div>
           <div>
             <div class="stage-role">DEFINE</div>
-            <div class="stage-desc">다루는 대상이 무엇인지 명확히 한다. 개념의 범위, 시장의 경계, 경쟁 구도를 설정한다.</div>
+            <div class="stage-desc">다루는 대상의 명확한 규정. 개념의 범위, 시장의 경계, 경쟁 구도 설정.</div>
           </div>
           <span class="stage-skill">concept-map</span>
         </div>
@@ -241,7 +254,7 @@
           </div>
           <div>
             <div class="stage-role">INVESTIGATE</div>
-            <div class="stage-desc">대상의 구조와 구성 요소를 파악한다. 어떤 플레이어가 있고, 어떤 관계로 연결되어 있는지 살핀다.</div>
+            <div class="stage-desc">대상의 구조와 구성 요소 파악. 플레이어 간 관계와 연결 구조 확인.</div>
           </div>
           <span class="stage-skill">concept-map</span>
         </div>
@@ -252,7 +265,7 @@
           </div>
           <div>
             <div class="stage-role">SURVEY</div>
-            <div class="stage-desc">전체 지형에서 우리가 어디에 있는지, 문제가 비즈니스 모델의 어느 블록에 위치하는지 바라본다.</div>
+            <div class="stage-desc">전체 지형 안에서의 위치 확인. 문제가 비즈니스 모델의 어느 블록에 있는지 조망.</div>
           </div>
           <span class="stage-skill">business-diagnosis</span>
         </div>
@@ -263,7 +276,7 @@
           </div>
           <div>
             <div class="stage-role">DEFINE THE PROBLEM</div>
-            <div class="stage-desc">문제의 유형과 우선순위를 확정한다. 해결 방향과 권고안을 기획자의 언어로 규정한다.</div>
+            <div class="stage-desc">문제의 유형과 우선순위 확정. 해결 방향과 권고안을 기획자의 언어로 규정.</div>
           </div>
           <span class="stage-skill">business-diagnosis</span>
         </div>
@@ -281,7 +294,7 @@
         <div class="skill-card sk1">
           <div class="skill-cmd">/concept-map</div>
           <div class="skill-name">개념 설명 지형도</div>
-          <div class="skill-tagline">개념·기업·시장·기술을 구조적으로 조망하는 지형도. 내가 다루는 대상의 전체 생태계를 한눈에 파악한다.</div>
+          <div class="skill-tagline">개념·기업·시장·기술을 구조적으로 조망하는 지형도. 대상의 전체 생태계 한눈에 파악.</div>
           <div class="skill-steps">
             <div class="skill-step">
               <div class="sstep-num">1</div>
@@ -354,7 +367,7 @@
               <div class="uc-step-desc">기업이 가진 사업 문제를 BMC로 위치 특정 → 어떤 블록이 취약한지, 어떤 방향으로 봐야 하는지 규정</div>
             </div>
           </div>
-          <div class="uc-result">보고서 작성 전, <strong>기획자만의 관점과 가설</strong>이 먼저 생긴다</div>
+          <div class="uc-result">보고서 이전에 형성되는 <strong>기획자만의 관점과 가설</strong></div>
         </div>
         <div class="uc-card uc2">
           <div class="uc-tag">CASE 02 — 업무 배경지식 습득</div>
@@ -369,7 +382,7 @@
               <div class="uc-step-desc">해당 개념이 우리 사업의 어느 문제와 연결되는지 진단 — 배경지식을 실무 관점으로 전환</div>
             </div>
           </div>
-          <div class="uc-result"><strong>"알고 있다"에서 "어떻게 쓸 것인가"</strong>로 사고가 확장된다</div>
+          <div class="uc-result"><strong>"알고 있다"에서 "어떻게 쓸 것인가"</strong>로의 사고 확장</div>
         </div>
       </div>
     </div>
@@ -379,32 +392,91 @@
   <div class="slide">
     <div class="slide-inner">
       <div class="slide-tag">Implication</div>
-      <div class="slide-title">시사점 — 기획자의 역할이 달라진다</div>
+      <div class="slide-title">AI 시대, 기획자의 역할은 더 중요해진다</div>
       <div class="divider"></div>
       <div class="impl-wrap">
         <div class="impl-quote-box">
           <div class="impl-quote">
-            AI 스킬은 더 빨리 쓰기 위한 도구가 아니다.<br>
-            <span>기획자가 대상을 정의하고, 구조를 파악하고, 문제를 규정하는</span><br>
-            — 스스로 사고하는 단계를 AI와 함께 설계하는 방식.
+            AI는 답을 만드는 도구가 아님.<br>
+            기획자가 더 좋은 <span>질문</span>을 만들게 하는 도구.
           </div>
         </div>
         <div class="impl-cards">
           <div class="impl-card">
-            <div class="impl-card-icon">🗺️</div>
-            <div class="impl-card-title">산출물 이전에<br>관점이 먼저 생긴다</div>
-            <div class="impl-card-desc">보고서를 쓰기 전, 기획자 자신의 시각과 가설이 먼저 형성된다. AI가 아닌 내가 방향을 잡는다.</div>
+            <div class="impl-card-num">①</div>
+            <div class="impl-card-title">산출물보다 문제정의</div>
+            <div class="impl-mini-flow">
+              <div class="impl-mini-label">기존</div>
+              <div class="impl-mini-steps">
+                <span class="impl-mini-step before-step">조사</span>
+                <span class="impl-mini-arrow">›</span>
+                <span class="impl-mini-step before-step">정리</span>
+                <span class="impl-mini-arrow">›</span>
+                <span class="impl-mini-step before-step">보고서</span>
+              </div>
+            </div>
+            <div class="impl-mini-flow">
+              <div class="impl-mini-label">AI 시대</div>
+              <div class="impl-mini-steps">
+                <span class="impl-mini-step after-step">문제정의</span>
+                <span class="impl-mini-arrow">›</span>
+                <span class="impl-mini-step after-step">조사</span>
+                <span class="impl-mini-arrow">›</span>
+                <span class="impl-mini-step after-step">구조화</span>
+                <span class="impl-mini-arrow">›</span>
+                <span class="impl-mini-step after-step">보고서</span>
+              </div>
+            </div>
+            <hr class="impl-divider">
+            <div class="impl-message">AI는 보고서를 쓸 수 있음. <strong>무엇을 물어야 하는지</strong>는 기획자의 결정.</div>
           </div>
           <div class="impl-card">
-            <div class="impl-card-icon">🧩</div>
-            <div class="impl-card-title">사고의 단계가<br>가시화된다</div>
-            <div class="impl-card-desc">막연히 "공부하고 써야지"가 아닌, 정의 → 조사 → 조망 → 규정의 단계로 사고 과정이 구조화된다.</div>
+            <div class="impl-card-num">②</div>
+            <div class="impl-card-title">사고 과정이 자산</div>
+            <div class="impl-mini-flow">
+              <div class="impl-mini-label">기존</div>
+              <div class="impl-mini-steps">
+                <span class="impl-mini-step before-step">보고서만 남음</span>
+              </div>
+            </div>
+            <div class="impl-mini-flow">
+              <div class="impl-mini-label">AI 활용</div>
+              <div class="impl-mini-steps">
+                <span class="impl-mini-step after-step">Concept Map</span>
+                <span class="impl-mini-arrow">›</span>
+                <span class="impl-mini-step after-step">진단</span>
+                <span class="impl-mini-arrow">›</span>
+                <span class="impl-mini-step after-step">보고서</span>
+              </div>
+            </div>
+            <hr class="impl-divider">
+            <div class="impl-message">결과보다 <strong>사고 과정</strong>이 재사용 가능한 자산.</div>
           </div>
           <div class="impl-card">
-            <div class="impl-card-icon">🤝</div>
-            <div class="impl-card-title">AI는 사고의<br>파트너가 된다</div>
-            <div class="impl-card-desc">AI가 산출물을 대신 만드는 게 아니라, 기획자가 더 잘 생각할 수 있도록 돕는 구조적 파트너 역할.</div>
+            <div class="impl-card-num">③</div>
+            <div class="impl-card-title">AI는 사고 증폭기</div>
+            <div class="impl-mini-flow">
+              <div class="impl-mini-label">기존 생각</div>
+              <div class="impl-mini-steps">
+                <span class="impl-mini-step before-step">AI = 자동화</span>
+                <span class="impl-mini-arrow">›</span>
+                <span class="impl-mini-step before-step">전문가 대체</span>
+              </div>
+            </div>
+            <div class="impl-mini-flow">
+              <div class="impl-mini-label">실제</div>
+              <div class="impl-mini-steps">
+                <span class="impl-mini-step after-step">AI = 사고 증폭기</span>
+                <span class="impl-mini-arrow">›</span>
+                <span class="impl-mini-step after-step">기획자 강화</span>
+              </div>
+            </div>
+            <hr class="impl-divider">
+            <div class="impl-message">AI는 생각을 대신하지 않음. <strong>좋은 기획자</strong>가 더 깊이 생각할 수 있게 만드는 도구.</div>
           </div>
+        </div>
+        <div class="impl-final">
+          AI 시대의 경쟁력은 <strong>보고서를 빨리 쓰는 능력</strong>이 아니라, <strong>문제를 더 잘 정의하는 능력.</strong>
         </div>
       </div>
     </div>

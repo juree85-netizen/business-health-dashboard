@@ -10,6 +10,25 @@ description: 사업 문제를 BMC 9개 블록으로 위치 진단 후, 맥킨지
 
 ---
 
+## 📥 다운로드 및 설치
+
+| | 링크 |
+|--|------|
+| **GitHub 레포** | [github.com/juree85-netizen/my-prompts](https://github.com/juree85-netizen/my-prompts) |
+| **파일 직접 다운로드** | [problem-canvas.md](https://raw.githubusercontent.com/juree85-netizen/my-prompts/main/problem-canvas.md) |
+
+**Claude Code 설치 (터미널 1줄):**
+
+```bash
+mkdir -p ~/.claude/skills/problem-canvas && curl -o ~/.claude/skills/problem-canvas/SKILL.md https://raw.githubusercontent.com/juree85-netizen/my-prompts/main/problem-canvas.md
+```
+
+:::note
+v1 스킬입니다. 개선된 v2는 [/business-diagnosis](/guides/business-diagnosis/) 를 사용하세요.
+:::
+
+---
+
 ## 호출 방법
 
 ```

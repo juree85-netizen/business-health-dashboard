@@ -12,6 +12,22 @@ import { Aside } from '@astrojs/starlight/components';
 
 ---
 
+## 📥 다운로드 및 설치
+
+| | 링크 |
+|--|------|
+| **GitHub 레포** | [github.com/juree85-netizen/my-prompts](https://github.com/juree85-netizen/my-prompts) |
+| **v2 파일 다운로드** | [business-diagnosis.md](https://raw.githubusercontent.com/juree85-netizen/my-prompts/main/business-diagnosis.md) |
+| **v1 파일 다운로드** | [problem-canvas.md](https://raw.githubusercontent.com/juree85-netizen/my-prompts/main/problem-canvas.md) |
+
+**Claude Code 설치 (터미널 1줄):**
+
+```bash
+mkdir -p ~/.claude/skills/business-diagnosis && curl -o ~/.claude/skills/business-diagnosis/SKILL.md https://raw.githubusercontent.com/juree85-netizen/my-prompts/main/business-diagnosis.md
+```
+
+---
+
 ## v2 개선 내역 (problem-canvas → business-diagnosis)
 
 | # | 개선 항목 | 변경 내용 |

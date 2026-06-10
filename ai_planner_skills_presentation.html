@@ -55,6 +55,14 @@
   .flow-insight-text { font-size: 15px; color: rgba(255,255,255,0.85); line-height: 1.7; word-break: keep-all; }
   .flow-insight-text span { color: #17B9A6; font-weight: 700; }
 
+  /* Slide 3: feedback loop bar */
+  .loop-bar { display: flex; align-items: center; margin-top: 14px; padding: 10px 16px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; gap: 0; }
+  .loop-label { font-size: 10px; letter-spacing: 1.5px; color: rgba(255,255,255,0.3); white-space: nowrap; margin-right: 14px; flex-shrink: 0; }
+  .loop-items { display: flex; flex: 1; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .loop-item { font-size: 11px; color: rgba(255,255,255,0.45); display: flex; align-items: center; gap: 6px; }
+  .loop-back { font-size: 11px; color: rgba(23,185,166,0.6); font-weight: 600; }
+  .loop-sep { color: rgba(255,255,255,0.15); margin: 0 8px; }
+
   /* Slide 3: Stages */
   .stages-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; flex: 1; }
   .stage-card { border-radius: 12px; padding: 20px 14px; display: flex; flex-direction: column; gap: 12px; }
@@ -307,6 +315,30 @@
             <div class="stage-desc">결론을 한 문장으로, 누구에게 어떻게 전달할지 포지셔닝.</div>
           </div>
           <span class="stage-skill">brand-house</span>
+        </div>
+      </div>
+      <div class="loop-bar">
+        <div class="loop-label">FEEDBACK LOOP</div>
+        <div class="loop-items">
+          <div class="loop-item">
+            <span class="loop-back">03 진단</span> 결과가 지형도를 뒤집으면
+            <span style="color:rgba(30,136,229,0.7);">→ 01 이해로</span>
+          </div>
+          <div class="loop-sep">|</div>
+          <div class="loop-item">
+            <span class="loop-back">03 진단</span> 작동원리 파악이 부족하면
+            <span style="color:rgba(255,152,0,0.7);">→ 02 작동원리로</span>
+          </div>
+          <div class="loop-sep">|</div>
+          <div class="loop-item">
+            <span class="loop-back">04 설계</span> 선택지가 안 나오면
+            <span style="color:rgba(23,185,166,0.7);">→ 03 진단으로</span>
+          </div>
+          <div class="loop-sep">|</div>
+          <div class="loop-item">
+            <span class="loop-back">05 메시지</span> 설득력이 없으면
+            <span style="color:rgba(126,87,194,0.7);">→ 04 설계로</span>
+          </div>
         </div>
       </div>
     </div>

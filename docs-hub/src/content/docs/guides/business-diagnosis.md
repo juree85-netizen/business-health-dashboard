@@ -204,6 +204,11 @@ Feasibility 1~5점 (현실적 해결 가능성)
 
 ---
 
+
+<Aside type="caution">
+**재진입 조건** — 04 설계(strategy-canvas)에서 전략 선택지가 도출되지 않는다면, 문제 정의가 잘못됐을 가능성이 높다. business-diagnosis로 돌아와 Root Cause Block과 문제 유형을 재검토한다.
+</Aside>
+
 ## 스킬 파일 구성 및 다운로드
 
 | 파일 | 설명 |

@@ -116,6 +116,11 @@ mkdir -p ~/.claude/skills/concept-map && curl -o ~/.claude/skills/concept-map/SK
 
 ---
 
+
+<Aside type="caution">
+**재진입 조건** — 03 진단(business-diagnosis) 결과 대상 자체를 잘못 이해했다는 사실이 드러나면, concept-map으로 돌아와 지형도를 다시 잡는다.
+</Aside>
+
 ## 스킬 파일 구성
 
 | 파일 | 설명 |

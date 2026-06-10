@@ -71,6 +71,11 @@ Section 5.  비유
 
 ---
 
+
+<Aside type="caution">
+**재진입 조건** — 03 진단(business-diagnosis)에서 문제의 근원이 수익구조 또는 성장 메커니즘에 있다고 판단되면, mental-model로 돌아와 3축 분석을 보완한다.
+</Aside>
+
 ## 기획자의 사고 레이어에서의 위치
 
 | 레이어 | 목적 | 스킬 |

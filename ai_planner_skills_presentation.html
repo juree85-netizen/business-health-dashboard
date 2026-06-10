@@ -56,29 +56,34 @@
   .flow-insight-text span { color: #17B9A6; font-weight: 700; }
 
   /* Slide 3: Stages */
-  .stages-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; flex: 1; }
-  .stage-card { border-radius: 14px; padding: 28px 22px; display: flex; flex-direction: column; gap: 14px; }
+  .stages-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; flex: 1; }
+  .stage-card { border-radius: 12px; padding: 20px 14px; display: flex; flex-direction: column; gap: 12px; }
   .stage-card.s1 { background: rgba(30,136,229,0.08);  border: 1px solid rgba(30,136,229,0.25); }
-  .stage-card.s2 { background: rgba(255,152,0,0.08);   border: 1px solid rgba(255,152,0,0.25); }
+  .stage-card.s2 { background: rgba(255,152,0,0.06);   border: 1px dashed rgba(255,152,0,0.2); }
   .stage-card.s3 { background: rgba(23,185,166,0.08);  border: 1px solid rgba(23,185,166,0.25); }
-  .stage-card.s4 { background: rgba(126,87,194,0.08);  border: 1px solid rgba(126,87,194,0.25); }
-  .stage-num { font-size: 36px; font-weight: 800; line-height: 1; }
+  .stage-card.s4 { background: rgba(126,87,194,0.06);  border: 1px dashed rgba(126,87,194,0.2); }
+  .stage-card.s5 { background: rgba(236,64,122,0.06);  border: 1px dashed rgba(236,64,122,0.2); }
+  .stage-card.planned { opacity: 0.65; }
+  .stage-num { font-size: 30px; font-weight: 800; line-height: 1; }
   .s1 .stage-num { color: rgba(30,136,229,0.5); }
-  .s2 .stage-num { color: rgba(255,152,0,0.5); }
+  .s2 .stage-num { color: rgba(255,152,0,0.4); }
   .s3 .stage-num { color: rgba(23,185,166,0.5); }
-  .s4 .stage-num { color: rgba(126,87,194,0.5); }
-  .stage-name { font-size: 20px; font-weight: 700; color: #fff; }
-  .stage-role { font-size: 12px; font-weight: 700; letter-spacing: 1px; margin-bottom: 4px; }
+  .s4 .stage-num { color: rgba(126,87,194,0.4); }
+  .s5 .stage-num { color: rgba(236,64,122,0.4); }
+  .stage-name { font-size: 18px; font-weight: 700; color: #fff; }
+  .stage-role { font-size: 11px; font-weight: 700; letter-spacing: 1px; margin-bottom: 4px; }
   .s1 .stage-role { color: #64B5F6; }
   .s2 .stage-role { color: #FFB74D; }
   .s3 .stage-role { color: #17B9A6; }
   .s4 .stage-role { color: #CE93D8; }
-  .stage-desc { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.65; }
-  .stage-skill { display: inline-block; font-size: 11px; padding: 3px 10px; border-radius: 10px; font-weight: 700; margin-top: 6px; }
+  .s5 .stage-role { color: #F48FB1; }
+  .stage-desc { font-size: 12px; color: rgba(255,255,255,0.6); line-height: 1.6; }
+  .stage-skill { display: inline-block; font-size: 10px; padding: 3px 9px; border-radius: 10px; font-weight: 700; margin-top: 4px; }
   .s1 .stage-skill { background: rgba(30,136,229,0.15); color: #64B5F6; }
-  .s2 .stage-skill { background: rgba(255,152,0,0.15); color: #FFB74D; }
+  .s2 .stage-skill { background: rgba(255,152,0,0.1); color: rgba(255,183,77,0.6); border: 1px dashed rgba(255,152,0,0.25); font-style: italic; }
   .s3 .stage-skill { background: rgba(23,185,166,0.15); color: #17B9A6; }
-  .s4 .stage-skill { background: rgba(126,87,194,0.15); color: #CE93D8; }
+  .s4 .stage-skill { background: rgba(126,87,194,0.1); color: rgba(206,147,216,0.6); border: 1px dashed rgba(126,87,194,0.25); font-style: italic; }
+  .s5 .stage-skill { background: rgba(236,64,122,0.1); color: rgba(244,143,177,0.6); border: 1px dashed rgba(236,64,122,0.25); font-style: italic; }
 
   /* Slide 4: Skills */
   .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; flex: 1; }
@@ -205,13 +210,15 @@
               <div class="fstep neutral">업무 브리프</div>
               <div class="farrow">›</div>
               <div class="fgroup">
-                <div class="fstep good" style="margin:0 4px;">정의</div>
+                <div class="fstep good" style="margin:0 3px;padding:8px 10px;font-size:12px;">이해</div>
                 <div class="farrow" style="color:rgba(23,185,166,0.4);">›</div>
-                <div class="fstep good" style="margin:0 4px;">조사</div>
+                <div class="fstep good" style="margin:0 3px;padding:8px 10px;font-size:12px;">작동원리</div>
                 <div class="farrow" style="color:rgba(23,185,166,0.4);">›</div>
-                <div class="fstep good" style="margin:0 4px;">조망</div>
+                <div class="fstep good" style="margin:0 3px;padding:8px 10px;font-size:12px;">진단</div>
                 <div class="farrow" style="color:rgba(23,185,166,0.4);">›</div>
-                <div class="fstep good" style="margin:0 4px;">규정</div>
+                <div class="fstep good" style="margin:0 3px;padding:8px 10px;font-size:12px;">설계</div>
+                <div class="farrow" style="color:rgba(23,185,166,0.4);">›</div>
+                <div class="fstep good" style="margin:0 3px;padding:8px 10px;font-size:12px;">메시지</div>
               </div>
               <div class="farrow">›</div>
               <div class="fstep output">산출물</div>
@@ -233,52 +240,63 @@
   <div class="slide">
     <div class="slide-inner">
       <div class="slide-tag">Framework</div>
-      <div class="slide-title">기획의 사고 단계 — 4단계</div>
+      <div class="slide-title">기획자의 사고 레이어 — 5단계</div>
       <div class="divider"></div>
       <div class="stages-grid">
         <div class="stage-card s1">
           <div>
             <div class="stage-num">01</div>
-            <div class="stage-name">정의</div>
+            <div class="stage-name">이해</div>
           </div>
           <div>
-            <div class="stage-role">DEFINE</div>
-            <div class="stage-desc">다루는 대상의 명확한 규정. 개념의 범위, 시장의 경계, 경쟁 구도 설정.</div>
+            <div class="stage-role">UNDERSTAND</div>
+            <div class="stage-desc">대상이 뭔지, 어디에 속하는지, 무엇과 연결되는지 조망.</div>
           </div>
           <span class="stage-skill">concept-map</span>
         </div>
-        <div class="stage-card s2">
+        <div class="stage-card s2 planned">
           <div>
             <div class="stage-num">02</div>
-            <div class="stage-name">조사</div>
+            <div class="stage-name">작동원리</div>
           </div>
           <div>
-            <div class="stage-role">INVESTIGATE</div>
-            <div class="stage-desc">대상의 구조와 구성 요소 파악. 플레이어 간 관계와 연결 구조 확인.</div>
+            <div class="stage-role">ANALYZE</div>
+            <div class="stage-desc">왜 그렇게 움직이는지, 성장의 동력이 무엇인지 파악.</div>
           </div>
-          <span class="stage-skill">concept-map</span>
+          <span class="stage-skill">mental-model 준비 중</span>
         </div>
         <div class="stage-card s3">
           <div>
             <div class="stage-num">03</div>
-            <div class="stage-name">조망</div>
+            <div class="stage-name">진단</div>
           </div>
           <div>
-            <div class="stage-role">SURVEY</div>
-            <div class="stage-desc">전체 지형 안에서의 위치 확인. 문제가 비즈니스 모델의 어느 블록에 있는지 조망.</div>
+            <div class="stage-role">DIAGNOSE</div>
+            <div class="stage-desc">문제가 어디서 시작됐는지, 우선순위가 어디에 있는지 결정.</div>
           </div>
           <span class="stage-skill">business-diagnosis</span>
         </div>
-        <div class="stage-card s4">
+        <div class="stage-card s4 planned">
           <div>
             <div class="stage-num">04</div>
-            <div class="stage-name">규정</div>
+            <div class="stage-name">설계</div>
           </div>
           <div>
-            <div class="stage-role">DEFINE THE PROBLEM</div>
-            <div class="stage-desc">문제의 유형과 우선순위 확정. 해결 방향과 권고안을 기획자의 언어로 규정.</div>
+            <div class="stage-role">RECOMMEND</div>
+            <div class="stage-desc">어떤 전략을 취할지, 선택지와 트레이드오프를 설계.</div>
           </div>
-          <span class="stage-skill">business-diagnosis</span>
+          <span class="stage-skill">strategy-canvas 준비 중</span>
+        </div>
+        <div class="stage-card s5 planned">
+          <div>
+            <div class="stage-num">05</div>
+            <div class="stage-name">메시지</div>
+          </div>
+          <div>
+            <div class="stage-role">COMMUNICATE</div>
+            <div class="stage-desc">결론을 한 문장으로, 누구에게 어떻게 전달할지 포지셔닝.</div>
+          </div>
+          <span class="stage-skill">brand-house 준비 중</span>
         </div>
       </div>
     </div>
@@ -287,8 +305,9 @@
   <!-- ══ SLIDE 4: Skills ══ -->
   <div class="slide">
     <div class="slide-inner">
-      <div class="slide-tag">Skills</div>
-      <div class="slide-title">두 가지 스킬</div>
+      <div class="slide-tag">Skills — 현재 구축</div>
+      <div class="slide-title">지금 가진 스킬 — 5레이어 중 2개</div>
+      <div class="slide-sub">01 이해(concept-map) + 03 진단(business-diagnosis)</div>
       <div class="divider"></div>
       <div class="skills-grid">
         <div class="skill-card sk1">
@@ -312,8 +331,7 @@
           <div>
             <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-bottom:6px;">커버하는 단계</div>
             <div class="skill-stages">
-              <span class="skill-stage-tag">01 정의</span>
-              <span class="skill-stage-tag">02 조사</span>
+              <span class="skill-stage-tag">01 이해</span>
             </div>
           </div>
         </div>
@@ -338,8 +356,7 @@
           <div>
             <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-bottom:6px;">커버하는 단계</div>
             <div class="skill-stages">
-              <span class="skill-stage-tag">03 조망</span>
-              <span class="skill-stage-tag">04 규정</span>
+              <span class="skill-stage-tag">03 진단</span>
             </div>
           </div>
         </div>

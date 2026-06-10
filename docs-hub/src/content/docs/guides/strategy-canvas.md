@@ -8,7 +8,7 @@ import { Aside } from '@astrojs/starlight/components';
 > **문제를 알았다면 다음 질문은 "그래서 뭘 해야 하지?"**  
 > /strategy-canvas는 선택지를 만들고, 버릴 것을 결정하고, 권고 전략과 실행 로드맵까지 도출한다.
 
-**최종 수정:** '26.06.10 &nbsp;|&nbsp; **위치:** `~/.claude/skills/strategy-canvas/` &nbsp;|&nbsp; **레이어:** 04 설계 (RECOMMEND)
+**최종 수정:** '26.06.10 &nbsp;|&nbsp; **위치:** `~/.claude/skills/strategy-canvas/` &nbsp;|&nbsp; **레이어:** 05 전략 (RECOMMEND)
 
 ---
 
@@ -61,13 +61,19 @@ Section 4.  권고 전략
     ↓
 Section 5.  실행 로드맵
     즉시 / 단기(1~3개월) / 중기(3~6개월) / 전략적 베팅(6개월+)
+    ↓
+Section 6.  4P 전략
+    Product / Price / Place / Promotion — As-Is → To-Be + 핵심 레버
+    ↓
+Section 7.  GTM (Go-to-Market) 전략
+    타겟 세그먼트 / 가치 제안 / 진입 채널 / 초기 트랙션 / Land→Expand→Scale
 ```
 
 ---
 
 
 <Aside type="caution">
-**재진입 조건** — 05 메시지(brand-house)에서 핵심 메시지가 설득력을 잃는다면, 전략 선택 자체가 흔들리고 있다는 신호다. strategy-canvas로 돌아와 권고 전략의 전제 조건을 재검토한다.
+**재진입 조건** — 02 포지셔닝(brand-house)에서 핵심 포지셔닝이 설득력을 잃는다면, 전략 선택 자체가 흔들리고 있다는 신호다. strategy-canvas로 돌아와 권고 전략의 전제 조건을 재검토한다.
 </Aside>
 
 ## 기획자의 사고 레이어에서의 위치
@@ -75,10 +81,10 @@ Section 5.  실행 로드맵
 | 레이어 | 목적 | 스킬 |
 |--------|------|------|
 | 01 이해 | 이게 뭐야? | /concept-map |
-| 02 작동원리 | 왜 이렇게 움직여? | /mental-model |
-| 03 진단 | 어디가 문제야? | /business-diagnosis |
-| **04 설계** | **그래서 뭘 해야 해?** | **/strategy-canvas** |
-| 05 메시지 | 한 문장으로? | /brand-house |
+| 02 포지셔닝 | 이 기업의 포지셔닝은? | /brand-house |
+| 03 비즈니스 성장 및 작동원리 | 왜 이렇게 움직여? | /mental-model |
+| 04 비즈니스 진단 | 어디가 문제야? | /business-diagnosis |
+| **05 전략** | **그래서 뭘 해야 해?** | **/strategy-canvas** |
 
 <Aside type="tip">
 **/business-diagnosis → /strategy-canvas** 순서로 사용하면 가장 효과적입니다.  

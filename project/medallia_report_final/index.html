@@ -1,0 +1,574 @@
+<!DOCTYPE html><html lang="ko" dir="ltr" data-theme="dark" data-has-toc data-has-sidebar class="astro-bguv2lll"> <head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Medallia 사례로 본 SaaS 기업 가치 평가 기준 | PLAN HUB</title><link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml"/><meta name="generator" content="Astro v6.1.8"/><meta name="generator" content="Starlight v0.38.3"/><meta property="og:title" content="Medallia 사례로 본 SaaS 기업 가치 평가 기준"/><meta property="og:type" content="article"/><meta property="og:locale" content="ko"/><meta property="og:description" content="Thoma Bravo의 Medallia 투자 손실($5B) 사례를 통해 SaaS 기업 가치 평가 기준(Rule of 40·FCF·NRR)과 솔루션사업 사업건전성 대시보드 운영 방향 제시"/><meta property="og:site_name" content="PLAN HUB"/><meta name="twitter:card" content="summary_large_image"/><meta name="description" content="Thoma Bravo의 Medallia 투자 손실($5B) 사례를 통해 SaaS 기업 가치 평가 기준(Rule of 40·FCF·NRR)과 솔루션사업 사업건전성 대시보드 운영 방향 제시"/><script>
+	window.StarlightThemeProvider = (() => {
+		const storedTheme =
+			typeof localStorage !== 'undefined' && localStorage.getItem('starlight-theme');
+		const theme =
+			storedTheme ||
+			(window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+		document.documentElement.dataset.theme = theme === 'light' ? 'light' : 'dark';
+		return {
+			updatePickers(theme = storedTheme || 'auto') {
+				document.querySelectorAll('starlight-theme-select').forEach((picker) => {
+					const select = picker.querySelector('select');
+					if (select) select.value = theme;
+					/** @type {HTMLTemplateElement | null} */
+					const tmpl = document.querySelector(`#theme-icons`);
+					const newIcon = tmpl && tmpl.content.querySelector('.' + theme);
+					if (newIcon) {
+						const oldIcon = picker.querySelector('svg.label-icon');
+						if (oldIcon) {
+							oldIcon.replaceChildren(...newIcon.cloneNode(true).childNodes);
+						}
+					}
+				});
+			},
+		};
+	})();
+</script><template id="theme-icons"><svg aria-hidden="true" class="light astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M5 12a1 1 0 0 0-1-1H3a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1Zm.64 5-.71.71a1 1 0 0 0 0 1.41 1 1 0 0 0 1.41 0l.71-.71A1 1 0 0 0 5.64 17ZM12 5a1 1 0 0 0 1-1V3a1 1 0 0 0-2 0v1a1 1 0 0 0 1 1Zm5.66 2.34a1 1 0 0 0 .7-.29l.71-.71a1 1 0 1 0-1.41-1.41l-.66.71a1 1 0 0 0 0 1.41 1 1 0 0 0 .66.29Zm-12-.29a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.71-.71a1.004 1.004 0 1 0-1.43 1.41l.73.71ZM21 11h-1a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2Zm-2.64 6A1 1 0 0 0 17 18.36l.71.71a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.76-.66ZM12 6.5a5.5 5.5 0 1 0 5.5 5.5A5.51 5.51 0 0 0 12 6.5Zm0 9a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Zm0 3.5a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 0-1-1Z"/></svg><svg aria-hidden="true" class="dark astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.64 13a1 1 0 0 0-1.05-.14 8.049 8.049 0 0 1-3.37.73 8.15 8.15 0 0 1-8.14-8.1 8.59 8.59 0 0 1 .25-2A1 1 0 0 0 8 2.36a10.14 10.14 0 1 0 14 11.69 1 1 0 0 0-.36-1.05Zm-9.5 6.69A8.14 8.14 0 0 1 7.08 5.22v.27a10.15 10.15 0 0 0 10.14 10.14 9.784 9.784 0 0 0 2.1-.22 8.11 8.11 0 0 1-7.18 4.32v-.04Z"/></svg><svg aria-hidden="true" class="auto astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg></template><link rel="stylesheet" href="/_astro/print.DNXP8c50.css" media="print"><link rel="stylesheet" href="/_astro/common.D7oqlvXR.css"><script type="module" src="/_astro/page.BIhdncjw.js"></script></head> <body class="astro-bguv2lll"> <a href="#_top" class="astro-7q3lir66">콘텐츠로 이동</a> <div class="page sl-flex astro-vrdttmbt"> <header class="header astro-vrdttmbt"><div class="header astro-kmkmnagf"> <div class="title-wrapper sl-flex astro-kmkmnagf"> <a href="/" class="site-title sl-flex astro-m46x6ez3">  <span class="astro-m46x6ez3" translate="no"> PLAN HUB </span> </a> </div> <div class="sl-flex print:hidden astro-kmkmnagf"> <site-search class="astro-kmkmnagf astro-v37mnknz" data-translations="{&#34;placeholder&#34;:&#34;검색&#34;}"> <button data-open-modal disabled aria-label="검색" aria-keyshortcuts="Control+K" class="astro-v37mnknz"> <svg aria-hidden="true" class="astro-v37mnknz astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.71 20.29 18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14Z"/></svg> <span class="sl-hidden md:sl-block astro-v37mnknz" aria-hidden="true">검색</span> <kbd class="sl-hidden md:sl-flex astro-v37mnknz" style="display: none;"> <kbd class="astro-v37mnknz">Ctrl</kbd><kbd class="astro-v37mnknz">K</kbd> </kbd> </button> <dialog style="padding:0" aria-label="검색" class="astro-v37mnknz"> <div class="dialog-frame sl-flex astro-v37mnknz">  <button data-close-modal class="sl-flex md:sl-hidden astro-v37mnknz"> 취소 </button> <div class="search-container astro-v37mnknz"> <div id="starlight__search" class="astro-v37mnknz"></div> </div> </div> </dialog> </site-search>  <script>
+	(() => {
+		const openBtn = document.querySelector('button[data-open-modal]');
+		const shortcut = openBtn?.querySelector('kbd');
+		if (!openBtn || !(shortcut instanceof HTMLElement)) return;
+		const platformKey = shortcut.querySelector('kbd');
+		if (platformKey && /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)) {
+			platformKey.textContent = '⌘';
+			openBtn.setAttribute('aria-keyshortcuts', 'Meta+K');
+		}
+		shortcut.style.display = '';
+	})();
+</script> <script type="module" src="/_astro/Search.astro_astro_type_script_index_0_lang.Rw77DzG6.js"></script>  </div> <div class="sl-hidden md:sl-flex print:hidden right-group astro-kmkmnagf"> <div class="sl-flex social-icons astro-kmkmnagf">  </div> <starlight-theme-select>  <label style="--sl-select-width: 6.25em" class="astro-4yphtoen"> <span class="sr-only astro-4yphtoen">테마 선택</span> <svg aria-hidden="true" class="icon label-icon astro-4yphtoen astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg> <select autocomplete="off" class="astro-4yphtoen"> <option value="dark" class="astro-4yphtoen">어두운 테마</option><option value="light" class="astro-4yphtoen">밝은 테마</option><option value="auto" selected class="astro-4yphtoen">자동</option> </select> <svg aria-hidden="true" class="icon caret astro-4yphtoen astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg> </label> </starlight-theme-select>  <script>
+	StarlightThemeProvider.updatePickers();
+</script> <script type="module">const r="starlight-theme",o=e=>e==="auto"||e==="dark"||e==="light"?e:"auto",c=()=>o(typeof localStorage<"u"&&localStorage.getItem(r));function n(e){typeof localStorage<"u"&&localStorage.setItem(r,e==="light"||e==="dark"?e:"")}const l=()=>matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";function t(e){StarlightThemeProvider.updatePickers(e),document.documentElement.dataset.theme=e==="auto"?l():e,n(e)}matchMedia("(prefers-color-scheme: light)").addEventListener("change",()=>{c()==="auto"&&t("auto")});class s extends HTMLElement{constructor(){super(),t(c()),this.querySelector("select")?.addEventListener("change",a=>{a.currentTarget instanceof HTMLSelectElement&&t(o(a.currentTarget.value))})}}customElements.define("starlight-theme-select",s);</script> <script type="module">class s extends HTMLElement{constructor(){super();const e=this.querySelector("select");e&&(e.addEventListener("change",t=>{t.currentTarget instanceof HTMLSelectElement&&(window.location.pathname=t.currentTarget.value)}),window.addEventListener("pageshow",t=>{if(!t.persisted)return;const n=e.querySelector("option[selected]")?.index;n!==e.selectedIndex&&(e.selectedIndex=n??0)}))}}customElements.define("starlight-lang-select",s);</script> </div> </div></header> <nav class="sidebar print:hidden astro-vrdttmbt" aria-label="메인"> <starlight-menu-button class="print:hidden astro-jif73yzw"> <button aria-expanded="false" aria-label="메뉴" aria-controls="starlight__sidebar" class="sl-flex md:sl-hidden astro-jif73yzw"> <svg aria-hidden="true" class="open-menu astro-jif73yzw astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M3 8h18a1 1 0 1 0 0-2H3a1 1 0 0 0 0 2Zm18 8H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Zm0-5H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Z"/></svg> <svg aria-hidden="true" class="close-menu astro-jif73yzw astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="m13.41 12 6.3-6.29a1.004 1.004 0 1 0-1.42-1.42L12 10.59l-6.29-6.3a1.004 1.004 0 0 0-1.42 1.42l6.3 6.29-6.3 6.29a1 1 0 0 0 0 1.42.998.998 0 0 0 1.42 0l6.29-6.3 6.29 6.3a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.42L13.41 12Z"/></svg> </button> </starlight-menu-button> <script type="module">class s extends HTMLElement{constructor(){super(),this.btn=this.querySelector("button"),this.btn.addEventListener("click",()=>this.toggleExpanded());const t=this.closest("nav");t&&t.addEventListener("keyup",e=>this.closeOnEscape(e))}setExpanded(t){this.setAttribute("aria-expanded",String(t)),document.body.toggleAttribute("data-mobile-menu-expanded",t)}toggleExpanded(){this.setExpanded(this.getAttribute("aria-expanded")!=="true")}closeOnEscape(t){t.code==="Escape"&&(this.setExpanded(!1),this.btn.focus())}}customElements.define("starlight-menu-button",s);</script>  <div id="starlight__sidebar" class="sidebar-pane astro-vrdttmbt"> <div class="sidebar-content sl-flex astro-vrdttmbt"> <sl-sidebar-state-persist data-hash="0dg69vn" class="astro-kku4brbg"> <script aria-hidden="true">
+		(() => {
+			try {
+				if (!matchMedia('(min-width: 50em)').matches) return;
+				/** @type {HTMLElement | null} */
+				const target = document.querySelector('sl-sidebar-state-persist');
+				const state = JSON.parse(sessionStorage.getItem('sl-sidebar-state') || '0');
+				if (!target || !state || target.dataset.hash !== state.hash) return;
+				window._starlightScrollRestore = state.scroll;
+				customElements.define(
+					'sl-sidebar-restore',
+					class SidebarRestore extends HTMLElement {
+						connectedCallback() {
+							try {
+								const idx = parseInt(this.dataset.index || '');
+								const details = this.closest('details');
+								if (details && typeof state.open[idx] === 'boolean') details.open = state.open[idx];
+							} catch {}
+						}
+					}
+				);
+			} catch {}
+		})();
+	</script>  <ul class="top-level astro-3ii7xxms"> <li class="astro-3ii7xxms"> <details open class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">대시보드 운영</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="0"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <details open class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">수작업 데이터 업로드</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="1"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/operations/manual-upload/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">시장 데이터 변환 파일</span>  </a> </li> </ul> </details> </li><li class="astro-3ii7xxms"> <a href="/operations/upload/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">파일 업로드</span>  </a> </li> </ul> </details> </li><li class="astro-3ii7xxms"> <details open class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">대시보드 기획</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="2"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/dashboard/background/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">추진 배경 및 목적</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/dashboard/efficiency-profit/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">효율/수익 지표 정의</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/dashboard/voc-request/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">VoC 개발 요청서</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/dashboard/progress/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">업무 추진 현황</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/dashboard/wireframes/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">화면 설계 · 와이어프레임</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/dashboard/downloads/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">파일 다운로드</span>  </a> </li> </ul> </details> </li><li class="astro-3ii7xxms"> <details open class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">기업 분석 보고서</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="3"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/medallia/reports/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Medallia — 분석 보고서 모음</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/medallia/meeting-summary/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Medallia — 미팅 요약</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/medallia/slides/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Medallia — 발표 슬라이드</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/medallia/agenda/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Medallia — 발표 목차 (26.05.28)</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/project/coupa-investment/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Coupa — 투자·M&amp;A 관점 분석</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/project/coupa-strategy-v2/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Coupa — tuck-in 전략 분석 (v2)</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/project/coupa-rossum/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Coupa — Rossum 단독 분석 (v1)</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/project/thoma-bravo/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Thoma Bravo — 기업 분석</span>  </a> </li> </ul> </details> </li><li class="astro-3ii7xxms"> <details open class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">대상(기업)에 대한 이해 및 분석 스킬</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="4"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/guides/concept-map-prompt/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">01 이해 — /concept-map</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/guides/brand-house/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">02 포지셔닝 — /brand-house</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/guides/mental-model/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">03 비즈니스 성장 및 작동원리 — /mental-model</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/guides/business-diagnosis/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">04 비즈니스 진단 — /business-diagnosis</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/guides/strategy-canvas/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">05 전략 — /strategy-canvas</span>  </a> </li> </ul> </details> </li><li class="astro-3ii7xxms"> <details open class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">분석·리포트 스킬</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="5"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/guides/corp-report/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">/corp-report 기업조사 분석 보고서</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/guides/ma-report/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">/ma-report M&amp;A 인수 분석 보고서</span>  </a> </li> </ul> </details> </li><li class="astro-3ii7xxms"> <details open class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">AI 발표 자료</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="6"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/guides/ai-planner-skills/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">AI 스킬과 기획의 단계</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/guides/ai-usecase/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">AI Use Case PoC 슬라이드</span>  </a> </li> </ul> </details> </li><li class="astro-3ii7xxms"> <details open class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">작성 가이드 &amp; 도구</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="7"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/guides/ai-workflow-slides/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">AI 워크플로우 슬라이드</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/guides/ai-workflow-doc/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">AI 워크플로우 문서</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/guides/analysis-report/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">보고서 기준 v2.0</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/guides/report-format/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">보고서 서식 가이드</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/guides/sds-word-writer/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">SDS Word Writer</span>  </a> </li> </ul> </details> </li> </ul>  <script aria-hidden="true">
+		(() => {
+			const scroller = document.getElementById('starlight__sidebar');
+			if (!window._starlightScrollRestore || !scroller) return;
+			scroller.scrollTop = window._starlightScrollRestore;
+			delete window._starlightScrollRestore;
+		})();
+	</script> </sl-sidebar-state-persist> <div class="md:sl-hidden"> <div class="mobile-preferences sl-flex astro-wu23bvmt"> <div class="social-icons astro-wu23bvmt">  </div> <starlight-theme-select>  <label style="--sl-select-width: 6.25em" class="astro-4yphtoen"> <span class="sr-only astro-4yphtoen">테마 선택</span> <svg aria-hidden="true" class="icon label-icon astro-4yphtoen astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg> <select autocomplete="off" class="astro-4yphtoen"> <option value="dark" class="astro-4yphtoen">어두운 테마</option><option value="light" class="astro-4yphtoen">밝은 테마</option><option value="auto" selected class="astro-4yphtoen">자동</option> </select> <svg aria-hidden="true" class="icon caret astro-4yphtoen astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg> </label> </starlight-theme-select>  <script>
+	StarlightThemeProvider.updatePickers();
+</script>   </div> </div> </div> </div> </nav> <div class="main-frame astro-vrdttmbt">  <script type="module">const a=document.getElementById("starlight__sidebar"),n=a?.querySelector("sl-sidebar-state-persist"),o="sl-sidebar-state",i=()=>{let t=[];const e=n?.dataset.hash||"";try{const s=sessionStorage.getItem(o),r=JSON.parse(s||"{}");Array.isArray(r.open)&&r.hash===e&&(t=r.open)}catch{}return{hash:e,open:t,scroll:a?.scrollTop||0}},c=t=>{try{sessionStorage.setItem(o,JSON.stringify(t))}catch{}},d=()=>c(i()),l=(t,e)=>{const s=i();s.open[e]=t,c(s)};n?.addEventListener("click",t=>{if(!(t.target instanceof Element))return;const e=t.target.closest("summary")?.closest("details");if(!e)return;const s=e.querySelector("sl-sidebar-restore"),r=parseInt(s?.dataset.index||"");isNaN(r)||l(!e.open,r)});addEventListener("visibilitychange",()=>{document.visibilityState==="hidden"&&d()});addEventListener("pageHide",d);</script> <div class="lg:sl-flex astro-67yu43on"> <aside class="right-sidebar-container print:hidden astro-67yu43on"> <div class="right-sidebar astro-67yu43on"> <div class="lg:sl-hidden astro-pb3aqygn"><mobile-starlight-toc data-min-h="2" data-max-h="3" class="astro-doynk5tl"><nav aria-labelledby="starlight__on-this-page--mobile" class="astro-doynk5tl"><details id="starlight__mobile-toc" class="astro-doynk5tl"><summary id="starlight__on-this-page--mobile" class="sl-flex astro-doynk5tl"><span class="toggle sl-flex astro-doynk5tl">목차<svg aria-hidden="true" class="caret astro-doynk5tl astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></span><span class="display-current astro-doynk5tl"></span></summary><div class="dropdown astro-doynk5tl"><ul class="isMobile astro-gnoq344e" style="--depth: 0;"> <li class="astro-gnoq344e" style="--depth: 0;"> <a href="#_top" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">개요</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#목-차" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">목 차</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#1-보고-개요" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">1. 보고 개요</span> </a> <ul class="isMobile astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#분석-배경" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">분석 배경</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#분석-범위" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">분석 범위</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#분석-목적" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">분석 목적</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#2-medallia-개요" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">2. Medallia 개요</span> </a> <ul class="isMobile astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#기업-개요" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">기업 개요</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#3-medallia-투자인수-현황" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">3. Medallia 투자/인수 현황</span> </a> <ul class="isMobile astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#thoma-bravo의-medallia-인수-21년" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">Thoma Bravo의 Medallia 인수 (‘21년)</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#인수-이후-상황" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">인수 이후 상황</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#4-주요-분석" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">4. 주요 분석</span> </a> <ul class="isMobile astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#실패-원인" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">실패 원인</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#예상-파급-효과" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">예상 파급 효과</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#5-시사점" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">5. 시사점</span> </a> <ul class="isMobile astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#saas-기업가치-평가시-성장과-현금창출능력을-함께-고려-필요" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">SaaS 기업가치 평가시, 성장과 현금창출능력을 함께 고려 필요</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#향후-ma-검토-시-현금흐름-부채상환능력-지표도-병행-검토-필요" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">향후 M&amp;A 검토 시 현금흐름, 부채상환능력 지표도 병행 검토 필요</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#사업건전성-대시보드-운영-시-현금흐름-관리-체계-강화-검토-필요" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">사업건전성 대시보드 운영 시, 현금흐름 관리 체계 강화 검토 필요</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#별첨-1-medallia-상세-프로필" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">별첨 1. Medallia 상세 프로필</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#별첨-2-thoma-bravo-상세-프로필" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">별첨 2. Thoma Bravo 상세 프로필</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#별첨-3-동일-구조-위험-노출-대표-사례-2122년" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">별첨 3. 동일 구조 위험 노출 대표 사례 (‘21~‘22년)</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#별첨-4-참고문헌" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">별첨 4. 참고문헌</span> </a>  </li> </ul></div></details></nav></mobile-starlight-toc><script type="module" src="/_astro/MobileTableOfContents.astro_astro_type_script_index_0_lang.hwBsy0Mo.js"></script></div><div class="right-sidebar-panel sl-hidden lg:sl-block astro-pb3aqygn"><div class="sl-container astro-pb3aqygn"><starlight-toc data-min-h="2" data-max-h="3"><nav aria-labelledby="starlight__on-this-page"><h2 id="starlight__on-this-page">목차</h2><ul class="astro-gnoq344e" style="--depth: 0;"> <li class="astro-gnoq344e" style="--depth: 0;"> <a href="#_top" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">개요</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#목-차" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">목 차</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#1-보고-개요" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">1. 보고 개요</span> </a> <ul class="astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#분석-배경" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">분석 배경</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#분석-범위" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">분석 범위</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#분석-목적" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">분석 목적</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#2-medallia-개요" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">2. Medallia 개요</span> </a> <ul class="astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#기업-개요" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">기업 개요</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#3-medallia-투자인수-현황" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">3. Medallia 투자/인수 현황</span> </a> <ul class="astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#thoma-bravo의-medallia-인수-21년" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">Thoma Bravo의 Medallia 인수 (‘21년)</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#인수-이후-상황" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">인수 이후 상황</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#4-주요-분석" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">4. 주요 분석</span> </a> <ul class="astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#실패-원인" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">실패 원인</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#예상-파급-효과" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">예상 파급 효과</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#5-시사점" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">5. 시사점</span> </a> <ul class="astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#saas-기업가치-평가시-성장과-현금창출능력을-함께-고려-필요" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">SaaS 기업가치 평가시, 성장과 현금창출능력을 함께 고려 필요</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#향후-ma-검토-시-현금흐름-부채상환능력-지표도-병행-검토-필요" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">향후 M&amp;A 검토 시 현금흐름, 부채상환능력 지표도 병행 검토 필요</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#사업건전성-대시보드-운영-시-현금흐름-관리-체계-강화-검토-필요" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">사업건전성 대시보드 운영 시, 현금흐름 관리 체계 강화 검토 필요</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#별첨-1-medallia-상세-프로필" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">별첨 1. Medallia 상세 프로필</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#별첨-2-thoma-bravo-상세-프로필" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">별첨 2. Thoma Bravo 상세 프로필</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#별첨-3-동일-구조-위험-노출-대표-사례-2122년" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">별첨 3. 동일 구조 위험 노출 대표 사례 (‘21~‘22년)</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#별첨-4-참고문헌" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">별첨 4. 참고문헌</span> </a>  </li> </ul></nav></starlight-toc><script type="module" src="/_astro/TableOfContents.astro_astro_type_script_index_0_lang.FuRcXuRY.js"></script></div></div> </div> </aside> <div class="main-pane astro-67yu43on">  <main data-pagefind-body class="astro-bguv2lll" lang="ko" dir="ltr">    <div class="content-panel astro-7nkwcw3z"> <div class="sl-container astro-7nkwcw3z"> <h1 id="_top" class="astro-j6tvhyss">Medallia 사례로 본 SaaS 기업 가치 평가 기준</h1> </div> </div> <div class="content-panel astro-7nkwcw3z"> <div class="sl-container astro-7nkwcw3z"> <div class="sl-markdown-content"> <blockquote>
+<p><strong>작성일:</strong> ‘26.05.14 | <strong>작성:</strong> 솔루션전략그룹(솔루션)</p>
+</blockquote>
+<p><strong>HTML 보고서 →</strong> <a href="http://13.49.177.238:8090/medallia_report_final.html">medallia_report_final.html</a></p>
+<hr>
+<!-- 목차 -->
+<div class="sl-heading-wrapper level-h2"><h2 id="목-차">목 차</h2><a class="sl-anchor-link" href="#목-차"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “목 차”</span></a></div>
+<p><strong>1장. 보고 개요</strong></p>
+<ul>
+<li>분석 배경</li>
+<li>분석 범위</li>
+<li>분석 목적</li>
+</ul>
+<p><strong>2장. Medallia 개요</strong></p>
+<ul>
+<li>기업 개요</li>
+</ul>
+<p><strong>3장. Medallia 투자/인수 현황</strong></p>
+<ul>
+<li>Thoma Bravo의 Medallia 인수 (‘21년)</li>
+<li>인수 이후 상황</li>
+</ul>
+<p><strong>4장. 주요 분석</strong></p>
+<ul>
+<li>실패 원인</li>
+<li>예상 파급 효과</li>
+</ul>
+<p><strong>5장. 시사점</strong></p>
+<p><strong>별 첨.</strong></p>
+<ul>
+<li>[별첨 1] Medallia 상세 프로필</li>
+<li>[별첨 2] Thoma Bravo 상세 프로필</li>
+<li>[별첨 3] 동일 구조 위험 노출 대표 사례</li>
+<li>[별첨 4] 참고문헌</li>
+</ul>
+<hr>
+<!-- 1장 -->
+<div class="sl-heading-wrapper level-h1"><h1 id="medallia-사례로-본-saas-기업-가치-평가-기준">Medallia 사례로 본 SaaS 기업 가치 평가 기준</h1><a class="sl-anchor-link" href="#medallia-사례로-본-saas-기업-가치-평가-기준"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “Medallia 사례로 본 SaaS 기업 가치 평가 기준”</span></a></div>
+<blockquote>
+<p>‘26.05.14 솔루션전략그룹(솔루션)</p>
+</blockquote>
+<div class="sl-heading-wrapper level-h2"><h2 id="1-보고-개요">1. 보고 개요</h2><a class="sl-anchor-link" href="#1-보고-개요"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “1. 보고 개요”</span></a></div>
+<div class="sl-heading-wrapper level-h3"><h3 id="분석-배경">분석 배경</h3><a class="sl-anchor-link" href="#분석-배경"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “분석 배경”</span></a></div>
+<ul>
+<li>Thoma Bravo는 Medallia를 $6.4B(멀티플 약 9배)에 인수하며 상장폐지 (‘21.7월)</li>
+<li>이후 美 연준 금리 인상에 따라 SOFR가 약 5.4%까지 상승하며 차입 이자 부담 급증 (‘22~‘25년)</li>
+<li>EBITDA를 초과하는 이자 비용 발생으로 구조적 부실 상태에 직면, 채권단으로 경영권 이전 및 투자금 손실 발생 (‘26.4월)</li>
+</ul>
+<div class="sl-heading-wrapper level-h3"><h3 id="분석-범위">분석 범위</h3><a class="sl-anchor-link" href="#분석-범위"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “분석 범위”</span></a></div>
+<ul>
+<li><strong>분석 대상:</strong> Medallia / Thoma Bravo</li>
+<li><strong>분석 기간:</strong> ‘21년 Thoma Bravo의 Medallia 인수 ~ ‘26년 채권단으로 경영권 이전</li>
+<li><strong>재무 수치 출처:</strong> Bloomberg, OnlyCFO 분석 기반 추정치</li>
+</ul>
+<div class="sl-heading-wrapper level-h3"><h3 id="분석-목적">분석 목적</h3><a class="sl-anchor-link" href="#분석-목적"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “분석 목적”</span></a></div>
+<ul>
+<li>PE 기반 SaaS 차입매수(LBO) 방식의 실패 원인 분석</li>
+<li>SaaS 기업가치 평가 기준 재점검 · ARR성장률 중심 평가 방식의 한계점 확인</li>
+</ul>
+<hr>
+<!-- 2장 -->
+<div class="sl-heading-wrapper level-h2"><h2 id="2-medallia-개요">2. Medallia 개요</h2><a class="sl-anchor-link" href="#2-medallia-개요"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “2. Medallia 개요”</span></a></div>
+<div class="sl-heading-wrapper level-h3"><h3 id="기업-개요">기업 개요</h3><a class="sl-anchor-link" href="#기업-개요"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “기업 개요”</span></a></div>
+<ul>
+<li>‘01년 설립, 미국 샌프란시스코 소재 CX 관리 플랫폼 전문 기업</li>
+<li>CRM 솔루션 영역 중 CX Management(고객경험 분석 관리) 부문 內 2위
+※ CRM은 Pre-Sales, Sales, Post-sales(Service/Support)로 구분되며, CX Management는 Post-sales(Service/Support) 시장과 연관</li>
+<li>오퍼링: 고객경험 피드백 수집/분석, NPS 측정, 직원경험 플랫폼, 옴니채널 고객 인텔리전스 제공</li>
+<li>고객군: 금융, 항공, 호텔, 통신 등 글로벌 대기업</li>
+<li>‘15~‘18년: VC, PE로부터 복수의 투자 유치, 기업가치 급성장</li>
+<li>‘19년: NYSE 상장, IPO 공모가 $21 → 상장 이후 $30~$40</li>
+<li>‘20년: 매출 $477M, 순손실 –$149M</li>
+<li>‘21년: Thoma Bravo에 인수되며 상장폐지</li>
+</ul>
+<hr>
+<!-- 3장 -->
+<div class="sl-heading-wrapper level-h2"><h2 id="3-medallia-투자인수-현황">3. Medallia 투자/인수 현황</h2><a class="sl-anchor-link" href="#3-medallia-투자인수-현황"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “3. Medallia 투자/인수 현황”</span></a></div>
+<div class="sl-heading-wrapper level-h3"><h3 id="thoma-bravo의-medallia-인수-21년">Thoma Bravo의 Medallia 인수 (‘21년)</h3><a class="sl-anchor-link" href="#thoma-bravo의-medallia-인수-21년"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “Thoma Bravo의 Medallia 인수 (‘21년)”</span></a></div>
+<ul>
+<li>당시 고성장 SaaS 프리미엄을 고려, EV/Revenue 멀티플을 약 9배로 적용
+※ 멀티플: 기업가치(Enterprise Value)를 특정 재무지표(매출/이익/현금흐름)로 나눈 값으로, 시장이 해당 기업 실적에 부여하는 가치 수준을 의미</li>
+</ul>
+<p><strong>자금 조달 구조</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>구분</th><th>금액</th><th>조달처</th></tr></thead><tbody><tr><td>투자금 (Equity)</td><td>$4.6B</td><td>Thoma Bravo 등</td></tr><tr><td>변동금리 차입금 (Debt)</td><td>$1.8B</td><td>민간대출업자 (Blackstone 등)</td></tr><tr><td><strong>총 인수가격</strong></td><td><strong>$6.4B</strong></td><td></td></tr></tbody></table>
+<p>※ LIBOR: 런던 은행 간 단기 대출 금리로써 신용 위험을 반영하여 글로벌 금융 계약의 기준금리로 활용되었으나 ‘23년 공식 폐지 후 SOFR로 대체됨 (당시 LIBOR 0.75%)</p>
+<ul>
+<li><strong>인수 당시 계획:</strong> 저금리 환경에서 낮은 비용으로 차입 매수, 영업현금흐름으로 이자 감당, 3~5년 내 매각 또는 IPO 재상장으로 투자금 회수 계획이었음</li>
+</ul>
+<p><strong>인수 판단 기준</strong></p>
+<ul>
+<li>Medallia 인수 당시 적용된 9배 멀티플은 상대적으로 저렴한 투자로 평가되었음</li>
+<li>Medallia는 ARR 성장률 23~26%의 고성장 기업으로 SaaS 차입매수(LBO)가 가능한 기업으로 판단
+※ 단, Medallia의 Rule of 40, 잉여현금흐름 마진은 동종업계 하위 10% 수준임을 인지</li>
+<li>당시 초저금리 환경으로 낮은 이자 부담, PIK 활용 가능하다고 판단</li>
+</ul>
+<div class="sl-heading-wrapper level-h3"><h3 id="인수-이후-상황">인수 이후 상황</h3><a class="sl-anchor-link" href="#인수-이후-상황"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “인수 이후 상황”</span></a></div>
+<p><strong>1) 美 연준 금리 인상으로 이자부담 급증 (‘22년 이후)</strong></p>
+<ul>
+<li>이자 급증: SOFR 연동 변동금리 영향으로 이자비용 급등
+※ SOFR: 미국 달러 단기 금리 기준, LIBOR를 대체하며 미 연준 금리 결정에 연동</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>구분</th><th>’21년</th><th>’23년</th><th>’26년(예상)</th></tr></thead><tbody><tr><td>기준금리</td><td>0.75%</td><td>5.4%</td><td>3.7%</td></tr><tr><td>연이자</td><td>$135M</td><td>$300M</td><td>$270M</td></tr></tbody></table>
+<ul>
+<li>부채 규모 확대: PIK 적용으로 원금 $1.8B → 약 $2.2B (현금 미지급 이자가 원금에 누적 반영)</li>
+</ul>
+<p>※ PIK 비중 점진 축소 (‘21~‘22년 100% → ‘22~‘23년 50% → ‘23~‘25년 35% → ‘25~‘26년 0%), 현금 이자 지급 비중 확대
+※ Medallia를 통한 추가 M&#x26;A 관련 차입금($0.6B) 반영 시 총부채 약 $2.8B 수준</p>
+<p><strong>2) 매각, IPO 재진입 실패로 투자금 회수 무산 (‘24~‘25년)</strong></p>
+<ul>
+<li>전략적 매각(대형 기술기업 대상 협상), 자본구조 재조정, IPO 재추진 등 검토하였으나 성과 부재</li>
+<li>AI 기반 경쟁 심화: Qualtrics 등 경쟁사의 AI 기능 강화로 고객 이탈 가속</li>
+<li>성장률 둔화: 이자 부담 증가로 현금흐름 악화 → 혁신 투자 축소 → 상품 경쟁력 저하</li>
+</ul>
+<p><strong>3) 연간 이자비용($0.3B)이 EBITDA($0.2B)를 초과 (직전 1년 기준)</strong></p>
+<ul>
+<li>EBITDA만 보면 흑자 구조처럼 보이나, 실제 현금흐름 기준으로는 구조적 부실 상태에 진입</li>
+</ul>
+<p><strong>4) 경영권 채권단 이전 및 투자 손실 확정 (‘26.4월)</strong></p>
+<ul>
+<li>Debt-to-Equity Swap: 채권단 보유 $2.8B 채권을 지분 전환하여 채권단이 최대주주가 됨</li>
+<li>PE 투자 역사상 최대 규모 SaaS 차입매수(LBO) 실패 사례</li>
+</ul>
+<hr>
+<!-- 4장 -->
+<div class="sl-heading-wrapper level-h2"><h2 id="4-주요-분석">4. 주요 분석</h2><a class="sl-anchor-link" href="#4-주요-분석"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “4. 주요 분석”</span></a></div>
+<div class="sl-heading-wrapper level-h3"><h3 id="실패-원인">실패 원인</h3><a class="sl-anchor-link" href="#실패-원인"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “실패 원인”</span></a></div>
+<p>① <strong>성장률 과대 추정:</strong> 고성장 지속을 전제로 9배 멀티플(EV/Revenue) 적용</p>
+<p>② <strong>취약한 부채 구조:</strong> 변동금리 인상, PIK 누적으로 부채 급증</p>
+<p>③ <strong>이자비용 부담으로 인한 상품 경쟁력 저하:</strong> 잉여현금흐름(FCF) 전액을 이자 상환에 투입하여 투자 여력 부족</p>
+<p>④ <strong>투자금 회수 무산:</strong> M&#x26;A 매각 및 IPO 재진입 실패 — 과도한 부채 구조로 잠재 인수자 협상 난항</p>
+<div class="sl-heading-wrapper level-h3"><h3 id="예상-파급-효과">예상 파급 효과</h3><a class="sl-anchor-link" href="#예상-파급-효과"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “예상 파급 효과”</span></a></div>
+<ul>
+<li><strong>Medallia:</strong> 투자 축소로 서비스 경쟁력 저하 우려, 상품 로드맵 불확실, Medallia 고객이 Qualtrics·Salesforce 등 경쟁사로 이탈 가능성</li>
+<li><strong>사모펀드(PE):</strong> 유사한 구조로 인수된 SaaS 기업 리스크 재조명 · Zendesk, Proofpoint 등 유사 사례 확산 가능성 (별첨 3 참조)</li>
+<li><strong>민간 대출 시장:</strong> Blackstone 등 채권자도 원금 회수 불확실성 확대 → 민간 대출 시장 리스크 현실화</li>
+<li><strong>SaaS M&#x26;A 시장:</strong> 고부채 SaaS 매물 증가 가능성, 전략적 인수자 중심 저가 인수 기회 확대</li>
+</ul>
+<hr>
+<!-- 5장 -->
+<div class="sl-heading-wrapper level-h2"><h2 id="5-시사점">5. 시사점</h2><a class="sl-anchor-link" href="#5-시사점"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “5. 시사점”</span></a></div>
+<div class="sl-heading-wrapper level-h3"><h3 id="saas-기업가치-평가시-성장과-현금창출능력을-함께-고려-필요">SaaS 기업가치 평가시, 성장과 현금창출능력을 함께 고려 필요</h3><a class="sl-anchor-link" href="#saas-기업가치-평가시-성장과-현금창출능력을-함께-고려-필요"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “SaaS 기업가치 평가시, 성장과 현금창출능력을 함께 고려 필요”</span></a></div>
+<ul>
+<li>ARR성장률, Rule of 40, NRR 등 SaaS 특화 지표 뿐만 아니라 잉여현금흐름(FCF) 및 부채상환능력(EV/Par Coverage) 지표 병행관리 필요</li>
+</ul>
+<div class="sl-heading-wrapper level-h3"><h3 id="향후-ma-검토-시-현금흐름-부채상환능력-지표도-병행-검토-필요">향후 M&#x26;A 검토 시 현금흐름, 부채상환능력 지표도 병행 검토 필요</h3><a class="sl-anchor-link" href="#향후-ma-검토-시-현금흐름-부채상환능력-지표도-병행-검토-필요"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “향후 M&#x26;A 검토 시 현금흐름, 부채상환능력 지표도 병행 검토 필요”</span></a></div>
+<div class="sl-heading-wrapper level-h3"><h3 id="사업건전성-대시보드-운영-시-현금흐름-관리-체계-강화-검토-필요">사업건전성 대시보드 운영 시, 현금흐름 관리 체계 강화 검토 필요</h3><a class="sl-anchor-link" href="#사업건전성-대시보드-운영-시-현금흐름-관리-체계-강화-검토-필요"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “사업건전성 대시보드 운영 시, 현금흐름 관리 체계 강화 검토 필요”</span></a></div>
+<ul>
+<li>잉여현금흐름(FCF) 지표 시범 산출 → 사업부 관리 협의 → 대시보드 적용 기준 확정</li>
+<li>Rule of 40·NRR·잉여현금흐름(FCF) 등 통합 모니터링 체계 검토</li>
+</ul>
+<hr>
+<p>※ 현금흐름 관련 지표</p>
+<p><strong>(1) 현금흐름 지표 관리</strong></p>
+<ul>
+<li>관리 주기: 분기/반기/연간 및 누적 기준 병행 관리</li>
+<li>주요 지표: 잉여현금흐름(FCF) = 영업현금흐름 − CAPEX(유무형자산취득액)</li>
+</ul>
+<p><strong>(2) EV(Enterprise Value)/Par Coverage 관리</strong> (기업가치 대비 누적 차입금·적자금액 관리)</p>
+<ul>
+<li>EV/Par Coverage Ratio = EV ÷ Loan Par(누적 차입금·적자금액)</li>
+<li>EV(Enterprise Value) = 시가총액 + 순차입금</li>
+<li>관리 기준: 1 이상 유지 필요
+▷ 1 미만 하락 시, 기업가치가 누적 부채를 충분히 커버하지 못하는 구조적 위험 신호로 해석 가능
+※ Medallia 사례의 경우 EV(기업가치) 급락 + Loan Par $2.8B 팽창이 동시에 발생하며 EV/Par Coverage Ratio가 임계치 이하 하락, 결과적으로 채권단 중심의 Debt to Equity Swap 및 경영권 이전으로 연결</li>
+</ul>
+<p>※ 내부 적용 기준(안)</p>
+<ul>
+<li>Annual FCF = 영업현금흐름 기준으로 산출</li>
+<li>멀티플 = 국내 B2B SaaS 시장 평균 멀티플 적용 (현재 기준 약 5~8배 수준 예상)</li>
+<li>Loan Par = 누적 차입금 또는 누적 적자 금액 기준 적용</li>
+<li>시범 산출 후 사업부 협의를 통해 기준 확정 필요</li>
+</ul>
+<p><strong>- 以 上 -</strong></p>
+<hr>
+<!-- 별첨1 -->
+<div class="sl-heading-wrapper level-h2"><h2 id="별첨-1-medallia-상세-프로필">별첨 1. Medallia 상세 프로필</h2><a class="sl-anchor-link" href="#별첨-1-medallia-상세-프로필"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “별첨 1. Medallia 상세 프로필”</span></a></div>
+<p><strong>기업 기본 정보</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>항목</th><th>내용</th></tr></thead><tbody><tr><td>기업명</td><td>Medallia, Inc.</td></tr><tr><td>설립</td><td>’01년 (미국 캘리포니아)</td></tr><tr><td>창립자</td><td>Borge Hald, Amy Pressman (Fortune 500 기업 임원 컨설팅 경험 기반 창업)</td></tr><tr><td>본사</td><td>San Francisco, CA</td></tr><tr><td>임직원 수</td><td>약 2,037명 (‘21.1월 기준)</td></tr><tr><td>상장 이력</td><td>’19.7월 NYSE 상장 (MDLA, 공모가 $21) → ‘21.10월 Thoma Bravo 인수로 상장 폐지</td></tr><tr><td>현재 상태</td><td>채권단(Blackstone 등) 관리하 구조조정 中 (‘26년)</td></tr></tbody></table>
+<p><strong>제품·솔루션 구성</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>카테고리</th><th>주요 솔루션</th></tr></thead><tbody><tr><td>고객경험 (CX)</td><td>고객경험 관리(CEM), 디지털 경험 분석, 경험 오케스트레이션, 개인화 메시징</td></tr><tr><td>직원경험 (EX)</td><td>직원 리스닝(Listening), 직원 활성화(Activation) 플랫폼</td></tr><tr><td>컨택센터</td><td>대화형 인텔리전스, 상담원 코칭, 품질 관리, 지능형 콜백</td></tr><tr><td>AI·분석</td><td>Frontline-Ready AI™ — 별도 교육 없이 현장 즉시 활용 가능한 내장형 AI</td></tr><tr><td>시장조사</td><td>애자일 리서치(Agile Research), 비디오 조사</td></tr></tbody></table>
+<p><strong>주요 고객 및 시장 지위</strong></p>
+<ul>
+<li>주요 글로벌 고객: Airbnb, Volvo Cars, 3M, Johnson &#x26; Johnson, MetLife, PetSmart 等 Fortune 500 다수</li>
+<li>주요 산업군: 금융 서비스, 항공, 호텔·숙박, 통신, 소매, B2B 기업</li>
+<li>Gartner Magic Quadrant ‘26년 “Leader” 선정 (CX 관리 플랫폼 부문)</li>
+<li>주요 경쟁사: Qualtrics(SAP 계열), NICE Satmetrix, Salesforce Experience Cloud, Sprinklr</li>
+</ul>
+<p><strong>재무 현황 (상장폐지 직전 공개 기준)</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>항목</th><th>수치</th><th>기준</th></tr></thead><tbody><tr><td>연간 매출</td><td>$477M</td><td>FY2020 (상장 당시 공개)</td></tr><tr><td>순손실</td><td>–$149M</td><td>FY2020</td></tr><tr><td>인수 후 추정 매출</td><td>약 $700M대</td><td>’21년 인수 당시 기준 (추정)</td></tr></tbody></table>
+<p>※ ‘21년 상장폐지 후 재무 정보 비공개. 이자비용 급증으로 인한 FCF 악화는 기사(OnlyCFO, ‘26.5월) 분석 기반</p>
+<hr>
+<!-- 별첨2 -->
+<div class="sl-heading-wrapper level-h2"><h2 id="별첨-2-thoma-bravo-상세-프로필">별첨 2. Thoma Bravo 상세 프로필</h2><a class="sl-anchor-link" href="#별첨-2-thoma-bravo-상세-프로필"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “별첨 2. Thoma Bravo 상세 프로필”</span></a></div>
+<p><strong>기업 기본 정보</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>항목</th><th>내용</th></tr></thead><tbody><tr><td>기업명</td><td>Thoma Bravo, LP</td></tr><tr><td>설립</td><td>’08년 공식 설립 (전신: ‘80년 설립된 Golder Thoma &#x26; Co.)</td></tr><tr><td>본사</td><td>San Francisco, CA / Chicago, IL</td></tr><tr><td>운용자산(AUM)</td><td>$183B 이상 (‘25.12.31 기준)</td></tr><tr><td>누적 거래 건수</td><td>565건 이상 완료, 누적 대표 가치 $305B 이상</td></tr><tr><td>특화 분야</td><td>엔터프라이즈 소프트웨어, 인프라 소프트웨어, 사이버보안, 기술 서비스</td></tr></tbody></table>
+<p><strong>주요 포트폴리오</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>기업명</th><th>분야</th><th>인수금액</th></tr></thead><tbody><tr><td>Proofpoint</td><td>엔터프라이즈 사이버보안</td><td>$12.3B</td></tr><tr><td>Anaplan</td><td>기업 계획(Planning) 플랫폼</td><td>$10.7B</td></tr><tr><td>Stamps.com</td><td>우편·배송 SaaS</td><td>$6.6B</td></tr><tr><td>Medallia</td><td>CX 관리 플랫폼</td><td>$6.4B (손실 확정)</td></tr><tr><td>Coupa Software</td><td>조달 자동화</td><td>$6.2B</td></tr><tr><td>Sophos</td><td>엔드포인트 보안</td><td>$3.9B</td></tr></tbody></table>
+<p><strong>Medallia 인수 실패 메커니즘 요약</strong></p>
+<ul>
+<li>인수 時 LIBOR 0.75% 변동금리로 $1.8B 조달 → 연준 금리 인상으로 SOFR 5.4% 도달</li>
+<li>이에 따라 연이자가 $135M에서 $300M 수준으로 급등하였고, PIK 이자 누적으로 원금이 복리 방식으로 증가하여 $1.8B → $2.2B</li>
+<li>EBITDA가 $200M으로 이자($300M)조차 충당 불가 → 채무불이행(Default) → 경영권 상실</li>
+</ul>
+<hr>
+<!-- 별첨3 -->
+<div class="sl-heading-wrapper level-h2"><h2 id="별첨-3-동일-구조-위험-노출-대표-사례-2122년">별첨 3. 동일 구조 위험 노출 대표 사례 (‘21~‘22년)</h2><a class="sl-anchor-link" href="#별첨-3-동일-구조-위험-노출-대표-사례-2122년"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “별첨 3. 동일 구조 위험 노출 대표 사례 (‘21~‘22년)”</span></a></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>기업명</th><th>PE 인수사</th><th>인수 시기</th><th>인수금액</th><th>Multiple (Revenue 기준 추정)</th><th>사업 영역</th></tr></thead><tbody><tr><td>Proofpoint</td><td>Thoma Bravo</td><td>’21.4월</td><td>$12.3B</td><td>10.0~11.0</td><td>사이버보안 SaaS</td></tr><tr><td>RealPage</td><td>Thoma Bravo</td><td>’21.4월</td><td>$10.2B</td><td>8.5~9.0</td><td>부동산 관리 SaaS</td></tr><tr><td>Zendesk</td><td>Permira·H&#x26;F</td><td>’22.11월</td><td>$10.2B</td><td>6.5~7.0</td><td>CX SaaS</td></tr><tr><td>Avalara</td><td>Vista Equity</td><td>’22.10월</td><td>$8.4B</td><td>9.0~10.0</td><td>세금 자동화 SaaS</td></tr><tr><td>SailPoint</td><td>Thoma Bravo</td><td>’22.4월</td><td>$6.9B</td><td>11.0~12.0</td><td>ID 보안 SaaS</td></tr><tr><td>Stamps.com</td><td>Thoma Bravo</td><td>’21.10월</td><td>$6.6B</td><td>8.5~9.0</td><td>우편·배송 SaaS</td></tr></tbody></table>
+<hr>
+<!-- 별첨4 -->
+<div class="sl-heading-wrapper level-h2"><h2 id="별첨-4-참고문헌">별첨 4. 참고문헌</h2><a class="sl-anchor-link" href="#별첨-4-참고문헌"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">섹션 제목: “별첨 4. 참고문헌”</span></a></div>
+<p><strong>▸ 분석 기사</strong></p>
+<ul>
+<li>OnlyCFO, “Thoma Bravo’s $5B Medallia Loss | The PE Reckoning is Coming…” (‘26.5월) — onlycfo.io</li>
+<li>Bloomberg, “Thoma Bravo Declines to Invest More in Troubled Medallia” (‘26.4월) — bloomberg.com</li>
+</ul>
+<p><strong>▸ 기업 공식 자료</strong></p>
+<ul>
+<li>Medallia 공식 홈페이지 — medallia.com</li>
+<li>Thoma Bravo 공식 홈페이지 — thomabravo.com</li>
+<li>Thoma Bravo, “Medallia to be Acquired by Thoma Bravo for $6.4 Billion” (보도자료, ‘21.7월)</li>
+<li>PR Newswire, “Medallia Announces Pricing of Initial Public Offering” (‘19.7월)</li>
+</ul>
+<p><strong>▸ 개념 참고</strong></p>
+<ul>
+<li>Wikipedia, “Medallia” — en.wikipedia.org</li>
+<li>Wikipedia, “Thoma Bravo” — en.wikipedia.org</li>
+<li>Wikipedia, “Rule of 40” — en.wikipedia.org</li>
+<li>McKinsey, “SaaS and the Rule of 40” — mckinsey.com</li>
+</ul> </div> <footer class="sl-flex astro-3yyafb3n"> <div class="meta sl-flex astro-3yyafb3n">   </div> <div class="pagination-links print:hidden astro-u2l5gyhi" dir="ltr">   </div>  </footer> </div> </div>  </main> </div> </div> </div> </div> </body></html>

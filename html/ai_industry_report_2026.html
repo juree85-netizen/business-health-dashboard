@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 산업에 대한 최근 트렌드와 시사점</title>
+<style>
+  :root {
+    --primary:#1a2744; --accent:#2563eb; --accent2:#0ea5e9;
+    --danger:#dc2626; --warning:#d97706; --success:#16a34a;
+    --purple:#7c3aed; --teal:#0891b2;
+    --gray1:#f8fafc; --gray2:#e2e8f0; --gray3:#94a3b8; --gray4:#475569;
+    --text:#1e293b;
+    --act1:#1e3a5f; --act2:#7c2d12; --act3:#14532d;
+    --pad-bg:#fffef5; --pad-line:#e5e0c8; --pad-margin:#fca5a5;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI','Apple SD Gothic Neo',sans-serif;background:#f1f5f9;color:var(--text);line-height:1.7;}
+
+  /* ── COVER ── */
+  .cover{background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 60%,#1a2744 100%);color:white;padding:72px 60px 56px;position:relative;overflow:hidden;}
+  .cover::before{content:'';position:absolute;top:-80px;right:-80px;width:400px;height:400px;border-radius:50%;background:rgba(37,99,235,.12);}
+  .cover-badge{display:inline-block;background:rgba(37,99,235,.35);border:1px solid rgba(37,99,235,.55);color:#93c5fd;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:4px 13px;border-radius:20px;margin-bottom:20px;}
+  .cover h1{font-size:36px;font-weight:800;line-height:1.25;margin-bottom:12px;position:relative;z-index:1;}
+  .cover h1 span{color:#60a5fa;}
+  .cover-thesis{font-size:15px;color:#93c5fd;margin-bottom:36px;position:relative;z-index:1;max-width:640px;line-height:1.6;border-left:3px solid rgba(96,165,250,.5);padding-left:16px;}
+  .cover-meta{display:flex;gap:36px;position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.12);padding-top:20px;flex-wrap:wrap;}
+  .cover-meta-item label{font-size:10px;color:#94a3b8;letter-spacing:1px;text-transform:uppercase;display:block;}
+  .cover-meta-item span{font-size:13px;color:#e2e8f0;font-weight:600;}
+
+  /* ── PAGE LAYOUT (2-column) ── */
+  .page-layout{max-width:1260px;margin:0 auto;padding:36px 20px 80px;display:flex;gap:22px;align-items:flex-start;}
+  .main-col{flex:1;min-width:0;}
+
+  /* ── NOTEPAD COLUMN ── */
+  .notepad-col{width:256px;flex-shrink:0;position:sticky;top:20px;align-self:flex-start;max-height:calc(100vh - 40px);overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--pad-line) transparent;}
+  .notepad-col::-webkit-scrollbar{width:4px;}
+  .notepad-col::-webkit-scrollbar-thumb{background:var(--pad-line);border-radius:2px;}
+
+  .notepad{background:var(--pad-bg);border-radius:4px 4px 8px 8px;box-shadow:2px 3px 12px rgba(0,0,0,.15),inset 0 0 0 1px rgba(0,0,0,.06);overflow:hidden;}
+
+  /* 바인딩 */
+  .notepad-binding{background:#2d3748;padding:8px 10px 6px;display:flex;align-items:center;gap:8px;}
+  .notepad-binding-title{font-size:11px;font-weight:700;color:#e2e8f0;letter-spacing:1px;text-transform:uppercase;flex:1;}
+  .binding-holes{display:flex;gap:6px;}
+  .binding-hole{width:10px;height:10px;border-radius:50%;background:#1a202c;border:1px solid #4a5568;}
+
+  /* 줄 노트지 */
+  .notepad-body{
+    background:repeating-linear-gradient(
+      var(--pad-bg) 0px, var(--pad-bg) 23px,
+      var(--pad-line) 23px, var(--pad-line) 24px
+    );
+    border-left:3px solid var(--pad-margin);
+    padding:14px 12px 20px 16px;
+  }
+
+  /* 메모 섹션 */
+  .note-section{margin-bottom:18px;}
+  .note-section-title{font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray4);margin-bottom:10px;padding-bottom:4px;border-bottom:1px solid var(--pad-line);}
+
+  /* 맥락 메모 */
+  .note-entry{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-left:3px solid #f59e0b;border-radius:0 6px 6px 0;padding:8px 10px;margin-bottom:8px;position:relative;}
+  .note-entry-tag{font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#92400e;margin-bottom:3px;}
+  .note-entry-text{font-size:11px;color:#78350f;line-height:1.5;}
+
+  /* 용어 사전 */
+  .term-entry{margin-bottom:9px;padding-bottom:9px;border-bottom:1px dashed var(--pad-line);}
+  .term-entry:last-child{border-bottom:none;margin-bottom:0;}
+  .term-entry-word{font-size:12px;font-weight:800;color:var(--accent);}
+  .term-entry-def{font-size:11px;color:var(--gray4);line-height:1.4;margin-top:2px;}
+
+  /* ── TOOLTIP ── */
+  .term{border-bottom:1px dashed var(--accent);cursor:help;position:relative;display:inline;}
+  .term .tip{display:none;position:absolute;bottom:calc(100% + 7px);left:50%;transform:translateX(-50%);background:#1a2744;color:#e2e8f0;padding:7px 11px;border-radius:8px;font-size:11px;line-height:1.45;width:190px;text-align:left;z-index:9999;pointer-events:none;white-space:normal;font-style:normal;font-weight:400;box-shadow:0 4px 12px rgba(0,0,0,.25);}
+  .term .tip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:#1a2744;}
+  .term:hover .tip{display:block;}
+
+  /* ── TOC ── */
+  .toc{background:white;border-radius:16px;padding:28px 32px;margin-bottom:24px;box-shadow:0 1px 3px rgba(0,0,0,.07);}
+  .toc-headline{font-size:11px;font-weight:700;letter-spacing:2px;color:var(--gray3);text-transform:uppercase;margin-bottom:16px;}
+  .toc-act{margin-bottom:4px;}
+  .toc-act-header{display:flex;align-items:center;gap:10px;padding:8px 0 5px;}
+  .toc-act-badge{font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:3px 9px;border-radius:20px;flex-shrink:0;}
+  .toc-act-badge.intro{background:#dbeafe;color:var(--accent);}
+  .toc-act-badge.act1{background:#dbeafe;color:var(--act1);}
+  .toc-act-badge.act2{background:#ffedd5;color:var(--act2);}
+  .toc-act-badge.act3{background:#dcfce7;color:var(--act3);}
+  .toc-act-badge.concl{background:#f5f3ff;color:var(--purple);}
+  .toc-act-badge.appx{background:var(--gray2);color:var(--gray4);}
+  .toc-act-title{font-size:14px;font-weight:800;color:var(--primary);}
+  .toc-act-sub{font-size:11px;color:var(--gray3);margin-left:auto;}
+  .toc-act-quote{font-size:11px;color:var(--gray3);font-style:italic;padding:2px 0 4px 44px;line-height:1.5;}
+  .toc-sub-list{list-style:none;padding-left:44px;margin-bottom:2px;}
+  .toc-sub-list li{font-size:12px;color:var(--gray4);padding:3px 0;border-bottom:1px dashed var(--gray2);display:flex;align-items:center;gap:7px;}
+  .toc-sub-list li:last-child{border-bottom:none;}
+  .barrier-dot{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:white;flex-shrink:0;background:var(--act2);}
+  .toc-divider{border:none;border-top:2px solid var(--gray2);margin:6px 0;}
+
+  /* ── ACT HEADER ── */
+  .act-header{border-radius:16px;padding:24px 32px;margin-bottom:0;color:white;position:relative;overflow:hidden;}
+  .act-header::after{content:'';position:absolute;right:-40px;top:-40px;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,.06);}
+  .act-header.act1{background:linear-gradient(135deg,#1e3a5f,#2563eb);}
+  .act-header.act2{background:linear-gradient(135deg,#7c2d12,#c2410c);}
+  .act-header.act3{background:linear-gradient(135deg,#14532d,#15803d);}
+  .act-header.concl{background:linear-gradient(135deg,var(--primary),#1e3a5f);}
+  .act-label{font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;opacity:.7;margin-bottom:5px;}
+  .act-title{font-size:22px;font-weight:800;line-height:1.25;margin-bottom:6px;}
+  .act-desc{font-size:13px;opacity:.8;max-width:560px;line-height:1.6;}
+
+  /* ── SECTION ── */
+  .section{background:white;border-radius:16px;padding:32px;margin-bottom:4px;box-shadow:0 1px 3px rgba(0,0,0,.07);}
+  .section.appx{background:#f8fafc;border:1px dashed var(--gray3);}
+  .section-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gray3);margin-bottom:3px;}
+  .section-title{font-size:18px;font-weight:800;color:var(--primary);margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid var(--gray2);}
+
+  /* ── BARRIER ── */
+  .barrier-overview{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:20px;}
+  .barrier-card{border-radius:10px;padding:16px;border:2px solid;}
+  .barrier-card.b1{background:#fef2f2;border-color:#fecaca;}
+  .barrier-card.b2{background:#fff7ed;border-color:#fed7aa;}
+  .barrier-card.b3{background:#f0fdf4;border-color:#bbf7d0;}
+  .barrier-card.b4{background:#f5f3ff;border-color:#ddd6fe;}
+  .barrier-card-num{font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;}
+  .b1 .barrier-card-num{color:var(--danger);}
+  .b2 .barrier-card-num{color:var(--warning);}
+  .b3 .barrier-card-num{color:var(--success);}
+  .b4 .barrier-card-num{color:var(--purple);}
+  .barrier-card-q{font-size:15px;font-weight:800;color:var(--primary);margin-bottom:5px;}
+  .barrier-card-ans{font-size:12px;color:var(--gray4);line-height:1.5;}
+  .barrier-section{padding-top:24px;margin-top:24px;border-top:2px dashed var(--gray2);}
+  .barrier-section-header{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+  .barrier-num-badge{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:white;flex-shrink:0;}
+  .b1 .barrier-num-badge{background:var(--danger);}
+  .b2 .barrier-num-badge{background:var(--warning);}
+  .b3 .barrier-num-badge{background:var(--success);}
+  .b4 .barrier-num-badge{background:var(--purple);}
+  .barrier-section-title{font-size:15px;font-weight:800;color:var(--primary);}
+  .barrier-section-sub{font-size:11px;color:var(--gray3);}
+
+  /* ── TABLES ── */
+  .data-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px;}
+  .data-table th{background:var(--primary);color:white;padding:8px 12px;text-align:left;font-size:11px;font-weight:600;}
+  .data-table th:first-child{border-radius:6px 0 0 0;}
+  .data-table th:last-child{border-radius:0 6px 0 0;}
+  .data-table td{padding:8px 12px;border-bottom:1px solid var(--gray2);}
+  .data-table tr:last-child td{border-bottom:none;}
+  .data-table tr:nth-child(even) td{background:var(--gray1);}
+  .data-table td.num{font-weight:700;color:var(--accent);}
+  .data-table td.danger{font-weight:700;color:var(--danger);}
+  .data-table td.ok{font-weight:700;color:var(--success);}
+  .data-table td.warn{font-weight:700;color:var(--warning);}
+
+  /* ── STAT CARDS ── */
+  .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0;}
+  .stat-card{background:var(--gray1);border:1px solid var(--gray2);border-radius:10px;padding:14px;text-align:center;}
+  .stat-card .big{font-size:26px;font-weight:800;line-height:1.1;margin-bottom:4px;}
+  .big.blue{color:var(--accent);}.big.red{color:var(--danger);}.big.orange{color:var(--warning);}.big.green{color:var(--success);}.big.purple{color:var(--purple);}
+  .stat-card .desc{font-size:12px;color:var(--gray4);}
+  .stat-card .change{font-size:10px;margin-top:2px;font-weight:600;}
+  .stat-card .explain{font-size:10px;color:var(--gray3);margin-top:5px;line-height:1.5;text-align:left;border-top:1px solid var(--gray2);padding-top:5px;}
+  .change.up{color:var(--danger);}.change.dn{color:var(--success);}
+
+  /* ── CHARTS ── */
+  .chart-title{font-size:11px;font-weight:700;color:var(--gray4);margin-bottom:9px;text-transform:uppercase;letter-spacing:.5px;}
+  .bar-row{display:flex;align-items:center;margin-bottom:7px;gap:8px;}
+  .bar-label{font-size:12px;color:var(--text);width:180px;flex-shrink:0;text-align:right;}
+  .bar-label.wide{width:240px;}
+  .bar-track{flex:1;background:var(--gray2);border-radius:5px;height:21px;overflow:hidden;}
+  .bar-fill{height:100%;border-radius:5px;display:flex;align-items:center;padding-left:7px;font-size:10px;font-weight:700;color:white;}
+  .bar-fill.blue{background:linear-gradient(90deg,#2563eb,#3b82f6);}
+  .bar-fill.red{background:linear-gradient(90deg,#dc2626,#ef4444);}
+  .bar-fill.orange{background:linear-gradient(90deg,#d97706,#f59e0b);}
+  .bar-fill.green{background:linear-gradient(90deg,#16a34a,#22c55e);}
+  .bar-fill.gray{background:linear-gradient(90deg,#475569,#64748b);}
+  .bar-fill.purple{background:linear-gradient(90deg,#7c3aed,#a78bfa);}
+  .bar-val{font-size:11px;font-weight:700;color:var(--gray4);width:42px;flex-shrink:0;}
+
+  /* ── CALLOUTS ── */
+  .insight{background:#fffbeb;border:1px solid #fde68a;border-left:4px solid var(--warning);border-radius:0 10px 10px 0;padding:12px 15px;font-size:13px;color:#92400e;margin:14px 0;}
+  .insight strong{display:block;margin-bottom:2px;}
+  .insight-blue{background:#eff6ff;border-color:#bfdbfe;border-left-color:var(--accent);color:#1e3a8a;}
+  .insight-green{background:#f0fdf4;border-color:#bbf7d0;border-left-color:var(--success);color:#14532d;}
+  .insight-purple{background:#f5f3ff;border-color:#ddd6fe;border-left-color:var(--purple);color:#4c1d95;}
+
+  /* ── THESIS ── */
+  .thesis-box{background:linear-gradient(135deg,#eff6ff,#f0f9ff);border:1px solid #bfdbfe;border-radius:12px;padding:22px 26px;margin:18px 0;}
+  .thesis-box .tb-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
+  .thesis-box .tb-main{font-size:16px;font-weight:800;color:var(--primary);line-height:1.5;margin-bottom:8px;}
+  .thesis-box .tb-sub{font-size:13px;color:var(--gray4);line-height:1.7;}
+
+  /* ── J-CURVE ── */
+  .jcurve{background:var(--gray1);border:1px solid var(--gray2);border-radius:10px;padding:16px;margin:12px 0;}
+  .jcurve-phases{display:flex;gap:0;margin-top:8px;}
+  .jcurve-phase{flex:1;text-align:center;padding:12px 8px;border-radius:7px;}
+  .jcurve-phase.invest{background:#fef2f2;border:1px solid #fecaca;}
+  .jcurve-phase.trough{background:#fffbeb;border:1px solid #fde68a;}
+  .jcurve-phase.harvest{background:#f0fdf4;border:1px solid #bbf7d0;}
+  .jcurve-arrow{display:flex;align-items:center;padding:0 4px;color:var(--gray3);font-size:15px;}
+  .ph-icon{font-size:18px;margin-bottom:4px;}
+  .ph-name{font-size:11px;font-weight:800;margin-bottom:2px;}
+  .ph-desc{font-size:10px;color:var(--gray4);line-height:1.4;}
+  .jcurve-now{text-align:center;margin-top:7px;font-size:11px;font-weight:700;color:var(--success);}
+
+  /* ── REVENUE MIX ── */
+  .rev-mix{display:flex;gap:9px;margin:12px 0;flex-wrap:wrap;}
+  .rev-seg{border-radius:9px;padding:13px;flex:1;min-width:120px;}
+  .rev-seg.b2c{background:#dbeafe;border:1px solid #93c5fd;}
+  .rev-seg.ent{background:#d1fae5;border:1px solid #6ee7b7;}
+  .rev-seg.api{background:#fef3c7;border:1px solid #fcd34d;}
+  .seg-pct{font-size:22px;font-weight:800;margin-bottom:2px;}
+  .rev-seg.b2c .seg-pct{color:var(--accent);}
+  .rev-seg.ent .seg-pct{color:var(--success);}
+  .rev-seg.api .seg-pct{color:var(--warning);}
+  .seg-label{font-size:12px;font-weight:700;}
+  .seg-desc{font-size:11px;color:var(--gray4);}
+
+  /* ── SENTIMENT ── */
+  .sentiment-row{display:flex;align-items:center;margin-bottom:9px;gap:8px;}
+  .sent-label{font-size:12px;width:170px;flex-shrink:0;}
+  .sent-before,.sent-after{display:flex;align-items:center;flex:1;}
+  .sent-bar-b{height:18px;border-radius:4px;background:#94a3b8;display:flex;align-items:center;padding:0 6px;font-size:10px;font-weight:700;color:white;}
+  .sent-bar-a{height:18px;border-radius:4px;display:flex;align-items:center;padding:0 6px;font-size:10px;font-weight:700;color:white;}
+  .sent-arrow{font-size:12px;color:var(--gray3);width:15px;text-align:center;flex-shrink:0;}
+  .sent-delta{font-size:10px;font-weight:700;width:46px;flex-shrink:0;}
+  .delta-up{color:var(--danger);}.delta-dn{color:var(--success);}
+
+  /* ── SANDWICH ── */
+  .sandwich{display:flex;flex-direction:column;align-items:center;gap:0;margin:16px 0;}
+  .sw-top,.sw-bot{border-radius:10px;padding:13px 20px;text-align:center;width:82%;}
+  .sw-top{background:linear-gradient(135deg,#1e3a5f,#2563eb);color:white;}
+  .sw-bot{background:linear-gradient(135deg,#7f1d1d,#dc2626);color:white;}
+  .sw-mid{background:var(--gray1);border:2px dashed var(--gray3);border-radius:10px;padding:14px 20px;text-align:center;width:92%;margin:4px 0;position:relative;}
+  .sw-mid::before,.sw-mid::after{content:'↕';position:absolute;left:50%;font-size:14px;color:var(--gray3);}
+  .sw-mid::before{top:-13px;transform:translateX(-50%);}
+  .sw-mid::after{bottom:-13px;transform:translateX(-50%);}
+  .sw-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;opacity:.75;margin-bottom:2px;}
+  .sw-text{font-size:12px;font-weight:700;}
+  .sw-stat{font-size:11px;opacity:.8;margin-top:2px;}
+
+  /* ── PSYCH ── */
+  .psych-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:12px 0;}
+  .psych-card{border-radius:10px;padding:16px 13px;text-align:center;}
+  .psych-card.over{background:#fef3c7;border:1px solid #fde68a;}
+  .psych-card.alien{background:#f3e8ff;border:1px solid #e9d5ff;}
+  .psych-card.resist{background:#fee2e2;border:1px solid #fecaca;}
+  .psych-icon{font-size:24px;margin-bottom:6px;}
+  .psych-type{font-size:12px;font-weight:800;margin-bottom:4px;color:var(--primary);}
+  .psych-desc{font-size:11px;color:var(--gray4);line-height:1.4;}
+  .psych-src{font-size:9px;color:var(--gray3);margin-top:4px;}
+
+  /* ── REG TIMELINE ── */
+  .reg-timeline{padding-left:22px;margin:12px 0;position:relative;}
+  .reg-timeline::before{content:'';position:absolute;left:6px;top:0;bottom:0;width:2px;background:var(--gray2);}
+  .reg-item{position:relative;margin-bottom:12px;}
+  .reg-item::before{content:'';position:absolute;left:-18px;top:5px;width:10px;height:10px;border-radius:50%;background:var(--accent);border:2px solid white;box-shadow:0 0 0 2px var(--accent);}
+  .reg-item.done::before{background:var(--success);box-shadow:0 0 0 2px var(--success);}
+  .reg-item.key::before{background:var(--danger);box-shadow:0 0 0 2px var(--danger);}
+  .reg-date{font-size:10px;font-weight:700;color:var(--gray3);}
+  .reg-title{font-size:13px;font-weight:700;color:var(--text);}
+  .reg-desc{font-size:12px;color:var(--gray4);margin-top:1px;}
+
+  /* ── INFRA BARS ── */
+  .infra-bar-row{display:flex;align-items:center;margin-bottom:6px;gap:8px;}
+  .infra-company{width:95px;font-size:12px;font-weight:600;flex-shrink:0;}
+  .infra-track{flex:1;background:var(--gray2);border-radius:4px;height:19px;overflow:hidden;}
+  .infra-fill{height:100%;border-radius:4px;display:flex;align-items:center;padding-left:6px;font-size:10px;font-weight:700;color:white;}
+  .infra-amt{font-size:11px;font-weight:700;color:var(--gray4);width:58px;flex-shrink:0;}
+
+  /* ── SCENARIO ── */
+  .scenario-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:14px 0;}
+  .scenario-card{border-radius:10px;padding:16px;border:1px solid var(--gray2);}
+  .scenario-a{background:#f0fdf4;border-color:#bbf7d0;}
+  .scenario-b{background:#fffbeb;border-color:#fde68a;}
+  .scenario-c{background:#fef2f2;border-color:#fecaca;}
+  .sc-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:5px;}
+  .scenario-a .sc-label{color:var(--success);}
+  .scenario-b .sc-label{color:var(--warning);}
+  .scenario-c .sc-label{color:var(--danger);}
+  .sc-title{font-size:12px;font-weight:800;color:var(--primary);margin-bottom:5px;}
+  .sc-desc{font-size:11px;color:var(--gray4);line-height:1.5;}
+
+  /* ── FINAL BOX ── */
+  .final-box{background:linear-gradient(135deg,var(--primary),#1e3a5f);color:white;border-radius:14px;padding:26px 30px;margin-top:18px;text-align:center;}
+  .final-box .f-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#93c5fd;margin-bottom:8px;}
+  .final-box .f-main{font-size:18px;font-weight:800;color:#60a5fa;margin-bottom:8px;line-height:1.4;}
+  .final-box .f-sub{font-size:13px;color:#cbd5e1;line-height:1.7;}
+
+  /* ── APPX ── */
+  .appx-header{background:var(--gray2);border-radius:10px;padding:14px 20px;margin-bottom:4px;display:flex;align-items:center;gap:10px;}
+  .appx-badge{background:var(--gray4);color:white;font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:3px 9px;border-radius:9px;}
+  .appx-title{font-size:14px;font-weight:800;color:var(--primary);}
+  .appx-sub{font-size:11px;color:var(--gray4);}
+
+  /* ── SOURCES ── */
+  .sources{background:var(--gray1);border:1px solid var(--gray2);border-radius:10px;padding:18px 22px;margin-top:18px;}
+  .sources h3{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gray3);margin-bottom:9px;}
+  .sources ul{list-style:none;}
+  .sources ul li{font-size:12px;color:var(--gray4);padding:3px 0;border-bottom:1px solid var(--gray2);}
+  .sources ul li:last-child{border-bottom:none;padding-bottom:0;}
+  .sources ul li a{color:var(--accent);text-decoration:none;}
+
+  /* ── MISC ── */
+  .divider{border:none;border-top:1px solid var(--gray2);margin:18px 0;}
+  .note{font-size:11px;color:var(--gray3);font-style:italic;margin-top:3px;}
+  .spacer{height:8px;}
+  .mini-rev-bar{display:flex;flex-direction:column;gap:5px;margin-bottom:14px;}
+  .mini-rev-row{display:flex;align-items:center;gap:7px;}
+  .mini-rev-yr{width:76px;font-size:11px;font-weight:700;color:var(--gray4);flex-shrink:0;}
+  .mini-rev-bars{flex:1;display:flex;flex-direction:column;gap:2px;}
+  .mini-bar-r{height:14px;border-radius:3px;background:linear-gradient(90deg,#2563eb,#60a5fa);display:flex;align-items:center;padding-left:5px;font-size:9px;font-weight:700;color:white;}
+  .mini-bar-l{height:14px;border-radius:3px;background:linear-gradient(90deg,#dc2626,#f87171);display:flex;align-items:center;padding-left:5px;font-size:9px;font-weight:700;color:white;}
+
+  @media(max-width:900px){
+    .page-layout{flex-direction:column;}
+    .notepad-col{width:100%;position:static;max-height:none;}
+    .notepad-col .notepad-body{background:repeating-linear-gradient(var(--pad-bg) 0px,var(--pad-bg) 23px,var(--pad-line) 23px,var(--pad-line) 24px);}
+  }
+  @media(max-width:640px){
+    .cover{padding:44px 22px 34px;}.cover h1{font-size:24px;}
+    .section{padding:22px 16px;}
+    .stat-grid{grid-template-columns:repeat(2,1fr);}
+    .psych-grid,.scenario-grid{grid-template-columns:1fr;}
+    .barrier-overview{grid-template-columns:1fr;}
+    .bar-label,.bar-label.wide{width:110px;font-size:10px;}
+    .sent-label{width:110px;}
+    .jcurve-phases{flex-direction:column;}
+    .rev-mix{flex-direction:column;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ COVER ══ -->
+<div class="cover">
+  <div class="cover-badge">Research Report · 2026.05</div>
+  <h1>AI 진보의 이면<br><span>재무·수요·규제·에너지·조직, 5개의 벽</span></h1>
+  <p class="cover-thesis">
+    AI 기술의 진보는 실재한다. 다만 2026년 현재 AI 산업의 병목은 모델 성능이 아니라,<br>
+    수익화·조직 수용성·규제 대응·전력/반도체 인프라라는 비기술적 제약으로 이동하고 있다.
+  </p>
+  <div class="cover-meta">
+    <div class="cover-meta-item"><label>데이터 출처</label><span>Gallup · Deloitte · NBER · Modern Health · METR · OpenAI</span></div>
+    <div class="cover-meta-item"><label>구성</label><span>서론 + 3막 + 결론 · 별첨 2개</span></div>
+  </div>
+</div>
+
+<!-- ══ 2-COLUMN PAGE LAYOUT ══ -->
+<div class="page-layout">
+
+  <!-- ── 본문 ── -->
+  <div class="main-col">
+
+    <!-- TOC -->
+    <div class="toc">
+      <div class="toc-headline">목차</div>
+      <div class="toc-act">
+        <div class="toc-act-header"><span class="toc-act-badge intro">서론</span><span class="toc-act-title">핵심 주장과 분석 배경</span></div>
+        <div class="toc-act-quote">"AI 기술의 진보는 실재한다. 다만 2026년 현재 병목은 기술이 아니라 비기술적 제약으로 이동했다."</div>
+      </div>
+      <hr class="toc-divider">
+      <div class="toc-act">
+        <div class="toc-act-header"><span class="toc-act-badge act1">1막</span><span class="toc-act-title">기술은 실재한다, 전환은 필연이다</span><span class="toc-act-sub">기술 진보 측정 + 버블 논쟁 해소</span></div>
+        <div class="toc-act-quote">"기술이 실재한다는 건 이미 증명됐다. 진짜 논쟁은 '누가, 언제, 어떤 형태로 수익화에 성공하는가'다."</div>
+      </div>
+      <hr class="toc-divider">
+      <div class="toc-act">
+        <div class="toc-act-header"><span class="toc-act-badge act2">2막</span><span class="toc-act-title">시스템이 버티지 못하고 있다</span><span class="toc-act-sub">재무 · 규제 · 에너지 — 3대 구조 장벽</span></div>
+        <div class="toc-act-quote">"매출은 3배 성장해도 손실은 더 빠르게 폭증한다. 규제 시계는 이미 작동 중이고, 전력망은 한계에 달했다."</div>
+        <ul class="toc-sub-list">
+          <li><span class="barrier-dot">1</span>돈이 되는가? — 재무 지속가능성</li>
+          <li><span class="barrier-dot">2</span>허용되는가? — 규제·지정학 압박</li>
+          <li><span class="barrier-dot">3</span>가능한가? — 에너지·공급망 한계</li>
+        </ul>
+      </div>
+      <hr class="toc-divider">
+      <div class="toc-act">
+        <div class="toc-act-header"><span class="toc-act-badge act3">3막</span><span class="toc-act-title">사람과 조직이 따라가지 못하고 있다</span><span class="toc-act-sub">수요 저항 · 심리 · 중간 관리자</span></div>
+        <div class="toc-act-quote">"AI를 써야 할 사람들이 등을 돌리고 있다. 기술 투자의 95%는 시스템에, 5%만 사람에게 투입되는 것이 현실이다."</div>
+        <ul class="toc-sub-list">
+          <li><span class="barrier-dot" style="background:var(--act3);">1</span>원하는가? — 미국 Gen Z의 반감 확대</li>
+          <li><span class="barrier-dot" style="background:var(--act3);">2</span>실행되는가? — 심리적 간극과 관리자 딜레마</li>
+        </ul>
+      </div>
+      <hr class="toc-divider">
+      <div class="toc-act">
+        <div class="toc-act-header"><span class="toc-act-badge concl">결론</span><span class="toc-act-title">3가지 시나리오와 시사점</span></div>
+        <div class="toc-act-quote">"기술은 살고, 비즈니스 모델과 생태계는 재편된다. 2028~2030년이 분기점이다."</div>
+      </div>
+      <hr class="toc-divider">
+      <div class="toc-act">
+        <div class="toc-act-header"><span class="toc-act-badge appx">별첨 A</span><span class="toc-act-title" style="color:var(--gray4);font-size:13px;">에너지·반도체 상세 데이터</span></div>
+      </div>
+      <div class="toc-act">
+        <div class="toc-act-header"><span class="toc-act-badge appx">별첨 B</span><span class="toc-act-title" style="color:var(--gray4);font-size:13px;">규제 상세 타임라인</span></div>
+      </div>
+    </div>
+
+    <!-- 서론 -->
+    <div class="section">
+      <div class="section-label">서론</div>
+      <div class="section-title">핵심 주장과 분석 배경</div>
+      <div class="thesis-box">
+        <div class="tb-label">이 보고서의 핵심 주장</div>
+        <div class="tb-main">"AI 기술의 진보는 실재한다. 2026년 현재 병목은 기술이 아니라 비기술적 제약 — 수익화·조직·규제·인프라 — 으로 이동했다."</div>
+        <div class="tb-sub">2026년 현재 AI 산업은 기술적 진보와 사업적 현실이 완전히 다른 속도로 움직이고 있다. 모델 성능은 인간 전문가 수준의 자율 작업을 일부 달성했고 에이전트 시대가 열리고 있다. 그러나 재무·수요·규제·에너지라는 4개의 구조적 장벽을 동시에 넘어야 한다. 3막 구조로 이 충돌을 진단한다.</div>
+      </div>
+      <div class="stat-grid">
+        <div class="stat-card"><div class="big blue">9억 명</div><div class="desc">ChatGPT 사용자</div><div class="change up">유료 전환 5% — 수익화 미완</div></div>
+        <div class="stat-card"><div class="big red">$440억</div><div class="desc">OpenAI 2023~28 누적 손실 <em style="font-size:9px;opacity:.7;">(언론·투자자 추정)</em></div><div class="change up">기술 진보 ≠ 수익 구조</div></div>
+        <div class="stat-card"><div class="big orange">2026.08</div><div class="desc"><span class="term">EU AI Act<span class="tip">European Union Artificial Intelligence Act. AI를 위험 등급별로 분류해 규제하는 세계 최초 포괄적 AI 법률.</span></span> 핵심 데드라인</div><div class="change up">글로벌 규제 시계 작동 중</div></div>
+      </div>
+    </div>
+
+    <div class="spacer"></div>
+
+    <!-- 1막 -->
+    <div class="act-header act1">
+      <div class="act-label">1막</div>
+      <div class="act-title">기술은 실재한다, 전환은 필연이다</div>
+      <div class="act-desc">AI 기술의 진보는 측정 가능하고 가속 중이다. 비용 구조도 이미 AI 전환을 경제적으로 정당화한다. 버블 논쟁은 기술이 아닌 수익화 속도의 문제다. → <em style="opacity:.75;font-size:12px;">수치 해석 주의사항은 오른쪽 메모 참조</em></div>
+    </div>
+    <div class="section">
+      <div class="section-label">1막</div>
+      <div class="section-title">기술 진보의 실체 — 그리고 버블 논쟁의 해소</div>
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="big blue">50%</div>
+          <div class="desc"><span class="term">METR<span class="tip">Evaluating AI Systems. AI 자율성·안전성을 독립적으로 평가하는 비영리 연구기관.</span></span> 16시간+ 작업 성공률</div>
+          <div class="change" style="color:var(--gray4);">228개 중 5개 해당 · 소규모 샘플 주의</div>
+          <div class="explain">인간이 약 16시간 걸리는 복잡한 소프트웨어 과제(설계·코딩·디버깅 포함)를 AI가 <strong>사람 개입 없이 혼자</strong> 완료한 비율. ※ 성공 기준을 <strong>80%로 올리면 약 1시간짜리 과제</strong>까지가 현재 자동화 가능 범위 — 실용적 활용 기준으로는 이 수치가 더 의미 있다.</div>
+        </div>
+        <div class="stat-card">
+          <div class="big green">7개월</div>
+          <div class="desc">AI 자율 작업 처리 시간 2배 주기</div>
+          <div class="change dn">2024~25년 4개월로 가속 중</div>
+          <div class="explain">AI가 혼자 처리 가능한 작업의 <strong>복잡도(소요 시간 기준)가 2배로 늘어나는 속도</strong>. 즉 7개월 전에는 8시간짜리 과제가 한계였다면, 지금은 16시간짜리를 처리한다는 뜻 — 기술 진보 속도의 척도.</div>
+        </div>
+        <div class="stat-card">
+          <div class="big orange">80%</div>
+          <div class="desc">2026년 말 기업용 앱 에이전트 내장 비율 전망</div>
+          <div class="change" style="color:var(--gray4);">Gartner 2025 전망 기준</div>
+          <div class="explain"><strong>AI 에이전트</strong>란 단순 답변이 아닌 "알아서 계획 수립 → 실행 → 결과 확인"을 반복하는 자율 AI. 기업 앱(CRM·ERP·HR 등)의 80%가 이런 AI를 탑재할 것이라는 Gartner 예측.</div>
+        </div>
+      </div>
+
+      <hr class="divider">
+      <h3 style="font-size:13px;font-weight:700;color:var(--gray4);margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px;">버블 논쟁의 핵심 역설 — <span class="term">J-Curve<span class="tip">기술 도입 후 생산성이 일시 하락했다가 급상승하는 패턴. 전기·PC 도입 때도 같은 경로 반복 (Brynjolfsson, MIT).</span></span>로 해소</h3>
+      <p style="font-size:13px;color:var(--gray4);margin-bottom:12px;line-height:1.7;">"기업 앱 80%의 에이전트 내장 전환"(Gartner 전망, 낙관론)과 "대부분 기업에서 아직 생산성·고용 영향 제한적"(<span class="term">NBER<span class="tip">National Bureau of Economic Research. 미국 국립경제연구소. 경제·노동 정책 연구 최고 권위기관.</span></span>, 비관론)은 모순처럼 보이지만 동시에 성립한다. 기술 도입 후 생산성 반영까지 3~7년이 걸린다 → 오른쪽 메모 참조.</p>
+      <div class="jcurve">
+        <div class="chart-title">생산성 J-Curve (<span class="term" style="border-bottom-color:var(--gray4);">Brynjolfsson<span class="tip">Erik Brynjolfsson. MIT 교수. AI·디지털 기술과 생산성의 관계를 연구하는 세계 최고 권위자.</span></span>, MIT) — AI도 같은 경로</div>
+        <div class="jcurve-phases">
+          <div class="jcurve-phase invest"><div class="ph-icon">📉</div><div class="ph-name" style="color:var(--danger);">투자 단계</div><div class="ph-desc">인프라·조직 재설계·재훈련 → 생산성 수치 하락</div></div>
+          <div class="jcurve-arrow">→</div>
+          <div class="jcurve-phase trough"><div class="ph-icon">📊</div><div class="ph-name" style="color:var(--warning);">정체 구간</div><div class="ph-desc">기술 배포됐지만 조직·프로세스가 따라가지 못함</div></div>
+          <div class="jcurve-arrow">→</div>
+          <div class="jcurve-phase harvest"><div class="ph-icon">📈</div><div class="ph-name" style="color:var(--success);">수확 단계</div><div class="ph-desc">조직 학습 완료 → 생산성 급상승</div></div>
+        </div>
+        <div class="jcurve-now">▶ 2026년 미국 노동생산성 2.7% 성장 (전 10년 평균 1.4%의 2배) — 수확 단계 진입 신호</div>
+      </div>
+      <hr class="divider">
+      <h3 style="font-size:13px;font-weight:700;color:var(--gray4);margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px;">AI 전환의 경제적 필연성 — 비용 역전 논리</h3>
+      <div style="display:flex;gap:10px;margin-bottom:13px;flex-wrap:wrap;align-items:stretch;">
+        <div style="flex:1;min-width:140px;background:#dbeafe;border:1px solid #93c5fd;border-radius:10px;padding:14px;text-align:center;">
+          <div style="font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;">화이트칼라 직원</div>
+          <div style="font-size:28px;font-weight:800;color:var(--primary);line-height:1;">$50</div>
+          <div style="font-size:11px;color:var(--gray4);margin-top:3px;">/ 시간</div>
+        </div>
+        <div style="display:flex;align-items:center;font-size:22px;font-weight:800;color:var(--gray3);">vs</div>
+        <div style="flex:1;min-width:140px;background:#d1fae5;border:1px solid #6ee7b7;border-radius:10px;padding:14px;text-align:center;">
+          <div style="font-size:11px;font-weight:700;color:var(--success);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;">Nvidia H100 GPU</div>
+          <div style="font-size:28px;font-weight:800;color:var(--primary);line-height:1;">$2.50</div>
+          <div style="font-size:11px;color:var(--gray4);margin-top:3px;">/ 시간 (렌탈)</div>
+        </div>
+        <div style="flex:2;min-width:200px;background:#fef9f0;border:1px solid #fcd34d;border-radius:10px;padding:14px;">
+          <div style="font-size:11px;font-weight:700;color:var(--warning);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;">비용 역전 포인트</div>
+          <div style="font-size:12px;color:var(--gray4);line-height:1.65;">GPU는 인간 비용의 <strong style="color:var(--primary);">1/20</strong>. AI가 인간 업무 1시간을 완료하는 데 <strong>20시간</strong>이 걸려도 비용은 동일하다. 즉 AI가 사람보다 20배 느려도 기업 입장에서는 전환할 경제적 이유가 생긴다. 속도가 개선될수록 이 격차는 더 벌어진다.</div>
+        </div>
+      </div>
+      <div class="insight insight-blue">
+        <strong>1막의 결론</strong>
+        AI 기술의 방향성과 진보는 유효하다. "버블"이라는 표현은 기술이 아닌 현재의 <strong>기업 수익 구조와 밸류에이션</strong>에 대한 논쟁이다. 비용 구조는 이미 AI 전환을 경제적으로 정당화한다 — 남은 문제는 '속도와 신뢰성'이다. → Sam Altman 발언 원문은 오른쪽 메모 참조.
+      </div>
+    </div>
+
+    <div class="spacer"></div>
+
+    <!-- 2막 -->
+    <div class="act-header act2">
+      <div class="act-label">2막</div>
+      <div class="act-title">시스템이 버티지 못하고 있다</div>
+      <div class="act-desc">기술 진보만으로 충분하지 않다. 재무·규제·에너지 — 세 가지 구조적 장벽이 AI 사업화의 속도를 제약하고 있다. 이것은 기술 문제가 아니라 시스템 문제다.</div>
+    </div>
+    <div class="section">
+      <div class="section-label">2막</div>
+      <div class="section-title">3대 시스템 장벽 — 재무·규제·에너지</div>
+
+      <div class="barrier-overview">
+        <div class="barrier-card b1"><div class="barrier-card-num">장벽 1</div><div class="barrier-card-q">돈이 되는가?</div><div class="barrier-card-ans">9억 명 중 유료 전환 ~5.6%. OpenAI 2023~28 누적 손실 $440억(언론·투자자 추정). 매출은 3배씩 성장하지만 비용도 함께 폭증.</div></div>
+        <div class="barrier-card b3"><div class="barrier-card-num">장벽 2</div><div class="barrier-card-q">허용되는가?</div><div class="barrier-card-ans">EU AI Act 2026.08 본격 시행, 한국 AI 기본법 2026.01 시행. 규제 차이로 글로벌 시장 분열 중.</div></div>
+        <div class="barrier-card b4"><div class="barrier-card-num">장벽 3</div><div class="barrier-card-q">가능한가?</div><div class="barrier-card-ans">데이터센터 전력 수요 2025~28년 2배 증가. 미국 최대 전력망 2027년 6GW 부족 예고. 반도체 패키징 병목.</div></div>
+      </div>
+
+      <!-- 장벽 1 -->
+      <div class="barrier-section">
+        <div class="barrier-section-header">
+          <div class="barrier-num-badge b1">1</div>
+          <div><div class="barrier-section-title">돈이 되는가? — 재무 지속가능성</div><div class="barrier-section-sub">매출은 성장하지만 수익 구조는 취약하다 / 인프라 약정 주의사항 → 오른쪽 메모 참조</div></div>
+        </div>
+        <div class="chart-title" style="margin-bottom:8px;">OpenAI 연도별 매출 vs 손실 추이</div>
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:10px;font-size:10px;font-weight:700;color:var(--gray4);">
+          <span><span style="display:inline-block;width:14px;height:10px;border-radius:2px;background:linear-gradient(90deg,#2563eb,#60a5fa);vertical-align:middle;margin-right:4px;"></span>매출</span>
+          <span><span style="display:inline-block;width:14px;height:10px;border-radius:2px;background:linear-gradient(90deg,#dc2626,#f87171);vertical-align:middle;margin-right:4px;"></span>손실</span>
+          <span style="color:var(--warning);">2026 수치는 애널리스트/언론 추정 기준</span>
+        </div>
+        <div class="mini-rev-bar">
+          <div class="mini-rev-row"><span class="mini-rev-yr">2023</span><div class="mini-rev-bars"><div class="mini-bar-r" style="width:7%;">$20</div><div class="mini-bar-l" style="width:17%;">$50억 손실</div></div></div>
+          <div class="mini-rev-row"><span class="mini-rev-yr">2024</span><div class="mini-rev-bars"><div class="mini-bar-r" style="width:20%;">$60억</div><div class="mini-bar-l" style="width:27%;">$80억 손실</div></div></div>
+          <div class="mini-rev-row"><span class="mini-rev-yr">2025</span><div class="mini-rev-bars"><div class="mini-bar-r" style="width:44%;">$130억 (연환산 $200억)</div><div class="mini-bar-l" style="width:17%;">$50억</div></div></div>
+          <div class="mini-rev-row"><span class="mini-rev-yr" style="color:var(--warning);">2026 전망</span><div class="mini-rev-bars"><div class="mini-bar-r" style="width:100%;">$294억</div><div class="mini-bar-l" style="width:47%;">$140억 손실 추정 (2025 대비 3배)</div></div></div>
+        </div>
+        <p class="note" style="margin-bottom:12px;">단위: 억 달러 (미국 달러 기준)</p>
+        <h4 style="font-size:12px;font-weight:700;color:var(--gray4);margin-bottom:9px;text-transform:uppercase;letter-spacing:.5px;">매출 구성 — B2C vs B2B (2026년)</h4>
+        <div class="rev-mix">
+          <div class="rev-seg b2c">
+            <div class="seg-pct">24%</div>
+            <div class="seg-label">ChatGPT Plus</div>
+            <div class="seg-desc"><strong>개인 유료 구독 플랜.</strong> GPT-4o·이미지 생성·코드 실행 등 고급 기능 제공.<br>월 $20 · ~1,500만 명 구독</div>
+          </div>
+          <div class="rev-seg ent">
+            <div class="seg-pct">50%</div>
+            <div class="seg-label">Team / <span class="term" style="border-bottom-color:#15803d;">Enterprise<span class="tip">기업 고객 대상 AI 구독 플랜. 평균 $42/월/시트. 보안·관리 기능 포함.</span></span></div>
+            <div class="seg-desc">
+              <strong>기업 전용 플랜.</strong> Team(소규모·월 $25/인)은 높은 사용 한도 + 데이터 학습 제외. Enterprise(대기업)는 SSO·감사 로그·전용 인스턴스 등 보안 기능 추가.<br>
+              ~350~400만 시트 · 평균 $42/월 · <span class="term">ARPU<span class="tip">Average Revenue Per User. 사용자 1인당 평균 수익. 유료 사용자 기준 $35~40/월.</span></span> $35~40 / 2026년 내 B2C 추월 전망
+            </div>
+          </div>
+          <div class="rev-seg api">
+            <div class="seg-pct">26%</div>
+            <div class="seg-label">API</div>
+            <div class="seg-desc"><strong>개발자 연동 방식.</strong> 외부 기업이 OpenAI의 GPT 모델을 자사 서비스에 직접 연결해 사용. 사용량(토큰 수) 기반 과금 — 구독이 아닌 종량제.<br>900만+ 비즈니스 사용자</div>
+          </div>
+        </div>
+        <div class="insight insight-blue">
+          <strong>왜 95%가 돈을 안 내는가</strong>
+          전환 장벽은 가격이 아닌 <strong>가치 인식 격차</strong>다. 대부분이 "가끔 쓰는 검색 대안"으로 인식. B2B Enterprise 확대가 느린 것은 도입 결정 사이클(평균 6~12개월)과 보안·컴플라이언스 요건 때문. Google도 일본 회사채 발행으로 자본 다변화 중 — 미국 자본만으로 AI 인프라를 감당 불가.
+        </div>
+      </div>
+
+      <!-- 장벽 2 (구 장벽3) -->
+      <div class="barrier-section">
+        <div class="barrier-section-header">
+          <div class="barrier-num-badge b3">2</div>
+          <div><div class="barrier-section-title">허용되는가? — 규제·지정학 압박</div><div class="barrier-section-sub">EU·한국이 규제를 시행하고, DeepSeek이 시장 구도를 흔들었다 / 상세 타임라인 → 별첨 B</div></div>
+        </div>
+        <table class="data-table">
+          <thead><tr><th>항목</th><th>EU AI Act</th><th>한국 AI 기본법</th></tr></thead>
+          <tbody>
+            <tr><td>핵심 데드라인</td><td class="danger">2026.08.02 — 고위험 AI 전면 시행</td><td class="num">2026.01.22 시행 (계도기간 ~2027)</td></tr>
+            <tr><td>규제 철학</td><td class="danger">규제 중심 · 위험 등급별 강제</td><td class="ok">진흥 중심 · 최소 규제</td></tr>
+            <tr><td>위반 제재</td><td class="danger">최대 €3,500만 또는 매출 7%</td><td class="ok">2027년 이후 과태료</td></tr>
+          </tbody>
+        </table>
+        <div class="insight insight-blue">
+          <strong><span class="term">제번스 역설<span class="tip">Jevons Paradox. 기술 효율성 향상이 오히려 수요를 폭증시켜 총 소비가 증가하는 현상. 19세기 석탄 효율화 때 처음 관찰.</span></span> — DeepSeek이 AI 지출을 늘렸다</strong>
+          2025.01 DeepSeek 출시 → Nvidia 시총 하루 약 $6,000억 증발(보도 기준). 그러나 실제로는 비용 하락 → 수요 폭증 → Anthropic $1B→$9B, Google 클라우드 +48% 성장. <strong>낮아진 비용이 오히려 AI 총 지출을 늘렸다.</strong> 단, 규제 차이가 심화되면 AI 생태계 지정학적 분열로 이어진다 — 상세는 별첨 B.
+        </div>
+      </div>
+
+      <!-- 장벽 3 (구 장벽4) -->
+      <div class="barrier-section">
+        <div class="barrier-section-header">
+          <div class="barrier-num-badge b4">3</div>
+          <div><div class="barrier-section-title">가능한가? — 에너지·공급망 한계</div><div class="barrier-section-sub">물리적 상한선이 성장 속도를 제약하기 시작했다 / 상세 데이터 → 별첨 A</div></div>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-card"><div class="big red">1,100 TWh</div><div class="desc">2026년 전 세계 데이터센터 전력 소비</div><div class="change up">일본 국가 전체 소비량과 동일</div></div>
+          <div class="stat-card"><div class="big orange">6 GW</div><div class="desc"><span class="term">PJM<span class="tip">Pennsylvania-Jersey-Maryland 전력망. 미국 13개 주, 65M명 대상 최대 전력망 운영사.</span></span> 2027년 부족 예상량</div><div class="change up">미국 최대 전력망 경고</div></div>
+          <div class="stat-card"><div class="big purple">50%+</div><div class="desc">Nvidia의 TSMC <span class="term">CoWoS<span class="tip">Chip on Wafer on Substrate. TSMC의 고급 반도체 패키징 기술. AI 칩 병목의 핵심 공정.</span></span> 용량 선점</div><div class="change up">패키징 병목이 핵심 제약</div></div>
+        </div>
+        <div class="insight insight-purple">
+          <strong>성장 전망에서 빠진 변수 → 메모 참조</strong>
+          OpenAI 매출 전망(애널리스트 추정)은 전력망이 수요를 감당한다는 가정 위에 있다. 에너지 비용 상승(2019 대비 +42%)은 AI 추론 비용 하락에 역행하는 압력이다. Microsoft는 Constellation Energy와 Three Mile Island 재가동 계약(약 835MW)을 체결했지만 업계 전체를 커버하기 역부족. 상세 데이터 → 별첨 A.
+        </div>
+      </div>
+    </div>
+
+    <div class="spacer"></div>
+
+    <!-- 3막 -->
+    <div class="act-header act3">
+      <div class="act-label">3막</div>
+      <div class="act-title">사람과 조직이 따라가지 못하고 있다</div>
+      <div class="act-desc">시스템 장벽보다 더 조용하고 더 깊은 장벽이 있다. AI를 써야 할 사람들이 등을 돌리고 있고, 실행해야 할 조직은 무너지고 있다. 수요 저항과 인적 병목이 AI 전환의 마지막 벽이다.</div>
+    </div>
+    <div class="section">
+      <div class="section-label">3막</div>
+      <div class="section-title">인적 장벽 — 수요 저항과 조직의 균열</div>
+
+      <!-- 인적 장벽 1: Gen Z 수요 저항 -->
+      <div class="barrier-section" style="margin-bottom:22px;">
+        <div class="barrier-section-header">
+          <div class="barrier-num-badge" style="background:var(--act3);">1</div>
+          <div><div class="barrier-section-title">원하는가? — 미국 Gen Z의 반감 확대</div><div class="barrier-section-sub">AI를 가장 써야 할 세대가 등을 돌리고 있다 (Gallup, 미국 14~29세 표본)</div></div>
+        </div>
+        <div style="display:flex;gap:7px;margin-bottom:7px;font-size:10px;font-weight:700;color:var(--gray3);text-transform:uppercase;"><div style="width:170px;"></div><div style="flex:1;padding-left:3px;">2025</div><div style="width:15px;"></div><div style="flex:1;padding-left:3px;">2026</div><div style="width:46px;text-align:right;">변화</div></div>
+        <div class="sentiment-row"><div class="sent-label">흥미·설렘</div><div class="sent-before"><div class="sent-bar-b" style="width:36%;">36%</div></div><div class="sent-arrow">→</div><div class="sent-after"><div class="sent-bar-a" style="width:22%;background:linear-gradient(90deg,#dc2626,#f87171);">22%</div></div><div class="sent-delta delta-up">▼ -14%p</div></div>
+        <div class="sentiment-row"><div class="sent-label">분노·적대감</div><div class="sent-before"><div class="sent-bar-b" style="width:22%;">22%</div></div><div class="sent-arrow">→</div><div class="sent-after"><div class="sent-bar-a" style="width:31%;background:linear-gradient(90deg,#b45309,#f59e0b);">31%</div></div><div class="sent-delta delta-up">▲ +9%p</div></div>
+        <div class="sentiment-row"><div class="sent-label">리스크 &gt; 혜택</div><div class="sent-before"><div class="sent-bar-b" style="width:37%;">37%</div></div><div class="sent-arrow">→</div><div class="sent-after"><div class="sent-bar-a" style="width:48%;background:linear-gradient(90deg,#b45309,#f59e0b);">48%</div></div><div class="sent-delta delta-up">▲ +11%p</div></div>
+        <p class="note">Gallup Panel, 1,572명, 14~29세, 2026.02~03</p>
+        <div class="insight" style="margin-top:12px;">
+          <strong>미국 특수인가, 선행 지표인가</strong>
+          인도 Gen Z는 90% 이상이 AI를 정기 사용하며 높은 자신감. 미국 Gen Z의 분노는 <strong>엔트리레벨 일자리 위협 체감</strong>의 차이다. 미국 현상이 5년 후 다른 선진국에서 반복될 선행 지표.
+        </div>
+      </div>
+
+      <!-- 인적 장벽 2: 조직·심리·관리자 -->
+      <div class="barrier-section-header" style="margin-bottom:14px;">
+        <div class="barrier-num-badge" style="background:var(--act3);">2</div>
+        <div><div class="barrier-section-title">실행되는가? — 심리적 간극과 중간 관리자 딜레마</div><div class="barrier-section-sub">기술도 있고 의지도 있지만, 실행해야 할 사람들이 무너지고 있다</div></div>
+      </div>
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="big red">70%</div>
+          <div class="desc">3년 내 AI로 인한 감원 예상 (근로자 응답)</div>
+          <div class="change" style="color:var(--gray4);">Modern Health, 미국 근로자 1,000명, 2026.04</div>
+          <div class="explain">"향후 3년 안에 AI 때문에 내 직장 또는 팀에서 감원이 일어날 것"이라 예상하는 근로자 비율. 실제 감원 수치가 아니라 <strong>근로자가 느끼는 불안감·체감 위협</strong>을 측정한 것. 이 불안이 AI 저항·사보타주로 이어진다.</div>
+        </div>
+        <div class="stat-card"><div class="big orange">40%</div><div class="desc">고위 관리자 최근 1년 신규 정신건강 진단</div><div class="change up">일반직원(13%)의 3배 → 메모 참조</div></div>
+        <div class="stat-card">
+          <div class="big red">23%</div>
+          <div class="desc">중간 관리자의 "내 자리는 안전하다" 자신감</div>
+          <div class="change up"><span class="term">C-suite<span class="tip">CEO·COO·CFO·CTO 등 Chief ○○ Officer. 기업 최고위 경영진 그룹을 통칭.</span></span>(최고경영진) 35%보다 12%p 낮음</div>
+          <div class="explain">AI 도입을 직접 결정하는 <strong>C-suite(CEO·CFO 등 최고경영진·35%)</strong>와 달리, 중간 관리자는 "위에서 AI 전환 성과를 요구"받으면서도 자신도 AI로 대체될까 걱정하는 이중 압박 상태. 이것이 샌드위치 딜레마의 핵심.</div>
+        </div>
+      </div>
+
+      <h3 style="font-size:13px;font-weight:700;color:var(--gray4);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px;margin-top:18px;">세 가지 심리 반응 — 변화관리 프레임(<span class="term">ADKAR<span class="tip">Awareness·Desire·Knowledge·Ability·Reinforcement. Prosci가 개발한 변화관리 5단계 모델.</span></span>·Kübler-Ross)으로 해석</h3>
+      <div style="display:flex;gap:10px;margin-bottom:13px;flex-wrap:wrap;">
+        <div style="flex:1;min-width:220px;background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:10px 12px;font-size:11px;line-height:1.65;">
+          <div style="font-weight:800;color:#15803d;margin-bottom:5px;">ADKAR (Prosci) — 개인 변화 5단계</div>
+          <div><strong>A</strong>wareness — 변화가 왜 필요한지 <em>인식</em>하는가?</div>
+          <div><strong>D</strong>esire — 변화에 참여하겠다는 <em>의지</em>가 있는가?</div>
+          <div><strong>K</strong>nowledge — 어떻게 변해야 하는지 <em>방법</em>을 아는가?</div>
+          <div><strong>A</strong>bility — 실제로 변화를 <em>실행</em>할 수 있는가?</div>
+          <div><strong>R</strong>einforcement — 변화가 <em>지속·정착</em>되도록 유지되는가?</div>
+          <div style="margin-top:5px;color:#6b7280;">→ AI 저항은 대부분 D(의지 결핍)·K(방법 부재) 단계에서 막힘</div>
+        </div>
+        <div style="flex:1;min-width:220px;background:#fef9f0;border:1px solid #fcd34d;border-radius:8px;padding:10px 12px;font-size:11px;line-height:1.65;">
+          <div style="font-weight:800;color:#b45309;margin-bottom:5px;">Kübler-Ross — 상실에 대한 심리 반응 5단계</div>
+          <div>원래는 임종 환자 연구에서 출발 → 조직 변화에도 적용.</div>
+          <div style="margin-top:4px;"><span style="color:#dc2626;">① 부정</span> → <span style="color:#d97706;">② 분노</span> → <span style="color:#7c3aed;">③ 협상</span> → <span style="color:#6b7280;">④ 우울</span> → <span style="color:#16a34a;">⑤ 수용</span></div>
+          <div style="margin-top:4px;">"AI가 내 일자리를 빼앗는다"는 반응은 <strong>분노(②) 단계</strong>에 해당. 조직이 ③협상 단계(재교육·역할 재설계 제안)를 건너뛰면 장기 저항으로 고착.</div>
+        </div>
+      </div>
+      <div class="psych-grid">
+        <div class="psych-card over"><div class="psych-icon">😰</div><div class="psych-type">과잉 몰입</div><div class="psych-desc">모든 AI 업데이트 강박 추적 → 수면 장애·위염 발생.</div><div class="psych-src">ADKAR: Awareness 과잉</div></div>
+        <div class="psych-card alien"><div class="psych-icon">🤖</div><div class="psych-type">이질감</div><div class="psych-desc">AI가 자체 규범 체계를 갖추는 것에 대한 심리적 거부감.</div><div class="psych-src">ADKAR: Desire 결핍</div></div>
+        <div class="psych-card resist"><div class="psych-icon">✊</div><div class="psych-type">저항·사보타주</div><div class="psych-desc">Gen Z 44%가 사내 AI 도입을 의도적으로 방해.</div><div class="psych-src"><span class="term">Kotter<span class="tip">John Kotter. 하버드 경영대 교수. 변화관리 8단계 모델 창시자. "단기 승리 창출"이 핵심.</span></span>: 단기 승리 부재</div></div>
+      </div>
+
+      <hr class="divider">
+      <h3 style="font-size:13px;font-weight:700;color:var(--gray4);margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px;">중간 관리자 — 샌드위치 구조</h3>
+      <div class="sandwich">
+        <div class="sw-top"><div class="sw-label">경영진 압박</div><div class="sw-text">"AI 전환 성과를 보여라"</div><div class="sw-stat">취약한 취업 시장에서 AI 낙관론자 척 해야</div></div>
+        <div class="sw-mid"><div style="font-size:13px;font-weight:800;color:var(--primary);margin-bottom:3px;">중간 관리자</div><div style="font-size:12px;color:var(--gray4);">직업 안전 자신감 <strong style="color:var(--danger);">23%</strong> · 관리자 참여도 27%→22%</div></div>
+        <div class="sw-bot"><div class="sw-label">팀원 저항</div><div class="sw-text">"AI가 우리 일자리를 빼앗는다"</div><div class="sw-stat">Gen Z 44% 사내 AI 방해 — 직접 관리해야 하는 책임</div></div>
+      </div>
+      <div class="insight insight-purple">
+        <strong>3막의 결론</strong>
+        Prosci(변화관리 전문기관) 연구에 따르면, 대다수 기업이 기술 도입 예산의 <strong>95%를 시스템 구축</strong>에, <strong>5% 미만을 변화관리</strong>(교육·소통·동기부여)에 투입한다. 기술을 깔았는데 사람이 안 쓰는 가장 흔한 이유가 여기 있다. <strong>중간 관리자가 무너지면 AI 도입은 실패한다.</strong>
+      </div>
+    </div>
+
+    <div class="spacer"></div>
+
+    <!-- 결론 -->
+    <div class="act-header concl">
+      <div class="act-label">결론</div>
+      <div class="act-title">3가지 시나리오와 시사점</div>
+      <div class="act-desc">기술은 살아남는다. 문제는 누가, 어떤 형태로 살아남는가다.</div>
+    </div>
+    <div class="section">
+      <div class="section-label">결론</div>
+      <div class="section-title">2028~2030년 재편 시나리오</div>
+      <div class="scenario-grid">
+        <div class="scenario-card scenario-a"><div class="sc-label">시나리오 A — 연착륙</div><div class="sc-title">Enterprise 전환 성공</div><div class="sc-desc">OpenAI B2B 비중 50% 이상 전환, 2029년 흑자. J-Curve 수확이 생산성 가속. 규제는 시장 정리 역할.</div></div>
+        <div class="scenario-card scenario-b"><div class="sc-label">시나리오 B — 통합 재편</div><div class="sc-title">빅테크 2~3개사 집중</div><div class="sc-desc">수익 모델 실패 스타트업 대거 정리. Google·Microsoft·Anthropic 중심. 닷컴 이후 패턴 반복.</div></div>
+        <div class="scenario-card scenario-c"><div class="sc-label">시나리오 C — 지정학 분열</div><div class="sc-title">글로벌 단일 시장 해체</div><div class="sc-desc">EU AI Act 강화 → 현지 AI 우선. DeepSeek 계열이 아시아 잠식. 한·일 독자 생태계 부상.</div></div>
+      </div>
+      <div class="final-box">
+        <div class="f-label">최종 결론</div>
+        <div class="f-main">"기술은 살고, 비즈니스 모델과 생태계는 재편된다."</div>
+        <div class="f-sub">재무·수요·규제·에너지·조직이라는 다섯 압박이 동시에 작동 중. 2028~2030년이 분기점이다.<br>낙관도 비관도 아닌 <strong style="color:#60a5fa;">"기술 생존 + 사업 모델 재편 + 지정학 분열"</strong>의 복합 시나리오를 준거점으로.</div>
+      </div>
+    </div>
+
+    <div style="height:16px;"></div>
+
+    <!-- 별첨 A -->
+    <div class="appx-header">
+      <span class="appx-badge">별첨 A</span>
+      <div><div class="appx-title">에너지·반도체 상세 데이터</div><div class="appx-sub">장벽 4의 보조 자료 — 실무 참고용</div></div>
+    </div>
+    <div class="section appx">
+      <div class="section-label">별첨 A</div>
+      <div class="section-title">데이터센터 전력 위기 + 반도체 공급망</div>
+      <div class="chart-title">데이터센터 전력 수요 (미국)</div>
+      <div class="bar-row"><div class="bar-label">2025년</div><div class="bar-track"><div class="bar-fill orange" style="width:53%;">80 GW</div></div><div class="bar-val">80 GW</div></div>
+      <div class="bar-row"><div class="bar-label">2028년 전망</div><div class="bar-track"><div class="bar-fill red" style="width:100%;">150 GW</div></div><div class="bar-val">150 GW</div></div>
+      <div class="bar-row"><div class="bar-label">전기료 상승 (2019→2026)</div><div class="bar-track"><div class="bar-fill red" style="width:42%;">+42%</div></div><div class="bar-val">+42%</div></div>
+      <p class="note" style="margin-bottom:14px;">Bloom Energy 2026.01 / Brookings 2026.03</p>
+      <table class="data-table"><thead><tr><th>항목</th><th>내용</th></tr></thead><tbody>
+        <tr><td>전력망 부족</td><td class="danger">PJM 2027년 6GW 부족 예고 (65M명 대상)</td></tr>
+        <tr><td>정치적 반발</td><td>Bernie Sanders "데이터센터 건설 모라토리엄" 촉구 (2026.01)</td></tr>
+        <tr><td>해결책</td><td class="ok">Microsoft × Constellation Energy — Three Mile Island 재가동 (약 835MW, 2028 목표)</td></tr>
+      </tbody></table>
+      <hr class="divider">
+      <h4 style="font-size:12px;font-weight:700;color:var(--gray4);margin-bottom:9px;text-transform:uppercase;letter-spacing:.5px;">인프라 약정 ($1.15조, 2025~2035) — 약정이며 실제 집행액과 다를 수 있음</h4>
+      <div class="infra-bar-row"><div class="infra-company">Broadcom</div><div class="infra-track"><div class="infra-fill" style="width:100%;background:linear-gradient(90deg,#1e40af,#3b82f6);">$3,500억</div></div><div class="infra-amt">$3,500억</div></div>
+      <div class="infra-bar-row"><div class="infra-company">Oracle</div><div class="infra-track"><div class="infra-fill" style="width:86%;background:linear-gradient(90deg,#0369a1,#0ea5e9);">$3,000억</div></div><div class="infra-amt">$3,000억</div></div>
+      <div class="infra-bar-row"><div class="infra-company">Microsoft</div><div class="infra-track"><div class="infra-fill" style="width:71%;background:linear-gradient(90deg,#0891b2,#06b6d4);">$2,500억</div></div><div class="infra-amt">$2,500억</div></div>
+      <div class="infra-bar-row"><div class="infra-company">Nvidia</div><div class="infra-track"><div class="infra-fill" style="width:29%;background:linear-gradient(90deg,#15803d,#22c55e);">$1,000억</div></div><div class="infra-amt">$1,000억</div></div>
+      <div class="infra-bar-row"><div class="infra-company">AMD/AWS/기타</div><div class="infra-track"><div class="infra-fill" style="width:15%;background:linear-gradient(90deg,#d97706,#fbbf24);">$1,500억</div></div><div class="infra-amt">$1,500억</div></div>
+      <hr class="divider">
+      <h4 style="font-size:12px;font-weight:700;color:var(--gray4);margin-bottom:9px;text-transform:uppercase;letter-spacing:.5px;">반도체 — CoWoS 패키징 병목</h4>
+      <table class="data-table"><thead><tr><th>항목</th><th>현황</th></tr></thead><tbody>
+        <tr><td>핵심 병목</td><td class="danger">웨이퍼 제조 → 고급 패키징(CoWoS)으로 병목 이동</td></tr>
+        <tr><td>Nvidia 선점</td><td class="danger">TSMC CoWoS 용량 50% 이상 예약 ($952억 약정) — 보도 기반 추정, 공식 수치 미확인</td></tr>
+        <tr><td>TSMC 대응</td><td class="ok">애리조나 패키징 시설 2개 건설 + ASE·Amkor 외주 (ASE 매출 2배)</td></tr>
+      </tbody></table>
+    </div>
+
+    <div style="height:8px;"></div>
+
+    <!-- 별첨 B -->
+    <div class="appx-header">
+      <span class="appx-badge">별첨 B</span>
+      <div><div class="appx-title">규제 상세 타임라인</div><div class="appx-sub">장벽 3의 보조 자료 — 실무 참고용</div></div>
+    </div>
+    <div class="section appx">
+      <div class="section-label">별첨 B</div>
+      <div class="section-title">EU AI Act 단계별 시행 + 한국 AI 기본법</div>
+      <h4 style="font-size:12px;font-weight:700;color:var(--gray4);margin-bottom:11px;text-transform:uppercase;letter-spacing:.5px;">EU AI Act 시행 일정</h4>
+      <div class="reg-timeline">
+        <div class="reg-item done"><div class="reg-date">2024.08.01</div><div class="reg-title">AI Act 공식 발효</div></div>
+        <div class="reg-item done"><div class="reg-date">2025.02.02</div><div class="reg-title">금지 AI 시스템 규정 시행</div><div class="reg-desc">사회적 신용점수·생체인식 분류 등 '수용 불가 위험' AI 전면 금지</div></div>
+        <div class="reg-item done"><div class="reg-date">2025.08.02</div><div class="reg-title"><span class="term">GPAI<span class="tip">General Purpose AI. 특정 용도에 한정되지 않은 범용 AI 모델. GPT, Claude, Gemini 등이 해당.</span></span> 모델 의무 시작</div><div class="reg-desc">GPT·Claude 등 범용 AI 모델 제공자의 투명성·안전 의무</div></div>
+        <div class="reg-item key"><div class="reg-date">★ 2026.08.02 — 핵심 데드라인</div><div class="reg-title">고위험 AI 시스템 전면 시행</div><div class="reg-desc">채용·대출·교육·사법 AI에 적합성 평가 의무. 위반 시 최대 <strong>€3,500만 또는 글로벌 매출 7%</strong>. 50% 이상 기업이 AI 재고 없음.</div></div>
+        <div class="reg-item"><div class="reg-date">2027.12 (가능성)</div><div class="reg-title">Annex III 연기안 (Digital Omnibus)</div><div class="reg-desc">연기 검토 중이나 확정 전까지 2026.08을 기준으로 준비 권고</div></div>
+      </div>
+      <hr class="divider">
+      <h4 style="font-size:12px;font-weight:700;color:var(--gray4);margin-bottom:9px;text-transform:uppercase;letter-spacing:.5px;">한국 AI 기본법 요약</h4>
+      <table class="data-table"><thead><tr><th>항목</th><th>내용</th></tr></thead><tbody>
+        <tr><td>입법</td><td>2024.12.26 국회 통과 (찬성 260/264명)</td></tr>
+        <tr><td>시행일</td><td class="num">2026.01.22 — EU 이후 세계 두 번째</td></tr>
+        <tr><td>규제 철학</td><td class="ok">진흥 중심, 최소 규제</td></tr>
+        <tr><td>주요 의무</td><td>고영향 AI 투명성·안전성, 해외 빅테크 국내 대리인 지정</td></tr>
+        <tr><td>실제 제재</td><td class="ok">1년 이상 계도 → 빠르면 2027년 이후 과태료</td></tr>
+      </tbody></table>
+      <div class="sources">
+        <h3>참고 자료</h3>
+        <ul>
+          <li><a href="https://futuresearch.ai/openai-revenue-forecast/" target="_blank">OpenAI Revenue Full Breakdown — FutureSearch</a></li>
+          <li><a href="https://www.thrad.ai/content/chatgpt-revenue-streams-breakdown" target="_blank">ChatGPT Revenue Streams 2026 — Thrad</a></li>
+          <li><a href="https://news.gallup.com/poll/708224/gen-adoption-steady-skepticism-climbs.aspx" target="_blank">Gen Z AI Skepticism — Gallup (2026.03)</a></li>
+          <li><a href="https://fortune.com/2026/04/08/gen-z-workers-sabotage-ai-rollout-backlash/" target="_blank">Gen Z Sabotage — Fortune</a></li>
+          <li><a href="https://fortune.com/2026/02/15/ai-productivity-liftoff-doubling-2025-jobs-report-transition-harvest-phase-j-curve/" target="_blank">AI Productivity J-Curve — Fortune (Brynjolfsson)</a></li>
+          <li><a href="https://www.businesswire.com/news/home/20260428972933/en/U.S.-Workforce-in-Mental-Health-Crisis-Driven-by-AI-Anxiety-Political-Stress-and-a-Collapse-in-Employer-Trust" target="_blank">U.S. Workforce Mental Health Crisis — Modern Health</a></li>
+          <li><a href="https://www.legalnodes.com/article/eu-ai-act-2026-updates-compliance-requirements-and-business-risks" target="_blank">EU AI Act 2026 Compliance — LegalNodes</a></li>
+          <li><a href="https://peekaboolabs.ai/blog/ai-basic-law-guide" target="_blank">한국 AI 기본법 정리 — PeekabooLabs</a></li>
+          <li><a href="https://www.piie.com/blogs/realtime-economics/2026/how-ai-boom-shrugged-deepseek-shock-and-keeps-gaining-steam" target="_blank">DeepSeek & Jevons Paradox — PIIE</a></li>
+          <li><a href="https://www.digitalapplied.com/blog/ai-infrastructure-energy-crisis-9-18-gigawatt-shortage" target="_blank">AI Energy Crisis — Digital Applied</a></li>
+          <li><a href="https://oplexa.com/ai-chip-packaging-bottleneck-2026/" target="_blank">CoWoS Bottleneck 2026 — Oplexa</a></li>
+          <li><a href="https://www.techpolicy.press/in-weak-job-market-middle-managers-increasingly-forced-to-feign-ai-success/" target="_blank">Middle Managers Feigning AI Success — TechPolicy.Press</a></li>
+        </ul>
+      </div>
+    </div>
+
+  </div><!-- /main-col -->
+
+  <!-- ── 메모장 ── -->
+  <aside class="notepad-col">
+    <div class="notepad">
+      <div class="notepad-binding">
+        <div class="binding-holes">
+          <div class="binding-hole"></div>
+          <div class="binding-hole"></div>
+          <div class="binding-hole"></div>
+        </div>
+        <div class="notepad-binding-title">메모장</div>
+      </div>
+      <div class="notepad-body">
+
+        <!-- 맥락 메모 -->
+        <div class="note-section">
+          <div class="note-section-title">📌 맥락 메모</div>
+
+          <div class="note-entry">
+            <div class="note-entry-tag">1막 — METR 수치 해석</div>
+            <div class="note-entry-text">"16시간+ 작업 50% 성공"은 228개 과제 중 <strong>단 5개(2.2%)</strong>에 해당. 헤드라인과 실제 표본 규모가 다름. 수치만 보면 과장 해석 위험.</div>
+          </div>
+
+          <div class="note-entry">
+            <div class="note-entry-tag">1막 — Sam Altman 발언 원문</div>
+            <div class="note-entry-text">2025년 8월 Bloomberg 인터뷰: <em>"버블이 존재한다 — 하지만 기술과 수요는 실재한다."</em> 기술 부정이 아닌 밸류에이션 논쟁임.</div>
+          </div>
+
+          <div class="note-entry">
+            <div class="note-entry-tag">1막 — 생산성 역설 해소</div>
+            <div class="note-entry-text">"기업 앱 80% 에이전트 내장"(Gartner 전망) + NBER "대부분 기업에서 생산성 영향 아직 제한적" = 모순처럼 보이지만 J-Curve 시간 지연으로 동시에 성립. 기술 도입→반영까지 3~7년.</div>
+          </div>
+
+          <div class="note-entry">
+            <div class="note-entry-tag">2막 장벽1 — 인프라 약정</div>
+            <div class="note-entry-text">$1.15조는 commitment(약정). 실제 집행액과 다름. 일부 조건부·취소 가능 계약 포함. 성장 전망 해석 시 주의.</div>
+          </div>
+
+          <div class="note-entry">
+            <div class="note-entry-tag">2막 장벽4 — 에너지 가정</div>
+            <div class="note-entry-text">OpenAI 매출 $294억 전망은 전력망이 수요를 감당한다는 가정 위에 있음. PJM 2027년 6GW 부족 예고와 충돌.</div>
+          </div>
+
+          <div class="note-entry">
+            <div class="note-entry-tag">3막 — 정신건강 데이터</div>
+            <div class="note-entry-text">고위 관리자 40% 신규 정신건강 진단 = <strong>상관관계</strong>. AI가 직접 원인임은 미입증. 정치적 스트레스·경기 불확실성과 복합 작용.</div>
+          </div>
+        </div>
+
+        <!-- 용어 사전 -->
+        <div class="note-section">
+          <div class="note-section-title">📖 용어 사전</div>
+
+          <div class="term-entry">
+            <div class="term-entry-word">METR</div>
+            <div class="term-entry-def">Evaluating AI Systems. AI 자율성·안전성을 독립 평가하는 비영리 연구기관.</div>
+          </div>
+          <div class="term-entry">
+            <div class="term-entry-word">J-Curve</div>
+            <div class="term-entry-def">기술 도입 후 생산성이 일시 하락했다 급상승하는 패턴. 전기·PC 도입 때도 반복 확인. (Brynjolfsson, MIT)</div>
+          </div>
+          <div class="term-entry">
+            <div class="term-entry-word">NBER</div>
+            <div class="term-entry-def">National Bureau of Economic Research. 미국 국립경제연구소. 경제·노동 정책 연구 최고 권위기관.</div>
+          </div>
+          <div class="term-entry">
+            <div class="term-entry-word">ARPU</div>
+            <div class="term-entry-def">Average Revenue Per User. 사용자 1인당 평균 수익. OpenAI 유료 기준 $35~40/월.</div>
+          </div>
+          <div class="term-entry">
+            <div class="term-entry-word">Enterprise</div>
+            <div class="term-entry-def">기업 고객 대상 AI 구독 플랜. 평균 $42/월/시트. 보안·관리 기능 포함.</div>
+          </div>
+          <div class="term-entry">
+            <div class="term-entry-word">CoWoS</div>
+            <div class="term-entry-def">Chip on Wafer on Substrate. TSMC의 고급 반도체 패키징 기술. AI 칩 공급망 핵심 병목 공정.</div>
+          </div>
+          <div class="term-entry">
+            <div class="term-entry-word">GPAI</div>
+            <div class="term-entry-def">General Purpose AI. 특정 용도 한정 없는 범용 AI 모델. GPT, Claude, Gemini 등.</div>
+          </div>
+          <div class="term-entry">
+            <div class="term-entry-word">PJM</div>
+            <div class="term-entry-def">Pennsylvania-Jersey-Maryland 전력망. 미국 13개 주, 65M명 대상 최대 전력망 운영사.</div>
+          </div>
+          <div class="term-entry">
+            <div class="term-entry-word">제번스 역설</div>
+            <div class="term-entry-def">기술 효율성 향상이 오히려 수요를 폭증시켜 총 소비가 증가하는 현상. DeepSeek 이후 AI 지출 증가로 재확인.</div>
+          </div>
+          <div class="term-entry">
+            <div class="term-entry-word">ADKAR</div>
+            <div class="term-entry-def">Awareness·Desire·Knowledge·Ability·Reinforcement. Prosci 개발 변화관리 5단계 모델.</div>
+          </div>
+          <div class="term-entry">
+            <div class="term-entry-word">Brynjolfsson</div>
+            <div class="term-entry-def">Erik Brynjolfsson. MIT 교수. AI·디지털 기술과 생산성 관계 세계 최고 권위자.</div>
+          </div>
+          <div class="term-entry">
+            <div class="term-entry-word">Kotter</div>
+            <div class="term-entry-def">John Kotter. 하버드 경영대. 변화관리 8단계 모델 창시자.</div>
+          </div>
+        </div>
+
+      </div><!-- /notepad-body -->
+    </div><!-- /notepad -->
+  </aside>
+
+</div><!-- /page-layout -->
+</body>
+</html>

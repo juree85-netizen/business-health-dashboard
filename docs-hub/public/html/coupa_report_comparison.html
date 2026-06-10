@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coupa 보고서 비교 분석 — 루나(Claude) vs GPT</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Batang', 'BatangChe', '바탕', '바탕체', 'Nanum Myeongjo', Georgia, serif;
+    font-size: 14px;
+    line-height: 1.85;
+    color: #000;
+    background: #d8d8d8;
+    padding: 32px 0;
+  }
+
+  .doc-page {
+    width: 794px;
+    min-height: 1122px;
+    margin: 0 auto 28px auto;
+    background: #fff;
+    padding: 72px 56px 70px 56px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.18);
+    position: relative;
+  }
+
+  .page-no {
+    position: absolute;
+    bottom: 24px;
+    left: 0; right: 0;
+    text-align: center;
+    font-size: 12px;
+    color: #555;
+    letter-spacing: 0.5px;
+  }
+
+  .doc-main-title {
+    font-size: 20px;
+    font-weight: 700;
+    text-decoration: underline;
+    text-align: center;
+    margin: 18px 0 6px 0;
+    line-height: 1.4;
+    letter-spacing: -0.5px;
+  }
+
+  .summary-tbl { width: 100%; border-collapse: collapse; margin: 4px 0 18px 0; }
+  .summary-tbl .s-pad { border: none; width: 3%; }
+  .summary-tbl .s-main {
+    border: 1px solid #000;
+    padding: 9px 14px;
+    font-size: 14px;
+    line-height: 1.85;
+  }
+
+  .ch { font-size: 14px; font-weight: 700; margin: 18px 0 10px 0; }
+
+  .sq {
+    font-size: 14px;
+    font-weight: 400;
+    margin: 10px 0 6px 0;
+    padding-left: 1em;
+  }
+  .sq::before { content: '□ '; }
+
+  .body-p { padding-left: 3em; margin-bottom: 9px; font-size: 14px; }
+
+  ul.dash { list-style: none; padding-left: 3em; margin: 4px 0; }
+  ul.dash > li { position: relative; padding-left: 1em; margin-bottom: 9px; font-size: 14px; }
+  ul.dash > li::before { content: '-'; position: absolute; left: 0; }
+
+  ul.dot { list-style: none; padding-left: 5em; margin: 4px 0; }
+  ul.dot > li { position: relative; padding-left: 1em; margin-bottom: 9px; font-size: 14px; }
+  ul.dot > li::before { content: '·'; position: absolute; left: 0; }
+
+  .fn {
+    font-size: 10px;
+    color: #333;
+    padding-left: 2em;
+    margin-top: 6px;
+    line-height: 1.75;
+  }
+  .fn::before { content: '※ '; font-weight: 700; }
+
+  .def {
+    font-size: 9.5px;
+    color: #1a6bbf;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .sep { border: none; border-top: 1px solid #ccc; margin: 14px 0; }
+  .sep-dash { border: none; border-top: 1px dashed #bbb; margin: 12px 0; }
+
+  /* 비교 표 — 3열 (항목 / 루나 / GPT) */
+  table.cmp {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin: 7px 0 14px 0;
+  }
+  table.cmp th {
+    padding: 6px 9px;
+    text-align: center;
+    font-weight: 700;
+    border: 1px solid #444;
+  }
+  table.cmp th.h-item { background: #1e1e1e; color: #fff; width: 22%; }
+  table.cmp th.h-luna { background: #1a4a7a; color: #fff; width: 39%; }
+  table.cmp th.h-gpt  { background: #5a3a8a; color: #fff; width: 39%; }
+  table.cmp td {
+    padding: 6px 9px;
+    border: 1px solid #ccc;
+    vertical-align: top;
+    line-height: 1.75;
+    font-size: 13px;
+  }
+  table.cmp td.item { font-weight: 700; background: #f5f5f5; text-align: center; font-size: 12.5px; }
+  table.cmp td.luna { background: #f0f5ff; }
+  table.cmp td.gpt  { background: #f7f0ff; }
+  table.cmp tr.win-luna td.luna { border-left: 3px solid #1a4a7a; }
+  table.cmp tr.win-gpt  td.gpt  { border-left: 3px solid #5a3a8a; }
+  table.cmp tr.win-both td.luna { border-left: 3px solid #888; }
+  table.cmp tr.win-both td.gpt  { border-left: 3px solid #888; }
+
+  /* 일반 정보 표 */
+  table.t { width: 100%; border-collapse: collapse; font-size: 13px; margin: 7px 0 12px 0; }
+  table.t th {
+    background: #1e1e1e; color: #fff;
+    padding: 6px 9px; text-align: center;
+    font-weight: 700; border: 1px solid #444;
+  }
+  table.t td { padding: 5px 9px; border: 1px solid #bbb; vertical-align: top; line-height: 1.75; }
+  table.t td.c { text-align: center; }
+  table.t td.b { font-weight: 700; }
+  table.t td.ok  { color: #0a6e00; font-weight: 700; text-align: center; }
+  table.t td.ng  { color: #b00000; font-weight: 700; text-align: center; }
+  table.t td.mid { color: #7a5c00; font-weight: 700; text-align: center; }
+  table.t tr.hl-row > td { background: #fef9e5; }
+
+  /* 뱃지 */
+  .badge-luna {
+    display: inline-block; font-size: 10px; color: #fff;
+    background: #1a4a7a; padding: 1px 7px; border-radius: 2px;
+    margin-left: 5px; vertical-align: middle; font-weight: 700;
+  }
+  .badge-gpt {
+    display: inline-block; font-size: 10px; color: #fff;
+    background: #5a3a8a; padding: 1px 7px; border-radius: 2px;
+    margin-left: 5px; vertical-align: middle; font-weight: 700;
+  }
+  .badge-tie {
+    display: inline-block; font-size: 10px; color: #fff;
+    background: #555; padding: 1px 7px; border-radius: 2px;
+    margin-left: 5px; vertical-align: middle;
+  }
+
+  .box-key {
+    border: 1px solid #888;
+    border-left: 3px solid #333;
+    padding: 9px 13px;
+    margin: 8px 0;
+    font-size: 13px;
+    background: #f5f5f5;
+    line-height: 1.8;
+  }
+  .box-luna {
+    border: 1px solid #1a4a7a;
+    border-left: 3px solid #1a4a7a;
+    padding: 9px 13px;
+    margin: 6px 0;
+    font-size: 13px;
+    background: #f0f5ff;
+    line-height: 1.8;
+  }
+  .box-gpt {
+    border: 1px solid #5a3a8a;
+    border-left: 3px solid #5a3a8a;
+    padding: 9px 13px;
+    margin: 6px 0;
+    font-size: 13px;
+    background: #f7f0ff;
+    line-height: 1.8;
+  }
+
+  .end-line { text-align: right; font-size: 14px; margin-top: 28px; letter-spacing: 1px; }
+
+  .link-btn {
+    display: inline-block;
+    font-size: 12px;
+    color: #1a4a7a;
+    text-decoration: underline;
+    font-family: sans-serif;
+  }
+</style>
+</head>
+<body>
+
+
+<!-- ══════════════════════════════════════════════ PAGE 1 — 표지 + 총평 -->
+<div class="doc-page">
+
+  <div class="doc-main-title">Coupa 보고서 비교 분석 — 루나(Claude) vs GPT</div>
+  <div style="text-align:right; font-size:13px; color:#333; margin-top:6px; margin-bottom:4px;">솔루션사업부 기획팀 &nbsp;|&nbsp; '26. 6. 4 (木)</div>
+
+  <hr class="sep">
+
+  <table class="summary-tbl">
+    <tr>
+      <td class="s-pad"></td>
+      <td class="s-main">
+        <strong>비교 배경</strong><br>
+        동일한 주제("Coupa의 Rossum 인수 분석")로 루나(Claude Code)와 GPT가 각각 작성한 보고서를
+        항목별로 비교하여 각자의 강점·오류·보완 포인트를 도출한다.<br><br>
+        비교 대상 :
+        <span class="badge-luna">루나</span> <em>「(제목 미정) Coupa의 Rossum 인수 분석」</em> — 6페이지 &nbsp;/&nbsp;
+        <span class="badge-gpt">GPT</span> <em>「Coupa의 Rossum 인수」 분석 보고서</em> — 3페이지
+      </td>
+      <td class="s-pad"></td>
+    </tr>
+  </table>
+
+  <hr class="sep">
+
+  <div class="ch">총평 — 항목별 우위</div>
+
+  <table class="t">
+    <tr>
+      <th style="width:34%">비교 항목</th>
+      <th style="width:33%">우위</th>
+      <th>핵심 이유</th>
+    </tr>
+    <tr>
+      <td class="b">문서 완성도 (제목·결어)</td>
+      <td class="ok">GPT 우위</td>
+      <td>GPT는 확정 제목 + "- 이 상 -" 결어. 루나는 "(제목 미정)" 플레이스홀더</td>
+    </tr>
+    <tr>
+      <td class="b">창업자·설립 도시</td>
+      <td class="ok">GPT 우위</td>
+      <td>GPT만 창업자(Dave Stephens·Noah Eisner)·Foster City 명기</td>
+    </tr>
+    <tr>
+      <td class="b">제품 포트폴리오 구조</td>
+      <td class="ok">GPT 우위</td>
+      <td>GPT: 영역+제품+고객가치 3열. 루나: 제품명+기능 2열</td>
+    </tr>
+    <tr>
+      <td class="b">재무 연도 레이블</td>
+      <td class="ok">GPT 우위</td>
+      <td>루나는 FY 레이블이 1년씩 오기재. GPT의 FY21·FY22·FY23이 정확</td>
+    </tr>
+    <tr>
+      <td class="b">FCF 수치 신뢰도</td>
+      <td class="ok" style="color:#1a4a7a;">루나 우위</td>
+      <td>루나 FCF(+$56M·+$114M·+$156M)가 실제치에 근사. GPT(~$16M 등) 과소</td>
+    </tr>
+    <tr>
+      <td class="b">경쟁자 상세 분석</td>
+      <td class="ok" style="color:#1a4a7a;">루나 우위</td>
+      <td>루나: 5개 경쟁사 본거지·포지션 표. GPT: 경쟁사 나열만</td>
+    </tr>
+    <tr>
+      <td class="b">최신 4건 tuck-in 전략 반영</td>
+      <td class="ok" style="color:#1a4a7a;">루나 우위</td>
+      <td>루나: Cirtuo·Scoutbee·Rossum·Tonkean 2025~2026 최신 4건. GPT: 구형 인수 위주</td>
+    </tr>
+    <tr>
+      <td class="b">TB 인수 후 현황 (흑자 전환 등)</td>
+      <td class="ok" style="color:#1a4a7a;">루나 우위</td>
+      <td>루나: 2023·2025 GAAP 흑자 추정치 포함. GPT: "未공개" 일괄 처리</td>
+    </tr>
+    <tr>
+      <td class="b">기대 효과 — 현업 관점</td>
+      <td class="ok">GPT 우위</td>
+      <td>GPT: AP 업무 실제 개선 중심. 루나: 거시 전략 중심</td>
+    </tr>
+    <tr class="hl-row">
+      <td class="b">시사점 실행 액션 명확성</td>
+      <td class="ok">GPT 우위</td>
+      <td>GPT: "→ PoC 확대" 등 SDS 관점 구체 액션. 루나: 다소 추상적</td>
+    </tr>
+  </table>
+
+  <div class="box-key">
+    <strong>한 줄 요약:</strong>
+    루나는 <strong>정보의 깊이와 최신성</strong>에서 앞서고,
+    GPT는 <strong>현업 독자 가독성과 실행 가능한 시사점</strong>에서 앞선다.
+    재무 데이터는 양쪽 모두 오류가 있어 교차 검증 필요.
+  </div>
+
+  <div class="page-no">— 1 —</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════ PAGE 2 — 세부 비교 (1) -->
+<div class="doc-page">
+
+  <div class="ch">세부 비교 ① — 회사 개요 · 제품 포트폴리오</div>
+
+  <!-- 회사 개요 -->
+  <div class="sq">회사 개요 항목 비교</div>
+  <table class="cmp">
+    <tr>
+      <th class="h-item">항목</th>
+      <th class="h-luna">루나 <span style="font-weight:400; font-size:11px;">(coupa_investment_report)</span></th>
+      <th class="h-gpt">GPT <span style="font-weight:400; font-size:11px;">(coupa_rossum_gpt_report)</span></th>
+    </tr>
+    <tr class="win-gpt">
+      <td class="item">설립 지역</td>
+      <td class="luna">San Mateo</td>
+      <td class="gpt"><strong>Foster City</strong> ← 더 정확한 실제 설립지</td>
+    </tr>
+    <tr class="win-gpt">
+      <td class="item">창업자</td>
+      <td class="luna" style="color:#b00;">누락</td>
+      <td class="gpt"><strong>Dave Stephens, Noah Eisner</strong></td>
+    </tr>
+    <tr class="win-both">
+      <td class="item">CEO / 직원</td>
+      <td class="luna">Leagh Turner / ~3,500명</td>
+      <td class="gpt">Leagh Turner / ~3천명+</td>
+    </tr>
+    <tr class="win-luna">
+      <td class="item">ADIA 공동투자</td>
+      <td class="luna"><strong>✓ Abu Dhabi Investment Authority 소수 지분 명기</strong></td>
+      <td class="gpt" style="color:#888;">언급 없음</td>
+    </tr>
+    <tr class="win-luna">
+      <td class="item">$10조 데이터·ARR $1B</td>
+      <td class="luna"><strong>✓ 두 항목 모두 명기 — 업계 위상 근거 제시</strong></td>
+      <td class="gpt" style="color:#888;">언급 없음</td>
+    </tr>
+    <tr class="win-luna">
+      <td class="item">경쟁자</td>
+      <td class="luna"><strong>5개사 표 (본거지 + 포지션 상세)</strong><br>SAP Ariba·Oracle·Ivalua·Jaggaer·ServiceNow/Zip</td>
+      <td class="gpt">나열만<br>SAP Ariba·Ivalua·Jaggaer·Oracle·GEP·Basware</td>
+    </tr>
+  </table>
+
+  <hr class="sep-dash">
+
+  <!-- 제품 포트폴리오 -->
+  <div class="sq">제품 포트폴리오 구조 비교 <span class="badge-gpt">GPT 우위</span></div>
+
+  <div class="box-luna">
+    <strong>루나 — 제품명 + 기능 2열 구조 (7개 제품)</strong><br>
+    Coupa Procurement / Coupa Invoicing / Coupa Sourcing / Coupa Contracts / Coupa Expense / Coupa Supply Chain Design / Navi<br>
+    <span style="font-size:12px; color:#555;">→ Payments·Treasury·Community.ai 등 누락. 제품이 "고객에게 어떤 가치를 주는가"가 보이지 않음</span>
+  </div>
+
+  <div class="box-gpt" style="margin-top:6px;">
+    <strong>GPT — 영역 + 주요 제품 + 고객 가치 3열 구조 (5개 도메인)</strong><br>
+    Source-to-Contract / Procure-to-Pay / <strong>Payments &amp; Treasury</strong> / Supply Chain / <strong>AI/Data (Community.ai·Navi·Contract Intelligence)</strong><br>
+    <span style="font-size:12px; color:#555;">→ 루나에 없는 Payments·Treasury·Community.ai 포함. "고객 가치" 열이 구매 담당자에게 직관적</span>
+  </div>
+
+  <hr class="sep-dash">
+
+  <!-- 재무 -->
+  <div class="sq">재무 데이터 — 오류 교차 분석 <span class="badge-tie">양쪽 모두 오류 포함</span></div>
+
+  <table class="cmp">
+    <tr>
+      <th class="h-item">항목</th>
+      <th class="h-luna">루나</th>
+      <th class="h-gpt">GPT</th>
+    </tr>
+    <tr class="win-gpt">
+      <td class="item">회계연도<br>레이블</td>
+      <td class="luna" style="color:#b00;">
+        <strong>오기재</strong> — $389.7M을 "FY2020(Jan 2020 종료)"로 표기<br>
+        실제 $389.7M은 FY2021(Feb 2020~Jan 2021)
+      </td>
+      <td class="gpt" style="color:#0a6e00;">
+        <strong>정확</strong> — FY21 $389.7M, FY22 $541.6M, FY23 $725.3M<br>
+        Coupa 공식 회계연도와 일치
+      </td>
+    </tr>
+    <tr class="win-luna">
+      <td class="item">FCF 수치</td>
+      <td class="luna" style="color:#0a6e00;">
+        <strong>신뢰 가능</strong> — +$56M(14%), +$114M(21%), +$156M(22%)<br>
+        SaaS 구독 기업 FCF 마진으로 합리적 범위
+      </td>
+      <td class="gpt" style="color:#b00;">
+        <strong>과소 추정</strong> — ~$16M, ~$32M, ~$42M<br>
+        $390M 매출 기업 FCF 4%는 비현실적으로 낮음
+      </td>
+    </tr>
+    <tr class="win-luna">
+      <td class="item">인수 후<br>재무 현황</td>
+      <td class="luna">
+        2023 GAAP +$34M, 2025 +$81M 추정치 포함<br>
+        TB 인수 효과(흑자 전환)까지 서술
+      </td>
+      <td class="gpt" style="color:#888;">
+        FY24·FY25·FY26 전부 "未공개" 처리<br>
+        인수 후 성과 내용 없음
+      </td>
+    </tr>
+  </table>
+
+  <p class="fn">Coupa FY는 매년 1월 31일 결산. FY2021 = 2020년 2월 ~ 2021년 1월. 루나는 레이블을 실제보다 1년 앞당겨 표기한 오류 있음.</p>
+
+  <div class="page-no">— 2 —</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════ PAGE 3 — 세부 비교 (2) -->
+<div class="doc-page">
+
+  <div class="ch">세부 비교 ② — 인수 현황 · 기대 효과 · 시사점</div>
+
+  <!-- 4건 인수 현황 -->
+  <div class="sq">4건 인수 현황 — 완전히 다른 선택</div>
+
+  <table class="cmp">
+    <tr>
+      <th class="h-item">피인수사</th>
+      <th class="h-luna">루나 (포함 여부·관점)</th>
+      <th class="h-gpt">GPT (포함 여부·관점)</th>
+    </tr>
+    <tr>
+      <td class="item">Cirtuo ('25.05)</td>
+      <td class="luna" style="color:#0a6e00;"><strong>✓</strong> 카테고리 관리 AI — 2025~2026 전략 4건 중 1번째</td>
+      <td class="gpt" style="color:#b00;">✗ 누락</td>
+    </tr>
+    <tr>
+      <td class="item">Scoutbee ('25.10)</td>
+      <td class="luna" style="color:#0a6e00;"><strong>✓</strong> 공급업체 탐색 AI — 4건 중 2번째</td>
+      <td class="gpt" style="color:#b00;">✗ 누락</td>
+    </tr>
+    <tr>
+      <td class="item">Rossum ('26.05)</td>
+      <td class="luna" style="color:#0a6e00;"><strong>✓</strong> AI 문서처리 — 4건 중 3번째</td>
+      <td class="gpt" style="color:#0a6e00;"><strong>✓</strong> AI 문서처리·송장 자동화</td>
+    </tr>
+    <tr>
+      <td class="item">Tonkean ('26.05)</td>
+      <td class="luna" style="color:#0a6e00;"><strong>✓</strong> 에이전틱 오케스트레이션 — 4건 중 4번째</td>
+      <td class="gpt" style="color:#b00;">✗ 누락</td>
+    </tr>
+    <tr>
+      <td class="item">riskmethods ('22)</td>
+      <td class="gpt" style="color:#b00;">✗ 누락</td>
+      <td class="gpt" style="color:#0a6e00;"><strong>✓</strong> 공급망 리스크 관리</td>
+    </tr>
+    <tr>
+      <td class="item">LLamasoft ('20)<br><span style="font-size:11px; font-weight:400;">$1.5B 대형 인수</span></td>
+      <td class="luna" style="color:#b00;">✗ 누락</td>
+      <td class="gpt" style="color:#0a6e00;"><strong>✓</strong> 공급망 설계·AI 최적화 — $1.5B 대형 인수 표기</td>
+    </tr>
+    <tr>
+      <td class="item">Bellin ('20)</td>
+      <td class="luna" style="color:#b00;">✗ 누락</td>
+      <td class="gpt" style="color:#0a6e00;"><strong>✓</strong> Treasury Management</td>
+    </tr>
+  </table>
+
+  <div class="box-luna" style="margin-top:4px;">
+    <strong>루나 관점 — "최근 전략 패턴" 중심</strong><br>
+    2025~2026 연속 4건 AI tuck-in 전략이 Rossum 인수의 맥락임을 보여줌.
+    "왜 지금 Rossum인가"에 대한 답을 전략 흐름으로 제시.
+  </div>
+  <div class="box-gpt" style="margin-top:4px;">
+    <strong>GPT 관점 — "Suite 완성 역사" 중심</strong><br>
+    LLamasoft($1.5B)·Bellin·riskmethods 등 과거 인수까지 포함해 Coupa가 어떻게 플랫폼을 쌓아왔는지 보여줌.
+    LLamasoft $1.5B 대형 인수는 Coupa 역사에서 중요한 이정표인데 루나에 없음.
+  </div>
+
+  <hr class="sep-dash">
+
+  <!-- 기대 효과 -->
+  <div class="sq">인수 기대 효과 비교 (사업 / 상품 / 기술)</div>
+  <table class="cmp">
+    <tr>
+      <th class="h-item">관점</th>
+      <th class="h-luna">루나</th>
+      <th class="h-gpt">GPT</th>
+    </tr>
+    <tr class="win-luna">
+      <td class="item">사업</td>
+      <td class="luna">경쟁사 선제 차단·$3,000억 절감 목표 제시 → <strong>거시 전략 효과 중심</strong></td>
+      <td class="gpt">업셀 기회·글로벌 전자송장 규제 대응 → <strong>영업·수익화 관점 실무적</strong></td>
+    </tr>
+    <tr class="win-gpt">
+      <td class="item">상품</td>
+      <td class="luna">4레이어 에이전틱 스택 완성 강조 → 다소 추상적</td>
+      <td class="gpt"><strong>3-way match 고도화·End-to-End 지출 가시성</strong> → AP 담당자가 바로 이해</td>
+    </tr>
+    <tr class="win-both">
+      <td class="item">기술</td>
+      <td class="luna">데이터셋 결합·AI 내성 확보</td>
+      <td class="gpt">다국어 송장 적응력·데이터 해자 확대</td>
+    </tr>
+  </table>
+
+  <hr class="sep-dash">
+
+  <!-- 시사점 -->
+  <div class="sq">시사점 비교 <span class="badge-gpt">GPT 우위 — 실행 액션 명확</span></div>
+
+  <div class="box-luna">
+    <strong>루나 시사점 (3개 항목)</strong><br>
+    - 성장 고원기 기업 선점 패턴 / PE LBO vs tuck-in 구조 차이 / 당사 투자·M&A 활용 방향<br>
+    <span style="font-size:12px; color:#555;">→ 분석은 탄탄하나 "그래서 SDS가 당장 무엇을 해야 하나"가 모호</span>
+  </div>
+  <div class="box-gpt" style="margin-top:6px;">
+    <strong>GPT 시사점 (3개 항목 + 화살표 액션)</strong><br>
+    - 수평 SaaS M&A 축 변화 / PE 보유 SaaS Tuck-in 패턴 / SDS 관점 구체 액션:<br>
+    &nbsp;&nbsp;→ "전자송장·구매정산 영역 AI 자동화 PoC 확대 필요"<br>
+    &nbsp;&nbsp;→ "ERP·구매·그룹웨어 데이터와 문서 AI 연결 레퍼런스 확보"<br>
+    &nbsp;&nbsp;→ "IDP 단품보다 업무시스템 내재화 가능성·데이터 권한 우선 평가"<br>
+    &nbsp;&nbsp;→ "P2P·AP·물류문서 등 반복 문서량 큰 영역 우선 스크리닝"<br>
+    <span style="font-size:12px; color:#555;">→ 화살표(→)로 실행 가능한 액션 아이템을 명확히 분리. 보고서 끝에 바로 To-Do가 나옴</span>
+  </div>
+
+  <div class="page-no">— 3 —</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════ PAGE 4 — 결론 + 통합 제안 -->
+<div class="doc-page">
+
+  <div class="ch">결론 — 통합본 제안</div>
+
+  <div class="sq">두 보고서의 한계</div>
+  <table class="t">
+    <tr>
+      <th style="width:16%">구분</th>
+      <th>한계</th>
+    </tr>
+    <tr>
+      <td class="b" style="color:#1a4a7a;">루나</td>
+      <td>① 제목 미정 플레이스홀더 미처리<br>
+          ② 창업자·Foster City 누락<br>
+          ③ 재무 연도 레이블 1년 오기재 (FY2020→FY2021 등)<br>
+          ④ 제품 포트폴리오가 도메인 구조 아닌 제품 나열<br>
+          ⑤ Coupa 역사적 대형 인수(LLamasoft $1.5B 등) 누락<br>
+          ⑥ 시사점이 실행 액션 없이 분석으로 끝남</td>
+    </tr>
+    <tr>
+      <td class="b" style="color:#5a3a8a;">GPT</td>
+      <td>① FCF 수치 과소 추정 (~$16M 등 — 비현실적)<br>
+          ② 2025~2026 최신 tuck-in 4건(Cirtuo·Scoutbee·Tonkean) 반영 안 됨<br>
+          ③ TB 인수 후 흑자 전환·ARR $1B 등 최신 현황 없음<br>
+          ④ 경쟁자 상세 분석 없음 (나열만)<br>
+          ⑤ ADIA 공동 투자 등 자금 조달 구조 누락</td>
+    </tr>
+  </table>
+
+  <hr class="sep-dash">
+
+  <div class="sq">통합 시 최적 구성</div>
+
+  <table class="t">
+    <tr>
+      <th style="width:30%">섹션</th>
+      <th style="width:20%">채택 소스</th>
+      <th>이유</th>
+    </tr>
+    <tr>
+      <td class="b">제목·날짜·결어</td>
+      <td class="ok">GPT</td>
+      <td>확정 제목 + 요일 표기 + "- 이 상 -" 완결 형식</td>
+    </tr>
+    <tr>
+      <td class="b">회사 개요 (창업자·Foster City)</td>
+      <td class="ok">GPT 우선</td>
+      <td>창업자·정확한 설립 지역 포함</td>
+    </tr>
+    <tr>
+      <td class="b">$10조 데이터·ADIA·ARR $1B</td>
+      <td class="ok" style="color:#1a4a7a;">루나 추가</td>
+      <td>GPT에 없는 업계 위상 근거 수치</td>
+    </tr>
+    <tr>
+      <td class="b">경쟁자 현황</td>
+      <td class="ok" style="color:#1a4a7a;">루나</td>
+      <td>5개사 표 (본거지·포지션) — GPT는 나열만</td>
+    </tr>
+    <tr>
+      <td class="b">제품 포트폴리오</td>
+      <td class="ok">GPT 구조</td>
+      <td>영역+제품+고객가치 3열 — 루나 제품 추가 보완</td>
+    </tr>
+    <tr>
+      <td class="b">재무 연도 레이블</td>
+      <td class="ok">GPT (FY21~FY23)</td>
+      <td>Coupa 공식 FY와 일치</td>
+    </tr>
+    <tr>
+      <td class="b">재무 FCF 수치</td>
+      <td class="ok" style="color:#1a4a7a;">루나</td>
+      <td>+$56M~+$156M이 실제치에 근사</td>
+    </tr>
+    <tr>
+      <td class="b">TB 인수 후 현황</td>
+      <td class="ok" style="color:#1a4a7a;">루나 추가</td>
+      <td>2023·2025 GAAP 흑자 전환 추정치</td>
+    </tr>
+    <tr>
+      <td class="b">4건 인수 — 최신 tuck-in</td>
+      <td class="ok" style="color:#1a4a7a;">루나</td>
+      <td>Cirtuo·Scoutbee·Rossum·Tonkean 2025~2026 전략 패턴</td>
+    </tr>
+    <tr>
+      <td class="b">4건 인수 — 역사적 대형 인수</td>
+      <td class="ok">GPT 추가</td>
+      <td>LLamasoft $1.5B·Bellin·riskmethods Suite 완성 경로</td>
+    </tr>
+    <tr>
+      <td class="b">기대 효과 (상품)</td>
+      <td class="ok">GPT 우선</td>
+      <td>3-way match·End-to-End 가시성 등 AP 현업 관점 명확</td>
+    </tr>
+    <tr class="hl-row">
+      <td class="b">시사점 실행 액션</td>
+      <td class="ok">GPT 우선</td>
+      <td>"→" 화살표 액션 아이템 구조 — SDS PoC·스크리닝 방향 명확</td>
+    </tr>
+  </table>
+
+  <div class="box-key" style="margin-top:12px;">
+    <strong>결론:</strong>
+    루나는 <u>정보의 최신성·깊이</u>가 강점, GPT는 <u>실무 가독성·실행 명확성</u>이 강점.
+    두 보고서 중 어느 하나가 더 낫다기보다 <strong>합집합으로 통합 버전</strong>을 만드는 것이 최선.
+    핵심 수정 사항은 ①루나의 재무 연도 레이블 수정, ②GPT의 FCF 수치 교체, ③시사점에 → 액션 추가.
+  </div>
+
+  <div style="font-size:11px; color:#666; text-align:right; margin-top:14px;">
+    비교 분석: 솔루션사업부 기획팀 · '26. 6. 4 (木) &nbsp;|&nbsp;
+    루나(<a href="/coupa_investment_report.html" class="link-btn" target="_blank">원문 보기</a>) ·
+    GPT(<a href="/coupa_rossum_gpt_report.html" class="link-btn" target="_blank">원문 보기</a>)
+  </div>
+
+  <div class="end-line">- 이 상 -</div>
+
+  <div class="page-no">— 4 —</div>
+</div>
+
+
+</body>
+</html>

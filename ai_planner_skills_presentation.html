@@ -85,7 +85,10 @@
   .s5 .stage-skill { background: rgba(236,64,122,0.15); color: #F48FB1; }
 
   /* Slide 4: 5-skill grid */
-  .skills-5-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; flex: 1; }
+  .skills-5-grid { display: flex; align-items: stretch; gap: 0; flex: 1; }
+  .s5-card { flex: 1; min-width: 0; }
+  .s5-arrow { display: flex; align-items: center; justify-content: center; flex-shrink: 0; width: 28px; color: rgba(255,255,255,0.2); font-size: 22px; position: relative; }
+  .s5-arrow::after { content: "›"; }
   .s5-card { border-radius: 14px; padding: 20px 16px; display: flex; flex-direction: column; gap: 10px; }
   .s5-card.c01 { background: rgba(30,136,229,0.07);  border: 1px solid rgba(30,136,229,0.28); }
   .s5-card.c02 { background: rgba(255,152,0,0.07);   border: 1px solid rgba(255,152,0,0.28); }
@@ -330,6 +333,7 @@
           </div>
         </div>
 
+        <div class="s5-arrow"></div>
         <div class="s5-card c02">
           <div class="s5-layer">02</div>
           <div class="s5-cmd">/mental-model</div>
@@ -342,6 +346,7 @@
           </div>
         </div>
 
+        <div class="s5-arrow"></div>
         <div class="s5-card c03">
           <div class="s5-layer">03</div>
           <div class="s5-cmd">/business-diagnosis</div>
@@ -354,6 +359,7 @@
           </div>
         </div>
 
+        <div class="s5-arrow"></div>
         <div class="s5-card c04">
           <div class="s5-layer">04</div>
           <div class="s5-cmd">/strategy-canvas</div>
@@ -366,6 +372,7 @@
           </div>
         </div>
 
+        <div class="s5-arrow"></div>
         <div class="s5-card c05">
           <div class="s5-layer">05</div>
           <div class="s5-cmd">/brand-house</div>

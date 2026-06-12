@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>셀레요(Selleyo) 프로젝트 추진 계획서</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+      font-size: 13px;
+      line-height: 1.7;
+      color: #1a1a1a;
+      background: #f5f5f5;
+    }
+
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 20px auto;
+      background: #ffffff;
+      padding: 28mm 22mm 24mm 22mm;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.10);
+    }
+
+    /* 헤더 */
+    .doc-header {
+      text-align: center;
+      padding-bottom: 22px;
+      border-bottom: 3px solid #1a3a5c;
+      margin-bottom: 30px;
+    }
+
+    .app-badge {
+      display: inline-block;
+      background: #1a3a5c;
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+
+    .doc-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: #1a3a5c;
+      letter-spacing: -0.5px;
+      margin-bottom: 4px;
+    }
+
+    .doc-subtitle {
+      font-size: 15px;
+      font-weight: 400;
+      color: #4a6080;
+      margin-bottom: 14px;
+    }
+
+    .doc-meta {
+      font-size: 11px;
+      color: #888;
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    /* 섹션 공통 */
+    .section {
+      margin-bottom: 34px;
+    }
+
+    .section-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1a3a5c;
+      padding: 7px 0 7px 12px;
+      border-left: 4px solid #1a3a5c;
+      margin-bottom: 16px;
+      background: #f0f4f8;
+    }
+
+    .section-divider {
+      border: none;
+      border-top: 1px solid #d0d8e4;
+      margin: 28px 0;
+    }
+
+    /* 요약 박스 */
+    .summary-box {
+      background: #f0f4f8;
+      border: 1px solid #c8d6e5;
+      border-radius: 6px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+    }
+
+    .summary-box p {
+      font-size: 13px;
+      color: #2c3e50;
+      line-height: 1.8;
+    }
+
+    .highlight {
+      color: #1a3a5c;
+      font-weight: 600;
+    }
+
+    /* 비전 박스 */
+    .vision-box {
+      background: #1a3a5c;
+      color: #ffffff;
+      border-radius: 8px;
+      padding: 18px 24px;
+      text-align: center;
+      margin: 16px 0;
+    }
+
+    .vision-box .vision-label {
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: #a8c4dd;
+      margin-bottom: 6px;
+    }
+
+    .vision-box .vision-text {
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.6;
+    }
+
+    /* 표 */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0;
+      font-size: 12.5px;
+    }
+
+    thead tr {
+      background: #1a3a5c;
+      color: #ffffff;
+    }
+
+    thead th {
+      padding: 9px 12px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 12px;
+    }
+
+    tbody tr:nth-child(even) {
+      background: #f7f9fc;
+    }
+
+    tbody tr:hover {
+      background: #eef2f7;
+    }
+
+    tbody td {
+      padding: 8px 12px;
+      border-bottom: 1px solid #e0e8f0;
+      vertical-align: top;
+    }
+
+    .td-label {
+      font-weight: 600;
+      color: #1a3a5c;
+      white-space: nowrap;
+    }
+
+    /* 기능 카드 */
+    .feature-cards {
+      display: flex;
+      gap: 14px;
+      margin-top: 10px;
+    }
+
+    .feature-card {
+      flex: 1;
+      border: 1px solid #c8d6e5;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .feature-card-header {
+      background: #1a3a5c;
+      color: #ffffff;
+      padding: 10px 14px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .feature-card-body {
+      padding: 12px 14px;
+      font-size: 12px;
+      line-height: 1.75;
+      color: #2c3e50;
+    }
+
+    .feature-card-body ul {
+      padding-left: 16px;
+    }
+
+    .feature-card-body ul li {
+      margin-bottom: 4px;
+    }
+
+    .feature-tag {
+      display: inline-block;
+      background: #e8f0f8;
+      color: #1a3a5c;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 10px;
+      margin-top: 8px;
+    }
+
+    /* 로드맵 */
+    .roadmap-phases {
+      display: flex;
+      gap: 0;
+      margin-top: 10px;
+    }
+
+    .phase-block {
+      flex: 1;
+      border: 1px solid #c8d6e5;
+      border-radius: 0;
+      overflow: hidden;
+    }
+
+    .phase-block:first-child {
+      border-radius: 8px 0 0 8px;
+    }
+
+    .phase-block:last-child {
+      border-radius: 0 8px 8px 0;
+    }
+
+    .phase-block + .phase-block {
+      border-left: none;
+    }
+
+    .phase-header {
+      padding: 10px 12px 8px 12px;
+      text-align: center;
+    }
+
+    .phase-header.ph1 { background: #2a5298; }
+    .phase-header.ph2 { background: #1a7a4a; }
+    .phase-header.ph3 { background: #7a3a8a; }
+
+    .phase-header .phase-num {
+      font-size: 10px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.8);
+      letter-spacing: 1px;
+    }
+
+    .phase-header .phase-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: #ffffff;
+      margin: 2px 0;
+    }
+
+    .phase-header .phase-period {
+      font-size: 10px;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .phase-body {
+      padding: 12px 14px;
+      font-size: 11.5px;
+      line-height: 1.75;
+      color: #2c3e50;
+      background: #ffffff;
+    }
+
+    .phase-body ul {
+      padding-left: 14px;
+    }
+
+    .phase-body ul li {
+      margin-bottom: 3px;
+    }
+
+    .phase-goal {
+      margin-top: 10px;
+      padding: 6px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .phase-goal.ph1 { background: #e8eef8; color: #2a5298; }
+    .phase-goal.ph2 { background: #e8f4ee; color: #1a7a4a; }
+    .phase-goal.ph3 { background: #f2e8f4; color: #7a3a8a; }
+
+    /* MVP 표 */
+    .mvp-table td.included {
+      color: #1a7a4a;
+      font-weight: 600;
+    }
+
+    .mvp-table td.excluded {
+      color: #999;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+
+    .badge-mvp { background: #e0f0e8; color: #1a7a4a; }
+    .badge-later { background: #f0f0f0; color: #888; }
+    .badge-risk { background: #fde8e8; color: #c0392b; }
+    .badge-mid { background: #fef4e0; color: #c47a00; }
+    .badge-low { background: #e8f0f8; color: #2a5298; }
+
+    /* 기대효과 */
+    .effect-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .effect-card {
+      border: 1px solid #c8d6e5;
+      border-radius: 6px;
+      padding: 12px 14px;
+    }
+
+    .effect-card-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #1a3a5c;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .effect-card-icon {
+      width: 20px;
+      height: 20px;
+      background: #1a3a5c;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .effect-card ul {
+      padding-left: 14px;
+      font-size: 11.5px;
+      color: #333;
+      line-height: 1.75;
+    }
+
+    /* 리스크 표 */
+    .risk-level {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+
+    .risk-high { background: #fde8e8; color: #c0392b; }
+    .risk-mid  { background: #fef4e0; color: #c47a00; }
+    .risk-low  { background: #e8f4ee; color: #1a7a4a; }
+
+    /* 푸터 */
+    .doc-footer {
+      margin-top: 36px;
+      padding-top: 14px;
+      border-top: 1px solid #d0d8e4;
+      text-align: center;
+      font-size: 10px;
+      color: #aaa;
+    }
+
+    /* 인쇄 */
+    @media print {
+      body { background: white; }
+      .page {
+        margin: 0;
+        box-shadow: none;
+        padding: 20mm 18mm;
+        width: 210mm;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- 헤더 -->
+  <div class="doc-header">
+    <div class="app-badge">PROJECT PLAN</div>
+    <div class="doc-title">셀레요 (Selleyo)</div>
+    <div class="doc-subtitle">영상 기반 요리 레시피 자동화 앱 — 프로젝트 추진 계획서</div>
+    <div class="doc-meta">
+      <span>작성일: 2026-06-12</span>
+      <span>문서 버전: v1.0</span>
+      <span>상태: 초안</span>
+    </div>
+  </div>
+
+
+  <!-- 1. 프로젝트 개요 -->
+  <div class="section">
+    <div class="section-title">1. 프로젝트 개요</div>
+
+    <div class="summary-box">
+      <p>
+        <span class="highlight">셀레요(Selleyo)</span>는 유튜브 쇼츠 등 숏폼 요리 영상에서 핵심 조리 순간을 자동으로 캡처하여
+        단계별 레시피 카드로 변환하는 <span class="highlight">AI 기반 요리 레시피 자동화 앱</span>입니다.<br><br>
+        사용자가 보유한 재료를 입력하면 만들 수 있는 메뉴를 추천하고, 부족한 재료를 안내하는 재료 매칭 기능,
+        그리고 장기적으로 사용자가 레시피를 직접 작성하고 공유하는 커뮤니티 플랫폼으로 확장합니다.
+      </p>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width:18%">항목</th>
+          <th>내용</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="td-label">앱 이름</td>
+          <td>셀레요 (Selleyo) — "설레다 + 요리"의 합성어</td>
+        </tr>
+        <tr>
+          <td class="td-label">서비스 유형</td>
+          <td>모바일 앱 (iOS / Android), 웹 뷰어 병행</td>
+        </tr>
+        <tr>
+          <td class="td-label">핵심 기술</td>
+          <td>영상 프레임 추출 AI, 컴퓨터 비전(조리 단계 분류), 재료 인식 NLP, 추천 알고리즘</td>
+        </tr>
+        <tr>
+          <td class="td-label">추진 배경</td>
+          <td>숏폼 요리 영상 소비 증가에도 불구, 영상 속 레시피를 기록·재현하기 어려운 사용자 불편 존재</td>
+        </tr>
+        <tr>
+          <td class="td-label">주요 목적</td>
+          <td>영상 → 레시피 자동 변환으로 요리 진입 장벽 낮추기 / 냉장고 재료 기반 메뉴 결정 지원</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="vision-box">
+      <div class="vision-label">VISION</div>
+      <div class="vision-text">
+        "보고 싶은 요리 영상을 저장하면, 오늘 저녁 메뉴가 완성된다."<br>
+        <span style="font-size:12px; color:#a8c4dd; font-weight:400;">누구나 냉장고 안의 재료로 설레는 한 끼를 만들 수 있도록</span>
+      </div>
+    </div>
+  </div>
+
+  <hr class="section-divider">
+
+
+  <!-- 2. 핵심 문제 정의 및 타겟 사용자 -->
+  <div class="section">
+    <div class="section-title">2. 핵심 문제 정의 및 타겟 사용자</div>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width:5%">#</th>
+          <th style="width:30%">문제</th>
+          <th>현상 및 불편사항</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align:center; font-weight:700; color:#1a3a5c;">P1</td>
+          <td class="td-label">레시피 기록의 비효율성</td>
+          <td>영상을 보며 직접 받아 적거나, 영상을 반복 재생하며 조리 단계를 파악해야 함. 숏폼 특성상 빠르게 지나가는 영상에서 정보 포착이 어려움</td>
+        </tr>
+        <tr>
+          <td style="text-align:center; font-weight:700; color:#1a3a5c;">P2</td>
+          <td class="td-label">재료와 메뉴의 단절</td>
+          <td>냉장고에 있는 재료로 어떤 요리를 할 수 있는지 파악하기 위해 별도 검색이 필요하며, 부족한 재료를 정확히 파악하기 어려움</td>
+        </tr>
+        <tr>
+          <td style="text-align:center; font-weight:700; color:#1a3a5c;">P3</td>
+          <td class="td-label">레시피 정보의 파편화</td>
+          <td>유용한 레시피가 유튜브·인스타그램·블로그 등에 분산되어 있어 나중에 재찾기 어렵고, 내가 만든 변형 레시피를 저장·공유할 공간이 없음</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top:18px;">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:20%">타겟 구분</th>
+            <th style="width:30%">특성</th>
+            <th>주요 니즈</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-label">1순위 (코어)</td>
+            <td>20~30대 1~2인 가구, 요리 입문자</td>
+            <td>간편하게 따라 할 수 있는 단계별 가이드 / 냉장고 재료 활용 레시피 추천</td>
+          </tr>
+          <tr>
+            <td class="td-label">2순위</td>
+            <td>바쁜 직장인, 육아 중 부모</td>
+            <td>빠른 레시피 검색 및 저장 / 장보기 전 재료 확인</td>
+          </tr>
+          <tr>
+            <td class="td-label">3순위 (장기)</td>
+            <td>요리 콘텐츠 크리에이터</td>
+            <td>직접 만든 레시피 공유 / 팔로워와 소통하는 커뮤니티</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <hr class="section-divider">
+
+
+  <!-- 3. 주요 기능 3가지 -->
+  <div class="section">
+    <div class="section-title">3. 주요 기능 상세</div>
+
+    <div class="feature-cards">
+
+      <div class="feature-card">
+        <div class="feature-card-header">기능 1 · 영상 → 레시피 자동 변환</div>
+        <div class="feature-card-body">
+          <ul>
+            <li>유튜브/쇼츠 URL 또는 영상 공유 링크를 앱에 붙여넣기</li>
+            <li>AI가 조리 핵심 장면을 <strong>1~2초 단위</strong>로 자동 캡처</li>
+            <li>프레임별 이미지 + 자막/음성 인식으로 단계 설명 자동 생성</li>
+            <li>완성된 <strong>단계별 레시피 카드</strong>로 시각화 (슬라이드 형태)</li>
+            <li>재료 목록, 소요 시간, 난이도 자동 태깅</li>
+          </ul>
+          <div class="feature-tag">AI 영상 분석</div>
+          <div class="feature-tag">OCR / STT</div>
+          <div class="feature-tag">자동 구조화</div>
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-card-header">기능 2 · 냉장고 재료 기반 메뉴 추천</div>
+        <div class="feature-card-body">
+          <ul>
+            <li>보유 재료를 텍스트 입력 또는 사진 촬영으로 등록</li>
+            <li>입력 재료와 레시피 DB를 매칭하여 <strong>만들 수 있는 메뉴 목록</strong> 추천</li>
+            <li>부족한 재료(1~2가지)만 추가하면 가능한 메뉴도 함께 제안</li>
+            <li>유통기한 임박 재료를 우선 활용하는 추천 옵션</li>
+            <li>추천 결과에서 바로 레시피 카드로 이동</li>
+          </ul>
+          <div class="feature-tag">재료 인식 NLP</div>
+          <div class="feature-tag">추천 알고리즘</div>
+          <div class="feature-tag">레시피 매칭</div>
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-card-header">기능 3 · 레시피 작성 & 커뮤니티 (장기)</div>
+        <div class="feature-card-body">
+          <ul>
+            <li>사용자가 직접 단계별 레시피 작성 (텍스트 + 사진)</li>
+            <li>기존 자동 변환 레시피에 수정·메모 추가 기능</li>
+            <li>팔로우 기반 피드, 레시피 저장 및 북마크</li>
+            <li>좋아요·댓글·리메이크 공유 기능</li>
+            <li>크리에이터 등급별 콘텐츠 노출 우선순위 부여</li>
+          </ul>
+          <div class="feature-tag">UGC 플랫폼</div>
+          <div class="feature-tag">소셜 기능</div>
+          <div class="feature-tag">Phase 3 이후</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <hr class="section-divider">
+
+
+  <!-- 4. MVP 범위 제안 -->
+  <div class="section">
+    <div class="section-title">4. MVP 범위 제안 (1차 출시)</div>
+
+    <div class="summary-box">
+      <p>
+        MVP는 핵심 가치인 <span class="highlight">"영상 → 레시피 자동 변환"</span>에 집중합니다.
+        커뮤니티 기능과 고도화된 추천 알고리즘은 사용자 데이터 확보 이후 단계적으로 추가합니다.
+      </p>
+    </div>
+
+    <table class="mvp-table">
+      <thead>
+        <tr>
+          <th style="width:22%">기능 영역</th>
+          <th style="width:38%">세부 기능</th>
+          <th style="width:15%">MVP 포함 여부</th>
+          <th>비고</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="td-label" rowspan="4">영상 변환</td>
+          <td>URL 입력 → 프레임 자동 추출</td>
+          <td class="included"><span class="badge badge-mvp">MVP 포함</span></td>
+          <td>핵심 가치 기능</td>
+        </tr>
+        <tr>
+          <td>단계별 레시피 카드 생성</td>
+          <td class="included"><span class="badge badge-mvp">MVP 포함</span></td>
+          <td>슬라이드 형태 UI</td>
+        </tr>
+        <tr>
+          <td>자막/음성 기반 설명 자동 생성</td>
+          <td class="included"><span class="badge badge-mvp">MVP 포함</span></td>
+          <td>한국어 우선 지원</td>
+        </tr>
+        <tr>
+          <td>레시피 수동 편집</td>
+          <td><span class="badge badge-later">MVP 제외</span></td>
+          <td>Phase 2 반영</td>
+        </tr>
+        <tr>
+          <td class="td-label" rowspan="3">재료 추천</td>
+          <td>재료 텍스트 입력</td>
+          <td class="included"><span class="badge badge-mvp">MVP 포함</span></td>
+          <td>기본 입력 UI</td>
+        </tr>
+        <tr>
+          <td>보유 재료 기반 메뉴 추천</td>
+          <td class="included"><span class="badge badge-mvp">MVP 포함</span></td>
+          <td>기본 매칭 알고리즘</td>
+        </tr>
+        <tr>
+          <td>사진 촬영 재료 자동 인식</td>
+          <td><span class="badge badge-later">MVP 제외</span></td>
+          <td>Phase 2 반영</td>
+        </tr>
+        <tr>
+          <td class="td-label" rowspan="2">저장 / 공유</td>
+          <td>레시피 저장 (내 컬렉션)</td>
+          <td class="included"><span class="badge badge-mvp">MVP 포함</span></td>
+          <td>기본 로그인 필요</td>
+        </tr>
+        <tr>
+          <td>SNS 공유 링크 생성</td>
+          <td class="included"><span class="badge badge-mvp">MVP 포함</span></td>
+          <td>카카오톡·링크 공유</td>
+        </tr>
+        <tr>
+          <td class="td-label" rowspan="2">커뮤니티</td>
+          <td>피드, 팔로우, 좋아요</td>
+          <td><span class="badge badge-later">MVP 제외</span></td>
+          <td>Phase 3 반영</td>
+        </tr>
+        <tr>
+          <td>사용자 레시피 직접 작성</td>
+          <td><span class="badge badge-later">MVP 제외</span></td>
+          <td>Phase 3 반영</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="section-divider">
+
+
+  <!-- 5. 단계별 추진 로드맵 -->
+  <div class="section">
+    <div class="section-title">5. 단계별 추진 로드맵</div>
+
+    <div class="roadmap-phases">
+
+      <div class="phase-block">
+        <div class="phase-header ph1">
+          <div class="phase-num">PHASE 1</div>
+          <div class="phase-name">기반 구축 & MVP 출시</div>
+          <div class="phase-period">M1 ~ M6 (약 6개월)</div>
+        </div>
+        <div class="phase-body">
+          <strong>핵심 과제</strong>
+          <ul>
+            <li>영상 프레임 추출 AI 모델 개발</li>
+            <li>조리 단계 분류 컴퓨터 비전 모듈</li>
+            <li>레시피 카드 UI/UX 설계 및 앱 개발</li>
+            <li>기본 재료 매칭 알고리즘 구축</li>
+            <li>초기 레시피 DB 구축 (유튜브 인기 채널 200개)</li>
+            <li>iOS / Android 베타 출시</li>
+          </ul>
+          <div class="phase-goal ph1">목표: 베타 MAU 3,000명 달성 / 전환율 30% 이상</div>
+        </div>
+      </div>
+
+      <div class="phase-block">
+        <div class="phase-header ph2">
+          <div class="phase-num">PHASE 2</div>
+          <div class="phase-name">기능 고도화 & 사용자 성장</div>
+          <div class="phase-period">M7 ~ M14 (약 8개월)</div>
+        </div>
+        <div class="phase-body">
+          <strong>핵심 과제</strong>
+          <ul>
+            <li>사진 촬영 기반 재료 자동 인식 (이미지 AI)</li>
+            <li>레시피 수동 편집 기능 추가</li>
+            <li>개인화 추천 알고리즘 고도화</li>
+            <li>유통기한 관리 기능</li>
+            <li>인스타그램·틱톡 등 플랫폼 확장</li>
+            <li>리텐션 개선 (푸시 알림, 미션 등)</li>
+          </ul>
+          <div class="phase-goal ph2">목표: MAU 30,000명 / D30 리텐션 40% 이상</div>
+        </div>
+      </div>
+
+      <div class="phase-block">
+        <div class="phase-header ph3">
+          <div class="phase-num">PHASE 3</div>
+          <div class="phase-name">커뮤니티 플랫폼 & 수익화</div>
+          <div class="phase-period">M15 ~ M24 (약 10개월)</div>
+        </div>
+        <div class="phase-body">
+          <strong>핵심 과제</strong>
+          <ul>
+            <li>사용자 레시피 직접 작성·공유 기능</li>
+            <li>팔로우·피드·댓글 커뮤니티 구축</li>
+            <li>크리에이터 파트너십 프로그램</li>
+            <li>프리미엄 구독(광고 제거, 무제한 저장)</li>
+            <li>식재료 제휴 쇼핑 연동 (부족 재료 구매)</li>
+            <li>B2B 식품사 레시피 광고 모델</li>
+          </ul>
+          <div class="phase-goal ph3">목표: MAU 100,000명 / 유료 전환율 5% 이상</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top:16px;">
+      <table>
+        <thead>
+          <tr>
+            <th>마일스톤</th>
+            <th>시점</th>
+            <th>주요 지표</th>
+            <th>완료 기준</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-label">AI 모델 프로토타입</td>
+            <td>M2</td>
+            <td>영상→레시피 변환 정확도</td>
+            <td>조리 단계 인식 정확도 75% 이상</td>
+          </tr>
+          <tr>
+            <td class="td-label">베타 앱 출시</td>
+            <td>M5</td>
+            <td>베타 가입자 수</td>
+            <td>사전 신청 1,000명 이상</td>
+          </tr>
+          <tr>
+            <td class="td-label">정식 출시</td>
+            <td>M6</td>
+            <td>MAU, 리텐션</td>
+            <td>MAU 3,000명, D7 리텐션 25%</td>
+          </tr>
+          <tr>
+            <td class="td-label">Phase 2 완료</td>
+            <td>M14</td>
+            <td>MAU, D30 리텐션</td>
+            <td>MAU 30,000명, D30 리텐션 40%</td>
+          </tr>
+          <tr>
+            <td class="td-label">수익화 시작</td>
+            <td>M18</td>
+            <td>구독 전환율, MRR</td>
+            <td>구독 MAU 1,500명, MRR 1,500만원</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <hr class="section-divider">
+
+
+  <!-- 6. 기대효과 -->
+  <div class="section">
+    <div class="section-title">6. 기대효과</div>
+
+    <div class="effect-grid">
+
+      <div class="effect-card">
+        <div class="effect-card-title">
+          <div class="effect-card-icon">U</div>
+          사용자 가치
+        </div>
+        <ul>
+          <li>영상 레시피 기록 시간 80% 단축</li>
+          <li>냉장고 재료 활용률 향상 → 식재료 낭비 감소</li>
+          <li>요리 입문자의 심리적 진입 장벽 해소</li>
+          <li>나만의 레시피 컬렉션 관리 가능</li>
+        </ul>
+      </div>
+
+      <div class="effect-card">
+        <div class="effect-card-title">
+          <div class="effect-card-icon">B</div>
+          비즈니스 가치
+        </div>
+        <ul>
+          <li>숏폼 요리 콘텐츠 소비 트렌드와 완벽한 정합</li>
+          <li>레시피 DB 축적 → 데이터 자산 확보</li>
+          <li>크리에이터 생태계 구축으로 UGC 기반 성장</li>
+          <li>식품/유통사 B2B 연동 수익 모델 확장 가능</li>
+        </ul>
+      </div>
+
+      <div class="effect-card">
+        <div class="effect-card-title">
+          <div class="effect-card-icon">M</div>
+          시장 기회
+        </div>
+        <ul>
+          <li>국내 숏폼 요리 영상 월간 조회 수 수십억 건</li>
+          <li>밀키트·식재료 배달 시장과 자연스러운 연동</li>
+          <li>기존 레시피 앱의 텍스트 중심 한계 극복</li>
+          <li>일본·동남아 등 아시아 요리 문화권 확장 가능</li>
+        </ul>
+      </div>
+
+      <div class="effect-card">
+        <div class="effect-card-title">
+          <div class="effect-card-icon">T</div>
+          기술 자산
+        </div>
+        <ul>
+          <li>요리 영상 특화 AI 모델 독자 개발 → 진입 장벽</li>
+          <li>재료–레시피 매칭 DB의 네트워크 효과</li>
+          <li>사용자 행동 데이터 기반 추천 정확도 지속 향상</li>
+          <li>멀티모달 AI 활용 사례로 기술 확장성 확보</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <hr class="section-divider">
+
+
+  <!-- 7. 주요 리스크 및 대응 방안 -->
+  <div class="section">
+    <div class="section-title">7. 주요 리스크 및 대응 방안</div>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width:5%">#</th>
+          <th style="width:22%">리스크</th>
+          <th style="width:10%">영향도</th>
+          <th style="width:10%">발생 가능성</th>
+          <th>대응 방안</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align:center;">R1</td>
+          <td class="td-label">유튜브 API 정책 변경 / 크롤링 제한</td>
+          <td><span class="risk-level risk-high">높음</span></td>
+          <td><span class="risk-level risk-mid">중간</span></td>
+          <td>공식 YouTube Data API 활용, 다중 플랫폼(틱톡·인스타) 분산 지원, 사용자 직접 업로드 방식 병행</td>
+        </tr>
+        <tr>
+          <td style="text-align:center;">R2</td>
+          <td class="td-label">AI 레시피 변환 정확도 미달</td>
+          <td><span class="risk-level risk-high">높음</span></td>
+          <td><span class="risk-level risk-mid">중간</span></td>
+          <td>MVP 단계에서 전문 편집팀 수동 검수 병행, 사용자 피드백 기반 모델 재학습 루프 구축</td>
+        </tr>
+        <tr>
+          <td style="text-align:center;">R3</td>
+          <td class="td-label">저작권 이슈 (영상 콘텐츠 무단 활용)</td>
+          <td><span class="risk-level risk-high">높음</span></td>
+          <td><span class="risk-level risk-mid">중간</span></td>
+          <td>원본 영상 링크 기반 서비스 (영상 재호스팅 금지), 크리에이터 저작권 고지 명시, 법률 자문 확보</td>
+        </tr>
+        <tr>
+          <td style="text-align:center;">R4</td>
+          <td class="td-label">초기 사용자 획득 비용 과다</td>
+          <td><span class="risk-level risk-mid">중간</span></td>
+          <td><span class="risk-level risk-mid">중간</span></td>
+          <td>요리 유튜버·인플루언서와 초기 파트너십 체결, 공유 기능 기반 바이럴 성장 전략 우선</td>
+        </tr>
+        <tr>
+          <td style="text-align:center;">R5</td>
+          <td class="td-label">경쟁 앱(만개의 레시피 등)의 유사 기능 출시</td>
+          <td><span class="risk-level risk-mid">중간</span></td>
+          <td><span class="risk-level risk-low">낮음</span></td>
+          <td>영상 자동 변환 AI 기술의 빠른 개발로 선점 효과 확보, UGC 커뮤니티 기반 Lock-in 강화</td>
+        </tr>
+        <tr>
+          <td style="text-align:center;">R6</td>
+          <td class="td-label">개발 일정 지연 (AI 모델 개발 난이도)</td>
+          <td><span class="risk-level risk-mid">중간</span></td>
+          <td><span class="risk-level risk-mid">중간</span></td>
+          <td>MVP는 룰 기반 프레임 추출로 먼저 출시 후 AI 모델 점진적 교체, 오픈소스 모델 활용으로 개발 기간 단축</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- 푸터 -->
+  <div class="doc-footer">
+    셀레요(Selleyo) 프로젝트 추진 계획서 · v1.0 · 2026-06-12 · 초안 — 내부 검토용
+  </div>
+
+</div>
+
+</body>
+</html>

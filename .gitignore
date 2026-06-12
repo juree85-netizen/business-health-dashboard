@@ -4,6 +4,7 @@ __pycache__/
 *.log
 .env
 docs-hub/node_modules/
+vera-hub/
 .bash_history
 .bash_logout
 .bashrc

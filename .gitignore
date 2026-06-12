@@ -5,6 +5,7 @@ __pycache__/
 .env
 docs-hub/node_modules/
 vera-hub/
+selleyo/
 .bash_history
 .bash_logout
 .bashrc

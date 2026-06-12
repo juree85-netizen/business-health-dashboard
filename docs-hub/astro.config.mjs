@@ -3,7 +3,8 @@ import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 
 export default defineConfig({
-	base: '/',
+	site: 'https://juree85-netizen.github.io',
+	base: process.env.BASE_PATH || '/',
 	integrations: [
 		starlight({
 			title: 'PLAN HUB',

@@ -78,6 +78,18 @@
       color: #999;
     }
 
+    .version-note {
+      margin-top: 10px;
+      display: inline-block;
+      background: #f0f7ff;
+      border: 1px solid #b3d4ff;
+      border-radius: 6px;
+      padding: 6px 16px;
+      font-size: 11px;
+      color: #1a5fa8;
+      line-height: 1.6;
+    }
+
     /* ── 섹션 공통 ── */
     .section {
       margin-bottom: 36px;
@@ -264,6 +276,151 @@
       font-size: 18px;
       padding: 0 4px;
       flex-shrink: 0;
+    }
+
+    /* ── 영상 캡처 옵션 테이블 ── */
+    .option-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      margin-top: 10px;
+    }
+
+    .option-table th {
+      background: #FF6B35;
+      color: #fff;
+      padding: 8px 14px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 11px;
+    }
+
+    .option-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #f0f0f0;
+      color: #444;
+      vertical-align: top;
+    }
+
+    .option-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .option-table tr:nth-child(even) td {
+      background: #fafafa;
+    }
+
+    .option-label-a {
+      display: inline-block;
+      background: #e8f4ff;
+      border: 1px solid #b3d4ff;
+      color: #1a5fa8;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 10px;
+    }
+
+    .option-label-b {
+      display: inline-block;
+      background: #fff3e0;
+      border: 1px solid #ffcc80;
+      color: #b35c00;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 10px;
+    }
+
+    .copyright-note {
+      margin-top: 8px;
+      background: #f0f7ff;
+      border-left: 3px solid #5599ee;
+      padding: 8px 12px;
+      border-radius: 0 6px 6px 0;
+      font-size: 11px;
+      color: #1a5fa8;
+    }
+
+    /* ── 재료 기능 두 진입점 ── */
+    .fridge-container {
+      margin-top: 4px;
+    }
+
+    .fridge-entry-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+
+    .entry-card {
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1.5px solid #eee;
+    }
+
+    .entry-card-header {
+      padding: 10px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .entry-card-header.type-a {
+      background: #e8f4ff;
+      color: #1a5fa8;
+      border-bottom: 1.5px solid #b3d4ff;
+    }
+
+    .entry-card-header.type-b {
+      background: #FFF5F0;
+      color: #CC4A1A;
+      border-bottom: 1.5px solid #FFD4BF;
+    }
+
+    .entry-card-body {
+      padding: 12px 14px;
+      background: #fff;
+    }
+
+    .entry-card-body ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .entry-card-body ul li {
+      font-size: 12px;
+      color: #444;
+      padding: 4px 0;
+      padding-left: 14px;
+      position: relative;
+      border-bottom: 1px solid #f5f5f5;
+    }
+
+    .entry-card-body ul li:last-child {
+      border-bottom: none;
+    }
+
+    .entry-card-body ul li::before {
+      content: "▸";
+      color: #888;
+      position: absolute;
+      left: 0;
+      font-size: 10px;
+    }
+
+    .fridge-connect-note {
+      background: #f5fff5;
+      border: 1.5px solid #88cc99;
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-size: 12px;
+      color: #2a6e3a;
+      font-weight: 600;
+      text-align: center;
     }
 
     /* ── 주요 화면 ── */
@@ -551,6 +708,12 @@
       color: #6600cc;
     }
 
+    .badge.gray {
+      background: #f5f5f5;
+      border-color: #cccccc;
+      color: #555555;
+    }
+
     /* ── 개발 로드맵 ── */
     .roadmap-container {
       position: relative;
@@ -685,7 +848,13 @@
     <div style="margin-top:16px;">
       <span class="slogan-block">"오늘 저녁, 셀레요 🍳"</span>
     </div>
-    <div class="doc-meta">작성일: 2026-06-12 &nbsp;|&nbsp; 버전: v1.0</div>
+    <div class="doc-meta">작성일: 2026-06-12 &nbsp;|&nbsp; 버전: v1.1</div>
+    <div style="margin-top:10px;">
+      <span class="version-note">
+        v1.1 업데이트 · 영상 캡처: 실제 프레임(A) / AI 일러스트(B) 병행 옵션 추가<br>
+        재료 기능: 재료 먼저(냉장고 파먹기) + 레시피 먼저(요리 준비 흐름) 두 진입점 병행
+      </span>
+    </div>
   </div>
 
   <!-- 1. 기획 배경 -->
@@ -765,7 +934,7 @@
       <div class="flow-step">
         <div class="step-num">3</div>
         <div class="step-title">레시피 저장</div>
-        <div class="step-desc">유튜브 링크 입력<br>AI 자막 추출<br>일러스트 자동 생성</div>
+        <div class="step-desc">유튜브 링크 입력<br>AI 자막 추출<br>이미지 A/B 선택</div>
       </div>
       <div class="flow-arrow">›</div>
       <div class="flow-step">
@@ -783,7 +952,7 @@
       <div class="flow-step">
         <div class="step-num">6</div>
         <div class="step-title">요리 카드</div>
-        <div class="step-desc">단계별 카드<br>AI 일러스트<br>타이머</div>
+        <div class="step-desc">단계별 카드<br>이미지 A/B<br>타이머</div>
       </div>
     </div>
   </div>
@@ -806,15 +975,70 @@
         </div>
       </div>
 
+      <!-- 레시피 저장 — 영상 캡처 옵션 -->
       <div class="screen-card">
-        <div class="screen-card-header">🔗 레시피 저장</div>
+        <div class="screen-card-header">🔗 레시피 저장 — 영상 캡처 방식 선택</div>
         <div class="screen-card-body">
           <ul>
             <li>유튜브 링크 붙여넣기 → AI 자막 추출</li>
             <li>단계별 레시피 자동 정리</li>
-            <li>핵심 장면 AI 일러스트 1장 자동 생성 (DALL-E)</li>
-            <li>저작권 안전: 나만의 레시피로 재구성·수정</li>
+            <li style="font-weight:600; color:#333;">핵심 장면 이미지: 저장 시 A/B 선택</li>
           </ul>
+          <table class="option-table" style="margin-top:8px;">
+            <thead>
+              <tr>
+                <th style="width:28%">옵션</th>
+                <th style="width:30%">방식</th>
+                <th>특징</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="option-label-a">A. 실제 프레임</span></td>
+                <td>영상 핵심 순간 캡처</td>
+                <td>직관적, 실제감 높음<br><span style="color:#c0392b; font-size:10px;">저작권 검토 필요</span></td>
+              </tr>
+              <tr>
+                <td><span class="option-label-b">B. AI 일러스트</span></td>
+                <td>DALL-E 단계별 재현</td>
+                <td>저작권 안전<br>통일감 있는 스타일</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 나의 냉장고 — 두 진입점 -->
+      <div class="screen-card wide">
+        <div class="screen-card-header">🥬 나의 냉장고 — 재료 기능 두 진입점</div>
+        <div class="screen-card-body">
+          <div class="fridge-container">
+            <div class="fridge-entry-grid">
+              <div class="entry-card">
+                <div class="entry-card-header type-a">📦 진입점 A — 재료 먼저 (냉장고 파먹기)</div>
+                <div class="entry-card-body">
+                  <ul>
+                    <li>보유 재료 입력 → 만들 수 있는 메뉴 자동 추천</li>
+                    <li>재료 부족 시 "○○ 추가하면 ○○ 가능" 안내</li>
+                    <li>홈/탐색 화면에서 독립 진입 — 메인 기능으로 위치</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="entry-card">
+                <div class="entry-card-header type-b">🍽️ 진입점 B — 레시피 먼저 (요리 준비 흐름)</div>
+                <div class="entry-card-body">
+                  <ul>
+                    <li>레시피 선택 → 재료 확인 화면에서 보유 재료 자동 체크</li>
+                    <li>부족한 재료만 구매 리스트로 자동 정리</li>
+                    <li>요리 준비 3단계 흐름에 통합 (기존 흐름 유지)</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="fridge-connect-note">
+              🔗 "나의 냉장고"에 재료 등록 시 두 진입점 모두 자동 연동
+            </div>
+          </div>
         </div>
       </div>
 
@@ -832,17 +1056,17 @@
             <div class="prep-step">
               <div class="step-badge">STEP 1</div>
               <div class="step-name">요약 화면</div>
-              <div class="step-detail">음식 대표 일러스트<br>요리 시간·난이도·인분<br>어울리는 상황 표시</div>
+              <div class="step-detail">음식 대표 이미지<br>요리 시간·난이도·인분<br>어울리는 상황 표시</div>
             </div>
             <div class="prep-step">
               <div class="step-badge">STEP 2</div>
               <div class="step-name">재료 확인</div>
-              <div class="step-detail">재료 목록 + 체크박스<br>미체크 재료 구매 리스트 자동 정리<br>(추후) 나의 냉장고 연동</div>
+              <div class="step-detail">재료 목록 + 체크박스<br>나의 냉장고 연동 시 자동 체크<br>미체크 재료 구매 리스트 자동 정리</div>
             </div>
             <div class="prep-step">
               <div class="step-badge">STEP 3</div>
               <div class="step-name">요리 시작</div>
-              <div class="step-detail">단계별 카드 넘기기<br>AI 일러스트 표시<br>단계별 타이머 자동 실행</div>
+              <div class="step-detail">단계별 카드 넘기기<br>이미지 A(프레임) 또는 B(일러스트)<br>단계별 타이머 자동 실행</div>
             </div>
           </div>
         </div>
@@ -895,11 +1119,6 @@
         <div class="desc">영수증 인증<br>+ 포인트 적립</div>
       </div>
       <div class="expand-item">
-        <div class="icon">🥬</div>
-        <div class="name">나의 냉장고</div>
-        <div class="desc">보유 재료 등록<br>→ 레시피 자동 매칭</div>
-      </div>
-      <div class="expand-item">
         <div class="icon">📍</div>
         <div class="name">맛집 기록</div>
         <div class="desc">방문 맛집<br>레시피 연결</div>
@@ -908,6 +1127,11 @@
         <div class="icon">👥</div>
         <div class="name">커뮤니티</div>
         <div class="desc">레시피 공유<br>소셜 확장</div>
+      </div>
+      <div class="expand-item">
+        <div class="icon">🤝</div>
+        <div class="name">브랜드 콜라보</div>
+        <div class="desc">식품 브랜드<br>B2B 파트너십</div>
       </div>
     </div>
   </div>
@@ -926,7 +1150,7 @@
       <div class="rev-card phase2">
         <div class="phase-label">PHASE 2 · 중기</div>
         <div class="phase-title">프리미엄 구독</div>
-        <div class="phase-desc">일러스트 무제한<br>레시피 저장 무제한<br>구독형 과금</div>
+        <div class="phase-desc">이미지 생성 무제한<br>레시피 저장 무제한<br>구독형 과금</div>
       </div>
       <div class="rev-card phase3">
         <div class="phase-label">PHASE 3 · 후기</div>
@@ -966,9 +1190,14 @@
           <td>유튜브 자막 추출 → 레시피 단계 자동 정리</td>
         </tr>
         <tr>
-          <td>AI 이미지</td>
+          <td>AI 이미지 (옵션 B)</td>
           <td><span class="badge orange">DALL-E</span></td>
-          <td>요리 단계별 핵심 장면 일러스트 생성</td>
+          <td>요리 단계별 핵심 장면 AI 일러스트 생성</td>
+        </tr>
+        <tr>
+          <td>영상 캡처 (옵션 A)</td>
+          <td><span class="badge gray">YouTube API</span></td>
+          <td>핵심 순간 실제 프레임 추출 (저작권 검토 병행)</td>
         </tr>
         <tr>
           <td>개발 도구</td>
@@ -999,7 +1228,7 @@
               <span class="chip highlight">유튜브 링크 입력</span>
               <span class="chip highlight">AI 자막 추출</span>
               <span class="chip highlight">단계별 레시피 정리</span>
-              <span class="chip highlight">AI 일러스트 생성</span>
+              <span class="chip highlight">이미지 A/B 선택 생성</span>
               <span class="chip highlight">요리 카드 + 타이머</span>
             </div>
           </div>
@@ -1032,9 +1261,10 @@
           <div class="roadmap-content-header s3">🛒 확장 — 재료 & 수익화</div>
           <div class="roadmap-content-body">
             <div class="feature-chips">
+              <span class="chip">나의 냉장고 (재료 먼저)</span>
+              <span class="chip">나의 냉장고 (레시피 먼저)</span>
               <span class="chip">재료 가격 비교</span>
               <span class="chip">영수증 인증 + 포인트</span>
-              <span class="chip">나의 냉장고</span>
               <span class="chip">제휴 수수료 수익화</span>
             </div>
           </div>
@@ -1064,7 +1294,7 @@
 
   <!-- 푸터 -->
   <div class="doc-footer">
-    셀레요 (Selleyo) 앱 기획서 v1.0 &nbsp;|&nbsp; 2026-06-12
+    셀레요 (Selleyo) 앱 기획서 v1.1 &nbsp;|&nbsp; 2026-06-12
   </div>
 
 </div>

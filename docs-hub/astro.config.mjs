@@ -66,10 +66,16 @@ export default defineConfig({
 					],
 				},
 				{
+					label: 'AI Use Case',
+					items: [
+						{ label: 'AIPro 활용 과제 기술 검토서', link: '/guides/aipro-tech-review/' },
+						{ label: 'AI Use Case PoC 슬라이드', link: '/guides/ai-usecase/' },
+					],
+				},
+				{
 					label: 'AI 발표 자료',
 					items: [
 						{ label: 'AI 스킬과 기획의 단계', link: '/guides/ai-planner-skills/' },
-						{ label: 'AI Use Case PoC 슬라이드', link: '/guides/ai-usecase/' },
 						{ label: 'AI 워크플로우 슬라이드', link: '/guides/ai-workflow-slides/' },
 						{ label: 'AI 워크플로우 문서', link: '/guides/ai-workflow-doc/' },
 					],

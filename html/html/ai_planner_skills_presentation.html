@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 스킬과 기획의 단계</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', 'Noto Sans KR', sans-serif; background: #0f1923; color: #fff; overflow: hidden; height: 100vh; }
+
+  .deck { width: 100vw; height: 100vh; position: relative; }
+  .slide { position: absolute; inset: 0; display: none; flex-direction: column; background: #0f1923; }
+  .slide.active { display: flex; }
+
+  .nav { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; align-items: center; z-index: 100; }
+  .nav button { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); color: #fff; padding: 8px 20px; border-radius: 20px; cursor: pointer; font-size: 13px; backdrop-filter: blur(8px); transition: background .2s; }
+  .nav button:hover { background: rgba(23,185,166,0.4); }
+  .nav .counter { font-size: 12px; color: rgba(255,255,255,0.5); min-width: 50px; text-align: center; }
+  .progress { position: fixed; top: 0; left: 0; height: 3px; background: #17B9A6; transition: width .3s; z-index: 200; }
+
+  .slide-inner { flex: 1; display: flex; flex-direction: column; padding: 48px 64px 80px; }
+  .slide-tag { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #17B9A6; margin-bottom: 12px; }
+  .slide-title { font-size: 32px; font-weight: 700; line-height: 1.25; color: #fff; margin-bottom: 6px; }
+  .slide-sub { font-size: 15px; color: rgba(255,255,255,0.55); margin-bottom: 36px; }
+  .divider { width: 48px; height: 3px; background: #17B9A6; border-radius: 2px; margin-bottom: 32px; }
+
+  /* Cover */
+  .cover { background: linear-gradient(135deg, #0d1b2a 0%, #1a2f45 50%, #0d1b2a 100%); justify-content: center; align-items: center; text-align: center; position: relative; overflow: hidden; }
+  .cover-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 30%, rgba(23,185,166,0.15) 0%, transparent 60%), radial-gradient(ellipse at 20% 80%, rgba(126,87,194,0.12) 0%, transparent 55%); }
+  .cover-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 48px 48px; }
+  .cover-content { position: relative; z-index: 1; max-width: 860px; padding: 0 32px; }
+  .cover-badge { display: inline-flex; gap: 10px; margin-bottom: 32px; flex-wrap: wrap; justify-content: center; }
+  .badge { background: rgba(23,185,166,0.18); border: 1px solid rgba(23,185,166,0.4); color: #17B9A6; padding: 5px 14px; border-radius: 20px; font-size: 12px; letter-spacing: 0.5px; }
+  .cover-main-title { font-size: 34px; font-weight: 800; line-height: 1.4; color: #fff; margin-bottom: 20px; word-break: keep-all; }
+  .cover-main-title span { color: #17B9A6; }
+  .cover-sub { font-size: 16px; color: rgba(255,255,255,0.5); line-height: 1.7; }
+  .cover-line { width: 60px; height: 3px; background: #17B9A6; margin: 24px auto; border-radius: 2px; }
+
+  /* Slide 2: Before/After flow */
+  .flow-compare { display: flex; flex-direction: column; gap: 24px; flex: 1; justify-content: center; }
+  .flow-row { display: flex; align-items: center; gap: 0; }
+  .flow-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; min-width: 80px; flex-shrink: 0; }
+  .flow-label.before { color: #ef5350; }
+  .flow-label.after  { color: #17B9A6; }
+  .flow-steps { display: flex; align-items: center; gap: 0; flex: 1; }
+  .fstep { border-radius: 8px; padding: 10px 16px; font-size: 13px; font-weight: 600; text-align: center; white-space: nowrap; }
+  .fstep.neutral { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.8); }
+  .fstep.bad    { background: rgba(239,83,80,0.12); border: 1px solid rgba(239,83,80,0.3); color: #ef9a9a; }
+  .fstep.good   { background: rgba(23,185,166,0.12); border: 1px solid rgba(23,185,166,0.35); color: #80CBC4; }
+  .fstep.output { background: rgba(30,136,229,0.12); border: 1px solid rgba(30,136,229,0.3); color: #90CAF9; }
+  .farrow { color: rgba(255,255,255,0.3); font-size: 16px; padding: 0 8px; flex-shrink: 0; }
+  .fgroup { display: flex; align-items: center; background: rgba(23,185,166,0.06); border: 1px solid rgba(23,185,166,0.2); border-radius: 10px; padding: 6px 10px; gap: 0; }
+  .fgroup-label { font-size: 10px; color: rgba(23,185,166,0.6); margin-right: 8px; letter-spacing: 1px; white-space: nowrap; writing-mode: horizontal-tb; }
+  .flow-insight { background: linear-gradient(135deg, rgba(23,185,166,0.1), rgba(126,87,194,0.08)); border: 1px solid rgba(23,185,166,0.25); border-radius: 12px; padding: 20px 28px; margin-top: 8px; }
+  .flow-insight-text { font-size: 15px; color: rgba(255,255,255,0.85); line-height: 1.7; word-break: keep-all; }
+  .flow-insight-text span { color: #17B9A6; font-weight: 700; }
+
+  /* Slide 3: Stages */
+  .stages-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; flex: 1; }
+  .stage-card { border-radius: 12px; padding: 20px 14px; display: flex; flex-direction: column; gap: 12px; }
+  .stage-card.s1 { background: rgba(30,136,229,0.08);  border: 1px solid rgba(30,136,229,0.25); }
+  .stage-card.s2 { background: rgba(255,152,0,0.06);   border: 1px dashed rgba(255,152,0,0.2); }
+  .stage-card.s3 { background: rgba(23,185,166,0.08);  border: 1px solid rgba(23,185,166,0.25); }
+  .stage-card.s4 { background: rgba(126,87,194,0.06);  border: 1px dashed rgba(126,87,194,0.2); }
+  .stage-card.s5 { background: rgba(236,64,122,0.06);  border: 1px dashed rgba(236,64,122,0.2); }
+  .stage-card.planned { opacity: 0.65; }
+  .stage-num { font-size: 30px; font-weight: 800; line-height: 1; }
+  .s1 .stage-num { color: rgba(30,136,229,0.5); }
+  .s2 .stage-num { color: rgba(255,152,0,0.4); }
+  .s3 .stage-num { color: rgba(23,185,166,0.5); }
+  .s4 .stage-num { color: rgba(126,87,194,0.4); }
+  .s5 .stage-num { color: rgba(236,64,122,0.4); }
+  .stage-name { font-size: 18px; font-weight: 700; color: #fff; }
+  .stage-role { font-size: 11px; font-weight: 700; letter-spacing: 1px; margin-bottom: 4px; }
+  .s1 .stage-role { color: #64B5F6; }
+  .s2 .stage-role { color: #FFB74D; }
+  .s3 .stage-role { color: #17B9A6; }
+  .s4 .stage-role { color: #CE93D8; }
+  .s5 .stage-role { color: #F48FB1; }
+  .stage-desc { font-size: 12px; color: rgba(255,255,255,0.6); line-height: 1.6; }
+  .stage-skill { display: inline-block; font-size: 10px; padding: 3px 9px; border-radius: 10px; font-weight: 700; margin-top: 4px; }
+  .s1 .stage-skill { background: rgba(30,136,229,0.15); color: #64B5F6; }
+  .s2 .stage-skill { background: rgba(255,152,0,0.1); color: rgba(255,183,77,0.6); border: 1px dashed rgba(255,152,0,0.25); font-style: italic; }
+  .s3 .stage-skill { background: rgba(23,185,166,0.15); color: #17B9A6; }
+  .s4 .stage-skill { background: rgba(126,87,194,0.1); color: rgba(206,147,216,0.6); border: 1px dashed rgba(126,87,194,0.25); font-style: italic; }
+  .s5 .stage-skill { background: rgba(236,64,122,0.1); color: rgba(244,143,177,0.6); border: 1px dashed rgba(236,64,122,0.25); font-style: italic; }
+
+  /* Slide 4: Skills */
+  .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; flex: 1; }
+  .skill-card { border-radius: 16px; padding: 32px; display: flex; flex-direction: column; gap: 16px; }
+  .skill-card.sk1 { background: rgba(23,185,166,0.07); border: 1px solid rgba(23,185,166,0.3); }
+  .skill-card.sk2 { background: rgba(126,87,194,0.07); border: 1px solid rgba(126,87,194,0.3); }
+  .skill-cmd { font-size: 13px; font-weight: 700; letter-spacing: 1px; font-family: 'Consolas', monospace; }
+  .sk1 .skill-cmd { color: #17B9A6; }
+  .sk2 .skill-cmd { color: #CE93D8; }
+  .skill-name { font-size: 22px; font-weight: 800; color: #fff; line-height: 1.3; }
+  .skill-tagline { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.6; word-break: keep-all; }
+  .skill-steps { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+  .skill-step { display: flex; gap: 10px; align-items: flex-start; }
+  .sstep-num { width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .sk1 .sstep-num { background: rgba(23,185,166,0.25); color: #17B9A6; }
+  .sk2 .sstep-num { background: rgba(126,87,194,0.25); color: #CE93D8; }
+  .sstep-text { font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.55; }
+  .skill-stages { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+  .skill-stage-tag { font-size: 11px; padding: 3px 10px; border-radius: 10px; }
+  .sk1 .skill-stage-tag { background: rgba(23,185,166,0.12); color: #80CBC4; }
+  .sk2 .skill-stage-tag { background: rgba(126,87,194,0.12); color: #CE93D8; }
+
+  /* Slide 5: Use cases */
+  .usecase-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; flex: 1; }
+  .uc-card { border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 18px; }
+  .uc-card.uc1 { background: rgba(30,136,229,0.06); border: 1px solid rgba(30,136,229,0.2); }
+  .uc-card.uc2 { background: rgba(255,152,0,0.06); border: 1px solid rgba(255,152,0,0.2); }
+  .uc-tag { font-size: 11px; font-weight: 700; letter-spacing: 1px; }
+  .uc1 .uc-tag { color: #64B5F6; }
+  .uc2 .uc-tag { color: #FFB74D; }
+  .uc-title { font-size: 18px; font-weight: 700; color: #fff; line-height: 1.4; }
+  .uc-flow { display: flex; flex-direction: column; gap: 8px; }
+  .uc-step { display: flex; align-items: flex-start; gap: 12px; padding: 10px 14px; border-radius: 8px; }
+  .uc1 .uc-step { background: rgba(30,136,229,0.06); }
+  .uc2 .uc-step { background: rgba(255,152,0,0.06); }
+  .uc-step-skill { font-size: 11px; font-weight: 700; min-width: 110px; flex-shrink: 0; padding: 2px 8px; border-radius: 8px; text-align: center; }
+  .uc1 .uc-step-skill { background: rgba(23,185,166,0.15); color: #17B9A6; }
+  .uc2 .uc-step-skill { background: rgba(126,87,194,0.15); color: #CE93D8; }
+  .uc-step-desc { font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.55; }
+  .uc-result { font-size: 13px; color: rgba(255,255,255,0.45); border-top: 1px solid rgba(255,255,255,0.07); padding-top: 12px; line-height: 1.55; }
+  .uc-result strong { color: #17B9A6; }
+
+  /* Slide 6: Implication */
+  .impl-wrap { display: flex; flex-direction: column; gap: 16px; flex: 1; }
+  .impl-quote-box { background: linear-gradient(135deg, rgba(23,185,166,0.12), rgba(126,87,194,0.08)); border: 1px solid rgba(23,185,166,0.3); border-radius: 14px; padding: 20px 28px; }
+  .impl-quote { font-size: 17px; font-weight: 600; color: #fff; line-height: 1.7; word-break: keep-all; }
+  .impl-quote span { color: #17B9A6; }
+  .impl-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .impl-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 16px; }
+  .impl-card-icon { font-size: 22px; margin-bottom: 10px; }
+  .impl-card-title { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 6px; line-height: 1.4; }
+  .impl-card-desc { font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.65; }
+  .impl-card-num { font-size: 16px; font-weight: 800; color: #17B9A6; margin-bottom: 6px; }
+  .impl-mini-flow { margin: 7px 0; }
+  .impl-mini-label { font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 4px; }
+  .impl-mini-steps { display: flex; align-items: center; gap: 3px; flex-wrap: wrap; }
+  .impl-mini-step { font-size: 10px; padding: 2px 7px; border-radius: 4px; white-space: nowrap; }
+  .impl-mini-step.before-step { background: rgba(239,83,80,0.1); border: 1px solid rgba(239,83,80,0.2); color: #ef9a9a; }
+  .impl-mini-step.after-step  { background: rgba(23,185,166,0.1); border: 1px solid rgba(23,185,166,0.2); color: #80CBC4; }
+  .impl-mini-arrow { font-size: 10px; color: rgba(255,255,255,0.25); }
+  .impl-divider { border: none; border-top: 1px solid rgba(255,255,255,0.08); margin: 9px 0; }
+  .impl-message { font-size: 11.5px; color: rgba(255,255,255,0.5); line-height: 1.6; }
+  .impl-message strong { color: rgba(23,185,166,0.9); font-weight: 600; }
+  .impl-final { text-align: center; padding: 12px 20px; font-size: 13px; color: rgba(255,255,255,0.55); background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; line-height: 1.6; }
+  .impl-final strong { color: #17B9A6; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progressBar"></div>
+
+<div class="deck" id="deck">
+
+  <!-- ══ SLIDE 1: Cover ══ -->
+  <div class="slide cover active">
+    <div class="cover-bg"></div>
+    <div class="cover-grid"></div>
+    <div class="cover-content">
+      <div class="cover-badge">
+        <span class="badge">기획자 관점</span>
+        <span class="badge">AI 스킬</span>
+        <span class="badge">사고 단계 설계</span>
+      </div>
+      <div class="cover-main-title">
+        AI 스킬과<br>
+        <span>기획의 단계</span>
+      </div>
+      <div class="cover-line"></div>
+      <div class="cover-sub">
+        concept-map × business-diagnosis
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 2: Before / After ══ -->
+  <div class="slide">
+    <div class="slide-inner">
+      <div class="slide-tag">Problem</div>
+      <div class="slide-title">AI 활용, 두 가지 방향</div>
+      <div class="divider"></div>
+      <div class="flow-compare">
+        <div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.35);letter-spacing:1px;margin-bottom:14px;">▶ 생산성 중심 AI 활용 — "더 빠르게 만들기"</div>
+          <div class="flow-row">
+            <div class="flow-label before" style="visibility:hidden;">–</div>
+            <div class="flow-steps">
+              <div class="fstep neutral">업무 브리프</div>
+              <div class="farrow">›</div>
+              <div class="fstep neutral">AI 프롬프트</div>
+              <div class="farrow">›</div>
+              <div class="fstep bad" style="padding:10px 20px;">보고서 초안 생성</div>
+              <div class="farrow">›</div>
+              <div class="fstep output">산출물 완성</div>
+            </div>
+          </div>
+          <div style="margin-top:10px;font-size:12px;color:rgba(239,83,80,0.7);padding-left:80px;">→ 빠르지만, 기획자의 사고 과정이 AI에 위임됨</div>
+        </div>
+
+        <div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.35);letter-spacing:1px;margin-bottom:14px;">▶ 스킬 기반 AI 활용 — "더 깊게 생각하기"</div>
+          <div class="flow-row">
+            <div class="flow-label after" style="visibility:hidden;">–</div>
+            <div class="flow-steps" style="flex-wrap:wrap;gap:6px;">
+              <div class="fstep neutral">업무 브리프</div>
+              <div class="farrow">›</div>
+              <div class="fgroup">
+                <div class="fstep good" style="margin:0 3px;padding:8px 10px;font-size:12px;">이해</div>
+                <div class="farrow" style="color:rgba(23,185,166,0.4);">›</div>
+                <div class="fstep good" style="margin:0 3px;padding:8px 10px;font-size:12px;">작동원리</div>
+                <div class="farrow" style="color:rgba(23,185,166,0.4);">›</div>
+                <div class="fstep good" style="margin:0 3px;padding:8px 10px;font-size:12px;">진단</div>
+                <div class="farrow" style="color:rgba(23,185,166,0.4);">›</div>
+                <div class="fstep good" style="margin:0 3px;padding:8px 10px;font-size:12px;">설계</div>
+                <div class="farrow" style="color:rgba(23,185,166,0.4);">›</div>
+                <div class="fstep good" style="margin:0 3px;padding:8px 10px;font-size:12px;">메시지</div>
+              </div>
+              <div class="farrow">›</div>
+              <div class="fstep output">산출물</div>
+            </div>
+          </div>
+          <div style="margin-top:10px;font-size:12px;color:rgba(23,185,166,0.7);padding-left:0px;">→ 기획자가 각 단계를 직접 주도. AI는 그 사고를 구조화하는 도구.</div>
+        </div>
+
+        <div class="flow-insight">
+          <div class="flow-insight-text">
+            스킬은 "보고서 속도"의 문제가 아님. <span>기획자가 대상을 정의하고, 구조를 파악하고, 문제를 규정하는</span> — 보고서 이전의 사고 단계 설계.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 3: Stages ══ -->
+  <div class="slide">
+    <div class="slide-inner">
+      <div class="slide-tag">Framework</div>
+      <div class="slide-title">기획자의 사고 레이어 — 5단계</div>
+      <div class="divider"></div>
+      <div class="stages-grid">
+        <div class="stage-card s1">
+          <div>
+            <div class="stage-num">01</div>
+            <div class="stage-name">이해</div>
+          </div>
+          <div>
+            <div class="stage-role">UNDERSTAND</div>
+            <div class="stage-desc">대상이 뭔지, 어디에 속하는지, 무엇과 연결되는지 조망.</div>
+          </div>
+          <span class="stage-skill">concept-map</span>
+        </div>
+        <div class="stage-card s2 planned">
+          <div>
+            <div class="stage-num">02</div>
+            <div class="stage-name">작동원리</div>
+          </div>
+          <div>
+            <div class="stage-role">ANALYZE</div>
+            <div class="stage-desc">왜 그렇게 움직이는지, 성장의 동력이 무엇인지 파악.</div>
+          </div>
+          <span class="stage-skill">mental-model 준비 중</span>
+        </div>
+        <div class="stage-card s3">
+          <div>
+            <div class="stage-num">03</div>
+            <div class="stage-name">진단</div>
+          </div>
+          <div>
+            <div class="stage-role">DIAGNOSE</div>
+            <div class="stage-desc">문제가 어디서 시작됐는지, 우선순위가 어디에 있는지 결정.</div>
+          </div>
+          <span class="stage-skill">business-diagnosis</span>
+        </div>
+        <div class="stage-card s4 planned">
+          <div>
+            <div class="stage-num">04</div>
+            <div class="stage-name">설계</div>
+          </div>
+          <div>
+            <div class="stage-role">RECOMMEND</div>
+            <div class="stage-desc">어떤 전략을 취할지, 선택지와 트레이드오프를 설계.</div>
+          </div>
+          <span class="stage-skill">strategy-canvas 준비 중</span>
+        </div>
+        <div class="stage-card s5 planned">
+          <div>
+            <div class="stage-num">05</div>
+            <div class="stage-name">메시지</div>
+          </div>
+          <div>
+            <div class="stage-role">COMMUNICATE</div>
+            <div class="stage-desc">결론을 한 문장으로, 누구에게 어떻게 전달할지 포지셔닝.</div>
+          </div>
+          <span class="stage-skill">brand-house 준비 중</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 4: Skills ══ -->
+  <div class="slide">
+    <div class="slide-inner">
+      <div class="slide-tag">Skills — 현재 구축</div>
+      <div class="slide-title">지금 가진 스킬 — 5레이어 중 2개</div>
+      <div class="slide-sub">01 이해(concept-map) + 03 진단(business-diagnosis)</div>
+      <div class="divider"></div>
+      <div class="skills-grid">
+        <div class="skill-card sk1">
+          <div class="skill-cmd">/concept-map</div>
+          <div class="skill-name">개념 설명 지형도</div>
+          <div class="skill-tagline">개념·기업·시장·기술을 구조적으로 조망하는 지형도. 대상의 전체 생태계 한눈에 파악.</div>
+          <div class="skill-steps">
+            <div class="skill-step">
+              <div class="sstep-num">1</div>
+              <div class="sstep-text">대상 개념/기업/시장의 정의와 범위 설정</div>
+            </div>
+            <div class="skill-step">
+              <div class="sstep-num">2</div>
+              <div class="sstep-text">핵심 구성요소·경쟁자·연관 개념 분류</div>
+            </div>
+            <div class="skill-step">
+              <div class="sstep-num">3</div>
+              <div class="sstep-text">시장 내 위치와 관계 구조 시각화</div>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-bottom:6px;">커버하는 단계</div>
+            <div class="skill-stages">
+              <span class="skill-stage-tag">01 이해</span>
+            </div>
+          </div>
+        </div>
+        <div class="skill-card sk2">
+          <div class="skill-cmd">/business-diagnosis</div>
+          <div class="skill-name">사업 진단</div>
+          <div class="skill-tagline">BMC 9개 블록으로 문제 위치를 특정하고, 맥킨지 7단계 프레임으로 해결 방향을 도출하는 구조적 진단.</div>
+          <div class="skill-steps">
+            <div class="skill-step">
+              <div class="sstep-num">1</div>
+              <div class="sstep-text">BMC에서 문제 블록(Root Cause Block) 특정</div>
+            </div>
+            <div class="skill-step">
+              <div class="sstep-num">2</div>
+              <div class="sstep-text">문제 유형 분류 → Issue Tree 구성</div>
+            </div>
+            <div class="skill-step">
+              <div class="sstep-num">3</div>
+              <div class="sstep-text">Impact × Feasibility 우선순위 → 권고안 도출</div>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-bottom:6px;">커버하는 단계</div>
+            <div class="skill-stages">
+              <span class="skill-stage-tag">03 진단</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 5: Use Cases ══ -->
+  <div class="slide">
+    <div class="slide-inner">
+      <div class="slide-tag">Use Cases</div>
+      <div class="slide-title">실제 활용 — 이런 상황에서 씁니다</div>
+      <div class="divider"></div>
+      <div class="usecase-grid">
+        <div class="uc-card uc1">
+          <div class="uc-tag">CASE 01 — 기업 조사 업무</div>
+          <div class="uc-title">처음 접하는 기업·시장을<br>빠르게 구조화해야 할 때</div>
+          <div class="uc-flow">
+            <div class="uc-step">
+              <div class="uc-step-skill">/concept-map</div>
+              <div class="uc-step-desc">기업의 사업 구조, 경쟁 포지션, 시장 내 위치를 지형도로 파악 — 내가 어디를 보고 있는지 먼저 확인</div>
+            </div>
+            <div class="uc-step" style="background:rgba(126,87,194,0.06);">
+              <div class="uc-step-skill" style="background:rgba(126,87,194,0.15);color:#CE93D8;">/business-diagnosis</div>
+              <div class="uc-step-desc">기업이 가진 사업 문제를 BMC로 위치 특정 → 어떤 블록이 취약한지, 어떤 방향으로 봐야 하는지 규정</div>
+            </div>
+          </div>
+          <div class="uc-result">보고서 이전에 형성되는 <strong>기획자만의 관점과 가설</strong></div>
+        </div>
+        <div class="uc-card uc2">
+          <div class="uc-tag">CASE 02 — 업무 배경지식 습득</div>
+          <div class="uc-title">생소한 개념·기술·산업을<br>업무에 활용 가능한 수준으로 이해할 때</div>
+          <div class="uc-flow">
+            <div class="uc-step" style="background:rgba(23,185,166,0.06);">
+              <div class="uc-step-skill">/concept-map</div>
+              <div class="uc-step-desc">개념의 정의·범위·하위 요소·관련 기술을 지형도로 정리 — 용어와 구조를 내 것으로 만드는 단계</div>
+            </div>
+            <div class="uc-step" style="background:rgba(126,87,194,0.06);">
+              <div class="uc-step-skill" style="background:rgba(126,87,194,0.15);color:#CE93D8;">/business-diagnosis</div>
+              <div class="uc-step-desc">해당 개념이 우리 사업의 어느 문제와 연결되는지 진단 — 배경지식을 실무 관점으로 전환</div>
+            </div>
+          </div>
+          <div class="uc-result"><strong>"알고 있다"에서 "어떻게 쓸 것인가"</strong>로의 사고 확장</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 6: Implication ══ -->
+  <div class="slide">
+    <div class="slide-inner">
+      <div class="slide-tag">Implication</div>
+      <div class="slide-title">AI 시대, 기획자의 역할은 더 중요.</div>
+      <div class="divider"></div>
+      <div class="impl-wrap">
+        <div class="impl-quote-box">
+          <div class="impl-quote">
+            AI는 답을 만드는 도구가 아님.<br>
+            기획자가 더 좋은 <span>질문</span>을 만들게 하는 도구.
+          </div>
+        </div>
+        <div class="impl-cards">
+          <div class="impl-card">
+            <div class="impl-card-num">①</div>
+            <div class="impl-card-title">산출물보다 문제정의</div>
+            <div class="impl-mini-flow">
+              <div class="impl-mini-label">기존</div>
+              <div class="impl-mini-steps">
+                <span class="impl-mini-step before-step">조사</span>
+                <span class="impl-mini-arrow">›</span>
+                <span class="impl-mini-step before-step">정리</span>
+                <span class="impl-mini-arrow">›</span>
+                <span class="impl-mini-step before-step">보고서</span>
+              </div>
+            </div>
+            <div class="impl-mini-flow">
+              <div class="impl-mini-label">AI 시대</div>
+              <div class="impl-mini-steps">
+                <span class="impl-mini-step after-step">문제정의</span>
+                <span class="impl-mini-arrow">›</span>
+                <span class="impl-mini-step after-step">조사</span>
+                <span class="impl-mini-arrow">›</span>
+                <span class="impl-mini-step after-step">구조화</span>
+                <span class="impl-mini-arrow">›</span>
+                <span class="impl-mini-step after-step">보고서</span>
+              </div>
+            </div>
+            <hr class="impl-divider">
+            <div class="impl-message">AI는 보고서를 쓸 수 있음. <strong>무엇을 물어야 하는지</strong>는 기획자의 결정.</div>
+          </div>
+          <div class="impl-card">
+            <div class="impl-card-num">②</div>
+            <div class="impl-card-title">사고 과정이 자산</div>
+            <div class="impl-mini-flow">
+              <div class="impl-mini-label">기존</div>
+              <div class="impl-mini-steps">
+                <span class="impl-mini-step before-step">보고서만 남음</span>
+              </div>
+            </div>
+            <div class="impl-mini-flow">
+              <div class="impl-mini-label">AI 활용</div>
+              <div class="impl-mini-steps">
+                <span class="impl-mini-step after-step">Concept Map</span>
+                <span class="impl-mini-arrow">›</span>
+                <span class="impl-mini-step after-step">진단</span>
+                <span class="impl-mini-arrow">›</span>
+                <span class="impl-mini-step after-step">보고서</span>
+              </div>
+            </div>
+            <hr class="impl-divider">
+            <div class="impl-message">결과보다 <strong>사고 과정</strong>이 재사용 가능한 자산.</div>
+          </div>
+          <div class="impl-card">
+            <div class="impl-card-num">③</div>
+            <div class="impl-card-title">AI는 사고 증폭기</div>
+            <div class="impl-mini-flow">
+              <div class="impl-mini-label">기존 생각</div>
+              <div class="impl-mini-steps">
+                <span class="impl-mini-step before-step">AI = 자동화</span>
+                <span class="impl-mini-arrow">›</span>
+                <span class="impl-mini-step before-step">전문가 대체</span>
+              </div>
+            </div>
+            <div class="impl-mini-flow">
+              <div class="impl-mini-label">실제</div>
+              <div class="impl-mini-steps">
+                <span class="impl-mini-step after-step">AI = 사고 증폭기</span>
+                <span class="impl-mini-arrow">›</span>
+                <span class="impl-mini-step after-step">기획자 강화</span>
+              </div>
+            </div>
+            <hr class="impl-divider">
+            <div class="impl-message">AI는 생각을 대신하지 않음. <strong>좋은 기획자</strong>가 더 깊이 생각할 수 있게 만드는 도구.</div>
+          </div>
+        </div>
+        <div class="impl-final">
+          AI 시대의 경쟁력은 <strong>보고서를 빨리 쓰는 능력</strong>이 아니라, <strong>문제를 더 잘 정의하는 능력.</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="nav">
+  <button onclick="prevSlide()">← 이전</button>
+  <span class="counter" id="counter">1 / 6</span>
+  <button onclick="nextSlide()">다음 →</button>
+</div>
+
+<script>
+  let cur = 0;
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+
+  function show(n) {
+    slides[cur].classList.remove('active');
+    cur = (n + total) % total;
+    slides[cur].classList.add('active');
+    document.getElementById('counter').textContent = (cur + 1) + ' / ' + total;
+    document.getElementById('progressBar').style.width = ((cur + 1) / total * 100) + '%';
+  }
+  function nextSlide() { show(cur + 1); }
+  function prevSlide() { show(cur - 1); }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') nextSlide();
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prevSlide();
+  });
+</script>
+</body>
+</html>

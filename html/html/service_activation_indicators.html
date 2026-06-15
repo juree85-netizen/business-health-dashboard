@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>서비스 활성화 지표 수립</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; font-size:12px; background:#F5F7FA; color:#354052; }
+
+.page-header {
+  background:#2B457A; color:#fff; padding:20px 32px;
+  display:flex; align-items:center; gap:12px;
+}
+.page-header h1 { font-size:17px; font-weight:700; }
+.page-header .sub { font-size:12px; opacity:0.75; margin-top:3px; }
+
+.container { padding:24px 32px; }
+
+/* 범례 */
+.legend-bar {
+  display:flex; gap:20px; align-items:center;
+  background:#fff; border:1px solid #E2E8F0; border-radius:4px;
+  padding:10px 18px; margin-bottom:20px; flex-wrap:wrap;
+}
+.legend-bar .title { font-size:11px; font-weight:700; color:#6A798E; margin-right:6px; }
+.leg { display:flex; align-items:center; gap:5px; font-size:11px; color:#354052; }
+.leg-box { width:14px; height:14px; border-radius:2px; border:1px solid #D0D7E2; }
+
+/* 테이블 wrapper */
+.tbl-wrap { overflow-x:auto; background:#fff; border:1px solid #E2E8F0; border-radius:4px; box-shadow:0 1px 4px rgba(0,0,0,0.06); }
+
+table { border-collapse:collapse; min-width:1400px; width:100%; }
+
+thead th {
+  background:#2B457A; color:#fff; font-size:11px; font-weight:700;
+  padding:10px 8px; text-align:center; border:1px solid #3D5A9A;
+  white-space:nowrap; position:sticky; top:0; z-index:2;
+}
+
+tbody td {
+  padding:8px 9px; border:1px solid #DDE3EC; font-size:11px;
+  vertical-align:top; line-height:1.55;
+}
+
+/* 상품명 셀 */
+td.prod {
+  background:#D9E1F2; font-weight:700; font-size:11px;
+  text-align:center; vertical-align:middle; white-space:pre-line;
+  min-width:90px;
+}
+
+/* 기준 뱃지 */
+.badge {
+  display:inline-block; padding:2px 7px; border-radius:10px;
+  font-size:10px; font-weight:700; white-space:nowrap;
+}
+.badge-user  { background:#EBF5FB; color:#1A6FA8; }
+.badge-usage { background:#F0FFF4; color:#1A7A42; }
+
+/* 색상 규칙 */
+td.infer   { background:#FFFACD; }   /* 패턴 추론 * */
+td.confirm { background:#FFE4E1; }   /* 확인 필요 */
+td.fixed   { background:#E8F5E9; }   /* 오타 수정 */
+td.empty   { background:#F9FAFB; color:#A0A8B8; text-align:center; }
+
+/* 상품 구분선 */
+tr.product-start td { border-top:2px solid #B8C4D4; }
+
+/* 확인 필요 텍스트 */
+.need { color:#C0392B; font-weight:600; font-size:10px; }
+/* 추론 마크 */
+.infer-mark { color:#9C7C00; font-size:10px; }
+
+.note-fix { color:#1A7A42; font-weight:600; }
+
+/* 호버 */
+tbody tr:hover td { background-color:rgba(43,69,122,0.04); }
+tbody tr:hover td.prod   { background:#C9D4EE; }
+tbody tr:hover td.infer  { background:#FFF3A0; }
+tbody tr:hover td.confirm{ background:#FFD4CF; }
+
+/* 미정 행 */
+tr.tbd td { color:#A0A8B8; }
+
+.page-footer { padding:16px 32px; font-size:11px; color:#A0A8B8; border-top:1px solid #E2E8F0; margin-top:8px; }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div>
+    <h1>서비스 활성화 지표 수립</h1>
+    <div class="sub">사업건전성 대시보드 — 상품별 서비스 활성화 지표 정의서 (v1.2, 2026-05-04)</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- 범례 -->
+  <div class="legend-bar">
+    <span class="title">범례</span>
+    <div class="leg"><div class="leg-box" style="background:#fff;"></div>원본 데이터</div>
+    <div class="leg"><div class="leg-box" style="background:#FFFACD;"></div>패턴 추론값 (*)</div>
+    <div class="leg"><div class="leg-box" style="background:#FFE4E1;"></div>확인 필요</div>
+    <div class="leg"><div class="leg-box" style="background:#E8F5E9;"></div>오타 수정</div>
+    <div class="leg"><div class="leg-box" style="background:#D9E1F2;"></div>상품 구분</div>
+  </div>
+
+  <div class="tbl-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>상품</th>
+        <th>기준</th>
+        <th>지표 명</th>
+        <th>의미</th>
+        <th>원천 데이터</th>
+        <th>측정<br>주기</th>
+        <th>데이터 대상 기간</th>
+        <th>고객사<br>코드</th>
+        <th>과금 기준</th>
+        <th>운영 시스템</th>
+        <th>시스템 운영자</th>
+        <th>담당자</th>
+        <th>소요기간<br><small style="font-weight:normal;font-size:9px">(주/일)</small></th>
+        <th>비고</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <!-- ── Knox Portal * Mail ──────────────────────────── -->
+      <tr class="product-start">
+        <td class="prod" rowspan="4">Knox Portal<br>* Mail</td>
+        <td><span class="badge badge-user">User</span></td>
+        <td>MAU</td>
+        <td>1개월 동안 1회 이상 PC 로그인 날짜가 있는 사용자 수<br>(모바일 로그인은 상시 유지 — 집계 포함 여부 <span class="need">확인 필요</span>)</td>
+        <td>로그인 이벤트 로그 테이블</td>
+        <td style="text-align:center">매월</td>
+        <td>과거 1년 ('25년 이후)</td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td>등록 사용자(ID) 수</td>
+        <td>Knox Analytics</td>
+        <td>김혜경 프로님</td>
+        <td>최동현/오진아/<br>오세웅(Teams) 프로님</td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-user">User</span></td>
+        <td>등록 사용자 수</td>
+        <td>서비스에 회원가입을 완료하여 ID가 생성된 계정의 누적 수</td>
+        <td>회원가입 테이블 (가입일, 정상/탈퇴/휴면 Status)</td>
+        <td style="text-align:center">매월</td>
+        <td>과거 1년 ('25년 이후)</td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td class="infer">등록 사용자(ID) 수 <span class="infer-mark">*</span></td>
+        <td class="infer">Knox Analytics <span class="infer-mark">*</span></td>
+        <td class="infer">김혜경 프로님 <span class="infer-mark">*</span></td>
+        <td class="infer">최동현/오진아/<br>오세웅(Teams) 프로님 <span class="infer-mark">*</span></td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-usage">Usage</span></td>
+        <td>Portal 메일 발신량</td>
+        <td>모바일+PC 포함</td>
+        <td class="infer">메일 발신 이벤트 로그 테이블 <span class="infer-mark">*</span></td>
+        <td class="infer" style="text-align:center">매월 <span class="infer-mark">*</span></td>
+        <td class="infer">과거 1년 ('25년 이후) <span class="infer-mark">*</span></td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td class="infer">Knox Analytics <span class="infer-mark">*</span></td>
+        <td class="infer">김혜경 프로님 <span class="infer-mark">*</span></td>
+        <td class="infer">최동현/오진아/<br>오세웅(Teams) 프로님 <span class="infer-mark">*</span></td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-usage">Usage</span></td>
+        <td>Portal 메일 수신량</td>
+        <td>모바일+PC 포함</td>
+        <td class="infer">메일 수신 이벤트 로그 테이블 <span class="infer-mark">*</span></td>
+        <td class="infer" style="text-align:center">매월 <span class="infer-mark">*</span></td>
+        <td class="infer">과거 1년 ('25년 이후) <span class="infer-mark">*</span></td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td class="infer">Knox Analytics <span class="infer-mark">*</span></td>
+        <td class="infer">김혜경 프로님 <span class="infer-mark">*</span></td>
+        <td class="infer">최동현/오진아/<br>오세웅(Teams) 프로님 <span class="infer-mark">*</span></td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td></td>
+      </tr>
+
+      <!-- ── Knox Teams * Messenger ──────────────────────── -->
+      <tr class="product-start">
+        <td class="prod" rowspan="4">Knox Teams<br>* Messenger</td>
+        <td><span class="badge badge-user">User</span></td>
+        <td>MAU</td>
+        <td>1개월 동안 1회 이상 PC 로그인 날짜가 있는 사용자 수<br>(모바일은 상시 로그인)</td>
+        <td class="infer">로그인 이벤트 로그 테이블 <span class="infer-mark">*</span></td>
+        <td class="infer" style="text-align:center">매월 <span class="infer-mark">*</span></td>
+        <td class="infer">과거 1년 ('25년 이후) <span class="infer-mark">*</span></td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td class="infer">등록 사용자(ID) 수 <span class="infer-mark">*</span></td>
+        <td class="infer">Knox Analytics <span class="infer-mark">*</span></td>
+        <td class="infer">김혜경 프로님 <span class="infer-mark">*</span></td>
+        <td class="infer">최동현/오진아/<br>오세웅(Teams) 프로님 <span class="infer-mark">*</span></td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td>=Portal과 동일</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-user">User</span></td>
+        <td>등록 사용자 수</td>
+        <td>서비스에 회원가입을 완료하여 ID가 생성된 계정의 누적 수</td>
+        <td class="infer">회원가입 테이블 (가입일, 정상/탈퇴/휴면 Status) <span class="infer-mark">*</span></td>
+        <td class="infer" style="text-align:center">매월 <span class="infer-mark">*</span></td>
+        <td class="infer">과거 1년 ('25년 이후) <span class="infer-mark">*</span></td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td class="infer">등록 사용자(ID) 수 <span class="infer-mark">*</span></td>
+        <td class="infer">Knox Analytics <span class="infer-mark">*</span></td>
+        <td class="infer">김혜경 프로님 <span class="infer-mark">*</span></td>
+        <td class="infer">최동현/오진아/<br>오세웅(Teams) 프로님 <span class="infer-mark">*</span></td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td>=Portal과 동일</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-usage">Usage</span></td>
+        <td>메시지 발신량</td>
+        <td>모바일+PC 포함</td>
+        <td class="infer">메시지 발신 이벤트 로그 테이블 <span class="infer-mark">*</span></td>
+        <td class="infer" style="text-align:center">매월 <span class="infer-mark">*</span></td>
+        <td class="infer">과거 1년 ('25년 이후) <span class="infer-mark">*</span></td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td class="infer">Knox Analytics <span class="infer-mark">*</span></td>
+        <td class="infer">김혜경 프로님 <span class="infer-mark">*</span></td>
+        <td class="infer">최동현/오진아/<br>오세웅(Teams) 프로님 <span class="infer-mark">*</span></td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-usage">Usage</span></td>
+        <td>메시지 수신량</td>
+        <td>모바일+PC 포함</td>
+        <td class="infer">메시지 수신 이벤트 로그 테이블 <span class="infer-mark">*</span></td>
+        <td class="infer" style="text-align:center">매월 <span class="infer-mark">*</span></td>
+        <td class="infer">과거 1년 ('25년 이후) <span class="infer-mark">*</span></td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td class="infer">Knox Analytics <span class="infer-mark">*</span></td>
+        <td class="infer">김혜경 프로님 <span class="infer-mark">*</span></td>
+        <td class="infer">최동현/오진아/<br>오세웅(Teams) 프로님 <span class="infer-mark">*</span></td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td class="fixed"><span class="note-fix">✏ 오타 수정: 메신지 → 메시지</span></td>
+      </tr>
+
+      <!-- ── Knox Meeting ───────────────────────────────── -->
+      <tr class="product-start">
+        <td class="prod" rowspan="5">Knox Meeting</td>
+        <td><span class="badge badge-user">User</span></td>
+        <td>MAU</td>
+        <td>1개월 동안 1회 이상 로그인 날짜가 있는 사용자 수</td>
+        <td>로그인 로그 테이블</td>
+        <td style="text-align:center">매월</td>
+        <td>과거 3년 ('23년 이후)</td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td>동접 최대 포트수, 사용자수</td>
+        <td>Knox Meeting Admin</td>
+        <td>상품: 전기구/조영우 프로<br>개발: 송영용/정희철 프로님<br>운영: SRE그룹 장세찬/김인규 프로님</td>
+        <td>최동현/전기구 프로님</td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-user">User</span></td>
+        <td>등록 사용자 수</td>
+        <td>서비스에 회원가입을 완료하여 ID가 생성된 계정의 누적 수</td>
+        <td>회원가입 테이블 (가입일, 정상/탈퇴/휴면 Status)</td>
+        <td style="text-align:center">매월</td>
+        <td>과거 3년 ('23년 이후)</td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td class="infer">동접 최대 포트수, 사용자수 <span class="infer-mark">*</span></td>
+        <td class="infer">Knox Meeting Admin <span class="infer-mark">*</span></td>
+        <td class="infer">상품: 전기구/조영우 프로<br>개발: 송영용/정희철 프로님<br>운영: SRE그룹 장세찬/김인규 프로님 <span class="infer-mark">*</span></td>
+        <td class="infer">최동현/전기구 프로님 <span class="infer-mark">*</span></td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-usage">Usage</span></td>
+        <td>총 사용 시간</td>
+        <td>미팅 총 접속 시간 합계 (WC/VC/AC 구분)</td>
+        <td>미팅 접속시간 로그</td>
+        <td style="text-align:center">매월</td>
+        <td>과거 3년 ('23년 이후)</td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td class="infer">Knox Meeting Admin <span class="infer-mark">*</span></td>
+        <td class="infer">상품: 전기구/조영우 프로<br>개발: 송영용/정희철 프로님<br>운영: SRE그룹 장세찬/김인규 프로님 <span class="infer-mark">*</span></td>
+        <td class="infer">최동현/전기구 프로님 <span class="infer-mark">*</span></td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-usage">Usage</span></td>
+        <td>총 회의건 수</td>
+        <td>회의 건수 합계 (WC/VC/AC 구분)</td>
+        <td class="infer">회의 이벤트 로그 <span class="infer-mark">*</span></td>
+        <td class="infer" style="text-align:center">매월 <span class="infer-mark">*</span></td>
+        <td class="infer">과거 3년 ('23년 이후) <span class="infer-mark">*</span></td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td class="infer">Knox Meeting Admin <span class="infer-mark">*</span></td>
+        <td class="infer">상품: 전기구/조영우 프로<br>개발: 송영용/정희철 프로님<br>운영: SRE그룹 장세찬/김인규 프로님 <span class="infer-mark">*</span></td>
+        <td class="infer">최동현/전기구 프로님 <span class="infer-mark">*</span></td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-usage">Usage</span></td>
+        <td>총 회의실 개소수</td>
+        <td>전체 활성 회의실 개소수</td>
+        <td class="infer">회의실 메타데이터 <span class="infer-mark">*</span></td>
+        <td class="infer" style="text-align:center">매월 <span class="infer-mark">*</span></td>
+        <td class="infer">과거 3년 ('23년 이후) <span class="infer-mark">*</span></td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td class="infer">Knox Meeting Admin <span class="infer-mark">*</span></td>
+        <td class="infer">상품: 전기구/조영우 프로<br>개발: 송영용/정희철 프로님<br>운영: SRE그룹 장세찬/김인규 프로님 <span class="infer-mark">*</span></td>
+        <td class="infer">최동현/전기구 프로님 <span class="infer-mark">*</span></td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td></td>
+      </tr>
+
+      <!-- ── Knox Drive ──────────────────────────────────── -->
+      <tr class="product-start">
+        <td class="prod" rowspan="3">Knox Drive</td>
+        <td><span class="badge badge-user">User</span></td>
+        <td>MAU</td>
+        <td>1개월 동안 1회 이상 로그인 날짜가 있는 사용자 수</td>
+        <td>로그인 로그 테이블</td>
+        <td style="text-align:center">매월</td>
+        <td>과거 3년 ('23년 이후)</td>
+        <td>100개 미만</td>
+        <td>스토리지 사용량, 등록 사용자 수</td>
+        <td>Drive Admin Portal</td>
+        <td>Knox Drive 운영팀(Drive개발그룹)<br>drive.tech@samsung.com</td>
+        <td>신명호/김한비/김수정 프로님</td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-user">User</span></td>
+        <td>등록 사용자 수</td>
+        <td>서비스에 회원가입을 완료하여 ID가 생성된 계정의 누적 수</td>
+        <td>회원가입 테이블 (가입일, 정상/탈퇴/휴면 Status)</td>
+        <td style="text-align:center">매월</td>
+        <td>과거 3년 ('23년 이후)</td>
+        <td class="infer">100개 미만 <span class="infer-mark">*</span></td>
+        <td class="infer">스토리지 사용량, 등록 사용자 수 <span class="infer-mark">*</span></td>
+        <td class="infer">Drive Admin Portal <span class="infer-mark">*</span></td>
+        <td class="infer">Knox Drive 운영팀(Drive개발그룹) <span class="infer-mark">*</span></td>
+        <td class="infer">신명호/김한비/김수정 프로님 <span class="infer-mark">*</span></td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-usage">Usage</span></td>
+        <td>스토리지 사용량</td>
+        <td>저장된 데이터 총 용량</td>
+        <td>파일 메타데이터 / 스토리지 / Usage 데이터</td>
+        <td class="infer" style="text-align:center">매월 <span class="infer-mark">*</span></td>
+        <td>과거 3년 ('23년 이후)</td>
+        <td class="infer">100개 미만 <span class="infer-mark">*</span></td>
+        <td class="infer">스토리지 사용량, 등록 사용자 수 <span class="infer-mark">*</span></td>
+        <td class="infer">Drive Admin Portal <span class="infer-mark">*</span></td>
+        <td class="infer">Knox Drive 운영팀(Drive개발그룹) <span class="infer-mark">*</span></td>
+        <td class="infer">신명호/김한비/김수정 프로님 <span class="infer-mark">*</span></td>
+        <td style="text-align:center">3주</td>
+        <td></td>
+      </tr>
+
+      <!-- ── Knox EFSS ───────────────────────────────────── -->
+      <tr class="product-start">
+        <td class="prod" rowspan="3">Knox EFSS</td>
+        <td><span class="badge badge-user">User</span></td>
+        <td>MAU</td>
+        <td>1개월 동안 1회 이상 로그인 날짜가 있는 사용자 수</td>
+        <td>로그인 로그 테이블</td>
+        <td style="text-align:center">매월</td>
+        <td>과거 3년 ('23년 이후)</td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td>스토리지 사용량, 등록 사용자 수</td>
+        <td>EFSS Admin Portal</td>
+        <td>반도체: 김봉규 프로님<br>디스플레이: 김경훈 프로님<br>공용망: 엄재호 프로님<br>운영망 셀장: 김영진 프로님</td>
+        <td>김성덕 프로님</td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-user">User</span></td>
+        <td>등록 사용자 수</td>
+        <td>서비스에 회원가입을 완료하여 ID가 생성된 계정의 누적 수</td>
+        <td>회원가입 테이블 (가입일, 정상/탈퇴/휴면 Status)</td>
+        <td style="text-align:center">매월</td>
+        <td>과거 3년 ('23년 이후)</td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td class="infer">스토리지 사용량, 등록 사용자 수 <span class="infer-mark">*</span></td>
+        <td class="infer">EFSS Admin Portal <span class="infer-mark">*</span></td>
+        <td class="infer">반도체: 김봉규 프로님<br>디스플레이: 김경훈 프로님<br>공용망: 엄재호 프로님<br>운영망 셀장: 김영진 프로님 <span class="infer-mark">*</span></td>
+        <td class="infer">김성덕 프로님 <span class="infer-mark">*</span></td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-usage">Usage</span></td>
+        <td>스토리지 사용량</td>
+        <td>저장된 데이터 총 용량</td>
+        <td>파일 메타데이터 / 스토리지 / Usage 데이터</td>
+        <td class="infer" style="text-align:center">매월 <span class="infer-mark">*</span></td>
+        <td>과거 3년 ('23년 이후)</td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td class="infer">스토리지 사용량, 등록 사용자 수 <span class="infer-mark">*</span></td>
+        <td class="infer">EFSS Admin Portal <span class="infer-mark">*</span></td>
+        <td class="infer">반도체: 김봉규 프로님<br>디스플레이: 김경훈 프로님<br>공용망: 엄재호 프로님<br>운영망 셀장: 김영진 프로님 <span class="infer-mark">*</span></td>
+        <td class="infer">김성덕 프로님 <span class="infer-mark">*</span></td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td class="infer">측정 주기 패턴 추론 <span class="infer-mark">*</span></td>
+      </tr>
+
+      <!-- ── Copilot ─────────────────────────────────────── -->
+      <tr class="product-start">
+        <td class="prod" rowspan="3">Copilot<br><small style="font-weight:400;font-size:10px">(Knox Suite 포함)</small></td>
+        <td><span class="badge badge-usage">Usage</span></td>
+        <td>기능 이용 횟수<br>(프롬프트 개수)</td>
+        <td>Copilot 기능 호출 총 횟수</td>
+        <td class="infer">Knox Analytics 프롬프트 이벤트 로그 테이블 <span class="infer-mark">*</span></td>
+        <td style="text-align:center">매월</td>
+        <td>과거 3년 ('23년 이후)</td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td>Knox Analytics</td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td>최동현 프로님</td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-user">User</span></td>
+        <td>MAU</td>
+        <td>1개월 동안 Copilot 기능 호출 사용자 수</td>
+        <td class="infer">프롬프트 이벤트 로그 테이블 (distinct user 집계) <span class="infer-mark">*</span></td>
+        <td style="text-align:center">매월</td>
+        <td>과거 3년 ('23년 이후)</td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td class="infer">Knox Analytics <span class="infer-mark">*</span></td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td class="infer">최동현 프로님 <span class="infer-mark">*</span></td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-user">User</span></td>
+        <td>권한자 수</td>
+        <td>Copilot 기능 이용가능자 수</td>
+        <td class="confirm"><span class="need">확인 필요</span><br><small style="color:#888;font-size:10px">※ Copilot 권한 부여 관리 테이블 별도 확인 필요</small></td>
+        <td style="text-align:center">매월</td>
+        <td>과거 3년 ('23년 이후)</td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td class="infer">Knox Analytics <span class="infer-mark">*</span></td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td class="infer">최동현 프로님 <span class="infer-mark">*</span></td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td></td>
+      </tr>
+
+      <!-- ── Brity Works ─────────────────────────────────── -->
+      <tr class="product-start">
+        <td class="prod">Brity Works</td>
+        <td><span class="badge badge-user">User</span> / <span class="badge badge-usage">Usage</span><br><small style="color:#6A798E;font-size:10px">서브 상품 기준 동일 적용</small></td>
+        <td class="infer">복합 지표<br>(Portal+Teams<br>+Meeting+Drive) <span class="infer-mark">*</span></td>
+        <td>Knox Portal + Teams + Meeting + Drive 통합 지표</td>
+        <td>각 서브 상품과 동일</td>
+        <td class="infer" style="text-align:center">매월 <span class="infer-mark">*</span></td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td>각 서브 상품과 동일</td>
+        <td class="infer">각 서브 상품과 동일 <span class="infer-mark">*</span></td>
+        <td>이명민/박건진 프로님</td>
+        <td class="confirm"><span class="need">확인 필요</span></td>
+        <td>복합 지표 — 서브 상품 지표 확정 후 정의</td>
+      </tr>
+
+      <!-- ── EMM Cloud / EMS / ZTM ──────────────────────── -->
+      <tr class="product-start tbd">
+        <td class="prod">EMM Cloud</td>
+        <td class="empty">-</td>
+        <td class="empty">미정</td>
+        <td class="empty">-</td>
+        <td class="empty">-</td>
+        <td class="empty">-</td>
+        <td class="empty">-</td>
+        <td class="empty">-</td>
+        <td class="empty">-</td>
+        <td class="empty">-</td>
+        <td class="empty">-</td>
+        <td>최재웅 프로님</td>
+        <td class="empty">-</td>
+        <td class="empty" style="color:#C0392B;">지표 정의 협의 예정<br><small>담당자 확인 후 추가</small></td>
+      </tr>
+      <tr class="product-start tbd">
+        <td class="prod">EMS</td>
+        <td class="empty">-</td>
+        <td class="empty">미정</td>
+        <td class="empty">-</td>
+        <td class="empty">-</td>
+        <td class="empty">-</td>
+        <td class="empty">-</td>
+        <td class="empty">-</td>
+        <td class="empty">-</td>
+        <td class="empty">-</td>
+        <td class="empty">-</td>
+        <td>고동현 프로님</td>
+        <td class="empty">-</td>
+        <td class="empty" style="color:#C0392B;">지표 정의 협의 예정<br><small>담당자 확인 후 추가</small></td>
+      </tr>
+      <tr class="product-start tbd">
+        <td class="prod">ZTM</td>
+        <td class="empty">-</td>
+        <td class="empty">미정</td>
+        <td class="empty">-</td>
+        <td class="empty">-</td>
+        <td class="empty">-</td>
+        <td class="empty">-</td>
+        <td class="empty">-</td>
+        <td class="empty">-</td>
+        <td class="empty">-</td>
+        <td class="empty">-</td>
+        <td>김동현 프로님</td>
+        <td class="empty">-</td>
+        <td class="empty" style="color:#C0392B;">지표 정의 협의 예정<br><small>담당자 확인 후 추가</small></td>
+      </tr>
+
+    </tbody>
+  </table>
+  </div><!-- /tbl-wrap -->
+
+</div><!-- /container -->
+
+<div class="page-footer">
+  * 패턴 추론값: 동일 상품군 내 타 행 데이터 또는 지표 유형별 패턴 기반 추론 (원본 미기재) &nbsp;|&nbsp;
+  <span style="color:#C0392B">확인 필요</span>: 담당자 확인 후 입력 필요 &nbsp;|&nbsp;
+  최종 수정: 2026-05-04 (v1.2)
+</div>
+
+</body>
+</html>

@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>고금리·AI 부상에 따른 PE·Private Credit 시장 구조적 재편</title>
+  <style>
+    :root {
+      --red:    #e53e3e;
+      --orange: #dd6b20;
+      --yellow: #d69e2e;
+      --green:  #276749;
+      --blue:   #2b6cb0;
+      --gray:   #4a5568;
+      --bg:     #f7f8fa;
+      --card:   #ffffff;
+      --border: #e2e8f0;
+      --text:   #1a202c;
+      --sub:    #718096;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* ── Header ── */
+    .header {
+      background: linear-gradient(135deg, #1a202c 0%, #2d3748 60%, #2b6cb0 100%);
+      color: #fff;
+      padding: 52px 40px 44px;
+    }
+    .header .badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      padding: 4px 14px;
+      margin-bottom: 18px;
+      text-transform: uppercase;
+    }
+    .header h1 {
+      font-size: 28px;
+      font-weight: 800;
+      line-height: 1.35;
+      margin-bottom: 14px;
+    }
+    .header .meta {
+      font-size: 13px;
+      color: rgba(255,255,255,0.65);
+    }
+    .header .kpi-row {
+      display: flex;
+      gap: 24px;
+      margin-top: 32px;
+      flex-wrap: wrap;
+    }
+    .kpi-box {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 10px;
+      padding: 16px 24px;
+      min-width: 160px;
+    }
+    .kpi-box .num { font-size: 26px; font-weight: 800; color: #fff; }
+    .kpi-box .lbl { font-size: 11px; color: rgba(255,255,255,0.65); margin-top: 2px; }
+
+    /* ── Layout ── */
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 40px 24px 80px; }
+
+    /* ── Section Title ── */
+    .sec-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text);
+      margin: 48px 0 20px;
+      padding-left: 14px;
+      border-left: 4px solid var(--blue);
+    }
+    .sec-title span { color: var(--blue); }
+
+    /* ── Card ── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+
+    /* ── Macro Context ── */
+    .macro-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    @media(max-width:700px){ .macro-grid { grid-template-columns: 1fr; } }
+    .macro-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 22px 20px;
+    }
+    .macro-card .icon { font-size: 24px; margin-bottom: 10px; }
+    .macro-card h3 { font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+    .macro-card p  { font-size: 13px; color: var(--sub); line-height: 1.6; }
+    .macro-card strong { color: var(--text); }
+
+    /* ── Status Badge ── */
+    .s-red    { background:#fff5f5; color:#c53030; border:1px solid #fed7d7; border-radius:6px; padding:2px 8px; font-size:12px; font-weight:700; white-space:nowrap; }
+    .s-orange { background:#fffaf0; color:#c05621; border:1px solid #fbd38d; border-radius:6px; padding:2px 8px; font-size:12px; font-weight:700; white-space:nowrap; }
+    .s-yellow { background:#fffff0; color:#975a16; border:1px solid #faf089; border-radius:6px; padding:2px 8px; font-size:12px; font-weight:700; white-space:nowrap; }
+    .s-dark   { background:#1a202c; color:#fff;    border:1px solid #1a202c; border-radius:6px; padding:2px 8px; font-size:12px; font-weight:700; white-space:nowrap; }
+
+    /* ── Table ── */
+    .tbl-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    thead th {
+      background: #2d3748;
+      color: #fff;
+      padding: 11px 14px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    tbody tr { border-bottom: 1px solid var(--border); }
+    tbody tr:hover { background: #f0f4ff; }
+    tbody td { padding: 11px 14px; vertical-align: middle; }
+    .co-name { font-weight: 700; font-size: 13.5px; }
+    .co-sub  { font-size: 11px; color: var(--sub); margin-top: 2px; }
+    .amt     { font-weight: 700; color: var(--blue); }
+    .yr      { color: var(--sub); font-size: 12px; }
+
+    /* ── Risk Tier Cards ── */
+    .tier-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    @media(max-width:800px){ .tier-grid { grid-template-columns: 1fr; } }
+    .tier-card {
+      border-radius: 10px;
+      padding: 20px;
+      border: 1px solid;
+    }
+    .tier-card.t1 { background:#fff5f5; border-color:#fed7d7; }
+    .tier-card.t2 { background:#fffaf0; border-color:#fbd38d; }
+    .tier-card.t3 { background:#fffff0; border-color:#faf089; }
+    .tier-card h3 { font-size: 13px; font-weight: 800; margin-bottom: 12px; }
+    .tier-card.t1 h3 { color:#c53030; }
+    .tier-card.t2 h3 { color:#c05621; }
+    .tier-card.t3 h3 { color:#975a16; }
+    .tier-card ul  { list-style: none; }
+    .tier-card li  { font-size: 13px; padding: 6px 0; border-bottom: 1px solid rgba(0,0,0,0.06); line-height: 1.5; }
+    .tier-card li:last-child { border-bottom: none; }
+    .tier-card li strong { font-weight: 700; }
+    .tier-card li span   { font-size: 11px; color: var(--sub); display: block; margin-top: 2px; }
+
+    /* ── Structural Flow ── */
+    .flow-box {
+      background: #1a202c;
+      color: #e2e8f0;
+      border-radius: 10px;
+      padding: 28px 32px;
+      font-size: 14px;
+      line-height: 1.9;
+    }
+    .flow-box .flow-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+    .flow-box .step-num {
+      background: var(--blue);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 800;
+      border-radius: 50%;
+      width: 26px; height: 26px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .flow-box .step-txt strong { color: #90cdf4; }
+
+    /* ── PE Reorg ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media(max-width:700px){ .two-col { grid-template-columns: 1fr; } }
+
+    .info-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .info-card h4 { font-size: 13px; font-weight: 800; color: var(--blue); margin-bottom: 10px; }
+    .info-card ul  { list-style: none; }
+    .info-card li  { font-size: 13px; color: var(--sub); padding: 5px 0; border-bottom: 1px solid var(--border); line-height: 1.5; }
+    .info-card li:last-child { border-bottom: none; }
+    .info-card li::before { content: "→ "; color: var(--blue); font-weight: 700; }
+
+    /* ── Private Credit ── */
+    .pc-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    @media(max-width:700px){ .pc-grid { grid-template-columns: 1fr; } }
+    .pc-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .pc-item .pc-icon { font-size: 22px; margin-bottom: 8px; }
+    .pc-item h4 { font-size: 13px; font-weight: 700; margin-bottom: 8px; }
+    .pc-item p  { font-size: 13px; color: var(--sub); line-height: 1.6; }
+    .pc-item strong { color: var(--text); }
+
+    /* ── Risk Scenario ── */
+    .risk-list { list-style: none; }
+    .risk-list li {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .risk-list li:last-child { border-bottom: none; }
+    .risk-num {
+      background: var(--red);
+      color: #fff;
+      font-size: 12px; font-weight: 800;
+      border-radius: 50%;
+      width: 26px; height: 26px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 2px;
+    }
+    .risk-txt strong { font-size: 14px; font-weight: 700; display: block; margin-bottom: 4px; }
+    .risk-txt span   { font-size: 13px; color: var(--sub); }
+
+    /* ── Sources ── */
+    .sources ul { list-style: none; }
+    .sources li { font-size: 12.5px; padding: 6px 0; border-bottom: 1px solid var(--border); }
+    .sources li:last-child { border-bottom: none; }
+    .sources a { color: var(--blue); text-decoration: none; }
+    .sources a:hover { text-decoration: underline; }
+    .sources .src-tag {
+      display: inline-block;
+      background: #ebf4ff; color: #2b6cb0;
+      border-radius: 4px; font-size: 10px; font-weight: 700;
+      padding: 1px 7px; margin-right: 6px; vertical-align: middle;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      color: var(--sub);
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Header ── -->
+<div class="header">
+  <div class="badge">Market Research · 2026.05</div>
+  <h1>고금리·AI 부상에 따른<br>PE·Private Credit 시장의 구조적 재편</h1>
+  <p class="meta">사모펀드(PE) 및 사모 대출 시장 위험 분석 | 작성일: 2026년 5월 20일</p>
+  <div class="kpi-row">
+    <div class="kpi-box">
+      <div class="num">$46.9B</div>
+      <div class="lbl">미국 테크 부실 부채 총액</div>
+    </div>
+    <div class="kpi-box">
+      <div class="num">$25B</div>
+      <div class="lbl">달러당 $0.80 미만 소프트웨어 대출</div>
+    </div>
+    <div class="kpi-box">
+      <div class="num">5.8%</div>
+      <div class="lbl">Private Credit 디폴트율 (Fitch, 2026.1)</div>
+    </div>
+    <div class="kpi-box">
+      <div class="num">12개+</div>
+      <div class="lbl">부실 위험 PE 보유 SaaS 기업</div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- ── 1. 거시 배경 ── -->
+  <div class="sec-title"><span>01</span> 거시 배경 — 무엇이 변했나</div>
+  <div class="macro-grid">
+    <div class="macro-card">
+      <div class="icon">📈</div>
+      <h3>고금리 장기화</h3>
+      <p>시장은 <strong>2026~2028년 평균 기준금리 약 3.5%</strong> 지속을 전제로 움직임. 제로금리 시대에 설계된 LBO 구조가 이자 부담을 감당 못하는 상황으로 전환.</p>
+    </div>
+    <div class="macro-card">
+      <div class="icon">🤖</div>
+      <h3>AI 기술 부상</h3>
+      <p>PE 포트폴리오의 <strong>25~35%가 AI 관련 산업 교란 리스크</strong>에 노출. 특히 CX·업무관리·보안 SaaS 영역에서 AI가 보완재가 아닌 대체재로 인식되며 담보 가치 동시 훼손.</p>
+    </div>
+    <div class="macro-card">
+      <div class="icon">⚠️</div>
+      <h3>신용 스트레스</h3>
+      <p>Fitch 기준 미국 Private Credit 디폴트율 <strong>5.8%</strong>(2026.1, 역대 최고). 일부 민간 집계는 2025년 말 <strong>9.2%</strong>까지 상승. 멀티플은 10~12배→4배로 붕괴.</p>
+    </div>
+  </div>
+
+  <!-- ── 2. PE 부실 SaaS 전체 기업 목록 ── -->
+  <div class="sec-title"><span>02</span> PE 보유 부실 위험 SaaS 기업 12개+ 전체 목록</div>
+  <div class="card">
+    <p style="font-size:13px;color:var(--sub);margin-bottom:18px;">
+      2021~2022년 제로금리 시대, PE들은 평균 매출 10~12배 멀티플로 SaaS 기업을 인수. 현재 멀티플은 4배 수준으로 붕괴하여 재융자 자체가 불가능한 구조적 함정에 빠진 상태.
+    </p>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>기업명</th>
+            <th>인수 PE</th>
+            <th>인수금액</th>
+            <th>인수연도</th>
+            <th>부채 규모</th>
+            <th>현재 상태</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="color:var(--sub);font-size:12px;">1</td>
+            <td>
+              <div class="co-name">Medallia</div>
+              <div class="co-sub">CX 경험 관리 플랫폼</div>
+            </td>
+            <td>Thoma Bravo</td>
+            <td class="amt">$6.4B</td>
+            <td class="yr">2021</td>
+            <td>~$3.45B</td>
+            <td><span class="s-dark">❌ 디폴트 확정 (2026.4)</span></td>
+          </tr>
+          <tr>
+            <td style="color:var(--sub);font-size:12px;">2</td>
+            <td>
+              <div class="co-name">Calabrio</div>
+              <div class="co-sub">CX 소프트웨어</div>
+            </td>
+            <td>Thoma Bravo</td>
+            <td class="amt">비공개</td>
+            <td class="yr">2021</td>
+            <td>미공개</td>
+            <td><span class="s-red">🔴 Distressed (달러당 $0.80↓)</span></td>
+          </tr>
+          <tr>
+            <td style="color:var(--sub);font-size:12px;">3</td>
+            <td>
+              <div class="co-name">Project Alpha</div>
+              <div class="co-sub">Intermediate Holdings, 테크 기업</div>
+            </td>
+            <td>Thoma Bravo</td>
+            <td class="amt">비공개</td>
+            <td class="yr">2021</td>
+            <td>미공개</td>
+            <td><span class="s-red">🔴 부실 자산 징후 · 채권가 급락</span></td>
+          </tr>
+          <tr>
+            <td style="color:var(--sub);font-size:12px;">4</td>
+            <td>
+              <div class="co-name">Affordable Care</div>
+              <div class="co-sub">헬스케어 관련</div>
+            </td>
+            <td>(非 Thoma Bravo)</td>
+            <td class="amt">비공개</td>
+            <td class="yr">—</td>
+            <td>대규모</td>
+            <td><span class="s-dark">❌ 디폴트 선언 (Medallia 동시)</span></td>
+          </tr>
+          <tr>
+            <td style="color:var(--sub);font-size:12px;">5</td>
+            <td>
+              <div class="co-name">Proofpoint</div>
+              <div class="co-sub">이메일 보안 플랫폼</div>
+            </td>
+            <td>Thoma Bravo</td>
+            <td class="amt">$12.3B</td>
+            <td class="yr">2021</td>
+            <td>~$4B</td>
+            <td><span class="s-red">🔴 최고위험 — EBITDA $150M vs. 이자 $240M+</span></td>
+          </tr>
+          <tr>
+            <td style="color:var(--sub);font-size:12px;">6</td>
+            <td>
+              <div class="co-name">Coupa</div>
+              <div class="co-sub">비즈니스 지출 관리</div>
+            </td>
+            <td>Thoma Bravo</td>
+            <td class="amt">$8.0B</td>
+            <td class="yr">2022</td>
+            <td>D/E 65:35</td>
+            <td><span class="s-orange">🟠 고위험 — 인력 30% 감축 단행</span></td>
+          </tr>
+          <tr>
+            <td style="color:var(--sub);font-size:12px;">7</td>
+            <td>
+              <div class="co-name">Anaplan</div>
+              <div class="co-sub">경영 기획·예측 플랫폼</div>
+            </td>
+            <td>Thoma Bravo</td>
+            <td class="amt">$10.7B</td>
+            <td class="yr">2022</td>
+            <td>대규모</td>
+            <td><span class="s-yellow">🟡 경계 — 동일 빈티지·스폰서, 현재 near par</span></td>
+          </tr>
+          <tr>
+            <td style="color:var(--sub);font-size:12px;">8</td>
+            <td>
+              <div class="co-name">SailPoint</div>
+              <div class="co-sub">아이덴티티 보안</div>
+            </td>
+            <td>Thoma Bravo</td>
+            <td class="amt">$6.9B</td>
+            <td class="yr">2022</td>
+            <td>대규모</td>
+            <td><span class="s-yellow">🟡 경계 — 2025년 Re-IPO 시도 중</span></td>
+          </tr>
+          <tr>
+            <td style="color:var(--sub);font-size:12px;">9</td>
+            <td>
+              <div class="co-name">Pluralsight</div>
+              <div class="co-sub">기업 교육·기술 역량 플랫폼</div>
+            </td>
+            <td>Vista Equity</td>
+            <td class="amt">$3.5B</td>
+            <td class="yr">2021</td>
+            <td>~$1.7B</td>
+            <td><span class="s-dark">❌ 사실상 디폴트 — 채권자에 지분 85% 이전, 주주가치 전액 소각</span></td>
+          </tr>
+          <tr>
+            <td style="color:var(--sub);font-size:12px;">10</td>
+            <td>
+              <div class="co-name">Cloud Software Group</div>
+              <div class="co-sub">Citrix + TIBCO 합병 법인</div>
+            </td>
+            <td>Vista Equity + Elliott</td>
+            <td class="amt">$16.5B</td>
+            <td class="yr">2022</td>
+            <td>~$15B</td>
+            <td><span class="s-red">🔴 최대규모 — 은행 신디케이션 손실 $600M+, 3년 연속 대규모 감원</span></td>
+          </tr>
+          <tr>
+            <td style="color:var(--sub);font-size:12px;">11</td>
+            <td>
+              <div class="co-name">Avalara</div>
+              <div class="co-sub">세금 자동화 SaaS</div>
+            </td>
+            <td>Vista Equity</td>
+            <td class="amt">$8.4B</td>
+            <td class="yr">2022</td>
+            <td>~$2.5B</td>
+            <td><span class="s-orange">🟠 Private Credit(Blue Owl 주도) 이자 부담 가중</span></td>
+          </tr>
+          <tr>
+            <td style="color:var(--sub);font-size:12px;">12</td>
+            <td>
+              <div class="co-name">Smartsheet</div>
+              <div class="co-sub">협업·프로젝트 관리</div>
+            </td>
+            <td>Vista Equity + Blackstone</td>
+            <td class="amt">$8.4B</td>
+            <td class="yr">2024</td>
+            <td>대규모</td>
+            <td><span class="s-yellow">🟡 경계 — Private Credit 세컨더리 시장 등장</span></td>
+          </tr>
+          <tr>
+            <td style="color:var(--sub);font-size:12px;">13</td>
+            <td>
+              <div class="co-name">Zendesk</div>
+              <div class="co-sub">고객 지원 플랫폼</div>
+            </td>
+            <td>Hellman &amp; Friedman + Permira</td>
+            <td class="amt">$10.2B</td>
+            <td class="yr">2022</td>
+            <td>~$4.6~5B</td>
+            <td><span class="s-orange">🟠 고위험 — AI 고객지원 대체 직격탄</span></td>
+          </tr>
+          <tr>
+            <td style="color:var(--sub);font-size:12px;">14</td>
+            <td>
+              <div class="co-name">New Relic</div>
+              <div class="co-sub">옵저버빌리티 플랫폼</div>
+            </td>
+            <td>Francisco Partners + TPG</td>
+            <td class="amt">$6.5B</td>
+            <td class="yr">2023</td>
+            <td>$2.65B</td>
+            <td><span class="s-orange">🟠 SOFR+6.75% 고금리 대출, Blue Owl·Sixth Street·Blackstone 참여</span></td>
+          </tr>
+          <tr>
+            <td style="color:var(--sub);font-size:12px;">15</td>
+            <td>
+              <div class="co-name">Qualtrics</div>
+              <div class="co-sub">경험 관리(XM) 플랫폼</div>
+            </td>
+            <td>Silver Lake + CPP Investments</td>
+            <td class="amt">$12.5B</td>
+            <td class="yr">2023</td>
+            <td>~$5.3B</td>
+            <td><span class="s-red">🔴 위기 임박 — JPMorgan, 2026.3.17 $5.3B 채권 판매 중단 선언</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── 3. 위험 등급별 요약 ── -->
+  <div class="sec-title"><span>03</span> 위험 등급별 현황</div>
+  <div class="tier-grid">
+    <div class="tier-card t1">
+      <h3>❌ 이미 디폴트 / 지분 소각 (3개)</h3>
+      <ul>
+        <li><strong>Medallia</strong> <span>2026년 4월 공식 디폴트 확정</span></li>
+        <li><strong>Pluralsight</strong> <span>2024년 채권자가 지분 85% 인수. 사실상 PE 손실 확정, 주주가치 전액 소각</span></li>
+        <li><strong>Affordable Care</strong> <span>Medallia와 동시 대규모 디폴트 선언</span></li>
+      </ul>
+    </div>
+    <div class="tier-card t2">
+      <h3>🟠 Distressed 상태 / 위기 임박 (5개)</h3>
+      <ul>
+        <li><strong>Proofpoint</strong> <span>EBITDA 대비 이자 비용 초과가 가장 심각한 사례 ($150M vs $240M+)</span></li>
+        <li><strong>Calabrio</strong> <span>채권 거래가 달러당 $0.80 미만 진입</span></li>
+        <li><strong>Project Alpha</strong> <span>채권 가치 급락, 부실 자산 징후</span></li>
+        <li><strong>Cloud Software Group</strong> <span>부채 $15B, 역대 최대 소프트웨어 LBO</span></li>
+        <li><strong>Qualtrics</strong> <span>JPMorgan 채권 판매 실패, 다음 뇌관으로 지목</span></li>
+      </ul>
+    </div>
+    <div class="tier-card t3">
+      <h3>🟡 고위험 경계 / 동일 빈티지 (7개)</h3>
+      <ul>
+        <li><strong>Coupa</strong> <span>D/E 65:35, 인력 30% 강제 감축</span></li>
+        <li><strong>Zendesk</strong> <span>AI 고객지원 대체로 사업 기반 흔들림</span></li>
+        <li><strong>Avalara</strong> <span>Blue Owl 주도 Private Credit, 이자 부담 증가</span></li>
+        <li><strong>New Relic</strong> <span>SOFR+6.75% 초고금리 대출 구조</span></li>
+        <li><strong>Anaplan</strong> <span>동일 빈티지, 동일 스폰서 집중 리스크</span></li>
+        <li><strong>SailPoint</strong> <span>Re-IPO 시도 중, 결과에 따라 위험 등급 상향 가능</span></li>
+        <li><strong>Smartsheet</strong> <span>Private Credit 세컨더리 시장 매물 등장</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ── 4. 구조적 함정 메커니즘 ── -->
+  <div class="sec-title"><span>04</span> 핵심 구조적 함정 — 왜 이 기업들인가</div>
+  <div class="flow-box">
+    <div class="flow-step">
+      <div class="step-num">1</div>
+      <div class="step-txt"><strong>2021~2022년 제로금리 시대</strong> → PE들이 매출의 10~12배 멀티플로 SaaS 기업 고가 인수. 인수 재원의 60~70%를 변동금리 부채로 조달.</div>
+    </div>
+    <div class="flow-step">
+      <div class="step-num">2</div>
+      <div class="step-txt"><strong>금리 급등 (SOFR 5%대 진입)</strong> → 이자 비용이 EBITDA를 초과하는 구조로 역전. 이자보상배율(ICR) 1배 이하로 추락. Proofpoint가 가장 극단적 사례.</div>
+    </div>
+    <div class="flow-step">
+      <div class="step-num">3</div>
+      <div class="step-txt"><strong>AI 기술 부상</strong> → CX·업무관리·보안 SaaS 영역에서 AI가 대체재로 인식. 고객 이탈, 수익성 악화, 담보 가치 동시 훼손. SaaS 멀티플 30x → 16x로 붕괴.</div>
+    </div>
+    <div class="flow-step">
+      <div class="step-num">4</div>
+      <div class="step-txt"><strong>재융자 불가 함정</strong> → 멀티플이 4배 수준으로 하락하면서 원하는 조건으로 재융자 자체가 불가. Exit도 막히고 이자만 증가하는 구조적 악순환 고착.</div>
+    </div>
+  </div>
+
+  <!-- ── 5. PE 시장 구조적 재편 ── -->
+  <div class="sec-title"><span>05</span> PE 시장의 구조적 재편 방향</div>
+  <div class="two-col">
+    <div class="info-card">
+      <h4>① 레버리지 의존 → 운영 가치 창출 중심 전환</h4>
+      <ul>
+        <li>진짜 EBITDA 성장(디지털 전환, AI 효율화)에 집중</li>
+        <li>95% 펀드가 포트폴리오 AI 이니셔티브 목표치 달성·초과 보고</li>
+        <li>2026년, PE 예산의 25~50%를 AI 프로젝트에 투입</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h4>② AI 투자 비중 급증 & 섹터 선별 양극화</h4>
+      <ul>
+        <li>기술 섹터 비중: 글로벌 PE 배포의 30% → Q1 2026에 10%대로 급감</li>
+        <li>AI 대체 리스크 기업 선별 강화</li>
+        <li>AI 인프라·헬스케어·금융서비스 집중으로 재편</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h4>③ 홀딩 기간 장기화·Exit 전략 다변화</h4>
+      <ul>
+        <li>Continuation Fund 활용 증가 — 운용사가 우량 자산 보유 연장</li>
+        <li>IPO·전략적 매각 대신 GP-Led Secondary 거래가 대안 Exit</li>
+        <li>Re-IPO(재상장) 전략 등장 (SailPoint 사례)</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h4>④ 투자 전략 집중 버티컬 전환</h4>
+      <ul>
+        <li>AI 인프라·데이터센터 관련 자산으로 신규 자금 집중</li>
+        <li>레거시 SaaS 매물 증가 — 중견 전략사·스폰서 간 거래</li>
+        <li>유럽·아시아 등 지역 다변화 알로케이터 행동 변화</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ── 6. Private Credit 구조적 재편 ── -->
+  <div class="sec-title"><span>06</span> Private Credit 시장의 구조적 재편</div>
+  <div class="pc-grid">
+    <div class="pc-item">
+      <div class="pc-icon">📊</div>
+      <h4>시장 규모 팽창 vs. 균열 시작</h4>
+      <p>Evergreen Private Credit 펀드 AUM <strong>$6,440억</strong>(2025.6, YoY +45%). 그러나 BDC Q1 2026 순판매 <strong>-46%</strong>, 환매 요청이 유입 초과 → 약 $20억 순유출.</p>
+    </div>
+    <div class="pc-item">
+      <div class="pc-icon">🎯</div>
+      <h4>SaaS 집중 리스크 — AI가 담보를 흔든다</h4>
+      <p>Private Credit 포트폴리오의 <strong>약 19~25%가 SaaS 기업</strong> 집중. 포트폴리오 <strong>25~35%</strong>가 AI 관련 산업 교란 리스크 노출. 담보 가치·수익성 동시 훼손.</p>
+    </div>
+    <div class="pc-item">
+      <div class="pc-icon">👥</div>
+      <h4>리테일화(Democratization) — 성장과 위험의 양면</h4>
+      <p>BDC 150개+, 운용 $4,000억+. Semi-Liquid·Evergreen 구조로 개인투자자 개방 확대. 그러나 환매 요청 급증 시 <strong>게이팅(환매 제한) 발동</strong> 사례 증가.</p>
+    </div>
+    <div class="pc-item">
+      <div class="pc-icon">🏗️</div>
+      <h4>Asset-Based Finance(ABF)의 부상</h4>
+      <p>소비자 대출·장비금융·부동산 관련 사모대출 등 <strong>자산담보부 대출(ABF)</strong>이 다음 성장축으로 부상. 중장기적으로 Direct Lending 규모 추월 전망 등장.</p>
+    </div>
+  </div>
+
+  <!-- ── 7. 핵심 위험 시나리오 ── -->
+  <div class="sec-title"><span>07</span> 핵심 위험 시나리오 3가지</div>
+  <div class="card">
+    <ul class="risk-list">
+      <li>
+        <div class="risk-num">1</div>
+        <div class="risk-txt">
+          <strong>신용 도미노 리스크</strong>
+          <span>고금리 하 SaaS 기업 디폴트 증가 → Private Credit 손실 확대 → BDC 환매 사태 → 시스템 리스크 전이. Fitch 디폴트율 5.8%, 일부 민간 집계 9.2% 이미 경고 수준.</span>
+        </div>
+      </li>
+      <li>
+        <div class="risk-num">2</div>
+        <div class="risk-txt">
+          <strong>AI 내부 모순 리스크</strong>
+          <span>PE가 AI 스타트업·인프라에 투자하는 동시에, AI에 잠식당하는 레거시 SaaS 포트폴리오를 보유 → 내부 이해충돌. AI JV가 기존 포트폴리오 훼손을 가속화하는 역설.</span>
+        </div>
+      </li>
+      <li>
+        <div class="risk-num">3</div>
+        <div class="risk-txt">
+          <strong>유동성 착시 리스크</strong>
+          <span>Semi-Liquid 라벨이 실제 유동성을 보장하지 않는다는 인식 확산 → 리테일 투자자 이탈 가속. 2025년 말~2026년 초 $70억 이상 환매 요청, 다수 BDC 게이팅 발동.</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ── 8. 시장 재편 방향 요약 ── -->
+  <div class="sec-title"><span>08</span> 향후 시장 재편 방향 요약</div>
+  <div class="two-col">
+    <div class="card" style="border-left:4px solid var(--blue);">
+      <h4 style="font-size:14px;font-weight:800;color:var(--blue);margin-bottom:14px;">PE 시장</h4>
+      <p style="font-size:13px;color:var(--sub);line-height:1.9;">
+        레거시 SaaS 레버리지 게임 <strong style="color:var(--text)">→ 운영 역량·AI 활용 게임</strong><br>
+        단기 Exit 중심 <strong style="color:var(--text)">→ Continuation Fund·Long-hold 전략</strong><br>
+        전통 SaaS 섹터 <strong style="color:var(--text)">→ AI 인프라·헬스케어·금융서비스 집중</strong><br>
+        신디케이션 대출 <strong style="color:var(--text)">→ Private Credit 직접 조달 심화</strong>
+      </p>
+    </div>
+    <div class="card" style="border-left:4px solid #e53e3e;">
+      <h4 style="font-size:14px;font-weight:800;color:#e53e3e;margin-bottom:14px;">Private Credit 시장</h4>
+      <p style="font-size:13px;color:var(--sub);line-height:1.9;">
+        기관 전용 <strong style="color:var(--text)">→ 리테일 개방 (단, 유동성 리스크 동반)</strong><br>
+        SaaS 편중 <strong style="color:var(--text)">→ ABF·AI 인프라 등 자산담보 다변화</strong><br>
+        성장 일변도 <strong style="color:var(--text)">→ 리스크 관리·선별 투자 국면 진입</strong><br>
+        Direct Lending 독주 <strong style="color:var(--text)">→ Asset-Based Finance 급성장</strong>
+      </p>
+    </div>
+  </div>
+
+  <!-- ── Sources ── -->
+  <div class="sec-title"><span>09</span> 출처</div>
+  <div class="card sources">
+    <ul>
+      <li><span class="src-tag">SaaStr</span><a href="https://www.saastr.com/medallia-is-just-the-opening-act-heres-the-list-of-pe-saas-deals-most-at-risk/" target="_blank">Medallia Is Just the Opening Act: 12+ PE SaaS Deals With $50B+ in Debt at Risk of Blowing Up</a></li>
+      <li><span class="src-tag">SaaStr</span><a href="https://www.saastr.com/saas-markets-have-crashed-in-2026-but-is-private-credit-the-even-bigger-risk/" target="_blank">SaaS Markets Have Crashed in 2026. But Is Private Credit the Even Bigger Risk?</a></li>
+      <li><span class="src-tag">Cautious Optimism</span><a href="https://www.cautiousoptimism.news/the-pe-software-playbook-is-dead/" target="_blank">The PE software playbook is dead</a></li>
+      <li><span class="src-tag">LPL Research</span><a href="https://www.lpl.com/research/weekly-market-commentary/private-credit-under-pressure-liquidity-mismatches-in-ai-disrupted-cycle.html" target="_blank">Private Credit Liquidity Risk: AI Disruption Impact</a></li>
+      <li><span class="src-tag">Goodwin Law</span><a href="https://www.goodwinlaw.com/en/insights/publications/2024/08/alerts-privateequity-ma-pluralsight-change-of-control-transaction" target="_blank">Pluralsight Change of Control Transaction — Tip of the Private Credit Iceberg?</a></li>
+      <li><span class="src-tag">Transacted</span><a href="https://www.transacted.io/vista-equity-partners-transfers-pluralsight-ownership-to-private-lenders-blackrock-goldman-sachs-blue-owl-capital-among-new-owners" target="_blank">Vista Equity Partners Transfers Pluralsight Ownership to Private Lenders</a></li>
+      <li><span class="src-tag">TheStreet</span><a href="https://www.thestreet.com/technology/saas-pocalypse-stresses-3-trillion-private-credit-market" target="_blank">SaaSpocalypse stresses $3 trillion private credit market</a></li>
+      <li><span class="src-tag">Substack</span><a href="https://davefriedman.substack.com/p/the-saaspocalypse-is-a-credit-event" target="_blank">The SaaSpocalypse Is a Credit Event, Not a Tech Story</a></li>
+      <li><span class="src-tag">Fair Observer</span><a href="https://www.fairobserver.com/economics/private-credit-in-2026-between-silent-expansion-and-hidden-fragility/" target="_blank">Private Credit in 2026: Between Silent Expansion and Hidden Fragility</a></li>
+      <li><span class="src-tag">WithIntelligence</span><a href="https://www.withintelligence.com/insights/private-credit-outlook-2026/" target="_blank">Private Credit Outlook 2026: The Market Faces its First Big Test</a></li>
+      <li><span class="src-tag">Foley & Lardner</span><a href="https://www.foley.com/insights/publications/2026/05/private-equitys-ai-bet-strategic-hedge-or-structural-conflict/" target="_blank">Private Equity's AI Bet: Strategic Hedge or Structural Conflict?</a></li>
+      <li><span class="src-tag">HedgeCo</span><a href="https://hedgeco.net/news/05/2026/bdc-outflows-outpace-inflows-private-credits-retail-reset-enters-a-new-phase.html" target="_blank">BDC Outflows Outpace Inflows: Private Credit's Retail Reset Enters a New Phase</a></li>
+      <li><span class="src-tag">PE Stakeholder</span><a href="https://pestakeholder.org/reports/private-equity-bankruptcy-tracker/" target="_blank">Private Equity Bankruptcy Tracker</a></li>
+      <li><span class="src-tag">머니S</span><a href="https://www.moneys.co.kr/article/2025112715545752091" target="_blank">사모 크레딧, 고금리·AI 투자 시대의 양면성 부각</a></li>
+      <li><span class="src-tag">아주경제</span><a href="https://www.ajunews.com/view/20260323205440863" target="_blank">급팽창한 사모신용시장이 보내는 위험 신호</a></li>
+    </ul>
+  </div>
+
+  <div class="footer">
+    본 자료는 공개된 언론 보도 및 리서치 기관 자료를 기반으로 작성되었습니다. 투자 조언이 아닌 정보 참고용입니다.<br>
+    작성일: 2026년 5월 20일 | 솔루션사업부 기획팀
+  </div>
+
+</div>
+</body>
+</html>

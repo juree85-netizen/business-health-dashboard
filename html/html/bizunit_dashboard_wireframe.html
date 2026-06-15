@@ -9,14 +9,17 @@
 body { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; display:flex; height:100vh; background:#F5F7FA; font-size:12px; }
 
 /* Sidebar */
-.sidebar { width:180px; min-width:180px; background:#2B457A; color:#fff; display:flex; flex-direction:column; }
-.sidebar-logo { padding:18px 16px 14px; font-size:13px; font-weight:700; color:#fff; border-bottom:1px solid rgba(255,255,255,0.1); }
+.sidebar { width:200px; min-width:200px; background:#1E3079; color:#B8C6DB; display:flex; flex-direction:column; padding:0; }
+.sidebar-logo { padding:18px 16px 14px; font-size:13px; font-weight:700; color:#fff; border-bottom:1px solid rgba(255,255,255,0.08); }
 .sidebar-menu { flex:1; overflow-y:auto; padding:8px 0; }
-.nav-item { padding:13px 20px; font-size:13px; color:#fff; opacity:0.75; cursor:pointer; display:flex; align-items:center; gap:6px; }
-.nav-item:hover { opacity:1; background:rgba(255,255,255,0.1); }
-.nav-item.active { background:#1ECAD6; opacity:1; font-weight:600; }
-.nav-arrow { margin-left:auto; font-size:9px; opacity:0.6; }
-.nav-divider { height:1px; background:rgba(255,255,255,0.1); margin:6px 0; }
+.menu-item { padding:9px 16px; cursor:pointer; font-size:11.5px; color:#B8C6DB; display:flex; align-items:center; gap:6px; }
+.menu-item:hover { background:rgba(255,255,255,0.07); }
+.menu-item.active { background:#17B8B8; color:#fff; font-weight:600; border-radius:0 20px 20px 0; margin-right:8px; }
+.menu-item.parent { font-weight:600; color:#CBD8E8; }
+.menu-item.sub { padding-left:28px; font-size:11px; }
+.menu-item.sub2 { padding-left:40px; font-size:11px; }
+.menu-divider { height:1px; background:rgba(255,255,255,0.07); margin:6px 0; }
+.menu-arrow { margin-left:auto; font-size:9px; opacity:0.6; }
 
 /* Main */
 .main { flex:1; display:flex; flex-direction:column; overflow:hidden; }
@@ -76,17 +79,25 @@ svg text { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; }
 <div class="sidebar">
   <div class="sidebar-logo">&#128202; 사업건전성</div>
   <div class="sidebar-menu">
-    <div class="nav-item active">사업부 대시보드</div>
-    <div class="nav-item">사업건전성 현황</div>
-    <div class="nav-divider"></div>
-    <div class="nav-item">사업건전성 영역별 현황 <span class="nav-arrow">&#9660;</span></div>
-    <div class="nav-divider"></div>
-    <div class="nav-item">고객 현황</div>
-    <div class="nav-item">매출/원가 현황</div>
-    <div class="nav-divider"></div>
-    <div class="nav-item">지표 정보 <span class="nav-arrow">&#9660;</span></div>
-    <div class="nav-divider"></div>
-    <div class="nav-item">로그아웃</div>
+    <div class="menu-item active">사업부 대시보드</div>
+    <div class="menu-item" onclick="window.location.href='biz_health_status_wireframe.html'">사업건전성 현황</div>
+    <div class="menu-divider"></div>
+    <div class="menu-item parent">사업건전성 영역별 현황 <span class="menu-arrow">&#9662;</span></div>
+    <div class="menu-item sub parent">재무 <span class="menu-arrow">&#9662;</span></div>
+    <div class="menu-item sub2">성장</div>
+    <div class="menu-item sub2" onclick="window.location.href='efficiency_profit_wireframe.html'">효율/수익</div>
+    <div class="menu-item sub" onclick="window.location.href='market_wireframe.html'">시장</div>
+    <div class="menu-item sub" onclick="window.location.href='sales_main_wireframe.html'">영업</div>
+    <div class="menu-divider"></div>
+    <div class="menu-item" onclick="window.location.href='customer_status_wireframe.html'">고객 현황</div>
+    <div class="menu-item">매출/원가 현황</div>
+    <div class="menu-divider"></div>
+    <div class="menu-item parent">지표 정보 <span class="menu-arrow">&#9662;</span></div>
+    <div class="menu-item sub" onclick="window.location.href='indicator_info_wireframe.html'">지표</div>
+    <div class="menu-item sub">지표 테이블</div>
+    <div class="menu-item sub">지표 원천데이터</div>
+    <div class="menu-divider"></div>
+    <div class="menu-item">로그아웃</div>
   </div>
 </div>
 
@@ -219,6 +230,7 @@ svg text { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; }
             <span class="growth-neg">-5.0% YoY</span>
             <span class="growth-period">vs. 25.03</span>
           </div>
+          <div style="font-size:11px; color:#6A798E; margin-top:4px;">▶ ARR ↑ · ACV ↓: 고객수 증가 vs. 계약 단가 하락 추세</div>
         </div>
         <div class="legend">
           <div class="legend-item">
@@ -311,7 +323,7 @@ svg text { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; }
 
         <!-- 게이지 바 -->
         <div style="position:relative; height:10px; background:#E2E8F0; border-radius:5px; margin:16px 0 4px;">
-          <div style="position:absolute; left:0; top:0; width:24%; height:100%; background:#F04438; border-radius:5px;"></div>
+          <div style="position:absolute; left:0; top:0; width:0%; height:100%; background:#F04438; border-radius:5px;"></div>
           <!-- 40점 기준선 (40% 위치) -->
           <div style="position:absolute; left:40%; top:-4px; width:2px; height:18px; background:#354052;"></div>
         </div>
@@ -349,8 +361,8 @@ svg text { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; }
           </div>
           <div class="growth-row">
             <span class="growth-pos">+12.2% (매출 YoY)</span>
-            <span class="growth-pos">+786.3% (영업이익 YoY)</span>
-            <span class="growth-period">YTD 2025</span>
+            <span style="font-size:13px; font-weight:700; color:#24A148;">흑자전환 ('25.04)</span>
+            <span class="growth-period">25년 연간 기준</span>
           </div>
         </div>
         <div class="legend">
@@ -368,7 +380,7 @@ svg text { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; }
           </div>
         </div>
         <svg width="100%" height="205" viewBox="0 0 580 205">
-          <!-- 음수 영역 음영 (y=153 아래, 높이 32) -->
+          <!-- 음수 영역 음영 -->
           <rect x="28" y="153" width="534" height="32" fill="#FEF2F2" opacity="0.4"/>
 
           <!-- 그리드 라인 -->
@@ -377,7 +389,6 @@ svg text { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; }
           <!-- 0선 (y=153) -->
           <line x1="28" y1="153" x2="562" y2="153" stroke="#CBD5E0" stroke-width="1.5"/>
           <line x1="28" y1="185" x2="562" y2="185" stroke="#E5E7EB" stroke-width="1"/>
-
           <!-- Y축 선 -->
           <line x1="28" y1="15" x2="28" y2="185" stroke="#E2E8F0" stroke-width="1"/>
 
@@ -388,79 +399,97 @@ svg text { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; }
           <text x="24" y="189" text-anchor="end" font-size="10" fill="#6A798E">-20</text>
 
           <!--
-            x centers (spacing=45): 51, 96, 141, 186, 231, 276, 321, 366, 411, 456, 501, 546
-            매출 바: x=center-15 (width=30)
-            영업이익 바: x=center-7 (width=14)
-            y(v) = 185 - ((v+20)/100)*160
+            x centers (spacing=34): 51,85,119,153,187,221,255,289,323,357,391,425,459,493,527
+            25.01~26.03 (15개월)
+            매출 바: x=center-15 (width=30), y=185-((v+20)/100)*160, h=153-y
+            영업이익 바: x=center-7 (width=14), 양수: y=153-(v*1.6), 음수: y=153, h=|v|*1.6
             0선: y=153
           -->
 
-          <!-- 25.01: 매출=52.1 → y=70, h=83 ; 영이익=-8.2 → 0선부터 아래, h=13 -->
+          <!-- 25.01: 매출52.1→y70,h83 ; 영이익-8.2→y153,h13 -->
           <rect x="36" y="70" width="30" height="83" rx="2" fill="#7BA1E8"/>
           <rect x="44" y="153" width="14" height="13" rx="1" fill="#89B4F7" opacity="0.75"/>
 
-          <!-- 25.02: 매출=50.8 → y=72, h=81 ; 영이익=-5.1 → h=8 -->
-          <rect x="81" y="72" width="30" height="81" rx="2" fill="#7BA1E8"/>
-          <rect x="89" y="153" width="14" height="8" rx="1" fill="#89B4F7" opacity="0.75"/>
+          <!-- 25.02: 매출50.8→y72,h81 ; 영이익-5.1→y153,h8 -->
+          <rect x="70" y="72" width="30" height="81" rx="2" fill="#7BA1E8"/>
+          <rect x="78" y="153" width="14" height="8" rx="1" fill="#89B4F7" opacity="0.75"/>
 
-          <!-- 25.03: 매출=55.3 → y=65, h=88 ; 영이익=-2.3 → h=4 -->
-          <rect x="126" y="65" width="30" height="88" rx="2" fill="#7BA1E8"/>
-          <rect x="134" y="153" width="14" height="4" rx="1" fill="#89B4F7" opacity="0.75"/>
+          <!-- 25.03: 매출55.3→y65,h88 ; 영이익-2.3→y153,h4 -->
+          <rect x="104" y="65" width="30" height="88" rx="2" fill="#7BA1E8"/>
+          <rect x="112" y="153" width="14" height="4" rx="1" fill="#89B4F7" opacity="0.75"/>
 
-          <!-- 25.04: 매출=57.6 → y=61, h=92 ; 영이익=+1.2 → y_top=151, h=2 -->
-          <rect x="171" y="61" width="30" height="92" rx="2" fill="#7BA1E8"/>
-          <rect x="179" y="151" width="14" height="2" rx="1" fill="#89B4F7"/>
+          <!-- 25.04: 매출57.6→y61,h92 ; 영이익+1.2→y151,h2 -->
+          <rect x="138" y="61" width="30" height="92" rx="2" fill="#7BA1E8"/>
+          <rect x="146" y="151" width="14" height="2" rx="1" fill="#89B4F7"/>
 
-          <!-- 25.05: 매출=59.2 → y=58, h=95 ; 영이익=+3.8 → y_top=147, h=6 -->
-          <rect x="216" y="58" width="30" height="95" rx="2" fill="#7BA1E8"/>
-          <rect x="224" y="147" width="14" height="6" rx="1" fill="#89B4F7"/>
+          <!-- 25.05: 매출59.2→y58,h95 ; 영이익+3.8→y147,h6 -->
+          <rect x="172" y="58" width="30" height="95" rx="2" fill="#7BA1E8"/>
+          <rect x="180" y="147" width="14" height="6" rx="1" fill="#89B4F7"/>
 
-          <!-- 25.06: 매출=61.4 → y=55, h=98 ; 영이익=+6.9 → y_top=142, h=11 -->
-          <rect x="261" y="55" width="30" height="98" rx="2" fill="#7BA1E8"/>
-          <rect x="269" y="142" width="14" height="11" rx="1" fill="#89B4F7"/>
+          <!-- 25.06: 매출61.4→y55,h98 ; 영이익+6.9→y142,h11 -->
+          <rect x="206" y="55" width="30" height="98" rx="2" fill="#7BA1E8"/>
+          <rect x="214" y="142" width="14" height="11" rx="1" fill="#89B4F7"/>
 
-          <!-- 25.07: 매출=62.8 → y=53, h=100 ; 영이익=+8.2 → y_top=140, h=13 -->
-          <rect x="306" y="53" width="30" height="100" rx="2" fill="#7BA1E8"/>
-          <rect x="314" y="140" width="14" height="13" rx="1" fill="#89B4F7"/>
+          <!-- 25.07: 매출62.8→y53,h100 ; 영이익+8.2→y140,h13 -->
+          <rect x="240" y="53" width="30" height="100" rx="2" fill="#7BA1E8"/>
+          <rect x="248" y="140" width="14" height="13" rx="1" fill="#89B4F7"/>
 
-          <!-- 25.08: 매출=63.5 → y=51, h=102 ; 영이익=+9.7 → y_top=138, h=15 -->
-          <rect x="351" y="51" width="30" height="102" rx="2" fill="#7BA1E8"/>
-          <rect x="359" y="138" width="14" height="15" rx="1" fill="#89B4F7"/>
+          <!-- 25.08: 매출63.5→y51,h102 ; 영이익+9.7→y138,h15 -->
+          <rect x="274" y="51" width="30" height="102" rx="2" fill="#7BA1E8"/>
+          <rect x="282" y="138" width="14" height="15" rx="1" fill="#89B4F7"/>
 
-          <!-- 25.09: 매출=65.1 → y=49, h=104 ; 영이익=+11.3 → y_top=135, h=18 -->
-          <rect x="396" y="49" width="30" height="104" rx="2" fill="#7BA1E8"/>
-          <rect x="404" y="135" width="14" height="18" rx="1" fill="#89B4F7"/>
+          <!-- 25.09: 매출65.1→y49,h104 ; 영이익+11.3→y135,h18 -->
+          <rect x="308" y="49" width="30" height="104" rx="2" fill="#7BA1E8"/>
+          <rect x="316" y="135" width="14" height="18" rx="1" fill="#89B4F7"/>
 
-          <!-- 25.10: 매출=66.4 → y=47, h=106 ; 영이익=+12.8 → y_top=133, h=20 -->
-          <rect x="441" y="47" width="30" height="106" rx="2" fill="#7BA1E8"/>
-          <rect x="449" y="133" width="14" height="20" rx="1" fill="#89B4F7"/>
+          <!-- 25.10: 매출66.4→y47,h106 ; 영이익+12.8→y133,h20 -->
+          <rect x="342" y="47" width="30" height="106" rx="2" fill="#7BA1E8"/>
+          <rect x="350" y="133" width="14" height="20" rx="1" fill="#89B4F7"/>
 
-          <!-- 25.11: 매출=67.2 → y=45, h=108 ; 영이익=+14.1 → y_top=130, h=23 -->
-          <rect x="486" y="45" width="30" height="108" rx="2" fill="#7BA1E8"/>
-          <rect x="494" y="130" width="14" height="23" rx="1" fill="#89B4F7"/>
+          <!-- 25.11: 매출67.2→y45,h108 ; 영이익+14.1→y130,h23 -->
+          <rect x="376" y="45" width="30" height="108" rx="2" fill="#7BA1E8"/>
+          <rect x="384" y="130" width="14" height="23" rx="1" fill="#89B4F7"/>
 
-          <!-- 25.12: 매출=58.9 → y=59, h=94 (추정, opacity=0.65) ; 영이익=+10.5 → y_top=136, h=17 -->
-          <rect x="531" y="59" width="30" height="94" rx="2" fill="#7BA1E8" opacity="0.65"/>
-          <rect x="539" y="136" width="14" height="17" rx="1" fill="#89B4F7" opacity="0.65"/>
+          <!-- 25.12: 매출58.9→y59,h94(추정) ; 영이익+10.5→y136,h17 -->
+          <rect x="410" y="59" width="30" height="94" rx="2" fill="#7BA1E8" opacity="0.65"/>
+          <rect x="418" y="136" width="14" height="17" rx="1" fill="#89B4F7" opacity="0.65"/>
 
-          <!-- 이익률 꺾은선 (centers: 51,96,141,186,231,276,321,366,411,456,501,546) -->
-          <polyline points="51,178 96,169 141,160 186,150 231,143 276,135 321,132 366,129 411,125 456,122 501,119 546,125"
+          <!-- 26.01: 매출64.2→y50,h103 ; 영이익+14.8→y129,h24 -->
+          <rect x="444" y="50" width="30" height="103" rx="2" fill="#7BA1E8"/>
+          <rect x="452" y="129" width="14" height="24" rx="1" fill="#89B4F7"/>
+
+          <!-- 26.02: 매출65.8→y48,h105 ; 영이익+15.2→y129,h24 -->
+          <rect x="478" y="48" width="30" height="105" rx="2" fill="#7BA1E8"/>
+          <rect x="486" y="129" width="14" height="24" rx="1" fill="#89B4F7"/>
+
+          <!-- 26.03: 매출67.1→y46,h107(최신월 진파랑) ; 영이익+15.8→y128,h25 -->
+          <rect x="512" y="46" width="30" height="107" rx="2" fill="#4A90E2"/>
+          <rect x="520" y="128" width="14" height="25" rx="1" fill="#4A90E2"/>
+
+          <!-- 이익률 꺾은선 -->
+          <polyline points="51,178 85,169 119,160 153,150 187,143 221,135 255,132 289,129 323,125 357,122 391,119 425,125 459,116 493,116 527,115"
             fill="none" stroke="#E88A4A" stroke-width="2" stroke-linejoin="round"/>
 
-          <!-- 첫/마지막 포인트 -->
+          <!-- 흑자전환 교차점 마커 (25.03→25.04 사이 0%선 교차, x≈136) -->
+          <circle cx="136" cy="153" r="3.5" fill="#24A148" stroke="white" stroke-width="1.5"/>
+          <text x="136" y="167" text-anchor="middle" font-size="9" fill="#24A148" font-weight="600">'25.04</text>
+          <text x="136" y="177" text-anchor="middle" font-size="9" fill="#24A148" font-weight="600">흑자전환</text>
+
+          <!-- 이익률 첫점/마지막점 -->
           <circle cx="51" cy="178" r="3.5" fill="#E88A4A"/>
           <text x="51" y="172" text-anchor="middle" font-size="10" fill="#E88A4A">-15.7%</text>
-          <circle cx="501" cy="119" r="3.5" fill="#E88A4A"/>
-          <text x="501" y="113" text-anchor="middle" font-size="10" fill="#E88A4A">+21.0%</text>
+          <circle cx="527" cy="115" r="3.5" fill="#E88A4A"/>
+          <text x="527" y="109" text-anchor="middle" font-size="10" fill="#E88A4A">+23.5%</text>
 
           <!-- X축 레이블 (격월) -->
           <text x="51" y="200" text-anchor="middle" font-size="10" fill="#6A798E">25.01</text>
-          <text x="141" y="200" text-anchor="middle" font-size="10" fill="#6A798E">25.03</text>
-          <text x="231" y="200" text-anchor="middle" font-size="10" fill="#6A798E">25.05</text>
-          <text x="321" y="200" text-anchor="middle" font-size="10" fill="#6A798E">25.07</text>
-          <text x="411" y="200" text-anchor="middle" font-size="10" fill="#6A798E">25.09</text>
-          <text x="501" y="200" text-anchor="middle" font-size="10" fill="#6A798E">25.11</text>
-          <text x="546" y="200" text-anchor="middle" font-size="10" fill="#6A798E">25.12*</text>
+          <text x="119" y="200" text-anchor="middle" font-size="10" fill="#6A798E">25.03</text>
+          <text x="187" y="200" text-anchor="middle" font-size="10" fill="#6A798E">25.05</text>
+          <text x="255" y="200" text-anchor="middle" font-size="10" fill="#6A798E">25.07</text>
+          <text x="323" y="200" text-anchor="middle" font-size="10" fill="#6A798E">25.09</text>
+          <text x="391" y="200" text-anchor="middle" font-size="10" fill="#6A798E">25.11</text>
+          <text x="459" y="200" text-anchor="middle" font-size="10" fill="#6A798E">26.01</text>
+          <text x="527" y="200" text-anchor="middle" font-size="10" fill="#6A798E">26.03</text>
         </svg>
         <div style="font-size:10px; color:#A0A8B8; margin-top:4px;">* 25.12: 추정치</div>
       </div>
@@ -603,7 +632,7 @@ svg text { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; }
           <span class="kpi-detail-val" style="color:#24A148;">75.0점 &#9650;</span>
         </div>
 
-        <div class="kpi-period">2025년 기준 / vs. 전년</div>
+        <div class="kpi-period">2025년 기준 / 2026년 측정 예정</div>
       </div>
 
     </div><!-- /row-3col -->

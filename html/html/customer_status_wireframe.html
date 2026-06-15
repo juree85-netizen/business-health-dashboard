@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>사업건전성 — CS (고객 현황)</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; display: flex; height: 100vh; background: #F5F5F5; font-size: 12px; color: #1A1A1A; }
+
+/* 사이드바 */
+.sidebar { width: 200px; min-width: 200px; background: #1E3079; color: #B8C6DB; display: flex; flex-direction: column; padding: 0; }
+.sidebar-logo { padding: 18px 16px 14px; font-size: 13px; font-weight: 700; color: #fff; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.sidebar-menu { flex: 1; overflow-y: auto; padding: 8px 0; }
+.menu-item { padding: 9px 16px; cursor: pointer; font-size: 11.5px; color: #B8C6DB; display: flex; align-items: center; gap: 6px; }
+.menu-item:hover { background: rgba(255,255,255,0.07); }
+.menu-item.active { background: #17B8B8; color: #fff; font-weight: 600; border-radius: 0 20px 20px 0; margin-right: 8px; }
+.menu-item.parent { font-weight: 600; color: #CBD8E8; }
+.menu-item.sub { padding-left: 28px; font-size: 11px; }
+.menu-item.sub2 { padding-left: 40px; font-size: 11px; }
+.menu-divider { height: 1px; background: rgba(255,255,255,0.07); margin: 6px 0; }
+.menu-arrow { margin-left: auto; font-size: 9px; opacity: 0.6; }
+
+/* 메인 */
+.main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+.header { background: #fff; border-bottom: 1px solid #E5E7EB; padding: 10px 20px; display: flex; align-items: center; gap: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+.header-title { font-size: 16px; font-weight: 700; color: #1A1A1A; }
+.header-spacer { flex: 1; }
+.badge { display: inline-flex; align-items: center; gap: 5px; background: #EBF5FB; border: 1px solid #AED6F1; border-radius: 12px; padding: 4px 10px; font-size: 11px; color: #1A5276; }
+.header-meta { display: flex; flex-direction: column; align-items: flex-end; }
+.header-date { font-size: 11px; color: #9CA3AF; }
+.header-update { font-size: 10px; color: #9CA3AF; }
+
+/* 콘텐츠 */
+.content { flex: 1; overflow-y: auto; padding: 16px; }
+.section-title { font-size: 14px; font-weight: 700; color: #1A1A1A; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 2px solid #E5E7EB; }
+.section-gap { margin-bottom: 24px; }
+
+.row { display: grid; gap: 14px; margin-bottom: 14px; align-items: start; }
+.row-2 { grid-template-columns: 1fr 1fr; }
+.row-3 { grid-template-columns: 1fr 1fr 1fr; }
+.row-3-1 { grid-template-columns: 3fr 1fr; }
+
+.card { background: #fff; border-radius: 8px; border: 1px solid #E5E7EB; box-shadow: 0 2px 6px rgba(0,0,0,0.06); padding: 14px 16px; overflow: hidden; }
+.card:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.11); }
+.card-title { font-size: 13px; font-weight: 700; color: #1A1A1A; margin-bottom: 6px; display: flex; align-items: baseline; gap: 6px; }
+.card-unit { font-size: 10px; color: #9CA3AF; font-weight: 400; }
+.card-note { font-size: 10px; color: #9CA3AF; margin-bottom: 8px; }
+
+.ctrl-row { display: flex; gap: 6px; margin-bottom: 10px; align-items: center; flex-wrap: wrap; }
+.ctrl-select { border: 1px solid #E5E7EB; border-radius: 4px; padding: 4px 20px 4px 7px; font-size: 11px; color: #333; background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5'%3E%3Cpath d='M0 0l4 5 4-5z' fill='%23999'/%3E%3C/svg%3E") no-repeat right 5px center; appearance: none; cursor: pointer; font-family: inherit; }
+.ctrl-btn { border: 1px solid #D1D5DB; border-radius: 4px; padding: 4px 10px; font-size: 11px; cursor: pointer; background: #fff; color: #555; font-family: inherit; }
+.ctrl-btn.primary { background: #4A90E2; color: #fff; border-color: #4A90E2; }
+.ctrl-spacer { flex: 1; }
+
+.kpi-area { display: flex; gap: 0; border-bottom: 1px solid #F3F4F6; margin-bottom: 10px; }
+.kpi-block { flex: 1; padding: 6px 10px; text-align: center; border-right: 1px solid #F3F4F6; }
+.kpi-block:last-child { border-right: none; }
+.kpi-label { font-size: 10px; color: #6B7280; margin-bottom: 2px; }
+.kpi-value { font-size: 22px; font-weight: 700; color: #1A1A1A; line-height: 1.1; }
+.kpi-delta { font-size: 11px; font-weight: 600; }
+.kpi-delta.neg { color: #E74C3C; }
+.kpi-delta.pos { color: #27AE60; }
+.kpi-yoy { font-size: 11px; color: #6B7280; margin-top: 2px; }
+
+.legend { display: flex; gap: 12px; margin-bottom: 8px; flex-wrap: wrap; }
+.legend-item { display: flex; align-items: center; gap: 4px; font-size: 11px; color: #6B7280; }
+.leg-bar { width: 12px; height: 10px; border-radius: 2px; display: inline-block; }
+.leg-line { width: 20px; height: 3px; border-radius: 2px; display: inline-block; }
+
+.kpi-card-row { display: flex; gap: 14px; margin-bottom: 14px; }
+.kpi-summary-card { flex: 1; background: #fff; border-radius: 8px; border: 1px solid #E5E7EB; box-shadow: 0 2px 6px rgba(0,0,0,0.06); padding: 12px 16px; }
+.kpi-summary-label { font-size: 11px; color: #6B7280; margin-bottom: 4px; }
+.kpi-summary-value { font-size: 20px; font-weight: 700; color: #1A1A1A; line-height: 1.2; }
+.kpi-summary-sub { font-size: 11px; margin-top: 3px; }
+
+svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
+</style>
+</head>
+<body>
+
+<!-- 사이드바 -->
+<div class="sidebar">
+  <div class="sidebar-logo">&#128202; 사업건전성</div>
+  <div class="sidebar-menu">
+    <div class="menu-item" onclick="window.location.href='bizunit_dashboard_wireframe.html'">사업부 대시보드</div>
+    <div class="menu-item" onclick="window.location.href='biz_health_status_wireframe.html'">사업건전성 현황</div>
+    <div class="menu-divider"></div>
+    <div class="menu-item parent">사업건전성 영역별 현황 <span class="menu-arrow">&#9662;</span></div>
+    <div class="menu-item sub parent">재무 <span class="menu-arrow">&#9662;</span></div>
+    <div class="menu-item sub2">성장</div>
+    <div class="menu-item sub2" onclick="window.location.href='efficiency_profit_wireframe.html'">효율/수익</div>
+    <div class="menu-item sub" onclick="window.location.href='market_wireframe.html'">시장</div>
+    <div class="menu-item sub" onclick="window.location.href='sales_main_wireframe.html'">영업</div>
+    <div class="menu-divider"></div>
+    <div class="menu-item active">고객 현황</div>
+    <div class="menu-item">매출/원가 현황</div>
+    <div class="menu-divider"></div>
+    <div class="menu-item parent">지표 정보 <span class="menu-arrow">&#9662;</span></div>
+    <div class="menu-item sub" onclick="window.location.href='indicator_info_wireframe.html'">지표</div>
+    <div class="menu-item sub">지표 테이블</div>
+    <div class="menu-item sub">지표 원천데이터</div>
+    <div class="menu-divider"></div>
+    <div class="menu-item">로그아웃</div>
+  </div>
+</div>
+
+<!-- 메인 -->
+<div class="main">
+  <div class="header">
+    <span class="header-title">CS (고객 현황)</span>
+    <div class="header-spacer"></div>
+    <div class="badge">기준월: 2025년 08월</div>
+    <div class="badge">업데이트: 매월 10일</div>
+    <div class="header-meta">
+      <div class="header-date">2025-08-10</div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- 상단 공통 필터 카드 -->
+    <div class="card" style="margin-bottom:14px;">
+      <div class="ctrl-row">
+        <select class="ctrl-select">
+          <option>ARR: 전체</option>
+          <option>500억 이상</option>
+          <option>100~500억</option>
+          <option>100억 미만</option>
+        </select>
+        <select class="ctrl-select">
+          <option>고객상태: 전체</option>
+          <option>Active</option>
+          <option>Churn</option>
+          <option>New</option>
+        </select>
+        <div class="ctrl-spacer"></div>
+        <button class="ctrl-btn">Reset</button>
+        <button class="ctrl-btn primary">Search</button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         섹션 1 — 고객 현황
+    ═══════════════════════════════════════════════ -->
+    <div class="section-title">고객 현황</div>
+
+    <!-- 섹션 필터 -->
+    <div class="card" style="margin-bottom:14px;">
+      <div class="ctrl-row">
+        <select class="ctrl-select">
+          <option>매출종류: Revenue</option>
+          <option>라이선스</option>
+          <option>유지보수</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row row-2">
+
+      <!-- 카드 A: 고객 현황 -->
+      <div class="card">
+        <div class="card-title">고객 현황 <span class="card-unit">단위: 개</span></div>
+        <div class="legend">
+          <div class="legend-item"><span class="leg-bar" style="background:#3b82f6;"></span>New</div>
+          <div class="legend-item"><span class="leg-bar" style="background:#93c5fd;"></span>Existing</div>
+          <div class="legend-item"><span class="leg-bar" style="background:#9ca3af;"></span>Churn</div>
+        </div>
+        <svg width="100%" height="230" viewBox="0 0 480 230">
+          <!-- Y 축 라인 -->
+          <line x1="40" y1="10" x2="40" y2="188" stroke="#E5E7EB" stroke-width="1"/>
+          <!-- Zero line -->
+          <line x1="40" y1="152" x2="460" y2="152" stroke="#9CA3AF" stroke-width="1"/>
+          <!-- Gridlines -->
+          <line x1="40" y1="10"  x2="460" y2="10"  stroke="#E5E7EB" stroke-dasharray="3,3" stroke-width="1"/>
+          <line x1="40" y1="45"  x2="460" y2="45"  stroke="#E5E7EB" stroke-dasharray="3,3" stroke-width="1"/>
+          <line x1="40" y1="81"  x2="460" y2="81"  stroke="#E5E7EB" stroke-dasharray="3,3" stroke-width="1"/>
+          <line x1="40" y1="117" x2="460" y2="117" stroke="#E5E7EB" stroke-dasharray="3,3" stroke-width="1"/>
+          <line x1="40" y1="188" x2="460" y2="188" stroke="#E5E7EB" stroke-dasharray="3,3" stroke-width="1"/>
+          <!-- Y axis labels -->
+          <text x="36" y="13"  text-anchor="end" font-size="9" fill="#6B7280">400</text>
+          <text x="36" y="48"  text-anchor="end" font-size="9" fill="#6B7280">300</text>
+          <text x="36" y="84"  text-anchor="end" font-size="9" fill="#6B7280">200</text>
+          <text x="36" y="120" text-anchor="end" font-size="9" fill="#6B7280">100</text>
+          <text x="36" y="155" text-anchor="end" font-size="9" fill="#6B7280">0</text>
+          <text x="36" y="191" text-anchor="end" font-size="9" fill="#6B7280">-100</text>
+
+          <!-- 2023: New=80, Existing=140, Churn=-30 -->
+          <rect x="72" y="102" width="65" height="50" fill="#93c5fd"/>
+          <rect x="72" y="73"  width="65" height="29" fill="#3b82f6"/>
+          <rect x="72" y="152" width="65" height="11" fill="#9ca3af"/>
+          <text x="104" y="129" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">140</text>
+          <text x="104" y="89"  text-anchor="middle" font-size="11" font-weight="700" fill="#fff">80</text>
+          <text x="104" y="161" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">-30</text>
+          <text x="104" y="68"  text-anchor="middle" font-size="11" font-weight="700" fill="#1A1A1A">190</text>
+
+          <!-- 2024: New=110, Existing=155, Churn=-40 -->
+          <rect x="177" y="97"  width="65" height="55" fill="#93c5fd"/>
+          <rect x="177" y="58"  width="65" height="39" fill="#3b82f6"/>
+          <rect x="177" y="152" width="65" height="14" fill="#9ca3af"/>
+          <text x="209" y="126" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">155</text>
+          <text x="209" y="82"  text-anchor="middle" font-size="11" font-weight="700" fill="#fff">110</text>
+          <text x="209" y="162" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">-40</text>
+          <text x="209" y="53"  text-anchor="middle" font-size="11" font-weight="700" fill="#1A1A1A">265</text>
+
+          <!-- 2025: New=140, Existing=165, Churn=-50 -->
+          <rect x="282" y="93"  width="65" height="59" fill="#93c5fd"/>
+          <rect x="282" y="43"  width="65" height="50" fill="#3b82f6"/>
+          <rect x="282" y="152" width="65" height="18" fill="#9ca3af"/>
+          <text x="314" y="124" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">165</text>
+          <text x="314" y="71"  text-anchor="middle" font-size="11" font-weight="700" fill="#fff">140</text>
+          <text x="314" y="163" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">-50</text>
+          <text x="314" y="38"  text-anchor="middle" font-size="11" font-weight="700" fill="#1A1A1A">305</text>
+
+          <!-- 2026: New=165, Existing=180, Churn=-60 -->
+          <rect x="387" y="88"  width="65" height="64" fill="#93c5fd"/>
+          <rect x="387" y="29"  width="65" height="59" fill="#3b82f6"/>
+          <rect x="387" y="152" width="65" height="21" fill="#9ca3af"/>
+          <text x="419" y="122" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">180</text>
+          <text x="419" y="61"  text-anchor="middle" font-size="11" font-weight="700" fill="#fff">165</text>
+          <text x="419" y="165" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">-60</text>
+          <text x="419" y="24"  text-anchor="middle" font-size="11" font-weight="700" fill="#1A1A1A">345</text>
+
+          <!-- X labels -->
+          <text x="104" y="202" text-anchor="middle" font-size="10" fill="#6B7280">2023</text>
+          <text x="209" y="202" text-anchor="middle" font-size="10" fill="#6B7280">2024</text>
+          <text x="314" y="202" text-anchor="middle" font-size="10" fill="#6B7280">2025</text>
+          <text x="419" y="202" text-anchor="middle" font-size="10" fill="#6B7280">2026</text>
+        </svg>
+      </div>
+
+      <!-- 카드 B: 매출 현황 -->
+      <div class="card">
+        <div class="card-title">매출 현황 <span class="card-unit">단위: 억원</span></div>
+        <div class="legend">
+          <div class="legend-item"><span class="leg-bar" style="background:#3b82f6;"></span>New</div>
+          <div class="legend-item"><span class="leg-bar" style="background:#93c5fd;"></span>Existing</div>
+          <div class="legend-item"><span class="leg-bar" style="background:#9ca3af;"></span>Churn</div>
+        </div>
+        <svg width="100%" height="230" viewBox="0 0 480 230">
+          <!-- Y 축 라인 -->
+          <line x1="40" y1="10" x2="40" y2="188" stroke="#E5E7EB" stroke-width="1"/>
+          <!-- Zero line -->
+          <line x1="40" y1="163" x2="460" y2="163" stroke="#9CA3AF" stroke-width="1"/>
+          <!-- Gridlines -->
+          <line x1="40" y1="10"  x2="460" y2="10"  stroke="#E5E7EB" stroke-dasharray="3,3" stroke-width="1"/>
+          <line x1="40" y1="36"  x2="460" y2="36"  stroke="#E5E7EB" stroke-dasharray="3,3" stroke-width="1"/>
+          <line x1="40" y1="61"  x2="460" y2="61"  stroke="#E5E7EB" stroke-dasharray="3,3" stroke-width="1"/>
+          <line x1="40" y1="86"  x2="460" y2="86"  stroke="#E5E7EB" stroke-dasharray="3,3" stroke-width="1"/>
+          <line x1="40" y1="112" x2="460" y2="112" stroke="#E5E7EB" stroke-dasharray="3,3" stroke-width="1"/>
+          <line x1="40" y1="137" x2="460" y2="137" stroke="#E5E7EB" stroke-dasharray="3,3" stroke-width="1"/>
+          <line x1="40" y1="188" x2="460" y2="188" stroke="#E5E7EB" stroke-dasharray="3,3" stroke-width="1"/>
+          <!-- Y axis labels -->
+          <text x="36" y="13"  text-anchor="end" font-size="9" fill="#6B7280">120</text>
+          <text x="36" y="39"  text-anchor="end" font-size="9" fill="#6B7280">100</text>
+          <text x="36" y="64"  text-anchor="end" font-size="9" fill="#6B7280">80</text>
+          <text x="36" y="89"  text-anchor="end" font-size="9" fill="#6B7280">60</text>
+          <text x="36" y="115" text-anchor="end" font-size="9" fill="#6B7280">40</text>
+          <text x="36" y="140" text-anchor="end" font-size="9" fill="#6B7280">20</text>
+          <text x="36" y="166" text-anchor="end" font-size="9" fill="#6B7280">0</text>
+          <text x="36" y="191" text-anchor="end" font-size="9" fill="#6B7280">-20</text>
+
+          <!-- 2023: New=15, Existing=55, Churn=-8 -->
+          <rect x="72" y="93"  width="65" height="70" fill="#93c5fd"/>
+          <rect x="72" y="74"  width="65" height="19" fill="#3b82f6"/>
+          <rect x="72" y="163" width="65" height="10" fill="#9ca3af"/>
+          <text x="104" y="130" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">55</text>
+          <text x="104" y="85"  text-anchor="middle" font-size="10" font-weight="700" fill="#fff">15</text>
+          <text x="104" y="171" text-anchor="middle" font-size="9"  font-weight="700" fill="#fff">-8</text>
+          <text x="104" y="69"  text-anchor="middle" font-size="11" font-weight="700" fill="#1A1A1A">62</text>
+
+          <!-- 2024: New=20, Existing=65, Churn=-10 -->
+          <rect x="177" y="80"  width="65" height="83" fill="#93c5fd"/>
+          <rect x="177" y="55"  width="65" height="25" fill="#3b82f6"/>
+          <rect x="177" y="163" width="65" height="13" fill="#9ca3af"/>
+          <text x="209" y="123" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">65</text>
+          <text x="209" y="69"  text-anchor="middle" font-size="10" font-weight="700" fill="#fff">20</text>
+          <text x="209" y="172" text-anchor="middle" font-size="9"  font-weight="700" fill="#fff">-10</text>
+          <text x="209" y="50"  text-anchor="middle" font-size="11" font-weight="700" fill="#1A1A1A">75</text>
+
+          <!-- 2025: New=25, Existing=72, Churn=-12 -->
+          <rect x="282" y="71"  width="65" height="92" fill="#93c5fd"/>
+          <rect x="282" y="39"  width="65" height="32" fill="#3b82f6"/>
+          <rect x="282" y="163" width="65" height="15" fill="#9ca3af"/>
+          <text x="314" y="118" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">72</text>
+          <text x="314" y="57"  text-anchor="middle" font-size="10" font-weight="700" fill="#fff">25</text>
+          <text x="314" y="173" text-anchor="middle" font-size="9"  font-weight="700" fill="#fff">-12</text>
+          <text x="314" y="34"  text-anchor="middle" font-size="11" font-weight="700" fill="#1A1A1A">85</text>
+
+          <!-- 2026: New=30, Existing=78, Churn=-14 -->
+          <rect x="387" y="64"  width="65" height="99" fill="#93c5fd"/>
+          <rect x="387" y="26"  width="65" height="38" fill="#3b82f6"/>
+          <rect x="387" y="163" width="65" height="18" fill="#9ca3af"/>
+          <text x="419" y="115" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">78</text>
+          <text x="419" y="47"  text-anchor="middle" font-size="10" font-weight="700" fill="#fff">30</text>
+          <text x="419" y="173" text-anchor="middle" font-size="9"  font-weight="700" fill="#fff">-14</text>
+          <text x="419" y="21"  text-anchor="middle" font-size="11" font-weight="700" fill="#1A1A1A">95</text>
+
+          <!-- X labels -->
+          <text x="104" y="202" text-anchor="middle" font-size="10" fill="#6B7280">2023</text>
+          <text x="209" y="202" text-anchor="middle" font-size="10" fill="#6B7280">2024</text>
+          <text x="314" y="202" text-anchor="middle" font-size="10" fill="#6B7280">2025</text>
+          <text x="419" y="202" text-anchor="middle" font-size="10" fill="#6B7280">2026</text>
+        </svg>
+      </div>
+
+    </div><!-- /row row-2 섹션1 -->
+
+    <!-- ═══════════════════════════════════════════════
+         섹션 2 — 업종 대분류 (매출)
+    ═══════════════════════════════════════════════ -->
+    <div class="section-title section-gap">업종 대분류 (매출)</div>
+
+    <!-- 섹션 필터 -->
+    <div class="card" style="margin-bottom:14px;">
+      <div class="ctrl-row">
+        <select class="ctrl-select"><option>매출종류: Revenue</option><option>라이선스</option><option>유지보수</option></select>
+        <select class="ctrl-select"><option>국내/외: 전체</option><option>국내</option><option>국외</option></select>
+        <select class="ctrl-select"><option>대내/대외: 전체</option><option>대내</option><option>대외</option></select>
+        <select class="ctrl-select"><option>업종 대분류: 전체</option><option>제조(Discrete)</option><option>공공</option><option>금융</option><option>서비스</option><option>기타</option></select>
+        <select class="ctrl-select"><option>업종 소분류: 전체</option></select>
+        <select class="ctrl-select"><option>분석주기: 2026</option><option>2025</option><option>2024</option><option>2023</option></select>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- 카드: 업종 대분류 (매출) -->
+      <div class="card">
+        <div class="card-title">업종 대분류 (매출) <span class="card-unit">단위: 억원</span></div>
+        <div class="legend">
+          <div class="legend-item"><span class="leg-bar" style="background:#93c5fd;"></span>제조(Discrete)</div>
+          <div class="legend-item"><span class="leg-bar" style="background:#60a5fa;"></span>공공</div>
+          <div class="legend-item"><span class="leg-bar" style="background:#3b82f6;"></span>금융</div>
+          <div class="legend-item"><span class="leg-bar" style="background:#2563eb;"></span>서비스</div>
+          <div class="legend-item"><span class="leg-bar" style="background:#9ca3af;"></span>기타</div>
+        </div>
+        <svg width="100%" height="200" viewBox="0 0 580 200">
+          <!-- Y 축 라인 -->
+          <line x1="68" y1="10" x2="68" y2="155" stroke="#E5E7EB" stroke-width="1"/>
+          <!-- X gridlines -->
+          <line x1="70"  y1="10" x2="70"  y2="155" stroke="#E5E7EB" stroke-dasharray="2,2" stroke-width="1"/>
+          <line x1="160" y1="10" x2="160" y2="155" stroke="#E5E7EB" stroke-dasharray="2,2" stroke-width="1"/>
+          <line x1="250" y1="10" x2="250" y2="155" stroke="#E5E7EB" stroke-dasharray="2,2" stroke-width="1"/>
+          <line x1="340" y1="10" x2="340" y2="155" stroke="#E5E7EB" stroke-dasharray="2,2" stroke-width="1"/>
+          <line x1="430" y1="10" x2="430" y2="155" stroke="#E5E7EB" stroke-dasharray="2,2" stroke-width="1"/>
+          <line x1="520" y1="10" x2="520" y2="155" stroke="#E5E7EB" stroke-dasharray="2,2" stroke-width="1"/>
+
+          <!-- Y axis labels -->
+          <text x="62" y="34"  text-anchor="end" font-size="10" fill="#6B7280">2026</text>
+          <text x="62" y="69"  text-anchor="end" font-size="10" fill="#6B7280">2025</text>
+          <text x="62" y="104" text-anchor="end" font-size="10" fill="#6B7280">2024</text>
+          <text x="62" y="139" text-anchor="end" font-size="10" fill="#6B7280">2023</text>
+
+          <!-- 2026: 총125억 제조55, 공공25, 금융22, 서비스17, 기타6 -->
+          <rect x="70"  y="19" width="198" height="22" rx="2" fill="#93c5fd"/>
+          <rect x="268" y="19" width="90"  height="22" rx="2" fill="#60a5fa"/>
+          <rect x="358" y="19" width="79"  height="22" rx="2" fill="#3b82f6"/>
+          <rect x="437" y="19" width="61"  height="22" rx="2" fill="#2563eb"/>
+          <rect x="498" y="19" width="22"  height="22" rx="2" fill="#9ca3af"/>
+          <text x="169" y="34" text-anchor="middle" font-size="9" fill="#fff">제조 55</text>
+          <text x="313" y="34" text-anchor="middle" font-size="9" fill="#fff">공공 25</text>
+          <text x="397" y="34" text-anchor="middle" font-size="9" fill="#fff">금융 22</text>
+          <text x="467" y="34" text-anchor="middle" font-size="9" fill="#fff">서비스 17</text>
+          <text x="526" y="34" text-anchor="middle" font-size="9" font-weight="700" fill="#1A1A1A">125</text>
+
+          <!-- 2025: 총120억 제조50, 공공24, 금융22, 서비스16, 기타8 -->
+          <rect x="70"  y="54" width="180" height="22" rx="2" fill="#93c5fd"/>
+          <rect x="250" y="54" width="86"  height="22" rx="2" fill="#60a5fa"/>
+          <rect x="336" y="54" width="79"  height="22" rx="2" fill="#3b82f6"/>
+          <rect x="415" y="54" width="58"  height="22" rx="2" fill="#2563eb"/>
+          <rect x="473" y="54" width="29"  height="22" rx="2" fill="#9ca3af"/>
+          <text x="160" y="69" text-anchor="middle" font-size="9" fill="#fff">제조 50</text>
+          <text x="293" y="69" text-anchor="middle" font-size="9" fill="#fff">공공 24</text>
+          <text x="375" y="69" text-anchor="middle" font-size="9" fill="#fff">금융 22</text>
+          <text x="444" y="69" text-anchor="middle" font-size="9" fill="#fff">서비스 16</text>
+          <text x="508" y="69" text-anchor="middle" font-size="9" font-weight="700" fill="#1A1A1A">120</text>
+
+          <!-- 2024: 총110억 제조45, 공공22, 금융20, 서비스14, 기타9 -->
+          <rect x="70"  y="89" width="162" height="22" rx="2" fill="#93c5fd"/>
+          <rect x="232" y="89" width="79"  height="22" rx="2" fill="#60a5fa"/>
+          <rect x="311" y="89" width="72"  height="22" rx="2" fill="#3b82f6"/>
+          <rect x="383" y="89" width="50"  height="22" rx="2" fill="#2563eb"/>
+          <rect x="433" y="89" width="32"  height="22" rx="2" fill="#9ca3af"/>
+          <text x="151" y="104" text-anchor="middle" font-size="9" fill="#fff">제조 45</text>
+          <text x="271" y="104" text-anchor="middle" font-size="9" fill="#fff">공공 22</text>
+          <text x="347" y="104" text-anchor="middle" font-size="9" fill="#fff">금융 20</text>
+          <text x="408" y="104" text-anchor="middle" font-size="9" fill="#fff">서비스 14</text>
+          <text x="471" y="104" text-anchor="middle" font-size="9" font-weight="700" fill="#1A1A1A">110</text>
+
+          <!-- 2023: 총100억 제조40, 공공20, 금융18, 서비스12, 기타10 -->
+          <rect x="70"  y="124" width="144" height="22" rx="2" fill="#93c5fd"/>
+          <rect x="214" y="124" width="72"  height="22" rx="2" fill="#60a5fa"/>
+          <rect x="286" y="124" width="65"  height="22" rx="2" fill="#3b82f6"/>
+          <rect x="351" y="124" width="43"  height="22" rx="2" fill="#2563eb"/>
+          <rect x="394" y="124" width="36"  height="22" rx="2" fill="#9ca3af"/>
+          <text x="142" y="139" text-anchor="middle" font-size="9" fill="#fff">제조 40</text>
+          <text x="250" y="139" text-anchor="middle" font-size="9" fill="#fff">공공 20</text>
+          <text x="318" y="139" text-anchor="middle" font-size="9" fill="#fff">금융 18</text>
+          <text x="372" y="139" text-anchor="middle" font-size="9" fill="#fff">서비스 12</text>
+          <text x="436" y="139" text-anchor="middle" font-size="9" font-weight="700" fill="#1A1A1A">100</text>
+
+          <!-- X axis labels -->
+          <text x="70"  y="170" text-anchor="middle" font-size="9" fill="#6B7280">0</text>
+          <text x="160" y="170" text-anchor="middle" font-size="9" fill="#6B7280">25</text>
+          <text x="250" y="170" text-anchor="middle" font-size="9" fill="#6B7280">50</text>
+          <text x="340" y="170" text-anchor="middle" font-size="9" fill="#6B7280">75</text>
+          <text x="430" y="170" text-anchor="middle" font-size="9" fill="#6B7280">100</text>
+          <text x="520" y="170" text-anchor="middle" font-size="9" fill="#6B7280">125</text>
+        </svg>
+      </div>
+    </div><!-- /row 섹션2 -->
+
+    <!-- ═══════════════════════════════════════════════
+         섹션 3 — 업종 소분류 (매출)
+    ═══════════════════════════════════════════════ -->
+    <div class="section-title section-gap">업종 소분류 (매출)</div>
+
+    <div class="row">
+      <!-- 카드: 업종 소분류 (매출) -->
+      <div class="card">
+        <div class="card-title">업종 소분류 (매출) <span class="card-unit">단위: 억원</span></div>
+        <div class="legend">
+          <div class="legend-item"><span class="leg-bar" style="background:#bfdbfe;"></span>하이테크</div>
+          <div class="legend-item"><span class="leg-bar" style="background:#93c5fd;"></span>전기/전자</div>
+          <div class="legend-item"><span class="leg-bar" style="background:#60a5fa;"></span>공공기관/공기업</div>
+          <div class="legend-item"><span class="leg-bar" style="background:#3b82f6;"></span>은행</div>
+          <div class="legend-item"><span class="leg-bar" style="background:#2563eb;"></span>IT서비스</div>
+          <div class="legend-item"><span class="leg-bar" style="background:#9ca3af;"></span>기타</div>
+        </div>
+        <svg width="100%" height="200" viewBox="0 0 580 200">
+          <!-- Y 축 라인 -->
+          <line x1="68" y1="10" x2="68" y2="155" stroke="#E5E7EB" stroke-width="1"/>
+          <!-- X gridlines -->
+          <line x1="70"  y1="10" x2="70"  y2="155" stroke="#E5E7EB" stroke-dasharray="2,2" stroke-width="1"/>
+          <line x1="160" y1="10" x2="160" y2="155" stroke="#E5E7EB" stroke-dasharray="2,2" stroke-width="1"/>
+          <line x1="250" y1="10" x2="250" y2="155" stroke="#E5E7EB" stroke-dasharray="2,2" stroke-width="1"/>
+          <line x1="340" y1="10" x2="340" y2="155" stroke="#E5E7EB" stroke-dasharray="2,2" stroke-width="1"/>
+          <line x1="430" y1="10" x2="430" y2="155" stroke="#E5E7EB" stroke-dasharray="2,2" stroke-width="1"/>
+          <line x1="520" y1="10" x2="520" y2="155" stroke="#E5E7EB" stroke-dasharray="2,2" stroke-width="1"/>
+
+          <!-- Y axis labels -->
+          <text x="62" y="34"  text-anchor="end" font-size="10" fill="#6B7280">2026</text>
+          <text x="62" y="69"  text-anchor="end" font-size="10" fill="#6B7280">2025</text>
+          <text x="62" y="104" text-anchor="end" font-size="10" fill="#6B7280">2024</text>
+          <text x="62" y="139" text-anchor="end" font-size="10" fill="#6B7280">2023</text>
+
+          <!-- 2026: 총125억 하이테크30, 전기전자25, 공공기관15, 은행12, IT10, 기타33 -->
+          <rect x="70"  y="19" width="108" height="22" rx="2" fill="#bfdbfe"/>
+          <rect x="178" y="19" width="90"  height="22" rx="2" fill="#93c5fd"/>
+          <rect x="268" y="19" width="54"  height="22" rx="2" fill="#60a5fa"/>
+          <rect x="322" y="19" width="43"  height="22" rx="2" fill="#3b82f6"/>
+          <rect x="365" y="19" width="36"  height="22" rx="2" fill="#2563eb"/>
+          <rect x="401" y="19" width="119" height="22" rx="2" fill="#9ca3af"/>
+          <text x="124" y="34" text-anchor="middle" font-size="9" fill="#1A1A1A">하이테크 30</text>
+          <text x="223" y="34" text-anchor="middle" font-size="9" fill="#fff">전기/전자 25</text>
+          <text x="295" y="34" text-anchor="middle" font-size="9" fill="#fff">공공 15</text>
+          <text x="343" y="34" text-anchor="middle" font-size="9" fill="#fff">12</text>
+          <text x="526" y="34" text-anchor="middle" font-size="9" font-weight="700" fill="#1A1A1A">125</text>
+
+          <!-- 2025: 총120억 하이테크28, 전기전자24, 공공기관13, 은행11, IT9, 기타35 -->
+          <rect x="70"  y="54" width="101" height="22" rx="2" fill="#bfdbfe"/>
+          <rect x="171" y="54" width="86"  height="22" rx="2" fill="#93c5fd"/>
+          <rect x="257" y="54" width="47"  height="22" rx="2" fill="#60a5fa"/>
+          <rect x="304" y="54" width="40"  height="22" rx="2" fill="#3b82f6"/>
+          <rect x="344" y="54" width="32"  height="22" rx="2" fill="#2563eb"/>
+          <rect x="376" y="54" width="126" height="22" rx="2" fill="#9ca3af"/>
+          <text x="120" y="69" text-anchor="middle" font-size="9" fill="#1A1A1A">하이테크 28</text>
+          <text x="214" y="69" text-anchor="middle" font-size="9" fill="#fff">전기/전자 24</text>
+          <text x="280" y="69" text-anchor="middle" font-size="9" fill="#fff">공공 13</text>
+          <text x="324" y="69" text-anchor="middle" font-size="9" fill="#fff">11</text>
+          <text x="508" y="69" text-anchor="middle" font-size="9" font-weight="700" fill="#1A1A1A">120</text>
+
+          <!-- 2024: 총110억 하이테크25, 전기전자22, 공공기관12, 은행10, IT8, 기타33 -->
+          <rect x="70"  y="89" width="90"  height="22" rx="2" fill="#bfdbfe"/>
+          <rect x="160" y="89" width="79"  height="22" rx="2" fill="#93c5fd"/>
+          <rect x="239" y="89" width="43"  height="22" rx="2" fill="#60a5fa"/>
+          <rect x="282" y="89" width="36"  height="22" rx="2" fill="#3b82f6"/>
+          <rect x="318" y="89" width="29"  height="22" rx="2" fill="#2563eb"/>
+          <rect x="347" y="89" width="119" height="22" rx="2" fill="#9ca3af"/>
+          <text x="115" y="104" text-anchor="middle" font-size="9" fill="#1A1A1A">하이테크 25</text>
+          <text x="199" y="104" text-anchor="middle" font-size="9" fill="#fff">전기/전자 22</text>
+          <text x="260" y="104" text-anchor="middle" font-size="9" fill="#fff">공공 12</text>
+          <text x="300" y="104" text-anchor="middle" font-size="9" fill="#fff">10</text>
+          <text x="471" y="104" text-anchor="middle" font-size="9" font-weight="700" fill="#1A1A1A">110</text>
+
+          <!-- 2023: 총100억 하이테크22, 전기전자20, 공공기관11, 은행9, IT7, 기타31 -->
+          <rect x="70"  y="124" width="79"  height="22" rx="2" fill="#bfdbfe"/>
+          <rect x="149" y="124" width="72"  height="22" rx="2" fill="#93c5fd"/>
+          <rect x="221" y="124" width="40"  height="22" rx="2" fill="#60a5fa"/>
+          <rect x="261" y="124" width="32"  height="22" rx="2" fill="#3b82f6"/>
+          <rect x="293" y="124" width="25"  height="22" rx="2" fill="#2563eb"/>
+          <rect x="318" y="124" width="112" height="22" rx="2" fill="#9ca3af"/>
+          <text x="109" y="139" text-anchor="middle" font-size="9" fill="#1A1A1A">하이테크 22</text>
+          <text x="185" y="139" text-anchor="middle" font-size="9" fill="#fff">전기/전자 20</text>
+          <text x="241" y="139" text-anchor="middle" font-size="9" fill="#fff">공공 11</text>
+          <text x="277" y="139" text-anchor="middle" font-size="9" fill="#fff">9</text>
+          <text x="436" y="139" text-anchor="middle" font-size="9" font-weight="700" fill="#1A1A1A">100</text>
+
+          <!-- X axis labels -->
+          <text x="70"  y="170" text-anchor="middle" font-size="9" fill="#6B7280">0</text>
+          <text x="160" y="170" text-anchor="middle" font-size="9" fill="#6B7280">25</text>
+          <text x="250" y="170" text-anchor="middle" font-size="9" fill="#6B7280">50</text>
+          <text x="340" y="170" text-anchor="middle" font-size="9" fill="#6B7280">75</text>
+          <text x="430" y="170" text-anchor="middle" font-size="9" fill="#6B7280">100</text>
+          <text x="520" y="170" text-anchor="middle" font-size="9" fill="#6B7280">125</text>
+        </svg>
+      </div>
+    </div><!-- /row 섹션3 -->
+
+    <!-- ═══════════════════════════════════════════════
+         섹션 4 — Top 20
+    ═══════════════════════════════════════════════ -->
+    <div class="section-title section-gap">Top 20</div>
+
+    <!-- 섹션 필터 -->
+    <div class="card" style="margin-bottom:14px;">
+      <div class="ctrl-row">
+        <select class="ctrl-select"><option>매출종류: Revenue</option><option>라이선스</option><option>유지보수</option></select>
+        <select class="ctrl-select"><option>분석주기: 2026 (YTM)</option><option>2025 (YTM)</option><option>2024 (YTM)</option></select>
+      </div>
+    </div>
+
+    <div class="row row-2">
+
+      <!-- 카드 A: Top 20 도넛 -->
+      <div class="card">
+        <div class="card-title">Top 20 <span class="card-unit">단위: 억원</span></div>
+        <svg width="100%" height="290" viewBox="0 0 480 290">
+          <!-- 도넛 세그먼트: cx=150, cy=150, R=90, r=52 -->
+          <!-- 삼성전자(주) 16.38억 16.1% -->
+          <path d="M 150,60 A 90,90 0 0,1 226.3,92.3 L 194.1,112.4 A 52,52 0 0,0 150,98 Z" fill="#3b82f6"/>
+          <!-- Samsung Electronics America 12.87억 12.6% -->
+          <path d="M 226.3,92.3 A 90,90 0 0,1 237.7,160.5 L 200.6,151.9 A 52,52 0 0,0 194.1,112.4 Z" fill="#60a5fa"/>
+          <!-- 삼성디스플레이(주) 9.10억 8.9% -->
+          <path d="M 237.7,160.5 A 90,90 0 0,1 213.3,204.0 L 186.6,176.9 A 52,52 0 0,0 200.6,151.9 Z" fill="#93c5fd"/>
+          <!-- SK하이닉스 8.50억 8.3% -->
+          <path d="M 213.3,204.0 A 90,90 0 0,1 172.8,227.0 L 163.2,190.3 A 52,52 0 0,0 186.6,176.9 Z" fill="#bfdbfe"/>
+          <!-- LG전자 7.20억 7.1% -->
+          <path d="M 172.8,227.0 A 90,90 0 0,1 133.4,228.5 L 140.4,191.1 A 52,52 0 0,0 163.2,190.3 Z" fill="#2563eb"/>
+          <!-- 기타 Top15 47.9억 47.1% -->
+          <path d="M 133.4,228.5 A 90,90 0 1,1 150,60 L 150,98 A 52,52 0 1,0 140.4,191.1 Z" fill="#9ca3af"/>
+          <!-- 중앙 텍스트 -->
+          <text x="150" y="145" text-anchor="middle" font-size="28" font-weight="700" fill="#1A1A1A">2026</text>
+          <text x="150" y="162" text-anchor="middle" font-size="10" fill="#6B7280">연도</text>
+
+          <!-- 오른쪽 레전드 -->
+          <circle cx="265" cy="55"  r="6" fill="#3b82f6"/>
+          <text x="275" y="59"  font-size="9" fill="#1A1A1A">삼성전자(주)</text>
+          <text x="275" y="70"  font-size="9" fill="#6B7280">16.38억</text>
+
+          <circle cx="265" cy="90"  r="6" fill="#60a5fa"/>
+          <text x="275" y="94"  font-size="9" fill="#1A1A1A">Samsung Electronics America</text>
+          <text x="275" y="105" font-size="9" fill="#6B7280">12.87억</text>
+
+          <circle cx="265" cy="125" r="6" fill="#93c5fd"/>
+          <text x="275" y="129" font-size="9" fill="#1A1A1A">삼성디스플레이(주)</text>
+          <text x="275" y="140" font-size="9" fill="#6B7280">9.10억</text>
+
+          <circle cx="265" cy="160" r="6" fill="#bfdbfe"/>
+          <text x="275" y="164" font-size="9" fill="#1A1A1A">SK하이닉스(주)</text>
+          <text x="275" y="175" font-size="9" fill="#6B7280">8.50억</text>
+
+          <circle cx="265" cy="195" r="6" fill="#2563eb"/>
+          <text x="275" y="199" font-size="9" fill="#1A1A1A">LG전자(주)</text>
+          <text x="275" y="210" font-size="9" fill="#6B7280">7.20억</text>
+
+          <circle cx="265" cy="230" r="6" fill="#9ca3af"/>
+          <text x="275" y="234" font-size="9" fill="#1A1A1A">기타 (Top 15)</text>
+          <text x="275" y="245" font-size="9" fill="#6B7280">48.00억</text>
+        </svg>
+      </div>
+
+      <!-- 카드 B: 라이선스 Top 20 도넛 -->
+      <div class="card">
+        <div class="card-title">라이선스 Top 20 <span class="card-unit">단위: 억원</span></div>
+        <svg width="100%" height="290" viewBox="0 0 480 290">
+          <!-- 도넛 세그먼트: 동일 비율/색상 -->
+          <path d="M 150,60 A 90,90 0 0,1 226.3,92.3 L 194.1,112.4 A 52,52 0 0,0 150,98 Z" fill="#3b82f6"/>
+          <path d="M 226.3,92.3 A 90,90 0 0,1 237.7,160.5 L 200.6,151.9 A 52,52 0 0,0 194.1,112.4 Z" fill="#60a5fa"/>
+          <path d="M 237.7,160.5 A 90,90 0 0,1 213.3,204.0 L 186.6,176.9 A 52,52 0 0,0 200.6,151.9 Z" fill="#93c5fd"/>
+          <path d="M 213.3,204.0 A 90,90 0 0,1 172.8,227.0 L 163.2,190.3 A 52,52 0 0,0 186.6,176.9 Z" fill="#bfdbfe"/>
+          <path d="M 172.8,227.0 A 90,90 0 0,1 133.4,228.5 L 140.4,191.1 A 52,52 0 0,0 163.2,190.3 Z" fill="#2563eb"/>
+          <path d="M 133.4,228.5 A 90,90 0 1,1 150,60 L 150,98 A 52,52 0 1,0 140.4,191.1 Z" fill="#9ca3af"/>
+          <!-- 중앙 텍스트 -->
+          <text x="150" y="145" text-anchor="middle" font-size="28" font-weight="700" fill="#1A1A1A">2026</text>
+          <text x="150" y="162" text-anchor="middle" font-size="10" fill="#6B7280">연도</text>
+
+          <!-- 오른쪽 레전드 -->
+          <circle cx="265" cy="55"  r="6" fill="#3b82f6"/>
+          <text x="275" y="59"  font-size="9" fill="#1A1A1A">삼성전자(주)</text>
+          <text x="275" y="70"  font-size="9" fill="#6B7280">8.20억</text>
+
+          <circle cx="265" cy="90"  r="6" fill="#60a5fa"/>
+          <text x="275" y="94"  font-size="9" fill="#1A1A1A">LG CNS(주)</text>
+          <text x="275" y="105" font-size="9" fill="#6B7280">5.40억</text>
+
+          <circle cx="265" cy="125" r="6" fill="#93c5fd"/>
+          <text x="275" y="129" font-size="9" fill="#1A1A1A">현대자동차(주)</text>
+          <text x="275" y="140" font-size="9" fill="#6B7280">4.80억</text>
+
+          <circle cx="265" cy="160" r="6" fill="#bfdbfe"/>
+          <text x="275" y="164" font-size="9" fill="#1A1A1A">SK텔레콤(주)</text>
+          <text x="275" y="175" font-size="9" fill="#6B7280">3.90억</text>
+
+          <circle cx="265" cy="195" r="6" fill="#2563eb"/>
+          <text x="275" y="199" font-size="9" fill="#1A1A1A">롯데정보통신(주)</text>
+          <text x="275" y="210" font-size="9" fill="#6B7280">3.10억</text>
+
+          <circle cx="265" cy="230" r="6" fill="#9ca3af"/>
+          <text x="275" y="234" font-size="9" fill="#1A1A1A">기타 (Top 15)</text>
+          <text x="275" y="245" font-size="9" fill="#6B7280">22.10억</text>
+        </svg>
+      </div>
+
+    </div><!-- /row row-2 섹션4 -->
+
+    <!-- ═══════════════════════════════════════════════
+         섹션 5 — 신규/이탈고객 Top 20
+    ═══════════════════════════════════════════════ -->
+    <div class="section-title section-gap">신규/이탈고객 Top 20</div>
+
+    <div class="row row-2">
+
+      <!-- 카드 A: 신규고객 Top 20 -->
+      <div class="card">
+        <div class="card-title">신규고객 Top 20 <span class="card-unit">단위: 억원</span></div>
+        <svg width="100%" height="450" viewBox="0 0 500 450">
+          <!-- X gridlines -->
+          <line x1="160" y1="10" x2="160" y2="425" stroke="#E5E7EB" stroke-dasharray="2,2" stroke-width="1"/>
+          <line x1="242" y1="10" x2="242" y2="425" stroke="#E5E7EB" stroke-dasharray="2,2" stroke-width="1"/>
+          <line x1="325" y1="10" x2="325" y2="425" stroke="#E5E7EB" stroke-dasharray="2,2" stroke-width="1"/>
+          <line x1="407" y1="10" x2="407" y2="425" stroke="#E5E7EB" stroke-dasharray="2,2" stroke-width="1"/>
+          <line x1="490" y1="10" x2="490" y2="425" stroke="#E5E7EB" stroke-dasharray="2,2" stroke-width="1"/>
+
+          <!-- 1. 하이트진로(주) 1.85억 w=305 -->
+          <text x="150" y="32" text-anchor="end" font-size="9" fill="#1A1A1A">하이트진로(주)</text>
+          <rect x="160" y="22" width="305" height="14" rx="2" fill="#60a5fa"/>
+          <text x="468" y="32" font-size="9" fill="#1A1A1A">1.85</text>
+
+          <!-- 2. 그랜나,국내 1.72억 w=284 -->
+          <text x="150" y="51" text-anchor="end" font-size="9" fill="#1A1A1A">그랜나,국내</text>
+          <rect x="160" y="41" width="284" height="14" rx="2" fill="#60a5fa"/>
+          <text x="447" y="51" font-size="9" fill="#1A1A1A">1.72</text>
+
+          <!-- 3. 지상작전사령부 1.65억 w=272 -->
+          <text x="150" y="70" text-anchor="end" font-size="9" fill="#1A1A1A">지상작전사령부</text>
+          <rect x="160" y="60" width="272" height="14" rx="2" fill="#60a5fa"/>
+          <text x="435" y="70" font-size="9" fill="#1A1A1A">1.65</text>
+
+          <!-- 4. 산업통상자원부 1.58억 w=261 -->
+          <text x="150" y="89" text-anchor="end" font-size="9" fill="#1A1A1A">산업통상자원부</text>
+          <rect x="160" y="79" width="261" height="14" rx="2" fill="#60a5fa"/>
+          <text x="424" y="89" font-size="9" fill="#1A1A1A">1.58</text>
+
+          <!-- 5. 현대모비스(주) 1.42억 w=234 -->
+          <text x="150" y="108" text-anchor="end" font-size="9" fill="#1A1A1A">현대모비스(주)</text>
+          <rect x="160" y="98" width="234" height="14" rx="2" fill="#60a5fa"/>
+          <text x="397" y="108" font-size="9" fill="#1A1A1A">1.42</text>
+
+          <!-- 6. LG이노텍(주) 1.38억 w=228 -->
+          <text x="150" y="127" text-anchor="end" font-size="9" fill="#1A1A1A">LG이노텍(주)</text>
+          <rect x="160" y="117" width="228" height="14" rx="2" fill="#60a5fa"/>
+          <text x="391" y="127" font-size="9" fill="#1A1A1A">1.38</text>
+
+          <!-- 7. 한화에어로스페이스 1.25억 w=206 -->
+          <text x="150" y="146" text-anchor="end" font-size="9" fill="#1A1A1A">한화에어로스페이스</text>
+          <rect x="160" y="136" width="206" height="14" rx="2" fill="#60a5fa"/>
+          <text x="369" y="146" font-size="9" fill="#1A1A1A">1.25</text>
+
+          <!-- 8. 기아자동차(주) 1.18억 w=195 -->
+          <text x="150" y="165" text-anchor="end" font-size="9" fill="#1A1A1A">기아자동차(주)</text>
+          <rect x="160" y="155" width="195" height="14" rx="2" fill="#60a5fa"/>
+          <text x="358" y="165" font-size="9" fill="#1A1A1A">1.18</text>
+
+          <!-- 9. 삼성물산(주) 1.05억 w=173 -->
+          <text x="150" y="184" text-anchor="end" font-size="9" fill="#1A1A1A">삼성물산(주)</text>
+          <rect x="160" y="174" width="173" height="14" rx="2" fill="#60a5fa"/>
+          <text x="336" y="184" font-size="9" fill="#1A1A1A">1.05</text>
+
+          <!-- 10. 포스코홀딩스(주) 0.98억 w=162 -->
+          <text x="150" y="203" text-anchor="end" font-size="9" fill="#1A1A1A">포스코홀딩스(주)</text>
+          <rect x="160" y="193" width="162" height="14" rx="2" fill="#60a5fa"/>
+          <text x="325" y="203" font-size="9" fill="#1A1A1A">0.98</text>
+
+          <!-- 11. 두산에너빌리티(주) 0.92억 w=152 -->
+          <text x="150" y="222" text-anchor="end" font-size="9" fill="#1A1A1A">두산에너빌리티(주)</text>
+          <rect x="160" y="212" width="152" height="14" rx="2" fill="#60a5fa"/>
+          <text x="315" y="222" font-size="9" fill="#1A1A1A">0.92</text>
+
+          <!-- 12. SK하이닉스(주) 0.85억 w=140 -->
+          <text x="150" y="241" text-anchor="end" font-size="9" fill="#1A1A1A">SK하이닉스(주)</text>
+          <rect x="160" y="231" width="140" height="14" rx="2" fill="#60a5fa"/>
+          <text x="303" y="241" font-size="9" fill="#1A1A1A">0.85</text>
+
+          <!-- 13. 현대제철(주) 0.78억 w=129 -->
+          <text x="150" y="260" text-anchor="end" font-size="9" fill="#1A1A1A">현대제철(주)</text>
+          <rect x="160" y="250" width="129" height="14" rx="2" fill="#60a5fa"/>
+          <text x="292" y="260" font-size="9" fill="#1A1A1A">0.78</text>
+
+          <!-- 14. 롯데케미칼(주) 0.72억 w=119 -->
+          <text x="150" y="279" text-anchor="end" font-size="9" fill="#1A1A1A">롯데케미칼(주)</text>
+          <rect x="160" y="269" width="119" height="14" rx="2" fill="#60a5fa"/>
+          <text x="282" y="279" font-size="9" fill="#1A1A1A">0.72</text>
+
+          <!-- 15. GS칼텍스(주) 0.65억 w=107 -->
+          <text x="150" y="298" text-anchor="end" font-size="9" fill="#1A1A1A">GS칼텍스(주)</text>
+          <rect x="160" y="288" width="107" height="14" rx="2" fill="#60a5fa"/>
+          <text x="270" y="298" font-size="9" fill="#1A1A1A">0.65</text>
+
+          <!-- 16. 한국전력공사 0.58억 w=96 -->
+          <text x="150" y="317" text-anchor="end" font-size="9" fill="#1A1A1A">한국전력공사</text>
+          <rect x="160" y="307" width="96" height="14" rx="2" fill="#60a5fa"/>
+          <text x="259" y="317" font-size="9" fill="#1A1A1A">0.58</text>
+
+          <!-- 17. CJ제일제당(주) 0.52억 w=86 -->
+          <text x="150" y="336" text-anchor="end" font-size="9" fill="#1A1A1A">CJ제일제당(주)</text>
+          <rect x="160" y="326" width="86" height="14" rx="2" fill="#60a5fa"/>
+          <text x="249" y="336" font-size="9" fill="#1A1A1A">0.52</text>
+
+          <!-- 18. 쿠팡(주) 0.45억 w=74 -->
+          <text x="150" y="355" text-anchor="end" font-size="9" fill="#1A1A1A">쿠팡(주)</text>
+          <rect x="160" y="345" width="74" height="14" rx="2" fill="#60a5fa"/>
+          <text x="237" y="355" font-size="9" fill="#1A1A1A">0.45</text>
+
+          <!-- 19. 카카오(주) 0.38억 w=63 -->
+          <text x="150" y="374" text-anchor="end" font-size="9" fill="#1A1A1A">카카오(주)</text>
+          <rect x="160" y="364" width="63" height="14" rx="2" fill="#60a5fa"/>
+          <text x="226" y="374" font-size="9" fill="#1A1A1A">0.38</text>
+
+          <!-- 20. 네이버(주) 0.32억 w=53 -->
+          <text x="150" y="393" text-anchor="end" font-size="9" fill="#1A1A1A">네이버(주)</text>
+          <rect x="160" y="383" width="53" height="14" rx="2" fill="#60a5fa"/>
+          <text x="216" y="393" font-size="9" fill="#1A1A1A">0.32</text>
+
+          <!-- X axis labels -->
+          <text x="160" y="440" text-anchor="middle" font-size="9" fill="#6B7280">0</text>
+          <text x="242" y="440" text-anchor="middle" font-size="9" fill="#6B7280">0.5</text>
+          <text x="325" y="440" text-anchor="middle" font-size="9" fill="#6B7280">1.0</text>
+          <text x="407" y="440" text-anchor="middle" font-size="9" fill="#6B7280">1.5</text>
+          <text x="490" y="440" text-anchor="middle" font-size="9" fill="#6B7280">2.0</text>
+        </svg>
+      </div>
+
+      <!-- 카드 B: 이탈고객 Top 20 -->
+      <div class="card">
+        <div class="card-title">이탈고객 Top 20 <span class="card-unit">단위: 억원</span></div>
+        <svg width="100%" height="450" viewBox="0 0 500 450">
+          <!-- X gridlines -->
+          <line x1="160" y1="10" x2="160" y2="425" stroke="#E5E7EB" stroke-dasharray="2,2" stroke-width="1"/>
+          <line x1="242" y1="10" x2="242" y2="425" stroke="#E5E7EB" stroke-dasharray="2,2" stroke-width="1"/>
+          <line x1="325" y1="10" x2="325" y2="425" stroke="#E5E7EB" stroke-dasharray="2,2" stroke-width="1"/>
+          <line x1="407" y1="10" x2="407" y2="425" stroke="#E5E7EB" stroke-dasharray="2,2" stroke-width="1"/>
+          <line x1="490" y1="10" x2="490" y2="425" stroke="#E5E7EB" stroke-dasharray="2,2" stroke-width="1"/>
+
+          <!-- 1. 한국IBM(주) 1.75억 w=289 -->
+          <text x="150" y="32" text-anchor="end" font-size="9" fill="#1A1A1A">한국IBM(주)</text>
+          <rect x="160" y="22" width="289" height="14" rx="2" fill="#9ca3af"/>
+          <text x="452" y="32" font-size="9" fill="#1A1A1A">1.75</text>
+
+          <!-- 2. 오라클코리아 1.60억 w=264 -->
+          <text x="150" y="51" text-anchor="end" font-size="9" fill="#1A1A1A">오라클코리아</text>
+          <rect x="160" y="41" width="264" height="14" rx="2" fill="#9ca3af"/>
+          <text x="427" y="51" font-size="9" fill="#1A1A1A">1.60</text>
+
+          <!-- 3. SAP코리아(주) 1.45억 w=239 -->
+          <text x="150" y="70" text-anchor="end" font-size="9" fill="#1A1A1A">SAP코리아(주)</text>
+          <rect x="160" y="60" width="239" height="14" rx="2" fill="#9ca3af"/>
+          <text x="402" y="70" font-size="9" fill="#1A1A1A">1.45</text>
+
+          <!-- 4. 한국마이크로소프트 1.32억 w=218 -->
+          <text x="150" y="89" text-anchor="end" font-size="9" fill="#1A1A1A">한국마이크로소프트</text>
+          <rect x="160" y="79" width="218" height="14" rx="2" fill="#9ca3af"/>
+          <text x="381" y="89" font-size="9" fill="#1A1A1A">1.32</text>
+
+          <!-- 5. 시스코시스템즈코리아 1.20억 w=198 -->
+          <text x="150" y="108" text-anchor="end" font-size="9" fill="#1A1A1A">시스코시스템즈코리아</text>
+          <rect x="160" y="98" width="198" height="14" rx="2" fill="#9ca3af"/>
+          <text x="361" y="108" font-size="9" fill="#1A1A1A">1.20</text>
+
+          <!-- 6. VMware코리아 1.08억 w=178 -->
+          <text x="150" y="127" text-anchor="end" font-size="9" fill="#1A1A1A">VMware코리아</text>
+          <rect x="160" y="117" width="178" height="14" rx="2" fill="#9ca3af"/>
+          <text x="341" y="127" font-size="9" fill="#1A1A1A">1.08</text>
+
+          <!-- 7. 한국HPE(주) 0.98억 w=162 -->
+          <text x="150" y="146" text-anchor="end" font-size="9" fill="#1A1A1A">한국HPE(주)</text>
+          <rect x="160" y="136" width="162" height="14" rx="2" fill="#9ca3af"/>
+          <text x="325" y="146" font-size="9" fill="#1A1A1A">0.98</text>
+
+          <!-- 8. 델테크놀로지스코리아 0.88억 w=145 -->
+          <text x="150" y="165" text-anchor="end" font-size="9" fill="#1A1A1A">델테크놀로지스코리아</text>
+          <rect x="160" y="155" width="145" height="14" rx="2" fill="#9ca3af"/>
+          <text x="308" y="165" font-size="9" fill="#1A1A1A">0.88</text>
+
+          <!-- 9. 한국레드햇(주) 0.78억 w=129 -->
+          <text x="150" y="184" text-anchor="end" font-size="9" fill="#1A1A1A">한국레드햇(주)</text>
+          <rect x="160" y="174" width="129" height="14" rx="2" fill="#9ca3af"/>
+          <text x="292" y="184" font-size="9" fill="#1A1A1A">0.78</text>
+
+          <!-- 10. 세일즈포스코리아 0.70억 w=116 -->
+          <text x="150" y="203" text-anchor="end" font-size="9" fill="#1A1A1A">세일즈포스코리아</text>
+          <rect x="160" y="193" width="116" height="14" rx="2" fill="#9ca3af"/>
+          <text x="279" y="203" font-size="9" fill="#1A1A1A">0.70</text>
+
+          <!-- 11. 한국지멘스(주) 0.62억 w=102 -->
+          <text x="150" y="222" text-anchor="end" font-size="9" fill="#1A1A1A">한국지멘스(주)</text>
+          <rect x="160" y="212" width="102" height="14" rx="2" fill="#9ca3af"/>
+          <text x="265" y="222" font-size="9" fill="#1A1A1A">0.62</text>
+
+          <!-- 12. 어도비코리아 0.55억 w=91 -->
+          <text x="150" y="241" text-anchor="end" font-size="9" fill="#1A1A1A">어도비코리아</text>
+          <rect x="160" y="231" width="91" height="14" rx="2" fill="#9ca3af"/>
+          <text x="254" y="241" font-size="9" fill="#1A1A1A">0.55</text>
+
+          <!-- 13. 한국EMC(주) 0.48억 w=79 -->
+          <text x="150" y="260" text-anchor="end" font-size="9" fill="#1A1A1A">한국EMC(주)</text>
+          <rect x="160" y="250" width="79" height="14" rx="2" fill="#9ca3af"/>
+          <text x="242" y="260" font-size="9" fill="#1A1A1A">0.48</text>
+
+          <!-- 14. 뉴타닉스코리아(주) 0.42억 w=69 -->
+          <text x="150" y="279" text-anchor="end" font-size="9" fill="#1A1A1A">뉴타닉스코리아(주)</text>
+          <rect x="160" y="269" width="69" height="14" rx="2" fill="#9ca3af"/>
+          <text x="232" y="279" font-size="9" fill="#1A1A1A">0.42</text>
+
+          <!-- 15. 베리타스코리아 0.36억 w=59 -->
+          <text x="150" y="298" text-anchor="end" font-size="9" fill="#1A1A1A">베리타스코리아</text>
+          <rect x="160" y="288" width="59" height="14" rx="2" fill="#9ca3af"/>
+          <text x="222" y="298" font-size="9" fill="#1A1A1A">0.36</text>
+
+          <!-- 16. 지니언스(주) 0.30억 w=50 -->
+          <text x="150" y="317" text-anchor="end" font-size="9" fill="#1A1A1A">지니언스(주)</text>
+          <rect x="160" y="307" width="50" height="14" rx="2" fill="#9ca3af"/>
+          <text x="213" y="317" font-size="9" fill="#1A1A1A">0.30</text>
+
+          <!-- 17. 파이오링크(주) 0.25억 w=41 -->
+          <text x="150" y="336" text-anchor="end" font-size="9" fill="#1A1A1A">파이오링크(주)</text>
+          <rect x="160" y="326" width="41" height="14" rx="2" fill="#9ca3af"/>
+          <text x="204" y="336" font-size="9" fill="#1A1A1A">0.25</text>
+
+          <!-- 18. 모니터랩(주) 0.20억 w=33 -->
+          <text x="150" y="355" text-anchor="end" font-size="9" fill="#1A1A1A">모니터랩(주)</text>
+          <rect x="160" y="345" width="33" height="14" rx="2" fill="#9ca3af"/>
+          <text x="196" y="355" font-size="9" fill="#1A1A1A">0.20</text>
+
+          <!-- 19. 펜타시큐리티(주) 0.15억 w=25 -->
+          <text x="150" y="374" text-anchor="end" font-size="9" fill="#1A1A1A">펜타시큐리티(주)</text>
+          <rect x="160" y="364" width="25" height="14" rx="2" fill="#9ca3af"/>
+          <text x="188" y="374" font-size="9" fill="#1A1A1A">0.15</text>
+
+          <!-- 20. 솔트룩스(주) 0.10억 w=17 -->
+          <text x="150" y="393" text-anchor="end" font-size="9" fill="#1A1A1A">솔트룩스(주)</text>
+          <rect x="160" y="383" width="17" height="14" rx="2" fill="#9ca3af"/>
+          <text x="180" y="393" font-size="9" fill="#1A1A1A">0.10</text>
+
+          <!-- X axis labels -->
+          <text x="160" y="440" text-anchor="middle" font-size="9" fill="#6B7280">0</text>
+          <text x="242" y="440" text-anchor="middle" font-size="9" fill="#6B7280">0.5</text>
+          <text x="325" y="440" text-anchor="middle" font-size="9" fill="#6B7280">1.0</text>
+          <text x="407" y="440" text-anchor="middle" font-size="9" fill="#6B7280">1.5</text>
+          <text x="490" y="440" text-anchor="middle" font-size="9" fill="#6B7280">2.0</text>
+        </svg>
+      </div>
+
+    </div><!-- /row row-2 섹션5 -->
+
+  </div><!-- /content -->
+</div><!-- /main -->
+
+</body>
+</html>

@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>「Coupa의 Rossum 인수」 분석 보고서</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Batang', 'BatangChe', '바탕', '바탕체', 'Nanum Myeongjo', Georgia, serif;
+    font-size: 14px;
+    line-height: 1.85;
+    color: #000;
+    background: #d8d8d8;
+    padding: 32px 0;
+  }
+
+  .doc-page {
+    width: 794px;
+    min-height: 1122px;
+    margin: 0 auto 28px auto;
+    background: #fff;
+    padding: 72px 56px 70px 56px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.18);
+    position: relative;
+  }
+
+  .page-no {
+    position: absolute;
+    bottom: 24px;
+    left: 0; right: 0;
+    text-align: center;
+    font-size: 12px;
+    color: #555;
+    letter-spacing: 0.5px;
+  }
+
+  .doc-main-title {
+    font-size: 20px;
+    font-weight: 700;
+    text-decoration: underline;
+    text-align: center;
+    margin: 18px 0 4px 0;
+    line-height: 1.4;
+    letter-spacing: -0.5px;
+  }
+
+  .ch {
+    font-size: 14px;
+    font-weight: 700;
+    margin: 18px 0 10px 0;
+  }
+
+  .sq {
+    font-size: 14px;
+    font-weight: 400;
+    margin: 10px 0 6px 0;
+    padding-left: 1em;
+  }
+  .sq::before { content: '□ '; }
+
+  .body-p { padding-left: 3em; margin-bottom: 9px; font-size: 14px; }
+
+  ul.dash { list-style: none; padding-left: 3em; margin: 4px 0; }
+  ul.dash > li { position: relative; padding-left: 1em; margin-bottom: 9px; font-size: 14px; }
+  ul.dash > li::before { content: '-'; position: absolute; left: 0; }
+
+  ul.dot { list-style: none; padding-left: 5em; margin: 4px 0; }
+  ul.dot > li { position: relative; padding-left: 1em; margin-bottom: 9px; font-size: 14px; }
+  ul.dot > li::before { content: '·'; position: absolute; left: 0; }
+
+  ul.arr { list-style: none; padding-left: 3em; margin: 4px 0; }
+  ul.arr > li { position: relative; padding-left: 1.4em; margin-bottom: 9px; font-size: 14px; }
+  ul.arr > li::before { content: '→'; position: absolute; left: 0; }
+
+  .fn {
+    font-size: 10px;
+    color: #333;
+    padding-left: 7em;
+    margin-top: 6px;
+    line-height: 1.75;
+  }
+  .fn::before { content: '※ '; font-weight: 700; }
+
+  .def {
+    font-size: 9.5px;
+    color: #1a6bbf;
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: -0.1px;
+  }
+
+  .sep { border: none; border-top: 1px solid #ccc; margin: 14px 0; }
+  .sep-dash { border: none; border-top: 1px dashed #bbb; margin: 12px 0; }
+
+  table.t { width: 100%; border-collapse: collapse; font-size: 13px; margin: 7px 0 12px 0; }
+  table.t th {
+    background: #1e1e1e;
+    color: #fff;
+    padding: 6px 9px;
+    text-align: center;
+    font-weight: 700;
+    border: 1px solid #444;
+  }
+  table.t td { padding: 5px 9px; border: 1px solid #bbb; vertical-align: top; line-height: 1.75; }
+  table.t td.c { text-align: center; }
+  table.t td.b { font-weight: 700; }
+  table.t td.r { color: #b00; font-weight: 700; }
+  table.t tr.hl-row > td { background: #fef9e5; }
+
+  .tbl-title {
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    margin: 12px 0 3px 0;
+    letter-spacing: 0.3px;
+  }
+
+  .box-key {
+    border: 1px solid #888;
+    border-left: 3px solid #333;
+    padding: 9px 13px;
+    margin: 8px 0;
+    font-size: 13px;
+    background: #f5f5f5;
+    line-height: 1.8;
+  }
+
+  .end-line {
+    text-align: right;
+    font-size: 14px;
+    margin-top: 28px;
+    letter-spacing: 1px;
+  }
+</style>
+</head>
+<body>
+
+
+<!-- ══════════════════════════════════════════════ PAGE 1 — 표지 -->
+<div class="doc-page">
+
+  <div class="doc-main-title">「Coupa의 Rossum 인수」 분석 보고서</div>
+  <div style="text-align:right; font-size:13px; color:#333; margin-top:6px; margin-bottom:20px; letter-spacing:0.3px;">솔루션사업부 기획팀 &nbsp;|&nbsp; '26. 6. 4 (木)</div>
+
+  <hr class="sep">
+
+  <!-- 1. Coupa 개요 -->
+  <div class="sq">Coupa 개요</div>
+
+  <ul class="dash">
+    <li>2006年 미국 캘리포니아 Foster City 설립, 지출관리 SaaS<span class="def">(구독형 클라우드 소프트웨어)</span> 기업
+      <ul class="dot">
+        <li>창업자 : Dave Stephens, Noah Eisner &nbsp;/&nbsp; 現 CEO : Leagh Turner</li>
+        <li>2016年 NASDAQ 상장 후 2023年 Thoma Bravo에 80억$ EV<span class="def">(기업가치)</span>로 매각</li>
+        <li>직원 수 약 3천명+, 고객 3천社+ 규모의 글로벌 플랫폼 사업자</li>
+      </ul>
+    </li>
+    <li>사업영역은 구매·소싱·계약·AP<span class="def">(매입채무)</span>·지급·재무·공급망 설계까지 확대
+      <ul class="dot">
+        <li>핵심 포지션 : 기업 지출 데이터를 단일 플랫폼에서 통제하는 BSM<span class="def">(Business Spend Management)</span> 사업자</li>
+        <li>경쟁사 : SAP Ariba, Ivalua, Jaggaer, Oracle, GEP, Basware 等</li>
+      </ul>
+    </li>
+    <li>업계 위상은 구매·지출관리 SaaS의 독립계 대표 사업자
+      <ul class="dot">
+        <li>TB<span class="def">(Thoma Bravo)</span> 인수 후 상장사 압박 완화, 제품 통합·AI 투자 중심의 비공개 성장 전환</li>
+      </ul>
+    </li>
+  </ul>
+
+  <hr class="sep-dash">
+
+  <div class="tbl-title">&lt; Coupa 제품 포트폴리오 &gt;</div>
+  <table class="t">
+    <tr>
+      <th style="width:30%">영역</th>
+      <th style="width:36%">주요 제품</th>
+      <th>고객 가치</th>
+    </tr>
+    <tr>
+      <td class="b">Source-to-Contract</td>
+      <td>Sourcing, CLM<span class="def">(계약수명주기)</span>, Supplier Management</td>
+      <td>입찰·계약·공급사 리스크 통합관리</td>
+    </tr>
+    <tr>
+      <td class="b">Procure-to-Pay</td>
+      <td>Procurement, Invoicing, AP Automation</td>
+      <td>구매요청∼송장∼지급 프로세스 자동화</td>
+    </tr>
+    <tr>
+      <td class="b">Payments &amp; Treasury</td>
+      <td>Payments, Treasury, Working Capital</td>
+      <td>지급 실행·현금 가시성·운전자본 최적화</td>
+    </tr>
+    <tr>
+      <td class="b">Supply Chain</td>
+      <td>Supply Chain Design &amp; Planning</td>
+      <td>네트워크 설계·수요/공급 시뮬레이션</td>
+    </tr>
+    <tr class="hl-row">
+      <td class="b">AI / Data</td>
+      <td>Community.ai, Coupa Navi, Contract Intelligence</td>
+      <td>지출 벤치마크·추천·계약 리스크 자동화</td>
+    </tr>
+  </table>
+
+  <hr class="sep-dash">
+
+  <div class="tbl-title">&lt; Coupa 매출·이익·FCF<span class="def">(잉여현금흐름)</span> 추이 &gt;</div>
+  <p style="font-size:11px; color:#555; text-align:right; margin-bottom:3px;">(단위 : 백만$, 1月 결산)</p>
+  <table class="t">
+    <tr>
+      <th style="width:16%">구분</th>
+      <th style="width:12%">FY21</th>
+      <th style="width:12%">FY22</th>
+      <th style="width:12%">FY23</th>
+      <th style="width:12%">FY24</th>
+      <th style="width:12%">FY25</th>
+      <th style="width:12%">FY26</th>
+    </tr>
+    <tr>
+      <td class="b">소유구조</td>
+      <td class="c">상장</td>
+      <td class="c">상장</td>
+      <td class="c">TB 인수</td>
+      <td class="c">비상장</td>
+      <td class="c">비상장</td>
+      <td class="c">비상장</td>
+    </tr>
+    <tr>
+      <td class="b">매출</td>
+      <td class="c">389.7</td>
+      <td class="c">541.6</td>
+      <td class="c">725.3</td>
+      <td class="c r">未공개</td>
+      <td class="c r">未공개</td>
+      <td class="c r">未공개</td>
+    </tr>
+    <tr>
+      <td class="b">영업이익</td>
+      <td class="c r">△90.8</td>
+      <td class="c r">△127.2</td>
+      <td class="c r">△202.4</td>
+      <td class="c r">未공개</td>
+      <td class="c r">未공개</td>
+      <td class="c r">未공개</td>
+    </tr>
+    <tr>
+      <td class="b">FCF</td>
+      <td class="c">약 16</td>
+      <td class="c">약 32</td>
+      <td class="c">약 42</td>
+      <td class="c r">未공개</td>
+      <td class="c r">未공개</td>
+      <td class="c r">未공개</td>
+    </tr>
+  </table>
+  <p class="fn">비상장 전환 후 세부 재무 非공개로, TB 인수 후 3개년은 공개 확인 불가</p>
+
+  <div class="page-no">— 1 —</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════ PAGE 2 — 인수 배경 + 구조 -->
+<div class="doc-page">
+
+  <!-- 2. 인수 배경 및 목적 -->
+  <div class="sq">Coupa의 Rossum 인수 배경 및 목적</div>
+
+  <ul class="dash">
+    <li>Rossum은 체코 기반 AI 문서처리·송장 자동화 전문 기업
+      <ul class="dot">
+        <li>IDP<span class="def">(지능형 문서처리)</span> 기반 비정형 송장·PO·물류문서 추출, 검증, 예외처리 자동화 강점</li>
+        <li>누적 투자금은 약 1억$+로, Series A 이후 글로벌 확장 추진</li>
+      </ul>
+    </li>
+    <li>인수 목적은 Coupa P2P<span class="def">(구매~대금 지급)</span>의 송장 수집·인식·매칭 병목 제거
+      <ul class="dot">
+        <li>AP 자동화는 구매 후단의 수작업 비중이 높아 AI 적용 효과 高</li>
+        <li>Coupa의 지출 데이터와 Rossum 문서 AI 결합 시 학습 데이터 선순환 가능</li>
+      </ul>
+    </li>
+    <li>Coupa 전략은 Total Spend Management에서 Autonomous Spend Management<span class="def">(자율 지출 관리)</span>로 이동
+      <ul class="dot">
+        <li>Navi·Contract Intelligence 등 생성AI 제품과 문서 AI를 연결하는 방향</li>
+        <li>공급망·재무·AP 데이터를 하나의 의사결정 계층으로 묶는 플랫폼 전략</li>
+      </ul>
+    </li>
+  </ul>
+
+  <hr class="sep-dash">
+
+  <!-- 3. 인수 구조 -->
+  <div class="sq">인수 구조 및 최근 인수 현황</div>
+
+  <ul class="dash">
+    <li>거래 형태는 제품·기술 보강형 Tuck-in<span class="def">(기능 보완형 소규모 인수)</span> 인수로 판단
+      <ul class="dot">
+        <li>Rossum 독립 대형 플랫폼 인수보다 Coupa AP·AI 모듈 보강 성격</li>
+        <li>자금 조달은 TB 보유 비상장사 내부 현금·스폰서 지원 가능성 高</li>
+      </ul>
+    </li>
+  </ul>
+  <p class="fn">거래금액·지분율·부채금융 구조는 공개되지 않음</p>
+
+  <div class="tbl-title">&lt; Coupa 최근 주요 인수 4건 &gt;</div>
+  <table class="t">
+    <tr>
+      <th style="width:16%">피인수사</th>
+      <th style="width:10%">시점</th>
+      <th style="width:24%">영역</th>
+      <th style="width:22%">투자 단계/펀딩</th>
+      <th>인수 성격</th>
+    </tr>
+    <tr class="hl-row">
+      <td class="b">Rossum</td>
+      <td class="c">'26년</td>
+      <td>AI 문서처리·송장 자동화</td>
+      <td>Series A / 누적 약 1억$+</td>
+      <td>AP 자동화 Tuck-in</td>
+    </tr>
+    <tr>
+      <td class="b">riskmethods</td>
+      <td class="c">'22년</td>
+      <td>공급망 리스크 관리</td>
+      <td>Growth / 누적 약 2천만$+</td>
+      <td>공급망 리스크 확장</td>
+    </tr>
+    <tr>
+      <td class="b">LLamasoft</td>
+      <td class="c">'20년</td>
+      <td>공급망 설계·AI 최적화</td>
+      <td>성숙 SaaS / 펀딩 非중심</td>
+      <td>15억$ 규모 대형 인수</td>
+    </tr>
+    <tr>
+      <td class="b">Bellin</td>
+      <td class="c">'20년</td>
+      <td>Treasury Management<span class="def">(재무관리)</span></td>
+      <td>부트스트랩 성격 / 펀딩 非공개</td>
+      <td>재무·현금관리 확장</td>
+    </tr>
+  </table>
+
+  <ul class="dash">
+    <li>공통 패턴은 P2P 인접 영역을 인수해 Suite<span class="def">(통합 제품군)</span> 완성도를 높이는 방식
+      <ul class="dot">
+        <li>LLamasoft는 공급망 설계, Bellin은 재무, riskmethods는 리스크 축 보강</li>
+        <li>Rossum은 송장·문서 AI를 통해 AP 실행계층의 자동화율 제고</li>
+      </ul>
+    </li>
+  </ul>
+
+  <div class="page-no">— 2 —</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════ PAGE 3 — 기대 효과 + 시사점 -->
+<div class="doc-page">
+
+  <!-- 4. 인수 기대 효과 -->
+  <div class="sq">인수 기대 효과</div>
+
+  <ul class="dash">
+    <li><strong>사업 :</strong> AP 자동화 수요 흡수로 기존 Coupa 고객 업셀<span class="def">(상위 제품으로 전환 판매)</span> 기회 확대
+      <ul class="dot">
+        <li>송장 처리·검증·예외처리 기능을 구매관리 Suite에 기본 탑재 가능</li>
+        <li>중견·대기업의 글로벌 전자송장 규제 대응 수요까지 흡수 여지</li>
+      </ul>
+    </li>
+    <li><strong>상품 :</strong> P2P 모듈 내 OCR<span class="def">(광학 문자 인식)</span>·문서추출·3-way match<span class="def">(PO·입고확인서·송장 3건 대조)</span> 고도화
+      <ul class="dot">
+        <li>계약·발주·입고·송장 데이터를 연결한 End-to-End 지출 가시성 확보</li>
+        <li>Coupa Navi와 결합 시 예외 원인 분석·처리 추천 Agent化 가능</li>
+      </ul>
+    </li>
+    <li><strong>기술 :</strong> Rossum의 도메인별 문서 모델과 Coupa 거래 데이터 결합
+      <ul class="dot">
+        <li>문서 레이아웃 변화·다국어 송장·공급사별 양식에 대한 적응력 강화</li>
+        <li>비정형 문서가 구조화 데이터로 전환되며 플랫폼 데이터 해자<span class="def">(경쟁 우위 방어막)</span> 확대</li>
+      </ul>
+    </li>
+  </ul>
+
+  <hr class="sep-dash">
+
+  <!-- 5. 시사점 -->
+  <div class="sq">시사점 : 투자 및 M&amp;A 관점</div>
+
+  <ul class="dash">
+    <li>수평 SaaS의 신규 M&amp;A 축은 기능 Suite보다 데이터·AI 병목 해소
+      <ul class="dot">
+        <li>AP·계약·공급망처럼 문서와 거래가 교차하는 영역의 AI 인수 매력 상승</li>
+        <li>단순 OCR보다 업무흐름·검증·예외처리까지 가진 Vertical AI<span class="def">(특정 산업·업무에 특화된 AI)</span> 자산 선호</li>
+      </ul>
+    </li>
+    <li>PE 보유 SaaS는 대형 플랫폼 인수 후 Tuck-in으로 성장률 방어
+      <ul class="dot">
+        <li>TB의 Coupa 사례는 비상장 전환 후 제품 통합·AI 기능 보강 경로 시사</li>
+        <li>인수 대상은 ARR<span class="def">(연간 반복 매출)</span> 규모보다 통합 후 매출 부착률·자동화 효과가 핵심</li>
+      </ul>
+    </li>
+    <li>SDS 관점에서는 구매·재무 BPO<span class="def">(업무 프로세스 아웃소싱)</span>/ITO와 문서 AI의 결합 기회 존재
+      <ul class="dot">
+        <li>전자송장·구매정산·공급망 문서처리 영역의 AI 자동화 PoC<span class="def">(개념 검증)</span> 확대 필요</li>
+        <li>ERP·구매·그룹웨어 데이터와 문서 AI를 연결하는 레퍼런스 확보 중요</li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul class="arr" style="margin-top: 10px;">
+    <li>투자 검토 시 IDP 단품보다 업무시스템 내재화 가능성과 데이터 권한을 우선 평가</li>
+    <li>M&amp;A 검토 시 P2P·AP·물류문서 등 반복 문서량이 큰 영역을 우선 스크리닝</li>
+  </ul>
+
+  <div class="end-line">- 이 상 -</div>
+
+  <div class="page-no">— 3 —</div>
+</div>
+
+
+</body>
+</html>

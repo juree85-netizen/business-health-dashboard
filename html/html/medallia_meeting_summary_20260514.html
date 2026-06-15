@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Medallia 보고서 검토 및 M&A 전략 회의록 분석 ('26.05.14)</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: '바탕체', 'Batang', 'UnBatang', 'Nanum Myeongjo', Georgia, serif;
+    background: #f0f0f0;
+    color: #111;
+    font-size: 13px;
+    line-height: 1.85;
+  }
+  .page-header {
+    background: #1a3a5c;
+    color: #fff;
+    padding: 18px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+  .page-header .title { font-size: 15px; font-weight: bold; letter-spacing: 0.5px; }
+  .page-header .meta { font-size: 11px; opacity: 0.8; }
+  .doc-page {
+    width: 794px;
+    min-height: 1123px;
+    background: #fff;
+    margin: 28px auto;
+    padding: 60px 70px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+    position: relative;
+  }
+  .doc-page:last-child { margin-bottom: 40px; }
+
+  /* 제목 스타일 */
+  .report-title {
+    text-align: center;
+    border-top: 3px solid #1a3a5c;
+    border-bottom: 3px solid #1a3a5c;
+    padding: 20px 0 18px;
+    margin-bottom: 28px;
+  }
+  .report-title h1 {
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .report-title .subtitle {
+    font-size: 13px;
+    color: #555;
+    letter-spacing: 0.5px;
+  }
+
+  /* 메타 정보 박스 */
+  .meta-box {
+    border: 1px solid #ccc;
+    background: #f9f9f9;
+    padding: 12px 18px;
+    margin-bottom: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 6px 0;
+    font-size: 12px;
+  }
+  .meta-box .item { display: flex; gap: 8px; }
+  .meta-box .label { color: #666; min-width: 50px; }
+  .meta-box .value { font-weight: bold; color: #1a3a5c; }
+
+  /* 섹션 */
+  .section { margin-bottom: 28px; }
+  .section-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: #1a3a5c;
+    border-left: 4px solid #1a3a5c;
+    padding-left: 10px;
+    margin-bottom: 12px;
+    letter-spacing: 0.3px;
+  }
+  .section-title .num {
+    background: #1a3a5c;
+    color: #fff;
+    padding: 1px 7px;
+    margin-right: 8px;
+    font-size: 11px;
+    border-radius: 2px;
+  }
+
+  /* 서브섹션 */
+  .sub-title {
+    font-size: 13px;
+    font-weight: bold;
+    margin: 14px 0 6px;
+    color: #333;
+    padding-left: 2px;
+  }
+  .sub-title::before { content: "▶ "; color: #1a3a5c; font-size: 10px; }
+
+  /* 리스트 */
+  ul.sq { list-style: none; padding-left: 14px; }
+  ul.sq li { margin-bottom: 5px; }
+  ul.sq li::before { content: "□ "; color: #1a3a5c; font-size: 11px; }
+
+  ul.dash { list-style: none; padding-left: 18px; }
+  ul.dash li { margin-bottom: 4px; }
+  ul.dash li::before { content: "- "; color: #555; }
+
+  ul.dot { list-style: none; padding-left: 18px; }
+  ul.dot li { margin-bottom: 4px; }
+  ul.dot li::before { content: "• "; color: #1a3a5c; }
+
+  /* 강조 */
+  .hl { color: #c00; font-weight: bold; }
+  .bl { color: #1a3a5c; font-weight: bold; }
+  .gr { color: #2a7a2a; font-weight: bold; }
+
+  /* 표 */
+  table.t {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+    font-size: 12px;
+  }
+  table.t th {
+    background: #1a3a5c;
+    color: #fff;
+    padding: 7px 10px;
+    text-align: center;
+    border: 1px solid #1a3a5c;
+    font-weight: bold;
+  }
+  table.t td {
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    vertical-align: top;
+  }
+  table.t tr:nth-child(even) td { background: #f5f7fa; }
+  table.t .num-cell { text-align: right; font-family: 'Courier New', monospace; }
+  table.t .center { text-align: center; }
+
+  /* 인사이트 박스 */
+  .insight-box {
+    border: 1px solid #1a3a5c;
+    background: #eef3f9;
+    padding: 12px 16px;
+    margin: 14px 0;
+    border-radius: 2px;
+  }
+  .insight-box .insight-title {
+    font-weight: bold;
+    color: #1a3a5c;
+    margin-bottom: 6px;
+    font-size: 12px;
+  }
+
+  /* 경고 박스 */
+  .warn-box {
+    border: 1px solid #c44;
+    background: #fff5f5;
+    padding: 12px 16px;
+    margin: 14px 0;
+    border-radius: 2px;
+  }
+  .warn-box .warn-title {
+    font-weight: bold;
+    color: #c00;
+    margin-bottom: 6px;
+    font-size: 12px;
+  }
+
+  /* 액션 아이템 */
+  .action-box {
+    border: 1px solid #2a7a2a;
+    background: #f5fff5;
+    padding: 12px 16px;
+    margin: 10px 0;
+    border-radius: 2px;
+  }
+  .action-box .action-title {
+    font-weight: bold;
+    color: #2a7a2a;
+    margin-bottom: 6px;
+    font-size: 12px;
+  }
+
+  /* 주석 */
+  .fn {
+    font-size: 11px;
+    color: #666;
+    border-top: 1px solid #ddd;
+    margin-top: 20px;
+    padding-top: 8px;
+  }
+  .fn p { margin-bottom: 3px; }
+
+  /* 구분선 */
+  hr.sec { border: none; border-top: 1px solid #ddd; margin: 20px 0; }
+
+  /* 페이지 번호 */
+  .page-num {
+    text-align: center;
+    font-size: 11px;
+    color: #999;
+    position: absolute;
+    bottom: 24px;
+    left: 0; right: 0;
+  }
+
+  /* 요약 배너 */
+  .summary-banner {
+    background: linear-gradient(135deg, #1a3a5c 0%, #2a5a8c 100%);
+    color: #fff;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    border-radius: 2px;
+  }
+  .summary-banner .banner-title { font-size: 13px; font-weight: bold; margin-bottom: 8px; }
+  .summary-banner ul { padding-left: 16px; font-size: 12px; }
+  .summary-banner ul li { margin-bottom: 3px; list-style: disc; }
+
+  /* 타임라인 */
+  .timeline { margin: 10px 0; }
+  .tl-item {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 8px;
+    align-items: flex-start;
+  }
+  .tl-time {
+    min-width: 52px;
+    font-size: 11px;
+    color: #777;
+    font-family: 'Courier New', monospace;
+    padding-top: 1px;
+  }
+  .tl-content { flex: 1; }
+
+  @media print {
+    .page-header { display: none; }
+    .doc-page { box-shadow: none; margin: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="title">Medallia 보고서 검토 및 M&A 전략 회의록 분석</div>
+  <div class="meta">'26.05.14 | 솔루션전략그룹(솔루션)</div>
+</div>
+
+<!-- PAGE 1: 표지 + 개요 -->
+<div class="doc-page">
+  <div class="report-title">
+    <h1>Medallia 보고서 검토 및 M&A 전략 회의록 분석</h1>
+    <div class="subtitle">'26.05.14 · 솔루션전략그룹(솔루션) · 내부검토용</div>
+  </div>
+
+  <div class="meta-box">
+    <div class="item"><span class="label">회의일시</span><span class="value">'26.05.14 (수)</span></div>
+    <div class="item"><span class="label">회의시간</span><span class="value">약 60분</span></div>
+    <div class="item"><span class="label">참석인원</span><span class="value">발화자 5인</span></div>
+    <div class="item"><span class="label">회의목적</span><span class="value">Medallia 사례 보고서 검토 + M&A 전략 방향 논의</span></div>
+    <div class="item"><span class="label">문서성격</span><span class="value">내부 회의록 분석 (비공개)</span></div>
+    <div class="item"><span class="label">작성일시</span><span class="value">'26.05.14</span></div>
+  </div>
+
+  <div class="summary-banner">
+    <div class="banner-title">■ 핵심 요약 (3줄)</div>
+    <ul>
+      <li>Medallia 실패의 본질은 고금리·PIK 누적·성장 정체의 3중 압박이며, GenAI에 의한 사업 대체 가능성이 구조적 취약점으로 확인됨</li>
+      <li>Thoma Bravo → Blackstone 경영권 이전은 PE 입장에서 "담보 실행"이며, 양측 실손 규모는 FCF 데이터 확보 후 정밀 재계산 필요</li>
+      <li>SaaS 밸류에이션 정상화 국면에서 M&A 저점 매수 타이밍이 도래하고 있으며, 평가 기준(NRR 지속성·기술 대체 위험·FCF 커버리지)을 지금 정립해야 함</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="num">1</span>회의 구조 및 주요 논의 흐름</div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-time">00:00~10:00</div>
+        <div class="tl-content">보고서 수치 검증 — FCF·이자비용·매출 숫자 일관성 점검, 분석 기준 통일 지시</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">10:00~22:00</div>
+        <div class="tl-content">실패 원인 심층 분석 — 금리 환경, 사업 대체 가능성(GenAI), PIK 구조적 문제</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">22:00~32:00</div>
+        <div class="tl-content">M&A 전략 논의 — 인수 타이밍, 자사 제약 조건, 평가 기준 정립 방향</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">32:00~42:00</div>
+        <div class="tl-content">Blackstone·Thoma Bravo 포지션 분석 — 경영권 이전의 재무적 해석</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">42:00~60:00</div>
+        <div class="tl-content">거시 리스크 논의 + 마무리 — OpenAI·SpaceX IPO 자본시장 영향, 후속 스터디 방향</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="num">2</span>보고서 품질 검토 — 리더 피드백 요지</div>
+
+    <div class="sub-title">분석 기준 통일 지시</div>
+    <ul class="sq">
+      <li>FCF를 일관된 분석 기준으로 사용 — <span class="hl">EBITDA·영업이익으로 중간에 기준을 바꾸지 말 것</span></li>
+      <li>"FCF가 나와야 이자 커버리지, Par Coverage, 투자 수익성이 한꺼번에 정리된다"고 강조</li>
+      <li>EBITDA ≠ FCF 혼용 시 분석 논리가 무너진다고 반복 지적</li>
+    </ul>
+
+    <div class="sub-title">데이터 정합성 요구</div>
+    <ul class="sq">
+      <li>인수 당시 매출($0.7B) → 현재 매출 성장률을 역산(Hindcast)하여 실제 성장 궤적 확인</li>
+      <li>상장 폐지 이후 재무 데이터 미공개 → Substack·Medium 등 영문 서드파티 분석글 검색 지시</li>
+      <li>"로직이 다 맞아떨어져야 한다" — 개별 수치가 아니라 전체 이야기(Story)가 일관되어야 함</li>
+    </ul>
+
+    <div class="sub-title">보고서 목적 재정의</div>
+    <ul class="sq">
+      <li>단순 사실 정리(현상·팩트 체크)를 넘어 <span class="bl">시사점 도출 → M&A 평가 기준 정립</span>까지 연결</li>
+      <li>"개선점을 고민하는 게 아니라, 우리가 인수할 때 무슨 기준으로 봐야 하는지 배우는 것"</li>
+      <li>콘설팅 관점이 아닌 사업주(사장) 관점으로 문제를 바라볼 것을 주문</li>
+    </ul>
+  </div>
+
+  <div class="fn">
+    <p>※ 회의 참석자는 발화자 1(리더)·발화자 2·발화자 3·발화자 4·발화자 5 총 5인으로 구성.</p>
+    <p>※ STT 변환 특성상 일부 고유명사·수치에 오류 포함 가능. 핵심 수치는 원본 보고서(medallia_report_final.html) 기준으로 확인.</p>
+  </div>
+  <div class="page-num">— 1 —</div>
+</div>
+
+<!-- PAGE 2: 재무 수치 + 실패 원인 -->
+<div class="doc-page">
+  <div class="section">
+    <div class="section-title"><span class="num">3</span>재무 수치 확인 및 해석 논의</div>
+
+    <table class="t">
+      <tr>
+        <th style="width:22%">항목</th>
+        <th style="width:26%">회의 중 언급 수치</th>
+        <th style="width:52%">해석 및 맥락</th>
+      </tr>
+      <tr>
+        <td>인수 당시 매출</td>
+        <td class="num-cell">~$0.7B (약 7억 달러)</td>
+        <td>상장 폐지 이후 정확한 최근 수치 미공개. 역산 필요</td>
+      </tr>
+      <tr>
+        <td>인수가 (EV)</td>
+        <td class="num-cell">~$6.4B</td>
+        <td>Equity $4.6B + Debt $1.8B 구조 (Thoma Bravo LBO)</td>
+      </tr>
+      <tr>
+        <td>EV/Revenue 배수</td>
+        <td class="num-cell">~9×</td>
+        <td>당시 SaaS 시장 평균 대비 <span class="gr">"싸게 산" 수준</span> 평가</td>
+      </tr>
+      <tr>
+        <td>Rule of 40 (현재)</td>
+        <td class="num-cell">10.8</td>
+        <td>SaaS 건전성 기준선(40) 대비 현저히 낮음 — 성장+수익성 압박</td>
+      </tr>
+      <tr>
+        <td>연간 이자 부담</td>
+        <td class="num-cell">~$0.3B/년</td>
+        <td>PIK 포함 변동금리 구조. 금리 상승으로 2.8B까지 누적</td>
+      </tr>
+      <tr>
+        <td>FCF</td>
+        <td class="num-cell">미공개 (적자 추정)</td>
+        <td><span class="hl">FCF &lt; 연간 이자 — 이것이 파국의 수학적 근거</span></td>
+      </tr>
+      <tr>
+        <td>Blackstone 채권 원금</td>
+        <td class="num-cell">$1.8B → 누적 ~$2.8B</td>
+        <td>변동금리 인상으로 원금 대비 채무 누적. 경영권으로 전환</td>
+      </tr>
+      <tr>
+        <td>Thoma Bravo 자기자본</td>
+        <td class="num-cell">~$4.8B (추정)</td>
+        <td>실질 손실액은 이자 납부분 차감 후 계산 필요 (별도 분석 요)</td>
+      </tr>
+    </table>
+
+    <div class="insight-box">
+      <div class="insight-title">▶ 핵심 수식 (리더 발언)</div>
+      <p style="font-family:monospace; font-size:12px; padding-left:8px;">
+        연간 이자 지출 ≈ $0.3B/년<br>
+        FCF &lt; 이자 지출 → <span class="hl">FCF 커버리지 &lt; 1.0× → 구조적 부실</span><br>
+        3.1년 × $0.3B ≈ $0.93B 누적 이자 납부 후 경영권 상실
+      </p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="num">4</span>실패 원인 심층 분석</div>
+
+    <div class="sub-title">① 고금리 — 가장 직접적 원인</div>
+    <ul class="sq">
+      <li>SOFR 연동 변동금리 → 금리 인상기에 이자 부담이 $1.8B → $2.8B으로 급증</li>
+      <li>PIK 비중을 중간에 축소 시도했으나 이미 누적된 부채 구조를 되돌리기 어려웠음</li>
+      <li>"이자 내야 되는 비용이 FCF로 들어오는 것보다 작았다는 얘기" — 구조적 현금 부족</li>
+    </ul>
+
+    <div class="sub-title">② 성장 정체 — 예측 실패</div>
+    <ul class="sq">
+      <li>인수 당시 매출 성장률 예상: 23~26%p → 실제 성장률 <span class="hl">훨씬 작았던 것으로 확인</span></li>
+      <li>"매출이 얼마나 되냐가 중요한 거지 하위 10%가 중요한 게 아니다" — 절대 규모의 문제</li>
+      <li>Rule of 40 = 10.8 → 성장(G)과 수익성(P) 모두 악화된 결과</li>
+    </ul>
+
+    <div class="sub-title">③ 사업 대체 가능성 (GenAI 위협) — 구조적 취약점</div>
+    <ul class="sq">
+      <li>Medallia 사업 = <span class="bl">VoC 수집 + 서베이 + 분석</span> → "이 영역은 대체 가능하다"</li>
+      <li>GenAI 등장으로 기존 Survey/VoC SaaS의 차별점이 빠르게 소멸</li>
+      <li>"DNA 같은 거로 인해가지고 장식당하는 사업" — 기술 대체 위험이 핵심 약점</li>
+      <li>SAP 연계 협력 시도도 실패 → 외부 생태계 의존 전략 한계</li>
+    </ul>
+
+    <div class="warn-box">
+      <div class="warn-title">⚠ 실패의 3중 압박 구조</div>
+      <p style="font-size:12px;">
+        <span class="hl">① 고금리(외부)</span> + <span class="hl">② PIK 누적(구조)</span> + <span class="hl">③ 성장 정체(사업)</span><br>
+        → 세 가지가 동시에 작용했기 때문에 개별 대응이 불가능했던 케이스<br>
+        → GenAI 가속화로 ③의 반전 가능성까지 차단 → 엑시트 실기(失期)
+      </p>
+    </div>
+  </div>
+
+  <div class="fn">
+    <p>※ FCF 수치는 상장 폐지 이후 미공개. 회의에서 언급된 '적자 상태'는 일부 보도 기반 추정치임.</p>
+    <p>※ Rule of 40 = 매출성장률 + FCF Margin. 10.8은 성장률과 수익성 모두 현저히 낮은 수준.</p>
+  </div>
+  <div class="page-num">— 2 —</div>
+</div>
+
+<!-- PAGE 3: Blackstone 분석 + M&A 전략 -->
+<div class="doc-page">
+  <div class="section">
+    <div class="section-title"><span class="num">5</span>Blackstone·Thoma Bravo 포지션 분석</div>
+
+    <div class="sub-title">경영권 이전의 구조적 해석</div>
+    <ul class="sq">
+      <li>Blackstone은 채권자(Lender) 포지션 → <span class="bl">Thoma Bravo가 채무 불이행 시 담보(경영권) 실행</span></li>
+      <li>이는 Blackstone이 "경영권을 빼앗은" 것이 아니라, 계약상 당연한 담보 실행 메커니즘</li>
+      <li>"얘네들이 Blackstone에 돈을 빌린 거잖아. 얘는 그 원금을 회사로 가져간 거지, 돈으로 못 받은 거지"</li>
+    </ul>
+
+    <table class="t" style="margin-top:12px;">
+      <tr>
+        <th style="width:16%">주체</th>
+        <th style="width:22%">투입 자원</th>
+        <th style="width:22%">회수 내용</th>
+        <th style="width:40%">실질 손익 해석</th>
+      </tr>
+      <tr>
+        <td class="center bl">Thoma Bravo</td>
+        <td class="num-cell">Equity ~$4.8B<br>(자기자본)</td>
+        <td class="num-cell">경영권 상실<br>(담보 제공)</td>
+        <td>이자 납부분 제외 실손. "자기 돈 까먹은 거 별로 없다"는 시각도 있으나 Equity 전액 손실에 가까움</td>
+      </tr>
+      <tr>
+        <td class="center bl">Blackstone</td>
+        <td class="num-cell">Debt $1.8B<br>(타인자본)</td>
+        <td class="num-cell">경영권(지분)<br>가치 ~$2.8B?</td>
+        <td>현금 회수 대신 Equity 취득. 경영권 가치 = $2.8B이면 <span class="gr">수익</span>, 실질 가치 미달 시 손실</td>
+      </tr>
+    </table>
+
+    <div class="insight-box" style="margin-top:14px;">
+      <div class="insight-title">▶ 리더의 비유적 설명</div>
+      <p style="font-size:12px; padding-left:6px;">
+        "내가 상가를 샀어. 장사가 잘 안 돼서 한 달에 100만원씩 3년 동안 몇 천만원 썼는데,<br>
+        그냥 담보로 은행에 준 거야. 자기네들이 엄청 불쌍한 거 없어요."<br>
+        → <span class="bl">PE의 LBO는 지자본 손실이 '빌린 돈'으로 이루어졌다는 점을 항상 고려해야 함</span>
+      </p>
+    </div>
+
+    <div class="sub-title">Thoma Bravo 실손 재평가</div>
+    <ul class="sq">
+      <li>총 투입: 약 $4.8B (자기자본 기준)</li>
+      <li>실제 자기 돈(LP 자본) 비중은 전체의 일부 → GP·LP 구조상 개별 손실 규모는 별도 확인 필요</li>
+      <li>"얼마나 자기 돈으로 다녔다고?" — 레버리지 비율 및 자기자본 실비중 검증 필요</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="num">6</span>M&A 전략 시사점 및 논의</div>
+
+    <div class="sub-title">인수 타이밍 판단</div>
+    <ul class="sq">
+      <li>"SaaS 밸류에이션 정상화 → 지금이 저점 인수 타이밍이 온다" — 리더 직접 발언</li>
+      <li>주가/밸류 막 꺼지고 저점일 때 사는 사람이 돈 버는 것 — 1년 안에 기회 온다는 시각</li>
+      <li>GenAI 영향으로 핫스팟이 이동 중 → 사업 본질 판단이 더 중요해지는 환경</li>
+    </ul>
+
+    <div class="sub-title">M&A 평가 기준 (이번 케이스에서 도출)</div>
+    <table class="t">
+      <tr>
+        <th>평가 항목</th>
+        <th>Medallia에서의 문제</th>
+        <th>향후 기준</th>
+      </tr>
+      <tr>
+        <td>FCF 커버리지</td>
+        <td class="hl">FCF &lt; 이자 → 구조적 부실</td>
+        <td>FCF ÷ 이자비용 ≥ 1.5× 이상 확인</td>
+      </tr>
+      <tr>
+        <td>NRR 지속성</td>
+        <td class="hl">성장 정체·NRR 하락</td>
+        <td>NRR 110%+ 지속 가능 여부 + 업셀링 경로 확인</td>
+      </tr>
+      <tr>
+        <td>기술 대체 위험</td>
+        <td class="hl">VoC/Survey → GenAI 대체</td>
+        <td>GenAI 대체 불가 영역인지 + 기술 방어력 평가</td>
+      </tr>
+      <tr>
+        <td>금리 시나리오</td>
+        <td class="hl">변동금리 + 고금리 미대응</td>
+        <td>고금리 지속 시 3년 FCF 시뮬레이션 필수</td>
+      </tr>
+      <tr>
+        <td>시장 타이밍</td>
+        <td class="hl">밸류 피크에 인수</td>
+        <td>EV/Revenue 정상화 국면 진입 여부 확인</td>
+      </tr>
+    </table>
+
+    <div class="sub-title">자사 M&A 제약 조건 (회의 내 솔직한 논의)</div>
+    <ul class="sq">
+      <li>PS(주가·실적) 영향 우려로 <span class="bl">공격적 M&A 결정이 어려운 내부 구조</span></li>
+      <li>"중간 지분 투자가 안 된다. 전부 다 해버려야 한다. 그러면 돈 나온 데 사야 한다"</li>
+      <li>현금흐름 창출 기업 중 밸류 낮아진 곳이 실질적 인수 대상</li>
+      <li>"M&A가 쉬운 게 아니고 우린 제약이 너무 많다" — 리더 발언</li>
+    </ul>
+  </div>
+
+  <div class="page-num">— 3 —</div>
+</div>
+
+<!-- PAGE 4: 거시 리스크 + 액션 아이템 -->
+<div class="doc-page">
+  <div class="section">
+    <div class="section-title"><span class="num">7</span>거시 리스크 — 자본시장 흐름 전망</div>
+
+    <p style="margin-bottom: 10px;">리더는 회의 중반부에서 Medallia 케이스를 넘어 <span class="bl">2026년 하반기 자본시장 전체를 흔들 수 있는 복합 이벤트</span>에 대한 경계감을 강하게 표명.</p>
+
+    <table class="t">
+      <tr>
+        <th style="width:28%">이벤트</th>
+        <th style="width:22%">예상 시점</th>
+        <th style="width:50%">리더 시각</th>
+      </tr>
+      <tr>
+        <td>OpenAI IPO</td>
+        <td class="center">~'26 상반기</td>
+        <td><span class="hl">현금 고갈 전 상장 강행 가능성.</span> 성공 확률 30%미만 시각. 실패 시 글로벌 AI 섹터 충격파 가능</td>
+      </tr>
+      <tr>
+        <td>Anthropic(Claude) IPO</td>
+        <td class="center">시점 미정</td>
+        <td>성공 확률 50% 수준으로 평가. OpenAI와 함께 대규모 자본 흡수</td>
+      </tr>
+      <tr>
+        <td>SpaceX IPO</td>
+        <td class="center">'26.6~7월</td>
+        <td>"스페이스가 다 빨아갈 것" — 초대형 IPO로 유동성 집중 현상 예상</td>
+      </tr>
+      <tr>
+        <td>Hyperscaler 투자 흐름</td>
+        <td class="center">진행 중</td>
+        <td>미국 자본시장 전체와 연동. 방향성 모니터링 필수</td>
+      </tr>
+    </table>
+
+    <div class="warn-box" style="margin-top:14px;">
+      <div class="warn-title">⚠ 리더의 경고 발언</div>
+      <p style="font-size:12px;">
+        "이 사태가 몇 가지 사건이 결합되면 내년도에 주식시장 전체를 흔들 수 있는 사건이야."<br>
+        "전체 자본시장의 흐름을 바꿀 수도 있어. 이 상태가 이게 증폭되면."<br>
+        "26년 5~6월까지만 팩트 돼 있다고. 그 뒤에 있는 건 소설이에요." (불확실성 명시)<br><br>
+        → <span class="bl">M&A 타이밍 판단 시 거시 자본시장 흐름을 반드시 고려해야 함을 강조</span>
+      </p>
+    </div>
+  </div>
+
+  <hr class="sec">
+
+  <div class="section">
+    <div class="section-title"><span class="num">8</span>후속 액션 아이템</div>
+
+    <table class="t">
+      <tr>
+        <th style="width:5%">No.</th>
+        <th style="width:45%">항목</th>
+        <th style="width:20%">담당</th>
+        <th style="width:30%">비고</th>
+      </tr>
+      <tr>
+        <td class="center">1</td>
+        <td>FCF 데이터 확보 및 역산 검증<br><span style="font-size:11px; color:#666;">— Substack·Medium 영문 분석글 탐색, Hindcast 방법론 적용</span></td>
+        <td class="center">발화자 4</td>
+        <td>보고서 수치 정합성 확보</td>
+      </tr>
+      <tr>
+        <td class="center">2</td>
+        <td>인수 시점 매출 성장률 검증<br><span style="font-size:11px; color:#666;">— 인수 당시 vs 현재 매출 비교, CAGR 산출</span></td>
+        <td class="center">발화자 4</td>
+        <td>성장 정체 수치 근거화</td>
+      </tr>
+      <tr>
+        <td class="center">3</td>
+        <td>Blackstone 실손익 정밀 계산<br><span style="font-size:11px; color:#666;">— 채권 원금·누적 이자·경영권 가치 비교 모델링</span></td>
+        <td class="center">발화자 2·3</td>
+        <td>경영권 인수 이후 편익/리스크 분석</td>
+      </tr>
+      <tr>
+        <td class="center">4</td>
+        <td>GenAI 대체 가능성 분석 섹션 추가<br><span style="font-size:11px; color:#666;">— VoC/Survey 시장 GenAI 침투율, 경쟁사 대응 현황</span></td>
+        <td class="center">발화자 5</td>
+        <td>기술 대체 위험 섹션 신설</td>
+      </tr>
+      <tr>
+        <td class="center">5</td>
+        <td>NRR 지속성 + 업셀링 경로 분석<br><span style="font-size:11px; color:#666;">— 기존 고객 추가매출(Upsell/Cross-sell) 구조 검토</span></td>
+        <td class="center">발화자 5</td>
+        <td>SaaS 사업 지속가능성 평가 기준</td>
+      </tr>
+      <tr>
+        <td class="center">6</td>
+        <td>M&A 평가 프레임워크 초안 작성<br><span style="font-size:11px; color:#666;">— FCF 커버리지·NRR·기술 대체·금리 시나리오 기준표</span></td>
+        <td class="center">발화자 2</td>
+        <td>차기 M&A 검토 시 적용</td>
+      </tr>
+      <tr>
+        <td class="center">7</td>
+        <td>KKR 유사 통합 사례 추가 조사<br><span style="font-size:11px; color:#666;">— KKR의 SaaS 통합 전략 및 결과 비교 분석</span></td>
+        <td class="center">발화자 2</td>
+        <td>별첨 사례 확장</td>
+      </tr>
+    </table>
+  </div>
+
+  <hr class="sec">
+
+  <div class="section">
+    <div class="section-title"><span class="num">9</span>종합 평가 및 시사점</div>
+
+    <div class="sub-title">보고서 분석의 핵심 교훈</div>
+    <ul class="sq">
+      <li><span class="bl">PE LBO의 실패는 이자 부담 단독이 아닌, 성장 정체 + 금리 상승 + 사업 대체 가능성의 복합 작용</span>으로 발생</li>
+      <li>밸류에이션 배수(EV/Revenue 9×)가 "싸 보여도" FCF 미래 추정이 틀리면 의미 없음</li>
+      <li>PIK 이자는 현금 부담을 단기 유예할 뿐 — <span class="hl">근본 사업 가치 창출이 없으면 시한폭탄</span></li>
+    </ul>
+
+    <div class="sub-title">자사 적용 관점</div>
+    <ul class="sq">
+      <li>M&A 대상 평가 시 FCF 커버리지·NRR·GenAI 대체 가능성을 3대 필수 지표로 활용</li>
+      <li>고금리 환경 지속 가능성을 가정한 스트레스 테스트 시나리오 병행 필요</li>
+      <li>사업 본질(대체 불가 영역 여부) 판단 없이 재무 지표만으로 인수 결정 시 동일 위험 반복 가능</li>
+    </ul>
+
+    <div class="insight-box">
+      <div class="insight-title">▶ 리더 발언 인용 — 이번 스터디의 진짜 목적</div>
+      <p style="font-size:12px; padding-left:8px;">
+        "M&A를 지금부터 진짜 열심히 관찰해야 되고, 그걸 하기 위해서 어떤 준비를 해야 하고,<br>
+        우리가 내년에 한다고 대상을 고를 때 무슨 기준으로 봐야 하는지도<br>
+        이 보고서에서 배워서 정리하자. 이런 거야."<br><br>
+        <span class="bl">→ Medallia 케이스 = 실패 분석이 아니라 M&A 평가 역량을 키우기 위한 훈련</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="fn">
+    <p>※ 본 문서는 내부 회의 STT 기록을 기반으로 작성한 분석용 요약본이며, 공식 회의록이 아닙니다.</p>
+    <p>※ 수치는 회의 발언 기준이며, 일부는 추정치 또는 검증 중인 값임. 확정 수치는 보고서 최종본(medallia_report_final) 기준.</p>
+    <p>※ 작성: 솔루션전략그룹(솔루션) | '26.05.14</p>
+  </div>
+  <div class="page-num">— 4 —</div>
+</div>
+
+</body>
+</html>

@@ -4,6 +4,32 @@
 
 ---
 
+## 2026-06-16
+
+**완료 작업**
+
+### FabriX AI 활용 가능성 문의 대응
+- 솔루션사업부 기획팀이 FabriX(사내 AI) 활용 가능성을 AI Development Group(하혜란 매니저)에 문의했고, 답변 메일 수신
+- 답변 요지: #1,2(대시보드 재구축/데이터모델 개선)는 'AI Pro' 권장, #3,4(Agent 제작)는 FabriX MCP 호스팅+Agent 도구 또는 LLM OpenAPI 활용 가능, 상세 협의는 공식 채널(fabrix.cs@samsung.com) 안내
+- fabrix.cs@samsung.com 앞 상세 협의 요청 메일 초안 작성 지원 (하혜란 답변 메일 전달 방식 + 새 본문 추가, CC: 하혜란+기존 내부 참조자 전체)
+- 상태: 메일 발송은 사용자가 직접 진행 예정
+
+### 셀레요(Selleyo) 프로젝트 — 화면설계·사업 섹션 완성 (13/21 → 16/21)
+- "셀피" 호출 → 현황 브리핑 (13/21, selleyo-hub 8092포트, 별도 private 레포 github.com/juree85-netizen/selleyo)
+- 다음 작업 우선순위 추천: 와이어프레임 → 사업(예산·팀구성) → 법률(저작권) → 론칭(베타·전략) 순서 제안 및 승인
+- **v1.5**: 핵심 화면 4종(홈/레시피저장/요리준비/레시피북) 와이어프레임 작성 완료 — 화면설계 섹션 5/5 완성. 저작권 옵션 A(영상캡처)/B(AI일러스트) 미확정 상태를 토글 형태로 양립 처리. (commit 05ec97f, tag selleyo-v1.5)
+  - 생성: `public/selleyo_wireframe.html`
+  - 수정: `src/content/docs/screens/wireframe.md`, `src/content/docs/status.md`
+- **v1.5.1**: wireframe.md 내 Starlight `<Card>` 컴포넌트가 .md 파일에서 렌더링되지 않는 버그 발견 및 수정 (.mdx 전용 컴포넌트 사용 실수 → 순수 마크다운 링크로 교체). (commit ee37075, tag selleyo-v1.5.1)
+- **v1.6**: 예산 계획·팀 구성 문서 작성 완료 — 사업 섹션 4/4 완성 (전체 16/21). 1인 개발 체제를 기존 schedule.md 근거로 확정, Phase 1(~100만원)/Phase2(380~510만원)/Phase3(분기 150~250만원) 예산 가정안 제시. (commit c20660e, tag selleyo-v1.6)
+  - 수정: `src/content/docs/biz/budget.md`, `src/content/docs/biz/team.md`, `src/content/docs/status.md`
+- **사용자 확인 대기 중 (3건)**: ① 이미지 생성 옵션 기본값(A/B 동시 vs B단독, B단독 추천) ② Phase2 마케팅 예산 규모(최소~중간 추천) ③ Phase2~3 충원 방식(1인+부분외주 추천) — 다음 세션에서 답변 받아 반영 필요
+- 남은 미작성: 법률·정책(저작권 정책) 1개, 론칭(베타테스트, 론칭전략) 2개 → 5/21 남음
+
+**상태:** 완료 (다음 세션: 사용자 확인 3건 반영 후 법률·론칭 섹션 진행)
+
+---
+
 ## 2026-06-12
 
 **완료 작업**

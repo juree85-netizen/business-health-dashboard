@@ -4,6 +4,47 @@
 
 ---
 
+## 2026-06-17
+
+**완료 작업**
+
+### 호피 (부동산 실거래가 모니터링)
+
+#### 메일 템플릿 개편 — 정반합 분석 기반
+- 요약 한줄 박스 추가 (관심 매물 N건 | 최저가 | 격차 축소 매물)
+- 주목 매물 Top 5 표 (6컬럼, 트리지움 대비 차이 오름차순)
+- 전체 N건 보기 링크 버튼 추가
+- 컬럼 11개 → 6개로 축소, 세대수·연식 제거
+
+#### GitHub Pages 연동 (https://juree85-netizen.github.io/realestate-report/)
+- `juree85-netizen/realestate-report` public 레포 생성
+- `monitor.py`에 전체 리포트 HTML 생성 + gh-pages 자동 push 로직 추가
+- 전체 리포트: 전건 표시, 모바일 반응형, 9컬럼
+
+---
+
+### 셀피 (셀레요 PM)
+
+#### 의사결정 3건 확정
+- 이미지 생성: AI 일러스트 단독 (DALL-E, 프레임 캡처 Phase 2 보류)
+- Phase2 마케팅 예산: 최소~중간 (150~280만원) 확정
+- 충원 방식: 외주 없음, 본인+남편 2인 공동창업자 운영 체제
+
+#### 미작성 문서 3건 완성 → 셀레요 문서 21/21 완성
+- `/legal/copyright.md` — YouTube API 저작권 정책
+- `/launch/beta.md` — 베타 테스트 계획 (50명, 6~7주)
+- `/launch/strategy.md` — 론칭 전략 (유튜브 쇼츠 중심, Phase 3단계)
+
+#### 셀레요 문서허브 GitHub Pages 연동
+- `juree85-netizen/selleyo-docs` public 레포 생성
+- AWS/GitHub Pages 빌드 분리 (dist/ vs dist-ghpages/, base path 분기)
+- git post-commit hook으로 완전 자동화 (커밋 시 양쪽 자동 배포)
+- URL: https://juree85-netizen.github.io/selleyo-docs/
+
+**상태:** 완료
+
+---
+
 ## 2026-06-16
 
 **완료 작업**

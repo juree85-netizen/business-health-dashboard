@@ -68,7 +68,7 @@ export default defineConfig({
 				{
 					label: 'AI Use Case',
 					items: [
-						{ label: 'AIPro 활용 과제 기술 검토서', link: '/guides/aipro-tech-review/' },
+						{ label: 'AIPro / FabriX 활용 과제 기술 검토서', link: '/guides/aipro-tech-review/' },
 						{ label: 'AI Use Case PoC 슬라이드', link: '/guides/ai-usecase/' },
 					],
 				},

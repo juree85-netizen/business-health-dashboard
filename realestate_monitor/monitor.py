@@ -48,10 +48,12 @@ DISTRICTS = {
 
 PRICE_MIN = 350000   # 35억 (만원 단위)
 PRICE_MAX = 450000   # 45억
+AREA_MAX  = 100.0    # 전용면적 상한 (㎡)
 
-TRIIUM_APT  = '트리지움'
-TRIIUM_DONG = '잠실동'
-TRIIUM_AREA = 59.0   # 25평형 전용면적 (±5㎡ 허용)
+TRIIUM_APT          = '트리지움'
+TRIIUM_DONG         = '잠실동'
+TRIIUM_AREA         = 59.0    # 25평형 전용면적 (±5㎡ 허용)
+TRIIUM_ACQUISITION  = 296000  # 취득가 29.6억 (만원)
 
 APT_UNITS = {
     '은마':          4424,
@@ -141,6 +143,7 @@ def collect():
 
                 if (PRICE_MIN <= tx['price'] <= PRICE_MAX
                         and tx['dong'] in dist['dongs']
+                        and tx['area'] < AREA_MAX
                         and key not in seen_i):
                     seen_i.add(key)
                     interest.append({**tx, 'district': dist['name']})
@@ -255,10 +258,22 @@ def build_email_html(interest, triium):
                     best_delta = delta
                     best_apt = tx['apt']
 
-    summary_extra = f" | 격차 축소: {best_apt} {best_delta:.1f}억" if best_apt else ''
+    summary_extra = f" &nbsp;|&nbsp; 격차 축소: {best_apt} {best_delta:.1f}억" if best_apt else ''
+
+    if triium_price is not None:
+        acq_diff = (triium_price - TRIIUM_ACQUISITION) / 10000
+        acq_sign = '+' if acq_diff >= 0 else ''
+        acq_color = '#c0392b' if acq_diff > 0 else ('#2980b9' if acq_diff < 0 else '#555')
+        triium_summary = (
+            f" &nbsp;|&nbsp; 🏚️ 트리지움 <strong>{triium_price/10000:.1f}억</strong>"
+            f" <span style='color:{acq_color}'>({acq_sign}{acq_diff:.1f}억 vs 취득가)</span>"
+        )
+    else:
+        triium_summary = ''
+
     summary_html = f"""
     <div style="background:#eaf4fb;border-left:4px solid #2980b9;padding:12px 16px;margin:16px 0;border-radius:4px;font-size:14px;color:#1a5276">
-      관심 매물 <strong>{len(interest)}건</strong> &nbsp;|&nbsp; 최저가 <strong>{min_price:.1f}억</strong>{summary_extra}
+      관심 매물 <strong>{len(interest)}건</strong> &nbsp;|&nbsp; 최저가 <strong>{min_price:.1f}억</strong>{triium_summary}{summary_extra}
     </div>"""
 
     # Top 5 표
@@ -443,27 +458,55 @@ def push_to_ghpages(html_content):
 
 # ── 메일 발송 ─────────────────────────────────────────────────────────────────
 def send_mail(html):
-    subject = f"[호피] 부동산 실거래가 리포트 — {datetime.now().strftime('%Y.%m.%d')}"
+    import uuid
+    now = datetime.now()
+    subject = f"[호피] 부동산 실거래가 리포트 — {now.strftime('%Y.%m.%d')}"
     msg = MIMEMultipart('alternative')
-    msg['Subject'] = subject
-    msg['From']    = GMAIL_ADDRESS
-    msg['To']      = ', '.join(RECIPIENTS)
+    msg['Subject']    = subject
+    msg['From']       = f"호피 부동산알리미 <{GMAIL_ADDRESS}>"
+    msg['To']         = ', '.join(RECIPIENTS)
+    msg['Reply-To']   = GMAIL_ADDRESS
+    msg['Message-ID'] = f"<hopi-{now.strftime('%Y%m%d%H%M%S')}-{uuid.uuid4().hex[:8]}@hopi.report>"
+    msg['X-Mailer']   = 'Hopi-RealEstate-Monitor/1.0'
     msg.attach(MIMEText(html, 'html', 'utf-8'))
 
-    with smtplib.SMTP('smtp.gmail.com', 587) as s:
-        s.starttls()
-        s.login(GMAIL_ADDRESS, GMAIL_PASSWORD)
-        s.sendmail(GMAIL_ADDRESS, RECIPIENTS, msg.as_string())
-    print(f"  ✅ 메일 발송 완료 → {', '.join(RECIPIENTS)}")
+    try:
+        with smtplib.SMTP('smtp.gmail.com', 587) as s:
+            s.set_debuglevel(0)
+            s.starttls()
+            s.login(GMAIL_ADDRESS, GMAIL_PASSWORD)
+            refused = s.sendmail(GMAIL_ADDRESS, RECIPIENTS, msg.as_string())
+            if refused:
+                print(f"  ⚠️ 일부 수신자 거부됨: {refused}")
+            else:
+                print(f"  ✅ 메일 발송 완료 → {', '.join(RECIPIENTS)}")
+    except smtplib.SMTPAuthenticationError as e:
+        print(f"  ❌ SMTP 인증 실패: {e}")
+        raise
+    except smtplib.SMTPRecipientsRefused as e:
+        print(f"  ❌ 수신자 전체 거부: {e}")
+        raise
+    except smtplib.SMTPException as e:
+        print(f"  ❌ SMTP 오류: {e}")
+        raise
+    except Exception as e:
+        print(f"  ❌ 메일 발송 실패 (기타): {e}")
+        raise
 
 # ── 메인 ─────────────────────────────────────────────────────────────────────
 if __name__ == '__main__':
-    print(f"[{datetime.now():%Y-%m-%d %H:%M:%S}] 실거래가 조회 시작")
-    interest, triium = collect()
-    print(f"  관심 매물 {len(interest)}건 / 트리지움 {len(triium)}건")
+    try:
+        print(f"[{datetime.now():%Y-%m-%d %H:%M:%S}] 실거래가 조회 시작")
+        interest, triium = collect()
+        print(f"  관심 매물 {len(interest)}건 / 트리지움 {len(triium)}건")
 
-    full_html = build_full_report_html(interest, triium)
-    push_to_ghpages(full_html)
+        full_html = build_full_report_html(interest, triium)
+        push_to_ghpages(full_html)
 
-    email_html = build_email_html(interest, triium)
-    send_mail(email_html)
+        email_html = build_email_html(interest, triium)
+        send_mail(email_html)
+        print(f"[{datetime.now():%Y-%m-%d %H:%M:%S}] 정상 종료")
+    except Exception as e:
+        print(f"[{datetime.now():%Y-%m-%d %H:%M:%S}] 비정상 종료: {e}")
+        import traceback
+        traceback.print_exc()

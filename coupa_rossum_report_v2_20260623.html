@@ -90,6 +90,15 @@
   .num-head { font-weight: 700; margin: 12px 0 4px 2em; font-size: 14px; }
   .end-mark { text-align: center; font-size: 13px; margin-top: 20px; letter-spacing: 1px; }
 
+  /* 출처 태그 */
+  .src-ev  { display:inline-block; font-size:9px; font-weight:700; color:#fff; background:#b85000; padding:0 5px; border-radius:2px; margin-left:4px; vertical-align:middle; white-space:nowrap; }
+  .src-10k { display:inline-block; font-size:9px; font-weight:700; color:#fff; background:#1a5faa; padding:0 5px; border-radius:2px; margin-left:4px; vertical-align:middle; white-space:nowrap; }
+  .src-pub { display:inline-block; font-size:9px; font-weight:700; color:#fff; background:#555;    padding:0 5px; border-radius:2px; margin-left:4px; vertical-align:middle; white-space:nowrap; }
+  /* 에보코 반영 셀/행 강조 */
+  table.t td.ev { border-left:3px solid #b85000 !important; background:#fff8ed !important; }
+  table.t tr.ev-row > td { background:#fff8ed !important; }
+  table.t tr.ev-row > td:first-child { border-left:3px solid #b85000 !important; }
+
   @media print {
     body { background: #fff; padding: 0; }
     .doc-page { box-shadow: none; margin: 0; padding: 48px 44px 56px 44px; min-height: auto; page-break-after: always; }
@@ -273,23 +282,23 @@
       <th style="width:18%">FCF</th>
       <th>FCF 마진</th>
     </tr>
-    <tr><td class="c">'20년 (FY2021)</td><td class="c">$542M</td><td class="c r">순이익 -$130M</td><td class="c">+$108M</td><td class="c">20%</td></tr>
-    <tr><td class="c">'21년 (FY2022)</td><td class="c">$725M</td><td class="c r">순이익 -$235M</td><td class="c">+$158M</td><td class="c">22%</td></tr>
-    <tr><td class="c">'22년 (FY2023)</td><td class="c">$849M</td><td class="c r">순이익 -$259M</td><td class="c">+$174M</td><td class="c">20%</td></tr>
+    <tr><td class="c">'20년 (FY2021) <span class="src-10k">10-K</span></td><td class="c">$542M</td><td class="c r">순이익 -$130M</td><td class="c">+$108M</td><td class="c">20%</td></tr>
+    <tr><td class="c">'21년 (FY2022) <span class="src-10k">10-K</span></td><td class="c">$725M</td><td class="c r">순이익 -$235M</td><td class="c">+$158M</td><td class="c">22%</td></tr>
+    <tr><td class="c">'22년 (FY2023) <span class="src-10k">10-K</span></td><td class="c">$849M</td><td class="c r">순이익 -$259M</td><td class="c">+$174M</td><td class="c">20%</td></tr>
     <tr class="sep-row"><td colspan="5">'23년 2월 Thoma Bravo, Coupa $8.0B 인수 및 상장폐지 — 이후 GAAP 재무제표 미공개 (에보코 자료 기준)</td></tr>
-    <tr class="hl-row">
-      <td class="c">'23년<br><span style="font-size:11px;">(FY2024)</span></td>
-      <td class="c" style="font-size:12px;">미공개<br><span style="color:#555;">(에보코 미제공)</span></td>
-      <td class="c r" style="font-size:12px;">GAAP 대규모 적자<br><span style="color:#555;">D&A $420.2M<br>무형자산 상각 $406.7M 포함</span></td>
-      <td class="c" style="font-size:12px; color:#555;">미공개</td>
-      <td class="c" style="font-size:12px; color:#555;">—</td>
+    <tr class="hl-row ev-row">
+      <td class="c">'23년<br><span style="font-size:11px;">(FY2024)</span><br><span class="src-ev">에보코 D&amp;A·BS</span></td>
+      <td class="c ev" style="font-size:12px;">미공개<br><span style="color:#555;">(에보코 미제공)</span></td>
+      <td class="c r ev" style="font-size:12px;">GAAP 대규모 적자<br><span style="color:#555;">D&amp;A $420.2M<br>무형자산 상각 $406.7M 포함</span></td>
+      <td class="c ev" style="font-size:12px; color:#555;">미공개</td>
+      <td class="c ev" style="font-size:12px; color:#555;">—</td>
     </tr>
-    <tr class="hl-row">
-      <td class="c">'24년<br><span style="font-size:11px;">(FY2025, 에보코)</span></td>
-      <td class="c"><strong>Billings $1,138.5M</strong></td>
-      <td class="c g" style="font-size:12px;">Cash Adj. EBITDA<br><strong>$470.9M (41.4%)</strong><br><span style="color:#b00; font-size:11px;">GAAP 순이익은 적자 추정</span></td>
-      <td class="c"><strong>~$194M</strong><br><span style="font-size:11px; color:#555;">(재계산)</span></td>
-      <td class="c"><strong>~17%</strong></td>
+    <tr class="hl-row ev-row">
+      <td class="c">'24년<br><span style="font-size:11px;">(FY2025)</span><br><span class="src-ev">에보코 P&amp;L</span></td>
+      <td class="c ev"><strong>Billings $1,138.5M</strong></td>
+      <td class="c g ev" style="font-size:12px;">Cash Adj. EBITDA<br><strong>$470.9M (41.4%)</strong><br><span style="color:#b00; font-size:11px;">GAAP 순이익은 적자 추정</span></td>
+      <td class="c ev"><strong>~$194M</strong><br><span style="font-size:11px; color:#555;">(에보코 계산)</span></td>
+      <td class="c ev"><strong>~17%</strong></td>
     </tr>
     <tr class="hl-row">
       <td class="c">'25년<br><span style="font-size:11px;">(FY2026)</span></td>
@@ -299,6 +308,7 @@
       <td class="c" style="font-size:12px; color:#555;">—</td>
     </tr>
   </table>
+  <p class="fn" style="margin-top:4px;"><span class="src-10k">10-K</span> SEC Form 10-K 공개 실적 &nbsp;|&nbsp; <span class="src-ev">에보코</span> 에보코(Evoco) 경유 내부 제공 자료 (PCG 대외비 — 수치 외부 공유 금지) &nbsp;|&nbsp; <span class="src-pub">공식발표</span> 공시·보도자료 기준</p>
   <p class="fn">'20~'22년은 SEC(Form 10-K) 기준 공개 실적. '23년 이후는 비상장 전환에 따라 GAAP 재무제표 미공개. '24년(FY25)은 에보코(Evoco) 제공 내부 자료 기준 (2025.6).</p>
   <p class="fn">Billings : GAAP 수익인식 기준 Revenue와 상이한 청구액 기준 수치. FY25 Subscription Billings $1,053.9M + Transaction $21.8M + Services $62.8M = Total $1,138.5M.</p>
   <p class="fn">FCF 재계산 근거 : Cash Adj. EBITDA $470.9M − CapSW $12.2M − Net Cap. Commissions $24.3M − 이자(Term Loan $2,187.1M × 약 11%) ≈ $194M.</p>
@@ -361,28 +371,28 @@
   <table class="t">
     <tr>
       <th style="width:22%">구분</th>
-      <th style="width:39%">Medallia ('21년 인수) <span class="badge-fail">실패</span></th>
-      <th>Coupa ('23년 인수) <span class="badge-success">성공</span></th>
+      <th style="width:39%">Medallia ('21년 인수)</th>
+      <th>Coupa ('23년 인수)</th>
     </tr>
     <tr>
       <td class="b">인수 구조</td>
-      <td>- 인수 금액 : $6.4B<br>- 차입매수(LBO) · 부채 $1.8B + 자기자본 $4.6B<br>- 멀티플(EV/Revenue) : 약 9배</td>
-      <td>- 인수 금액 : $8.0B<br>- 차입매수(LBO) · Term Loan $2,187.1M + 자기자본 $5,373.7M<br>- 멀티플(EV/Revenue) : 약 8배</td>
+      <td>- 인수 금액 : $6.4B <span class="src-pub">공식발표</span><br>- 차입매수(LBO) · 부채 $1.8B + 자기자본 $4.6B <span class="src-pub">공식발표</span><br>- 멀티플(EV/Revenue) : 약 9배</td>
+      <td class="ev">- 인수 금액 : $8.0B <span class="src-pub">공식발표</span><br>- 차입매수(LBO) · Term Loan $2,187.1M <span class="src-ev">에보코 BS</span> + 자기자본 $5,373.7M <span class="src-ev">에보코 BS</span><br>- 멀티플(EV/Revenue) : 약 8배</td>
     </tr>
     <tr>
       <td class="b">인수 당시 매출</td>
-      <td>- $381M (FY2021 연간 매출, 마지막 공개 실적)<br>- $6.4B ÷ $381M ≒ 17배 (NTM 기준 고평가)</td>
-      <td>- $849M (FY2023 연간 매출, 마지막 공개 실적)<br>- $8.0B ÷ $849M ≒ 9배 (상대적 보수적 평가)</td>
+      <td>- $381M (FY2021 연간 매출) <span class="src-10k">10-K</span><br>- $6.4B ÷ $381M ≒ 17배 (NTM 기준 고평가)</td>
+      <td>- $849M (FY2023 연간 매출) <span class="src-10k">10-K</span><br>- $8.0B ÷ $849M ≒ 9배 (상대적 보수적 평가)</td>
     </tr>
     <tr>
       <td class="b">인수 당시 재무 현황</td>
       <td>- ARR 성장률 : 약 20~23%<br>- 순이익 및 FCF 모두 적자</td>
-      <td>- ARR 성장률 : 약 20%<br>- 순이익 적자, <strong>FCF +$174M 흑자</strong></td>
+      <td>- ARR 성장률 : 약 20%<br>- 순이익 적자, <strong>FCF +$174M 흑자</strong> <span class="src-10k">10-K</span></td>
     </tr>
     <tr>
       <td class="b">이자 상환 능력</td>
-      <td>- 연이자 : '21년 $135M → '23년 $300M 급증<br>- 차입금리 : '21년 0.8% → '24년 12% (금리 인상)<br>- FCF 적자 + 비용절감 여지 부족 → 이자 상환 불가<br>- EBITDA coverage : <span style="color:#c00;">산정 불가</span></td>
-      <td>- 연이자 : ~$310M (Term Loan $2,187.1M × 11%)<br>- FCF $174M vs 이자 $310M → <span style="color:#c00;">갭 $136M</span><br>- 비용절감 ~$200M (S&amp;M·인력 최적화)으로 갭 해소<br>&nbsp;&nbsp;→ 개선 후 FCF ~$374M &gt; 이자 $310M<br>- FY25 기준 EBITDA coverage : <span style="color:#080;"><strong>1.96x</strong></span></td>
+      <td>- 연이자 : '21년 $135M → '23년 $300M 급증 <span class="src-pub">공시</span><br>- 차입금리 : '21년 0.8% → '24년 12% (금리 인상)<br>- FCF 적자 + 비용절감 여지 부족 → 이자 상환 불가<br>- EBITDA coverage : <span style="color:#c00;">산정 불가</span></td>
+      <td class="ev">- 연이자 : ~$310M (Term Loan $2,187.1M <span class="src-ev">에보코 BS</span> × 11%)<br>- FCF $174M <span class="src-10k">10-K</span> vs 이자 $310M → <span style="color:#c00;">갭 $136M</span><br>- 비용절감 ~$200M (S&amp;M·인력 최적화)으로 갭 해소<br>&nbsp;&nbsp;→ 개선 후 FCF ~$374M &gt; 이자 $310M<br>- FY25 기준 EBITDA coverage : <span style="color:#080;"><strong>1.96x</strong></span> <span class="src-ev">에보코 계산</span></td>
     </tr>
     <tr>
       <td class="b">시장 환경</td>
@@ -397,7 +407,7 @@
     <tr>
       <td class="b">인수 후 전략</td>
       <td>고금리 및 SaaS 밸류에이션 급락으로 이자 상환 부담 가중 → 신규 투자 축소로 상품 경쟁력 약화 → 성장 둔화 및 Value-up 실패</td>
-      <td>비용 효율화 → Cash Adj. EBITDA $470.9M (41.4%, FY25 기준) 달성<br>※ GAAP 순이익은 무형자산 상각(비현금)으로 적자 추정<br>Tuck-in M&amp;A 4건을 통해 AI 기능 내재화 및 플랫폼 고도화</td>
+      <td class="ev">비용 효율화 → Cash Adj. EBITDA $470.9M (41.4%, FY25) <span class="src-ev">에보코 P&amp;L</span> 달성<br>※ GAAP 순이익은 무형자산 상각(비현금)으로 적자 추정<br>Tuck-in M&amp;A 4건을 통해 AI 기능 내재화 및 플랫폼 고도화</td>
     </tr>
     <tr>
       <td class="b">현재 결과</td>
@@ -407,6 +417,8 @@
   </table>
   <p class="fn">차입매수(LBO) : Leveraged Buyout, 차입금을 활용해 기업을 인수하는 거래 구조</p>
   <p class="fn">멀티플(EV/Revenue) : 기업가치를 매출 몇 배로 평가하는지 나타내는 지표</p>
+  <p class="fn"><span class="src-ev">에보코</span> 표시 셀 : 에보코(Evoco) 경유 Coupa 내부 제공 자료 기준 (Balance Sheet Jan 31, 2024 · FY25 P&L) — PCG 수준 대외비, 수치 외부 공유 금지</p>
+  <p class="fn">Medallia 수치 출처 : 인수 금액·구조 Bloomberg/Thoma Bravo 공식 발표 / 매출 SEC Form 10-K (FY2021). $4.6B 투자 손실은 Reuters(2024.12) 보도 기준.</p>
 
   <div class="page-no">— 3 —</div>
 </div>

@@ -3,285 +3,73 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Coupa의 Rossum 인수 분석 및 시사점</title>
+<title>Coupa의 Rossum 인수 사례 분석</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&display=swap');
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
   body {
-    font-family: 'Batang', 'BatangChe', '바탕', '바탕체', 'Nanum Myeongjo', 'NanumMyeongjo', Georgia, serif;
-    font-size: 14px;
-    line-height: 1.85;
-    color: #000;
-    background: #d8d8d8;
-    padding: 32px 0;
+    font-family: 'Batang','BatangChe','바탕','바탕체','Nanum Myeongjo','NanumMyeongjo',Georgia,serif;
+    font-size: 14px; line-height: 1.85; color: #000;
+    background: #d8d8d8; padding: 32px 0;
   }
-
   .doc-page {
-    width: 794px;
-    min-height: 1122px;
+    width: 794px; min-height: 1122px;
     margin: 0 auto 28px auto;
-    background: #fff;
-    padding: 72px 56px 70px 56px;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.18);
-    position: relative;
+    background: #fff; padding: 72px 56px 70px 56px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.18); position: relative;
   }
-
-  .page-no {
-    position: absolute;
-    bottom: 24px;
-    left: 0; right: 0;
-    text-align: center;
-    font-size: 12px;
-    color: #555;
-    letter-spacing: 0.5px;
-  }
-
-  .doc-hd-title {
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: -0.2px;
-    margin-bottom: 4px;
-  }
-  .doc-hd-bar {
-    border-top: 2.5px solid #000;
-    border-bottom: 1px solid #000;
-    margin-bottom: 0;
-  }
-  .doc-hd-meta {
-    font-size: 14px;
-    text-align: right;
-    padding: 3px 0;
-    color: #222;
-  }
-
-  .doc-main-title {
-    font-size: 20px;
-    font-weight: 700;
-    text-decoration: underline;
-    text-align: center;
-    margin: 18px 0 6px 0;
-    line-height: 1.4;
-    letter-spacing: -0.5px;
-  }
-
-  .summary-tbl {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 4px 0 18px 0;
-  }
-  .summary-tbl .s-pad  { border: none; width: 3%; }
-  .summary-tbl .s-main {
-    border: 1px solid #000;
-    padding: 9px 14px;
-    font-size: 14px;
-    line-height: 1.85;
-    text-align: left;
-  }
-
-  .doc-lead {
-    font-size: 14px;
-    line-height: 1.85;
-    padding: 10px 6px 12px 6px;
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 16px;
-  }
-
-  .page-badge {
-    font-size: 11px;
-    font-weight: 500;
-    color: #fff;
-    background: #555;
-    padding: 2px 8px;
-    border-radius: 3px;
-    margin-left: 10px;
-    vertical-align: middle;
-    letter-spacing: 0.8px;
-  }
-
-  .ch {
-    font-size: 14px;
-    font-weight: 700;
-    margin: 16px 0 10px 0;
-  }
-
-  .sq {
-    font-size: 14px;
-    font-weight: 400;
-    margin: 10px 0 6px 0;
-    padding-left: 1em;
-  }
+  .page-no { position: absolute; bottom: 24px; left: 0; right: 0; text-align: center; font-size: 12px; color: #555; letter-spacing: 0.5px; }
+  .doc-main-title { font-size: 20px; font-weight: 700; text-decoration: underline; text-align: center; margin: 18px 0 6px 0; line-height: 1.4; letter-spacing: -0.5px; }
+  .summary-tbl { width: 100%; border-collapse: collapse; margin: 4px 0 18px 0; }
+  .summary-tbl .s-pad { border: none; width: 3%; }
+  .summary-tbl .s-main { border: 1px solid #000; padding: 9px 14px; font-size: 14px; line-height: 1.85; text-align: left; }
+  .ch { font-size: 14px; font-weight: 700; margin: 16px 0 10px 0; }
+  .sq { font-size: 14px; font-weight: 400; margin: 10px 0 6px 0; padding-left: 1em; }
   .sq::before { content: '□ '; }
-
-  .body-p {
-    padding-left: 3em;
-    margin-bottom: 9px;
-    font-size: 14px;
-  }
-
+  .body-p { padding-left: 3em; margin-bottom: 9px; font-size: 14px; }
   ul.dash { list-style: none; padding-left: 3em; margin: 4px 0; }
-  ul.dash > li { position: relative; padding-left: 1em; margin-bottom: 9px; font-size: 14px; }
+  ul.dash > li { position: relative; padding-left: 1em; margin-bottom: 7px; font-size: 14px; }
   ul.dash > li::before { content: '-'; position: absolute; left: 0; }
-
   ul.dot { list-style: none; padding-left: 5em; margin: 4px 0; }
-  ul.dot > li { position: relative; padding-left: 1em; margin-bottom: 9px; font-size: 14px; color: #111; }
+  ul.dot > li { position: relative; padding-left: 1em; margin-bottom: 7px; font-size: 14px; }
   ul.dot > li::before { content: '·'; position: absolute; left: 0; }
-
   ul.circ { list-style: none; padding-left: 3em; margin: 4px 0; }
-  ul.circ > li { position: relative; padding-left: 1.2em; margin-bottom: 9px; font-size: 14px; }
+  ul.circ > li { position: relative; padding-left: 1.4em; margin-bottom: 7px; font-size: 14px; }
   ul.circ > li::before { content: '○'; position: absolute; left: 0; font-size: 10px; top: 4px; }
-
-  .fn {
-    font-size: 10px;
-    color: #333;
-    padding-left: 7em;
-    margin-top: 6px;
-    line-height: 1.75;
-  }
+  .fn { font-size: 10px; color: #333; padding-left: 3em; margin-top: 5px; line-height: 1.7; }
   .fn::before { content: '※ '; font-weight: 700; }
-
-  .def {
-    font-size: 9.5px;
-    color: #1a6bbf;
-    font-weight: 400;
-    font-style: normal;
-    letter-spacing: -0.1px;
-  }
-
-  .quote {
-    font-style: italic;
-    border-left: 3px solid #999;
-    padding: 6px 14px;
-    margin: 8px 0;
-    font-size: 13px;
-    color: #333;
-  }
-  .quote-src { font-style: normal; font-size: 12px; color: #666; display: block; margin-top: 2px; }
-
+  .def { font-size: 9.5px; color: #1a6bbf; font-weight: 400; font-style: normal; letter-spacing: -0.1px; }
   .sep { border: none; border-top: 1px solid #ccc; margin: 14px 0; }
   .sep-dash { border: none; border-top: 1px dashed #bbb; margin: 12px 0; }
-
-  table.t {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
-    margin: 7px 0 12px 0;
-  }
-  table.t th {
-    background: #1e1e1e;
-    color: #fff;
-    padding: 6px 9px;
-    text-align: center;
-    font-weight: 700;
-    border: 1px solid #444;
-  }
-  table.t td {
-    padding: 5px 9px;
-    border: 1px solid #bbb;
-    vertical-align: top;
-    line-height: 1.75;
-  }
+  table.t { width: 100%; border-collapse: collapse; font-size: 13px; margin: 7px 0 12px 0; }
+  table.t th { background: #1e1e1e; color: #fff; padding: 6px 9px; text-align: center; font-weight: 700; border: 1px solid #444; }
+  table.t td { padding: 5px 9px; border: 1px solid #bbb; vertical-align: top; line-height: 1.75; }
   table.t td.c { text-align: center; }
   table.t td.b { font-weight: 700; }
   table.t td.r { color: #b00; font-weight: 700; }
   table.t td.g { color: #0a6e00; font-weight: 700; }
   table.t td.hl { background: #fef9e5; }
   table.t tr.hl-row > td { background: #fef9e5; }
-
-  .box {
-    border: 1px solid #aaa;
-    padding: 9px 13px;
-    margin: 8px 0;
-    font-size: 13px;
-    background: #fafafa;
-    line-height: 1.8;
-  }
-  .box-key {
-    border: 1px solid #888;
-    border-left: 3px solid #333;
-    padding: 9px 13px;
-    margin: 8px 0;
-    font-size: 13px;
-    background: #f5f5f5;
-    line-height: 1.8;
-  }
-
-  /* 목차 */
-  .ol-title {
-    font-weight: 700;
-    font-size: 14px;
-    margin-top: 10px;
-    margin-bottom: 2px;
-  }
-  .ol-items {
-    list-style: none;
-    padding-left: 2em;
-    margin: 0 0 6px 0;
-  }
-  .ol-items li {
-    font-size: 14px;
-    line-height: 1.85;
-    position: relative;
-    padding-left: 1.2em;
-  }
+  table.t tr.sep-row > td { background: #e8e8e8; font-weight: 700; font-size: 12px; text-align: center; letter-spacing: 0.5px; }
+  .box { border: 1px solid #aaa; padding: 9px 13px; margin: 8px 0; font-size: 13px; background: #fafafa; line-height: 1.8; }
+  .box-key { border: 1px solid #888; border-left: 3px solid #333; padding: 9px 13px; margin: 8px 0; font-size: 13px; background: #f5f5f5; line-height: 1.8; }
+  .ol-title { font-weight: 700; font-size: 14px; margin-top: 10px; margin-bottom: 2px; }
+  .ol-items { list-style: none; padding-left: 2em; margin: 0 0 6px 0; }
+  .ol-items li { font-size: 14px; line-height: 1.85; position: relative; padding-left: 1.2em; }
   .ol-items li::before { content: '-'; position: absolute; left: 0; }
-
-  /* 비교 평가 섹션 */
-  .compare-box {
-    border: 1px solid #888;
-    padding: 10px 14px;
-    margin: 10px 0;
-    font-size: 13px;
-    line-height: 1.8;
-  }
-  .compare-box .cb-title {
-    font-weight: 700;
-    font-size: 13px;
-    margin-bottom: 4px;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 3px;
-  }
-  .badge-success {
-    display: inline-block;
-    font-size: 10px;
-    color: #fff;
-    background: #0a6e00;
-    padding: 1px 7px;
-    border-radius: 2px;
-    margin-left: 6px;
-    vertical-align: middle;
-  }
-  .badge-fail {
-    display: inline-block;
-    font-size: 10px;
-    color: #fff;
-    background: #b00000;
-    padding: 1px 7px;
-    border-radius: 2px;
-    margin-left: 6px;
-    vertical-align: middle;
-  }
-  .badge-neutral {
-    display: inline-block;
-    font-size: 10px;
-    color: #fff;
-    background: #555;
-    padding: 1px 7px;
-    border-radius: 2px;
-    margin-left: 6px;
-    vertical-align: middle;
-  }
+  .badge-success { display: inline-block; font-size: 10px; color: #fff; background: #0a6e00; padding: 1px 7px; border-radius: 2px; margin-left: 6px; vertical-align: middle; }
+  .badge-fail { display: inline-block; font-size: 10px; color: #fff; background: #b00000; padding: 1px 7px; border-radius: 2px; margin-left: 6px; vertical-align: middle; }
+  .badge-neutral { display: inline-block; font-size: 10px; color: #fff; background: #555; padding: 1px 7px; border-radius: 2px; margin-left: 6px; vertical-align: middle; }
+  .num-head { font-weight: 700; margin: 12px 0 4px 2em; font-size: 14px; }
+  .end-mark { text-align: center; font-size: 13px; margin-top: 18px; letter-spacing: 1px; }
 </style>
 </head>
 <body>
 
-<!-- ══════════════════════════════════════════════ PAGE 1 — 표지/목차 -->
+<!-- ══════════════════ PAGE 1 — 표지/목차 ══════════════════ -->
 <div class="doc-page">
-
-  <div class="doc-main-title">Coupa의 Rossum 인수 분석 및 시사점</div>
-  <div style="text-align:right; font-size:13px; color:#333; margin-top:6px; margin-bottom:4px; letter-spacing:0.3px;">솔루션사업부 기획팀 &nbsp;|&nbsp; 2026. 05. 29.</div>
-
+  <div class="doc-main-title">Coupa의 Rossum 인수 사례 분석</div>
+  <div style="text-align:right; font-size:13px; color:#333; margin-top:6px; margin-bottom:4px;">솔루션사업부 기획팀 &nbsp;|&nbsp; 2026. 6. 22. (月)</div>
   <hr class="sep">
 
   <table class="summary-tbl">
@@ -289,11 +77,8 @@
       <td class="s-pad"></td>
       <td class="s-main">
         <strong>분석 배경 및 요지</strong><br>
-        Coupa Software는 2026년 5월 12일, AI 기반 문서처리 전문 스타트업 Rossum을 인수하였다.
-        이번 인수는 Coupa Inspire 2026 컨퍼런스(라스베이거스)에서 공식 발표되었으며,
-        같은 달 Tonkean 인수(5/21)를 포함해 2025~2026년에 걸쳐 4건의 연속 M&amp;A를 단행하는 공격적 확장 전략의 일환이다.<br><br>
-        본 보고서는 먼저 M&amp;A 시장의 생태계와 거래 유형별 지형도를 개관한 후, Rossum의 기술 역량 및 경쟁 강점을 분석하고, Coupa의 인수 배경·목적·방식을 검토한다.
-        나아가 Medallia·Coupa·Rossum 3가지 인수 사례를 비교 평가하고, 당사 사업 전략 관점에서 적용 가능한 시사점을 도출한다.
+        Coupa Software는 2026년 5월, AI 기반 문서처리 전문 스타트업 Rossum을 인수하였다. Thoma Bravo 인수('23년) 이후 비용 효율화를 통해 수익성을 개선한 Coupa는 확보된 현금흐름을 기반으로 Cirtuo·Scoutbee·Rossum·Tonkean 4건의 AI 네이티브 기업을 연속 인수하며 AI 기반 BSM 플랫폼 구축을 가속하고 있다.<br><br>
+        본 보고서는 Coupa 기업 개요, Rossum 인수 배경·목적·기대효과를 분석하고, 당사 사업 전략 관점의 시사점을 도출한다. Thoma Bravo 인수 사례 비교, 경쟁사 비교, OCR 대비 AI Agent 차별성, M&amp;A 발굴 기준은 별첨에 수록한다.
       </td>
       <td class="s-pad"></td>
     </tr>
@@ -301,978 +86,634 @@
 
   <hr class="sep">
 
-  <!-- 목차 -->
   <div class="ch">목 차</div>
 
-  <div class="ol-title">1. M&amp;A 시장 생태계 개요</div>
+  <div class="ol-title">1. Coupa 기업 개요</div>
   <ul class="ol-items">
-    <li>기업의 외부 역량 취득 방법 비교 (MECE)</li>
-    <li>M&amp;A 거래 유형별 지형도 · 주요 참여자 구조</li>
+    <li>기본 현황 · 사업 영역 및 업계 위상</li>
+    <li>주요 경쟁사 현황 · 제품 포트폴리오</li>
+    <li>Coupa 재무 현황</li>
+    <li>TB의 Coupa vs. Medallia 인수 성과 비교</li>
   </ul>
 
-  <div class="ol-title">2. Coupa 기업 개요</div>
+  <div class="ol-title">2. Coupa의 Rossum 인수</div>
   <ul class="ol-items">
-    <li>창업 배경 및 비즈니스 모델</li>
-    <li>Thoma Bravo 인수 후 성과 (재무지표)</li>
-    <li>2025~2026 M&amp;A 전략 개요</li>
+    <li>Coupa 사업 전략 · 인수 기업 4건 개요</li>
+    <li>Rossum 기업 개요 · 인수 방식 · 인수 목적 및 기대효과</li>
   </ul>
 
-  <div class="ol-title">3. Rossum 기업 분석</div>
+  <div class="ol-title">3. 시사점</div>
   <ul class="ol-items">
-    <li>창업 스토리 및 기업 개요</li>
-    <li>핵심 기술: Rossum Aurora (T-LLM)</li>
-    <li>주요 성과 및 경쟁 우위</li>
-    <li>자금 조달 이력</li>
+    <li>SaaS 기업 M&amp;A 검토 시 현금창출능력 및 AI 기술 대체 가능성 검토 必</li>
+    <li>주요 PE 포트폴리오·전략 모니터링</li>
+    <li>자사 솔루션 AI 경쟁력 강화</li>
   </ul>
 
-  <div class="ol-title">4. Coupa의 Rossum 인수 분석</div>
+  <hr class="sep-dash" style="margin:10px 0;">
+
+  <div class="ol-title">별첨 1. Thoma Bravo의 Coupa 인수 사례 분석</div>
   <ul class="ol-items">
-    <li>인수 배경 (파트너십 전환 과정)</li>
-    <li>인수 목적 및 전략적 가치</li>
-    <li>인수 방식 및 자문단</li>
-    <li>기대 시너지</li>
+    <li>TB 개요 · 인수 구조 및 논리 · 인수 후 경영 개선 및 성과</li>
   </ul>
 
-  <div class="ol-title">5. 3가지 인수 사례 비교 평가</div>
+  <div class="ol-title">별첨 2. 주요 기업 개요 (Tonkean, Scoutbee)</div>
   <ul class="ol-items">
-    <li>Medallia 인수 (Thoma Bravo → Medallia) · Coupa 인수 (Thoma Bravo → Coupa) · Rossum 인수 (Coupa → Rossum)</li>
-    <li>인수 구조 비교 (PE 대형 LBO vs. 전략적 Tuck-in)</li>
-    <li>인수 유형별 시사점</li>
+    <li>Tonkean · Scoutbee 기업 현황</li>
   </ul>
 
-  <div class="ol-title">6. 시사점 및 전략적 함의</div>
+  <div class="ol-title">별첨 3. SAP Ariba vs. Coupa 비교</div>
   <ul class="ol-items">
-    <li>기술 M&amp;A 검토 방법론 시사점</li>
-    <li>AI 전환기 인수 판단 기준의 변화</li>
-    <li>당사 사업 관점의 함의</li>
-  </ul>
-
-  <hr class="sep-dash" style="margin: 10px 0;">
-
-  <div class="ol-title">별첨 1. Coupa 기업 개요 (상세)</div>
-  <ul class="ol-items">
-    <li>기업 기본 정보 · 비즈니스 모델 · 주요 제품군</li>
-    <li>재무 성과 · 고객 기반 · M&amp;A 이력 · 주요 경쟁사</li>
-  </ul>
-
-  <div class="ol-title">별첨 2. Rossum 기업 개요 (상세)</div>
-  <ul class="ol-items">
-    <li>기업 기본 정보 · 창업 스토리 · 핵심 기술 (Aurora T-LLM 상세)</li>
-    <li>주요 성과 · 자금 조달 이력 · 경쟁사 비교 · 인수 후 현황</li>
+    <li>항목별 비교 · Coupa의 경쟁사 포지션</li>
   </ul>
 
   <div class="ol-title">별첨 4. 기존 OCR 대비 Rossum AI Agent 차별성</div>
   <ul class="ol-items">
-    <li>Everest Group IDP PEAK Matrix® 2026 리더 선정 배경</li>
-    <li>OCR · RPA · AI Agent 3-way 비교 / Rossum 3대 핵심 능력</li>
+    <li>IDP 시장 위상 · OCR 대비 AI Agent 차별성 · 핵심 역량 · 시사점</li>
+  </ul>
+
+  <div class="ol-title">별첨 5. M&amp;A 대상 기업 후보군 발굴 기준</div>
+  <ul class="ol-items">
+    <li>투자 단계 기반 스크리닝 · 파트너십·PoC 2단계 접근 · PE 발굴 기준 · AI 기술 M&amp;A 검증 기준</li>
+  </ul>
+
+  <div class="ol-title">별첨 6. M&amp;A 투자 단계 개요</div>
+  <ul class="ol-items">
+    <li>단계별 특성 및 M&amp;A 관점 · 전략 적용 관점</li>
+  </ul>
+
+  <div class="ol-title">별첨 7. Rossum 기업 개요</div>
+  <ul class="ol-items">
+    <li>기본 현황 · 사업 영역 및 업계 위상 · 주요 경쟁사 현황 · 제품 포트폴리오 / 핵심 기술 · 재무 현황 및 자금 조달</li>
   </ul>
 
   <div class="page-no">— 1 —</div>
 </div>
 
 
-<!-- ══════════════════════════════════════════════ PAGE 2 — 1. M&A 시장 생태계 -->
+<!-- ══════════════════ PAGE 2 — 1. Coupa 기업 개요 ══════════════════ -->
 <div class="doc-page">
 
-  <div class="ch">1. M&amp;A 시장 생태계 개요</div>
+  <div class="ch">1. Coupa 기업 개요</div>
 
-  <div class="sq">시장 위치</div>
-  <p class="body-p">M&amp;A(인수합병) 시장은 기업의 소유권과 지배구조가 바뀌는 거래가 이루어지는 비공개 협상 시장으로, 금융 서비스 → 투자은행업(IB) → <strong>기업금융(Corporate Finance)</strong> 영역에 속한다. 공개시장(주식·채권)과 달리 건별로 가격·구조·조건이 모두 다른 비표준화 거래이며, 자본을 더 잘 운영할 수 있는 주인에게 이전하는 재배분 메커니즘으로 기능한다.</p>
-
-  <hr class="sep-dash">
-
-  <div class="sq">기업의 외부 역량 취득 방법 비교 (MECE)</div>
+  <div class="sq">기본 현황</div>
   <table class="t">
-    <tr>
-      <th style="width:22%">방법</th>
-      <th style="width:32%">특징</th>
-      <th style="width:14%">속도</th>
-      <th>주요 단점</th>
-    </tr>
-    <tr class="hl-row">
-      <td class="b">M&amp;A (인수합병)</td>
-      <td>기업·자산을 통째로 사서 역량 즉시 내재화</td>
-      <td class="c">빠름</td>
-      <td>통합 리스크, 고비용</td>
-    </tr>
-    <tr>
-      <td class="b">전략적 제휴·JV</td>
-      <td>지분 없이 협력 계약으로 목적 달성</td>
-      <td class="c">중간</td>
-      <td>통제권 없음, 이해충돌 가능</td>
-    </tr>
-    <tr>
-      <td class="b">라이선싱·기술이전</td>
-      <td>기술·브랜드 사용권만 임시 취득</td>
-      <td class="c">빠름</td>
-      <td>독점적 역량 확보 불가</td>
-    </tr>
-    <tr>
-      <td class="b">유기적 성장 (R&amp;D)</td>
-      <td>내부 자원으로 직접 역량 구축</td>
-      <td class="c">느림</td>
-      <td>시간·자원 소요, 성공 불확실</td>
-    </tr>
-  </table>
-  <p class="fn">Coupa-Rossum 사례는 전략적 제휴(2024년 파트너십) → M&amp;A(2026년 인수)로 순차 전환한 2단계 접근의 사례다.</p>
-
-  <hr class="sep-dash">
-
-  <div class="sq">M&amp;A 거래 유형별 지형도 (MECE)</div>
-  <table class="t">
-    <tr>
-      <th style="width:18%">유형</th>
-      <th style="width:28%">구조</th>
-      <th style="width:24%">주요 목적</th>
-      <th>본 보고서 사례</th>
-    </tr>
-    <tr>
-      <td class="b">PE LBO <span class="def">(차입매수)</span></td>
-      <td>차입금으로 기업 인수, 현금흐름으로 이자 상환</td>
-      <td>재무 차익 실현 후 매각·IPO</td>
-      <td>Thoma Bravo → Medallia (실패)<br>Thoma Bravo → Coupa (성공)</td>
-    </tr>
-    <tr class="hl-row">
-      <td class="b">전략적 tuck-in <span class="def">(기능보완형 소형인수)</span></td>
-      <td>플랫폼 기업이 기능 공백을 채우는 소형 인수</td>
-      <td>AI·기술 역량 내재화, 플랫폼 완성</td>
-      <td>Coupa → Rossum ✓</td>
-    </tr>
-    <tr>
-      <td class="b">수평적 인수</td>
-      <td>동일 업종 경쟁사 인수</td>
-      <td>시장 점유율 확대, 규모의 경제</td>
-      <td>—</td>
-    </tr>
-    <tr>
-      <td class="b">수직적 인수</td>
-      <td>공급망 상·하류 기업 인수</td>
-      <td>공급망 통합, 비용 절감</td>
-      <td>—</td>
-    </tr>
+    <tr><td style="width:28%" class="b">공식 명칭</td><td>Coupa Software Incorporated</td></tr>
+    <tr><td class="b">설립 / 본사</td><td>'06년 2월 / 美 캘리포니아 San Mateo</td></tr>
+    <tr><td class="b">대표이사</td><td>Leagh Turner (CEO, '22년 취임)</td></tr>
+    <tr><td class="b">재무 현황</td><td>매출 $1.4B ('25년 기준)</td></tr>
+    <tr><td class="b">직원 수</td><td>약 3,500명 ('25년 기준)</td></tr>
+    <tr><td class="b">고객 규모</td><td>약 1,000만 개社</td></tr>
+    <tr><td class="b">상장 이력</td><td>'16년 나스닥 상장 후, '23. 2월 Thoma Bravo가 약 $8.0B 규모로 인수하며 상장폐지</td></tr>
+    <tr><td class="b">소유 구조</td><td>Thoma Bravo (PE) 보유 비상장사</td></tr>
+    <tr><td class="b">최근 M&amp;A</td><td>'25~'26년, Cirtuo · Scoutbee · Rossum · Tonkean 4건의 Tuck-in을 통해 AI 기반 소싱, 조달 자동화 역량 강화</td></tr>
   </table>
 
   <hr class="sep-dash">
 
-  <div class="sq">M&amp;A 주요 참여자 구조</div>
-  <table class="t">
-    <tr>
-      <th style="width:24%">참여자</th>
-      <th>역할</th>
-      <th style="width:32%">본 보고서 등장 사례</th>
-    </tr>
-    <tr>
-      <td class="b">전략적 매수자 <span class="def">(기업)</span></td>
-      <td>사업 목적(기술 내재화·시장 확대)으로 직접 인수</td>
-      <td>Coupa (Rossum 인수)</td>
-    </tr>
-    <tr>
-      <td class="b">재무적 매수자 <span class="def">(PE)</span></td>
-      <td>차익 실현 목적으로 인수·운영 후 매각</td>
-      <td>Thoma Bravo (Medallia·Coupa 인수)</td>
-    </tr>
-    <tr>
-      <td class="b">매도 자문 IB</td>
-      <td>매도자 대리, 매각가 극대화·경쟁 입찰 설계</td>
-      <td>Guggenheim Securities (Rossum 매도)</td>
-    </tr>
-    <tr>
-      <td class="b">법률·실사 자문</td>
-      <td>SPA 계약·실사(DD)·규제 대응</td>
-      <td>Kirkland &amp; Ellis (Coupa) / Orrick (Rossum)</td>
-    </tr>
-  </table>
+  <div class="sq">사업 영역 및 업계 위상</div>
+  <ul class="dash">
+    <li>글로벌 2위 S2P<span class="def">(Source-to-Pay, 조달부터 지급까지 전 과정)</span> 플랫폼으로, 조달 중심 사업에서 경비·출장·계약 등 기업 지출관리 전반을 포괄하는 BSM<span class="def">(Business Spend Management)</span>으로 사업 영역 확대
+      <ul class="dot">
+        <li>조달, 인보이스, 경비 등 全 영역을 단일 플랫폼으로 통합 제공</li>
+      </ul>
+    </li>
+    <li>ARR<span class="def">(Annual Recurring Revenue, 연간 반복 매출)</span> $1B 규모로 성장하며 글로벌 조달 SaaS 시장을 선도</li>
+  </ul>
 
-  <div class="box-key">
-    <strong>분석 범위:</strong> 본 보고서는 M&amp;A 시장 내 두 가지 인수 유형 — ①Thoma Bravo의 <u>PE LBO(재무적 인수)</u>와 ②Coupa의 <u>전략적 tuck-in(기능 보완형 인수)</u> — 을 중심으로, Medallia·Coupa·Rossum 3가지 사례를 비교 분석한다.
-  </div>
+  <hr class="sep-dash">
+
+  <div class="sq">주요 경쟁사 현황</div>
+  <ul class="dash">
+    <li><strong>SAP Ariba</strong> : 글로벌 1위 S2P 플랫폼('25년 매출 $4.0B)으로, SAP ERP 기반의 강력한 고객 생태계를 바탕으로 Coupa의 최대 경쟁사로 평가되며, SAP Business AI 및 Joule 기반 AI 기능을 확대 중</li>
+    <li><strong>Jaggaer</strong> : 제조·공공·교육 부문에 강점을 보유한 글로벌 5위 S2P 플랫폼('25년 매출 $0.6B)으로, 전략적 소싱 및 공급업체 관리 역량이 차별화 요소. JAI(JAGGAER AI)를 기반으로 AI 기반 자동화 기능 확대 중</li>
+  </ul>
+
+  <hr class="sep-dash">
+
+  <div class="sq">제품 포트폴리오</div>
+  <p class="body-p">구매, 인보이스, 소싱, 계약, 경비, 공급망 관리 기능을 단일 플랫폼으로 제공, AI Agent를 활용해 지출 전 과정을 자동화·최적화하는 BSM 솔루션</p>
+  <table class="t">
+    <tr><th style="width:30%">제품</th><th>주요 기능</th></tr>
+    <tr><td class="b">Coupa Procurement</td><td>구매 요청, 승인 및 발주 프로세스를 자동화하고 카탈로그·계약 기반 구매를 지원하는 핵심 S2P 엔진</td></tr>
+    <tr><td class="b">Coupa Invoicing</td><td>인보이스 수신, 3-way 매칭<span class="def">(구매주문서·입고내역·인보이스 자동 대조)</span>, 승인·지급 업무를 자동화하는 AP<span class="def">(Accounts Payable)</span> 플랫폼. Rossum의 AI 기반 문서 처리 기능 통합 추진</td></tr>
+    <tr><td class="b">Coupa Sourcing</td><td>공급업체 입찰, 평가, 선정 및 계약 체결을 지원하는 전략적 소싱 플랫폼. Scoutbee 및 Cirtuo 인수 기술 기반 AI 소싱 기능 고도화 추진</td></tr>
+    <tr><td class="b">Coupa Contracts</td><td>계약 작성, 검토, 갱신 등 계약 전 주기를 관리하고 계약 이행 및 컴플라이언스 관리를 지원하는 계약 관리 플랫폼</td></tr>
+    <tr><td class="b">Coupa Expense</td><td>임직원 경비 정산, 정책 준수 및 법인카드 연계를 자동화하는 비용 관리 솔루션</td></tr>
+    <tr><td class="b">Coupa Supply Chain Design</td><td>공급망 네트워크 설계, 시나리오 분석 및 리스크 시뮬레이션을 지원하는 공급망 최적화 솔루션</td></tr>
+    <tr class="hl-row"><td class="b">Navi (AI Agent)</td><td>약 $10T 규모의 지출 데이터를 기반으로 자연어 질의응답, 이상 탐지 및 비용 절감 방안 추천·업무 자동화를 지원하는 AI Agent. 최근 인수한 4개社의 기술을 통합하는 AI 허브 역할 수행</td></tr>
+  </table>
+  <p class="fn">4개社(Cirtuo, Scoutbee, Rossum, Tonkean)는 인수 후 위 제품군에 순차적으로 통합 추진 중</p>
 
   <div class="page-no">— 2 —</div>
 </div>
 
 
-<!-- ══════════════════════════════════════════════ PAGE 3 — 2. Coupa 개요 -->
+<!-- ══════════════════ PAGE 3 — 재무 현황 + TB vs Medallia ══════════════════ -->
 <div class="doc-page">
 
-  <div class="ch">2. Coupa 기업 개요</div>
-  <p style="font-size:11px; color:#555; margin: -10px 0 8px 0; text-align:right;">→ 상세 기업 개요: <strong>별첨 1</strong> 참조</p>
+  <div class="ch">1. Coupa 기업 개요 (계속)</div>
 
-  <div class="sq">창업 배경 및 비즈니스 모델</div>
-  <ul class="dash">
-    <li>Coupa Software는 2006년 미국 캘리포니아에서 설립된 클라우드 네이티브 지출 관리(Spend Management) 플랫폼 기업으로, 조달·결제·공급망 전반을 단일 플랫폼으로 통합 제공</li>
-    <li>핵심 가치 제안: <strong>$10조 규모의 커뮤니티 지출 데이터셋</strong>을 기반으로 Navi 조달 AI 에이전트를 운영하며, 구매자 3,500개사 · 공급업체 1,000만 개사로 구성된 거래 네트워크 보유</li>
-    <li>2016년 나스닥 상장(COUP) → 2023년 2월 Thoma Bravo에 의해 약 <strong>$8.0B</strong>(전액 현금)에 인수·상장폐지</li>
-    <li>인수 시 Abu Dhabi Investment Authority(ADIA) 소수 지분 공동 투자 참여</li>
+  <div class="sq">Coupa 재무 현황</div>
+  <ul class="dash" style="margin-bottom:8px;">
+    <li>'22년, 순이익 -$259M로 적자 상태, FCF<span class="def">(Free Cash Flow, 잉여현금흐름)</span> +$174M으로 현금창출력은 양호</li>
+    <li>'23년, TB가 Coupa를 약 $8.0B에 인수하며 비상장 전환 (Term Loan $2,187.1M 조달)</li>
+    <li>'24년, 비용 효율화 중심의 Value-Up 전략 추진 — 인력 구조조정, S&M 최적화, SBC<span class="def">(주식기반보상)</span> 축소 등으로 Cash EBITDA 개선
+      <ul class="dot">
+        <li>단, 취득가 배분(PPA)에 따른 무형자산 상각 $406.7M으로 GAAP 순이익은 대규모 적자 (비현금 비용)</li>
+      </ul>
+    </li>
+    <li>'24년 (FY25) Cash Adj. EBITDA $470.9M (41.4%), Billings $1,138.5M — 에보코 제공 자료 기준</li>
   </ul>
-
-  <hr class="sep-dash">
-
-  <div class="sq">Thoma Bravo 인수 후 성과 (재무지표)</div>
   <table class="t">
     <tr>
-      <th style="width:28%">지표</th>
-      <th>내용</th>
+      <th style="width:20%">연도</th>
+      <th style="width:22%">매출 / Billings</th>
+      <th style="width:22%">순이익 / Cash EBITDA</th>
+      <th style="width:18%">FCF</th>
+      <th>FCF 마진</th>
     </tr>
-    <tr>
-      <td class="b">ARR <span class="def">(연간반복매출)</span></td>
-      <td><strong>$1B 돌파</strong> — 클라우드 네이티브 조달 기업 최초 달성 <span style="font-size:11.5px; color:#555;">(2025년 기준, 인수 2년 후 달성)</span></td>
-    </tr>
-    <tr>
-      <td class="b">수익 (2025년)</td>
-      <td>약 $1.21B (비상장 기준 추정)</td>
-    </tr>
-    <tr>
-      <td class="b">수익성 전환</td>
-      <td>2025년 최초 <strong>GAAP<span class="def">(미국일반회계기준)</span> 기준 흑자 전환</strong> — 인수 2년 만에 달성</td>
-    </tr>
-    <tr>
-      <td class="b">인수 배경</td>
-      <td>Thoma Bravo 비용 효율화 + 운영 개선 집중 → 지속 적자에서 흑자로 전환</td>
-    </tr>
-    <tr>
-      <td class="b">2026년 전략 기조</td>
-      <td>흑자 기반 위에 M&amp;A를 핵심 성장 동력으로 활용 → 4건 연속 tuck-in 인수</td>
-    </tr>
-  </table>
-
-  <hr class="sep-dash">
-
-  <div class="sq">2025~2026 M&amp;A 전략 개요</div>
-  <p class="body-p">Coupa는 '자율적 지출 관리(Autonomous Spend Management)' 완성을 위해 기능 공백을 순차적으로 채우는 tuck-in<span class="def">(기능보완형 소형인수)</span> 전략을 전개하고 있다.</p>
-  <table class="t">
-    <tr>
-      <th style="width:12%">순서</th>
-      <th style="width:22%">인수 기업</th>
-      <th style="width:30%">핵심 역량</th>
-      <th>전략적 역할</th>
-    </tr>
-    <tr>
-      <td class="c">① 2025</td>
-      <td class="b">Cirtuo</td>
-      <td>카테고리 관리 전략 AI</td>
-      <td>구매 전략 수립 자동화</td>
-    </tr>
-    <tr>
-      <td class="c">② 2025</td>
-      <td class="b">Scoutbee</td>
-      <td>AI 공급업체 발굴·인텔리전스</td>
-      <td>공급업체 탐색·리스크 분석</td>
-    </tr>
-    <tr>
-      <td class="c">③ 2026.05.12</td>
-      <td class="b">Rossum</td>
-      <td>AI 문서 처리 (T-LLM)</td>
-      <td>인보이스·PO 자동 판독</td>
+    <tr><td class="c">'20년 (FY2021)</td><td class="c">$542M</td><td class="c r">순이익 -$130M</td><td class="c">+$108M</td><td class="c">20%</td></tr>
+    <tr><td class="c">'21년 (FY2022)</td><td class="c">$725M</td><td class="c r">순이익 -$235M</td><td class="c">+$158M</td><td class="c">22%</td></tr>
+    <tr><td class="c">'22년 (FY2023)</td><td class="c">$849M</td><td class="c r">순이익 -$259M</td><td class="c">+$174M</td><td class="c">20%</td></tr>
+    <tr class="sep-row"><td colspan="5">'23년 2월 Thoma Bravo, Coupa $8.0B 인수 및 상장폐지 — 이후 GAAP 재무제표 미공개 (에보코 자료 기준)</td></tr>
+    <tr class="hl-row">
+      <td class="c">'23년<br><span style="font-size:11px;">(FY2024)</span></td>
+      <td class="c" style="font-size:12px;">미공개<br><span style="color:#555;">(에보코 미제공)</span></td>
+      <td class="c r" style="font-size:12px;">GAAP 대규모 적자<br><span style="color:#555;">D&A $420.2M<br>무형자산 상각 $406.7M 포함</span></td>
+      <td class="c" style="font-size:12px; color:#555;">미공개</td>
+      <td class="c" style="font-size:12px; color:#555;">—</td>
     </tr>
     <tr class="hl-row">
-      <td class="c">④ 2026.05.21</td>
-      <td class="b">Tonkean</td>
-      <td>에이전틱 인테이크·워크플로 오케스트레이션</td>
-      <td>요청→승인→실행 자동화</td>
+      <td class="c">'24년<br><span style="font-size:11px;">(FY2025, 에보코)</span></td>
+      <td class="c"><strong>Billings $1,138.5M</strong></td>
+      <td class="c g" style="font-size:12px;">Cash Adj. EBITDA<br><strong>$470.9M (41.4%)</strong><br><span style="color:#b00; font-size:11px;">GAAP 순이익은 적자 추정</span></td>
+      <td class="c"><strong>~$194M</strong><br><span style="font-size:11px; color:#555;">(재계산)</span></td>
+      <td class="c"><strong>~17%</strong></td>
+    </tr>
+    <tr class="hl-row">
+      <td class="c">'25년<br><span style="font-size:11px;">(FY2026)</span></td>
+      <td class="c" style="font-size:12px; color:#555;">에보코 자료<br>미제공</td>
+      <td class="c" style="font-size:12px; color:#555;">—</td>
+      <td class="c" style="font-size:12px; color:#555;">—</td>
+      <td class="c" style="font-size:12px; color:#555;">—</td>
     </tr>
   </table>
-  <p class="fn">Tonkean은 자연어 인터페이스 + 250개 이상의 네이티브 연동 보유. 멀티 에이전트 오케스트레이션 프레임워크로 운영 사이클 타임 50% 단축 효과 보고됨.</p>
+  <p class="fn">'20~'22년은 SEC(Form 10-K) 기준 공개 실적. '23년 이후는 비상장 전환에 따라 GAAP 재무제표 미공개. '24년(FY25)은 에보코(Evoco) 제공 내부 자료 기준 (2025.6).</p>
+  <p class="fn">Billings : GAAP 수익인식 기준 Revenue와 상이한 청구액 기준 수치. FY25 Subscription Billings $1,053.9M + Transaction $21.8M + Services $62.8M = Total $1,138.5M.</p>
+  <p class="fn">FCF 재계산 근거 : Cash Adj. EBITDA $470.9M − CapSW $12.2M − Net Cap. Commissions $24.3M − 이자(Term Loan $2,187.1M × 약 11%) ≈ $194M.</p>
+  <p class="fn">GAAP 순이익 왜곡 : FY24 무형자산 상각 $406.7M은 취득가 배분(PPA)에 따른 비현금 비용. 현금 창출력과 무관하며 인수 후 수년간 지속 발생.</p>
 
-  <div class="box-key">
-    <strong>핵심 관찰:</strong> Coupa는 4건의 인수를 통해 조달 워크플로의 ①전략 수립(Cirtuo) → ②공급업체 발굴(Scoutbee) → ③문서 처리(Rossum) → ④요청·실행 오케스트레이션(Tonkean) 을 순차적으로 내재화하였다. 각 인수가 독립적 기능 블록을 채우는 설계적 M&amp;A 패턴을 보인다.
-  </div>
+  <hr class="sep-dash">
+
+  <div class="sq">TB의 Coupa vs. Medallia 인수 성과 비교</div>
+  <p class="body-p" style="margin-bottom:8px;">고금리 기조 하 현금창출능력, AI 기술 대응 능력의 차이로 인해 Medallia와 Coupa의 인수 성과가 상이하게 나타남</p>
+  <ul class="dot" style="margin-bottom:8px;">
+    <li>Coupa는 안정적인 FCF를 기반으로 이자 상환 및 Value-up 전략을 추진하였으나, Medallia는 이자 상환조차 불가한 상황</li>
+    <li>Coupa는 워크플로우, 데이터, 네트워크가 결합된 플랫폼 사업으로 AI 대체 가능성이 낮은 반면, Medallia는 고객 피드백 분석 중심의 기능형 SaaS로 AI 대체 위험이 상대적으로 높음</li>
+  </ul>
+  <table class="t">
+    <tr>
+      <th style="width:22%">구분</th>
+      <th style="width:39%">Medallia ('21년 인수) <span class="badge-fail">실패</span></th>
+      <th>Coupa ('23년 인수) <span class="badge-success">성공</span></th>
+    </tr>
+    <tr>
+      <td class="b">인수 구조</td>
+      <td>- 인수 금액 : $6.4B<br>- 차입매수(LBO)<br>&nbsp;&nbsp;· 부채 $1.8B + 자기자본 $4.6B<br>&nbsp;&nbsp;· 멀티플(EV/Revenue) : 약 9배</td>
+      <td>- 인수 금액 : $8.0B<br>- 차입매수(LBO)<br>&nbsp;&nbsp;· Term Loan $2,187.1M + 자기자본 $5,373.7M<br>&nbsp;&nbsp;· 멀티플(EV/Revenue) : 약 8배</td>
+    </tr>
+    <tr>
+      <td class="b">인수 당시 재무 현황</td>
+      <td>- ARR 성장률 : 약 20~23%<br>- 순이익 및 FCF 적자</td>
+      <td>- ARR 성장률 : 약 20%<br>- 순이익 적자, FCF 흑자</td>
+    </tr>
+    <tr>
+      <td class="b">이자 상환 능력</td>
+      <td>- 연이자 : '21년 $135M, '23년 $300M<br>&nbsp;&nbsp;· 차입금리 : '21년 0.8% → '24년 12%<br>- FCF 적자 상태, 비용절감($100M 미만) 제한적으로 이자 상환 불가 추정</td>
+      <td>- 연이자 : '23년 $310M<br>&nbsp;&nbsp;· 차입금리 : '23년 11%<br>- FCF 흑자($156M) 및 비용절감($200M)으로 이자 상환 가능 추정</td>
+    </tr>
+    <tr>
+      <td class="b">시장 환경</td>
+      <td>저금리 및 SaaS 시장의 밸류에이션 고점 구간에서 인수</td>
+      <td>고금리 및 SaaS 시장의 밸류에이션 하향 조정 국면에서 인수</td>
+    </tr>
+    <tr>
+      <td class="b">상품 특성</td>
+      <td>- CX데이터 분석 중심 기능형 SaaS<br>- 복잡도 낮은 Front-end 기능</td>
+      <td>- 워크플로우, 데이터, 네트워크 기반 플랫폼 SaaS</td>
+    </tr>
+    <tr>
+      <td class="b">인수 후 전략</td>
+      <td>고금리 및 SaaS 밸류에이션 급락으로 이자 상환 부담 가중 → 신규 투자 축소로 상품 경쟁력 약화 → 성장 둔화 및 Value-up 실패</td>
+      <td>비용 효율화 → Cash Adj. EBITDA $470.9M (41.4%, FY25 기준) 달성<br>※ GAAP 순이익은 무형자산 상각(비현금)으로 적자 추정<br>Tuck-in M&amp;A 4건을 통해 AI 기능 내재화 및 플랫폼 고도화</td>
+    </tr>
+    <tr>
+      <td class="b">현재 결과</td>
+      <td class="r">Exit 실패, 채권단으로 경영권 이전<br>($4.6B 투자금 전액 손실 처리)</td>
+      <td class="g">플랫폼 가치 극대화 추진 중</td>
+    </tr>
+  </table>
+  <p class="fn">차입매수(LBO) : Leveraged Buyout, 차입금을 활용해 기업을 인수하는 거래 구조</p>
+  <p class="fn">멀티플(EV/Revenue) : 기업가치를 매출 몇 배로 평가하는지 나타내는 지표</p>
 
   <div class="page-no">— 3 —</div>
 </div>
 
 
-<!-- ══════════════════════════════════════════════ PAGE 3 — 2. Rossum 기업 분석 -->
+<!-- ══════════════════ PAGE 4 — 2. Coupa의 Rossum 인수 ══════════════════ -->
 <div class="doc-page">
 
-  <div class="ch">3. Rossum 기업 분석</div>
-  <p style="font-size:11px; color:#555; margin: -10px 0 8px 0; text-align:right;">→ 상세 기업 개요: <strong>별첨 2</strong> 참조</p>
+  <div class="ch">2. Coupa의 Rossum 인수</div>
 
-  <div class="sq">창업 스토리 및 기업 개요</div>
+  <div class="sq">Coupa 사업 전략</div>
+  <p class="body-p" style="margin-bottom:8px;">Thoma Bravo 인수 후 비용 효율화 중심의 Value-Up 전략을 통해 수익성 개선, 확보된 현금흐름 기반 전략적 Tuck-in M&amp;A 지속 추진 — AI 네이티브 기업을 연속 인수하여 AI 기반 S2P 플랫폼 구축을 통해 기업가치 극대화</p>
+  <table class="t">
+    <tr><th style="width:14%">시기</th><th style="width:34%">목적</th><th>내용</th></tr>
+    <tr><td class="c">'23년</td><td>영업이익 흑자 전환<br><span style="font-size:11.5px;">(연 이자비용 $312M 대응)</span></td><td>인력 15% 감축, SBC 35% 축소, S&amp;M 비용 약 $100M 절감</td></tr>
+    <tr><td class="c">'24~'25년</td><td>M&amp;A 투자 재원 확보</td><td>수익성 개선 및 현금창출력 강화 (순이익 +$34M → +$81M 추정)</td></tr>
+    <tr class="hl-row"><td class="c">'25~'26년</td><td>AI 기반 BSM 플랫폼 완성</td><td>AI 네이티브 기업 4개社 Tuck-in M&amp;A (Cirtuo, Scoutbee, Rossum, Tonkean)</td></tr>
+  </table>
+
+  <hr class="sep-dash">
+
+  <div class="sq">Coupa 인수 기업 (4건)</div>
+  <p class="body-p" style="margin-bottom:8px;">Coupa는 최근 1년 동안 기존 S2P 제품군의 AI 경쟁력 강화를 위해 AI Native 기업 4개社를 Tuck-in 방식으로 인수 — 기술·제품 적합성이 검증된 기업(Scoutbee, Tonkean) 또는 기존 파트너십을 통해 사업적 검증이 완료된 기업(Rossum)을 인수</p>
+  <table class="t">
+    <tr><th style="width:14%">기업</th><th style="width:11%">인수월</th><th style="width:26%">보완 기능</th><th style="width:22%">스타트업 투자 단계</th><th style="width:12%">누적펀딩</th><th>인수가</th></tr>
+    <tr><td class="b c">Cirtuo</td><td class="c">'25.5</td><td>AI 기반 구매 카테고리 전략 수립</td><td>Bootstrap (VC 無)</td><td class="c">—</td><td class="c">미공개</td></tr>
+    <tr><td class="b c">Scoutbee</td><td class="c">'25.10</td><td>AI 공급업체 탐색·리스크 관리</td><td>Series B 후 5년 공백</td><td class="c">$76M</td><td class="c">미공개</td></tr>
+    <tr class="hl-row"><td class="b c">Rossum</td><td class="c">'26.5</td><td>AI 문서처리 IDP<span class="def">(지능형 문서처리)</span></td><td>Series A 후 3년</td><td class="c">$104M</td><td class="c">미공개</td></tr>
+    <tr><td class="b c">Tonkean</td><td class="c">'26.5</td><td>AI 에이전틱 인테이크 오케스트레이션</td><td>Series B 후 5년 공백</td><td class="c">$83M</td><td class="c">미공개</td></tr>
+  </table>
+  <p class="fn">Scoutbee·Tonkean : Series B 이후 약 5년간 추가 투자 라운드 미달성 → IPO 가능성이 낮아지며 M&amp;A가 주요 회수 경로로 부상</p>
+  <p class="fn">Rossum : 고성장 기업('24년 매출 $44.9M, YoY +37%)으로, Coupa는 파트너십을 통해 검증된 AI 문서처리 기술을 조기 내재화. 인수가는 공개되지 않았으나 '24년 매출($44.9M), 누적 투자유치($104M), 성장률 및 일반 SaaS EV/Revenue 멀티플(4~8배), Series A 단계에서 TAM 고려 시 약 $200~400M 수준으로 추정 가능</p>
+  <p class="fn">인테이크 오케스트레이션 : 구매 요청 접수부터 승인, 발주 단계까지 업무 흐름을 자동 연결·관리하는 기능</p>
+
+  <hr class="sep-dash">
+
+  <div class="sq">Rossum 인수</div>
+
+  <div class="num-head">1) 기업 개요 <span style="font-weight:400; font-size:12px; color:#555;">(상세 내용 별첨 4 참조)</span></div>
   <ul class="dash">
-    <li><strong>설립:</strong> 2017년, 체코 프라하 — AI/ML 박사 과정을 중퇴한 세 명의 공동창업자가 창업
+    <li>'17년 체코 설립, IDP 전문 스타트업</li>
+    <li>T-LLM<span class="def">(Transactional LLM, 거래특화 대형언어모델)</span> 「Rossum Aurora」를 기반으로 인보이스, 구매주문서 등 거래 문서의 자동 인식·추출 기능 제공</li>
+    <li>매출 : '24년 약 $44.9M (YoY 성장률 약 37%)</li>
+    <li>누적 투자 유치 : $104M (General Catalyst 참여, '21년 Series A)</li>
+    <li>Coupa-Rossum 전략적 파트너십 체결 ('24. 4월) → '26년 인수를 통해 기술 내재화</li>
+  </ul>
+
+  <div class="num-head">2) 인수 방식</div>
+  <ul class="dash">
+    <li>Coupa는 AI 기반 문서처리(IDP) 역량 내재화를 위해 Rossum을 전략적 인수 (파트너십을 통해 검증된 기술을 Tuck-in M&amp;A 방식으로 확보)</li>
+    <li>인수가는 비공개이며 자금 조달은 Coupa의 현금(인수 전 FCF $174M, 이후 비공개) 또는 TB의 추가 지원을 활용했을 것으로 추정</li>
+  </ul>
+
+  <div class="num-head">3) 인수 목적 및 기대효과</div>
+  <ul class="dash">
+    <li><strong>[상품]</strong> 거래 문서 특화 T-LLM을 확보하여 인보이스, 구매주문서 처리 등 문서처리 자동화 역량을 강화
       <ul class="dot">
-        <li>Tomáš Gogár (CEO) — 체코 기술대 AI 석사 취득 후 박사 과정 중퇴, Forbes 30 Under 30 ('18년) 선정</li>
-        <li>Petr Baudiš, Tomáš Tunys</li>
+        <li>기존 OCR<span class="def">(광학문자인식)</span> 기반 방식 대비 처리 시간 최대 95% 단축, 정확도 98% 달성 (Rossum 발표 기준)</li>
+        <li>Rossum Aurora는 인보이스, 구매주문서 등 거래 문서에 특화된 T-LLM으로 276개 언어 및 30개 언어의 손글씨 인식을 지원</li>
+        <li>단순 데이터 추출을 넘어 문서 이해, 추론, 업무 실행 기반의 AI Agent 방식 문서 자동화 제공 <span style="font-size:11.5px; color:#555;">(상세 내용 별첨 4 참조)</span></li>
       </ul>
     </li>
-    <li><strong>사명 유래:</strong> 체코 작가 Karel Čapek의 희곡 "R.U.R.(Rossum's Universal Robots)"에서 차용 — '로봇'이라는 단어를 세계에 처음 소개한 작품</li>
-    <li><strong>창업 초기:</strong> 학습 데이터를 확보하기 위해 창업자가 직접 프라하 거리를 돌아다니며 기업 문서를 수집하는 것에서 시작</li>
-    <li><strong>비즈니스 모델:</strong> 기업 간 거래에서 발생하는 인보이스·구매주문서(PO)·선하증권 등 비정형 거래 문서를 AI로 자동 판독·추출하는 클라우드 IDP(Intelligent Document Processing) 플랫폼 서비스</li>
+    <li><strong>[사업]</strong> 고객 생산성 향상 및 경쟁사 대비 기술 우위 확보
+      <ul class="dot">
+        <li>인보이스 처리 자동화를 통해 업무량 90% 이상 절감하고, 향후 5년간 고객 비용 $300B 절감을 목표로 제시</li>
+        <li>SAP Ariba 등 주요 S2P 경쟁사 대비 IDP 기술을 선제 확보하여 차세대 조달 AI 시장에서 경쟁 우위를 확보</li>
+      </ul>
+    </li>
   </ul>
-
-  <hr class="sep-dash">
-
-  <div class="sq">핵심 기술: Rossum Aurora (T-LLM<span class="def"> 거래특화 대형언어모델</span>)</div>
-  <p class="body-p">Rossum의 기술적 핵심은 자체 개발한 <strong>Transactional LLM(T-LLM)</strong>인 Rossum Aurora로, 범용 LLM과 근본적으로 다른 설계 원칙을 채택한다.</p>
-  <table class="t">
-    <tr>
-      <th style="width:30%">특성</th>
-      <th>내용</th>
-    </tr>
-    <tr>
-      <td class="b">학습 데이터</td>
-      <td><strong>1,100만 건</strong> 이상의 실제 거래 문서(인보이스·PO 등)로 학습 — 자체 주석 데이터셋 DOCile<span class="def">(Rossum 학습용 레이블 데이터셋)</span> 기반</td>
-    </tr>
-    <tr>
-      <td class="b">핵심 차별점</td>
-      <td>Discriminative Decoder 방식 채택 → <strong>텍스트를 생성하지 않고 문서 내 데이터만 추출</strong><br>할루시네이션(환각) 제로, 프롬프트 인젝션 공격 원천 차단</td>
-    </tr>
-    <tr>
-      <td class="b">정확도</td>
-      <td>고객 평균 <strong>92.5%</strong> 정확도 달성 / Aurora 1.5('24.10월): 데이터 추출 정확도 추가 25% 향상</td>
-    </tr>
-    <tr>
-      <td class="b">학습 효율</td>
-      <td>목표 정확도 도달에 필요한 문서 수 <strong>10분의 1로 감소</strong> / 오류율 37.6% 평균 감소</td>
-    </tr>
-    <tr>
-      <td class="b">다국어 지원</td>
-      <td><strong>276개 언어</strong> 지원 (손글씨는 30개 언어), 언어 독립적 아키텍처</td>
-    </tr>
-    <tr>
-      <td class="b">데이터 보안</td>
-      <td>Third-party LLM 미활용 → 고객 데이터 유출 위험 없음, 기업 내부 보안 정책 준수 용이</td>
-    </tr>
-    <tr>
-      <td class="b">시스템 통합</td>
-      <td>SAP, Oracle NetSuite, Coupa 등 주요 ERP/구매 시스템과 네이티브 통합</td>
-    </tr>
-  </table>
-
-  <hr class="sep-dash">
-
-  <div class="sq">주요 성과 및 경쟁 우위</div>
-  <ul class="dash">
-    <li>수작업 처리 대비 <strong>90% 이상의 작업량 절감</strong> — 인간이 문서를 읽는 방식을 모방하는 Human-in-the-Loop<span class="def">(인간검토 포함 처리방식)</span> 검증 시스템 결합</li>
-    <li>Forrester Research<span class="def">(글로벌 IT시장조사기관)</span> 독립 조사에서 <strong>Strong Performer<span class="def">(우수 공급사 평가등급)</span></strong> 등급 평가 수령</li>
-    <li>2026년 초 개발자 생태계 강화: rossum-api 3.8.0, rossum-agent-client 1.1.0 SDK 릴리즈</li>
-    <li>경쟁사(ABBYY, Hyperscience, AWS Textract 등) 대비 <strong>비정형 거래 문서 특화</strong> 영역에서 우위</li>
-  </ul>
-
-  <hr class="sep-dash">
-
-  <div class="sq">자금 조달 이력</div>
-  <table class="t">
-    <tr>
-      <th style="width:20%">시기</th>
-      <th style="width:30%">라운드</th>
-      <th>내용</th>
-    </tr>
-    <tr>
-      <td class="c">2017~2020</td>
-      <td>시드 · Pre-Series A</td>
-      <td>총 $11M 수준의 초기 투자 유치</td>
-    </tr>
-    <tr class="hl-row">
-      <td class="c"><strong>2021.10월</strong></td>
-      <td class="b">Series A<span class="def">(초기 기관투자 라운드)</span></td>
-      <td><strong>$100M</strong> 조달 — General Catalyst<span class="def">(미국 벤처캐피탈)</span> 주도. <strong>동유럽 역대 최대 Series A 투자 중 하나</strong>로 기록됨</td>
-    </tr>
-    <tr>
-      <td class="c">누계</td>
-      <td>총 조달액</td>
-      <td><strong>$111M</strong></td>
-    </tr>
-    <tr>
-      <td class="c">2026.05.12</td>
-      <td>Coupa 피인수</td>
-      <td>인수가 비공개 / Guggenheim Securities 독점 매각 자문</td>
-    </tr>
-  </table>
-  <p class="fn">Series A 당시 General Catalyst는 Rossum이 B2B 문서 처리 시장에서 기술적 우위를 가진 범유럽 AI 스타트업으로 판단하고 투자를 결정하였음.</p>
 
   <div class="page-no">— 4 —</div>
 </div>
 
 
-<!-- ══════════════════════════════════════════════ PAGE 4 — 3. 인수 분석 -->
+<!-- ══════════════════ PAGE 5 — 3. 시사점 ══════════════════ -->
 <div class="doc-page">
 
-  <div class="ch">4. Coupa의 Rossum 인수 분석</div>
+  <div class="ch">3. 시사점</div>
 
-  <div class="sq">인수 배경 — 파트너십에서 인수로의 전환</div>
+  <div class="sq">SaaS 기업 M&amp;A 검토 시 현금창출능력과 AI 기술 또는 대체 가능성 검토 必</div>
   <ul class="dash">
-    <li><strong>2024년:</strong> Coupa와 Rossum은 AP(Accounts Payable) 팀의 복잡한 인보이스 처리 자동화를 목적으로 공식 파트너십 체결</li>
-    <li>파트너십 기간 동안 Rossum의 IDP 기술이 Coupa 플랫폼과의 깊은 통합 가능성을 입증 → 내재화 결정으로 전환</li>
-    <li>인수 발표: <strong>2026년 5월 12일</strong>, Coupa Inspire 2026 연례 컨퍼런스(라스베이거스)에서 공식 발표</li>
+    <li>고금리 등 환경 변화에 대응하고, 향후 기업의 Value-up을 위해 안정적인 현금창출능력 확인 → FCF, 이자상환능력 검토</li>
+    <li>도메인 특화 LLM, AI Agent, 독점 데이터 등 차별화된 AI 기술 역량 보유 여부 확인</li>
+    <li>AI 대체 가능성이 낮은 사업 구조 평가
+      <ul class="dot">
+        <li>특정 영역의 워크플로우, 데이터, 네트워크가 결합된 플랫폼</li>
+        <li>독점적·폐쇄적 데이터 자산을 보유한 사업</li>
+        <li>사용량(Usage) 또는 성과(Outcome) 기반 수익모델을 보유한 사업</li>
+      </ul>
+    </li>
   </ul>
-  <div class="quote">
-    "Rossum의 독자적인 T-LLM 거래 인텔리전스와 Coupa의 방대한 데이터셋 및 네트워크를 결합하는 데서 막대한 미래 가치가 창출될 것이라 확신합니다. 함께라면, 향후 5년간 기업들이 3,000억 달러를 절감하는 데 기여할 수 있을 것입니다."
-    <span class="quote-src">— Leagh Turner, CEO, Coupa Software</span>
-    <span style="font-size:11px; color:#aaa; display:block; margin-top:4px; font-style:italic;">"We see massive future value in combining Rossum's proprietary T-LLM transactional intelligence with Coupa's massive dataset and network. Together, we believe we can help businesses save $300 billion over the next five years."</span>
-  </div>
 
   <hr class="sep-dash">
 
-  <div class="sq">인수 목적 및 전략적 가치</div>
-  <table class="t">
-    <tr>
-      <th style="width:30%">목적</th>
-      <th>세부 내용</th>
-    </tr>
-    <tr>
-      <td class="b">① 문서 인텔리전스 내재화</td>
-      <td>Rossum T-LLM을 Coupa 전체 포트폴리오(직접구매·간접구매 모두)에 확장 적용 — 기존 파트너십 의존 탈피</td>
-    </tr>
-    <tr>
-      <td class="b">② 데이터 자산 결합</td>
-      <td>Rossum 1,100만 건 거래 학습 데이터 ＋ Coupa $10조 지출 데이터셋 결합 → AI 정확도·예측력 고도화</td>
-    </tr>
-    <tr>
-      <td class="b">③ 비용 절감 목표</td>
-      <td>고객사 인보이스 처리 비용 절감 + 오류 감소 → <strong>5년간 $3,000억 고객가치 창출</strong> 목표 제시</td>
-    </tr>
-    <tr>
-      <td class="b">④ 에이전틱 AI 완성</td>
-      <td>문서 읽기(Rossum) → 요청·실행(Tonkean) 의 AI 워크플로 통합으로 완전 자율 지출 관리 구현</td>
-    </tr>
-    <tr>
-      <td class="b">⑤ 경쟁 방어</td>
-      <td>SAP Ariba, Oracle Procurement, Ivalua 등 경쟁사가 동일 IDP 기술 확보 전 선점</td>
-    </tr>
-  </table>
-
-  <hr class="sep-dash">
-
-  <div class="sq">인수 방식 및 자문단</div>
+  <div class="sq">주요 PE의 투자 포트폴리오 및 전략을 모니터링하여 투자 및 M&amp;A 시 활용</div>
   <ul class="dash">
-    <li><strong>인수가:</strong> 미공개 (undisclosed). 언론 보도 및 공식 발표 어디에도 거래금액 미기재</li>
-    <li><strong>인수 유형:</strong> Tuck-in 인수 — Coupa 플랫폼 내 기능 통합을 위한 소형·중형 전략적 인수</li>
-    <li><strong>Rossum 측 자문:</strong> Guggenheim Securities, LLC (독점 재무 자문) / Orrick, Herrington &amp; Sutcliffe LLP (법률 자문)</li>
-    <li><strong>Coupa 측 자문:</strong> Kirkland &amp; Ellis LLP (법률 자문)</li>
-    <li><strong>거래 구조 추정:</strong> Thoma Bravo 보유 Coupa의 잉여현금흐름(FCF) 또는 PE<span class="def">(사모펀드)</span> 차입 활용 가능성 (공개 정보 없음)</li>
+    <li>PE의 인수기업 발굴, Value-up, Exit 플레이북 확보</li>
+    <li>SaaS 시장의 기업 매수·매도, 투자 현황 지속 파악</li>
   </ul>
-  <p class="fn">Guggenheim Securities는 M&amp;A 자문에 특화된 투자은행으로, Rossum 측이 독점 매각 자문사를 선임한 점은 복수의 잠재 인수 후보군과 경쟁 입찰 진행 가능성을 시사함.</p>
 
   <hr class="sep-dash">
 
-  <div class="sq">기대 시너지</div>
-  <div class="box">
-    <strong>통합 후 Coupa 플랫폼 가치 흐름 (예상)</strong><br><br>
-    &nbsp;&nbsp;[구매 요청 · 전략 수립] Cirtuo&nbsp;&nbsp;→&nbsp;&nbsp;[공급업체 탐색] Scoutbee<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→&nbsp;&nbsp;[주문서·인보이스 자동 판독] <strong>Rossum (T-LLM)</strong><br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→&nbsp;&nbsp;[승인·실행 오케스트레이션] Tonkean<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→&nbsp;&nbsp;[지출 분석·인사이트] Coupa Core + $10조 데이터
-  </div>
+  <div class="sq">자사솔루션에 대한 AI 경쟁력 강화</div>
+  <ul class="dash">
+    <li>Caidentia/EMRO 內 AI 적용 가능 영역을 식별하고, 기능 내재화 또는 외부 솔루션 Tuck-in 검토 필요</li>
+    <li>도메인 특화 LLM, AI Agent 등 차별화된 AI 기술 역량 확보 필요</li>
+  </ul>
+
+  <div class="end-mark">- 以 上 -</div>
 
   <div class="page-no">— 5 —</div>
 </div>
 
 
-<!-- ══════════════════════════════════════════════ PAGE 5 — 4. 3가지 인수 사례 비교 평가 -->
+<!-- ══════════════════ 별첨1 — TB의 Coupa 인수 사례 분석 ══════════════════ -->
 <div class="doc-page">
 
-  <div class="ch">5. 3가지 인수 사례 비교 평가</div>
+  <div class="ch">별첨 1. Thoma Bravo의 Coupa 인수 사례 분석</div>
 
-  <p class="body-p" style="margin-bottom:10px;">Thoma Bravo의 Medallia 인수, Thoma Bravo의 Coupa 인수, Coupa의 Rossum 인수 — 세 사례는 각각 <strong>PE 대형 LBO<span class="def">(차입매수)</span>(실패)</strong>, <strong>PE 대형 LBO(성공)</strong>, <strong>전략적 tuck-in 인수</strong>라는 서로 다른 M&amp;A 유형을 대표한다.</p>
-
-  <div class="sq">3가지 인수 사례 비교</div>
+  <div class="sq">Thoma Bravo 개요</div>
   <table class="t">
-    <tr>
-      <th style="width:20%"></th>
-      <th style="width:27%">① Medallia 인수<br><span style="font-weight:400; font-size:11.5px;">Thoma Bravo → Medallia</span> <span class="badge-fail">실패</span></th>
-      <th style="width:27%">② Coupa 인수<br><span style="font-weight:400; font-size:11.5px;">Thoma Bravo → Coupa</span> <span class="badge-success">성공</span></th>
-      <th>③ Rossum 인수<br><span style="font-weight:400; font-size:11.5px;">Coupa → Rossum</span> <span class="badge-neutral">진행 중</span></th>
-    </tr>
-    <tr>
-      <td class="b">인수 주체</td>
-      <td>Thoma Bravo (PE 펀드)</td>
-      <td>Thoma Bravo (PE 펀드)</td>
-      <td>Coupa (운영 기업)</td>
-    </tr>
-    <tr>
-      <td class="b">인수 시기</td>
-      <td>2021년 7월<br><span style="font-size:11.5px;">(저금리 정점 시대)</span></td>
-      <td>2023년 2월<br><span style="font-size:11.5px;">(고금리 전환기)</span></td>
-      <td>2026년 5월<br><span style="font-size:11.5px;">(AI 전환 가속기)</span></td>
-    </tr>
-    <tr>
-      <td class="b">인수 구조</td>
-      <td>LBO — PIK<span class="def">(현물이자지급)</span> 구조<br>부채 비중 극대화</td>
-      <td>All-cash + ADIA 소수 지분 공동 투자<br>LBO 부담 상대적으로 낮음</td>
-      <td>전략적 tuck-in<br>인수가 미공개 (소규모 추정)</td>
-    </tr>
-    <tr>
-      <td class="b">인수금액 / 멀티플</td>
-      <td>$6.4B / EV/Revenue<span class="def">(기업가치/매출 배수)</span> 약 9배</td>
-      <td>$8.0B / 멀티플 미공개</td>
-      <td>미공개<br><span style="font-size:11.5px;">(총 펀딩 $111M 기준 소형)</span></td>
-    </tr>
-    <tr>
-      <td class="b">피인수 기업 규모</td>
-      <td>ARR ~$440M, 상장사</td>
-      <td>ARR ~$900M, 상장사 <span style="font-size:11.5px; color:#555;">(인수 당시 2023년 기준)</span></td>
-      <td>ARR 추정 $50~100M, 비상장 스타트업</td>
-    </tr>
-    <tr>
-      <td class="b">피인수 기업 재무</td>
-      <td>FCF<span class="def">(잉여현금흐름)</span> 적자, Rule of 40<span class="def">(성장률·수익성 합산지표)</span> 하위 10%<br>NRR<span class="def">(순매출유지율)</span> 하락 추세</td>
-      <td>FCF 적자, 성장률 안정적<br>NRR 양호</td>
-      <td>스타트업 단계, FCF 미공개<br>Series A $100M 조달 후 성장 중</td>
-    </tr>
-    <tr>
-      <td class="b">인수 목적</td>
-      <td>LBO 차익 실현 (비용 절감 → 매각·IPO)</td>
-      <td>LBO 차익 실현 + 운영 효율화</td>
-      <td>AI 기능 공백 내재화<br>(T-LLM 문서처리 역량 확보)</td>
-    </tr>
-    <tr>
-      <td class="b">인수 후 전략</td>
-      <td>비용 절감 중심<br>추가 M&amp;A 없음</td>
-      <td>비용 절감 → 흑자 전환 후<br>4건 tuck-in M&amp;A 단행</td>
-      <td>Coupa 전 제품 포트폴리오 통합<br>$10조 데이터셋과 T-LLM 결합</td>
-    </tr>
-    <tr>
-      <td class="b">현재 결과</td>
-      <td class="r">채권단 경영권 이전<br>LBO 이자 부담 실패</td>
-      <td class="g">GAAP 흑자, ARR $1B+ 달성<br>AI 플랫폼 구축 중</td>
-      <td class="g">통합 진행 중<br>5년간 USD $300B($3,000억 달러) 절감 목표 제시</td>
-    </tr>
-  </table>
-
-  <div class="page-no">— 6 —</div>
-</div>
-
-
-<!-- ══════════════════════════════════════════════ PAGE 5-2 — 4. 인수 유형별 시사점 -->
-<div class="doc-page">
-
-  <div class="ch">5. 3가지 인수 사례 비교 평가 (계속)</div>
-
-  <div class="sq">인수 유형별 평가</div>
-
-  <div class="compare-box" style="margin-bottom:8px;">
-    <div class="cb-title">① Medallia 인수 — PE 대형 LBO, 시장 환경 오판의 결과 <span class="badge-fail">반면교사</span></div>
-    <ul class="dash" style="padding-left:1.5em;">
-      <li>저금리 환경을 전제로 설계한 PIK LBO 구조가 금리 급등 이후 이자 부담으로 직결 → FCF 악화 → 채무불이행 위기</li>
-      <li>'비용 절감 후 매각·IPO 재상장' 플레이북이 SaaS 시장 침체와 겹치며 Exit 기회 소멸</li>
-      <li>인수 후 추가 투자·M&amp;A 없음 → 제품 경쟁력 정체, AI 대체 위협 대응 실패 → 고객 이탈 가속화</li>
-      <li>피인수 기업의 재무 체력(Rule of 40 하위 10%, NRR 하락)을 과소평가한 것이 근본 원인</li>
-    </ul>
-  </div>
-
-  <div class="compare-box" style="margin-bottom:8px;">
-    <div class="cb-title">② Coupa 인수 — PE 대형 LBO, 흑자 전환 후 성장 레버 확보 <span class="badge-success">성공 사례</span></div>
-    <ul class="dash" style="padding-left:1.5em;">
-      <li>Medallia 대비 상대적으로 낮은 부채 부담 + ADIA 공동 투자로 재무 여력 확보 → 흑자 전환 후 M&amp;A 재원 가용</li>
-      <li>인수 후 '비용 절감'에서 멈추지 않고 GAAP 흑자 달성 후 공격적 tuck-in 인수 전략으로 전환</li>
-      <li>4건의 M&amp;A(Cirtuo·Scoutbee·Rossum·Tonkean)가 각각 플랫폼 기능 공백을 채우는 설계적 패턴 실현</li>
-    </ul>
-  </div>
-
-  <div class="compare-box" style="margin-bottom:8px;">
-    <div class="cb-title">③ Rossum 인수 — 전략적 tuck-in, 파트너십 검증 후 내재화 <span class="badge-neutral">모범 절차</span></div>
-    <ul class="dash" style="padding-left:1.5em;">
-      <li>2024년 파트너십 → 2026년 인수의 2단계 접근으로 기술 통합 리스크를 사전 검증하고 내재화 결정</li>
-      <li>운영 기업(Coupa)이 직접 인수하므로 PE LBO 구조의 이자 부담 없이 전략적 목적에 집중 가능</li>
-      <li>소형 스타트업 인수로 인수가 부담 낮음 + Rossum의 AI 내성 강한 T-LLM 기술 확보 → AI 대체 위험 정면 해소</li>
-      <li>인수 10일 후 Tonkean 추가 인수 — 모듈 단위 기능 확장의 속도와 정밀도를 동시에 달성</li>
-    </ul>
-  </div>
-
-  <div class="box-key" style="margin-top:10px;">
-    <strong>종합 시사점:</strong> 세 사례는 <u>누가 인수하느냐(PE vs. 운영 기업)</u>, <u>어떤 구조로 인수하느냐(LBO vs. tuck-in)</u>, <u>인수 후 어떻게 성장시키느냐</u>에 따라 결과가 완전히 달라짐을 보여준다. Rossum 인수는 Coupa가 Medallia의 실패 교훈(비용 절감 후 정체)을 반면교사 삼아 택한 반대 방향의 전략 — AI 기능을 적극적으로 내재화해 플랫폼 경쟁력을 높이는 접근이다. 당사가 SaaS 기업 인수를 검토할 경우, <strong>PE LBO 모델보다 Coupa-Rossum식 전략적 tuck-in 모델</strong>이 리스크 대비 효과 측면에서 더 적합한 참고 사례다.
-  </div>
-
-  <div class="page-no">— 6-2 —</div>
-</div>
-
-
-<!-- ══════════════════════════════════════════════ PAGE 6 — 5. 시사점 -->
-<div class="doc-page">
-
-  <div class="ch">6. 시사점 및 전략적 함의</div>
-
-  <div class="sq">기술 M&amp;A 검토 방법론 시사점</div>
-
-  <div class="compare-box" style="margin-bottom:8px;">
-    <div class="cb-title">① 파트너십 선행 → 내재화 2단계 접근의 유효성 확인</div>
-    <ul class="dash" style="padding-left:1.5em;">
-      <li>Coupa-Rossum 사례는 2024년 파트너십 → 2026년 인수의 2단계 경로를 통해 기술 통합 리스크를 사전 검증한 모범 사례. 파트너십 단계에서 ①기술 적합성, ②고객 반응, ③운영 연동 가능성을 저비용으로 검증한 후 인수 결정으로 전환</li>
-      <li>일방적 기술 판단만으로 인수를 단행하는 방식 대비 불확실성이 현저히 낮고, 통합 초기 마찰 비용도 절감 — 당사가 협력 중인 SaaS 파트너를 평가할 때 동일 논리 적용 가능</li>
-    </ul>
-  </div>
-
-  <div class="compare-box" style="margin-bottom:8px;">
-    <div class="cb-title">② PE LBO 모델 vs. 운영 기업 tuck-in의 구조적 차이</div>
-    <ul class="dash" style="padding-left:1.5em;">
-      <li>PE LBO는 부채 레버리지에 기반한 재무 구조 특성상 금리·경기 변화에 취약 — Medallia 사례에서 PIK 구조가 금리 급등 이후 이자 부담으로 직결, 채무불이행 위기로 이어짐</li>
-      <li>운영 기업의 전략적 tuck-in 인수는 이자 부담 없이 기능 공백 해소에 집중 가능 — 인수 목적이 재무적 차익이 아닌 플랫폼 경쟁력 강화에 있어 장기 지속 가능성 높음</li>
-    </ul>
-  </div>
-
-  <hr class="sep-dash">
-
-  <div class="sq">AI 전환기 인수 판단 기준의 변화</div>
-
-  <div class="compare-box" style="margin-bottom:8px;">
-    <div class="cb-title">③ AI 대체 가능성이 인수 판단의 핵심 변수로 부상</div>
-    <ul class="dash" style="padding-left:1.5em;">
-      <li>Medallia 실패의 구조적 원인 중 하나: 핵심 기능(설문 수집·분석)이 범용 AI 에이전트로 대체 가능한 영역 → 고객이 자체 AI 도구로 전환하며 NRR 하락 가속화</li>
-      <li>반면 Rossum T-LLM은 1,100만 건 거래 문서 독점 데이터셋 + Discriminative Decoder(텍스트 생성 불가, 할루시네이션 원천 차단) 구조로 범용 LLM의 대체 위협을 설계 단계에서 차단</li>
-      <li>AI 전환기에는 <strong>'범용 AI로 대체되지 않는 AI'를 보유한 기업</strong>이 장기 가치를 유지 — 도메인 특화 독점 데이터, 깊은 ERP 통합, 컴플라이언스 제약이 AI 내성의 3대 조건</li>
-    </ul>
-  </div>
-
-  <hr class="sep-dash">
-
-  <div class="sq">당사 사업 관점의 함의</div>
-
-  <table class="t">
-    <tr>
-      <th style="width:32%">항목</th>
-      <th>내용</th>
-    </tr>
-    <tr>
-      <td class="b">기존 파트너 관계 재검토</td>
-      <td>현재 당사와 협력 중인 SaaS 파트너 중 ①독점 데이터 또는 도메인 특화 기술 보유, ②당사 포트폴리오 공백을 직접 채우는 기업을 대상으로 <strong>파트너십 선행 → 내재화 경로</strong>를 사전 검토하는 체계 마련 필요</td>
-    </tr>
-    <tr>
-      <td class="b">설계적 M&amp;A 패턴 참고</td>
-      <td>Coupa의 4건 인수는 각각 독립된 기능 블록(전략 수립·공급업체 발굴·문서처리·실행 오케스트레이션)을 채우는 설계적 패턴. <strong>기능 공백을 블록 단위로 정의하고 내재화 우선순위를 로드맵화</strong>하는 접근이 단발적 인수보다 효과적</td>
-    </tr>
-    <tr>
-      <td class="b">AI 내성 기준 선제 적용</td>
-      <td>파트너십·공동사업·인수 검토 단계에서 AI 대체 가능성 평가를 체크리스트에 포함 — Brightics AI 플랫폼 역량과 결합 가능한 <strong>도메인 특화 AI 기술을 선제적으로 탐색</strong>하는 활동이 사업 지속 가능성에 직결</td>
-    </tr>
-    <tr>
-      <td class="b">후속 모니터링 포인트</td>
-      <td>Coupa-Rossum 통합 성과(T-LLM + $10조 데이터셋 결합, 5년 $3,000억 달러 절감 목표 달성 여부)와 Tonkean 멀티 에이전트 오케스트레이션 상용화 사례를 지속 추적 — 유사 사업 기회 판단의 실증 데이터로 활용</td>
-    </tr>
-  </table>
-
-  <div class="page-no">— 7 —</div>
-</div>
-
-
-<!-- ══════════════════════════════════════════════ 별첨 1 — Coupa 기업 개요 -->
-<div class="doc-page">
-
-  <div class="ch">별첨 1. Coupa 기업 개요 (상세)</div>
-
-  <div class="sq">기업 기본 정보</div>
-  <table class="t">
-    <tr>
-      <td style="width:28%" class="b">공식 명칭</td>
-      <td>Coupa Software Incorporated</td>
-    </tr>
-    <tr>
-      <td class="b">설립 · 본사</td>
-      <td>2006년 · 미국 캘리포니아 San Mateo</td>
-    </tr>
-    <tr>
-      <td class="b">현 CEO</td>
-      <td>Leagh Turner (2022년 취임, Thoma Bravo 인수 주도 경영진)</td>
-    </tr>
-    <tr>
-      <td class="b">직원 수</td>
-      <td>약 3,500명 이상 (2025년 기준)</td>
-    </tr>
-    <tr>
-      <td class="b">상장 이력</td>
-      <td>2016년 나스닥 상장(COUP) → 2023년 2월 Thoma Bravo 인수로 상장폐지 ($8.0B, 전액 현금)</td>
-    </tr>
-    <tr>
-      <td class="b">현 소유 구조</td>
-      <td>Thoma Bravo(PE) 보유 비상장사 · Abu Dhabi Investment Authority(ADIA) 소수 지분 공동 참여</td>
-    </tr>
-    <tr>
-      <td class="b">사업 분야</td>
-      <td>BSM(Business Spend Management) — 조달·인보이스·경비·공급망·계약 전 영역 단일 클라우드 플랫폼</td>
-    </tr>
+    <tr><th style="width:32%">항목</th><th>내용</th></tr>
+    <tr><td class="b">설립 / 본사</td><td>1980년 / 美 샌프란시스코·마이애미 (Carl Thoma·Orlando Bravo 공동 설립)</td></tr>
+    <tr><td class="b">AUM <span class="def">(자산운용규모)</span></td><td>$183B ('25년 기준), 소프트웨어·사이버보안 분야 세계 최대 PE 중 하나</td></tr>
+    <tr><td class="b">투자 전략</td><td>'Buy-Improve-Exit', 비효율 SaaS 인수 후 비용 최적화 → GAAP<span class="def">(미국일반회계기준)</span> 흑자 → 5~7년 내 재매각/IPO</td></tr>
+    <tr><td class="b">펀드 구조</td><td>Flagship(대형), Discover(중형), Explore(소형) 3개 펀드 병행. Coupa의 경우, Flagship 딜</td></tr>
+    <tr><td class="b">주요 포트폴리오</td><td>Proofpoint, Barracuda Networks, SolarWinds, SailPoint 등 90개 이상 소프트웨어 기업</td></tr>
   </table>
 
   <hr class="sep-dash">
 
-  <div class="sq">핵심 경쟁력 및 고객 기반</div>
-  <ul class="dash">
-    <li><strong>$10조 지출 데이터셋:</strong> 구매자 3,500개사 × 공급업체 1,000만 개사의 실거래 데이터 — Navi AI 에이전트의 학습 기반이자 업계 최대 네트워크 효과 원천</li>
-    <li><strong>Navi AI 에이전트:</strong> $10조 지출 데이터 학습 기반 자연어 조달 AI — 구매 분석·이상 탐지·절감 기회 추천 자동화</li>
-    <li><strong>수익 모델:</strong> 기업별 연간 구독(ARR) SaaS + 플랫폼 내 거래 규모 연동 추가 과금 병행</li>
-    <li><strong>주요 고객:</strong> AstraZeneca, Salesforce 등 포춘 500대 기업 중심 글로벌 대기업</li>
-  </ul>
-
-  <hr class="sep-dash">
-
-  <div class="sq">주요 제품군</div>
+  <div class="sq">TB의 Coupa 인수 구조 및 논리</div>
   <table class="t">
-    <tr>
-      <th style="width:32%">제품</th>
-      <th>주요 기능</th>
-    </tr>
-    <tr><td class="b">Coupa Procurement</td><td>구매 요청·승인·발주 자동화, 카탈로그·계약 연동 관리</td></tr>
-    <tr><td class="b">Coupa Invoicing</td><td>인보이스 수신·3-way 매칭·승인·지불 자동화 (Rossum T-LLM 통합 진행 중)</td></tr>
-    <tr><td class="b">Coupa Sourcing</td><td>공급업체 입찰(RFx)·평가·선정·계약 체결 플랫폼</td></tr>
-    <tr><td class="b">Coupa Contracts</td><td>계약 수명주기(CLM) 관리 · 조건 이행 모니터링</td></tr>
-    <tr><td class="b">Coupa Expense</td><td>임직원 경비 정산·컴플라이언스·카드 통합 자동화</td></tr>
-    <tr><td class="b">Coupa Supply Chain Design</td><td>공급망 시나리오 모델링·리스크 시뮬레이션</td></tr>
-    <tr class="hl-row"><td class="b">Navi (AI 에이전트)</td><td>$10조 지출 데이터 학습 기반 조달 AI — 자연어 질의·이상 탐지·절감 기회 추천</td></tr>
+    <tr><th style="width:32%">항목</th><th>내용</th></tr>
+    <tr><td class="b">발표 / 완료</td><td>'22. 12 합의 발표 → '23. 02 완료 (규제 심사·주주 승인 포함)</td></tr>
+    <tr><td class="b">인수가</td><td>$8.0B (전액 현금, 주당 $81) ※ 나스닥 종가 대비 약 77% 프리미엄</td></tr>
+    <tr><td class="b">인수 당시 재무</td><td>매출 $725M, GAAP 손실 -$235M, FCF +$158M (NTM<span class="def">(향후 12개월)</span> 기준 EV/Revenue 약 8배)</td></tr>
+    <tr><td class="b">인수 구조</td><td>LBO, TB 에쿼티와 부채 혼합 구조. ADIA<span class="def">(아부다비투자청)</span> 소수 지분 공동 참여</td></tr>
+    <tr><td class="b">인수 핵심 논리</td><td>순손실이 부실을 의미하지는 않음. FCF +$156M, ARR 고성장 → 비용 최적화로 흑자 전환, ARR $1B 달성</td></tr>
   </table>
 
   <hr class="sep-dash">
 
-  <div class="sq">재무 성과 (Thoma Bravo 인수 후)</div>
+  <div class="sq">인수 후 경영 개선 및 성과</div>
   <table class="t">
-    <tr>
-      <th style="width:32%">지표</th>
-      <th>수치 및 내용</th>
-    </tr>
-    <tr><td class="b">인수 당시 ARR (2023년)</td><td>약 $900M</td></tr>
-    <tr><td class="b">2025년 ARR</td><td><strong>$1B 돌파</strong> — 클라우드 네이티브 조달 기업 최초 달성</td></tr>
-    <tr><td class="b">2025년 매출</td><td>약 $1.21B (비상장 추정치)</td></tr>
-    <tr><td class="b">2025년 수익성</td><td><strong>GAAP 기준 흑자 전환</strong> — 인수 2년 만에 달성 (비용 효율화 + 운영 개선 주도)</td></tr>
-    <tr><td class="b">성장 전략</td><td>흑자 기반 위에 4건 tuck-in M&amp;A 단행 → '자율적 지출 관리(Autonomous Spend Management)' 완성 추진</td></tr>
-  </table>
-
-  <hr class="sep-dash">
-
-  <div class="sq">2025~2026 M&amp;A 이력 (4건 연속 tuck-in)</div>
-  <table class="t">
-    <tr>
-      <th style="width:14%">시기</th>
-      <th style="width:16%">인수 기업</th>
-      <th style="width:12%">국가</th>
-      <th>핵심 역량 및 전략적 역할</th>
-    </tr>
-    <tr><td class="c">① 2025</td><td class="b">Cirtuo</td><td class="c">크로아티아</td><td>AI 카테고리 관리 전략 — 구매 전략 수립 자동화</td></tr>
-    <tr><td class="c">② 2025.10</td><td class="b">Scoutbee</td><td class="c">독일</td><td>AI 공급업체 발굴·인텔리전스 — 공급업체 탐색·리스크 분석</td></tr>
-    <tr><td class="c">③ 2026.05.12</td><td class="b">Rossum</td><td class="c">체코</td><td>T-LLM 기반 AI 문서처리(IDP) — 인보이스·PO 자동 판독</td></tr>
-    <tr class="hl-row"><td class="c">④ 2026.05.21</td><td class="b">Tonkean</td><td class="c">미국</td><td>에이전틱 인테이크·워크플로 오케스트레이션 — 요청→승인→실행 자동화</td></tr>
-  </table>
-
-  <hr class="sep-dash">
-
-  <div class="sq">주요 경쟁사</div>
-  <table class="t">
-    <tr>
-      <th style="width:28%">경쟁사</th>
-      <th>특징</th>
-    </tr>
-    <tr><td class="b">SAP Ariba</td><td>글로벌 최대 조달 플랫폼. SAP ERP 생태계 내 압도적 점유율 — Coupa 최대 경쟁자</td></tr>
-    <tr><td class="b">Oracle Procurement Cloud</td><td>Oracle ERP 통합 구매 모듈. 대형 제조업·공공 분야 강세</td></tr>
-    <tr><td class="b">Ivalua</td><td>유럽 기반 전략적 조달 플랫폼. 복잡한 조달 프로세스·직접구매 특화</td></tr>
-    <tr><td class="b">Jaggaer</td><td>공공기관·연구기관·제조업 특화 조달 플랫폼. R&amp;D 조달 강점</td></tr>
+    <tr><th style="width:12%">시기</th><th style="width:48%">주요 조치</th><th>결과</th></tr>
+    <tr><td class="c b">'23</td><td>인력 15% 감축, SBC 대폭 삭감, S&amp;M<span class="def">(영업·마케팅)</span> 합리화</td><td>+$34M 흑자 전환 (-$259M → +$34M)</td></tr>
+    <tr><td class="c b">'24</td><td>R&amp;D·G&amp;A 추가 합리화, 플랫폼 통합 가속, ARR $1B 공표</td><td>+$50~60M 추정, ARR $1B 돌파</td></tr>
+    <tr><td class="c b">'25</td><td>Cirtuo·Scoutbee 인수</td><td>+$81M</td></tr>
+    <tr class="hl-row"><td class="c b">'26</td><td>Rossum·Tonkean 인수, 에이전틱 스택 완성</td><td>Navi AI 고도화</td></tr>
   </table>
 
   <div class="page-no">— 별첨 1 —</div>
 </div>
 
 
-<!-- ══════════════════════════════════════════════ 별첨 2 — Rossum 기업 개요 -->
+<!-- ══════════════════ 별첨2 — Tonkean, Scoutbee ══════════════════ -->
 <div class="doc-page">
 
-  <div class="ch">별첨 2. Rossum 기업 개요 (상세)</div>
+  <div class="ch">별첨 2. 주요 기업 개요 (Tonkean, Scoutbee)</div>
 
-  <div class="sq">기업 기본 정보</div>
+  <div class="sq">Tonkean</div>
   <table class="t">
-    <tr>
-      <td style="width:28%" class="b">공식 명칭</td>
-      <td>Rossum s.r.o.</td>
-    </tr>
-    <tr>
-      <td class="b">설립 · 본사</td>
-      <td>2017년 · 체코 프라하 (Prague, Czech Republic)</td>
-    </tr>
-    <tr>
-      <td class="b">공동창업자</td>
-      <td>Tomáš Gogár (CEO · Forbes 30 Under 30 '18년) · Petr Baudiš · Tomáš Tunys — 체코기술대(CTU) AI 박사과정에서 만나 창업</td>
-    </tr>
-    <tr>
-      <td class="b">사명 유래</td>
-      <td>Karel Čapek 희곡 "R.U.R.(Rossum's Universal Robots, 1920년)" — '로봇(Robot)'이라는 단어를 세계 최초로 사용한 체코 고전 작품에서 차용</td>
-    </tr>
-    <tr>
-      <td class="b">사업 분야</td>
-      <td>IDP(지능형 문서처리) SaaS — B2B 거래 문서(인보이스·PO·선하증권 등 비정형 문서) AI 자동 판독·추출</td>
-    </tr>
-    <tr>
-      <td class="b">창업 배경</td>
-      <td>창업자들이 프라하 거리를 직접 돌아다니며 기업 문서를 수집해 학습 데이터를 구축하는 것에서 시작 — 실데이터 기반 접근이 핵심 경쟁력의 출발점</td>
-    </tr>
-    <tr>
-      <td class="b">현 상태</td>
-      <td>2026년 5월 12일 Coupa에 피인수 (인수가 미공개). Coupa 플랫폼 전 제품군에 T-LLM 통합 진행 중</td>
-    </tr>
+    <tr><th style="width:32%">항목</th><th>내용</th></tr>
+    <tr><td class="b">설립 / 본사</td><td>'15년 / 美 샌프란시스코 (Sagi Eliyahu·Ofer Ronen 공동 창업)</td></tr>
+    <tr><td class="b">사업 영역</td><td>에이전틱 인테이크 오케스트레이션 — no-code 조달 프로세스 자동화</td></tr>
+    <tr><td class="b">핵심 기술</td><td>프로세스 오케스트레이터 + AI 에이전트 — 구매 요청, 결재, 발주 자율 처리</td></tr>
+    <tr><td class="b">재무</td><td>누적 $83M (Series B, '21년). 이후 5년 추가 라운드 미유치</td></tr>
+    <tr><td class="b">인수 금액</td><td>"수억 달러" 추정 (CTech 보도, 미공식)</td></tr>
+    <tr><td class="b">Coupa 통합 역할</td><td>에이전틱 스택 4단계 [요청·실행] 레이어</td></tr>
   </table>
 
   <hr class="sep-dash">
 
-  <div class="sq">핵심 기술: Rossum Aurora (T-LLM) 상세</div>
+  <div class="sq">Scoutbee</div>
   <table class="t">
-    <tr>
-      <th style="width:30%">특성</th>
-      <th>세부 내용</th>
-    </tr>
-    <tr><td class="b">모델 명칭</td><td>Rossum Aurora — 자체 개발 Transactional LLM(T-LLM). 범용 LLM과 달리 거래 문서 처리에 완전 특화</td></tr>
-    <tr><td class="b">학습 데이터</td><td><strong>1,100만 건</strong> 이상 실제 거래 문서 기반 학습 — 자체 주석 데이터셋 DOCile 사용. 제3자 데이터 미활용</td></tr>
-    <tr><td class="b">핵심 아키텍처</td><td>Discriminative Decoder 방식 — 텍스트를 <strong>생성하지 않고</strong> 문서 내 데이터만 추출. 할루시네이션 원천 차단, 프롬프트 인젝션 공격 구조적 불가</td></tr>
-    <tr><td class="b">정확도 · 효율</td><td>고객 평균 <strong>92.5%</strong> 데이터 추출 정확도 / 오류율 평균 37.6% 감소 / 목표 정확도 도달 문서 수 <strong>10분의 1로 절감</strong></td></tr>
-    <tr><td class="b">언어 지원</td><td><strong>276개 언어</strong> (손글씨는 30개 언어). 언어 독립적 아키텍처 — 다국어 혼재 문서 처리 가능</td></tr>
-    <tr><td class="b">최신 버전</td><td>Aurora 1.5 (2024년 10월 29일 출시) — 데이터 추출 정확도 추가 25% 향상 / 100페이지 이상 문서 처리 속도 4배 개선 / Formula Fields with Copilot 신규 기능 추가</td></tr>
-    <tr><td class="b">데이터 보안</td><td>Third-party LLM(GPT·Claude 등) 미활용 → 고객 데이터 외부 유출 위험 없음. 금융·의료·공공 등 규제 산업 내부 보안 정책 준수 용이</td></tr>
-    <tr><td class="b">시스템 통합</td><td>SAP, Oracle NetSuite, Coupa, Microsoft Dynamics 등 주요 ERP·구매 시스템 네이티브 통합 / rossum-api 3.8.0 · rossum-agent-client 1.1.0 SDK 제공</td></tr>
+    <tr><th style="width:32%">항목</th><th>내용</th></tr>
+    <tr><td class="b">설립 / 본사</td><td>'15년 / 독일 뷔르츠부르크 (Stühler·Doering 공동 창업)</td></tr>
+    <tr><td class="b">사업 영역</td><td>AI 기반 공급업체 탐색·스크리닝·리스크 평가 플랫폼</td></tr>
+    <tr><td class="b">핵심 기술</td><td>NLP + 공급업체 데이터 AI — 재무·ESG·지정학적 리스크 자동 평가</td></tr>
+    <tr><td class="b">고객</td><td>Audi, VW, Siemens, Airbus 등 유럽 대형 제조업체</td></tr>
+    <tr><td class="b">재무</td><td>누적 $76M (Series B, '20년). 이후 5년 추가 라운드 미유치</td></tr>
+    <tr><td class="b">Coupa 통합 역할</td><td>에이전틱 스택 2단계 [공급업체 탐색] 레이어</td></tr>
   </table>
 
   <hr class="sep-dash">
 
-  <div class="sq">주요 성과 지표</div>
-  <ul class="dash">
-    <li>수작업 처리 대비 <strong>90% 이상 작업량 절감</strong> — Human-in-the-Loop 검증 시스템 결합으로 정확도·효율 동시 확보</li>
-    <li>연간 처리 거래 규모: <strong>$7,000억 달러($700B)</strong> 이상 / 누계 $1.3조 달러 처리</li>
-    <li>Forrester Research 독립 평가 <strong>Strong Performer</strong> 등급 수령</li>
-    <li>ABBYY·Hyperscience·AWS Textract 대비 <strong>비정형 거래 문서 특화 영역</strong>에서 업계 우위 인정</li>
-  </ul>
-
-  <hr class="sep-dash">
-
-  <div class="sq">자금 조달 이력</div>
-  <table class="t">
-    <tr>
-      <th style="width:20%">시기</th>
-      <th style="width:28%">라운드</th>
-      <th>내용</th>
-    </tr>
-    <tr><td class="c">2017~2020</td><td>시드 · Pre-Series A</td><td>총 $11M 수준 초기 투자 유치 (다수 초기 투자자 참여)</td></tr>
-    <tr class="hl-row"><td class="c"><strong>2021.10</strong></td><td class="b">Series A</td><td><strong>$100M</strong> 조달 — General Catalyst(미국 VC) 주도. <strong>동유럽 역대 최대 Series A 투자 중 하나</strong>로 기록. B2B 문서처리 시장 기술 우위 최초 공식 인정</td></tr>
-    <tr><td class="c">누계</td><td>총 조달액</td><td><strong>$111M</strong></td></tr>
-    <tr><td class="c">2026.05.12</td><td>Coupa 피인수</td><td>인수가 미공개 / Guggenheim Securities 독점 매각 자문 / Orrick, Herrington &amp; Sutcliffe 법률 자문</td></tr>
-  </table>
-
-  <hr class="sep-dash">
-
-  <div class="sq">주요 경쟁사 비교</div>
-  <table class="t">
-    <tr>
-      <th style="width:28%">경쟁사</th>
-      <th>특징 및 Rossum 대비 차이점</th>
-    </tr>
-    <tr><td class="b">ABBYY</td><td>범용 OCR·IDP 전통 강자. 템플릿 기반 추출 방식 — 비정형 거래 문서 특화 T-LLM 부재</td></tr>
-    <tr><td class="b">Hyperscience</td><td>뉴욕 기반 IDP ($190M+ 조달). 정형화된 양식 처리 강점 — 비정형 문서 및 다언어 환경 열위</td></tr>
-    <tr><td class="b">AWS Textract</td><td>클라우드 기반 범용 문서 추출. 비용 효율적이나 거래 문서 도메인 정확도 한계</td></tr>
-    <tr><td class="b">Google Document AI</td><td>Google Cloud 연동 강점. 범용 LLM 기반 → 금융·거래 문서 할루시네이션 리스크 구조적 존재</td></tr>
-    <tr><td class="b">UiPath Document Understanding</td><td>RPA 통합 강점. 독립 IDP 성능보다 기존 UiPath 자동화 워크플로 연동에 특화</td></tr>
-  </table>
+  <div class="sq">Coupa 에이전틱 스택 전체 구조</div>
+  <div class="box">
+    <strong>[전략 수립]</strong> Cirtuo &nbsp;→&nbsp; <strong>[공급업체 탐색]</strong> Scoutbee &nbsp;→&nbsp; <strong>[문서 처리]</strong> Rossum (T-LLM) &nbsp;→&nbsp; <strong>[요청·실행 오케스트레이션]</strong> Tonkean<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>[지출 분석·인사이트]</strong> Coupa Core + Navi AI ($10조 데이터)
+  </div>
 
   <div class="page-no">— 별첨 2 —</div>
 </div>
 
 
-<!-- ══════════════════════════════════════════════ 별첨 4 — OCR vs AI Agent -->
+<!-- ══════════════════ 별첨3 — SAP Ariba vs. Coupa ══════════════════ -->
+<div class="doc-page">
+
+  <div class="ch">별첨 3. SAP Ariba vs. Coupa 비교</div>
+
+  <div class="sq">항목별 비교</div>
+  <table class="t">
+    <tr><th style="width:26%">비교 항목</th><th style="width:37%">SAP Ariba</th><th>Coupa</th></tr>
+    <tr><td class="b">설립 / 기원</td><td>'99년 설립 → SAP SE '12년 $4.3B 인수</td><td>'06년 설립 → TB $8.0B PE 인수 ('23년)</td></tr>
+    <tr><td class="b">소유 구조</td><td>SAP SE 100% 자회사 (상장사)</td><td>Thoma Bravo PE 보유 비상장사</td></tr>
+    <tr><td class="b">ARR / 규모</td><td>$3B 추정 (SAP 클라우드 내 포함)</td><td>$1.4B ('25년 기준)</td></tr>
+    <tr><td class="b">플랫폼 성격</td><td>SAP ERP 생태계 내 통합 모듈. ERP 의존 구조</td><td>독립형 클라우드 BSM. ERP 독립 구현 可</td></tr>
+    <tr><td class="b">공급업체 네트워크</td><td>700만+ 개社</td><td>1,000만+ 개社</td></tr>
+    <tr><td class="b">주요 고객층</td><td>SAP ERP 기사용 대형 제조·공공. 전환 비용 매우 高</td><td>복합 산업 대기업. Ariba 대체 수요 흡수</td></tr>
+    <tr><td class="b">AI 전략</td><td>SAP Business AI(Joule) 기반. AI 전환 속도 상대적 지연</td><td>Navi AI + 4건 Tuck-in으로 에이전틱 스택 구축</td></tr>
+    <tr><td class="b">IDP 기술</td><td>SAP Doc Info Extraction 자체 개발</td><td>Rossum T-LLM 인수. 276개 언어·할루시네이션 차단</td></tr>
+    <tr><td class="b">강점</td><td>ERP 고착력, 최대 고객 수, 공공·규제 레퍼런스</td><td>AI 속도, 독립 구현, 데이터 규모, 스택 선점</td></tr>
+    <tr><td class="b">약점</td><td>AI 속도 지연, ERP 미사용 기업 진입 어려움</td><td>SAP ERP 연동 부족, ARR 규모 격차</td></tr>
+  </table>
+
+  <hr class="sep-dash">
+
+  <div class="sq">Coupa의 경쟁사 포지션</div>
+  <table class="t">
+    <tr><th style="width:30%">경쟁사</th><th style="width:22%">본거지</th><th>포지션 및 특성</th></tr>
+    <tr><td class="b">SAP Ariba</td><td class="c">독일 (SAP SE)</td><td>글로벌 최대 시장 점유율. SAP ERP 고착력, Coupa 최대 경쟁자. AI 전환 지연</td></tr>
+    <tr><td class="b">Oracle Procurement Cloud</td><td class="c">미국 (Oracle)</td><td>Oracle ERP 연동 구매 모듈. 대형 제조·공공 강세. ERP 번들로 전환 유인 低</td></tr>
+    <tr><td class="b">Ivalua</td><td class="c">프랑스</td><td>유럽 기반 전략 조달 플랫폼. 직접구매 특화. 커스터마이징 유연성 강점</td></tr>
+    <tr><td class="b">Jaggaer</td><td class="c">미국</td><td>공공·연구기관·제조업 특화. R&amp;D 조달 강점. Coupa 대비 소형</td></tr>
+  </table>
+
+  <div class="page-no">— 별첨 3 —</div>
+</div>
+
+
+<!-- ══════════════════ 별첨4 — OCR vs. AI Agent ══════════════════ -->
 <div class="doc-page">
 
   <div class="ch">별첨 4. 기존 OCR 대비 Rossum AI Agent 차별성</div>
 
-  <div class="sq">시장 위치 — Everest Group IDP PEAK Matrix® 2026 리더 선정</div>
-  <table class="t">
-    <tr>
-      <td style="width:30%" class="b">평가 기관</td>
-      <td>Everest Group — 지능형 문서처리(IDP) PEAK Matrix® 2026</td>
-    </tr>
-    <tr>
-      <td class="b">평가 범위</td>
-      <td>IDP 공급업체 32개사 대상 비교 평가 / Rossum <strong>리더(Leader)</strong> 등급 선정</td>
-    </tr>
-    <tr>
-      <td class="b">시장 규모</td>
-      <td>IDP 시장 2025년 기준 <strong>$17.1억~17.3억 달러</strong> 규모 — 지속 성장 중</td>
-    </tr>
-    <tr>
-      <td class="b">평가 총평</td>
-      <td>"Rossum은 직관적인 UI, 효과적인 AI 학습 기능, 강력한 보고서 가시성, 신속한 고객 지원에서 높은 평가를 받았다." — Vaibhav Bansal, Everest Group 부사장</td>
-    </tr>
-  </table>
-
-  <hr class="sep-dash">
-
-  <div class="sq">OCR · RPA · AI Agent 3-way 비교</div>
-  <table class="t">
-    <tr>
-      <th style="width:22%">기술</th>
-      <th>처리 방식</th>
-      <th style="width:38%">한계 / 특징</th>
-    </tr>
-    <tr>
-      <td class="b">기존 OCR</td>
-      <td>"숫자는 찾았지만, 문맥을 파악할 수 없습니다."</td>
-      <td>텍스트 위치 인식에 그침 — 의미·맥락 해석 불가</td>
-    </tr>
-    <tr>
-      <td class="b">RPA</td>
-      <td>"필드 X가 위치 Y에 있으면 시스템 Z로 복사하세요."</td>
-      <td>규칙 기반 자동화 — 비정형 문서·예외 처리 취약</td>
-    </tr>
-    <tr class="hl-row">
-      <td class="b">Rossum AI Agent</td>
-      <td>"이건 XYZ 공급업체 청구서입니다. 총액 $10,345.67, 지불조건 30일, 10일 이내 결제 시 2% 할인 적용됩니다. 처리하시겠습니까?"</td>
-      <td><strong>문맥 이해 + 지능적 판단 + 지속 학습</strong> 3대 능력 보유</td>
-    </tr>
-  </table>
-
-  <hr class="sep-dash">
-
-  <div class="sq">Rossum AI Agent 3대 핵심 능력</div>
-  <table class="t">
-    <tr>
-      <th style="width:28%">능력</th>
-      <th>주요 기능</th>
-    </tr>
-    <tr>
-      <td class="b">① 문맥/문서 이해</td>
-      <td>복잡·비정형 송장 분석 / 업계 전문 용어 해석 / 손글씨 데이터 추출 / 복잡한 금융 문서 해석 / 여러 문서 출처 교차 참조</td>
-    </tr>
-    <tr>
-      <td class="b">② 지능적 판단</td>
-      <td>회사 정책 기반 자동 송장 분류 / 중복 결제 감지 / 송장↔구매주문서(PO) 대조 검증 / 가격 불일치 파악 / 비정상 거래 검토 요청</td>
-    </tr>
-    <tr>
-      <td class="b">③ 지속적 학습</td>
-      <td>공급업체별 송장 형식 자동 인식 / 데이터 추출 정확도 지속 향상 / 정교한 패턴 인식 고도화 / 변화하는 규정 준수 요건 적응 / 처리 오류 자체 수정</td>
-    </tr>
-  </table>
-
-  <hr class="sep-dash">
-
-  <div class="sq">Everest Group이 선정한 Rossum 4대 강점</div>
+  <div class="sq">Rossum의 IDP 시장 내 위상</div>
   <ul class="dash">
-    <li><strong>독자적 AI 기술 우수성:</strong> Aurora T-LLM — 자동 문서 분할·분류·추출 지원. 거래 문서 특화 설계</li>
-    <li><strong>글로벌 확장성:</strong> 270개 이상 언어 지원 — 다국적 기업의 전 세계 운영 일관성 확보</li>
-    <li><strong>직관적 사용자 경험:</strong> UI 편의성·AI 학습 효율·강력한 리포팅 기능 — 구매자 만족도 상위</li>
-    <li><strong>고급 문맥 이해:</strong> 문서 간 의미 비교 / 중복 거래 탐지 / 하위 시스템 연동을 위한 데이터 정규화</li>
+    <li>Rossum은 Everest Group의 「IDP PEAK Matrix® 2026」에서 32개 공급업체 평가 중 <strong>Leader</strong> 기업으로 선정
+      <ul class="dot">
+        <li>거래 문서 특화 T-LLM인 Aurora를 기반으로 문서 분할, 분류, 데이터 추출 등 핵심 IDP 기능 제공</li>
+        <li>270개 이상 언어를 지원하며, 직관적 UI, AI 학습 기능, 보고 기능 등에서 높은 평가 확보</li>
+      </ul>
+    </li>
+  </ul>
+
+  <hr class="sep-dash">
+
+  <div class="sq">기존 OCR 대비 AI Agent 차별성</div>
+  <ul class="dash">
+    <li>기존 OCR<span class="def">(광학문자인식)</span>은 문서 내 텍스트를 인식하고 정해진 규칙에 따라 데이터를 이관하는 방식으로, 문맥 이해 및 예외 상황 대응에 한계</li>
+    <li>반면 AI Agent는 문서 유형과 거래 맥락을 이해하고, 기업 정책 및 업무 기준에 따라 판단·검증·후속 처리를 수행
+      <ul class="dot">
+        <li>예) 인보이스 금액, 지급 조건, 조기결제 할인 여부 등을 해석하여 처리 방안 제시</li>
+        <li>예) 공급업체, PO, 중복 결제 여부 등을 검증하고 이상 거래는 검토 요청</li>
+      </ul>
+    </li>
+  </ul>
+
+  <hr class="sep-dash">
+
+  <div class="sq">AI Agent 핵심 역량</div>
+  <ul class="dash">
+    <li><strong>[문서 이해]</strong> 복잡한 송장, 손글씨, 금융 문서, 업계별 용어 등 다양한 문서 형식과 맥락을 이해</li>
+    <li><strong>[지능적 판단]</strong> 중복 결제, PO 불일치, 가격 차이, 비정상 거래 등을 자동 식별</li>
+    <li><strong>[지속 학습]</strong> 공급업체별 문서 양식을 학습하고, 데이터 추출 정확도와 예외 처리 역량을 지속 개선</li>
+  </ul>
+
+  <hr class="sep-dash">
+
+  <div class="sq">시사점</div>
+  <ul class="dash">
+    <li>Rossum의 차별성은 단순 OCR 정확도가 아니라, 문서 이해·판단·학습을 기반으로 업무 자동화 범위를 확장하는 AI Agent 역량에 있음</li>
+    <li>이에 따라 문서 자동화는 기존 '텍스트 추출' 중심에서 '문맥 이해 → 판단·검증 → 업무 실행' 중심으로 진화 중</li>
   </ul>
 
   <div class="page-no">— 별첨 4 —</div>
 </div>
 
 
-<!-- ══════════════════════════════════════════════ 참고자료 -->
+<!-- ══════════════════ 별첨5 — M&A 발굴 기준 ══════════════════ -->
+<div class="doc-page">
+
+  <div class="ch">별첨 5. M&amp;A 대상 기업 후보군 발굴 기준</div>
+
+  <div class="sq">① 투자 단계 기반 스크리닝</div>
+  <table class="t">
+    <tr><th style="width:30%">투자 단계</th><th style="width:20%">M&amp;A 적합성</th><th>특성 및 유의사항</th></tr>
+    <tr><td class="b">Bootstrap / Pre-Seed</td><td class="c g">협상력 최대</td><td>VC 無, 창업자가 유일한 협상 상대. 밸류에이션 低, Exit 유인 高. 제품 검증 실사 필요 <span style="font-size:11.5px; color:#555;">(Cirtuo 유형)</span></td></tr>
+    <tr><td class="b">Series A</td><td class="c" style="color:#666;">선별 적합</td><td>PMF<span class="def">(Product-Market Fit)</span> 검증 단계. AI 기술 조기 확보 시 유효. 고성장 중 조기 인수는 프리미엄 불가피 <span style="font-size:11.5px; color:#555;">(Rossum 유형)</span></td></tr>
+    <tr class="hl-row"><td class="b">Series B 후 3~5년 공백<br><span style="font-size:11.5px; font-weight:400;">(성장 정체기)</span></td><td class="c g"><strong>최적 타겟</strong></td><td>기술 검증 완료 + 프리미엄 미형성 + Exit 유인 극대. 인수자 협상력 최대 <span style="font-size:11.5px; color:#555;">(Scoutbee·Tonkean 유형)</span></td></tr>
+    <tr><td class="b">Series C 이후</td><td class="c r">프리미엄 주의</td><td>추가 VC 유입으로 밸류에이션 급등. 전략 당위성 매우 높아야 정당화 可</td></tr>
+    <tr><td class="b">PE 보유 / 성숙기</td><td class="c" style="color:#666;">특수 목적</td><td>전략 매각·카브아웃 형태만 접근 可. 협상 복잡도 최고</td></tr>
+  </table>
+
+  <hr class="sep-dash">
+
+  <div class="sq">② 파트너십·PoC 2단계 접근</div>
+  <table class="t">
+    <tr><th style="width:26%">단계</th><th style="width:40%">주요 활동</th><th>검증 항목</th></tr>
+    <tr><td class="b">1단계 파트너십·PoC</td><td>공동 개발·SI 협력·파일럿 운영. 기술 API 연동 확인</td><td>① 기술 적합성 ② 고객 반응 ③ 운영 연동 가능성</td></tr>
+    <tr class="hl-row"><td class="b">2단계 M&amp;A 내재화</td><td>파트너십 성과 기반 인수 결정. 통합 PM·로드맵 사전 수립</td><td>실사 신뢰도 제고, 통합 마찰 비용 절감, 통합 기간 단축</td></tr>
+  </table>
+  <p class="fn">현 당사 협력 SaaS 파트너 중 Series B 이후 3년+ 공백 기업 우선 식별 필요</p>
+
+  <hr class="sep-dash">
+
+  <div class="sq">③ PE 발굴 기준 참고 (Thoma Bravo 방식)</div>
+  <ul class="dash">
+    <li>구독 매출 비중 70%+, 예측 가능 현금 흐름이 전제</li>
+    <li>Churn<span class="def">(이탈률)</span> 연 10% 이하, 고객 유지율이 성장 레버 효과 결정</li>
+    <li>FCF 개선 여지, SBC·S&amp;M·R&amp;D 비효율 클수록 최적화 효과 大</li>
+    <li>기술 독점성, 도메인 데이터·알고리즘·네트워크 효과 보유</li>
+  </ul>
+
+  <hr class="sep-dash">
+
+  <div class="sq">④ AI 기술 M&amp;A 검증 기준</div>
+  <ul class="dash">
+    <li>도메인 특화 독점 데이터 보유 여부, 데이터 자체가 경쟁력인 구조</li>
+    <li>범용 LLM 대체 불가 구조적 기술 경쟁력</li>
+    <li>플랫폼, 컴플라이언스, 보안 등 포함 고착력이 장기 가치 결정</li>
+  </ul>
+
+  <div class="page-no">— 별첨 5 —</div>
+</div>
+
+
+<!-- ══════════════════ 별첨6 — M&A 투자 단계 개요 ══════════════════ -->
+<div class="doc-page">
+
+  <div class="ch">별첨 6. M&amp;A 투자 단계 개요</div>
+
+  <div class="sq">단계별 특성 및 M&amp;A 관점</div>
+  <table class="t">
+    <tr><th style="width:24%">단계</th><th style="width:18%">투자 규모</th><th style="width:26%">기업 상태</th><th>M&amp;A 관점</th></tr>
+    <tr><td class="b">Pre-Seed / Bootstrap</td><td class="c">$0~$500K</td><td>아이디어·MVP. 창업자 자체 자금</td><td>기술·팀 인수(Acqui-hire). 밸류에이션 低. 제품 검증 리스크</td></tr>
+    <tr><td class="b">Seed</td><td class="c">$500K~$3M</td><td>초기 제품 완성, 소규모 고객 테스트</td><td>기술 조기 확보 가능. 시장 검증 미완 리스크</td></tr>
+    <tr><td class="b">Series A</td><td class="c">$3M~$15M</td><td>PMF 검증, ARR $1~5M</td><td>AI 핵심 기술 조기 확보 유효. 고성장 시 프리미엄 급등</td></tr>
+    <tr><td class="b">Series B</td><td class="c">$15M~$50M</td><td>시장 확장, ARR $10~30M</td><td>기술·고객 검증 완료 + 프리미엄 미형성 — 효율 우수</td></tr>
+    <tr class="hl-row"><td class="b">Series B 후 3~5년 공백<br><span style="font-size:11.5px; font-weight:400;">(성장 정체기)</span></td><td class="c">추가 VC 無</td><td>검증 완료, 수익화 집중. ARR $20~80M</td><td><strong>최적 타겟 구간.</strong> 프리미엄 無 + Exit 유인 극대 + 협상력 최대</td></tr>
+    <tr><td class="b">Series C</td><td class="c">$50M~$150M</td><td>대규모 확장, ARR $50M+</td><td>밸류에이션 급등. 전략 시너지 매우 명확해야 정당화 可</td></tr>
+    <tr><td class="b">Series D+ / Pre-IPO</td><td class="c">$150M+</td><td>IPO 준비, ARR $100M+</td><td>수 조원대 인수가. 이사회·VC 전원 동의 필요. 복잡도 최고</td></tr>
+    <tr><td class="b">PE LBO 보유사</td><td class="c">N/A</td><td>비상장, 비용 최적화 中</td><td>Secondary 매각·카브아웃만 可. PE Exit 시나리오 종속</td></tr>
+    <tr><td class="b">대기업 자회사 / 카브아웃</td><td class="c">N/A</td><td>대기업 비핵심 사업부 분리</td><td>검증 자산 확보 可. 문화 통합 리스크 高</td></tr>
+  </table>
+
+  <hr class="sep-dash">
+
+  <div class="sq">M&amp;A 전략 적용 관점</div>
+  <ul class="dash">
+    <li><strong>최적 타겟 구간</strong> : 'Series B 후 3~5년 공백' 성장 정체기 기업
+      <ul class="dot">
+        <li>기술 검증 완료 + 프리미엄 未형성 → 협상력 극대화 시점</li>
+      </ul>
+    </li>
+    <li><strong>AI 핵심 기술 경쟁사 선점 우려</strong> → Series A 조기 인수 검토 가능
+      <ul class="dot">
+        <li>파트너십·PoC 선행으로 기술 검증 후 내재화 필수 (2단계 접근)</li>
+      </ul>
+    </li>
+    <li>두 경로 모두 '파트너십 선행 검증 → 타이밍 포착 후 내재화' 원칙 동일</li>
+  </ul>
+
+  <div class="page-no">— 별첨 6 —</div>
+</div>
+
+
+<!-- ══════════════════ 참고자료 ══════════════════ -->
 <div class="doc-page">
 
   <div class="ch">참고자료</div>
 
   <div class="sq">공식 발표 및 보도자료</div>
   <ul class="dash">
-    <li>Coupa, "Coupa Acquires Rossum to Accelerate End-to-End Autonomous Spend Management" — Coupa Newsroom, 2026.05.12</li>
-    <li>Coupa, "A New Era of Autonomous Trade: Why Coupa Is Acquiring Rossum" — Coupa Blog, 2026.05.12</li>
-    <li>PR Newswire, "Coupa Acquires Rossum to Accelerate End-to-End Autonomous Spend Management" — 2026.05.12</li>
-    <li>Coupa, "Coupa Acquires Tonkean to Accelerate Agentic Intake and Orchestration for Global Trade" — Coupa Newsroom, 2026.05.21</li>
+    <li>Coupa, "Coupa Acquires Rossum to Accelerate End-to-End Autonomous Spend Management" — Coupa Newsroom, 2026. 05. 12.</li>
+    <li>Coupa, "A New Era of Autonomous Trade: Why Coupa Is Acquiring Rossum" — Coupa Blog, 2026. 05. 12.</li>
+    <li>PR Newswire, "Coupa Acquires Rossum to Accelerate End-to-End Autonomous Spend Management" — 2026. 05. 12.</li>
+    <li>Coupa, "Coupa Acquires Tonkean to Accelerate Agentic Intake and Orchestration for Global Trade" — Coupa Newsroom, 2026. 05. 21.</li>
   </ul>
 
   <hr class="sep-dash">
 
   <div class="sq">법률 자문사 공시</div>
   <ul class="dash">
-    <li>Orrick, Herrington &amp; Sutcliffe LLP, "Rossum, Leader in AI Document Processing, Acquired by Coupa" — Orrick News, 2026.05</li>
+    <li>Orrick, Herrington &amp; Sutcliffe LLP, "Rossum, Leader in AI Document Processing, Acquired by Coupa" — Orrick News, 2026. 05.</li>
   </ul>
 
   <hr class="sep-dash">
 
   <div class="sq">기업 분석 및 시장 리서치</div>
   <ul class="dash">
-    <li>PASA (Procurement and Supply Australasia), "Coupa acquires Rossum to expand AI-powered spend management" — 2026</li>
-    <li>Procurement Magazine, "Coupa Inspire 2026: Coupa Acquires Rossum" — 2026.05</li>
+    <li>PASA, "Coupa acquires Rossum to expand AI-powered spend management" — 2026</li>
+    <li>Procurement Magazine, "Coupa Inspire 2026: Coupa Acquires Rossum" — 2026. 05.</li>
     <li>Fintech Futures, "Coupa acquires intelligent document processing partner Rossum" — 2026</li>
     <li>AI Magazine, "Inside Coupa's Acquisition of AI-First IDP Leader Rossum" — 2026</li>
-    <li>Shashi.co, "Coupa Acquires Rossum: The Document Layer Was the Missing Piece" — 2026.05</li>
+    <li>Shashi.co, "Coupa Acquires Rossum: The Document Layer Was the Missing Piece" — 2026. 05.</li>
     <li>North America Outlook, "We See Massive Future Value: Coupa CEO Leagh Turner on Rossum Acquisition" — 2026</li>
   </ul>
 
@@ -1281,26 +722,163 @@
   <div class="sq">Rossum 기업 기술 자료</div>
   <ul class="dash">
     <li>Rossum, "Rossum Aurora: All the benefits of LLMs, none of the hallucinations" — Rossum Blog</li>
+    <li>Everest Group, "IDP PEAK Matrix® Assessment 2026" — Rossum Leader 선정</li>
     <li>IDP-Software.com, "Rossum: Template-Free IDP with AI Agents" — 2026</li>
-    <li>Deep Analysis, "Rossum launches its own LLM" — 리서치 보고서</li>
-    <li>PR Newswire, "Rossum Unveils Aurora 1.5 AI Engine &amp; Copilot — 276개 언어 지원" — 2024.10</li>
+    <li>PR Newswire, "Rossum Unveils Aurora 1.5 AI Engine &amp; Copilot — 276개 언어 지원" — 2024. 10.</li>
     <li>Sifted, "Rossum's $100m Series A is one of eastern Europe's largest ever" — 2021</li>
-    <li>Techfinitive, Interview with Tomáš Gogár, CEO and Co-Founder at Rossum — 인터뷰</li>
   </ul>
 
   <hr class="sep-dash">
 
   <div class="sq">Thoma Bravo / Coupa 재무 자료</div>
   <ul class="dash">
-    <li>Thoma Bravo, "Thoma Bravo Completes Acquisition of Coupa Software" — Press Release, 2023.02</li>
-    <li>Thoma Bravo, "Coupa" — Portfolio Page</li>
+    <li>Thoma Bravo, "Thoma Bravo Completes Acquisition of Coupa Software" — Press Release, 2023. 02.</li>
+    <li>IDC Software Tracker 2025H2 — Coupa 매출 추정</li>
     <li>Companies Market Cap, "Coupa (COUP) — Revenue" — 역대 매출 데이터</li>
-    <li>Procurement Insights, "Coupa and Cirtuo Revenue Growth, Profitability, and Implementation Success 2000 to 2025 (And Beyond)" — 2025.05</li>
-    <li>Axios Pro (Fintech Deals), "Coupa acquires Tonkean in AI procurement push" — 2026.05.21</li>
-    <li>Alexandre Substack, "Coupa — A Procurement Platform Being Acquired by Thoma Bravo for $8bn" — 분석 아티클</li>
+    <li>Axios Pro (Fintech Deals), "Coupa acquires Tonkean in AI procurement push" — 2026. 05. 21.</li>
+    <li>CTech, "Tonkean acquired for hundreds of millions by Coupa" — 2026</li>
   </ul>
 
   <div class="page-no">— 참고자료 —</div>
+</div>
+
+
+
+<!-- ══════════════════ 별첨7 — Rossum 기업 개요 ══════════════════ -->
+<div class="doc-page">
+
+  <div class="ch">별첨 7. Rossum 기업 개요</div>
+
+  <div class="sq">기본 현황</div>
+  <table class="t">
+    <tr><td style="width:28%" class="b">공식 명칭</td><td>Rossum s.r.o.</td></tr>
+    <tr><td class="b">설립 / 본사</td><td>'17년 / 체코 프라하 (Prague, Czech Republic)</td></tr>
+    <tr><td class="b">공동 창업자</td><td>Tomáš Gogár (CEO) · Petr Baudiš · Tomáš Tunys (체코기술대학교<span class="def">(CTU Prague)</span> AI 연구 출신)</td></tr>
+    <tr><td class="b">재무 현황</td><td>매출 $44.9M ('24년 기준, YoY +37%)</td></tr>
+    <tr><td class="b">직원 수</td><td>약 450명 (추정, '25년 기준)</td></tr>
+    <tr><td class="b">처리 실적</td><td>연간 $700B+ 규모 거래 문서 처리, 누적 $1.3조 달러 처리 실적</td></tr>
+    <tr><td class="b">누적 투자</td><td>$104M (General Catalyst 주도, '21년 Series A)</td></tr>
+    <tr><td class="b">상장 이력</td><td>비상장 스타트업 → '26년 5월 Coupa Software에 피인수</td></tr>
+    <tr><td class="b">최근 이력</td><td>'24. 4월 Coupa와 전략적 파트너십 체결 → '26. 5월 인수로 기술 내재화 완료</td></tr>
+    <tr><td class="b">사명 유래</td><td>체코 극작가 Karel Čapek의 희곡 「R.U.R.(Rossum's Universal Robots, 1920년)」에서 차용 — '로봇(Robot)'이라는 단어를 세계 최초로 사용한 작품</td></tr>
+  </table>
+
+  <hr class="sep-dash">
+
+  <div class="sq">사업 영역 및 업계 위상</div>
+  <ul class="dash">
+    <li>IDP<span class="def">(Intelligent Document Processing, 지능형 문서처리)</span> 전문 SaaS 스타트업</li>
+    <li>B2B 거래 문서(인보이스, 구매주문서, 선하증권 등 비정형 문서) AI 자동 판독·추출·검증에 특화
+      <ul class="dot">
+        <li>거래 문서 특화 T-LLM<span class="def">(Transactional LLM)</span> 「Rossum Aurora」를 기반으로 기존 OCR 대비 처리 시간 최대 95% 단축, 정확도 98% 달성 (Rossum 발표 기준)</li>
+      </ul>
+    </li>
+    <li>Everest Group 「IDP PEAK Matrix® 2026」 32개 공급업체 평가 중 <strong>Leader</strong> 기업 선정
+      <ul class="dot">
+        <li>직관적 UI, AI 학습 기능, 270개 이상 언어 지원 등에서 높은 평가 확보</li>
+      </ul>
+    </li>
+  </ul>
+
+  <hr class="sep-dash">
+
+  <div class="sq">주요 경쟁사 현황</div>
+  <ul class="dash">
+    <li><strong>ABBYY</strong> : IDP 전통 강자. 범용 OCR 역량에 AI를 결합한 FlexiCapture·Vantage 제품 보유. 비정형 거래 문서 특화 T-LLM 미보유로 Rossum 대비 정확도 열위</li>
+    <li><strong>Hyperscience</strong> : 뉴욕 기반 IDP 스타트업 (누적 $190M+ 조달). 공공·금융·보험 분야 특화. 다언어·비정형 거래 문서 처리 역량 열위</li>
+    <li><strong>AWS Textract</strong> : Amazon 클라우드 기반 범용 문서 추출 서비스. 비용 효율적이나 거래 맥락 이해 부족, 도메인 특화 정확도 한계</li>
+    <li><strong>Google Document AI</strong> : Gemini 기반 고도화 추진 중. 범용 생성형 LLM 방식으로 금융·거래 문서 처리 시 할루시네이션<span class="def">(사실 왜곡 오류)</span> 리스크 존재</li>
+    <li><strong>UiPath Document Understanding</strong> : RPA<span class="def">(Robotic Process Automation)</span> 워크플로우와의 통합 강점. 독립 IDP 정확도보다 기존 자동화 연동에 특화</li>
+  </ul>
+
+  <div class="page-no">— 별첨 7 —</div>
+</div>
+
+
+<!-- ══════════════════ 별첨7 계속 — 제품 포트폴리오 + 재무 현황 ══════════════════ -->
+<div class="doc-page">
+
+  <div class="ch">별첨 7. Rossum 기업 개요 (계속)</div>
+
+  <div class="sq">제품 포트폴리오 / 핵심 기술</div>
+  <p class="body-p" style="margin-bottom:8px;">단일 플랫폼 내 AI 엔진·에이전트 워크플로우·학습 시스템·ERP 연동으로 구성된 End-to-End IDP 솔루션</p>
+  <table class="t">
+    <tr><th style="width:34%">제품 / 기능</th><th>주요 기능</th></tr>
+    <tr>
+      <td class="b">Rossum Aurora (T-LLM)</td>
+      <td>거래 문서 특화 Transactional LLM. 1,100만 건 이상 실거래 문서 학습 데이터 기반. <strong>Discriminative Decoder</strong> 방식으로 텍스트 생성 없이 추출만 수행 → 할루시네이션 원천 차단. 276개 언어 지원 (손글씨 30개 언어)</td>
+    </tr>
+    <tr>
+      <td class="b">AI Agent (에이전트 워크플로우)</td>
+      <td>단순 데이터 추출을 넘어 문서 이해→판단→검증→업무 실행 자동화. 중복 결제·PO 불일치·가격 차이·비정상 거래 자동 탐지. 조기결제 할인 여부 판단 등 비즈니스 로직 직접 실행</td>
+    </tr>
+    <tr>
+      <td class="b">Human-in-the-Loop 검증</td>
+      <td>자동화와 인간 검토를 결합한 하이브리드 처리 방식. 고객 평균 92.5% 데이터 추출 정확도 달성. 수작업 대비 90% 이상 작업량 절감. 오류율 37.6% 감소</td>
+    </tr>
+    <tr>
+      <td class="b">Trainer (자기 학습)</td>
+      <td>공급업체별 문서 양식 자동 학습. 목표 정확도 도달 필요 문서 수를 기존 대비 10분의 1로 절감. 학습 누적 시 오류율 지속 감소</td>
+    </tr>
+    <tr class="hl-row">
+      <td class="b">ERP 통합 API / SDK</td>
+      <td>SAP·Oracle NetSuite·Coupa·Microsoft Dynamics 등 주요 ERP·구매 시스템 네이티브 통합. rossum-api 3.8.0·rossum-agent-client 1.1.0 SDK 제공</td>
+    </tr>
+  </table>
+  <p class="fn">Aurora 1.5 (2024.10 출시) : 데이터 추출 정확도 추가 25% 향상 / 100페이지 이상 장문서 처리 속도 4배 개선</p>
+  <p class="fn">DOCile : Rossum 자체 개발 레이블 학습 데이터셋. 제3자 데이터 미활용으로 고객 데이터 외부 유출 리스크 없음</p>
+  <p class="fn">Discriminative Decoder : 언어모델이 텍스트를 새로 생성하지 않고 문서에서 정보를 직접 추출하는 방식. 생성형 방식 대비 할루시네이션 발생 구조 자체를 제거</p>
+
+  <hr class="sep-dash">
+
+  <div class="sq">Rossum 재무 현황 및 자금 조달 이력</div>
+  <table class="t">
+    <tr>
+      <th style="width:18%">시기</th>
+      <th style="width:22%">라운드 / 이벤트</th>
+      <th style="width:18%">조달액</th>
+      <th>주요 내용</th>
+    </tr>
+    <tr>
+      <td class="c">'17~'20년</td>
+      <td class="c">시드 · Pre-Series A</td>
+      <td class="c">~$4M (추정)</td>
+      <td>프라하 창업 직후 초기 투자. 창업자가 직접 거리에서 문서 수집 → 학습 데이터 구축</td>
+    </tr>
+    <tr class="hl-row">
+      <td class="c">'21년 10월</td>
+      <td class="c b">Series A</td>
+      <td class="c b">$100M</td>
+      <td>General Catalyst 주도. 동유럽 역대 최대 Series A 투자 중 하나로 기록. 이후 5년간 추가 라운드 미진행</td>
+    </tr>
+    <tr>
+      <td class="c">누계</td>
+      <td class="c">총 조달액</td>
+      <td class="c b">$104M</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td class="c">'24년</td>
+      <td class="c">사업 성과</td>
+      <td class="c g">매출 $44.9M</td>
+      <td>YoY +37% 고성장 유지. '24. 4월 Coupa와 전략적 파트너십 체결</td>
+    </tr>
+    <tr>
+      <td class="c">'25년 (추정)</td>
+      <td class="c">사업 성과</td>
+      <td class="c g">~$55~65M</td>
+      <td>성장세 유지 추정. Coupa 인수 가시화</td>
+    </tr>
+    <tr class="hl-row">
+      <td class="c">'26년 5월</td>
+      <td class="c b">Coupa 피인수</td>
+      <td class="c">미공개</td>
+      <td>Guggenheim Securities 독점 매각 자문. 매출·누적조달·성장률·멀티플 기반 <strong>$200~400M 추정</strong></td>
+    </tr>
+  </table>
+  <p class="fn">Series A 이후 추가 라운드 미유치 : IPO 가능성 감소 + 수익화 집중으로 Tuck-in M&amp;A가 자연스러운 회수 경로로 부상 — Coupa의 인수 협상력을 높이는 구조적 요인으로 작용</p>
+
+  <div class="page-no">— 별첨 7 (계속) —</div>
 </div>
 
 

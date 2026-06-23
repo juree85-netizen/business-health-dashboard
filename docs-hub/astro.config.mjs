@@ -47,6 +47,7 @@ export default defineConfig({
 						{ label: 'Coupa — Rossum 인수 분석', link: '/project/coupa-rossum/' },
 						{ label: 'Coupa — Rossum 사업부장 보고 (2026.6.22)', link: '/project/coupa-rossum-report-20260622/' },
 						{ label: 'Coupa — Rossum 피드백 정리 (2026.6.22)', link: '/project/coupa-rossum-feedback-20260622/' },
+						{ label: 'Coupa — Rossum 피드백 반영 v2 (2026.6.23)', link: '/project/coupa-rossum-report-v2-20260623/' },
 						{ label: 'Thoma Bravo — 기업 분석', link: '/project/thoma-bravo/' },
 					],
 				},

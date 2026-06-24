@@ -926,22 +926,114 @@
 
   <div class="sq">§ 4-4. 세 재무제표의 연결 고리</div>
 
-  <div class="waterfall">
-[손익계산서]
-  순이익 (Net Income)
-         ↓
-[대차대조표]
-  이익잉여금(Retained Earnings) 증가
-  (순이익이 누적되어 자본이 커짐)
-         ↓
-[현금흐름표]
-  순이익 → 비현금 조정 → 운전자본 변동 → OCF
-  OCF − CAPEX → FCF
-         ↓
-[대차대조표]
-  기말 현금 = 기초 현금 + OCF + ICF + CFF
-  (현금흐름표 최종 결과가 대차대조표 현금과 일치)
+  <!-- ── 재무제표 연결 다이어그램 ── -->
+  <div style="margin:10px 0; font-family:'Batang','BatangChe',Georgia,serif;">
+
+    <!-- 상단 행: I/S ─①→ B/S -->
+    <div style="display:flex; align-items:stretch; gap:0; margin-bottom:0;">
+
+      <!-- 손익계산서 박스 -->
+      <div style="flex:1; background:#1e1e1e; color:#fff; padding:12px 14px; border-radius:2px 0 0 0;">
+        <div style="font-size:10px; letter-spacing:2px; color:#aaa; margin-bottom:3px;">손익계산서 (I/S) · 발생주의</div>
+        <div style="font-size:12.5px; line-height:1.85;">
+          매출 − 원가 − 판관비<br>
+          = <strong>EBIT</strong> (영업이익)<br>
+          − 이자비용 &nbsp; − 법인세
+        </div>
+        <div style="margin-top:8px; padding:5px 8px; background:#111; border-left:3px solid #fff; font-size:13px; font-weight:700;">
+          Net Income (순이익)
+        </div>
+      </div>
+
+      <!-- 화살표 ① -->
+      <div style="width:72px; display:flex; flex-direction:column; align-items:center; justify-content:center; background:#f0f0f0; padding:8px 4px; gap:3px;">
+        <div style="font-size:10px; font-weight:700; color:#1a5faa; background:#dde8f8; padding:1px 5px; border-radius:10px;">①</div>
+        <div style="font-size:18px; color:#555; line-height:1;">→</div>
+        <div style="font-size:9px; color:#666; text-align:center; line-height:1.5;">Net Income<br>→ 이익잉여금</div>
+      </div>
+
+      <!-- 대차대조표 박스 -->
+      <div style="flex:1; background:#383838; color:#fff; padding:12px 14px; border-radius:0 2px 0 0;">
+        <div style="font-size:10px; letter-spacing:2px; color:#aaa; margin-bottom:3px;">대차대조표 (B/S) · 시점 스냅샷</div>
+        <div style="font-size:11.5px; line-height:1.85;">
+          자산: 현금 · 매출채권 · 재고 · 유형자산<br>
+          부채: 매입채무 · 차입금<br>
+          자본: 자본금 + <strong style="color:#ffd700;">이익잉여금</strong>
+        </div>
+        <div style="margin-top:6px; font-size:10px; color:#aaa; border-top:1px solid #555; padding-top:5px;">
+          ① Net Income 누적 → 이익잉여금 증가<br>
+          ③ C/F 기말현금 → 현금 자산과 일치
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 중간 행: ② 아래 화살표 (I/S → C/F) + ③ 위 화살표 (C/F → B/S) -->
+    <div style="display:flex; align-items:stretch; gap:0;">
+
+      <!-- I/S 아래 화살표 열 -->
+      <div style="flex:1; display:flex; justify-content:center; align-items:center; background:#f7f7f7; padding:8px; border-left:1px solid #ddd; gap:6px;">
+        <div style="display:flex; flex-direction:column; align-items:center; gap:2px;">
+          <div style="font-size:10px; font-weight:700; color:#1a5faa; background:#dde8f8; padding:1px 5px; border-radius:10px;">②</div>
+          <div style="font-size:18px; color:#555; line-height:1;">↓</div>
+          <div style="font-size:9px; color:#666; text-align:center; line-height:1.5;">Net Income<br>→ OCF 출발점</div>
+        </div>
+      </div>
+
+      <!-- 가운데 빈 공간 (화살표 열) -->
+      <div style="width:72px; background:#f0f0f0; border-left:1px solid #ddd; border-right:1px solid #ddd;"></div>
+
+      <!-- B/S 아래 / C/F 위 연결 -->
+      <div style="flex:1; display:flex; justify-content:center; align-items:center; background:#f7f7f7; padding:8px; border-right:1px solid #ddd; gap:6px;">
+        <div style="display:flex; flex-direction:column; align-items:center; gap:2px;">
+          <div style="font-size:10px; font-weight:700; color:#1a5faa; background:#dde8f8; padding:1px 5px; border-radius:10px;">③</div>
+          <div style="font-size:18px; color:#555; line-height:1;">↑</div>
+          <div style="font-size:9px; color:#666; text-align:center; line-height:1.5;">기말 현금<br>→ B/S 현금과 일치</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 하단 행: C/F 박스 전체 폭 -->
+    <div style="display:flex; align-items:stretch; gap:0;">
+
+      <!-- 현금흐름표 박스 (좌) -->
+      <div style="flex:1; background:#1a3d6e; color:#fff; padding:12px 14px; border-radius:0 0 0 2px;">
+        <div style="font-size:10px; letter-spacing:2px; color:#aaa; margin-bottom:3px;">현금흐름표 (C/F) · 현금주의</div>
+        <div style="font-size:11.5px; line-height:1.9;">
+          <span style="color:#aaa;">② 출발:</span> <strong>Net Income</strong><br>
+          + D&amp;A 재가산 &nbsp; ± 운전자본 변동<br>
+          = <strong style="font-size:13px;">OCF</strong> (영업현금흐름)<br>
+          OCF − CAPEX = <strong style="font-size:13px;">FCF</strong>
+        </div>
+        <div style="margin-top:8px; padding:5px 8px; background:#0f2a4a; border-left:3px solid #7aa6d4; font-size:11px; color:#cce0ff; line-height:1.7;">
+          기말 현금 = 기초 현금 + OCF + ICF + CFF
+        </div>
+      </div>
+
+      <!-- 가운데 화살표 열 (빈칸) -->
+      <div style="width:72px; background:#e8f0fb; border-left:1px solid #7aa6d4; border-right:1px solid #7aa6d4;"></div>
+
+      <!-- 우측: 연결 포인트 요약 -->
+      <div style="flex:1; background:#e8f0fb; border:1px solid #7aa6d4; border-top:none; border-radius:0 0 2px 0; padding:12px 14px;">
+        <div style="font-size:10px; font-weight:700; color:#1a5faa; letter-spacing:1px; margin-bottom:8px;">연결 포인트 3가지</div>
+        <div style="font-size:11.5px; color:#222; line-height:2.0;">
+          <span style="background:#dde8f8; font-weight:700; padding:0 5px; border-radius:2px; color:#1a5faa;">①</span>
+          &nbsp;I/S → B/S<br>
+          <span style="color:#555; font-size:10.5px; padding-left:1.5em;">Net Income → 이익잉여금(자본) 누적</span><br>
+          <span style="background:#dde8f8; font-weight:700; padding:0 5px; border-radius:2px; color:#1a5faa;">②</span>
+          &nbsp;I/S → C/F<br>
+          <span style="color:#555; font-size:10.5px; padding-left:1.5em;">Net Income이 OCF 계산의 출발점</span><br>
+          <span style="background:#dde8f8; font-weight:700; padding:0 5px; border-radius:2px; color:#1a5faa;">③</span>
+          &nbsp;C/F → B/S<br>
+          <span style="color:#555; font-size:10.5px; padding-left:1.5em;">C/F 기말현금 = B/S 현금 자산</span>
+        </div>
+      </div>
+
+    </div>
+
   </div>
+  <!-- ── 연결 다이어그램 끝 ── -->
 
   <p class="body-p">서버 100억 원 구매 사례로 세 표의 연동을 확인하면:</p>
 

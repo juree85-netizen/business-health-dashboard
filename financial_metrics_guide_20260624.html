@@ -870,5 +870,144 @@
   <div class="page-no">- 8 -</div>
 </div>
 
+<!-- ══════════════════════════════════════════════════════ PAGE 9 ══ -->
+<div class="doc-page">
+
+  <div class="ch">제8장. 실전 Q&A — 현장에서 가장 자주 막히는 7가지 질문</div>
+  <p class="body-p" style="color:#555; font-style:italic;">재무 지표를 처음 접하는 실무자들이 실제로 헷갈리는 포인트를 질문·답변 형식으로 정리한다.</p>
+
+  <hr class="sep-dash">
+
+  <div class="sq">Q1. 영업이익, Operating Profit, EBIT — 이거 다 같은 건가요?</div>
+  <div class="box-blue">
+    <strong>A. 대부분의 경우 같다. 단, 완전히 동일하지 않을 수 있다.</strong><br><br>
+    한국 회계 기준의 <strong>영업이익</strong>과 국제 기준의 <strong>EBIT(Earnings Before Interest &amp; Tax)</strong>는 개념상 거의 같다 — 이자와 세금을 빼기 전 영업 수익. Operating Profit도 마찬가지다.<br><br>
+    단, 회사마다 영업 외 항목을 어디에 분류하느냐에 따라 미세하게 달라질 수 있다. 실무에서는 <strong>"영업이익 ≈ EBIT"</strong>로 이해하고, 정밀한 분석이 필요할 때만 세부 차이를 확인하면 된다.
+  </div>
+
+  <hr class="sep-dash">
+
+  <div class="sq">Q2. EBITDA가 EBIT보다 숫자가 큰데, 왜 Waterfall에서는 EBITDA가 위에 있나요?</div>
+  <div class="box-blue">
+    <strong>A. 차감 항목이 적을수록 위, 많을수록 아래다 — 숫자 크기가 아니라 "무엇을 뺐는가"의 순서다.</strong><br><br>
+    Waterfall은 "무엇을 추가로 차감했는가"를 쌓아가는 구조다.<br>
+    EBITDA에서 D&amp;A를 빼면 → EBIT<br>
+    EBIT에서 이자·세금을 빼면 → Net Income<br><br>
+    즉, <strong>위에 있을수록 덜 빠진 상태(더 넓은 개념)</strong>이다. 숫자는 EBITDA > EBIT > Net Income 순으로 작아진다.
+  </div>
+
+  <hr class="sep-dash">
+
+  <div class="sq">Q3. 감가상각(D&A)이 OCF 계산에서 왜 "더해지는" 건가요? 이미 비용으로 뺐는데?</div>
+  <div class="box-key">
+    <strong>A. 감가상각은 "현금이 안 나간 비용"이기 때문이다.</strong><br><br>
+    예: PC를 1,000만 원에 구매(= CAPEX, 현금 1,000만 원 유출) → 내용연수 4년 → 매년 감가상각비 250만 원<br><br>
+    손익계산서에서는 매년 250만 원씩 비용으로 처리되어 EBIT, Net Income을 줄인다.<br>
+    하지만 <strong>이 250만 원은 올해 새로 현금이 나간 것이 아니다.</strong> 현금은 PC 살 때 이미 다 나갔다.<br><br>
+    현금흐름(OCF)을 계산할 때는 "실제 현금 기준"으로 봐야 하므로, 장부에서만 비용으로 처리된 D&amp;A를 <strong>다시 더해서 없애주는 것</strong>이다.<br><br>
+    정리: <strong>빼는 이유(EBITDA→EBIT)</strong> = 자산이 실제 소모되고 있으므로 비용 인식<br>
+    <strong>다시 더하는 이유(Net Income→OCF)</strong> = 현금이 실제로 이번에 나간 게 아니므로 환원
+  </div>
+
+  <div class="page-no">- 9 -</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ PAGE 10 ══ -->
+<div class="doc-page">
+
+  <div class="sq">Q4. CAPEX와 감가상각비가 헷갈립니다. 둘 다 같은 자산 얘기 아닌가요?</div>
+  <div class="box-key">
+    <strong>A. 같은 자산에 대한 이야기지만, 시점과 관점이 다르다.</strong>
+  </div>
+
+  <table class="t" style="margin-top:8px;">
+    <tr>
+      <th></th>
+      <th>CAPEX</th>
+      <th>감가상각비 (D&A)</th>
+    </tr>
+    <tr>
+      <td class="b">무엇인가</td>
+      <td>자산을 <strong>살 때</strong> 나가는 진짜 현금</td>
+      <td>그 자산을 <strong>쓰는 기간 동안</strong> 나눠 인식하는 회계상 비용</td>
+    </tr>
+    <tr>
+      <td class="b">현금 유출</td>
+      <td class="r c">구매 시점에 한 번에 유출</td>
+      <td class="g c">현금 유출 없음 (이미 CAPEX로 나감)</td>
+    </tr>
+    <tr class="hl-row">
+      <td class="b">예시<br>(공장 100억, 10년)</td>
+      <td>1년차에 현금 100억 지출 → 현금흐름표 반영</td>
+      <td>매년 10억씩 손익계산서에 비용 반영 (10년간)</td>
+    </tr>
+  </table>
+
+  <div class="box-warn" style="margin-top:8px;">
+    <strong>핵심 직관:</strong> CAPEX는 "오늘 지갑에서 나간 돈"이고, 감가상각비는 "그 지출의 결과를 매년 조금씩 인식하는 회계 처리"다. 둘은 같은 사건의 두 가지 기록 방식이다.
+  </div>
+
+  <hr class="sep-dash">
+
+  <div class="sq">Q5. 운전자본에서 매출채권·재고자산은 왜 빼고, 매입채무는 왜 더하나요?</div>
+
+  <table class="t">
+    <tr>
+      <th>항목</th>
+      <th>뜻</th>
+      <th>OCF 계산 시</th>
+      <th>이유</th>
+    </tr>
+    <tr>
+      <td class="b">매출채권 증가</td>
+      <td>매출은 잡혔지만 현금을 아직 못 받음</td>
+      <td class="r c">차감 (−)</td>
+      <td>이익엔 잡혔지만 실제 현금이 안 들어왔으므로 빼야 함</td>
+    </tr>
+    <tr>
+      <td class="b">재고자산 증가</td>
+      <td>현금을 써서 재고를 사뒀지만 아직 안 팔림</td>
+      <td class="r c">차감 (−)</td>
+      <td>현금이 이미 나갔는데 손익에 반영 안 됨 → 빼야 함</td>
+    </tr>
+    <tr class="hl-row">
+      <td class="b">매입채무 증가</td>
+      <td>물건은 받았지만 아직 돈을 안 줌</td>
+      <td class="g c">가산 (+)</td>
+      <td>현금이 나갔어야 하는데 아직 안 나감 → 더해야 함</td>
+    </tr>
+  </table>
+
+  <div class="box-blue" style="margin-top:6px;">
+    <strong>하나의 원칙으로 기억하기:</strong><br>
+    손익계산서에는 잡혔지만 <strong>현금이 아직 안 들어온 것 → 빼기</strong><br>
+    현금이 나가야 하는데 <strong>아직 안 나간 것 → 더하기</strong>
+  </div>
+
+  <hr class="sep-dash">
+
+  <div class="sq">Q6. 감가상각비는 직접원가에 포함되나요, 간접원가에 포함되나요?</div>
+  <div class="box-blue">
+    <strong>A. 회사마다 다르다 — 자산의 성격과 회사 회계정책에 따라 결정된다.</strong><br><br>
+    <strong>직접원가(매출원가)에 포함되는 경우:</strong> 생산 설비, 공장, 제품 생산에 직접 사용하는 기계의 감가상각비<br>
+    <strong>간접원가(판관비)에 포함되는 경우:</strong> 사무용 PC, 오피스 건물, 영업·관리 지원 자산의 감가상각비<br><br>
+    소프트웨어 개발비의 경우, 시기와 회사 정책에 따라 <strong>① 즉시 비용처리(원가), ② 자산화 후 감가상각</strong> 중 선택하기도 한다. 우리 회사의 기준을 재무팀에 확인하는 것이 정확하다.
+  </div>
+
+  <hr class="sep-dash">
+
+  <div class="sq">Q7. OCF에서 감가상각을 더하고, FCF에서 CAPEX를 빼면 — 같은 자산을 두 번 처리하는 건 아닌가요?</div>
+  <div class="box-key">
+    <strong>A. 아니다. 서로 다른 시점·다른 자산에 대한 처리다.</strong><br><br>
+    <strong>D&amp;A를 더하는 것 (Net Income → OCF)</strong>: <u>과거에 구입한 자산</u>의 감가상각이 손익에 반영됐지만 현금 유출이 없으므로 환원<br><br>
+    <strong>CAPEX를 빼는 것 (OCF → FCF)</strong>: <u>이번 기간에 새로 집행한</u> 자산 투자의 실제 현금 유출 반영<br><br>
+    즉, D&amp;A는 "지난 투자의 회계 처리 환원"이고 CAPEX는 "이번 투자의 현금 집행"이다. 겹치는 것이 아니라 <strong>서로 다른 시점의 자산을 각각 처리</strong>하는 것이다.
+  </div>
+
+  <div class="fn">결국 FCF의 핵심 직관은 "내가 영업으로 번 현금(OCF)에서, 사업을 유지·성장시키기 위해 이번에 새로 투자한 돈(CAPEX)을 빼고 남은 진짜 자유 현금"이다. 눈에 보이는 쓸 수 있는 돈이 FCF다.</div>
+
+  <div class="page-no">- 10 -</div>
+</div>
+
 </body>
 </html>

@@ -157,6 +157,7 @@
   <div class="toc-ch">제4장. 재무제표 3종 구조와 지표 연결</div>
   <div class="toc-item">§ 4-1. 손익계산서 (I/S)</div>
   <div class="toc-item">§ 4-2. 대차대조표 (B/S)</div>
+  <div class="toc-item">§ 4-2 심화. 실제 B/S 항목 해설 — SaaS · PE 인수 기업 사례</div>
   <div class="toc-item">§ 4-3. 현금흐름표 (C/F)</div>
   <div class="toc-item">§ 4-4. 세 표의 연결 고리</div>
   <div class="toc-ch">제5장. FCF vs 재무현금흐름(CFF) — 가장 흔한 혼동</div>
@@ -701,6 +702,190 @@
   </table>
 
   <div class="page-no">- 5 -</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ PAGE 5-B ══ -->
+<div class="doc-page">
+
+  <div class="sq">§ 4-2 심화. 실제 B/S 항목 해설 — SaaS · PE 인수 기업 사례</div>
+
+  <p class="body-p">아래는 SaaS 기업이 PE(사모펀드)에 인수된 이후의 실제 대차대조표 항목을 기반으로, 각 줄이 <strong>무엇을 의미하는지</strong> 개념 중심으로 해설한다. 숫자는 배제하고, 항목의 정의와 해당 기업 유형에서 특히 중요한 이유에 집중한다.</p>
+
+  <div class="box-warn" style="margin-bottom:12px;">
+    <strong>Successor / Predecessor 구조란?</strong><br>
+    PE가 기업을 인수하면 회계상 <strong>새로운 법인(Successor)</strong>이 탄생한다. 인수 전 법인은 Predecessor로 구분된다.
+    인수 시점에 <strong>Purchase Price Allocation(PPA)</strong>이 이루어지므로, Successor B/S에는 Goodwill과 Intangible Assets가 대폭 증가한다.
+    두 기간을 단순 비교할 수 없으며, 인수 전후의 자본 구조도 완전히 달라진다.
+  </div>
+
+  <!-- 자산 섹션 -->
+  <div class="ch2" style="margin-top:10px;">■ 자산 (Assets)</div>
+
+  <table class="t">
+    <tr><td colspan="3" class="sep-row">유동자산 (Current Assets) — 1년 이내 현금화 가능한 자산</td></tr>
+    <tr>
+      <th style="width:30%;">항목</th>
+      <th style="width:35%;">개념</th>
+      <th style="width:35%;">SaaS 기업에서의 의미</th>
+    </tr>
+    <tr>
+      <td class="b">Cash &amp; Cash Equivalents<br>현금 및 현금성자산</td>
+      <td>즉시 사용 가능한 현금 + 만기 3개월 이내 단기 금융상품</td>
+      <td>인수 후 급감하는 경우가 많음 — 인수 대금 지급·구조 재편으로 소진</td>
+    </tr>
+    <tr>
+      <td class="b">Marketable Securities<br>시장성 유가증권</td>
+      <td>단기 투자 목적으로 보유하는 주식·채권 등 시장에서 매매 가능한 금융자산</td>
+      <td>현금 여유가 있을 때 단기 운용. PE 인수 후 차입금 상환 재원으로 활용되기도 함</td>
+    </tr>
+    <tr class="hl-row">
+      <td class="b">Accounts Receivable, net<br>매출채권 (순액)</td>
+      <td>고객에게 제품·서비스를 제공했으나 아직 현금을 받지 못한 금액. "net"은 회수 불가 예상액(대손충당금)을 차감한 순액</td>
+      <td>SaaS는 선불(Deferred Revenue)이 많아 AR이 상대적으로 작음. 갱신 주기·청구 주기에 따라 변동</td>
+    </tr>
+    <tr>
+      <td class="b">Prepaid Expenses<br>선급비용 및 기타 유동자산</td>
+      <td>미래 서비스에 대해 미리 지급한 비용 (보험료·임차료 등). 기간이 도래하면 비용으로 전환</td>
+      <td>클라우드 인프라 선지급(AWS·Azure 등) 비중이 큰 SaaS에서 규모 가 커질 수 있음</td>
+    </tr>
+    <tr>
+      <td class="b">Deferred Commissions (Current)<br>이연 판매수수료 (유동)</td>
+      <td>영업사원 수수료를 계약 기간에 걸쳐 배분하는 항목. ASC 606 기준으로 비용을 이연 처리</td>
+      <td class="r">SaaS 고유 항목. 계약 체결 시 비용 처리하지 않고 자산화 후 구독 기간 동안 상각. 계약이 늘수록 잔액이 커짐</td>
+    </tr>
+    <tr><td colspan="3" class="sep-row">비유동자산 (Non-current Assets) — 장기 보유 자산</td></tr>
+    <tr>
+      <td class="b">Property &amp; Equipment, net<br>유형자산 (순액)</td>
+      <td>서버·사무가구·설비 등 물리적 자산. CAPEX로 취득 후 감가상각. "net"은 누적 감가상각 차감 후 장부가</td>
+      <td>SaaS는 클라우드 중심이라 유형자산 비중이 제조업보다 훨씬 작음</td>
+    </tr>
+    <tr class="hl-row">
+      <td class="b">Goodwill<br>영업권</td>
+      <td>인수 금액이 순자산 공정가치를 초과하는 부분. "이 회사의 브랜드·고객 관계·시너지에 대한 프리미엄"</td>
+      <td class="r">PE 인수 후 폭발적으로 증가. 매년 손상검사(Impairment Test) 필요 — 손상 시 대규모 손실 발생</td>
+    </tr>
+    <tr class="hl-row">
+      <td class="b">Intangible Assets, net<br>무형자산 (순액)</td>
+      <td>PPA(인수가격 배분)로 식별된 무형자산 — 고객 관계, 기술(소프트웨어), 브랜드, 계약 등</td>
+      <td class="r">PE 인수 시 대규모 계상. 내용연수에 걸쳐 상각(D&amp;A의 Amortization 부분) → 순이익 압박 요인</td>
+    </tr>
+    <tr>
+      <td class="b">Operating Lease ROU Assets<br>운용리스 사용권자산</td>
+      <td>IFRS 16 / ASC 842 기준으로, 운용리스 계약도 자산(사용권)과 부채(리스부채)로 함께 인식</td>
+      <td>사무실·데이터센터 임차 계약이 주 구성. 리스 기간이 길수록 금액이 커짐</td>
+    </tr>
+  </table>
+
+  <div class="page-no">- 5B -</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ PAGE 5-C ══ -->
+<div class="doc-page">
+
+  <div class="sq" style="margin-top:0;">§ 4-2 심화 (계속) — 부채 및 자본 항목 해설</div>
+
+  <!-- 부채 섹션 -->
+  <div class="ch2" style="margin-top:8px;">■ 부채 (Liabilities)</div>
+
+  <table class="t">
+    <tr><td colspan="3" class="sep-row">유동부채 (Current Liabilities) — 1년 이내 상환 의무</td></tr>
+    <tr>
+      <th style="width:30%;">항목</th>
+      <th style="width:35%;">개념</th>
+      <th style="width:35%;">SaaS 기업에서의 의미</th>
+    </tr>
+    <tr>
+      <td class="b">Accounts Payable<br>매입채무</td>
+      <td>공급업체에 물건·서비스를 받았지만 아직 현금을 지급하지 않은 금액. OCF 계산 시 증가하면 현금 유리</td>
+      <td>SaaS는 물리적 원재료가 없어 상대적으로 규모 작음. 클라우드 인프라·외주 서비스 등이 주 구성</td>
+    </tr>
+    <tr>
+      <td class="b">Accrued Expenses<br>미지급비용 및 기타 유동부채</td>
+      <td>이미 발생했지만 아직 지급하지 않은 비용 (급여·성과급·세금 등). 발생주의 회계의 대표적 항목</td>
+      <td>인수 후 구조조정 비용·법무 비용 등이 일시적으로 증가할 수 있음</td>
+    </tr>
+    <tr class="hl-row">
+      <td class="b">Deferred Revenue (Current)<br>이연수익 (선수금, 유동)</td>
+      <td>고객이 이미 돈을 냈지만 아직 서비스를 제공하지 않은 금액. 부채로 분류 — "이행해야 할 의무"</td>
+      <td class="r">SaaS의 핵심 지표. 규모가 클수록 미래 수익이 확보된 것. 갱신율이 높으면 안정적으로 유지됨. ARR의 선행 지표 역할</td>
+    </tr>
+    <tr>
+      <td class="b">Convertible Notes / Term Loan<br>전환사채 / 차입금 (유동)</td>
+      <td>1년 이내 만기 도래하는 부채. Convertible Notes는 주식 전환 옵션 부가 채권</td>
+      <td>PE 인수 전(Predecessor)에는 전환사채가 주요 자금원. 인수 후(Successor)에는 Term Loan으로 교체</td>
+    </tr>
+    <tr><td colspan="3" class="sep-row">비유동부채 (Non-current Liabilities) — 장기 상환 의무</td></tr>
+    <tr class="hl-row">
+      <td class="b">Convertible Senior Notes<br>전환사채 (Predecessor)</td>
+      <td>상장 기업이 자금 조달 목적으로 발행하는 채권. 주가가 전환가격을 초과하면 주주가 주식으로 전환 요구 가능</td>
+      <td class="r">Predecessor(상장 시절)의 주요 부채. 인수 완료 후 전액 상환·소멸</td>
+    </tr>
+    <tr class="hl-row">
+      <td class="b">Term Loan<br>기간 대출 (Successor)</td>
+      <td>PE의 LBO(차입매수) 핵심 수단. 피인수 기업의 자산·현금흐름을 담보로 대규모 차입. 원금을 분할 상환</td>
+      <td class="r">Successor(PE 인수 후)의 핵심 부채. 금액이 크고 이자비용이 높아 Net Income 압박. FCF로 조기 상환이 목표</td>
+    </tr>
+    <tr>
+      <td class="b">Deferred Revenue (Non-current)<br>이연수익 (비유동)</td>
+      <td>다년 계약 중 1년 이상 후에 인식될 수익 부분</td>
+      <td>다년 구독 계약(Multi-year)이 많을수록 비유동 이연수익 비중이 높아짐</td>
+    </tr>
+    <tr>
+      <td class="b">Deferred Tax Liability<br>이연법인세부채</td>
+      <td>회계상 이익과 세무상 소득의 차이로 발생. 미래에 납부할 세금을 미리 부채로 인식</td>
+      <td>PE 인수 시 PPA로 인한 무형자산 상각 효과가 세무 vs 회계상 차이를 만들어 급증하는 경우 많음</td>
+    </tr>
+    <tr>
+      <td class="b">Operating Lease Liabilities<br>운용리스부채</td>
+      <td>사용권자산(ROU)과 쌍을 이루는 부채. 미래 리스료 지급 의무를 현재가치로 계상</td>
+      <td>사무실·시설 임차의 미래 지급 의무. 매년 리스료 지급 시 부채 감소</td>
+    </tr>
+  </table>
+
+  <!-- 자본 섹션 -->
+  <div class="ch2" style="margin-top:10px;">■ 자본 (Stockholders' Equity)</div>
+
+  <table class="t">
+    <tr>
+      <th style="width:30%;">항목</th>
+      <th style="width:35%;">개념</th>
+      <th style="width:35%;">SaaS · PE 인수 기업에서의 의미</th>
+    </tr>
+    <tr>
+      <td class="b">Common / Preferred Stock<br>보통주·우선주</td>
+      <td>발행 주식의 액면 총액. 매우 소액 (미국은 $0.0001~$0.01 par value 일반적)</td>
+      <td>PE 인수 후 Successor는 새로운 주식 구조로 전환. 상장 주식 수 → 비상장 유한주(100% PE 소유)</td>
+    </tr>
+    <tr class="hl-row">
+      <td class="b">Additional Paid-in Capital<br>주식발행초과금</td>
+      <td>주식 액면 초과 납입금. 실질적인 출자금 총액을 나타냄</td>
+      <td class="r">PE 인수 후 폭증 — PE가 지분 투자한 금액(Equity check)이 여기에 반영됨. LBO 구조의 자기자본 부분</td>
+    </tr>
+    <tr>
+      <td class="b">Accumulated Other Comprehensive Income<br>기타포괄손익누계액</td>
+      <td>순이익에 포함되지 않는 포괄손익 누적액 (환율변동·금융자산 평가손익 등)</td>
+      <td>글로벌 SaaS는 외화 환산 효과가 주 구성 요소. 환율 변동에 따라 매 기간 변동</td>
+    </tr>
+    <tr class="hl-row">
+      <td class="b">Accumulated Deficit<br>결손금 (누적 적자)</td>
+      <td>창업 이후 누적된 순손실 합계. Retained Earnings가 마이너스인 상태</td>
+      <td class="r">고성장 SaaS의 전형적 특징 — 공격적 투자·영업 비용으로 적자 누적. PE 인수 전에는 수년간의 적자가 쌓여있는 경우 많음. 인수 후 PPA 상각이 추가되어 적자가 지속되기도 함</td>
+    </tr>
+    <tr>
+      <td class="b">Redeemable Non-Controlling Interests<br>상환가능 비지배주주 지분</td>
+      <td>자회사 지분 중 모회사 외의 제3자(소수주주) 지분. "상환가능"은 특정 조건 충족 시 현금 매입 의무 존재</td>
+      <td>PE가 인수한 자회사 또는 JV 구조에서 발생. 자본과 부채 사이의 중간 성격(Mezzanine)</td>
+    </tr>
+  </table>
+
+  <div class="box-blue" style="margin-top:10px;">
+    <strong>B/S로 보는 PE LBO 구조의 핵심:</strong><br>
+    인수 전(Predecessor): 전환사채 + 자체 영업현금 중심 → 인수 후(Successor): <strong>Term Loan(차입) + PE Equity(주식발행초과금)</strong> 구조로 전환.<br>
+    Goodwill·Intangibles 급증 = PPA 반영 / Term Loan 급증 = LBO 차입 / 주식발행초과금 급증 = PE 자기자본 투입.
+    이 세 가지가 PE 인수 후 B/S의 3대 특징이다.
+  </div>
+
+  <div class="page-no">- 5C -</div>
 </div>
 
 <!-- ══════════════════════════════════════════════════════ PAGE 6 ══ -->

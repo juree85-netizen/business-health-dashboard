@@ -865,31 +865,134 @@
 
   <div class="sq">§ 7-1. 전체 트리 구조</div>
 
-  <div class="waterfall" style="font-size:11.5px;">
-재무제표 생태계
-├── 손익계산서 (발생주의)
-│   ├── 매출 − 원가 − 판관비(D&amp;A 포함)
-│   ├── <span class="wf-result">EBIT</span> (영업이익)   + D&amp;A 환원 → <span class="wf-result">EBITDA</span>
-│   │    └── 이자보상배율 = EBIT ÷ 이자비용
-│   ├── − 이자비용, − 법인세
-│   └── <span class="wf-result">Net Income</span> (순이익)
-│
-├── 대차대조표 (스냅샷)
-│   ├── 자산: 현금 / 매출채권 / 재고 / 유형자산(CAPEX) / 무형자산
-│   ├── 부채: 매입채무 / 차입금
-│   └── 자본: 자본금 / 이익잉여금 ← Net Income 누적
-│
-└── 현금흐름표 (현금주의)
-    ├── <span class="wf-result">OCF</span> (영업현금흐름)
-    │    = Net Income + D&amp;A ± 운전자본 변동
-    │    └── − 매출채권↑  − 재고↑  + 매입채무↑
-    ├── ICF (투자현금흐름)
-    │    └── <span class="wf-note">− CAPEX (유형/무형자산 취득)</span>
-    └── CFF (재무현금흐름) ← FCF의 배분처
-         └── 차입금 증감 / 배당 / 자사주
+  <!-- ── 트리 다이어그램 ── -->
+  <div style="margin:10px 0; border:1px solid #ccc; background:#fafafa; padding:16px 18px; font-family:'Batang','BatangChe',Georgia,serif; font-size:12.5px; line-height:2.0;">
 
-<span class="wf-result">FCF</span> = OCF − CAPEX  (분석 지표, 내재가치의 근거)
+    <!-- 루트 -->
+    <div style="font-size:14px; font-weight:700; border-bottom:2px solid #333; padding-bottom:5px; margin-bottom:10px; letter-spacing:-0.3px;">
+      재무제표 생태계
+    </div>
+
+    <!-- ─ 가지 1: 손익계산서 ─ -->
+    <div style="display:flex; align-items:baseline;">
+      <span style="color:#aaa; font-family:'Courier New',monospace; white-space:pre; margin-right:4px;">├──</span>
+      <span style="background:#2c2c2c; color:#fff; padding:1px 10px; font-weight:700; font-size:12px; letter-spacing:0.5px;">손익계산서 &nbsp;(발생주의)</span>
+    </div>
+
+    <div style="margin-left:1.5em; border-left:2px solid #ccc; padding-left:10px; margin-bottom:8px;">
+      <div>
+        <span style="color:#bbb; font-family:'Courier New',monospace;">├── </span>
+        매출 − 원가 − 판관비 (D&amp;A 포함)
+      </div>
+      <div>
+        <span style="color:#bbb; font-family:'Courier New',monospace;">├── </span>
+        <strong style="color:#1a5faa; font-size:13px;">EBIT</strong> (영업이익)
+        <span style="color:#555; margin:0 6px;">·</span>
+        + D&amp;A 환원
+        <span style="color:#555; margin:0 4px;">→</span>
+        <strong style="color:#1a5faa; font-size:13px;">EBITDA</strong>
+        <div style="margin-left:2.4em; border-left:1px dashed #ddd; padding-left:8px;">
+          <span style="color:#ccc; font-family:'Courier New',monospace;">└── </span>
+          <span style="color:#666; font-size:11.5px;">이자보상배율 = EBIT ÷ 이자비용</span>
+        </div>
+      </div>
+      <div>
+        <span style="color:#bbb; font-family:'Courier New',monospace;">├── </span>
+        <span style="color:#c00; font-weight:700;">− 이자비용</span>
+        <span style="color:#888; margin:0 4px;">,</span>
+        <span style="color:#c00; font-weight:700;">− 법인세</span>
+      </div>
+      <div>
+        <span style="color:#bbb; font-family:'Courier New',monospace;">└── </span>
+        <strong style="color:#1a5faa; font-size:13px;">Net Income</strong>
+        <span style="color:#666; font-size:11.5px; margin-left:6px;">(순이익 · 당기순이익)</span>
+      </div>
+    </div>
+
+    <!-- ─ 가지 2: 대차대조표 ─ -->
+    <div style="display:flex; align-items:baseline;">
+      <span style="color:#aaa; font-family:'Courier New',monospace; white-space:pre; margin-right:4px;">├──</span>
+      <span style="background:#555; color:#fff; padding:1px 10px; font-weight:700; font-size:12px; letter-spacing:0.5px;">대차대조표 &nbsp;(특정 시점 스냅샷)</span>
+    </div>
+
+    <div style="margin-left:1.5em; border-left:2px solid #ccc; padding-left:10px; margin-bottom:8px;">
+      <div>
+        <span style="color:#bbb; font-family:'Courier New',monospace;">├── </span>
+        <strong>자산</strong>: 현금 &nbsp;/&nbsp; 매출채권 &nbsp;/&nbsp; 재고 &nbsp;/&nbsp; 유형자산 (CAPEX) &nbsp;/&nbsp; 무형자산
+      </div>
+      <div>
+        <span style="color:#bbb; font-family:'Courier New',monospace;">├── </span>
+        <strong>부채</strong>: 매입채무 &nbsp;/&nbsp; 차입금
+      </div>
+      <div>
+        <span style="color:#bbb; font-family:'Courier New',monospace;">└── </span>
+        <strong>자본</strong>: 자본금 &nbsp;/&nbsp; 이익잉여금
+        <span style="color:#888; font-size:11px; margin-left:6px;">← Net Income 누적</span>
+      </div>
+    </div>
+
+    <!-- ─ 가지 3: 현금흐름표 ─ -->
+    <div style="display:flex; align-items:baseline;">
+      <span style="color:#aaa; font-family:'Courier New',monospace; white-space:pre; margin-right:4px;">└──</span>
+      <span style="background:#1a5faa; color:#fff; padding:1px 10px; font-weight:700; font-size:12px; letter-spacing:0.5px;">현금흐름표 &nbsp;(현금주의)</span>
+    </div>
+
+    <div style="margin-left:1.5em; padding-left:10px;">
+
+      <!-- OCF -->
+      <div>
+        <span style="color:#bbb; font-family:'Courier New',monospace;">├── </span>
+        <strong style="color:#1a5faa; font-size:13px;">OCF</strong>
+        <span style="color:#555; margin-left:4px;">(영업현금흐름 · Operating Cash Flow)</span>
+        <div style="margin-left:2.4em; border-left:1px dashed #c5d8f0; padding-left:8px;">
+          <div style="color:#555; font-size:11.5px;">= Net Income &nbsp;+ D&amp;A &nbsp;± 운전자본 변동</div>
+          <div style="font-size:11.5px;">
+            <span style="color:#ccc; font-family:'Courier New',monospace;">└── </span>
+            <span style="color:#c00;">− 매출채권↑</span>
+            &nbsp;&nbsp;
+            <span style="color:#c00;">− 재고자산↑</span>
+            &nbsp;&nbsp;
+            <span style="color:#0a6e00;">+ 매입채무↑</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ICF -->
+      <div style="margin-top:2px;">
+        <span style="color:#bbb; font-family:'Courier New',monospace;">├── </span>
+        <strong>ICF</strong>
+        <span style="color:#555; margin-left:4px;">(투자현금흐름 · Investing Cash Flow)</span>
+        <div style="margin-left:2.4em; border-left:1px dashed #c5d8f0; padding-left:8px;">
+          <span style="color:#ccc; font-family:'Courier New',monospace;">└── </span>
+          <span style="color:#c00; font-size:11.5px; font-weight:700;">− CAPEX</span>
+          <span style="color:#666; font-size:11.5px; margin-left:4px;">(유형·무형자산 취득 지출)</span>
+        </div>
+      </div>
+
+      <!-- CFF -->
+      <div style="margin-top:2px;">
+        <span style="color:#bbb; font-family:'Courier New',monospace;">└── </span>
+        <strong>CFF</strong>
+        <span style="color:#555; margin-left:4px;">(재무현금흐름 · Financing Cash Flow)</span>
+        <span style="color:#888; font-size:11px; margin-left:6px;">← FCF 창출 후 배분처</span>
+        <div style="margin-left:2.4em; border-left:1px dashed #c5d8f0; padding-left:8px;">
+          <span style="color:#ccc; font-family:'Courier New',monospace;">└── </span>
+          <span style="color:#555; font-size:11.5px;">차입금 증감 &nbsp;/&nbsp; 배당 지급 &nbsp;/&nbsp; 자사주 매입</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- FCF 강조 박스 -->
+    <div style="margin-top:12px; padding:8px 14px; background:#e8f0fb; border:1.5px solid #1a5faa; border-radius:1px;">
+      <strong style="color:#1a5faa; font-size:13px;">FCF</strong>
+      <span style="font-size:12.5px; margin-left:6px;">= OCF − CAPEX</span>
+      <span style="color:#888; font-size:11px; margin:0 8px;">·</span>
+      <span style="color:#555; font-size:11.5px;">재무제표 공식 항목이 아닌 <strong>분석 지표</strong> — 기업 내재가치(DCF)의 근거</span>
+    </div>
+
   </div>
+  <!-- ── 트리 다이어그램 끝 ── -->
 
   <div class="page-no">- 7 -</div>
 </div>

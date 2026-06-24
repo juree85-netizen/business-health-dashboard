@@ -284,24 +284,126 @@
 
   <div class="sq">§ 2-1. 전체 구조 한눈에 보기</div>
 
-  <p class="body-p">다음은 EBITDA에서 FCF까지 각 지표가 어떤 항목을 차감해 도출되는지를 보여주는 <strong>하강 체계(Waterfall)</strong>이다.</p>
+  <p class="body-p">아래 다이어그램은 EBITDA에서 FCF까지, 각 단계에서 <strong>무엇을 추가로 차감·조정해 다음 지표를 도출하는지</strong>를 위에서 아래로 흐르는 구조로 보여준다. 위로 갈수록 덜 차감된 넓은 개념, 아래로 갈수록 더 많이 차감된 좁은(엄밀한) 개념이다.</p>
 
-  <div class="waterfall">
-<span class="wf-result">EBITDA</span>  (상각 전 영업이익 — Earnings Before Interest, Tax, Depreciation &amp; Amortization)
-  <span class="wf-op">↓  − D&amp;A</span>  <span class="wf-note">감가상각비(Depreciation) + 무형자산상각비(Amortization)  [비현금 비용]</span>
-<span class="wf-result">EBIT</span>    (영업이익 — Earnings Before Interest &amp; Tax)
-  <span class="wf-op">↓  − 이자비용(Interest Expense)</span>
-  <span class="wf-op">↓  − 법인세(Income Tax)</span>
-<span class="wf-result">Net Income</span>  (순이익 — 주주 귀속 최종 이익)
-  <span class="wf-op">↓  + D&amp;A  재가산</span>  <span class="wf-note">비현금 비용 환원 (현금 나간 것 아님)</span>
-  <span class="wf-op">↓  ± 운전자본 변동 (ΔWC)</span>
-  <span class="wf-op">     − 매출채권 증가  (현금 아직 미수령)</span>
-  <span class="wf-op">     − 재고자산 증가  (현금 선집행)</span>
-  <span class="wf-op">     + 매입채무 증가  (현금 미지급 → 유리)</span>
-<span class="wf-result">OCF</span>  (영업현금흐름 — Operating Cash Flow)
-  <span class="wf-op">↓  − CAPEX</span>  <span class="wf-note">유형/무형자산 취득 지출 (유지 + 성장)</span>
-<span class="wf-result">FCF</span>  (잉여현금흐름 — Free Cash Flow)
-</div>
+  <!-- ── Waterfall 시각 다이어그램 ── -->
+  <div style="margin:10px 0; border:1px solid #bbb; font-family:'Batang','BatangChe','바탕',Georgia,serif;">
+
+    <!-- 손익계산서 섹션 헤더 -->
+    <div style="background:#444; color:#fff; font-size:9.5px; font-weight:700; letter-spacing:2.5px; padding:4px 14px; text-align:center;">
+      손 익 계 산 서 &nbsp;·&nbsp; 발 생 주 의 (Accrual Basis)
+    </div>
+
+    <!-- EBITDA -->
+    <div style="background:#1e1e1e; color:#fff; padding:10px 16px; display:flex; justify-content:space-between; align-items:center;">
+      <div>
+        <div style="font-size:16px; font-weight:700; letter-spacing:1px;">EBITDA</div>
+        <div style="font-size:10px; color:#bbb; margin-top:2px;">상각 전 영업이익</div>
+      </div>
+      <div style="font-size:10px; color:#999; text-align:right; line-height:1.7;">
+        Earnings Before Interest, Tax,<br>Depreciation &amp; Amortization
+      </div>
+    </div>
+
+    <!-- 커넥터: − D&A -->
+    <div style="background:#fafafa; padding:7px 16px 7px 40px; border-left:2px solid #ccc; border-right:2px solid #ccc; display:flex; align-items:flex-start;">
+      <div style="margin-right:10px; color:#888; font-size:17px; line-height:1.3; margin-top:1px;">↓</div>
+      <div>
+        <span style="font-size:12.5px; font-weight:700; color:#c00;">− D&amp;A</span>
+        <span style="font-size:10.5px; color:#666; margin-left:8px;">감가상각비(Depreciation) + 무형자산상각비(Amortization)</span>
+        <span style="font-size:10px; color:#999; margin-left:6px;">[비현금 비용]</span>
+      </div>
+    </div>
+
+    <!-- EBIT -->
+    <div style="background:#2e2e2e; color:#fff; padding:10px 16px; display:flex; justify-content:space-between; align-items:center;">
+      <div>
+        <div style="font-size:16px; font-weight:700; letter-spacing:1px;">EBIT</div>
+        <div style="font-size:10px; color:#bbb; margin-top:2px;">영업이익 · Operating Profit</div>
+      </div>
+      <div style="font-size:10px; color:#999; text-align:right; line-height:1.7;">
+        Earnings Before<br>Interest &amp; Tax
+      </div>
+    </div>
+
+    <!-- 커넥터: − 이자 − 세금 -->
+    <div style="background:#fafafa; padding:7px 16px 7px 40px; border-left:2px solid #ccc; border-right:2px solid #ccc; display:flex; align-items:flex-start;">
+      <div style="margin-right:10px; color:#888; font-size:17px; line-height:1.3; margin-top:1px;">↓</div>
+      <div>
+        <div style="font-size:12.5px; font-weight:700; color:#c00; margin-bottom:2px;">− 이자비용 (Interest Expense)</div>
+        <div style="font-size:12.5px; font-weight:700; color:#c00;">− 법인세 (Income Tax)</div>
+      </div>
+    </div>
+
+    <!-- Net Income -->
+    <div style="background:#424242; color:#fff; padding:10px 16px; display:flex; justify-content:space-between; align-items:center;">
+      <div>
+        <div style="font-size:16px; font-weight:700; letter-spacing:0.5px;">Net Income</div>
+        <div style="font-size:10px; color:#bbb; margin-top:2px;">순이익 (당기순이익)</div>
+      </div>
+      <div style="font-size:10px; color:#999; text-align:right; line-height:1.7;">
+        주주 귀속 최종 이익
+      </div>
+    </div>
+
+    <!-- 전환선 -->
+    <div style="background:#e8f0fb; border-top:2px dashed #1a5faa; border-bottom:2px dashed #1a5faa; padding:5px 14px; text-align:center; font-size:10.5px; color:#1a5faa; font-weight:700; letter-spacing:0.5px;">
+      ▼ &nbsp; 발생주의 → 현금주의 전환 &nbsp;·&nbsp; 손익계산서 → 현금흐름표 &nbsp; ▼
+    </div>
+
+    <!-- 현금흐름표 섹션 헤더 -->
+    <div style="background:#1a5faa; color:#fff; font-size:9.5px; font-weight:700; letter-spacing:2.5px; padding:4px 14px; text-align:center;">
+      현 금 흐 름 표 &nbsp;·&nbsp; 현 금 주 의 (Cash Basis)
+    </div>
+
+    <!-- 커넥터: + D&A ± 운전자본 -->
+    <div style="background:#f0f6ff; padding:7px 16px 9px 40px; border-left:2px solid #7aa6d4; border-right:2px solid #7aa6d4; display:flex; align-items:flex-start;">
+      <div style="margin-right:10px; color:#1a5faa; font-size:17px; line-height:1.3; margin-top:1px;">↓</div>
+      <div>
+        <div style="font-size:12.5px; font-weight:700; color:#0a6e00; margin-bottom:3px;">
+          + D&amp;A 재가산
+          <span style="font-size:10px; font-weight:400; color:#555; margin-left:6px;">비현금 비용 환원 — 이번 기간에 현금이 나간 것이 아니므로</span>
+        </div>
+        <div style="font-size:12.5px; font-weight:700; color:#555; margin-bottom:3px;">± 운전자본 변동 (ΔWC)</div>
+        <div style="font-size:10.5px; color:#c00; padding-left:1.2em; margin-bottom:1px;">− 매출채권 증가 &nbsp;<span style="color:#777; font-weight:400;">(현금 아직 미수령 — 이익엔 잡혔지만 현금이 안 들어옴)</span></div>
+        <div style="font-size:10.5px; color:#c00; padding-left:1.2em; margin-bottom:1px;">− 재고자산 증가 &nbsp;<span style="color:#777; font-weight:400;">(현금 선집행 — 팔기 전에 돈이 나감)</span></div>
+        <div style="font-size:10.5px; color:#0a6e00; padding-left:1.2em;">+ 매입채무 증가 &nbsp;<span style="color:#777; font-weight:400;">(현금 미지급 → 아직 안 나간 돈)</span></div>
+      </div>
+    </div>
+
+    <!-- OCF -->
+    <div style="background:#1a3d6e; color:#fff; padding:10px 16px; display:flex; justify-content:space-between; align-items:center;">
+      <div>
+        <div style="font-size:16px; font-weight:700; letter-spacing:1px;">OCF</div>
+        <div style="font-size:10px; color:#aaa; margin-top:2px;">영업현금흐름</div>
+      </div>
+      <div style="font-size:10px; color:#999; text-align:right; line-height:1.7;">
+        Operating Cash Flow<br>영업이 실제 창출한 현금
+      </div>
+    </div>
+
+    <!-- 커넥터: − CAPEX -->
+    <div style="background:#f0f6ff; padding:7px 16px 7px 40px; border-left:2px solid #7aa6d4; border-right:2px solid #7aa6d4; display:flex; align-items:flex-start;">
+      <div style="margin-right:10px; color:#1a5faa; font-size:17px; line-height:1.3; margin-top:1px;">↓</div>
+      <div>
+        <div style="font-size:12.5px; font-weight:700; color:#c00; margin-bottom:2px;">− CAPEX (자본적 지출)</div>
+        <div style="font-size:10.5px; color:#666; padding-left:1.2em;">유형·무형자산 취득 지출 (유지 CAPEX + 성장 CAPEX)</div>
+      </div>
+    </div>
+
+    <!-- FCF -->
+    <div style="background:#0a2540; color:#fff; padding:12px 16px; display:flex; justify-content:space-between; align-items:center;">
+      <div>
+        <div style="font-size:18px; font-weight:700; letter-spacing:1px;">FCF</div>
+        <div style="font-size:10px; color:#aaa; margin-top:2px;">잉여현금흐름 · 진짜 자유 현금</div>
+      </div>
+      <div style="font-size:10px; color:#999; text-align:right; line-height:1.7;">
+        Free Cash Flow<br>기업가치(DCF)의 근거
+      </div>
+    </div>
+
+  </div>
+  <!-- ── Waterfall 다이어그램 끝 ── -->
 
   <p class="body-p" style="margin-top:10px;">위 구조에서 주목할 점은 <strong>D&A가 한 번 빠지고(EBITDA→EBIT) 한 번 다시 더해진다(Net Income→OCF)</strong>는 사실이다. 이유는 제3장에서 상세히 설명한다.</p>
 

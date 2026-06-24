@@ -50,6 +50,7 @@ export default defineConfig({
 						{ label: 'Coupa — Rossum 피드백 반영 v2 (2026.6.23)', link: '/project/coupa-rossum-report-v2-20260623/' },
 						{ label: 'Thoma Bravo — 기업 분석', link: '/project/thoma-bravo/' },
 							{ label: '재무 지표 해설 — EBITDA·FCF Waterfall', link: '/project/financial-metrics-guide/' },
+							{ label: '기업가치 평가 · M&A 인수가액 · PPA 해설', link: '/project/ma-valuation-guide/' },
 					],
 				},
 				{

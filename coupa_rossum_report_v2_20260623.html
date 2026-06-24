@@ -317,51 +317,106 @@
   <p class="fn">순이익은 SBC, 무형자산 상각 등 비현금 비용의 영향을 받아 FCF와 차이가 발생. 인수 후 PPA에 따른 무형자산 상각은 연간 $400M+ 수준으로 GAAP 순이익이 FCF 대비 크게 왜곡될 수 있으며, 순이익 적자가 반드시 현금창출력 부진을 의미하지 않음.</p>
 
   <div class="sq" style="margin-top:14px;">FCF 흐름 도식 (FY25 에보코 기준)</div>
-  <div style="margin:10px 0 4px 0; font-size:12px; color:#555;">Billings → Cash Adj. EBITDA → FCF 단계별 공제 항목</div>
-  <div style="display:flex; align-items:stretch; gap:0; font-size:12px; line-height:1.55; margin:6px 0 10px 0;">
-    <!-- Step 1 -->
-    <div style="flex:1; border:1px solid #aaa; border-radius:4px; padding:8px 10px; background:#f0f4ff; text-align:center;">
-      <div style="font-size:11px; color:#555; margin-bottom:2px;">Billings (청구액)</div>
-      <div style="font-weight:700; font-size:15px;">$1,138.5M</div>
-      <div style="font-size:11px; color:#888;">100%</div>
-    </div>
-    <div style="display:flex; flex-direction:column; justify-content:center; padding:0 4px; font-size:11px; color:#555; text-align:center; min-width:90px;">
-      <div style="color:#c00;">−S&amp;M $209.7M</div>
-      <div style="color:#c00;">−R&amp;D $132.9M</div>
-      <div style="color:#c00;">−G&amp;A $95.0M</div>
-      <div style="font-size:14px; color:#333; margin-top:2px;">→</div>
-    </div>
-    <!-- Step 2 -->
-    <div style="flex:1; border:1px solid #aaa; border-radius:4px; padding:8px 10px; background:#eaffea; text-align:center;">
-      <div style="font-size:11px; color:#555; margin-bottom:2px;">Cash Adj. EBITDA</div>
-      <div style="font-weight:700; font-size:15px;">$470.9M</div>
-      <div style="font-size:11px; color:#888;">41.4%</div>
-    </div>
-    <div style="display:flex; flex-direction:column; justify-content:center; padding:0 4px; font-size:11px; color:#555; text-align:center; min-width:90px;">
-      <div style="color:#c00;">−CapSW $12.2M</div>
-      <div style="color:#c00;">−Cap.Comm $24.3M</div>
-      <div style="font-size:14px; color:#333; margin-top:2px;">→</div>
-    </div>
-    <!-- Step 3 -->
-    <div style="flex:1; border:1px solid #aaa; border-radius:4px; padding:8px 10px; background:#fffbe6; text-align:center;">
-      <div style="font-size:11px; color:#555; margin-bottom:2px;">성장투자 차감 후</div>
-      <div style="font-weight:700; font-size:15px;">~$434M</div>
-      <div style="font-size:11px; color:#888;">~38%</div>
-    </div>
-    <div style="display:flex; flex-direction:column; justify-content:center; padding:0 4px; font-size:11px; color:#555; text-align:center; min-width:90px;">
-      <div style="color:#c00;">−이자 ~$240M</div>
-      <div style="font-size:11px; color:#888;">(Term Loan×11%)</div>
-      <div style="font-size:14px; color:#333; margin-top:2px;">→</div>
-    </div>
-    <!-- Step 4 -->
-    <div style="flex:1; border:1px solid #888; border-radius:4px; padding:8px 10px; background:#fff0f0; text-align:center;">
-      <div style="font-size:11px; color:#555; margin-bottom:2px;">FCF (이자 차감 후)</div>
-      <div style="font-weight:700; font-size:15px; color:#c00;">~$194M</div>
-      <div style="font-size:11px; color:#888;">~17%</div>
-    </div>
-  </div>
+  <p style="font-size:12px; color:#555; margin:6px 0 8px 0;">Billings → Cash Adj. EBITDA → FCF 단계별 공제 항목</p>
+  <table class="t" style="font-size:12px;">
+    <tr>
+      <th style="width:6%; text-align:center;">단계</th>
+      <th>항목</th>
+      <th style="width:22%; text-align:right;">금액</th>
+      <th style="width:10%; text-align:center;">비율</th>
+    </tr>
+    <tr style="background:#f0f4ff;">
+      <td class="c" style="font-weight:700;">①</td>
+      <td>Billings (청구액)</td>
+      <td style="text-align:right; font-weight:700;">$1,138.5M</td>
+      <td class="c">100%</td>
+    </tr>
+    <tr>
+      <td class="c" style="color:#aaa;">↓</td>
+      <td style="color:#c00; padding-left:2em;">− S&amp;M 비용</td>
+      <td style="text-align:right; color:#c00;">$209.7M</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td style="color:#c00; padding-left:2em;">− R&amp;D 비용</td>
+      <td style="text-align:right; color:#c00;">$132.9M</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td style="color:#c00; padding-left:2em;">− G&amp;A 비용</td>
+      <td style="text-align:right; color:#c00;">$95.0M</td>
+      <td></td>
+    </tr>
+    <tr style="background:#eaffea;">
+      <td class="c" style="font-weight:700;">②</td>
+      <td><strong>Cash Adj. EBITDA</strong></td>
+      <td style="text-align:right; font-weight:700;">$470.9M</td>
+      <td class="c"><strong>41.4%</strong></td>
+    </tr>
+    <tr>
+      <td class="c" style="color:#aaa;">↓</td>
+      <td style="color:#c00; padding-left:2em;">− 자본화 SW 개발비 (CapSW)</td>
+      <td style="text-align:right; color:#c00;">$12.2M</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td style="color:#c00; padding-left:2em;">− 자본화 커미션 (Cap.Comm)</td>
+      <td style="text-align:right; color:#c00;">$24.3M</td>
+      <td></td>
+    </tr>
+    <tr style="background:#fffbe6;">
+      <td class="c" style="font-weight:700;">③</td>
+      <td>성장투자 차감 후</td>
+      <td style="text-align:right; font-weight:700;">~$434M</td>
+      <td class="c">~38%</td>
+    </tr>
+    <tr>
+      <td class="c" style="color:#aaa;">↓</td>
+      <td style="color:#c00; padding-left:2em;">− 이자비용 (Term Loan ~$2.2B × 11%)</td>
+      <td style="text-align:right; color:#c00;">~$240M</td>
+      <td></td>
+    </tr>
+    <tr style="background:#fff0f0;">
+      <td class="c" style="font-weight:700; color:#c00;">④</td>
+      <td><strong>FCF (이자 차감 후)</strong></td>
+      <td style="text-align:right; font-weight:700; color:#c00;">~$194M</td>
+      <td class="c" style="color:#c00;"><strong>~17%</strong></td>
+    </tr>
+  </table>
   <p class="fn">FCF = Cash Adj. EBITDA − CapSW − Net Cap. Commissions − 이자. CAPEX와 운전자본 변동은 소규모로 생략. EBITDA Coverage (EBITDA ÷ 이자) = 1.96x — 이자 상환 여력 양호.</p>
-  <p class="fn">이자 상환 가능 구조 : 인수 전 FCF +$174M은 이자 차감 전(Before Interest) 기준. TB 인수 직후 S&amp;M·G&amp;A 최적화·SBC 축소로 $100~150M+ 추가 확보 → FCF(이자 전) + 비용 절감 합산으로 이자 ~$240M 초과 충당 가능. GAAP 순이익 적자와 무관하게 현금 기준 이자 상환 여력 확보.</p>
+
+  <div class="sq" style="margin-top:14px;">이자 상환 가능 구조</div>
+  <p style="font-size:12px; color:#555; margin:6px 0 8px 0;">인수 전 FCF +$174M은 이자비용 차감 <strong>이전(Before Interest)</strong> 기준. TB는 인수 직후 아래 구조로 이자를 충당함.</p>
+  <table class="t" style="font-size:12px;">
+    <tr>
+      <th>항목</th>
+      <th style="width:28%; text-align:right;">금액</th>
+    </tr>
+    <tr>
+      <td>인수 전 FCF (이자 차감 전)</td>
+      <td style="text-align:right;">+$174M</td>
+    </tr>
+    <tr>
+      <td>TB 인수 직후 비용 절감 (S&amp;M·G&amp;A 최적화, SBC 축소)</td>
+      <td style="text-align:right;">+$100~150M</td>
+    </tr>
+    <tr style="background:#eaffea;">
+      <td><strong>합산 가용 현금</strong></td>
+      <td style="text-align:right; font-weight:700;">$274~324M</td>
+    </tr>
+    <tr>
+      <td style="color:#c00;">연간 이자비용 (Term Loan ~$2.2B × ~11%)</td>
+      <td style="text-align:right; color:#c00;">~$240M</td>
+    </tr>
+    <tr style="background:#f0f4ff;">
+      <td><strong>이자 충당 후 잔여 현금</strong></td>
+      <td style="text-align:right; font-weight:700;">+$34~84M</td>
+    </tr>
+  </table>
+  <p class="fn">GAAP 순이익 적자(SBC·무형자산 상각 등 비현금 비용 영향)와 무관하게, 현금 기준 이자 상환 여력 확보. 순이익 적자 ≠ 현금창출력 부진.</p>
 
   <hr class="sep-dash">
 

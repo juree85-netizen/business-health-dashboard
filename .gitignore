@@ -19,3 +19,7 @@ selleyo-hub/
 .ssh/
 .sudo_as_admin_successful
 .claude.json
+.git-credentials
+.gitconfig
+.expo/
+selleyo-app/

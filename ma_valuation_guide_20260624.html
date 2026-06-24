@@ -195,6 +195,7 @@
     <div class="toc-item">제1장. 멀티플은 원인이 아니라 결과다</div>
     <div class="toc-item sub">§ 1-1. 흔한 오해와 실제 순서</div>
     <div class="toc-item sub">§ 1-2. 주요 멀티플 지표 비교</div>
+    <div class="toc-item sub">§ 1-3. 같은 혼동 구조를 가진 개념 쌍들</div>
     <div class="toc-item">제2장. 인수가액 산정 — 4가지 방법</div>
     <div class="toc-item sub">§ 2-1. DCF (현금흐름 할인법)</div>
     <div class="toc-item sub">§ 2-2. Comparable Multiples (비교가치법)</div>
@@ -206,6 +207,7 @@
     <div class="toc-item sub">§ 3-3. PPA가 이후 재무제표에 미치는 영향</div>
     <div class="toc-item sub">§ 3-4. Successor / Predecessor 구조</div>
     <div class="toc-item">제4장. 전체 흐름 요약</div>
+    <div class="toc-item sub">§ 4-3. 비유 — 집 살 때와 똑같다</div>
   </div>
 
   <!-- 요약 표 -->
@@ -302,6 +304,15 @@
 
   <div class="sq" style="margin-top:16px;">§ 1-2. 주요 멀티플 지표 비교</div>
 
+  <div style="border:1px solid #ccc; background:#fafafa; padding:10px 16px; margin-bottom:8px; font-family:monospace; font-size:11px; line-height:2.1; color:#222;">
+    <span style="font-weight:700; font-size:12px;">EV (기업가치)</span><br>
+    ├── ÷ Revenue &nbsp;&nbsp;&nbsp;→ <strong>EV/Revenue</strong> &nbsp;&nbsp;&nbsp;(성장 초기 SaaS, 이익 없는 기업)<br>
+    ├── ÷ EBITDA &nbsp;&nbsp;&nbsp;&nbsp;→ <strong>EV/EBITDA</strong> &nbsp;&nbsp;&nbsp;(성숙 기업, PE 인수 비교)<br>
+    ├── ÷ EBIT &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ <strong>EV/EBIT</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(감가상각 차이 있는 기업 비교)<br>
+    ├── ÷ FCF &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ <strong>EV/FCF</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(현금창출력 중심 비교)<br>
+    └── ÷ ARR &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ <strong>EV/ARR</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(SaaS 전용, 구독 반복매출 기준)
+  </div>
+
   <table class="t">
     <tr>
       <th style="width:22%;">멀티플</th>
@@ -346,6 +357,47 @@
   <div class="fn">
     * EV(Enterprise Value) = 시가총액 + 순차입금(차입금 − 현금). 주주 외 채권자 지분까지 포함한 전체 기업가치.<br>
     * ARR(Annual Recurring Revenue) = 구독·라이선스 기반의 연간 반복 매출. 일회성 매출 제외.
+  </div>
+
+  <div class="sq" style="margin-top:14px;">§ 1-3. 같은 혼동 구조를 가진 다른 개념 쌍들</div>
+
+  <p class="body-p no-indent">"결정값 → 역산 → 설명값"의 구조는 M&A만의 혼동이 아니다. 일상에서도 동일한 인과관계 역전 오류가 반복된다.</p>
+
+  <table class="t">
+    <tr>
+      <th style="width:22%;">개념 쌍</th>
+      <th style="width:22%;">결정값</th>
+      <th style="width:22%;">설명값 (역산)</th>
+      <th style="width:34%;">흔한 오류</th>
+    </tr>
+    <tr>
+      <td class="b">주가 · PER</td>
+      <td>주가 (시장이 결정)</td>
+      <td>PER = 주가 ÷ EPS</td>
+      <td>"PER 20배니까 이 주가가 맞다" — 역산을 검증으로 쓰는 함정</td>
+    </tr>
+    <tr>
+      <td class="b">집값 · 평당가</td>
+      <td>집값 (협상·감정가)</td>
+      <td>평당가 = 집값 ÷ 평수</td>
+      <td>"평당 3,000이니까 30평 = 9억" — 평당가가 집값을 만드는 것처럼 보이나 반대</td>
+    </tr>
+    <tr>
+      <td class="b">연봉 · 시급</td>
+      <td>연봉 (협상 결과)</td>
+      <td>시급 = 연봉 ÷ 근무시간</td>
+      <td>"시급이 이러니까 연봉이 맞다" — 시급으로 연봉을 역으로 정당화</td>
+    </tr>
+    <tr class="hl">
+      <td class="b">인수가 · 멀티플</td>
+      <td>인수가 (DCF · LBO 분석)</td>
+      <td>멀티플 = EV ÷ 재무지표</td>
+      <td class="r"><strong>"8배니까 8B"</strong> — 가장 흔하고 임팩트 큰 역산 오류</td>
+    </tr>
+  </table>
+
+  <div class="box-key">
+    공통 구조: <strong>결정 → 역산(표현)</strong>인데, 표현 도구가 결정 공식처럼 보인다. 멀티플이 인수가를 결정한다는 착각은 이 구조적 혼동에서 비롯된다.
   </div>
 
   <div class="page-no">- 2 -</div>
@@ -823,6 +875,44 @@
   <div class="box-warn" style="margin-top:6px;">
     <strong>Successor / Predecessor 구조</strong><br>
     PPA로 회계 실체가 바뀌므로 인수 전후 재무제표는 단순 비교 불가. Successor B/S에는 Goodwill·무형자산이 대폭 증가하고 부채 구조도 전환사채 → Term Loan으로 전환된다. 두 기간을 비교할 때는 이 구조 변화를 먼저 인지해야 한다.
+  </div>
+
+  <div class="sq" style="margin-top:14px;">§ 4-3. 비유 — 집 살 때와 똑같다</div>
+
+  <p class="body-p no-indent">집을 살 때 "평당 3,000만 원이니까 30평 × 3,000 = 9억"으로 시작하지 않는다. 평당가는 결과이지, 가격을 만드는 공식이 아니다. M&A 멀티플도 정확히 같다.</p>
+
+  <div style="margin:8px 0; display:flex; gap:12px; align-items:stretch;">
+
+    <div style="flex:1.2; border:1px solid #bbb; overflow:hidden;">
+      <div style="background:#222; color:#fff; padding:6px 12px; font-size:10.5px; font-weight:700;">집 살 때 실제 판단 순서</div>
+      <div style="padding:10px 14px; font-size:11.5px; line-height:2.2;">
+        대출 얼마나 받을 수 있나?<br>
+        <span style="color:#888; font-size:10px; padding-left:1em;">→ LBO의 차입 한도</span><br>
+        10년 살면 얼마나 가치 있나?<br>
+        <span style="color:#888; font-size:10px; padding-left:1em;">→ DCF</span><br>
+        근처 비슷한 집은 얼마에 거래되나?<br>
+        <span style="color:#888; font-size:10px; padding-left:1em;">→ Comparable</span><br>
+        꼭 이 집이어야 하는 이유 있나?<br>
+        <span style="color:#888; font-size:10px; padding-left:1em;">→ Strategic Premium</span>
+      </div>
+    </div>
+
+    <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; color:#999; font-size:18px; gap:4px;">
+      <span>→</span>
+      <span style="font-size:9px; color:#bbb; writing-mode:vertical-rl; letter-spacing:2px;">결정 후 역산</span>
+    </div>
+
+    <div style="flex:1; border:1px solid #1a5faa; overflow:hidden;">
+      <div style="background:#1a5faa; color:#fff; padding:6px 12px; font-size:10.5px; font-weight:700;">사후 표현 (결과)</div>
+      <div style="padding:10px 14px; font-size:11.5px; line-height:2.2;">
+        위 4가지 따져서<br>
+        <strong>"9억 줄게"</strong> 결정<br><br>
+        그 다음에:<br>
+        <strong style="color:#1a5faa;">"평당 3,000만 원에 샀네"</strong><br><br>
+        <span style="font-size:10.5px; color:#555;">평당가는 결과.<br>가격을 만든 게 아니다.</span>
+      </div>
+    </div>
+
   </div>
 
   <div class="fn">

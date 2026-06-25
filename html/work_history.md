@@ -4,6 +4,22 @@
 
 ---
 
+## 2026-06-25
+
+**완료 작업**
+- Coupa/Rossum 인수 사례 분석 주간보고 작성
+  - 그룹장님 양식 기반 4개 항목 초안 작성 (배경·Rossum 개요·Coupa 인수·향후 계획)
+  - 습니다체 변환, Cello플랫폼개발팀(안대영 상무) 반영
+  - 그룹장님 피드백 수렴 후 수정 — Coupa Inspire 2026 발표 장소 추가, Tuck-in M&A → "전격 인수" 표현 변경, 파트너십 경위 2문장 분리
+  - Rossum Leader 표현 — "UiPath 등과 함께 Everest Group IDP PEAK Matrix® 2026 Leader" 확정
+  - BSM(Business Spend Management) 약어 정의 추가 논의
+  - 최종본 확정
+
+**생성/수정 파일**
+- 해당 없음 (주간보고 텍스트 작업)
+
+---
+
 ## 2026-05-04 (v2.8.0)
 
 **완료 작업**

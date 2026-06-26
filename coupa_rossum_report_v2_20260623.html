@@ -277,44 +277,98 @@
       </ul>
     </li>
   </ul>
-  <table class="t">
+  <table class="t" style="font-size:12px;">
     <tr>
-      <th style="width:20%">연도</th>
-      <th style="width:22%">매출</th>
-      <th style="width:22%">순이익</th>
-      <th style="width:18%">FCF</th>
-      <th>FCF 마진</th>
+      <th style="width:11%">연도</th>
+      <th style="width:12%">매출</th>
+      <th style="width:14%">순이익</th>
+      <th style="width:10%">OCF</th>
+      <th style="width:8%">CapEx</th>
+      <th style="width:11%">Adj. FCF</th>
+      <th style="width:8%">FCF<br>마진</th>
+      <th>출처·기준</th>
     </tr>
-    <tr><td class="c">'20년 (FY2021) <span class="src-10k">10-K</span></td><td class="c">$542M</td><td class="c r">-$130M</td><td class="c">+$108M</td><td class="c">20%</td></tr>
-    <tr><td class="c">'21년 (FY2022) <span class="src-10k">10-K</span></td><td class="c">$725M</td><td class="c r">-$235M</td><td class="c">+$158M</td><td class="c">22%</td></tr>
-    <tr><td class="c">'22년 (FY2023) <span class="src-10k">10-K</span></td><td class="c">$849M</td><td class="c r">-$259M</td><td class="c">+$174M</td><td class="c">20%</td></tr>
-    <tr class="sep-row"><td colspan="5">'23년 2월 Thoma Bravo, Coupa $8.0B 인수 및 상장폐지 — 이후 GAAP 재무제표 미공개</td></tr>
+    <!-- GAAP 공시 구간 -->
+    <tr style="background:#e8eef8;">
+      <td colspan="8" style="font-size:11px; font-weight:700; color:#1a5faa; text-align:center; padding:4px 9px; letter-spacing:0.3px; border-color:#aab;">
+        ▶ GAAP 공시 구간 — SEC Form 10-K 기준 (나스닥 상장사)
+      </td>
+    </tr>
+    <tr>
+      <td class="c">'20년<br><span style="font-size:10px;">FY2021</span></td>
+      <td class="c">$542M</td>
+      <td class="c r">-$180.1M</td>
+      <td class="c">$78.2M</td>
+      <td class="c" style="color:#888;">—</td>
+      <td class="c">+$113.5M</td>
+      <td class="c">21.6%</td>
+      <td class="c"><span class="src-10k">10-K</span><br><span style="font-size:10px;">GAAP</span></td>
+    </tr>
+    <tr>
+      <td class="c">'21년<br><span style="font-size:10px;">FY2022</span></td>
+      <td class="c">$725M</td>
+      <td class="c r">-$379.1M</td>
+      <td class="c">$168.1M</td>
+      <td class="c" style="color:#888;">—</td>
+      <td class="c">+$155.6M</td>
+      <td class="c">21.5%</td>
+      <td class="c"><span class="src-10k">10-K</span><br><span style="font-size:10px;">GAAP</span></td>
+    </tr>
+    <tr>
+      <td class="c">'22년<br><span style="font-size:10px;">FY2023</span></td>
+      <td class="c">$849M<br><span style="font-size:10px; color:#888;">(추정)</span></td>
+      <td class="c r">-$320M<br><span style="font-size:10px; color:#888;">(추정)</span></td>
+      <td class="c">~$190M<br><span style="font-size:10px; color:#888;">(추정)</span></td>
+      <td class="c" style="color:#888;">—</td>
+      <td class="c">+$174M<br><span style="font-size:10px; color:#888;">(추정)</span></td>
+      <td class="c">20~21%</td>
+      <td class="c"><span style="font-size:10px;">10-K 미제출<br>Q1~Q3 누적<br>-$241.5M 기반</span></td>
+    </tr>
+    <!-- 인수 구분선 -->
+    <tr class="sep-row">
+      <td colspan="8">'23년 2월 Thoma Bravo, Coupa $8.0B 인수 및 상장폐지 — 이후 SEC GAAP 공시 없음</td>
+    </tr>
+    <!-- Management P&L 구간 -->
+    <tr style="background:#fff3e8;">
+      <td colspan="8" style="font-size:11px; font-weight:700; color:#b85000; text-align:center; padding:4px 9px; letter-spacing:0.3px; border-color:#d8a070;">
+        ▶ Management P&amp;L 구간 — 에보코(Evoco)/Evercore 내부 자료 기준 (비GAAP · 대외비)
+      </td>
+    </tr>
     <tr class="hl-row">
-      <td class="c">'23년<br><span style="font-size:11px;">(추정)</span></td>
-      <td class="c">$1,009M</td>
-      <td class="c g">+$34M</td>
-      <td class="c">$150~180M</td>
-      <td class="c">15~18%</td>
+      <td class="c">'23년<br><span style="font-size:10px;">FY2024</span></td>
+      <td class="c ev">$993M</td>
+      <td class="c r">-$588.4M<br><span style="font-size:10px; color:#888;">†PPA 상각 포함</span></td>
+      <td class="c ev">$182M<br><span style="font-size:10px; color:#888;">(추정)</span></td>
+      <td class="c ev">$22M<br><span style="font-size:10px; color:#888;">(추정)</span></td>
+      <td class="c ev">+$160M<br><span style="font-size:10px; color:#888;">(추정)</span></td>
+      <td class="c ev">16.1%</td>
+      <td class="c ev"><span class="src-ev">에보코 B/S</span><br><span style="font-size:10px;">비GAAP</span></td>
     </tr>
-    <tr class="hl-row ev-row">
-      <td class="c">'24년<br><span class="src-ev" style="font-size:11px;">에보코/IDC</span></td>
+    <tr class="hl-row">
+      <td class="c">'24년<br><span style="font-size:10px;">FY2025</span></td>
       <td class="c ev">$1,134M</td>
-      <td class="c g ev">+$50~60M</td>
-      <td class="c ev">$210~250M</td>
-      <td class="c ev">18~21%</td>
+      <td class="c r">-$190~250M<br><span style="font-size:10px; color:#888;">(추정)</span></td>
+      <td class="c ev">$218M<br><span style="font-size:10px; color:#888;">(추정)</span></td>
+      <td class="c ev">$24M<br><span style="font-size:10px; color:#888;">(추정)</span></td>
+      <td class="c ev">+$194M</td>
+      <td class="c ev">17.0%</td>
+      <td class="c ev"><span class="src-ev">에보코 P&L</span><br><span style="font-size:10px;">비GAAP</span></td>
     </tr>
     <tr class="hl-row">
-      <td class="c">'25년<br><span style="font-size:11px;">(추정)</span></td>
-      <td class="c">$1,274M</td>
-      <td class="c g">+$81M</td>
-      <td class="c">$255~310M</td>
-      <td class="c">20~24%</td>
+      <td class="c">'25년<br><span style="font-size:10px;">FY2026</span></td>
+      <td class="c">$1,300M</td>
+      <td class="c g">+$81M<br><span style="font-size:10px; color:#888;">(추정)</span></td>
+      <td class="c">$307M<br><span style="font-size:10px; color:#888;">(추정)</span></td>
+      <td class="c">$27M<br><span style="font-size:10px; color:#888;">(추정)</span></td>
+      <td class="c">+$280M<br><span style="font-size:10px; color:#888;">(추정)</span></td>
+      <td class="c">21.5%</td>
+      <td class="c"><span style="font-size:10px;">성장 추세<br>기반 추정</span></td>
     </tr>
   </table>
-  <p class="fn" style="margin-top:4px;"><span class="src-10k">10-K</span> SEC Form 10-K 공개 실적 &nbsp;|&nbsp; <span class="src-ev">에보코</span> 에보코(Evoco) 경유 내부 제공 자료 (PCG 대외비 — 수치 외부 공유 금지) &nbsp;|&nbsp; <span class="src-pub">공식발표</span> 공시·보도자료 기준</p>
-  <p class="fn">'20~'22년은 SEC(Form 10-K) 기준 공개 실적이며, '23년 이후는 비상장 전환에 따라 GAAP 재무제표 미공개. '24년은 에보코(Evoco) 경유 제공 내부 자료 및 IDC Software Tracker 2025H2 기준 병행 참조.</p>
-  <p class="fn">'23년 매출은 인수 직전 3년 YoY 평균(25.43%)을 상반기에, 역산 성장률(12.34%)을 하반기에 적용한 블렌딩 기법으로 추정($1,009M, 연간 성장률 18.9%). '24년 확인치($1,134M, 에보코)와의 정합성 검증 완료. '25년은 '24년 성장률(12.34%) 연장 적용($1,274M). 순이익 및 FCF는 Coupa의 FCF 마진(15~24%) 유지 및 PE 비용 효율화에 따른 수익성 개선(순이익률 -30% → +5~6%)을 가정한 시나리오 기반 추정치임.</p>
-  <p class="fn">순이익은 SBC, 무형자산 상각 등 비현금 비용의 영향을 받아 FCF와 차이가 발생. 인수 후 PPA에 따른 무형자산 상각은 연간 $400M+ 수준으로 GAAP 순이익이 FCF 대비 크게 왜곡될 수 있으며, 순이익 적자가 반드시 현금창출력 부진을 의미하지 않음.</p>
+  <p class="fn" style="margin-top:4px;"><span class="src-10k">10-K</span> SEC Form 10-K 공개 실적 &nbsp;|&nbsp; <span class="src-ev">에보코</span> 에보코(Evoco) 경유 내부 제공 자료 (대외비 — 외부 공유 금지)</p>
+  <p class="fn">'20~'22년(FY2021~FY2023)은 나스닥 상장사 시기 SEC GAAP 공시 기준. Adj. FCF = 영업현금흐름(OCF) − CapEx + 전환사채 할인상환 차익 + 인수관련 주식보상 일시지급 (SEC 8-K 공시 기준). CapEx는 산식 내 포함 처리, '20~'22년 별도 미수록.</p>
+  <p class="fn">'23년~'25년(FY2024~FY2026)은 비상장 전환 이후 GAAP 재무제표 미공개. 매출은 에보코 제공 내부 Revenue 또는 Total Billings 기반. Adj. FCF = Cash Adj. EBITDA − CapSW − Net Capitalized Commissions (Management P&L 기준). OCF·CapEx는 FCF 역산 추정치. FCF 추세: $160M → $194M → $280M / OCF: $182M → $218M → $307M.</p>
+  <p class="fn">† FY2024 순손실 -$588.4M의 주요 원인: TB 인수(2023.2) 후 PPA 무형자산 상각 $406.7M(비현금, Evercore D&amp;A 내역 기준). 비현금·일회성 항목 제거 시 Adj. FCF +$160M → GAAP 순손실이 실제 현금창출력을 왜곡. '20~'22년 GAAP 순손실 역시 SBC·D&amp;A 등 비현금 비용 포함.</p>
 
   <div class="sq" style="margin-top:14px;">FCF 흐름 도식 (FY25 에보코 기준)</div>
   <p style="font-size:12px; color:#555; margin:6px 0 8px 0;">Billings → Cash Adj. EBITDA → FCF 단계별 공제 항목</p>

@@ -1,0 +1,23 @@
+# Memory Index
+
+- [User Role](user_role.md) — 솔루션사업부 기획팀 소속, 사업건전성 대시보드 담당자
+- ['26년 사업건전성 대시보드 중점 추진 업무](project_business_health_dashboard.md) — 12개 상품 대상 지표 관리 대시보드 구축/운영 계획 (2025~2027)
+- [VoC 지표 정의 (solution_if_voc)](project_voc_indicator_definition.md) — 접수월별 개선건수/리드타임/지연건수 정의 및 데이터 인터페이스 요청 조건
+- [대시보드 추진 배경 및 목적 확정본](project_dashboard_background_purpose.md) — 내부보고용 기획문서 (배경 3가지/문제정의/목적/목표 3가지)
+- [Tech/ISV 파트너 DB화 계획 및 연계 전략](project_partner_db.md) — 파트너전략그룹 별도 과제, 사업건전성 대시보드 연계 예정 (5월 개발 착수)
+- [Tech/ISV 파트너 지표 현황 및 추가 요청 목록](project_techisv_partner_indicators.md) — STAR 설계안 기반 산출 가능/추가 요청 지표 목록 (초안, 파트너 부서 확인 중)
+- [효율/수익 지표 정의 및 화면설계 (확정본)](project_efficiency_profit_indicators.md) — 산식/상품분류 확정 + 6Row 12카드 화면설계 스펙 + 와이어프레임 HTML 완성
+- [지표산출 로직 (기존) — 효율/수익 핵심 산식](project_indicator_definitions.md) — Row 1·3·4·5·6 산식 (Sales Efficiency/ARPA/FTE/Margin 등)
+- [지표산출 로직 (신규) — Finance/Sales/CS/Market 51개](project_indicator_definitions_new.md) — DB 테이블·컬럼·적용 로직 확정본 (l_sap.orderlist/bo_opportunity/solution_if_voc)
+- [문서허브 고정 URL](reference_docs_hub_url.md) — http://13.49.177.238:8090 (8090포트 nginx, /html/→/home/ubuntu/, /files/→/home/ubuntu/files/ 직접 서빙)
+- [스냅샷 저장 시 GitHub 동시 푸시](feedback_git_snapshot.md) — 커밋/태그 저장 시 반드시 GitHub push까지 함께 실행
+- [작업 시작 트리거 및 호칭](user_preferences.md) — 사용자가 "루나"라고 부르면 메모리/산출물파일/git스냅샷 전체를 표로 보여주고 업무 시작
+- [다음 세션 우선 작업](project_next_task.md) — FabriX 메일 발송 확인 + 셀레요 의사결정 3건 대기 (v4.24.2/selleyo-v1.6 기준 2026-06-16)
+- [FabriX AI 활용 가능성 검토](project_fabrix_ai_integration.md) — 대시보드 AI 고도화용 사내 AI, AI Pro와의 역할 구분, 공식 문의처 fabrix.cs@samsung.com
+- [셀레요 문서허브 URL/레포](reference_selleyo_hub_url.md) — http://13.49.177.238:8092, 별도 private 레포(github.com/juree85-netizen/selleyo)
+- [시장 데이터 biz_type 매핑](project_market_biz_type_mapping.md) — 수작업 업로드 시 biz_type↔원천 분류 매핑 문제, 담당자 문의 후 재논의 예정
+- [Tableau 월별 리포트 자동화](project_tableau_monthly_report.md) — 사업건전성 대시보드 월별 사업부장 보고용 리포트, 데이터 수집 방법 미확정으로 홀딩
+- [작업 히스토리 서브에이전트 운영 규칙](feedback_work_history_agent.md) — 세션 시작/종료 시 general-purpose 서브에이전트로 work_history.md 관리
+- [베라(Vera) 에이전트](../../../.claude/agents/vera.md) — 업무 정체성 정의 전담 에이전트. 강점·역할·커리어·포지셔닝 4축으로 프로필 정리
+- [호피(시장가격 PM) 에이전트](../../../.claude/agents/realestate-pm.md) — 서울 역세권 아파트 실거래가 모니터링·비교·매일 메일 발송 자동화 담당
+- [바이너리 파일 전송 제약 및 해결책](reference_skill_file_transfer.md) — SSH/GitHub 업로드 모두 막혔을 때 base64 임시 해결책 + 미해결 근본 원인 (2026-06-25)

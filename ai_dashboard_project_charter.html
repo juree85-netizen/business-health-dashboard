@@ -233,6 +233,98 @@
     .review-content h4 { font-size: 13px; font-weight: 700; color: #1a1a2e; margin-bottom: 3px; }
     .review-content p  { font-size: 12px; color: #555; }
 
+    /* AI 도구 경계 다이어그램 */
+    .ai-boundary {
+      margin: 4px 0 14px;
+    }
+    .boundary-label {
+      text-align: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: #6b7280;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .boundary-label::before, .boundary-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #e5e7eb;
+    }
+    .boundary-grid {
+      display: grid;
+      grid-template-columns: 1fr 50px 1fr;
+      gap: 0;
+      align-items: stretch;
+    }
+    .bnd-box {
+      border-radius: 8px;
+      padding: 16px 18px;
+    }
+    .bnd-box.internal {
+      background: #fef9c3;
+      border: 1.5px solid #fde68a;
+    }
+    .bnd-box.external {
+      background: #eef6ff;
+      border: 1.5px solid #bfdbfe;
+    }
+    .bnd-box .bnd-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 6px;
+    }
+    .bnd-box.internal .bnd-label { color: #92400e; }
+    .bnd-box.external .bnd-label { color: #1d4ed8; }
+    .bnd-box .bnd-tool {
+      font-size: 14px; font-weight: 700; margin-bottom: 10px; color: #1a1a2e;
+    }
+    .bnd-box ul { padding-left: 15px; }
+    .bnd-box ul li { font-size: 12px; color: #555; margin-bottom: 3px; }
+    .bnd-mid {
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 3px; font-size: 10px; color: #9ca3af;
+    }
+    .bnd-mid .bnd-arrow { font-size: 16px; color: #d97706; }
+
+    /* 완료 상태 뱃지 */
+    .done-badge {
+      font-size: 11px; font-weight: 700; padding: 1px 8px; border-radius: 4px;
+      display: inline-block; margin-left: 8px; vertical-align: middle;
+    }
+    .done-badge.complete { background: #dcfce7; color: #166534; }
+    .done-badge.progress { background: #fef9c3; color: #78350f; }
+
+    /* 데드라인 바 */
+    .deadline-bar {
+      background: #1e3a5f;
+      border-radius: 8px;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 18px;
+      gap: 16px;
+    }
+    .deadline-bar .dl-label { font-size: 12px; color: rgba(255,255,255,0.55); }
+    .deadline-bar .dl-date { font-size: 18px; font-weight: 700; color: #fff; }
+    .deadline-bar .dl-note { font-size: 12px; color: rgba(255,255,255,0.6); text-align: right; line-height: 1.5; }
+
+    /* 갭 노트 */
+    .gap-note {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      padding: 12px 18px;
+      margin-top: 14px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.6;
+    }
+    .gap-note strong { color: rgba(255,255,255,0.85); }
+
     /* 전환 조건 */
     .transition-box {
       background: #1a1a2e; border-radius: 12px;
@@ -290,9 +382,11 @@
     AI만으로 사업건전성 대시보드를 구축·운영·유지보수할 수 있는가?
   </div>
   <div class="meta">
-    <div><span><strong>작성일</strong>2026-06-30</span></div>
+    <div><span><strong>작성일</strong>2026-06-30 (v1.1)</span></div>
     <div><span><strong>담당</strong>솔루션사업부 기획팀</span></div>
-    <div><span><strong>팀 규모</strong>3인 (Claude Enterprise)</span></div>
+    <div><span><strong>팀 규모</strong>3인</span></div>
+    <div><span><strong>AI 도구</strong>Claude Enterprise + AIPro/FabriX</span></div>
+    <div><span><strong>데드라인</strong>2026년 10월</span></div>
     <div><span><strong>단계</strong>검증 프로젝트</span></div>
   </div>
 </div>
@@ -406,6 +500,10 @@
           <li><strong>유지보수:</strong> AI가 요구사항 변경 시 수정·배포를 신속하게 반영할 수 있는가?</li>
         </ul>
       </div>
+      <div class="box red" style="margin-top: 12px;">
+        <div class="box-label">주의 — 검증 환경과 목표 환경의 차이</div>
+        <p>검증 환경(Windows PC)에는 실제 Web/WAS 서버가 없다. 따라서 <strong>웹 서빙·자동화 스케줄</strong>은 완전한 형태로 검증하기 어렵다. 이 갭은 검증 결과 해석 시 명시적으로 언급해야 하며, 검증 성공이 실제 프로젝트 성공을 자동으로 보장하지는 않는다.</p>
+      </div>
     </div>
   </div>
 
@@ -416,12 +514,49 @@
       <h2>환경 제약 — 어떤 조건에서 검증하는가</h2>
     </div>
     <div class="sec-body">
+
+      <div class="block" style="margin-bottom: 20px;">
+        <div class="block-title">AI 도구 역할 분담 — 보안 경계가 도구 경계</div>
+        <div class="ai-boundary">
+          <div class="boundary-label">보안 경계선 (Security Boundary)</div>
+          <div class="boundary-grid">
+            <div class="bnd-box internal">
+              <div class="bnd-label">사내 보안망 — Windows PC</div>
+              <div class="bnd-tool">AIPro / FabriX</div>
+              <ul>
+                <li>SQL 쿼리 생성 및 Impala 실행 검증</li>
+                <li>데이터 모델(ERD·테이블 정의) 설계</li>
+                <li>KPI 산출 로직 검증</li>
+                <li>내부 데이터 직접 처리 (보안 정책 준수)</li>
+              </ul>
+            </div>
+            <div class="bnd-mid">
+              <div class="bnd-arrow">⇄</div>
+              <span>사내</span>
+              <span>웹메일</span>
+            </div>
+            <div class="bnd-box external">
+              <div class="bnd-label">외부망 — 개인PC / 외부 서버</div>
+              <div class="bnd-tool">Claude Enterprise</div>
+              <ul>
+                <li>웹 대시보드 HTML/JS 개발</li>
+                <li>와이어프레임·시안 생성 및 렌더링</li>
+                <li>기획 문서·검증 계획서 작성</li>
+                <li>인사이트 리포트 생성·발행</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <p style="font-size: 12px; color: #6b7280; margin-top: 8px;">* 두 도구는 대체재가 아니라 역할 분리 설계. 내부 데이터를 다루는 작업은 AIPro/FabriX, 그 결과를 가지고 웹·문서를 만드는 작업은 Claude Enterprise.</p>
+      </div>
+
+      <div class="block-title">기타 환경 제약</div>
       <div class="constraint-grid">
         <div class="c-item">
           <div class="c-icon">🖥️</div>
           <div class="c-text">
             <h4>Impala DB 접근 가능</h4>
-            <p>검증에 사용할 Windows PC는 사내 Impala DB에 직접 쿼리 가능</p>
+            <p>Windows PC에서 사내 Impala DB 직접 쿼리 가능. AIPro/FabriX로 생성한 SQL을 실행·검증하는 환경으로 활용</p>
             <span class="ctag ok">허용</span>
           </div>
         </div>
@@ -429,7 +564,7 @@
           <div class="c-icon">📧</div>
           <div class="c-text">
             <h4>사내 웹메일로만 외부 소통</h4>
-            <p>보안 정책 상 Impala 접근 PC는 사내 웹메일 시스템을 통해서만 외부와 소통 가능</p>
+            <p>Impala 접근 PC는 사내 웹메일을 통해서만 외부와 소통 가능. 데이터 결과물을 팀 간 전달할 때 이 경로 사용</p>
             <span class="ctag block">제한</span>
           </div>
         </div>
@@ -437,15 +572,15 @@
           <div class="c-icon">🌐</div>
           <div class="c-text">
             <h4>실제 Web/WAS 서버 없음</h4>
-            <p>검증 단계에서는 실제 서버 구축 없이 진행. 웹 아티팩트 호스팅 환경 별도 마련 필요</p>
-            <span class="ctag cond">대안 필요</span>
+            <p>검증 단계에서는 실제 서버 구축 없이 진행. 웹 아티팩트는 외부망 환경에서 별도로 호스팅</p>
+            <span class="ctag cond">대안 운영</span>
           </div>
         </div>
         <div class="c-item">
           <div class="c-icon">⚙️</div>
           <div class="c-text">
             <h4>자동화·스케줄 실행 제약</h4>
-            <p>Windows PC 보안 환경에서 배치·스케줄 자동 실행이 가능한지 미확인 상태</p>
+            <p>보안 환경에서 배치·스케줄 자동 실행이 제한될 수 있음. 완전 자동화 불가 시 담당자 주기적 수동 실행으로 대체</p>
             <span class="ctag cond">확인 필요</span>
           </div>
         </div>
@@ -466,40 +601,42 @@
           <h4>프로젝트 리드</h4>
           <ul>
             <li>비즈니스 요구사항 정의</li>
-            <li>검증 기준 판단</li>
-            <li>결과물 통합·발행</li>
+            <li>검증 기준 판단 및 결과 정리</li>
+            <li>결과물 통합·문서허브 발행</li>
             <li>팀 간 컨텍스트 조율</li>
           </ul>
-          <div class="t-tool">Claude Enterprise</div>
+          <div class="t-tool" style="background:#dbeafe; color:#1e3a8a;">Claude Enterprise (주)</div>
         </div>
         <div class="team-card t2">
           <div class="t-role">MEMBER 2 — 동료</div>
           <h4>검증 참여</h4>
           <ul>
             <li>역할 분담 미확정</li>
-            <li>Claude Enterprise 사용</li>
+            <li>Impala 작업 → AIPro/FabriX</li>
+            <li>기타 작업 → Claude Enterprise</li>
             <li>Windows PC (Impala 접근)</li>
           </ul>
-          <div class="t-tool">Claude Enterprise</div>
+          <div class="t-tool" style="background:#fef9c3; color:#78350f;">AIPro/FabriX + Claude Enterprise</div>
         </div>
         <div class="team-card t3">
           <div class="t-role">MEMBER 3 — 동료</div>
           <h4>검증 참여</h4>
           <ul>
             <li>역할 분담 미확정</li>
-            <li>Claude Enterprise 사용</li>
+            <li>Impala 작업 → AIPro/FabriX</li>
+            <li>기타 작업 → Claude Enterprise</li>
             <li>Windows PC (Impala 접근)</li>
           </ul>
-          <div class="t-tool">Claude Enterprise</div>
+          <div class="t-tool" style="background:#fef9c3; color:#78350f;">AIPro/FabriX + Claude Enterprise</div>
         </div>
       </div>
       <div class="box amber" style="margin-top: 14px;">
         <div class="box-label">미결 사항 — 환경 설정 검토 필요</div>
         <ul>
-          <li>3인이 Claude Enterprise를 어떻게 연동해서 협업할 것인가 (공유 컨텍스트, 프로젝트 공간)</li>
-          <li>각 역할(데이터/프론트/PM)을 어떻게 나눌 것인가</li>
-          <li>Windows PC 환경에서 Claude Enterprise 사용 방식 (설치 가능 여부, 브라우저 접근 여부)</li>
-          <li>팀 간 결과물 공유 방식 (사내 메일 경유 vs. 공유 드라이브 vs. GitHub)</li>
+          <li>3인이 동일 컨텍스트를 어떻게 공유할 것인가 — Claude Enterprise Projects 기능 활용 여부, 또는 마스터 문서 방식</li>
+          <li>각 역할(데이터·프론트·PM)을 어떻게 나눌 것인가 — 킥오프 전 합의 필요</li>
+          <li>AIPro/FabriX의 기능 범위 확인 — SQL 생성·파일 업로드·코드 생성·스케줄 실행 지원 여부</li>
+          <li>팀 간 결과물 전달 경로 — 사내 메일(데이터) + GitHub/문서허브(웹 결과물)</li>
         </ul>
       </div>
     </div>
@@ -535,17 +672,17 @@
           </div>
         </div>
         <div class="done-item">
-          <div class="done-check">✅</div>
+          <div class="done-check">🔄</div>
           <div class="done-content">
-            <h4>지표 정의서 (51개)</h4>
-            <p>Finance·Sales·CS·Market 4개 영역 51개 지표 산식·집계 기준·DB 컬럼 매핑 확정. 공유 문서 존재.</p>
+            <h4>지표 정의서 (51개) <span class="done-badge progress">검토 중</span></h4>
+            <p>Finance·Sales·CS·Market 4개 영역 51개 지표 산식·집계 기준·DB 컬럼 매핑 초안 완성. 단, 파트너 지표 일부는 담당 부서 확인 진행 중.</p>
           </div>
         </div>
         <div class="done-item">
-          <div class="done-check">✅</div>
+          <div class="done-check">🔄</div>
           <div class="done-content">
-            <h4>기술 검토서 (AIPro/FabriX)</h4>
-            <p>4개 과제별 AI 활용 방안·해결해야 할 기술 문제 정리. 개발자 미팅 전 검토용 자료 완성.</p>
+            <h4>기술 검토서 (AIPro/FabriX) <span class="done-badge progress">미팅 전</span></h4>
+            <p>4개 과제별 AI 활용 방안·해결해야 할 기술 문제 정리 완료. 개발자 미팅 및 내부 검토 전 상태 — AIPro/FabriX 기능 확인 결과에 따라 내용 업데이트 예정.</p>
           </div>
         </div>
         <div class="done-item">
@@ -570,36 +707,36 @@
         <div class="review-item">
           <div class="review-num">①</div>
           <div class="review-content">
-            <h4>Claude Enterprise 3인 협업 환경 설정</h4>
-            <p>3인이 동일 프로젝트 컨텍스트를 공유하는 방법, Claude Enterprise의 팀/프로젝트 기능 활용 방식 확인 필요</p>
+            <h4>AIPro/FabriX 기능 범위 확인 <span style="font-size:11px; color:#ef4444; font-weight:700;">[최우선]</span></h4>
+            <p>SQL 생성·코드 생성·파일 업로드·스케줄 실행 중 무엇을 지원하는지 확인 필요. 이 결과에 따라 4개 과제 전체의 추진 방식이 결정됨. 개발자 미팅에서 가장 먼저 확인할 항목.</p>
           </div>
         </div>
         <div class="review-item">
           <div class="review-num">②</div>
           <div class="review-content">
-            <h4>AIPro/FabriX 기능 범위 확인</h4>
-            <p>사내 AI 도구(AIPro/FabriX)가 코드 생성·SQL 생성·파일 업로드·스케줄 실행 중 무엇을 지원하는지 미확인. 지원 범위에 따라 과제 추진 방식이 달라짐</p>
+            <h4>3인 협업 공유 컨텍스트 방식</h4>
+            <p>각자의 AI 세션은 독립적이라 컨텍스트가 공유되지 않음. Claude Enterprise Projects 기능 활용 여부, 또는 "마스터 컨텍스트 문서"를 만들어 매 세션마다 AI에게 공통 입력하는 방식 중 선택 필요.</p>
           </div>
         </div>
         <div class="review-item">
           <div class="review-num">③</div>
           <div class="review-content">
-            <h4>Windows PC에서 웹 아티팩트 배포 방식</h4>
-            <p>AI가 생성한 HTML/JS 코드를 어디에 배포하여 실제로 확인할 것인가. 실제 Web 서버가 없는 상태에서의 대안 환경 확정 필요</p>
+            <h4>3인 역할 분담 확정</h4>
+            <p>동료 2인의 역할 미정. 데이터(AIPro/FabriX 주도)·프론트(Claude Enterprise 주도)·PM으로 분리하는 방향이 자연스러우나, 킥오프에서 합의 필요.</p>
           </div>
         </div>
         <div class="review-item">
           <div class="review-num">④</div>
           <div class="review-content">
-            <h4>3인 역할 분담 확정</h4>
-            <p>현재 동료 2인의 역할이 미정. 데이터/프론트/PM으로 분리할 것인지, 또는 다른 분담 방식을 택할지 킥오프 전 합의 필요</p>
+            <h4>사전 작업 결과물의 AI 입력 방식</h4>
+            <p>GitHub에 저장된 지표 정의서·DB 재설계·와이어프레임을 AIPro/FabriX와 Claude Enterprise 각각에 어떻게 전달할 것인가. 도구별 지원 방식(파일 업로드·텍스트 복사·URL 참조)이 다를 수 있음.</p>
           </div>
         </div>
         <div class="review-item">
           <div class="review-num">⑤</div>
           <div class="review-content">
-            <h4>사전 작업 결과물의 AI 입력 방식</h4>
-            <p>GitHub에 저장된 계획서·DB 재설계·와이어프레임을 AI에게 어떻게 전달할 것인가. 파일 업로드, URL 참조, 텍스트 복사 중 어떤 방식이 현실적인지 확인 필요</p>
+            <h4>검증 범위 확정 — 몇 개 상품·지표로 검증할 것인가</h4>
+            <p>12개 상품 전체 검증은 2026년 10월 데드라인 내에 불가능할 수 있음. 핵심 상품 1~2개, 대표 지표 10~15개로 범위를 먼저 확정해야 일정 역산이 가능함.</p>
           </div>
         </div>
       </div>
@@ -617,15 +754,29 @@
       <div class="t-node real">실제 프로젝트<br><small style="font-weight:400; font-size:11px;">Web/WAS Server + Impala DB</small></div>
     </div>
     <div class="t-cond">
-      성공 판정 기준: ① AI로 실제 작동하는 대시보드를 구축할 수 있다 &nbsp;|&nbsp;
-      ② AI로 데이터 오류·변경에 대응할 수 있다 &nbsp;|&nbsp;
-      ③ AI로 요구사항 변경을 신속하게 반영할 수 있다
+      성공 판정 기준: ① AI로 요구사항을 받아 웹 대시보드를 만들 수 있다 &nbsp;|&nbsp;
+      ② AI로 데이터 변경·오류에 기획자와 함께 대응할 수 있다 &nbsp;|&nbsp;
+      ③ AI로 요구사항 변경을 전문가 없이 신속하게 반영할 수 있다
+    </div>
+    <div class="deadline-bar">
+      <div>
+        <div class="dl-label">검증 프로젝트 데드라인</div>
+        <div class="dl-date">2026년 10월</div>
+      </div>
+      <div class="dl-note">
+        검증 완료 → 내부 보고 → 실제 프로젝트 승인 순서<br>
+        차세대 시스템 전환 일정('26.9월)과 병행 고려 필요
+      </div>
+    </div>
+    <div class="gap-note">
+      <strong>유의:</strong> 검증 환경(Windows PC)에는 실제 Web/WAS 서버가 없으므로 웹 서빙·자동화 스케줄의 완전한 검증은 이 단계에서 불가능하다.
+      검증 성공 판정은 <strong>"Windows PC 환경에서 가능함을 확인"</strong>이며, 실제 서버 환경 전환 후 추가 검증이 필요함을 명시한다.
     </div>
   </div>
 
 </div>
 
-<footer>Samsung SDS 솔루션사업부 기획팀 · 사업건전성 대시보드 AI 검증 프로젝트 · 2026-06-30</footer>
+<footer>Samsung SDS 솔루션사업부 기획팀 · 사업건전성 대시보드 AI 검증 프로젝트 · v1.1 (2026-06-30)</footer>
 
 </body>
 </html>

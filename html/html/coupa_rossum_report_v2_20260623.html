@@ -1,0 +1,1570 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coupa의 Rossum 인수 사례 분석 v2 — 사업부장 피드백 반영 (2026. 6. 23.)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Batang','BatangChe','바탕','바탕체','Nanum Myeongjo','NanumMyeongjo',Georgia,serif;
+    font-size: 14px; line-height: 1.85; color: #000;
+    background: #d0d0d0; padding: 32px 0;
+  }
+  .doc-page {
+    width: 794px; min-height: 1122px;
+    margin: 0 auto 28px auto;
+    background: #fff; padding: 60px 56px 70px 56px;
+    box-shadow: 0 3px 14px rgba(0,0,0,0.20); position: relative;
+  }
+  .page-no { position: absolute; bottom: 24px; left: 0; right: 0; text-align: center; font-size: 12px; color: #555; letter-spacing: 0.5px; }
+
+  /* 공문 헤더 */
+  .doc-header-box {
+    border-top: 2.5px solid #000;
+    border-bottom: 1px solid #000;
+    margin-bottom: 14px;
+  }
+  .doc-header-row {
+    display: flex; align-items: stretch;
+    border-bottom: 1px solid #ccc;
+    font-size: 14px; line-height: 1.6;
+  }
+  .doc-header-row:last-child { border-bottom: none; }
+  .doc-header-label {
+    width: 96px; min-width: 96px;
+    font-weight: 700; padding: 5px 12px;
+    border-right: 1px solid #ccc;
+    background: #f8f8f8;
+    letter-spacing: 2px;
+  }
+  .doc-header-value { padding: 5px 14px; flex: 1; }
+  .doc-header-title-value { padding: 5px 14px; flex: 1; font-weight: 700; font-size: 15px; letter-spacing: -0.3px; }
+
+  .doc-main-title { font-size: 20px; font-weight: 700; text-decoration: underline; text-align: center; margin: 10px 0 6px 0; line-height: 1.4; letter-spacing: -0.5px; }
+  .summary-tbl { width: 100%; border-collapse: collapse; margin: 4px 0 14px 0; }
+  .summary-tbl .s-pad { border: none; width: 3%; }
+  .summary-tbl .s-main { border: 1px solid #000; padding: 9px 14px; font-size: 14px; line-height: 1.85; }
+
+  .ch { font-size: 14px; font-weight: 700; margin: 16px 0 10px 0; }
+  .sq { font-size: 14px; margin: 10px 0 6px 0; padding-left: 1em; }
+  .sq::before { content: '□ '; }
+  .body-p { padding-left: 3em; margin-bottom: 9px; font-size: 14px; }
+
+  ul.dash { list-style: none; padding-left: 3em; margin: 4px 0; }
+  ul.dash > li { position: relative; padding-left: 1em; margin-bottom: 7px; font-size: 14px; }
+  ul.dash > li::before { content: '-'; position: absolute; left: 0; }
+  ul.dot { list-style: none; padding-left: 5em; margin: 4px 0; }
+  ul.dot > li { position: relative; padding-left: 1em; margin-bottom: 7px; font-size: 14px; }
+  ul.dot > li::before { content: '·'; position: absolute; left: 0; }
+
+  .fn { font-size: 10px; color: #333; padding-left: 3em; margin-top: 5px; line-height: 1.7; }
+  .fn::before { content: '※ '; font-weight: 700; }
+  .def { font-size: 9.5px; color: #1a5faa; font-style: normal; letter-spacing: -0.1px; }
+
+  .sep { border: none; border-top: 1px solid #ccc; margin: 14px 0; }
+  .sep-dash { border: none; border-top: 1px dashed #bbb; margin: 12px 0; }
+
+  table.t { width: 100%; border-collapse: collapse; font-size: 13px; margin: 7px 0 12px 0; }
+  table.t th { background: #222; color: #fff; padding: 6px 9px; text-align: center; font-weight: 700; border: 1px solid #444; }
+  table.t td { padding: 5px 9px; border: 1px solid #bbb; vertical-align: top; line-height: 1.75; }
+  table.t td.c { text-align: center; }
+  table.t td.b { font-weight: 700; }
+  table.t td.r { color: #b00; font-weight: 700; }
+  table.t td.g { color: #0a6e00; font-weight: 700; }
+  table.t tr.hl-row > td { background: #fef9e5; }
+  table.t tr.sep-row > td { background: #e0e0e0; font-weight: 700; font-size: 12px; text-align: center; letter-spacing: 0.5px; border-color: #999; }
+
+  .box-key { border: 1px solid #888; border-left: 3px solid #222; padding: 9px 13px; margin: 8px 0; font-size: 13px; background: #f5f5f5; line-height: 1.8; }
+  .box { border: 1px solid #aaa; padding: 9px 13px; margin: 8px 0; font-size: 13px; background: #fafafa; line-height: 1.8; }
+
+  .ol-title { font-weight: 700; font-size: 14px; margin-top: 10px; margin-bottom: 2px; }
+  .ol-items { list-style: none; padding-left: 2em; margin: 0 0 6px 0; }
+  .ol-items li { font-size: 14px; line-height: 1.85; position: relative; padding-left: 1.2em; }
+  .ol-items li::before { content: '-'; position: absolute; left: 0; }
+
+  .badge-success { display: inline-block; font-size: 10px; color: #fff; background: #0a6e00; padding: 1px 7px; border-radius: 2px; margin-left: 6px; vertical-align: middle; }
+  .badge-fail { display: inline-block; font-size: 10px; color: #fff; background: #b00000; padding: 1px 7px; border-radius: 2px; margin-left: 6px; vertical-align: middle; }
+
+  .num-head { font-weight: 700; margin: 12px 0 4px 2em; font-size: 14px; }
+  .end-mark { text-align: center; font-size: 13px; margin-top: 20px; letter-spacing: 1px; }
+
+  /* 출처 태그 */
+  .src-ev  { display:inline-block; font-size:9px; font-weight:700; color:#fff; background:#b85000; padding:0 5px; border-radius:2px; margin-left:4px; vertical-align:middle; white-space:nowrap; }
+  .src-10k { display:inline-block; font-size:9px; font-weight:700; color:#fff; background:#1a5faa; padding:0 5px; border-radius:2px; margin-left:4px; vertical-align:middle; white-space:nowrap; }
+  .src-pub { display:inline-block; font-size:9px; font-weight:700; color:#fff; background:#555;    padding:0 5px; border-radius:2px; margin-left:4px; vertical-align:middle; white-space:nowrap; }
+  /* Evercore 반영 셀/행 강조 */
+  table.t td.ev { border-left:3px solid #b85000 !important; background:#fff8ed !important; }
+  table.t tr.ev-row > td { background:#fff8ed !important; }
+  table.t tr.ev-row > td:first-child { border-left:3px solid #b85000 !important; }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .doc-page { box-shadow: none; margin: 0; padding: 48px 44px 56px 44px; min-height: auto; page-break-after: always; }
+    .doc-page:last-child { page-break-after: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════ PAGE 1 — 보고 표지/목차 ══════════════════ -->
+<div class="doc-page">
+
+  <!-- 공문 헤더 -->
+  <div class="doc-header-box">
+    <div class="doc-header-row">
+      <div class="doc-header-label">수 &nbsp; 신</div>
+      <div class="doc-header-value">솔루션사업부장</div>
+    </div>
+    <div class="doc-header-row">
+      <div class="doc-header-label">발 &nbsp; 신</div>
+      <div class="doc-header-value">기획팀장</div>
+    </div>
+    <div class="doc-header-row">
+      <div class="doc-header-label">보고일자</div>
+      <div class="doc-header-value">2026. 6. 23. (火)</div>
+    </div>
+    <div class="doc-header-row" style="border-bottom:none;">
+      <div class="doc-header-label">제 &nbsp; 목</div>
+      <div class="doc-header-title-value">Coupa의 Rossum 인수 사례 분석 <span style="font-size:13px; color:#c00; font-weight:400;">(v2 — 사업부장 피드백 반영)</span></div>
+    </div>
+  </div>
+
+  <table class="summary-tbl">
+    <tr>
+      <td class="s-pad"></td>
+      <td class="s-main">
+        <strong>보고 배경 및 요지</strong><br>
+        Coupa Software는 2026년 5월, AI 기반 문서처리 전문 스타트업 Rossum을 인수하였다. Thoma Bravo 인수('23년) 이후 비용 효율화를 통해 수익성을 개선한 Coupa는 확보된 현금흐름을 기반으로 Cirtuo·Scoutbee·Rossum·Tonkean 4건의 AI 네이티브 기업을 연속 인수하며 AI 기반 BSM 플랫폼 구축을 가속하고 있다.<br><br>
+        본 보고서는 Coupa 기업 개요, Rossum 인수 배경·목적·기대효과를 분석하고, 당사 사업 전략 관점의 시사점을 도출한다.<br><br>
+        <span style="color:#0a6e00; font-size:12px;">【v3 팩트체크 교정】 대표이사 취임 시기 · 매출 추정 기준 · Rossum 성장률 +60% · Thoma Bravo 출범년도 및 본사 · Tonkean 창업자 · Scoutbee 창업자/고객 · SAP Ariba 설립년도 · $300B 누적 절감 맥락 · FCF 매출원가/Cash Gross Profit 행 추가 · 이자상환구조 SBC 주석 추가 등 22건 반영</span><br>
+        <span style="color:#c00; font-size:12px;">【v2 변경 사항】 ① 재무 현황 테이블 전면 개편 ('23~'25년 추정치 행 추가 · 순이익/FCF/FCF마진 단일 기준으로 통일) ② FCF 이자상환 능력 설명 보강 (이자 차감 전/후 구분 · 비용 절감 연계 논리) ③ 각주 3종 정비 (IDC/Evercore/추정 출처 구분) ④ TB vs. Medallia 비교표 보완 · 시사점 M&amp;A 평가 기준 보완 ⑤ 별첨 8 (SaaS/AI M&amp;A 검토 체크리스트) · 별첨 9 (IDP 경쟁사 비교) 신규 추가 ⑥ 별첨 8에 재무 실사(DD) 세부 검증 항목 3개 섹션 추가 (Top Line·P&amp;L·FCF/BS/채널 — Evercore 실사 기반)</span>
+      </td>
+      <td class="s-pad"></td>
+    </tr>
+  </table>
+
+  <hr class="sep">
+
+  <div class="ch">목 차</div>
+
+  <div class="ol-title">1. Coupa 기업 개요</div>
+  <ul class="ol-items">
+    <li>기본 현황 · 사업 영역 및 업계 위상 · 주요 경쟁사 현황</li>
+    <li>제품 포트폴리오 · Coupa 재무 현황</li>
+    <li>TB의 Coupa vs. Medallia 인수 성과 비교</li>
+  </ul>
+
+  <div class="ol-title">2. Coupa의 Rossum 인수</div>
+  <ul class="ol-items">
+    <li>Coupa 사업 전략 · 인수 기업 4건 개요</li>
+    <li>Rossum 기업 개요 · 인수 방식 · 인수 목적 및 기대효과</li>
+  </ul>
+
+  <div class="ol-title">3. 시사점</div>
+  <ul class="ol-items">
+    <li>SaaS 기업 M&amp;A 검토 기준 · PE 포트폴리오 모니터링 · 자사 AI 경쟁력 강화</li>
+  </ul>
+
+  <hr class="sep-dash" style="margin:10px 0;">
+
+  <div class="ol-title">별첨 1. Thoma Bravo의 Coupa 인수 사례 분석</div>
+  <ul class="ol-items"><li>TB 개요 · 인수 구조 및 논리 · 인수 후 경영 개선 및 성과</li></ul>
+
+  <div class="ol-title">별첨 2. 주요 기업 개요 (Tonkean, Scoutbee)</div>
+  <ul class="ol-items"><li>Tonkean · Scoutbee 기업 현황 · 에이전틱 스택 구조</li></ul>
+
+  <div class="ol-title">별첨 3. SAP Ariba vs. Coupa 비교</div>
+  <ul class="ol-items"><li>항목별 비교 · Coupa의 경쟁사 포지션</li></ul>
+
+  <div class="ol-title">별첨 4. 기존 OCR 대비 Rossum AI Agent 차별성</div>
+  <ul class="ol-items"><li>IDP 시장 위상 · OCR 대비 AI Agent 차별성 · 핵심 역량 · 시사점</li></ul>
+
+  <div class="ol-title">별첨 5. M&amp;A 대상 기업 후보군 발굴 기준</div>
+  <ul class="ol-items"><li>투자 단계 기반 스크리닝 · 파트너십·PoC 2단계 접근 · PE 발굴 기준 · AI 기술 M&amp;A 검증 기준</li></ul>
+
+  <div class="ol-title">별첨 6. M&amp;A 투자 단계 개요</div>
+  <ul class="ol-items"><li>단계별 특성 및 M&amp;A 관점 · 전략 적용 관점</li></ul>
+
+  <div class="ol-title">별첨 7. Rossum 기업 개요</div>
+  <ul class="ol-items"><li>기본 현황 · 사업 영역 및 업계 위상 · 주요 경쟁사 현황 · 제품 포트폴리오 / 핵심 기술 · 재무 현황 및 자금 조달</li></ul>
+
+  <div class="ol-title">별첨 8. SaaS/AI 기업 M&amp;A 검토 체크리스트 <span style="color:#c00; font-size:11px;">(v2 신규)</span></div>
+  <ul class="ol-items"><li>Financial Metrics · Operational Metrics · Business Quality · M&amp;A 관점 체크포인트</li></ul>
+
+  <div class="ol-title">별첨 9. IDP 경쟁사 비교 (Rossum vs. Ariba vs. UiPath vs. ABBYY) <span style="color:#c00; font-size:11px;">(v2 신규)</span></div>
+  <ul class="ol-items"><li>기능·기술 비교 · AI 수준 · Coupa 선제 확보 의미</li></ul>
+
+  <div class="ol-title">별첨 10. FY2024 vs FY2025 순손실 추정 방법론 비교 <span style="color:#c00; font-size:11px;">(v2 신규)</span></div>
+  <ul class="ol-items"><li>추정 방향 차이 · 알고 있는 것 vs 모르는 것 · 이연법인세 변화 · 신뢰도 한계</li></ul>
+
+  <div class="page-no">— 1 —</div>
+</div>
+
+
+<!-- ══════════════════ PAGE 2 — 1. Coupa 기업 개요 ══════════════════ -->
+<div class="doc-page">
+
+  <div class="ch">1. Coupa 기업 개요</div>
+
+  <div class="sq">기본 현황</div>
+  <table class="t">
+    <tr><td style="width:28%" class="b">공식 명칭</td><td>Coupa Software Incorporated</td></tr>
+    <tr><td class="b">설립 / 본사</td><td>'06년 2월 / 美 캘리포니아 San Mateo</td></tr>
+    <tr><td class="b">대표이사</td><td>Leagh Turner (CEO, '23년 11월 취임)</td></tr>
+    <tr><td class="b">재무 현황</td><td>매출 약 $1.3B ('25년 기준, 추정)</td></tr>
+    <tr><td class="b">직원 수</td><td>약 3,500명 ('25년 기준)</td></tr>
+    <tr><td class="b">고객 규모</td><td>글로벌 네트워크상 바이어·공급사 약 1,000만+ 개社 (직접 계약 고객사는 약 3,000+ 곳)</td></tr>
+    <tr><td class="b">상장 이력</td><td>'16년 나스닥 상장 후, '23. 2월 Thoma Bravo가 약 $8.0B 규모로 인수하며 상장폐지</td></tr>
+    <tr><td class="b">소유 구조</td><td>Thoma Bravo (PE) 보유 비상장사</td></tr>
+    <tr><td class="b">최근 M&amp;A</td><td>'25~'26년, Cirtuo · Scoutbee · Rossum · Tonkean 4건의 Tuck-in을 통해 AI 기반 소싱, 조달 자동화 역량 강화</td></tr>
+  </table>
+
+  <hr class="sep-dash">
+
+  <div class="sq">사업 영역 및 업계 위상</div>
+  <ul class="dash">
+    <li>글로벌 선도 S2P<span class="def">(Source-to-Pay)</span> 플랫폼(SAP Ariba와 함께 Top 2)으로, 조달 중심 사업에서 경비·출장·계약 등 기업 지출관리 전반을 포괄하는 BSM<span class="def">(Business Spend Management)</span>으로 사업 영역 확대
+      <ul class="dot">
+        <li>조달, 인보이스, 경비 등 全 영역을 단일 플랫폼으로 통합 제공</li>
+      </ul>
+    </li>
+    <li>연 billings $1B 규모(ARR 환산 약 $1B 수준)로 성장하며 글로벌 조달 SaaS 시장을 선도</li>
+  </ul>
+
+  <hr class="sep-dash">
+
+  <div class="sq">주요 경쟁사 현황</div>
+  <ul class="dash">
+    <li><strong>SAP Ariba</strong> : 글로벌 최대 S2P 플랫폼(조달 부문 매출 약 $4.0B 추정 · SAP 별도 미공시)으로, SAP ERP 기반의 강력한 고객 생태계를 바탕으로 Coupa의 최대 경쟁사로 평가되며, SAP Business AI 및 Joule 기반 AI 기능을 확대 중</li>
+    <li><strong>Jaggaer</strong> : 제조·공공·교육 부문에 강점을 보유한 글로벌 주요 S2P 플랫폼(비상장 · 외부 추정 매출 ~$0.3B 내외)으로, 전략적 소싱 및 공급업체 관리 역량이 차별화 요소. JAI(JAGGAER AI)를 기반으로 AI 기반 자동화 기능 확대 중</li>
+  </ul>
+
+  <hr class="sep-dash">
+
+  <div class="sq">제품 포트폴리오</div>
+  <p class="body-p">구매·인보이스·소싱·계약·경비·공급망 관리 기능을 단일 플랫폼으로 제공, AI Agent를 활용해 지출 전 과정을 자동화·최적화하는 BSM 솔루션</p>
+  <table class="t">
+    <tr><th style="width:30%">제품</th><th>주요 기능</th></tr>
+    <tr><td class="b">Coupa Procurement</td><td>구매 요청, 승인 및 발주 프로세스를 자동화하고 카탈로그·계약 기반 구매를 지원하는 핵심 S2P 엔진</td></tr>
+    <tr><td class="b">Coupa Invoicing</td><td>인보이스 수신, 3-way 매칭<span class="def">(구매주문서·입고내역·인보이스 자동 대조)</span>, 승인·지급 업무를 자동화하는 AP<span class="def">(Accounts Payable)</span> 플랫폼. Rossum의 AI 기반 문서 처리 기능 통합 추진</td></tr>
+    <tr><td class="b">Coupa Sourcing</td><td>공급업체 입찰, 평가, 선정 및 계약 체결을 지원하는 전략적 소싱 플랫폼. Scoutbee 및 Cirtuo 인수 기술 기반 AI 소싱 기능 고도화 추진</td></tr>
+    <tr><td class="b">Coupa Contracts</td><td>계약 작성, 검토, 갱신 등 계약 전 주기를 관리하고 계약 이행 및 컴플라이언스 관리를 지원하는 계약 관리 플랫폼</td></tr>
+    <tr><td class="b">Coupa Expense</td><td>임직원 경비 정산, 정책 준수 및 법인카드 연계를 자동화하는 비용 관리 솔루션</td></tr>
+    <tr><td class="b">Coupa Supply Chain Design</td><td>공급망 네트워크 설계, 시나리오 분석 및 리스크 시뮬레이션을 지원하는 공급망 최적화 솔루션</td></tr>
+    <tr class="hl-row"><td class="b">Navi (AI Agent)</td><td>약 $10T 규모의 지출 데이터를 기반으로 자연어 질의응답, 이상 탐지 및 비용 절감 방안 추천·업무 자동화를 지원하는 AI Agent. 최근 인수한 4개社의 기술을 통합하는 AI 허브 역할 수행</td></tr>
+  </table>
+  <p class="fn">4개社(Cirtuo, Scoutbee, Rossum, Tonkean)는 인수 후 위 제품군에 순차적으로 통합 추진 중</p>
+  <p class="fn">3-way 매칭 : 구매주문서, 입고내역, 인보이스를 자동 대조하여 지급 정확성을 검증하는 프로세스</p>
+
+  <div class="page-no">— 2 —</div>
+</div>
+
+
+<!-- ══════════════════ PAGE 3 — 재무현황 + TB vs Medallia ══════════════════ -->
+<div class="doc-page">
+
+  <div class="ch">1. Coupa 기업 개요 (계속)</div>
+
+  <div class="sq">Coupa 재무 현황</div>
+  <ul class="dash" style="margin-bottom:8px;">
+    <li>'22년(FY2023), 순이익 -$259M로 GAAP 기준 적자, FCF<span class="def">(Free Cash Flow, 잉여현금흐름)</span> +$174M으로 현금창출력은 양호
+      <ul class="dot">
+        <li>GAAP 순이익 적자는 SBC·무형자산 상각 등 비현금 비용의 영향이며, 실제 현금창출력(FCF)은 인수 전까지 흑자 지속</li>
+      </ul>
+    </li>
+    <li>'23년 2월, TB가 Coupa를 약 $8.0B에 인수하며 비상장 전환</li>
+    <li>'24년, 비용 효율화 중심의 Value-Up 전략을 추진하며 수익성 개선, AI 중심 성장 투자 기반 마련
+      <ul class="dot">
+        <li>인력 구조조정, 영업/마케팅 비용 최적화, SBC<span class="def">(주식기반보상)</span> 축소 등</li>
+      </ul>
+    </li>
+  </ul>
+  <table class="t" style="font-size:12px;">
+    <tr>
+      <th style="width:11%">연도</th>
+      <th style="width:12%">매출</th>
+      <th style="width:14%">순이익</th>
+      <th style="width:10%">OCF</th>
+      <th style="width:8%">CapEx</th>
+      <th style="width:11%">FCF (세후)</th>
+      <th style="width:8%">FCF<br>마진</th>
+      <th>출처·기준</th>
+    </tr>
+    <!-- GAAP 공시 구간 -->
+    <tr style="background:#e8eef8;">
+      <td colspan="8" style="font-size:11px; font-weight:700; color:#1a5faa; text-align:center; padding:4px 9px; letter-spacing:0.3px; border-color:#aab;">
+        ▶ GAAP 공시 구간 — SEC Form 10-K 기준 (나스닥 상장사)
+      </td>
+    </tr>
+    <tr>
+      <td class="c">'20년<br><span style="font-size:10px;">FY2021</span></td>
+      <td class="c">$542M</td>
+      <td class="c r">-$180.1M</td>
+      <td class="c">$78.2M</td>
+      <td class="c" style="color:#888;">—</td>
+      <td class="c">+$113.5M</td>
+      <td class="c">21.6%</td>
+      <td class="c"><span class="src-10k">10-K</span><br><span style="font-size:10px;">GAAP</span></td>
+    </tr>
+    <tr>
+      <td class="c">'21년<br><span style="font-size:10px;">FY2022</span></td>
+      <td class="c">$725M</td>
+      <td class="c r">-$379.1M</td>
+      <td class="c">$168.1M</td>
+      <td class="c" style="color:#888;">—</td>
+      <td class="c">+$155.6M</td>
+      <td class="c">21.5%</td>
+      <td class="c"><span class="src-10k">10-K</span><br><span style="font-size:10px;">GAAP</span></td>
+    </tr>
+    <tr>
+      <td class="c">'22년<br><span style="font-size:10px;">FY2023</span></td>
+      <td class="c">$849M<br><span style="font-size:10px; color:#888;">(추정)</span></td>
+      <td class="c r">-$320M<br><span style="font-size:10px; color:#888;">(추정)</span></td>
+      <td class="c">~$190M<br><span style="font-size:10px; color:#888;">(추정)</span></td>
+      <td class="c" style="color:#888;">—</td>
+      <td class="c">+$174M<br><span style="font-size:10px; color:#888;">(추정)</span></td>
+      <td class="c">20~21%</td>
+      <td class="c"><span style="font-size:10px;">10-K 미제출<br>Q1~Q3 누적<br>-$235.9M 기반</span></td>
+    </tr>
+    <!-- 인수 구분선 -->
+    <tr class="sep-row">
+      <td colspan="8">'23년 2월 Thoma Bravo, Coupa $8.0B 인수 및 상장폐지 — 이후 SEC GAAP 공시 없음</td>
+    </tr>
+    <!-- Management P&L 구간 -->
+    <tr style="background:#fff3e8;">
+      <td colspan="8" style="font-size:11px; font-weight:700; color:#b85000; text-align:center; padding:4px 9px; letter-spacing:0.3px; border-color:#d8a070;">
+        ▶ Management P&amp;L 구간 — Evercore 내부 자료 기준 (비GAAP · 대외비)
+      </td>
+    </tr>
+    <tr class="hl-row">
+      <td class="c">'23년<br><span style="font-size:10px;">FY2024</span></td>
+      <td class="c ev">$993M</td>
+      <td class="c r">-$588.4M<br><span style="font-size:10px; color:#888;">†Successor 누적, PPA 상각 포함</span></td>
+      <td class="c ev">~$172M<br><span style="font-size:10px; color:#888;">(세후 추정)</span></td>
+      <td class="c ev">$22M<br><span style="font-size:10px; color:#888;">(추정)</span></td>
+      <td class="c ev">~$150M<br><span style="font-size:10px; color:#888;">(세후 추정, 세금~$10M)</span></td>
+      <td class="c ev">~15%</td>
+      <td class="c ev"><span class="src-ev">Evercore B/S</span><br><span style="font-size:10px;">비GAAP</span></td>
+    </tr>
+    <tr class="hl-row">
+      <td class="c">'24년<br><span style="font-size:10px;">FY2025</span></td>
+      <td class="c ev">$1,134M</td>
+      <td class="c r">-$190~250M<br><span style="font-size:10px; color:#888;">(추정‡)</span></td>
+      <td class="c ev">~$164M<br><span style="font-size:10px; color:#888;">(세후 추정)</span></td>
+      <td class="c ev">$24M<br><span style="font-size:10px; color:#888;">(추정)</span></td>
+      <td class="c ev">~$140M<br><span style="font-size:10px; color:#888;">(세후 추정, 세금~$54M §)</span></td>
+      <td class="c ev">~12%</td>
+      <td class="c ev"><span class="src-ev">Evercore P&L</span><br><span style="font-size:10px;">비GAAP</span></td>
+    </tr>
+    <tr class="hl-row">
+      <td class="c">'25년<br><span style="font-size:10px;">FY2026</span></td>
+      <td class="c">$1,300M</td>
+      <td class="c g">+$81M<br><span style="font-size:10px; color:#888;">(추정)</span></td>
+      <td class="c">~$232M<br><span style="font-size:10px; color:#888;">(세후 추정)</span></td>
+      <td class="c">$27M<br><span style="font-size:10px; color:#888;">(추정)</span></td>
+      <td class="c">~$205M<br><span style="font-size:10px; color:#888;">(세후 추정, 세금~$75M)</span></td>
+      <td class="c">~16%</td>
+      <td class="c"><span style="font-size:10px;">성장 추세<br>기반 추정</span></td>
+    </tr>
+  </table>
+  <p class="fn" style="margin-top:4px;"><span class="src-10k">10-K</span> SEC Form 10-K 공개 실적 &nbsp;|&nbsp; <span class="src-ev">Evercore</span> Evercore 경유 내부 제공 자료 (대외비 — 외부 공유 금지)</p>
+  <p class="fn">'20~'22년(FY2021~FY2023)은 나스닥 상장사 시기 SEC GAAP 공시 기준. Adj. FCF = 영업현금흐름(OCF) − CapEx + 전환사채 할인상환 차익 + 인수관련 주식보상 일시지급 (SEC 8-K 공시 기준). CapEx는 산식 내 포함 처리, '20~'22년 별도 미수록.</p>
+  <p class="fn">'23년~'25년(FY2024~FY2026)은 비상장 전환 이후 GAAP 재무제표 미공개. 매출은 Evercore 제공 내부 Revenue 또는 Total Billings 기반. FCF(세후) = Cash Adj. EBITDA − CapSW − Net Cap.Commissions − 이자 − 현금 법인세 추정. OCF는 세후 FCF + CapEx 역산 추정치. 세후 FCF 추세: ~$150M → ~$140M → ~$205M / OCF: ~$172M → ~$164M → ~$232M. ※ FY2024→FY2025 구간에서 세후 FCF가 소폭 감소하는 것은 FY2024의 현금 법인세가 NOL 활용으로 거의 $0에 가까운 반면, FY2025부터 세금 정상화(~$54M)가 시작되기 때문이며, FY2026부터 본격 성장 재개.</p>
+  <p class="fn">† -$588.4M은 TB 인수 후 신설된 Successor 법인의 출범일(2023.2월 추정)~Jan 31, 2024 누적 순손실이며, 엄밀히는 FY2024 전체 12개월과 미세하게 다를 수 있음. 주요 원인: PPA 무형자산 상각 $406.7M(비현금, Evercore D&amp;A 내역). 비현금·일회성 항목 제거 시 세후 FCF ~$150M → GAAP 순손실이 실제 현금창출력을 왜곡. '20~'22년 GAAP 순손실 역시 SBC·D&amp;A 등 비현금 비용 포함.</p>
+  <p class="fn">‡ '24년(FY2025) 순손실 -$190~250M은 Evercore가 직접 제공한 Cash Adj. EBITDA $470.9M(Evercore P&L, FY25F)을 기반으로 추산한 값임. 추산 경로: EBITDA $470.9M − PPA 포함 D&A $370~400M(FY2024 $420.2M 대비 소폭 감소 추정) − 이자 ~$241M − 이연법인세 $20~40M(FY2024 $171M의 일시 인식 이후 정상화) − SBC $50~80M ≈ -$210~290M. GAAP 재무제표 미제출로 확인 불가.</p>
+
+  <div class="sq" style="margin-top:14px;">FY2024 Successor 누적 순손실 -$588.4M 분해 — Cash EBITDA에서 순손실까지</div>
+  <p class="body-p" style="margin-bottom:6px;">-$588.4M은 TB 인수 후 신설된 Successor 법인의 출범(2023.2월)~FY2024말(Jan 31, 2024) 누적 순손실(B/S Accumulated Deficit)이다. <strong>$500M 이상이 비현금 비용</strong>이며, 아래 브릿지는 그 경로를 보여준다. 단, 출발점인 Cash Adj. EBITDA는 <span style="color:#c00; font-weight:700;">Evercore 미제공 — GAAP 순손실에서 역산한 추정치</span>임에 유의.</p>
+
+  <table class="t" style="font-size:12px;">
+    <tr>
+      <th style="width:48%">항목</th>
+      <th style="width:18%; text-align:right;">금액</th>
+      <th style="width:10%; text-align:center;">성격</th>
+      <th>설명</th>
+    </tr>
+    <tr style="background:#eaffea;">
+      <td class="b">Cash Adj. EBITDA <span style="font-weight:400; color:#c00;">(역산 추정)</span></td>
+      <td style="text-align:right; color:#0a6e00; font-weight:700;">+$320~350M</td>
+      <td style="text-align:center; font-size:11px; color:#888;">추정</td>
+      <td style="font-size:12px;"><span style="color:#c00; font-weight:700;">※ Evercore 미제공 — 역산 추정치.</span> GAAP 순손실(-$588.4M)에 D&amp;A($420.2M)·이자($241M)·이연세금($171M)·SBC($80~100M)를 가산하여 산출. FY2025 Management P&amp;L의 EBITDA 마진(41.4%) 대비 FY2024는 효율화 초기 단계로 30~35% 수준 가정 시 동일 범위 수렴</td>
+    </tr>
+    <tr>
+      <td style="padding-left:1.5em;">① PPA 무형자산 상각</td>
+      <td style="text-align:right; color:#b00; font-weight:700;">-$406.7M</td>
+      <td style="text-align:center; font-size:11px; color:#888;">비현금</td>
+      <td style="font-size:12px;">TB $8.0B 인수 시 무형자산 $3.3B 인식 후 상각 (FY24 D&amp;A 내역 기준)</td>
+    </tr>
+    <tr>
+      <td style="padding-left:1.5em;">② 기타 D&amp;A (감가상각·CapSW·커미션 상각 등)</td>
+      <td style="text-align:right; color:#b00;">-$13.5M</td>
+      <td style="text-align:center; font-size:11px; color:#888;">비현금</td>
+      <td style="font-size:12px;">유형자산 $7.1M + Cap Dev Costs $1.8M + 커미션 상각 $4.3M + SBC 상각 $0.3M</td>
+    </tr>
+    <tr style="background:#f5f5f5;">
+      <td class="b">= GAAP 영업이익(EBIT) <span style="font-weight:400; color:#555;">(추정)</span></td>
+      <td style="text-align:right; color:#b00; font-weight:700;">약 -$80~-$100M</td>
+      <td style="text-align:center; font-size:11px; color:#888;"></td>
+      <td style="font-size:12px;"></td>
+    </tr>
+    <tr>
+      <td style="padding-left:1.5em;">③ 이자비용 (Term Loan)</td>
+      <td style="text-align:right; color:#b00; font-weight:700;">~-$241M</td>
+      <td style="text-align:center; font-size:11px; color:#c00; font-weight:700;">현금</td>
+      <td style="font-size:12px;">Term Loan $2,187M <span class="src-ev">Evercore B/S</span> × 약 11% (FY24 고금리 환경)</td>
+    </tr>
+    <tr style="background:#f5f5f5;">
+      <td class="b">= 세전손실 <span style="font-weight:400; color:#555;">(추정)</span></td>
+      <td style="text-align:right; color:#b00; font-weight:700;">약 -$320~-$340M</td>
+      <td style="text-align:center; font-size:11px; color:#888;"></td>
+      <td style="font-size:12px;"></td>
+    </tr>
+    <tr>
+      <td style="padding-left:1.5em;">④ 이연법인세비용 (비현금)</td>
+      <td style="text-align:right; color:#b00; font-weight:700;">~-$171M</td>
+      <td style="text-align:center; font-size:11px; color:#888;">비현금</td>
+      <td style="font-size:12px;">이연법인세부채 $15M→$187M 증가 <span class="src-ev">Evercore B/S</span>. PPA 장부-세무 일시적 차이에 따른 비현금 세금</td>
+    </tr>
+    <tr>
+      <td style="padding-left:1.5em;">⑤ SBC — 경영진 인센티브 (MIP)</td>
+      <td style="text-align:right; color:#b00; font-weight:700;">~-$80~100M</td>
+      <td style="text-align:center; font-size:11px; color:#888;">비현금</td>
+      <td style="font-size:12px;">TB 인수 후 신규 도입한 Management Incentive Plan (역산 추정. 정확한 금액 미공개)</td>
+    </tr>
+    <tr style="background:#fff0f0; border-top:2px solid #b00;">
+      <td class="b">≈ GAAP 순손실</td>
+      <td style="text-align:right; color:#b00; font-weight:700; font-size:13px;">-$588.4M</td>
+      <td style="text-align:center; font-size:11px; color:#888;"></td>
+      <td style="font-size:12px;">Successor 법인 출범~Jan 31, 2024 누적 순손실. B/S Accumulated Deficit 확인치 <span class="src-ev">Evercore B/S</span>. FY2024 전체 12개월과 미세 차이 가능</td>
+    </tr>
+  </table>
+
+  <table class="t" style="font-size:12px; margin-top:8px;">
+    <tr>
+      <th colspan="5">D&amp;A 세부 내역 (Evercore 제공, FY23A vs FY24A 비교)</th>
+    </tr>
+    <tr>
+      <th style="width:40%">항목</th>
+      <th style="width:15%; text-align:right;">FY23A</th>
+      <th style="width:15%; text-align:right;">FY24A</th>
+      <th style="width:10%; text-align:center;">증감</th>
+      <th>비고</th>
+    </tr>
+    <tr>
+      <td>Depreciation (유형자산 감가상각)</td>
+      <td style="text-align:right;">$6.2M</td>
+      <td style="text-align:right;">$7.1M</td>
+      <td style="text-align:center; color:#888;">+$0.9M</td>
+      <td style="font-size:11px;">일반 감가상각</td>
+    </tr>
+    <tr class="hl-row">
+      <td><strong>Amort: Intangibles (PPA 무형자산 상각)</strong></td>
+      <td style="text-align:right;">$128.1M</td>
+      <td style="text-align:right; color:#b00; font-weight:700;">$406.7M</td>
+      <td style="text-align:center; color:#b00; font-weight:700;">+$278.6M</td>
+      <td style="font-size:11px;">TB 인수(FY24) 후 PPA 무형자산 $3.3B 신규 인식 → 상각 급증</td>
+    </tr>
+    <tr>
+      <td>Amort: SBC</td>
+      <td style="text-align:right;">$2.9M</td>
+      <td style="text-align:right;">$0.3M</td>
+      <td style="text-align:center; color:#888;">-$2.6M</td>
+      <td style="font-size:11px;">구 SBC 잔액 소진</td>
+    </tr>
+    <tr>
+      <td>Amort: Cap Dev Costs (CapSW 상각)</td>
+      <td style="text-align:right;">$9.0M</td>
+      <td style="text-align:right;">$1.8M</td>
+      <td style="text-align:center; color:#888;">-$7.2M</td>
+      <td style="font-size:11px;">인수 시점 기존 잔액 처리</td>
+    </tr>
+    <tr>
+      <td>Amort: Sales Commissions (커미션 상각)</td>
+      <td style="text-align:right;">$24.3M</td>
+      <td style="text-align:right;">$4.3M</td>
+      <td style="text-align:center; color:#888;">-$20.0M</td>
+      <td style="font-size:11px;">인수 시점 이연 커미션 잔액 일시 상각(write-off) 후 재적립</td>
+    </tr>
+    <tr style="background:#f5f5f5; font-weight:700;">
+      <td>D&amp;A 합계</td>
+      <td style="text-align:right;">$170.5M</td>
+      <td style="text-align:right; color:#b00;">$420.2M</td>
+      <td style="text-align:center; color:#b00;">+$249.7M</td>
+      <td style="font-size:11px;">PPA 상각이 증가분의 대부분</td>
+    </tr>
+  </table>
+  <p class="fn">PPA(Purchase Price Allocation) : 인수대금 $8.0B을 취득 자산의 공정가치에 배분하는 회계처리. 고객관계·기술·브랜드 등 무형자산으로 배분된 금액($3.3B)은 수년에 걸쳐 상각되며, 해당 상각액은 GAAP P&L에 비용으로 반영되나 실제 현금 유출은 없음.</p>
+  <p class="fn">이연법인세부채 증가 $171M : PPA로 무형자산의 장부가치가 세무 기준보다 높아지는 일시적 차이에 대해 ASC 740 기준으로 인식하는 비현금 세금. 무형자산 상각이 진행될수록 차이가 해소되며 이연세금부채도 감소.</p>
+
+  <div class="sq" style="margin-top:14px;">FCF 흐름 도식 (FY25 Evercore 기준)</div>
+  <p style="font-size:12px; color:#555; margin:6px 0 8px 0;">Billings → Cash Adj. EBITDA → FCF 단계별 공제 항목</p>
+  <table class="t" style="font-size:12px;">
+    <tr>
+      <th style="width:6%; text-align:center;">단계</th>
+      <th>항목</th>
+      <th style="width:22%; text-align:right;">금액</th>
+      <th style="width:10%; text-align:center;">비율</th>
+    </tr>
+    <tr style="background:#f0f4ff;">
+      <td class="c" style="font-weight:700;">①</td>
+      <td>Billings (청구액)</td>
+      <td style="text-align:right; font-weight:700;">$1,138.5M</td>
+      <td class="c">100%</td>
+    </tr>
+    <tr>
+      <td class="c" style="color:#aaa;">↓</td>
+      <td style="color:#c00; padding-left:2em;">− 매출원가 (Cost of Revenue)</td>
+      <td style="text-align:right; color:#c00;">$230.0M</td>
+      <td class="c" style="color:#c00;">20.2%</td>
+    </tr>
+    <tr style="background:#e8ffe8;">
+      <td class="c" style="font-weight:700;">①-b</td>
+      <td><strong>Cash Gross Profit (현금 매출총이익)</strong></td>
+      <td style="text-align:right; font-weight:700;">$908.5M</td>
+      <td class="c"><strong>79.8%</strong></td>
+    </tr>
+    <tr>
+      <td class="c" style="color:#aaa;">↓</td>
+      <td style="color:#c00; padding-left:2em;">− S&amp;M 비용</td>
+      <td style="text-align:right; color:#c00;">$209.7M</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td style="color:#c00; padding-left:2em;">− R&amp;D 비용</td>
+      <td style="text-align:right; color:#c00;">$132.9M</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td style="color:#c00; padding-left:2em;">− G&amp;A 비용</td>
+      <td style="text-align:right; color:#c00;">$95.0M</td>
+      <td></td>
+    </tr>
+    <tr style="background:#eaffea;">
+      <td class="c" style="font-weight:700;">②</td>
+      <td><strong>Cash Adj. EBITDA</strong></td>
+      <td style="text-align:right; font-weight:700;">$470.9M</td>
+      <td class="c"><strong>41.4%</strong></td>
+    </tr>
+    <tr>
+      <td class="c" style="color:#aaa;">↓</td>
+      <td style="color:#c00; padding-left:2em;">− 자본화 SW 개발비 (CapSW)</td>
+      <td style="text-align:right; color:#c00;">$12.2M</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td style="color:#c00; padding-left:2em;">− 자본화 커미션 (Cap.Comm)</td>
+      <td style="text-align:right; color:#c00;">$24.3M</td>
+      <td></td>
+    </tr>
+    <tr style="background:#fffbe6;">
+      <td class="c" style="font-weight:700;">③</td>
+      <td>성장투자 차감 후</td>
+      <td style="text-align:right; font-weight:700;">~$434M</td>
+      <td class="c">~38%</td>
+    </tr>
+    <tr>
+      <td class="c" style="color:#aaa;">↓</td>
+      <td style="color:#c00; padding-left:2em;">− 이자비용 (Term Loan ~$2.2B × 11%)</td>
+      <td style="text-align:right; color:#c00;">~$240M</td>
+      <td></td>
+    </tr>
+    <tr style="background:#fff8f0;">
+      <td class="c" style="font-weight:700;">④</td>
+      <td>세전 FCF (이자 차감 후)</td>
+      <td style="text-align:right; font-weight:700;">~$194M</td>
+      <td class="c">~17%</td>
+    </tr>
+    <tr>
+      <td class="c" style="color:#aaa;">↓</td>
+      <td style="color:#c00; padding-left:2em;">− 현금 법인세 (추정) §</td>
+      <td style="text-align:right; color:#c00;">~$30~70M</td>
+      <td></td>
+    </tr>
+    <tr style="background:#fff0f0;">
+      <td class="c" style="font-weight:700; color:#c00;">⑤</td>
+      <td><strong>FCF (세후, 추정)</strong></td>
+      <td style="text-align:right; font-weight:700; color:#c00;">~$140M</td>
+      <td class="c" style="color:#c00;"><strong>~12%</strong></td>
+    </tr>
+  </table>
+  <p class="fn">FCF = Cash Adj. EBITDA − CapSW − Net Cap. Commissions − 이자 − 현금 법인세. CAPEX와 운전자본 변동은 소규모로 생략. EBITDA Coverage (EBITDA ÷ 이자) = 1.96x — 이자 상환 여력 양호.</p>
+  <p class="fn">매출원가 $230.0M(20.2%)·Cash Gross Profit $908.5M(79.8%)은 Evercore P&amp;L FY25F 실제치.</p>
+  <p class="fn">§ 연도별 현금 법인세 추산 (FY2025 기준) 및 한계: ① <strong>Section 382 NOL 한도</strong> — TB 인수(지분 취득)로 소유권 변경 발생, IRC §382에 따라 전기 이월결손금(NOL) 연간 공제 한도 설정. Coupa 상장 시절 누적 NOL은 수억달러이나 연간 실제 공제 가능액 제한적. ② <strong>Section 163(j) 이자 공제 한도</strong> — 2022년 이후 ATI 기준이 EBITDA에서 EBIT으로 변경되어 이자비용 $240M 전액 당해 과세소득 공제 불가. 공제 초과분은 차기 이월. ③ 연도별 현금 세금 추산: FY2024 ~$5~15M (대규모 NOL+손실로 세금 최소) / FY2025 ~$40~60M (NOL 일부 소진, 세금 정상화 시작) / FY2026 ~$60~90M (이익 성장에 따라 세금 증가). GAAP 법인세비용($171M 이연세금 포함)과 크게 다를 수 있음. 정확한 확인은 세무 신고서(Form 1120) 요청 필요.</p>
+
+  <div class="sq" style="margin-top:14px;">이자 상환 가능 구조</div>
+  <p style="font-size:12px; color:#555; margin:6px 0 8px 0;">인수 전 FCF +$174M은 이자비용 차감 <strong>이전(Before Interest)</strong> 기준. TB는 인수 직후 아래 구조로 이자를 충당함.</p>
+  <table class="t" style="font-size:12px;">
+    <tr>
+      <th>항목</th>
+      <th style="width:28%; text-align:right;">금액</th>
+    </tr>
+    <tr>
+      <td>인수 전 FCF (이자 차감 전)</td>
+      <td style="text-align:right;">+$174M</td>
+    </tr>
+    <tr>
+      <td>현금성 비용 절감 (S&amp;M·G&amp;A·인력 최적화, 비현금 SBC 제외)</td>
+      <td style="text-align:right;">+$100~150M</td>
+    </tr>
+    <tr style="background:#eaffea;">
+      <td><strong>합산 가용 현금</strong></td>
+      <td style="text-align:right; font-weight:700;">$274~324M</td>
+    </tr>
+    <tr>
+      <td style="color:#c00;">연간 이자비용 (Term Loan ~$2.2B × ~11%)</td>
+      <td style="text-align:right; color:#c00;">~$240M</td>
+    </tr>
+    <tr style="background:#f0f4ff;">
+      <td><strong>이자 충당 후 잔여 현금</strong></td>
+      <td style="text-align:right; font-weight:700;">+$34~84M</td>
+    </tr>
+  </table>
+  <p class="fn">GAAP 순이익 적자(SBC·무형자산 상각 등 비현금 비용 영향)와 무관하게, 현금 기준 이자 상환 여력 확보. 순이익 적자 ≠ 현금창출력 부진.</p>
+  <p class="fn">SBC는 비현금이라 현금절감서 제외. 이자 $240M($2.2B×11%, 커버리지 1.96x 정합) 기준이며 부채 ~$2.8B($310M) 가정 시 잔여현금 마이너스로 전환 → 가정 민감(보수적 기준 +$16M).</p>
+
+  <hr class="sep-dash">
+
+  <div class="sq">TB의 Coupa vs. Medallia 인수 성과 비교</div>
+  <p class="body-p" style="margin-bottom:8px;">고금리 기조 하 현금창출능력, AI 기술 대응 능력의 차이로 인해 Medallia와 Coupa의 인수 성과가 상이하게 나타남</p>
+  <ul class="dot" style="margin-bottom:8px;">
+    <li>Coupa는 안정적인 FCF를 기반으로 이자 상환 및 Value-up 전략을 추진하였으나, Medallia는 이자 상환조차 불가한 상황</li>
+    <li>Coupa는 워크플로우, 데이터, 네트워크가 결합된 플랫폼 사업으로 AI 대체 가능성이 낮은 반면, Medallia는 고객 피드백 분석 중심의 기능형 SaaS로 AI 대체 위험이 상대적으로 높음</li>
+  </ul>
+  <table class="t">
+    <tr>
+      <th style="width:22%">구분</th>
+      <th style="width:39%">Medallia ('21년 인수)</th>
+      <th>Coupa ('23년 인수)</th>
+    </tr>
+    <tr>
+      <td class="b">인수 구조</td>
+      <td>- 인수 금액 : $6.4B <span class="src-pub">공식발표</span><br>- 차입매수(LBO) · 부채 $1.8B + 자기자본 $4.6B <span class="src-pub">공식발표</span><br>- 멀티플(EV/NTM Revenue) : 약 11.3배<sup>†</sup></td>
+      <td class="ev">- 인수 금액 : $8.0B <span class="src-pub">공식발표</span><br>- 차입매수(LBO) · Term Loan $2,187.1M <span class="src-ev">Evercore BS</span> + 자기자본 $5,373.7M <span class="src-ev">Evercore BS</span><br>- 멀티플(EV/Revenue) : 약 8배</td>
+    </tr>
+    <tr>
+      <td class="b">인수 당시 매출</td>
+      <td>- $477M (FY2021 연간 매출) <span class="src-10k">10-K</span> / NTM $565M<br>- EV/NTM = $6.4B ÷ $565M ≒ <strong>11.3배</strong> (고평가)</td>
+      <td>- $849M (FY2023 연간 매출) <span class="src-10k">10-K</span> / NTM $993M (FY2024 실현)<br>- EV/NTM = $8.0B ÷ $993M ≒ <strong>8.1배</strong> (보수적 평가)</td>
+    </tr>
+    <tr>
+      <td class="b">인수 당시 재무 현황</td>
+      <td>- ARR 성장률 : 약 20~23%<br>- 순이익 및 FCF 모두 적자</td>
+      <td>- ARR 성장률 : 약 20%<sup>※</sup><br>- 순이익 적자, <strong>FCF +$174M 흑자</strong> <span class="src-10k">10-K</span></td>
+    </tr>
+    <tr>
+      <td class="b">이자 상환 능력</td>
+      <td>- 연이자 : '21년 $135M → '23년 $300M 급증 <span class="src-pub">공시</span><br>- 차입금리 : '21년 0.8% → '24년 12% (금리 인상)<br>- FCF 적자 + 비용절감 여지 부족 → 이자 상환 불가<br>- EBITDA coverage : <span style="color:#c00;">산정 불가</span></td>
+      <td class="ev">- 연이자 : ~$241M (Term Loan $2,187.1M <span class="src-ev">Evercore BS</span> × 11%, FY25 기준)<br>- FCF $174M <span class="src-10k">10-K</span> vs 이자 ~$241M → <span style="color:#c00;">갭 ~$67M</span><br>- 비용절감 ~$200M (S&amp;M·인력 최적화) <span class="src-pub">공시·추정</span>으로 갭 해소<br>&nbsp;&nbsp;→ 개선 후 FCF ~$374M(세전·이자차감전) &gt; 이자 $241M<br>- FY25 기준 EBITDA coverage : <span style="color:#080;"><strong>1.96x</strong></span> <span class="src-ev">Evercore 계산</span></td>
+    </tr>
+    <tr>
+      <td class="b">시장 환경</td>
+      <td>저금리 및 SaaS 시장의 밸류에이션 고점 구간에서 인수</td>
+      <td>고금리 및 SaaS 시장의 밸류에이션 하향 조정 국면에서 인수</td>
+    </tr>
+    <tr>
+      <td class="b">상품 특성</td>
+      <td>- CX데이터 분석 중심 기능형 SaaS<br>- 복잡도 낮은 Front-end 기능</td>
+      <td>- 워크플로우, 데이터, 네트워크 기반 플랫폼 SaaS</td>
+    </tr>
+    <tr>
+      <td class="b">인수 후 전략</td>
+      <td>고금리 및 SaaS 밸류에이션 급락으로 이자 상환 부담 가중 → 신규 투자 축소로 상품 경쟁력 약화 → 성장 둔화 및 Value-up 실패</td>
+      <td class="ev">비용 효율화 → Cash Adj. EBITDA $470.9M (41.4%, FY25) <span class="src-ev">Evercore P&amp;L</span> 달성<br>※ GAAP 순이익은 무형자산 상각(비현금)으로 적자 추정<br>Tuck-in M&amp;A 4건을 통해 AI 기능 내재화 및 플랫폼 고도화</td>
+    </tr>
+    <tr>
+      <td class="b">현재 결과</td>
+      <td class="r">Exit 실패, 채권단으로 경영권 이전<br>($4.6B 투자금 전액 손실 처리)</td>
+      <td class="g">플랫폼 가치 극대화 추진 중</td>
+    </tr>
+  </table>
+  <p class="fn">차입매수(LBO) : Leveraged Buyout, 차입금을 활용해 기업을 인수하는 거래 구조</p>
+  <p class="fn">멀티플(EV/Revenue) : 기업가치를 매출 몇 배로 평가하는지 나타내는 지표</p>
+  <p class="fn"><span class="src-ev">Evercore</span> 표시 셀 : Evercore 경유 Coupa 내부 제공 자료 기준 (Balance Sheet Jan 31, 2024 · FY25 P&L) — PCG 수준 대외비, 수치 외부 공유 금지</p>
+  <p class="fn">Medallia 수치 출처 : 인수 금액·구조 Bloomberg/Thoma Bravo 공식 발표 / 매출 SEC Form 10-K (FY2021). $4.6B 투자 손실은 Reuters(2024.12) 보도 기준.</p>
+  <p class="fn"><sup>†</sup> Medallia EV/NTM 11.3배 산출 근거 : LTM $477M(FY2021 총매출) × (1 + 18.4%, 전년 대비 성장률 연속 적용) = NTM $565M → $6,400M ÷ $565M = 11.3x. ARR 기준(구독 매출 $381M)으로는 EV/LTM ARR = 16.8x. Coupa NTM 기준(8.1x) 대비 약 3.2배 고평가 수준.</p>
+  <p class="fn"><sup>※</sup> Coupa ARR 성장률 ~20%는 Revenue CAGR 기준 추산. 상장 시절(10-K) 공시 기준 인수 직전 ARR 성장률 ~20% + FY2021→FY2025 Revenue CAGR +20.3%($542M→$1,134M, 4년)와 정합. 비상장 이후 ARR 공식 미공개로 Revenue 성장률로 대체 확인.</p>
+
+  <div class="page-no">— 3 —</div>
+</div>
+
+
+<!-- ══════════════════ PAGE 4 — 2. Coupa의 Rossum 인수 ══════════════════ -->
+<div class="doc-page">
+
+  <div class="ch">2. Coupa의 Rossum 인수</div>
+
+  <div class="sq">Coupa 사업 전략</div>
+  <p class="body-p" style="margin-bottom:8px;">Thoma Bravo 인수 후 비용 효율화 중심의 Value-Up 전략을 통해 수익성 개선, 확보된 현금흐름 기반 전략적 Tuck-in M&amp;A 지속 추진 — AI 네이티브 기업을 연속 인수하여 AI 기반 S2P 플랫폼 구축을 통해 기업가치 극대화</p>
+  <table class="t">
+    <tr><th style="width:14%">시기</th><th style="width:34%">목적</th><th>내용</th></tr>
+    <tr><td class="c">'23년</td><td>조정 영업이익(Non-GAAP) 흑자 전환<br><span style="font-size:11.5px;">(연 이자비용 ~$240M 대응)</span></td><td>인력 15% 감축, SBC 35% 축소, S&amp;M 비용 약 $100M 절감</td></tr>
+    <tr><td class="c">'24~'25년</td><td>M&amp;A 투자 재원 확보</td><td>수익성 개선 및 현금창출력 강화 — FY25 Cash Adj. EBITDA $470.9M (41.4%) <span class="src-ev">Evercore</span><br><span style="font-size:12px; color:#555;">※ GAAP 순이익은 무형자산 상각으로 적자 추정</span></td></tr>
+    <tr class="hl-row"><td class="c">'25~'26년</td><td>AI 기반 BSM 플랫폼 완성</td><td>AI 네이티브 기업 4개社 Tuck-in M&amp;A (Cirtuo, Scoutbee, Rossum, Tonkean)</td></tr>
+  </table>
+
+  <hr class="sep-dash">
+
+  <div class="sq">Coupa 인수 기업 (4건)</div>
+  <p class="body-p" style="margin-bottom:8px;">Coupa는 최근 1년 동안 기존 S2P 제품군의 AI 경쟁력 강화를 위해 AI Native 기업 4개社를 Tuck-in 방식으로 인수 — 기술·제품 적합성이 검증된 기업(Scoutbee, Tonkean) 또는 기존 파트너십을 통해 사업적 검증이 완료된 기업(Rossum)을 인수</p>
+  <table class="t">
+    <tr><th style="width:14%">기업</th><th style="width:11%">인수월</th><th style="width:26%">보완 기능</th><th style="width:22%">스타트업 투자 단계</th><th style="width:12%">누적펀딩</th><th>인수가</th></tr>
+    <tr><td class="b c">Cirtuo</td><td class="c">'25. 5</td><td>AI 기반 구매 카테고리 전략 수립</td><td>Bootstrap (VC 無)</td><td class="c">—</td><td class="c">미공개</td></tr>
+    <tr><td class="b c">Scoutbee</td><td class="c">'25. 10</td><td>AI 공급업체 탐색·리스크 관리</td><td>Series B 후 5년 공백</td><td class="c">$76M</td><td class="c">미공개</td></tr>
+    <tr class="hl-row"><td class="b c">Rossum</td><td class="c">'26. 5</td><td>AI 문서처리 IDP<span class="def">(지능형 문서처리)</span></td><td>Series A 후 3년</td><td class="c">$104M</td><td class="c">미공개</td></tr>
+    <tr><td class="b c">Tonkean</td><td class="c">'26. 5</td><td>AI 에이전틱 인테이크 오케스트레이션</td><td>Series B 후 5년 공백</td><td class="c">$83M</td><td class="c">미공개</td></tr>
+  </table>
+  <p class="fn">Scoutbee·Tonkean : Series B 이후 약 5년간 추가 투자 라운드 미달성 → IPO 가능성이 낮아지며 M&amp;A가 주요 회수 경로로 부상</p>
+  <p class="fn">Rossum : 고성장 기업('24년 매출 $44.9M, YoY 약 +60%, '23년 $27.9M → '24년 $44.9M 기준)으로, Coupa는 파트너십을 통해 검증된 AI 문서처리 기술을 조기 내재화. 인수가는 비공개이나 매출($44.9M), 누적 투자유치($104M), 성장률 및 SaaS EV/Revenue 멀티플(4~8배), TAM 고려 시 약 $200~400M 수준으로 추정 가능</p>
+  <p class="fn">인테이크 오케스트레이션 : 구매 요청 접수부터 승인, 발주 단계까지 업무 흐름을 자동 연결·관리하는 기능</p>
+
+  <hr class="sep-dash">
+
+  <div class="sq">Rossum 인수</div>
+
+  <div class="num-head">1) 기업 개요 <span style="font-weight:400; font-size:12px; color:#555;">(상세 내용 별첨 4 참조)</span></div>
+  <ul class="dash">
+    <li>'17년 체코 설립, IDP 전문 스타트업</li>
+    <li>T-LLM<span class="def">(Transactional LLM, 거래특화 대형언어모델)</span> 「Rossum Aurora」를 기반으로 인보이스, 구매주문서 등 거래 문서의 자동 인식·추출 기능 제공</li>
+    <li>매출 : '24년 약 $44.9M (YoY 성장률 약 +60%, '23년 $27.9M → '24년 $44.9M 기준)</li>
+    <li>누적 투자 유치 : $104M (General Catalyst 주도, '21년 Series A)</li>
+    <li>Coupa-Rossum 전략적 파트너십 체결 ('24. 4월) → '26년 인수를 통해 기술 내재화</li>
+  </ul>
+
+  <div class="num-head">2) 인수 방식</div>
+  <ul class="dash">
+    <li>Coupa는 AI 기반 문서처리(IDP) 역량 내재화를 위해 Rossum을 전략적 인수 (파트너십을 통해 검증된 기술을 Tuck-in M&amp;A 방식으로 확보)</li>
+    <li>인수가는 비공개이며 자금 조달은 Coupa의 현금(인수 전 FCF $174M, 이후 비공개) 또는 TB의 추가 지원을 활용했을 것으로 추정</li>
+  </ul>
+
+  <div class="num-head">3) 인수 목적 및 기대효과</div>
+  <ul class="dash">
+    <li><strong>[상품]</strong> 거래 문서 특화 T-LLM을 확보하여 인보이스, 구매주문서 처리 등 문서처리 자동화 역량을 강화
+      <ul class="dot">
+        <li>기존 OCR<span class="def">(광학문자인식)</span> 기반 방식 대비 처리 시간 최대 95% 단축, 정확도 98% 달성 (Rossum 발표 기준)</li>
+        <li>Rossum Aurora는 인보이스, 구매주문서 등 거래 문서에 특화된 T-LLM으로 276개 언어 및 30개 언어의 손글씨 인식을 지원</li>
+        <li>단순 데이터 추출을 넘어 문서 이해, 추론, 업무 실행 기반의 AI Agent 방식 문서 자동화 제공 <span style="font-size:11.5px; color:#555;">(상세 내용 별첨 4 참조)</span></li>
+      </ul>
+    </li>
+    <li><strong>[사업]</strong> 고객 생산성 향상 및 경쟁사 대비 기술 우위 확보
+      <ul class="dot">
+        <li>인보이스 처리 자동화를 통해 업무량 90% 이상 절감하고, Coupa는 '06년 이후 누적 $300B 절감에 이어 향후 5년간 추가 $300B 고객 비용 절감을 목표로 제시 (Coupa 발표 기준)</li>
+        <li>SAP Ariba 등 주요 S2P 경쟁사 대비 IDP 기술을 선제 확보하여 차세대 조달 AI 시장에서 경쟁 우위를 확보</li>
+      </ul>
+    </li>
+  </ul>
+
+  <div class="page-no">— 4 —</div>
+</div>
+
+
+<!-- ══════════════════ PAGE 5 — 3. 시사점 ══════════════════ -->
+<div class="doc-page">
+
+  <div class="ch">3. 시사점</div>
+
+  <div class="sq">SaaS/AI 기업 M&amp;A 평가 3대 기준 (Coupa vs. Medallia 사례 도출)</div>
+  <table class="t">
+    <tr>
+      <th style="width:30%">평가 기준</th>
+      <th style="width:35%">핵심 확인 항목</th>
+      <th>Coupa 사례 적용</th>
+    </tr>
+    <tr>
+      <td class="b">① 이자상환능력<br><span style="font-weight:400; font-size:11px; color:#555;">(FCF Coverage)</span></td>
+      <td>- FCF vs 연이자비용 비교<br>- EBITDA Coverage ≥ 1.5x 권고<br>- 비용절감 가능 규모 확인</td>
+      <td>- 인수 전 FCF $174M vs 이자 ~$241M<br>- 비용절감 ~$200M으로 커버<br>- FY25 EBITDA/이자 = <strong>1.96x</strong></td>
+    </tr>
+    <tr>
+      <td class="b">② 반복 매출 안정성<br><span style="font-weight:400; font-size:11px; color:#555;">(사업구조 Lock-in)</span></td>
+      <td>- 플랫폼 고착도 / 전환 비용<br>- 시장 지속성 (수요가 사라질 리스크)<br>- NRR ≥ 100%, Churn Rate &lt; 5%</td>
+      <td>- S2P/BSM 조달 프로세스 → 시장 영속<br>- 워크플로우·데이터·네트워크 결합 → 高 Lock-in<br>- Medallia 대비 전환 비용 압도적 高</td>
+    </tr>
+    <tr>
+      <td class="b">③ AI 대체 가능성<br><span style="font-weight:400; font-size:11px; color:#555;">(사업 내구성)</span></td>
+      <td>- 단기능 SaaS vs 플랫폼 SaaS 구분<br>- 독점 데이터 / 네트워크 효과 여부<br>- 경쟁사 대비 AI 기술 우위 확인</td>
+      <td>- 조달 데이터 $10T → 독점적 데이터 자산<br>- Rossum·Tonkean 인수로 AI 내재화<br>- Medallia는 CX 설문 분석 → AI 대체 高</td>
+    </tr>
+  </table>
+  <p class="fn">세부 체크리스트는 별첨 8 참조. 지표별 기준치(Rule of 40, EBITDA Coverage 등)는 추후 지원팀 검토 후 확정 예정.</p>
+
+  <hr class="sep-dash">
+
+  <div class="sq">주요 PE의 투자 포트폴리오 및 전략을 모니터링하여 투자 및 M&amp;A 시 활용</div>
+  <ul class="dash">
+    <li>PE의 인수기업 발굴, Value-up, Exit 플레이북 확보 — TB의 'Buy-Improve-Exit' 전략 참조</li>
+    <li>SaaS 시장의 기업 매수·매도, 투자 현황 지속 파악</li>
+  </ul>
+
+  <hr class="sep-dash">
+
+  <div class="sq">자사솔루션에 대한 AI 경쟁력 강화</div>
+  <ul class="dash">
+    <li>Caidentia/EMRO 內 AI 적용 가능 영역을 식별하고, 기능 내재화 또는 외부 솔루션 Tuck-in 검토 필요</li>
+    <li>도메인 특화 LLM, AI Agent 등 차별화된 AI 기술 역량 확보 필요</li>
+    <li>Rossum IDP 기술 수준 및 경쟁사(Ariba/UiPath/ABBYY) 비교 검증 진행 중 → 별첨 9 참조</li>
+  </ul>
+
+  <div class="end-mark">- 以 上 -</div>
+
+  <div class="page-no">— 5 —</div>
+</div>
+
+
+<!-- ══════════════════ 별첨1 — TB의 Coupa 인수 사례 분석 ══════════════════ -->
+<div class="doc-page">
+
+  <div class="ch">별첨 1. Thoma Bravo의 Coupa 인수 사례 분석</div>
+
+  <div class="sq">Thoma Bravo 개요</div>
+  <table class="t">
+    <tr><th style="width:32%">항목</th><th>내용</th></tr>
+    <tr><td class="b">설립 / 본사</td><td>2008년 'Thoma Bravo' 출범 (전신 Golder Thoma 1980년) / 美 시카고 본사 (샌프란시스코·마이애미·뉴욕·런던 등 거점)</td></tr>
+    <tr><td class="b">AUM <span class="def">(자산운용규모)</span></td><td>$183B ('25년 기준), 소프트웨어·사이버보안 분야 세계 최대 PE 중 하나</td></tr>
+    <tr><td class="b">투자 전략</td><td>'Buy-Improve-Exit', 비효율 SaaS 인수 후 비용 최적화 → GAAP<span class="def">(미국일반회계기준)</span> 흑자 → 5~7년 내 재매각/IPO</td></tr>
+    <tr><td class="b">펀드 구조</td><td>Flagship(대형), Discover(중형), Explore(소형) 3개 펀드 병행. Coupa의 경우, Flagship 딜</td></tr>
+    <tr><td class="b">주요 포트폴리오</td><td>Proofpoint, Barracuda Networks, SolarWinds, SailPoint 등 90개 이상 소프트웨어 기업</td></tr>
+  </table>
+
+  <hr class="sep-dash">
+
+  <div class="sq">TB의 Coupa 인수 구조 및 논리</div>
+  <table class="t">
+    <tr><th style="width:32%">항목</th><th>내용</th></tr>
+    <tr><td class="b">발표 / 완료</td><td>'22. 12 합의 발표 → '23. 02 완료 (규제 심사·주주 승인 포함)</td></tr>
+    <tr><td class="b">인수가</td><td>$8.0B (전액 현금, 주당 $81) ※ 나스닥 종가 대비 약 77% 프리미엄</td></tr>
+    <tr><td class="b">인수 당시 재무</td><td>매출 $725M, GAAP 순손실 -$379.1M <span class="src-10k">10-K</span>, Adj. FCF +$155.6M <span class="src-10k">10-K</span> (FY2022 기준) &nbsp;|&nbsp; NTM<span class="def">(향후 12개월)</span> 기준 EV/Revenue 약 8배</td></tr>
+    <tr><td class="b">인수 구조</td><td>LBO, TB 에쿼티와 부채 혼합 구조. ADIA<span class="def">(아부다비투자청)</span> 소수 지분 공동 참여</td></tr>
+    <tr><td class="b">인수 핵심 논리</td><td>GAAP 순손실(-$379.1M)이 부실을 의미하지 않음. Adj. FCF +$174M(FY2023 추정) · ARR 고성장 → 비용 최적화로 현금창출력 강화, ARR $1B 달성 목표</td></tr>
+  </table>
+
+  <hr class="sep-dash">
+
+  <div class="sq">인수 후 경영 개선 및 성과</div>
+  <table class="t">
+    <tr><th style="width:12%">시기</th><th style="width:48%">주요 조치</th><th>결과</th></tr>
+    <tr><td class="c b">'23</td><td>인력 15% 감축, SBC 대폭 삭감, S&amp;M<span class="def">(영업·마케팅)</span> 합리화</td><td>GAAP 대규모 적자 (D&amp;A $420.2M, 무형자산 상각 $406.7M) <span class="src-ev">Evercore D&amp;A</span></td></tr>
+    <tr><td class="c b">'24</td><td>R&amp;D·G&amp;A 추가 합리화, 플랫폼 통합 가속, ARR $1B 공표</td><td>Cash Adj. EBITDA $470.9M (41.4%) <span class="src-ev">Evercore P&amp;L</span><br><span style="font-size:11px; color:#c00;">Successor 누적 순손실 -$588.4M <span class="src-ev">Evercore B/S</span></span><br><span style="font-size:10px; color:#888;">(PPA 상각 $406.7M 등 비현금 비용 포함 — 실제 현금창출력과 괴리)</span></td></tr>
+    <tr><td class="c b">'25</td><td>Cirtuo·Scoutbee 인수</td><td><span style="color:#555;">Evercore 자료 미제공</span></td></tr>
+    <tr class="hl-row"><td class="c b">'26</td><td>Rossum·Tonkean 인수, 에이전틱 스택 완성</td><td>Navi AI 고도화</td></tr>
+  </table>
+
+  <div class="page-no">— 별첨 1 —</div>
+</div>
+
+
+<!-- ══════════════════ 별첨2 — Tonkean, Scoutbee ══════════════════ -->
+<div class="doc-page">
+
+  <div class="ch">별첨 2. 주요 기업 개요 (Tonkean, Scoutbee)</div>
+
+  <div class="sq">Tonkean</div>
+  <table class="t">
+    <tr><th style="width:32%">항목</th><th>내용</th></tr>
+    <tr><td class="b">설립 / 본사</td><td>'15년 / 美 샌프란시스코 (Sagi Eliyahu·Offir Talmor 공동 창업, R&amp;D 텔아비브)</td></tr>
+    <tr><td class="b">사업 영역</td><td>에이전틱 인테이크 오케스트레이션 — no-code 조달 프로세스 자동화</td></tr>
+    <tr><td class="b">핵심 기술</td><td>프로세스 오케스트레이터 + AI 에이전트 — 구매 요청, 결재, 발주 자율 처리</td></tr>
+    <tr><td class="b">재무</td><td>누적 $83M (Series B, '21년). 이후 5년 추가 라운드 미유치</td></tr>
+    <tr><td class="b">인수 금액</td><td>"수억 달러" 추정 (CTech 보도, 미공식)</td></tr>
+    <tr><td class="b">Coupa 통합 역할</td><td>에이전틱 스택 4단계 [요청·실행] 레이어</td></tr>
+  </table>
+
+  <hr class="sep-dash">
+
+  <div class="sq">Scoutbee</div>
+  <table class="t">
+    <tr><th style="width:32%">항목</th><th>내용</th></tr>
+    <tr><td class="b">설립 / 본사</td><td>'15년 / 독일 뷔르츠부르크 (Gregor Stühler·Fabian Heinrich·Christian Heinrich·Lee Galbraith 공동 창업)</td></tr>
+    <tr><td class="b">사업 영역</td><td>AI 기반 공급업체 탐색·스크리닝·리스크 평가 플랫폼</td></tr>
+    <tr><td class="b">핵심 기술</td><td>NLP + 공급업체 데이터 AI — 재무·ESG·지정학적 리스크 자동 평가</td></tr>
+    <tr><td class="b">고객</td><td>Audi, Siemens, Airbus (그 외 Bosch Rexroth·Unilever 등) 유럽 대형 제조업체</td></tr>
+    <tr><td class="b">재무</td><td>누적 $76M (Series B, '20년). 이후 5년 추가 라운드 미유치</td></tr>
+    <tr><td class="b">Coupa 통합 역할</td><td>에이전틱 스택 2단계 [공급업체 탐색] 레이어</td></tr>
+  </table>
+
+  <hr class="sep-dash">
+
+  <div class="sq">Coupa 에이전틱 스택 전체 구조</div>
+  <div class="box">
+    <strong>[전략 수립]</strong> Cirtuo &nbsp;→&nbsp;
+    <strong>[공급업체 탐색]</strong> Scoutbee &nbsp;→&nbsp;
+    <strong>[문서 처리]</strong> Rossum (T-LLM) &nbsp;→&nbsp;
+    <strong>[요청·실행 오케스트레이션]</strong> Tonkean<br>
+    <div style="text-align:center; margin-top:6px;">↓</div>
+    <div style="text-align:center;"><strong>[지출 분석·인사이트]</strong> Coupa Core + Navi AI ($10조 데이터)</div>
+  </div>
+
+  <div class="page-no">— 별첨 2 —</div>
+</div>
+
+
+<!-- ══════════════════ 별첨3 — SAP Ariba vs. Coupa ══════════════════ -->
+<div class="doc-page">
+
+  <div class="ch">별첨 3. SAP Ariba vs. Coupa 비교</div>
+
+  <div class="sq">항목별 비교</div>
+  <table class="t">
+    <tr><th style="width:26%">비교 항목</th><th style="width:37%">SAP Ariba</th><th>Coupa</th></tr>
+    <tr><td class="b">설립 / 기원</td><td>'96년 설립 → SAP SE '12년 $4.3B 인수</td><td>'06년 설립 → TB $8.0B PE 인수 ('23년)</td></tr>
+    <tr><td class="b">소유 구조</td><td>SAP SE 100% 자회사 (상장사)</td><td>Thoma Bravo PE 보유 비상장사</td></tr>
+    <tr><td class="b">ARR / 규모</td><td>$3B 추정 (SAP 클라우드 내 포함)</td><td>약 $1.3B ('25년 기준, 추정)</td></tr>
+    <tr><td class="b">플랫폼 성격</td><td>SAP ERP 생태계 내 통합 모듈. ERP 의존 구조</td><td>독립형 클라우드 BSM. ERP 독립 구현 可</td></tr>
+    <tr><td class="b">공급업체 네트워크</td><td>700만+ 개社</td><td>1,000만+ 개社</td></tr>
+    <tr><td class="b">주요 고객층</td><td>SAP ERP 기사용 대형 제조·공공. 전환 비용 매우 高</td><td>복합 산업 대기업. Ariba 대체 수요 흡수</td></tr>
+    <tr><td class="b">AI 전략</td><td>SAP Business AI(Joule) 기반. AI 전환 속도 상대적 지연</td><td>Navi AI + 4건 Tuck-in으로 에이전틱 스택 구축</td></tr>
+    <tr><td class="b">IDP 기술</td><td>SAP Doc Info Extraction (서드파티 연동, 독립 IDP 모듈 미보유)</td><td>Rossum T-LLM 인수. 276개 언어·할루시네이션 차단</td></tr>
+    <tr><td class="b">강점</td><td>ERP 고착력, 최대 고객 수, 공공·규제 레퍼런스</td><td>AI 속도, 독립 구현, 데이터 규모, 스택 선점</td></tr>
+    <tr><td class="b">약점</td><td>AI 속도 지연, ERP 미사용 기업 진입 어려움</td><td>SAP ERP 연동 부족, ARR 규모 격차</td></tr>
+  </table>
+
+  <hr class="sep-dash">
+
+  <div class="sq">Coupa의 경쟁사 포지션</div>
+  <table class="t">
+    <tr><th style="width:30%">경쟁사</th><th style="width:22%">본거지</th><th>포지션 및 특성</th></tr>
+    <tr><td class="b">SAP Ariba</td><td class="c">독일 (SAP SE)</td><td>글로벌 최대 시장 점유율. SAP ERP 고착력, Coupa 최대 경쟁자. AI 전환 지연</td></tr>
+    <tr><td class="b">Oracle Procurement Cloud</td><td class="c">미국 (Oracle)</td><td>Oracle ERP 연동 구매 모듈. 대형 제조·공공 강세. ERP 번들로 전환 유인 低</td></tr>
+    <tr><td class="b">Ivalua</td><td class="c">프랑스</td><td>유럽 기반 전략 조달 플랫폼. 직접구매 특화. 커스터마이징 유연성 강점</td></tr>
+    <tr><td class="b">Jaggaer</td><td class="c">미국</td><td>공공·연구기관·제조업 특화. R&amp;D 조달 강점. Coupa 대비 소형</td></tr>
+  </table>
+
+  <div class="page-no">— 별첨 3 —</div>
+</div>
+
+
+<!-- ══════════════════ 별첨4 — OCR vs. AI Agent ══════════════════ -->
+<div class="doc-page">
+
+  <div class="ch">별첨 4. 기존 OCR 대비 Rossum AI Agent 차별성</div>
+
+  <div class="sq">Rossum의 IDP 시장 내 위상</div>
+  <ul class="dash">
+    <li>Rossum은 Everest Group의 「IDP PEAK Matrix® 2026」에서 32개 공급업체 평가 중 <strong>Leader</strong> 기업으로 선정
+      <ul class="dot">
+        <li>거래 문서 특화 T-LLM인 Aurora를 기반으로 문서 분할, 분류, 데이터 추출 등 핵심 IDP 기능 제공</li>
+        <li>276개 언어를 지원하며, 직관적 UI, AI 학습 기능, 보고 기능 등에서 높은 평가 확보</li>
+      </ul>
+    </li>
+  </ul>
+
+  <hr class="sep-dash">
+
+  <div class="sq">기존 OCR 대비 AI Agent 차별성</div>
+  <ul class="dash">
+    <li>기존 OCR<span class="def">(광학문자인식)</span>은 문서 내 텍스트를 인식하고 정해진 규칙에 따라 데이터를 이관하는 방식으로, 문맥 이해 및 예외 상황 대응에 한계</li>
+    <li>반면 AI Agent는 문서 유형과 거래 맥락을 이해하고, 기업 정책 및 업무 기준에 따라 판단·검증·후속 처리를 수행
+      <ul class="dot">
+        <li>예) 인보이스 금액, 지급 조건, 조기결제 할인 여부 등을 해석하여 처리 방안 제시</li>
+        <li>예) 공급업체, PO, 중복 결제 여부 등을 검증하고 이상 거래는 검토 요청</li>
+      </ul>
+    </li>
+  </ul>
+
+  <hr class="sep-dash">
+
+  <div class="sq">AI Agent 핵심 역량</div>
+  <ul class="dash">
+    <li><strong>[문서 이해]</strong> 복잡한 송장, 손글씨, 금융 문서, 업계별 용어 등 다양한 문서 형식과 맥락을 이해</li>
+    <li><strong>[지능적 판단]</strong> 중복 결제, PO 불일치, 가격 차이, 비정상 거래 등을 자동 식별</li>
+    <li><strong>[지속 학습]</strong> 공급업체별 문서 양식을 학습하고, 데이터 추출 정확도와 예외 처리 역량을 지속 개선</li>
+  </ul>
+
+  <hr class="sep-dash">
+
+  <div class="sq">시사점</div>
+  <ul class="dash">
+    <li>Rossum의 차별성은 단순 OCR 정확도가 아니라, 문서 이해·판단·학습을 기반으로 업무 자동화 범위를 확장하는 AI Agent 역량에 있음</li>
+    <li>이에 따라 문서 자동화는 기존 '텍스트 추출' 중심에서 '문맥 이해 → 판단·검증 → 업무 실행' 중심으로 진화 중</li>
+  </ul>
+
+  <div class="page-no">— 별첨 4 —</div>
+</div>
+
+
+<!-- ══════════════════ 별첨5 — M&A 발굴 기준 ══════════════════ -->
+<div class="doc-page">
+
+  <div class="ch">별첨 5. M&amp;A 대상 기업 후보군 발굴 기준</div>
+
+  <div class="sq">① 투자 단계 기반 스크리닝</div>
+  <table class="t">
+    <tr><th style="width:30%">투자 단계</th><th style="width:20%">M&amp;A 적합성</th><th>특성 및 유의사항</th></tr>
+    <tr><td class="b">Bootstrap / Pre-Seed</td><td class="c g">협상력 최대</td><td>VC 無, 창업자가 유일한 협상 상대. 밸류에이션 低, Exit 유인 高. 제품 검증 실사 필요 <span style="font-size:11.5px; color:#555;">(Cirtuo 유형)</span></td></tr>
+    <tr><td class="b">Series A</td><td class="c" style="color:#555;">선별 적합</td><td>PMF<span class="def">(Product-Market Fit)</span> 검증 단계. AI 기술 조기 확보 시 유효. 고성장 중 조기 인수는 프리미엄 불가피 <span style="font-size:11.5px; color:#555;">(Rossum 유형)</span></td></tr>
+    <tr class="hl-row"><td class="b">Series B 후 3~5년 공백<br><span style="font-size:11.5px; font-weight:400;">(성장 정체기)</span></td><td class="c g"><strong>최적 타겟</strong></td><td>기술 검증 완료 + 프리미엄 미형성 + Exit 유인 극대. 인수자 협상력 최대 <span style="font-size:11.5px; color:#555;">(Scoutbee·Tonkean 유형)</span></td></tr>
+    <tr><td class="b">Series C 이후</td><td class="c r">프리미엄 주의</td><td>추가 VC 유입으로 밸류에이션 급등. 전략 당위성 매우 높아야 정당화 可</td></tr>
+    <tr><td class="b">PE 보유 / 성숙기</td><td class="c" style="color:#555;">특수 목적</td><td>전략 매각·카브아웃 형태만 접근 可. 협상 복잡도 최고</td></tr>
+  </table>
+
+  <hr class="sep-dash">
+
+  <div class="sq">② 파트너십·PoC 2단계 접근</div>
+  <table class="t">
+    <tr><th style="width:26%">단계</th><th style="width:40%">주요 활동</th><th>검증 항목</th></tr>
+    <tr><td class="b">1단계 파트너십·PoC</td><td>공동 개발·SI 협력·파일럿 운영. 기술 API 연동 확인</td><td>① 기술 적합성 ② 고객 반응 ③ 운영 연동 가능성</td></tr>
+    <tr class="hl-row"><td class="b">2단계 M&amp;A 내재화</td><td>파트너십 성과 기반 인수 결정. 통합 PM·로드맵 사전 수립</td><td>실사 신뢰도 제고, 통합 마찰 비용 절감, 통합 기간 단축</td></tr>
+  </table>
+  <p class="fn">현 당사 협력 SaaS 파트너 중 Series B 이후 3년+ 공백 기업 우선 식별 필요</p>
+
+  <hr class="sep-dash">
+
+  <div class="sq">③ PE 발굴 기준 참고 (Thoma Bravo 방식)</div>
+  <ul class="dash">
+    <li>구독 매출 비중 70%+, 예측 가능 현금 흐름이 전제</li>
+    <li>Churn<span class="def">(이탈률)</span> 연 10% 이하, 고객 유지율이 성장 레버 효과 결정</li>
+    <li>FCF 개선 여지, SBC·S&amp;M·R&amp;D 비효율 클수록 최적화 효과 大</li>
+    <li>기술 독점성, 도메인 데이터·알고리즘·네트워크 효과 보유</li>
+  </ul>
+
+  <hr class="sep-dash">
+
+  <div class="sq">④ AI 기술 M&amp;A 검증 기준</div>
+  <ul class="dash">
+    <li>도메인 특화 독점 데이터 보유 여부, 데이터 자체가 경쟁력인 구조</li>
+    <li>범용 LLM 대체 불가 구조적 기술 경쟁력</li>
+    <li>플랫폼, 컴플라이언스, 보안 등 포함 고착력이 장기 가치 결정</li>
+  </ul>
+
+  <div class="page-no">— 별첨 5 —</div>
+</div>
+
+
+<!-- ══════════════════ 별첨6 — M&A 투자 단계 개요 ══════════════════ -->
+<div class="doc-page">
+
+  <div class="ch">별첨 6. M&amp;A 투자 단계 개요</div>
+
+  <div class="sq">단계별 특성 및 M&amp;A 관점</div>
+  <table class="t">
+    <tr><th style="width:24%">단계</th><th style="width:18%">투자 규모</th><th style="width:26%">기업 상태</th><th>M&amp;A 관점</th></tr>
+    <tr><td class="b">Pre-Seed / Bootstrap</td><td class="c">$0~$500K</td><td>아이디어·MVP. 창업자 자체 자금</td><td>기술·팀 인수(Acqui-hire). 밸류에이션 低. 제품 검증 리스크</td></tr>
+    <tr><td class="b">Seed</td><td class="c">$500K~$3M</td><td>초기 제품 완성, 소규모 고객 테스트</td><td>기술 조기 확보 가능. 시장 검증 미완 리스크</td></tr>
+    <tr><td class="b">Series A</td><td class="c">$3M~$15M</td><td>PMF 검증, ARR $1~5M</td><td>AI 핵심 기술 조기 확보 유효. 고성장 시 프리미엄 급등</td></tr>
+    <tr><td class="b">Series B</td><td class="c">$15M~$50M</td><td>시장 확장, ARR $10~30M</td><td>기술·고객 검증 완료 + 프리미엄 미형성 — 효율 우수</td></tr>
+    <tr class="hl-row"><td class="b">Series B 후 3~5년 공백<br><span style="font-size:11.5px; font-weight:400;">(성장 정체기)</span></td><td class="c">추가 VC 無</td><td>검증 완료, 수익화 집중. ARR $20~80M</td><td><strong>최적 타겟 구간.</strong> 프리미엄 無 + Exit 유인 극대 + 협상력 최대</td></tr>
+    <tr><td class="b">Series C</td><td class="c">$50M~$150M</td><td>대규모 확장, ARR $50M+</td><td>밸류에이션 급등. 전략 시너지 매우 명확해야 정당화 可</td></tr>
+    <tr><td class="b">Series D+ / Pre-IPO</td><td class="c">$150M+</td><td>IPO 준비, ARR $100M+</td><td>수 조원대 인수가. 이사회·VC 전원 동의 필요. 복잡도 최고</td></tr>
+    <tr><td class="b">PE LBO 보유사</td><td class="c">N/A</td><td>비상장, 비용 최적화 中</td><td>Secondary 매각·카브아웃만 可. PE Exit 시나리오 종속</td></tr>
+    <tr><td class="b">대기업 자회사 / 카브아웃</td><td class="c">N/A</td><td>대기업 비핵심 사업부 분리</td><td>검증 자산 확보 可. 문화 통합 리스크 高</td></tr>
+  </table>
+
+  <hr class="sep-dash">
+
+  <div class="sq">M&amp;A 전략 적용 관점</div>
+  <ul class="dash">
+    <li><strong>최적 타겟 구간</strong> : 'Series B 후 3~5년 공백' 성장 정체기 기업
+      <ul class="dot">
+        <li>기술 검증 완료 + 프리미엄 未형성 → 협상력 극대화 시점</li>
+      </ul>
+    </li>
+    <li><strong>AI 핵심 기술 경쟁사 선점 우려</strong> → Series A 조기 인수 검토 가능
+      <ul class="dot">
+        <li>파트너십·PoC 선행으로 기술 검증 후 내재화 필수 (2단계 접근)</li>
+      </ul>
+    </li>
+    <li>두 경로 모두 '파트너십 선행 검증 → 타이밍 포착 후 내재화' 원칙 동일</li>
+  </ul>
+
+  <div class="page-no">— 별첨 6 —</div>
+</div>
+
+
+<!-- ══════════════════ 별첨7 — Rossum 기업 개요 ══════════════════ -->
+<div class="doc-page">
+
+  <div class="ch">별첨 7. Rossum 기업 개요</div>
+
+  <div class="sq">기본 현황</div>
+  <table class="t">
+    <tr><td style="width:28%" class="b">공식 명칭</td><td>Rossum s.r.o.</td></tr>
+    <tr><td class="b">설립 / 본사</td><td>'17년 / 체코 프라하 (Prague, Czech Republic)</td></tr>
+    <tr><td class="b">공동 창업자</td><td>Tomáš Gogár (CEO) · Petr Baudiš · Tomáš Tunys (체코기술대학교<span class="def">(CTU Prague)</span> AI 연구 출신)</td></tr>
+    <tr><td class="b">재무 현황</td><td>매출 $44.9M ('24년 기준, YoY 약 +60%, '23년 $27.9M → '24년 $44.9M 기준)</td></tr>
+    <tr><td class="b">직원 수</td><td>약 450명 (추정, '25년 기준)</td></tr>
+    <tr><td class="b">처리 실적</td><td>연간 $700B+ 규모 거래 문서 처리, 누적 $1.3조 달러 처리 실적</td></tr>
+    <tr><td class="b">누적 투자</td><td>$104M (General Catalyst 주도, '21년 Series A)</td></tr>
+    <tr><td class="b">상장 이력</td><td>비상장 스타트업 → '26년 5월 Coupa Software에 피인수</td></tr>
+    <tr><td class="b">최근 이력</td><td>'24. 4월 Coupa와 전략적 파트너십 체결 → '26. 5월 인수로 기술 내재화 완료</td></tr>
+    <tr><td class="b">사명 유래</td><td>체코 극작가 Karel Čapek의 희곡 「R.U.R.(Rossum's Universal Robots, 1920년)」에서 차용 — '로봇(Robot)'이라는 단어를 세계 최초로 사용한 작품</td></tr>
+  </table>
+
+  <hr class="sep-dash">
+
+  <div class="sq">사업 영역 및 업계 위상</div>
+  <ul class="dash">
+    <li>IDP<span class="def">(Intelligent Document Processing, 지능형 문서처리)</span> 전문 SaaS 스타트업</li>
+    <li>B2B 거래 문서(인보이스, 구매주문서, 선하증권 등 비정형 문서) AI 자동 판독·추출·검증에 특화
+      <ul class="dot">
+        <li>거래 문서 특화 T-LLM<span class="def">(Transactional LLM)</span> 「Rossum Aurora」를 기반으로 기존 OCR 대비 처리 시간 최대 95% 단축, 정확도 98% 달성 (Rossum 발표 기준)</li>
+      </ul>
+    </li>
+    <li>Everest Group 「IDP PEAK Matrix® 2026」 32개 공급업체 평가 중 <strong>Leader</strong> 기업 선정
+      <ul class="dot">
+        <li>직관적 UI, AI 학습 기능, 276개 언어 지원 등에서 높은 평가 확보</li>
+      </ul>
+    </li>
+  </ul>
+
+  <hr class="sep-dash">
+
+  <div class="sq">주요 경쟁사 현황</div>
+  <ul class="dash">
+    <li><strong>ABBYY</strong> : IDP 전통 강자. 범용 OCR 역량에 AI를 결합한 FlexiCapture·Vantage 제품 보유. 비정형 거래 문서 특화 T-LLM 미보유로 Rossum 대비 정확도 열위</li>
+    <li><strong>Hyperscience</strong> : 뉴욕 기반 IDP 스타트업 (누적 $190M+ 조달). 공공·금융·보험 분야 특화. 다언어·비정형 거래 문서 처리 역량 열위</li>
+    <li><strong>AWS Textract</strong> : Amazon 클라우드 기반 범용 문서 추출 서비스. 비용 효율적이나 거래 맥락 이해 부족, 도메인 특화 정확도 한계</li>
+    <li><strong>Google Document AI</strong> : Gemini 기반 고도화 추진 중. 범용 생성형 LLM 방식으로 금융·거래 문서 처리 시 할루시네이션<span class="def">(사실 왜곡 오류)</span> 리스크 존재</li>
+    <li><strong>UiPath Document Understanding</strong> : RPA<span class="def">(Robotic Process Automation)</span> 워크플로우와의 통합 강점. 독립 IDP 정확도보다 기존 자동화 연동에 특화</li>
+  </ul>
+
+  <div class="page-no">— 별첨 7 —</div>
+</div>
+
+
+<!-- ══════════════════ 별첨7 계속 — 제품 포트폴리오 + 재무 현황 ══════════════════ -->
+<div class="doc-page">
+
+  <div class="ch">별첨 7. Rossum 기업 개요 (계속)</div>
+
+  <div class="sq">제품 포트폴리오 / 핵심 기술</div>
+  <p class="body-p" style="margin-bottom:8px;">단일 플랫폼 내 AI 엔진·에이전트 워크플로우·학습 시스템·ERP 연동으로 구성된 End-to-End IDP 솔루션</p>
+  <table class="t">
+    <tr><th style="width:34%">제품 / 기능</th><th>주요 기능</th></tr>
+    <tr>
+      <td class="b">Rossum Aurora (T-LLM)</td>
+      <td>거래 문서 특화 Transactional LLM. 1,100만 건 이상 실거래 문서 학습 데이터 기반. <strong>Discriminative Decoder</strong> 방식으로 텍스트 생성 없이 추출만 수행 → 할루시네이션 원천 차단. 276개 언어 지원 (손글씨 30개 언어)</td>
+    </tr>
+    <tr>
+      <td class="b">AI Agent (에이전트 워크플로우)</td>
+      <td>단순 데이터 추출을 넘어 문서 이해→판단→검증→업무 실행 자동화. 중복 결제·PO 불일치·가격 차이·비정상 거래 자동 탐지. 조기결제 할인 여부 판단 등 비즈니스 로직 직접 실행</td>
+    </tr>
+    <tr>
+      <td class="b">Human-in-the-Loop 검증</td>
+      <td>자동화와 인간 검토를 결합한 하이브리드 처리 방식. 고객 평균 92.5% 데이터 추출 정확도 달성. 수작업 대비 90% 이상 작업량 절감. 오류율 37.6% 감소</td>
+    </tr>
+    <tr>
+      <td class="b">Trainer (자기 학습)</td>
+      <td>공급업체별 문서 양식 자동 학습. 목표 정확도 도달 필요 문서 수를 기존 대비 10분의 1로 절감. 학습 누적 시 오류율 지속 감소</td>
+    </tr>
+    <tr class="hl-row">
+      <td class="b">ERP 통합 API / SDK</td>
+      <td>SAP·Oracle NetSuite·Coupa·Microsoft Dynamics 등 주요 ERP·구매 시스템 네이티브 통합. rossum-api 3.8.0·rossum-agent-client 1.1.0 SDK 제공</td>
+    </tr>
+  </table>
+  <p class="fn">Aurora 1.5 (2024.10 출시) : 데이터 추출 정확도 추가 25% 향상 / 100페이지 이상 장문서 처리 속도 4배 개선</p>
+  <p class="fn">DOCile : Rossum 자체 개발 레이블 학습 데이터셋. 제3자 데이터 미활용으로 고객 데이터 외부 유출 리스크 없음</p>
+  <p class="fn">Discriminative Decoder : 언어모델이 텍스트를 새로 생성하지 않고 문서에서 정보를 직접 추출하는 방식. 생성형 방식 대비 할루시네이션 발생 구조 자체를 제거</p>
+
+  <hr class="sep-dash">
+
+  <div class="sq">Rossum 재무 현황 및 자금 조달 이력</div>
+  <table class="t">
+    <tr>
+      <th style="width:18%">시기</th>
+      <th style="width:22%">라운드 / 이벤트</th>
+      <th style="width:18%">조달액</th>
+      <th>주요 내용</th>
+    </tr>
+    <tr>
+      <td class="c">'17~'20년</td>
+      <td class="c">시드 · Pre-Series A</td>
+      <td class="c">~$4M (추정)</td>
+      <td>프라하 창업 직후 초기 투자. 창업자가 직접 거리에서 문서 수집 → 학습 데이터 구축</td>
+    </tr>
+    <tr class="hl-row">
+      <td class="c">'21년 10월</td>
+      <td class="c b">Series A</td>
+      <td class="c b">$100M</td>
+      <td>General Catalyst 주도. 동유럽 역대 최대 Series A 투자 중 하나로 기록. 이후 5년간 추가 라운드 미진행</td>
+    </tr>
+    <tr>
+      <td class="c">누계</td>
+      <td class="c">총 조달액</td>
+      <td class="c b">$104M</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td class="c">'24년</td>
+      <td class="c">사업 성과</td>
+      <td class="c g">매출 $44.9M</td>
+      <td>YoY 약 +60% 고성장 유지 ('23년 $27.9M → '24년 $44.9M 기준). '24. 4월 Coupa와 전략적 파트너십 체결</td>
+    </tr>
+    <tr>
+      <td class="c">'25년 (추정)</td>
+      <td class="c">사업 성과</td>
+      <td class="c g">~$55~65M</td>
+      <td>성장세 유지 추정. Coupa 인수 가시화</td>
+    </tr>
+    <tr class="hl-row">
+      <td class="c">'26년 5월</td>
+      <td class="c b">Coupa 피인수</td>
+      <td class="c">미공개</td>
+      <td>Guggenheim Securities 독점 매각 자문. 매출·누적조달·성장률·멀티플 기반 <strong>$200~400M 추정</strong></td>
+    </tr>
+  </table>
+  <p class="fn">Series A 이후 추가 라운드 미유치 : IPO 가능성 감소 + 수익화 집중으로 Tuck-in M&amp;A가 자연스러운 회수 경로로 부상 — Coupa의 인수 협상력을 높이는 구조적 요인으로 작용</p>
+
+  <div class="page-no">— 별첨 7 (계속) —</div>
+</div>
+
+
+<!-- ══════════════════ 별첨8 — SaaS/AI M&A 검토 체크리스트 ══════════════════ -->
+<div class="doc-page">
+
+  <div class="ch">별첨 8. SaaS/AI 기업 M&amp;A 검토 체크리스트 <span style="font-size:12px; color:#c00; font-weight:400;">(초안 — 지원팀 검토 전)</span></div>
+
+  <p class="body-p" style="margin-bottom:8px;">사업부 관점에서 SaaS/AI 기업 M&amp;A 시 무엇을 봐야 하는가 — Coupa·Medallia 사례를 기반으로 도출한 초안. 지표별 기준치는 추후 지원팀과 검토 후 확정.</p>
+
+  <div class="sq">① Financial Metrics</div>
+  <table class="t">
+    <tr><th style="width:30%">지표</th><th style="width:35%">확인 항목</th><th>SaaS 우량 기준치 (참고)</th></tr>
+    <tr><td class="b">매출 성장률</td><td>YoY ARR / Revenue 성장률</td><td>≥ 20% (성장 단계 기준)</td></tr>
+    <tr><td class="b">Gross Margin</td><td>매출총이익률 (소프트웨어 특성 반영)</td><td>≥ 70%</td></tr>
+    <tr><td class="b">EBITDA Margin</td><td>Cash Adj. EBITDA / Billings</td><td>≥ 20% (성숙 SaaS)</td></tr>
+    <tr><td class="b">Rule of 40</td><td>ARR 성장률 + EBITDA 마진 합산</td><td>≥ 40 (우량 SaaS 기준)</td></tr>
+    <tr><td class="b">FCF / FCF Margin</td><td>FCF = EBITDA − CapEx − 이자 (이자 차감 전·후 구분)</td><td>양수 전환 여부 + 마진 추세</td></tr>
+    <tr class="hl-row"><td class="b">이자상환능력</td><td>EBITDA ÷ 연이자비용 (EBITDA Coverage)</td><td>≥ 1.5x (LBO 딜 안정 기준)</td></tr>
+    <tr><td class="b">현금보유 / 부채</td><td>Cash + Cash Equiv. / Net Debt</td><td>인수 후 12개월 운영 가능 현금 확인</td></tr>
+    <tr><td class="b">멀티플 (EV/ARR)</td><td>인수가격 ÷ ARR or Revenue</td><td>시장 평균 대비 프리미엄 합리성</td></tr>
+  </table>
+
+  <div class="sq" style="margin-top:12px;">② Operational Metrics</div>
+  <table class="t">
+    <tr><th style="width:30%">지표</th><th style="width:35%">확인 항목</th><th>SaaS 우량 기준치 (참고)</th></tr>
+    <tr class="hl-row"><td class="b">NRR <span class="def">(Net Revenue Retention)</span></td><td>기존 고객 매출 유지 + 확장 비율</td><td>≥ 110% (Coupa 수준)</td></tr>
+    <tr><td class="b">GRR <span class="def">(Gross Revenue Retention)</span></td><td>해지 제외 후 유지 비율 (확장 미포함)</td><td>≥ 90%</td></tr>
+    <tr><td class="b">Churn Rate</td><td>연간 고객 이탈률</td><td>≤ 5% (엔터프라이즈 기준)</td></tr>
+    <tr><td class="b">고객 집중도</td><td>상위 10개 고객 비중</td><td>≤ 30% (집중도 리스크 평가)</td></tr>
+    <tr><td class="b">CAC Payback</td><td>고객 획득 비용 회수 기간</td><td>≤ 24개월</td></tr>
+    <tr><td class="b">LTV : CAC</td><td>고객 생애가치 ÷ 획득 비용</td><td>≥ 3x</td></tr>
+  </table>
+
+  <div class="page-no">— 별첨 8 —</div>
+</div>
+
+
+<!-- ══════════════════ 별첨8 계속 ══════════════════ -->
+<div class="doc-page">
+
+  <div class="ch">별첨 8. SaaS/AI 기업 M&amp;A 검토 체크리스트 (계속)</div>
+
+  <div class="sq">③ Business Quality</div>
+  <table class="t">
+    <tr><th style="width:30%">항목</th><th style="width:35%">확인 관점</th><th>Coupa vs. Medallia 사례</th></tr>
+    <tr class="hl-row"><td class="b">반복 매출 안정성</td><td>구독 비중 / 계약 구조 (다년 계약 여부)</td><td>Coupa 구독 비중 ≥ 90% vs Medallia 서베이 단위 계약</td></tr>
+    <tr><td class="b">시장 지속성</td><td>수요가 사라질 수 있는 시장인지 평가</td><td>조달·결제는 영속 시장 vs CX 피드백은 AI 대체 가능</td></tr>
+    <tr class="hl-row"><td class="b">AI 대체 가능성</td><td>플랫폼형 vs 단기능 SaaS 구분</td><td>Coupa : 워크플로우+데이터+네트워크 結 → 低<br>Medallia : 단기능 분석 SaaS → 高</td></tr>
+    <tr><td class="b">플랫폼 고착도</td><td>전환 비용 / 데이터 이동성</td><td>Coupa ERP 연동·공급사 네트워크 → 高</td></tr>
+    <tr><td class="b">독점 데이터 자산</td><td>경쟁자가 복제 불가한 데이터 보유 여부</td><td>Coupa $10T 지출 데이터 → AI 학습 기반</td></tr>
+    <tr><td class="b">네트워크 효과</td><td>사용자 증가 시 가치 증대 구조</td><td>Coupa BSM 네트워크(공급사 1,000만+)</td></tr>
+    <tr><td class="b">경쟁사 대비 차별성</td><td>주요 경쟁사 대비 기능·기술 격차</td><td>별첨 3 (Ariba vs Coupa) / 별첨 9 (IDP 비교) 참조</td></tr>
+  </table>
+
+  <div class="sq" style="margin-top:12px;">④ M&amp;A 관점 체크포인트</div>
+  <table class="t">
+    <tr><th style="width:30%">항목</th><th>확인 관점</th></tr>
+    <tr><td class="b">인수 후 비용절감 가능성</td><td>S&amp;M 중복, 인력 최적화, G&amp;A 통합 등 — 절감 규모가 이자 갭을 커버할 수 있는지 수치로 검증</td></tr>
+    <tr><td class="b">PMI 통합 난이도</td><td>기술 스택 호환성 / 고객 데이터 이전 / 팀 통합 기간 추정</td></tr>
+    <tr><td class="b">기존 솔루션과 시너지</td><td>자사 제품 포트폴리오와 기능 중복 or 보완 여부</td></tr>
+    <tr><td class="b">Tuck-in 적합성</td><td>독립 사업부로 운영 vs 기존 플랫폼 내 통합 여부</td></tr>
+    <tr class="hl-row"><td class="b">공급사 주장 검증</td><td>IDP·AI 기능 등 공급사 주장 → 경쟁사 비교 및 독립 검증 필수 (별첨 9 참조)</td></tr>
+    <tr><td class="b">Exit 전략</td><td>PE 인수 시 : IPO / Secondary / Tuck-in 가능성 평가<br>전략 인수 시 : 통합 후 시너지 수치화 가능 여부</td></tr>
+  </table>
+
+  <p class="fn">본 체크리스트는 Coupa·Medallia 사례 기반 초안이며, 지원팀 검토 후 사업부 공통 M&amp;A 검토 기준으로 확정 예정 (3단계 Action Item).</p>
+  <p class="fn">Rule of 40 : ARR 성장률(%) + FCF 마진(%) ≥ 40이면 우량 SaaS로 분류. Coupa FY25 기준 : EBITDA 마진 41.4% 확인. 매출 성장률은 비상장 이후 미공개로 Rule of 40 산정 불가.</p>
+
+  <div class="page-no">— 별첨 8 (계속) —</div>
+</div>
+
+
+<!-- ══════════════════ 별첨8 계속2 — 재무 실사 세부 검증 ══════════════════ -->
+<div class="doc-page">
+
+  <div class="ch">별첨 8. SaaS/AI 기업 M&amp;A 검토 체크리스트 (계속2)</div>
+
+  <p class="body-p" style="margin-bottom:8px;">⑤~⑦은 Evercore(에버코어) 주관 Coupa 실사(2024년 10월) 과정에서 실제 제기된 DD 질문 구조를 기반으로 도출한 실전형 검증 항목이다. 재무 모델·데이터북 수령 후 본 체크리스트 순서대로 확인하는 것을 권고한다.</p>
+
+  <div class="sq">⑤ Top Line / ARR 검증</div>
+  <table class="t">
+    <tr><th style="width:32%">확인 항목</th><th style="width:38%">세부 질문</th><th>판단 기준</th></tr>
+    <tr class="hl-row"><td class="b">Bookings vs ARR 정의 분리</td><td>Subscription Bookings에 Contracted ACV Increase·Renewal Price Increase 포함 여부 확인</td><td>포함/미포함 여부에 따라 성장률 수치가 달라짐 — 정의 통일 후 비교</td></tr>
+    <tr><td class="b">ARR Build 구조 이해</td><td>① Non-Renewal Bookings (신규) ② Contracted ACV Increase from Existing (기존 계약 내 좌석 증가) ③ from New Bookings (신규 계약 내 미래 증가분) 구분</td><td>③이 0으로 수렴하는 경우 기존 계약 포화 신호 — 신규 계약 파이프라인 별도 확인</td></tr>
+    <tr><td class="b">Proration 조정</td><td>ARR Bridge 내 Proration Impact 항목 존재 여부 및 규모</td><td>연간화(Annualized) 조정 항목 — 없으면 ARR이 과소·과대 계상될 수 있음</td></tr>
+    <tr><td class="b">Go-Live 시점 괴리</td><td>Booking 계약일 vs Go-Live(효력 발생일) 차이로 인한 ARR 인식 시차</td><td>시차가 클수록 단기 ARR 성장률 왜곡 가능 — 분기별 Go-Live 일정 확인</td></tr>
+    <tr><td class="b">고객 세그먼트 정의</td><td>Enterprise / Mid-Market(MM) / Corporate 분류 기준 (매출액 기준 vs 직원수 기준)</td><td>Coupa 기준: Corporate &lt;$250M, MM $250M~$1B, Enterprise &gt;$1B (매출 기준). 비상장사는 D&amp;B 추정치 활용</td></tr>
+    <tr><td class="b">Alliance 채널 정의</td><td>Alliance 매출이 파트너 채널 매출인지, 파트너 구독 매출인지 구분</td><td>리셀러 셀스루(sell-through) 매출과 혼재 시 채널 믹스 분석 불가 — 별도 라벨링 요청</td></tr>
+  </table>
+
+  <div class="sq" style="margin-top:12px;">⑥ P&amp;L 검증 — 헤드카운트·비용 항목</div>
+  <table class="t">
+    <tr><th style="width:32%">확인 항목</th><th style="width:38%">세부 질문</th><th>판단 기준</th></tr>
+    <tr class="hl-row"><td class="b">HC 비용 vs 관리발표자료 괴리</td><td>재무 모델 HC 비용과 IR/관리발표자료 인당 비용 × 인원수 수치 불일치 시 원인 분석</td><td>① Census 기준일 차이 ② 컨트랙터 포함 여부 ③ CapSW 반영 방식 ④ 커미션 현금 vs GAAP 처리 — 4가지 항목 순서대로 확인</td></tr>
+    <tr><td class="b">컨트랙터 비용 처리</td><td>외주(contractor) 비용이 HC 비용에 포함되는지 non-HC 비용으로 분리되는지 확인</td><td>모델에서 non-HC로 분리된 경우 → 발표자료 대비 HC 비용 낮게 표시됨. 총비용 기준으로 재비교 필요</td></tr>
+    <tr><td class="b">CapSW (자본화 소프트웨어) 처리</td><td>R&amp;D 비용 내 CapSW 포함·제외 여부 확인</td><td>발표자료는 CapSW 포함, 모델은 FCF 탭에서 별도 처리하는 경우 多. Coupa FY24 $10M, FY25 $12M</td></tr>
+    <tr><td class="b">커미션 처리 방식</td><td>S&amp;M 비용 내 커미션을 현금 기준(cash) vs GAAP(ASC 606 이연 후 상각) 중 어느 기준으로 표시하는지 확인</td><td>현금 기준은 당기 달성 목표 100% 가정 → GAAP 모델 대비 과대 계상. Net Capitalized Commissions = 현금 커미션 − P&amp;L 상각액 (Coupa FY24 $29M, FY25 $24M)</td></tr>
+  </table>
+
+  <div class="page-no">— 별첨 8 (계속2) —</div>
+</div>
+
+
+<!-- ══════════════════ 별첨8 계속3 — FCF·BS·채널 검증 ══════════════════ -->
+<div class="doc-page">
+
+  <div class="ch">별첨 8. SaaS/AI 기업 M&amp;A 검토 체크리스트 (계속3)</div>
+
+  <div class="sq">⑦ FCF · B/S · 채널 검증</div>
+  <table class="t">
+    <tr><th style="width:32%">확인 항목</th><th style="width:38%">세부 질문</th><th>판단 기준</th></tr>
+    <tr class="hl-row"><td class="b">D&amp;A 분해</td><td>D&amp;A를 ① 유형자산 감가상각(Depreciation) ② 무형자산 상각(Amortization of intangibles) ③ CapSW 상각 ④ Net Capitalized Commissions 상각으로 분리 요청</td><td>D&amp;A 전체를 묶어 제공하는 경우 FCF 역산 불가 — 항목별 분해 없이는 Adj. EBITDA 신뢰도 낮음</td></tr>
+    <tr><td class="b">OpEx D&amp;A 버든 여부</td><td>COGS·OpEx에 D&amp;A(감가상각·무형자산 상각)가 포함되어 있는지 확인</td><td>S&amp;M은 ASC 606 커미션 상각 반영, 그 외 D&amp;A는 COGS·OpEx에서 제거하는 것이 일반적. 혼재 시 EBITDA 과소 계상</td></tr>
+    <tr><td class="b">SBC (주식보상비용) 처리</td><td>P&amp;L에 SBC 반영 여부 및 규모 확인</td><td>SBC 미반영 P&amp;L은 비용 과소 계상 → Adj. EBITDA에서 SBC Add-back 항목 별도 확인 필수. PE 인수 후 Management Incentive Plan 연계 SBC 발생 여부도 점검 (Coupa FY24·FY25 발생)</td></tr>
+    <tr><td class="b">NWC 정의</td><td>운전자본(NWC) 산정 시 이연매출(Deferred Revenue)·미청구채권(Unbilled Receivables)·이연수수료(Deferred Commissions) 포함 여부</td><td>이 3개 항목 제외 + 정규화 기준 적용 시 GAAP B/S와 직접 비교 불가 — 조정 항목 리스트 요청 필수</td></tr>
+    <tr class="hl-row"><td class="b">B/S 최신성 확인</td><td>제공된 B/S의 기준일 확인 (감사 완료 연간 vs 분기 잠정치)</td><td>PE 보유 비상장사의 경우 감사 완료 연간 재무제표 제공 여부 확인. 분기 잠정치는 조정 가능성 있음</td></tr>
+    <tr><td class="b">직접 vs 간접 조달 매출 비중</td><td>간접조달(Indirect Procurement) vs 직접조달(Direct Procurement) 매출 비중 요청</td><td>대부분의 S2P 플랫폼은 간접조달 중심 — 직접조달 확장 전략 여부가 TAM 확장성 판단 기준. 내부 분리 불가 시 EY Databook 산업별 세그먼트로 간접 추정</td></tr>
+    <tr><td class="b">영업 채널 믹스</td><td>직접영업(Direct) vs 파트너/리셀러(Indirect) 매출 비중 및 리셀러 활성화 로드맵</td><td>현재 직접영업 비중이 높을수록 단기 안정성 高, 리셀러 채널 확장 계획이 있을 경우 FY+1~+2 성장 가속 가능성 검토</td></tr>
+  </table>
+
+  <p class="fn">⑤~⑦ 항목은 2024년 10월 Evercore(에버코어) 주관 하에 삼성SDS·Thoma Bravo(Coupa) 간 실제 교환된 재무 실사(Financial DD) 질의응답 내용을 기반으로 재구성하였다.</p>
+  <p class="fn">CapSW : Capitalized Software, 자본화 소프트웨어 개발 비용. ASC 350-40 기준에 따라 개발 완료 단계 이후 비용을 자산으로 처리하여 내용연수에 걸쳐 상각. / Net Capitalized Commissions : ASC 606 기준 판매 커미션 이연 후 상각액과 현금 지급액의 차이. 신규 계약 증가 시 양(+), 기존 이연분 상각 우세 시 음(-).</p>
+
+  <div class="page-no">— 별첨 8 (계속3) —</div>
+</div>
+
+
+<!-- ══════════════════ 별첨9 — IDP 경쟁사 비교 ══════════════════ -->
+<div class="doc-page">
+
+  <div class="ch">별첨 9. IDP 경쟁사 비교 — Rossum vs. Ariba vs. UiPath vs. ABBYY <span style="font-size:12px; color:#c00; font-weight:400;">(초안 — 현장 검증 전)</span></div>
+
+  <p class="body-p" style="margin-bottom:8px;">Rossum의 공급사 주장을 객관적으로 검증하기 위해 주요 경쟁사의 IDP 기능 수준을 비교. SAP Ariba IDP 기능 존재 여부를 포함하여 확인.</p>
+
+  <div class="sq">주요 IDP 솔루션 비교</div>
+  <table class="t">
+    <tr>
+      <th style="width:18%">구분</th>
+      <th style="width:20%">Rossum (Aurora)</th>
+      <th style="width:20%">SAP Ariba</th>
+      <th style="width:20%">UiPath</th>
+      <th>ABBYY (Vantage)</th>
+    </tr>
+    <tr>
+      <td class="b">포지션</td>
+      <td>AI-native IDP<br>전문 스타트업</td>
+      <td>E2E 조달 플랫폼<br>(IDP는 파트너 경유)</td>
+      <td>RPA 기반 확장<br>IDP 내재화</td>
+      <td>전통 OCR 기반<br>AI 전환 中</td>
+    </tr>
+    <tr>
+      <td class="b">AI 방식</td>
+      <td>T-LLM (Discriminative Decoder)<br>— 할루시네이션 구조 제거</td>
+      <td>OpenText 파트너십<br>기반 OCR·ML</td>
+      <td>Document Understanding<br>— ML + GPT 연동</td>
+      <td>ABBYY Vantage<br>— Low-code ML</td>
+    </tr>
+    <tr>
+      <td class="b">IDP 자체 보유</td>
+      <td class="g b">자체 (Aurora T-LLM)</td>
+      <td class="r">미보유<br>(서드파티 연동)</td>
+      <td class="g">자체 보유<br>(Document Understanding)</td>
+      <td class="g">자체 보유<br>(Vantage)</td>
+    </tr>
+    <tr>
+      <td class="b">강점</td>
+      <td>- 거래 문서 특화<br>- 무코드 설정<br>- 사전 학습 모델<br>- Coupa 워크플로 통합</td>
+      <td>- 조달 E2E 커버<br>- SAP ERP 네이티브<br>- 글로벌 고객망</td>
+      <td>- RPA 연계 자동화<br>- 다양한 문서 유형<br>- GPT 플러그인</td>
+      <td>- OCR 정확도<br>- 레거시 연동<br>- 다국어 지원</td>
+    </tr>
+    <tr>
+      <td class="b">약점</td>
+      <td>- 규모 소형<br>- 거래 문서 외 범용성 제한</td>
+      <td>- IDP 독립 모듈 없음<br>- 파트너 의존<br>- AI 혁신 속도 둔화</td>
+      <td>- RPA 플랫폼 종속<br>- 단독 IDP 포지셔닝 약함</td>
+      <td>- AI 전환 과도기<br>- 구 UI/UX<br>- 가격 경쟁력 약화</td>
+    </tr>
+    <tr class="hl-row">
+      <td class="b">Coupa 관점</td>
+      <td class="g">인수로 플랫폼 내재화<br>BSM 전체에 AI 적용</td>
+      <td class="r">SAP 생태계 내 제한<br>Coupa 고객 전환 유인</td>
+      <td>RPA 중심 → S2P 통합 약함</td>
+      <td>거래 문서 이외 범용</td>
+    </tr>
+  </table>
+
+  <hr class="sep-dash">
+
+  <div class="sq">검토 의견 및 한계</div>
+  <ul class="dash">
+    <li><strong>SAP Ariba IDP 자체 미보유 확인</strong> — Ariba는 OpenText(구 Hyland) 파트너십을 통해 문서 처리를 제공하나 독립 IDP 모듈 없음. "Ariba에 IDP가 없다"는 최초 보고서 기술은 사실에 부합하나, 생태계 연동 관점에서는 일부 기능 제공 중임을 명시 필요</li>
+    <li><strong>Rossum 선제 확보 vs. 따라잡기 논쟁</strong> — Coupa는 기존에 IDP를 서드파티(ABBYY 등) 연계로 제공해 왔음. Rossum 인수는 ① AI 품질 향상 + ② 플랫폼 내재화 + ③ 경쟁사(UiPath 등) 대비 IDP 격차 해소의 복합 목적으로 해석 가능. 단순 따라잡기보다는 "AI 품질 도약"으로 평가</li>
+    <li><strong>Aurora T-LLM 검증 필요 항목</strong> — 'T-LLM'이 독립 사전학습 LLM인지, OCR+ML 고도화 모델인지 정확한 기술 규격 별도 확인 필요. Rossum 공식 발표 기준 "Transformer 기반 discriminative 방식"으로 생성형 LLM과 구조 상이</li>
+    <li><strong>현장 검증 미완료</strong> — 안대영 상무(물류사업부) 검토 의견 수렴 후 보완 예정</li>
+  </ul>
+
+  <p class="fn">본 비교표는 공개 자료(벤더 공식 홈페이지, Gartner MQ, Forrester Wave, SEC 공시) 기반 초안임. Rossum Aurora 기술 규격 및 Ariba 파트너 연동 범위는 현장 검증 후 확정.</p>
+
+  <div class="page-no">— 별첨 9 —</div>
+</div>
+
+
+<!-- ══════════════════ 별첨10 — FY2024 vs FY2025 순손실 추정 방법론 ══════════════════ -->
+<div class="doc-page">
+
+  <div class="ch">별첨 10. FY2024 vs FY2025 순손실 추정 방법론 비교</div>
+
+  <p class="body-p" style="margin-bottom:8px;">Coupa는 TB 인수(2023.2) 이후 비상장사로 전환되어 GAAP 재무제표를 공개하지 않는다. 따라서 FY2024·FY2025 GAAP 순손실은 보유 자료에 따라 <strong>추정 방향이 반대</strong>이며, 두 연도의 신뢰도도 다르다.</p>
+
+  <div class="sq">① 추정 방향 — FY2024 vs FY2025</div>
+  <table class="t" style="font-size:12px;">
+    <tr>
+      <th style="width:22%">구분</th>
+      <th style="width:39%">FY2024 ('23년, ~Jan 31, 2024)</th>
+      <th>FY2025 ('24년, ~Jan 31, 2025)</th>
+    </tr>
+    <tr>
+      <td class="b">알고 있는 것</td>
+      <td>GAAP 순손실 -$588.4M<br><span style="font-size:11px; color:#888;">(Evercore B/S Accumulated Deficit)</span></td>
+      <td class="ev">Cash Adj. EBITDA +$470.9M<br><span style="font-size:11px; color:#888;">(Evercore Management P&L FY25F 직접 제공)</span></td>
+    </tr>
+    <tr>
+      <td class="b">모르는 것</td>
+      <td>Cash Adj. EBITDA (비GAAP, 미제공)</td>
+      <td class="ev">GAAP 순손실 (재무제표 미공개)</td>
+    </tr>
+    <tr class="hl-row">
+      <td class="b">추정 방향</td>
+      <td><strong>↑ 역산</strong><br>순손실 → EBITDA<br><span style="font-size:11px; color:#888;">(Bottom-up: 결과에서 원인으로)</span></td>
+      <td class="ev"><strong>↓ 추산</strong><br>EBITDA → 순손실<br><span style="font-size:11px; color:#888;">(Top-down: 원인에서 결과로)</span></td>
+    </tr>
+    <tr>
+      <td class="b">출발점 신뢰도</td>
+      <td><span style="color:#c00;">낮음</span> — EBITDA 자체가 역산 추정치</td>
+      <td class="ev"><span style="color:#0a6e00;">상대적으로 높음</span> — EBITDA는 Evercore 제공값</td>
+    </tr>
+    <tr>
+      <td class="b">추정 결과</td>
+      <td>Cash Adj. EBITDA ≈ +$320~350M <span style="font-size:11px; color:#888;">(역산)</span></td>
+      <td class="ev">GAAP 순손실 ≈ -$190~250M <span style="font-size:11px; color:#888;">(추산)</span></td>
+    </tr>
+  </table>
+
+  <div class="sq" style="margin-top:12px;">② 공통 조정 항목 — 양방향 모두에 사용되는 브릿지 항목</div>
+  <table class="t" style="font-size:12px;">
+    <tr>
+      <th style="width:30%">항목</th>
+      <th style="width:22%; text-align:right;">FY2024 실적</th>
+      <th style="width:22%; text-align:right;">FY2025 추정</th>
+      <th>변화 이유</th>
+    </tr>
+    <tr class="hl-row">
+      <td class="b">PPA 무형자산 상각</td>
+      <td style="text-align:right;">$406.7M <span class="src-ev">Evercore</span></td>
+      <td style="text-align:right;">$370~400M <span style="font-size:10px; color:#888;">(추정)</span></td>
+      <td style="font-size:11px;">일부 무형자산 내용연수 완료로 소폭 감소 추정. 고객관계·기술 등 주요 항목은 5~10년 잔존</td>
+    </tr>
+    <tr>
+      <td class="b">기타 D&A</td>
+      <td style="text-align:right;">$13.5M <span class="src-ev">Evercore</span></td>
+      <td style="text-align:right;">$15~20M <span style="font-size:10px; color:#888;">(추정)</span></td>
+      <td style="font-size:11px;">FY24에 이연 커미션 잔액 일시 상각(write-off) 후 FY25 재적립 정상화</td>
+    </tr>
+    <tr>
+      <td class="b">이자비용 (Term Loan)</td>
+      <td style="text-align:right;">~$241M <span style="font-size:10px; color:#888;">(추정)</span></td>
+      <td style="text-align:right;">~$241M <span style="font-size:10px; color:#888;">(추정)</span></td>
+      <td style="font-size:11px;">Term Loan $2,187M 잔액 동일 가정. 일부 상환 시 감소 가능</td>
+    </tr>
+    <tr class="hl-row">
+      <td class="b">이연법인세비용</td>
+      <td style="text-align:right; color:#c00;">~$171M</td>
+      <td style="text-align:right;">$20~40M <span style="font-size:10px; color:#888;">(추정)</span></td>
+      <td style="font-size:11px;"><strong>FY2024에 대규모 일시 인식 후 FY2025부터 정상화</strong> — 아래 ③ 참조</td>
+    </tr>
+    <tr>
+      <td class="b">SBC (경영진 인센티브)</td>
+      <td style="text-align:right;">~$80~100M <span style="font-size:10px; color:#888;">(역산)</span></td>
+      <td style="text-align:right;">$50~80M <span style="font-size:10px; color:#888;">(추정)</span></td>
+      <td style="font-size:11px;">MIP 베스팅 진행에 따라 점진적 감소 추정</td>
+    </tr>
+  </table>
+
+  <div class="page-no">— 별첨 10 —</div>
+</div>
+
+
+<!-- ══════════════════ 별첨10 계속 ══════════════════ -->
+<div class="doc-page">
+
+  <div class="ch">별첨 10. FY2024 vs FY2025 순손실 추정 방법론 비교 (계속)</div>
+
+  <div class="sq">③ 이연법인세 — FY2024 대규모 인식, FY2025 정상화 이유</div>
+  <p class="body-p" style="margin-bottom:6px;">이연법인세부채는 <strong>장부가치(Book)와 세무기준(Tax)의 차이</strong>에서 발생한다. TB 인수 시 PPA로 무형자산의 장부가치가 대폭 올라갔으나, 주식 인수 구조상 세무 기준은 올라가지 않는다.</p>
+  <table class="t" style="font-size:12px;">
+    <tr>
+      <th style="width:25%">시점</th>
+      <th style="width:37%">발생 메커니즘</th>
+      <th style="width:18%; text-align:right;">이연세금 규모</th>
+      <th>성격</th>
+    </tr>
+    <tr class="hl-row">
+      <td class="b">FY2024<br><span style="font-weight:400; font-size:11px;">(인수 직후)</span></td>
+      <td>PPA로 무형자산 $3.3B 신규 인식 → 장부-세무 차이 일시에 대규모 발생 → 이연법인세부채 $15M → $187M으로 급증</td>
+      <td style="text-align:right; color:#c00; font-weight:700;">~$171M</td>
+      <td style="font-size:11px; color:#c00;">일시적 대규모 인식. 비현금</td>
+    </tr>
+    <tr>
+      <td class="b">FY2025~<br><span style="font-weight:400; font-size:11px;">(이후 연도)</span></td>
+      <td>무형자산 상각이 진행될수록 장부가치 하락 → 장부-세무 차이 축소 → 이연법인세부채 감소(= 이연세금 수익 또는 소규모 비용)</td>
+      <td style="text-align:right; color:#0a6e00; font-weight:700;">$20~40M</td>
+      <td style="font-size:11px; color:#0a6e00;">정상화 구간. 비용 대폭 축소</td>
+    </tr>
+  </table>
+  <p class="fn">이연법인세부채(DTL)는 PPA 무형자산의 책임을 세무가 아닌 회계가 더 빠르게 인식하는 구조에서 발생. 무형자산이 상각될수록 DTL도 함께 해소되어 향후 이연세금 수익으로 전환될 수 있음.</p>
+
+  <div class="sq" style="margin-top:12px;">④ 신뢰도 비교 및 한계</div>
+  <table class="t" style="font-size:12px;">
+    <tr>
+      <th style="width:25%">항목</th>
+      <th style="width:37%">FY2024</th>
+      <th>FY2025</th>
+    </tr>
+    <tr>
+      <td class="b">확인된 수치</td>
+      <td>순손실 -$588.4M (B/S), D&A $420.2M (Evercore)</td>
+      <td class="ev">Cash Adj. EBITDA $470.9M, CapSW $12.2M, Net Cap. Commissions $24.3M (Evercore)</td>
+    </tr>
+    <tr class="hl-row">
+      <td class="b">추정 수치</td>
+      <td>Cash Adj. EBITDA $320~350M<br><span style="font-size:11px; color:#c00;">(역산 — 신뢰도 낮음)</span></td>
+      <td class="ev">GAAP 순손실 -$190~250M<br><span style="font-size:11px; color:#0a6e00;">(추산 — 상대적으로 신뢰도 높음)</span></td>
+    </tr>
+    <tr>
+      <td class="b">불확실 구간</td>
+      <td>SBC 규모 미확인 ($80~100M 추정)<br>이자율 변동 가능성</td>
+      <td class="ev">FY2025 D&A 정확한 감소폭<br>이연세금 정상화 속도<br>SBC 베스팅 일정</td>
+    </tr>
+    <tr>
+      <td class="b">공통 한계</td>
+      <td colspan="2">GAAP 재무제표 미공개(비상장). Evercore 자료는 관리회계(비GAAP) 기준. 두 연도 모두 확인값이 아닌 추정값 포함. 실사(FDD) 시 반드시 GAAP P&L 원본 요청 필요.</td>
+    </tr>
+  </table>
+
+  <div class="sq" style="margin-top:12px;">⑤ 한 줄 요약</div>
+  <div class="box-key">
+    FY2024는 <strong>"결과(순손실 -$588.4M)는 알지만 과정(EBITDA)을 역산"</strong>하는 구조이고, FY2025는 <strong>"과정(EBITDA $470.9M)은 알지만 결과(순손실)를 추산"</strong>하는 구조다. 두 접근 모두 비상장사 정보 비대칭의 한계 안에서 가능한 최선의 추정이며, 정확한 확인은 GAAP 재무제표 원본 입수 시에만 가능하다.
+  </div>
+
+  <p class="fn">본 별첨은 재무 데이터 해석 시 추정 한계를 명시적으로 인식하고 의사결정에 활용하기 위한 참고 자료임. 수치의 정확성보다 <strong>추정 방향과 논리의 타당성</strong>을 이해하는 데 목적이 있음.</p>
+
+  <div class="page-no">— 별첨 10 (계속) —</div>
+</div>
+
+
+</body>
+</html>

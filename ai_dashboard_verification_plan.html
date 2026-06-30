@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI 기반 사업건전성 대시보드 구축·운영 검증 계획서</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+      background: #f4f6f9;
+      color: #1a1a2e;
+      line-height: 1.7;
+    }
+
+    /* 커버 */
+    .cover {
+      background: linear-gradient(135deg, #0d1b2a 0%, #1a2744 55%, #0f3460 100%);
+      color: #fff;
+      padding: 70px 60px 60px;
+    }
+    .cover .badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 20px;
+      padding: 5px 16px;
+      font-size: 12px;
+      letter-spacing: 1px;
+      margin-bottom: 24px;
+    }
+    .cover h1 {
+      font-size: 30px;
+      font-weight: 700;
+      line-height: 1.45;
+      margin-bottom: 14px;
+    }
+    .cover .subtitle {
+      font-size: 15px;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 40px;
+    }
+    .cover .meta {
+      display: flex;
+      gap: 36px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      border-top: 1px solid rgba(255,255,255,0.13);
+      padding-top: 24px;
+    }
+    .cover .meta span strong { color: rgba(255,255,255,0.88); display: block; margin-bottom: 2px; }
+
+    /* 컨테이너 */
+    .container { max-width: 980px; margin: 0 auto; padding: 48px 32px; }
+
+    /* 전제 재정의 박스 */
+    .premise-box {
+      background: #fff;
+      border-radius: 12px;
+      padding: 32px 36px;
+      margin-bottom: 36px;
+      border-left: 5px solid #0f3460;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+    .premise-box h2 { font-size: 17px; color: #0f3460; margin-bottom: 18px; font-weight: 700; }
+    .premise-row {
+      display: grid;
+      grid-template-columns: 1fr 40px 1fr;
+      gap: 0;
+      align-items: center;
+    }
+    .premise-cell {
+      border-radius: 8px;
+      padding: 16px 20px;
+    }
+    .premise-cell.old { background: #fafafa; border: 1px solid #e5e7eb; }
+    .premise-cell.new { background: #eef6ff; border: 1px solid #bfdbfe; }
+    .premise-cell .label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+    .premise-cell.old .label { color: #9ca3af; }
+    .premise-cell.new .label { color: #2563eb; }
+    .premise-cell p { font-size: 13px; color: #333; line-height: 1.6; }
+    .premise-cell.new p { color: #1e3a5f; font-weight: 600; }
+    .arrow-col { text-align: center; font-size: 20px; color: #2563eb; }
+
+    /* 핵심 변경 요약 카드 */
+    .change-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 40px;
+    }
+    .change-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 18px 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      border-top: 3px solid;
+    }
+    .change-card.c1 { border-color: #6366f1; }
+    .change-card.c2 { border-color: #0ea5e9; }
+    .change-card.c3 { border-color: #10b981; }
+    .change-card.c4 { border-color: #f59e0b; }
+    .change-card .cnum { font-size: 11px; font-weight: 700; letter-spacing: 1px; margin-bottom: 6px; }
+    .change-card.c1 .cnum { color: #6366f1; }
+    .change-card.c2 .cnum { color: #0ea5e9; }
+    .change-card.c3 .cnum { color: #10b981; }
+    .change-card.c4 .cnum { color: #f59e0b; }
+    .change-card h3 { font-size: 13px; font-weight: 700; color: #1a1a2e; margin-bottom: 6px; line-height: 1.4; }
+    .change-card p { font-size: 12px; color: #666; line-height: 1.5; }
+
+    /* 섹션 공통 */
+    .section {
+      background: #fff;
+      border-radius: 12px;
+      margin-bottom: 28px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+      overflow: hidden;
+    }
+    .section-header {
+      padding: 22px 32px 18px;
+      border-bottom: 1px solid #f0f0f0;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .section-header .tag {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+    .tag-p0  { background: #f3f0ff; color: #7c3aed; }
+    .tag-env { background: #e0f2fe; color: #0369a1; }
+    .tag-col { background: #dcfce7; color: #166534; }
+    .tag-t3  { background: #fef9c3; color: #92400e; }
+    .tag-t2  { background: #ffe4e6; color: #9f1239; }
+    .tag-t1  { background: #eff6ff; color: #1d4ed8; }
+    .tag-t4  { background: #ecfdf5; color: #065f46; }
+    .tag-kpi { background: #fafafa; color: #374151; border: 1px solid #e5e7eb; }
+    .section-header h2 { font-size: 17px; font-weight: 700; color: #1a1a2e; }
+    .section-body { padding: 26px 32px; }
+
+    .block { margin-bottom: 26px; }
+    .block:last-child { margin-bottom: 0; }
+    .block-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #888;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+    .block p { font-size: 14px; color: #333; margin-bottom: 6px; }
+    .block ul { padding-left: 18px; }
+    .block ul li { font-size: 14px; color: #333; margin-bottom: 5px; }
+
+    /* Phase 0 체크리스트 */
+    .spike-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .spike-item {
+      border-radius: 8px;
+      padding: 14px 18px;
+      border: 1px solid #e5e7eb;
+      background: #fafafa;
+    }
+    .spike-item h4 { font-size: 13px; font-weight: 700; color: #1a1a2e; margin-bottom: 5px; }
+    .spike-item p { font-size: 12px; color: #555; line-height: 1.5; }
+    .spike-item .result {
+      margin-top: 8px;
+      font-size: 11px;
+      color: #7c3aed;
+      font-weight: 700;
+    }
+
+    /* 환경 아키텍처 */
+    .arch-diagram {
+      display: grid;
+      grid-template-columns: 1fr 60px 1fr;
+      gap: 0;
+      align-items: stretch;
+      margin: 8px 0;
+    }
+    .arch-box {
+      border-radius: 10px;
+      padding: 20px 22px;
+    }
+    .arch-box.win {
+      background: #fef9c3;
+      border: 1.5px solid #fde68a;
+    }
+    .arch-box.aws {
+      background: #eef6ff;
+      border: 1.5px solid #bfdbfe;
+    }
+    .arch-box .arch-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+    }
+    .arch-box.win .arch-label { color: #92400e; }
+    .arch-box.aws .arch-label { color: #1d4ed8; }
+    .arch-box h4 { font-size: 14px; font-weight: 700; margin-bottom: 10px; }
+    .arch-box ul { padding-left: 16px; }
+    .arch-box ul li { font-size: 12px; color: #444; margin-bottom: 4px; }
+    .arch-box .constraint {
+      margin-top: 12px;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+    .arch-box.win .constraint { background: #fde68a; color: #78350f; }
+    .arch-box.aws .constraint { background: #bfdbfe; color: #1e3a8a; }
+    .arch-middle {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      font-size: 11px;
+      color: #6b7280;
+    }
+    .arch-middle .arrow-v { font-size: 18px; color: #2563eb; }
+
+    /* 3인 협업 */
+    .collab-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .collab-card {
+      border-radius: 10px;
+      padding: 18px 20px;
+      border: 1.5px solid;
+    }
+    .collab-card.r1 { background: #f0fdf4; border-color: #86efac; }
+    .collab-card.r2 { background: #fef9c3; border-color: #fde68a; }
+    .collab-card.r3 { background: #eef6ff; border-color: #bfdbfe; }
+    .collab-card .role-label { font-size: 11px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 8px; }
+    .collab-card.r1 .role-label { color: #166534; }
+    .collab-card.r2 .role-label { color: #92400e; }
+    .collab-card.r3 .role-label { color: #1d4ed8; }
+    .collab-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 10px; color: #1a1a2e; }
+    .collab-card ul { padding-left: 16px; }
+    .collab-card ul li { font-size: 12px; color: #444; margin-bottom: 4px; }
+    .collab-card .tool {
+      margin-top: 12px;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+    .collab-card.r1 .tool { background: #dcfce7; color: #166534; }
+    .collab-card.r2 .tool { background: #fef9c3; color: #78350f; }
+    .collab-card.r3 .tool { background: #dbeafe; color: #1e3a8a; }
+
+    /* Task 카드 (수정된 순서) */
+    .task-row {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 0;
+      margin-bottom: 0;
+      border-bottom: 1px solid #f3f4f6;
+      padding: 18px 0;
+      align-items: flex-start;
+    }
+    .task-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .task-seq {
+      font-size: 22px;
+      font-weight: 800;
+      color: #e5e7eb;
+      padding-top: 2px;
+    }
+    .task-content h4 { font-size: 15px; font-weight: 700; color: #1a1a2e; margin-bottom: 4px; }
+    .task-content .task-meta {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .task-content .task-meta .badge-tag {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+    .task-content p { font-size: 13px; color: #555; margin-bottom: 6px; }
+    .task-content .success-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 12px;
+      color: #166534;
+      margin-top: 8px;
+    }
+    .task-content .success-box strong { font-weight: 700; }
+    .task-content .risk-box {
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 12px;
+      color: #92400e;
+      margin-top: 6px;
+    }
+
+    /* 실패 대응 */
+    .fallback-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .fallback-item {
+      border-radius: 8px;
+      padding: 14px 18px;
+      background: #fafafa;
+      border: 1px solid #e5e7eb;
+    }
+    .fallback-item .trigger { font-size: 12px; font-weight: 700; color: #ef4444; margin-bottom: 6px; }
+    .fallback-item .action { font-size: 12px; color: #374151; }
+
+    /* 타임라인 */
+    .timeline {
+      position: relative;
+      padding-left: 28px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      background: #e5e7eb;
+    }
+    .tl-item {
+      position: relative;
+      margin-bottom: 20px;
+    }
+    .tl-item:last-child { margin-bottom: 0; }
+    .tl-dot {
+      position: absolute;
+      left: -24px;
+      top: 4px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 2px solid;
+    }
+    .tl-dot.p0 { background: #7c3aed; border-color: #7c3aed; }
+    .tl-dot.p1 { background: #f59e0b; border-color: #f59e0b; }
+    .tl-dot.p2 { background: #ef4444; border-color: #ef4444; }
+    .tl-dot.p3 { background: #2563eb; border-color: #2563eb; }
+    .tl-dot.p4 { background: #10b981; border-color: #10b981; }
+    .tl-content h4 { font-size: 14px; font-weight: 700; color: #1a1a2e; }
+    .tl-content .tl-period { font-size: 12px; color: #6b7280; margin-bottom: 4px; }
+    .tl-content p { font-size: 13px; color: #555; }
+
+    /* 공유 컨텍스트 */
+    .context-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .context-table th {
+      background: #f8fafc;
+      padding: 10px 14px;
+      text-align: left;
+      font-size: 12px;
+      font-weight: 700;
+      color: #6b7280;
+      border-bottom: 2px solid #e5e7eb;
+    }
+    .context-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #f3f4f6;
+      color: #374151;
+      vertical-align: top;
+    }
+    .context-table tr:last-child td { border-bottom: none; }
+
+    /* 다음 단계 */
+    .next-section {
+      background: #1a1a2e;
+      border-radius: 12px;
+      padding: 32px 36px;
+      margin-bottom: 40px;
+      color: #fff;
+    }
+    .next-section h2 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+    .next-section .sub { font-size: 13px; color: rgba(255,255,255,0.5); margin-bottom: 24px; }
+    .next-row {
+      display: flex;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      align-items: flex-start;
+    }
+    .next-row:last-child { border-bottom: none; }
+    .next-step {
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      border-radius: 4px;
+      padding: 3px 10px;
+      white-space: nowrap;
+      margin-top: 1px;
+    }
+    .next-row p { font-size: 14px; color: rgba(255,255,255,0.8); }
+
+    footer {
+      text-align: center;
+      font-size: 12px;
+      color: #aaa;
+      padding: 24px 0 48px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- 커버 -->
+<div class="cover">
+  <div class="badge">INTERNAL · VERIFICATION PLAN v1.0</div>
+  <h1>AI 기반 사업건전성 대시보드<br>구축·운영 검증 계획서</h1>
+  <div class="subtitle">전제 재정의 · Phase 0 도구 검증 · 이중 레이어 환경 설계 · 3인 협업 아키텍처 · 단계별 검증 기준</div>
+  <div class="meta">
+    <div><span><strong>작성일</strong>2026-06-30</span></div>
+    <div><span><strong>담당</strong>솔루션사업부 기획팀</span></div>
+    <div><span><strong>참조</strong>기술 검토서 v1 (2026-06-15) 수정안</span></div>
+    <div><span><strong>상태</strong>계획 수립 중</span></div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- 전제 재정의 -->
+  <div class="premise-box">
+    <h2>전제 재정의 — 이 프로젝트가 검증하려는 것</h2>
+    <div class="premise-row">
+      <div class="premise-cell old">
+        <div class="label">기존 전제 (수정 전)</div>
+        <p>"AI(AIPro/FabriX)를 활용하면 Tableau/DB/웹디자인 전문가 없이 사업건전성 대시보드를 구축·운영·유지보수할 수 있다"</p>
+      </div>
+      <div class="arrow-col">→</div>
+      <div class="premise-cell new">
+        <div class="label">수정된 전제</div>
+        <p>"AI를 통해 기획자가 개발 사이클을 직접 주도할 수 있는가를, Phase 0 도구 검증부터 시작해 단계적으로 검증한다"</p>
+      </div>
+    </div>
+    <div style="margin-top: 16px; font-size: 13px; color: #555; padding: 12px 16px; background: #f8fafc; border-radius: 6px;">
+      <strong style="color: #1a1a2e;">재정의 이유:</strong> "AI가 전문가를 대체한다"는 명제는 실제로 "기획자가 AI를 통해 전문가 역할을 수행한다"로 이해되어야 하며,
+      이를 위해서는 도구 기능 확인 → 환경 구성 → 협업 체계 설계가 선행되어야 한다. 실행 불가능한 환경(Windows PC 자동화 제약)에서의 검증은 실제 운영 성공을 보장하지 않는다.
+    </div>
+  </div>
+
+  <!-- 핵심 변경 4가지 -->
+  <div class="change-grid">
+    <div class="change-card c1">
+      <div class="cnum">변경 01</div>
+      <h3>Phase 0 신설</h3>
+      <p>4개 과제 착수 전 AIPro/FabriX 기능을 2주 내 확인하는 스파이크 선행</p>
+    </div>
+    <div class="change-card c2">
+      <div class="cnum">변경 02</div>
+      <h3>이중 레이어 환경</h3>
+      <p>Windows PC = 데이터 레이어(SQL), AWS 문서허브 = 프레젠테이션 레이어(Web)</p>
+    </div>
+    <div class="change-card c3">
+      <div class="cnum">변경 03</div>
+      <h3>Task 순서 역전</h3>
+      <p>리스크 낮은 순: Task 3(시뮬레이션) → 2(DB) → 1(웹) → 4(자동화)</p>
+    </div>
+    <div class="change-card c4">
+      <div class="cnum">변경 04</div>
+      <h3>3인 역할 분담</h3>
+      <p>PM/기획 · 데이터 · 프론트 역할 분리 + 공유 마스터 컨텍스트 체계</p>
+    </div>
+  </div>
+
+  <!-- Phase 0 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="tag tag-p0">PHASE 0</span>
+      <h2>도구 검증 스파이크 — 2주, 착수 전 필수 선행</h2>
+    </div>
+    <div class="section-body">
+      <div class="block">
+        <div class="block-title">목적</div>
+        <p>4개 과제 전체가 "AIPro/FabriX가 가능한지 확인 필요"라는 전제를 공유한다. 이 전제가 무너지면 프로젝트 방향 자체가 바뀐다. Phase 0은 2주 내 이 불확실성을 제거하고, 이후 과제 순서와 방식을 확정하기 위한 짧은 스파이크다.</p>
+      </div>
+      <div class="block">
+        <div class="block-title">검증 항목 4가지</div>
+        <div class="spike-grid">
+          <div class="spike-item">
+            <h4>① 대용량 컨텍스트 전달</h4>
+            <p>지표 정의서 + DB 스키마 + 기존 Tableau 구조를 AIPro/FabriX에 파일 업로드 또는 텍스트로 입력 → AI가 정확히 참조하는지 확인</p>
+            <div class="result">→ 결과: 지원 O/X, 용량 한계, 정확도</div>
+          </div>
+          <div class="spike-item">
+            <h4>② SQL 생성 → 사람이 실행하는 루프</h4>
+            <p>AIPro/FabriX가 SQL을 생성하면 담당자가 Windows PC Impala에서 실행 → 결과를 AI에게 피드백 → 수정 반복 가능한지 확인</p>
+            <div class="result">→ 결과: 루프 가능 O/X, 맥락 유지 여부</div>
+          </div>
+          <div class="spike-item">
+            <h4>③ HTML 시안 생성 + 외부 렌더링</h4>
+            <p>AI가 생성한 HTML 코드를 브라우저 또는 문서허브(AWS)에 붙여넣어 시각적 결과 확인 → AIPro/FabriX 내 렌더링 없이도 검증 가능한지 확인</p>
+            <div class="result">→ 결과: 외부 렌더링 대체 워크플로우 정의</div>
+          </div>
+          <div class="spike-item">
+            <h4>④ 스케줄 자동화 가능 여부</h4>
+            <p>AIPro/FabriX가 배치/스케줄 실행을 지원하는지 확인. 미지원 시 "사람이 주 1회 수동 실행 + 결과 메일 발송"으로 Task 4 범위를 재조정</p>
+            <div class="result">→ 결과: Task 4 추진 방식 확정</div>
+          </div>
+        </div>
+      </div>
+      <div class="block">
+        <div class="block-title">Phase 0 완료 기준</div>
+        <ul>
+          <li>4개 항목 각각에 대해 "가능 / 불가 / 조건부 가능" 결론 도출</li>
+          <li>불가 항목은 대체 방식 확정 (예: 스케줄 자동화 불가 → 수동 주 1회 운영)</li>
+          <li>Phase 0 결과를 바탕으로 Task 1~4 추진 방식 최종 확정 (킥오프 전)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 이중 레이어 환경 아키텍처 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="tag tag-env">환경 설계</span>
+      <h2>이중 레이어 아키텍처 — Windows PC + AWS 문서허브</h2>
+    </div>
+    <div class="section-body">
+      <div class="block">
+        <div class="block-title">설계 원칙</div>
+        <p>Windows PC의 "사내 웹메일로만 소통 가능"이라는 보안 제약을 제거하는 것이 아니라, 이 경계를 <strong>역할 경계</strong>로 활용한다. 이미 운영 중인 AWS 문서허브(13.49.177.238:8090)가 웹 프레젠테이션 레이어를 담당할 수 있다.</p>
+      </div>
+      <div class="block">
+        <div class="block-title">레이어 구성</div>
+        <div class="arch-diagram">
+          <div class="arch-box win">
+            <div class="arch-label">데이터 레이어 — Windows PC</div>
+            <h4>🗄️ Impala DB 접근 전용</h4>
+            <ul>
+              <li>AIPro/FabriX로 SQL 쿼리 생성</li>
+              <li>Impala에서 쿼리 실행·결과 확인</li>
+              <li>지표 산출 로직 검증</li>
+              <li>ERD·데이터 모델 설계 (AI 생성)</li>
+              <li>결과 데이터를 CSV·JSON으로 정리</li>
+            </ul>
+            <div class="constraint">사내 웹메일로만 반출 가능</div>
+          </div>
+          <div class="arch-middle">
+            <div class="arrow-v">⇄</div>
+            <div>사내 웹메일</div>
+            <div style="font-size:10px; color:#9ca3af;">데이터 전달</div>
+          </div>
+          <div class="arch-box aws">
+            <div class="arch-label">프레젠테이션 레이어 — AWS 문서허브</div>
+            <h4>🌐 웹 대시보드 서빙 환경</h4>
+            <ul>
+              <li>Claude Code로 HTML/JS 대시보드 빌드</li>
+              <li>전달받은 데이터를 웹 시각화로 렌더링</li>
+              <li>KPI 카드·차트·리포트 페이지 서빙</li>
+              <li>와이어프레임·시안 실제 구현</li>
+              <li>GitHub 버전 관리 + 문서허브 발행</li>
+            </ul>
+            <div class="constraint">인터넷 접근 가능 (현재 운영 중)</div>
+          </div>
+        </div>
+      </div>
+      <div class="block">
+        <div class="block-title">Task 4 반자동화 방식 (자동화 미지원 시 대안)</div>
+        <p style="font-size:13px; padding: 12px 16px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; color: #166534;">
+          ① Windows PC에서 AIPro/FabriX로 KPI 변동 감지 SQL 실행 →
+          ② 결과 데이터를 사내 메일로 PM(루나)에게 전달 →
+          ③ AWS Claude Code로 인사이트 리포트 HTML 생성 →
+          ④ 문서허브 발행 + 담당자 메일 안내<br>
+          <span style="font-size: 11px; margin-top: 6px; display: block; color: #059669;">완전 자동화는 아니지만 "기획자 주도 반자동화"로 리포팅 부담을 90% 이상 제거 가능</span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3인 협업 아키텍처 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="tag tag-col">협업 설계</span>
+      <h2>3인 역할 분담 + 공유 컨텍스트 체계</h2>
+    </div>
+    <div class="section-body">
+      <div class="block">
+        <div class="block-title">역할 분담</div>
+        <div class="collab-grid">
+          <div class="collab-card r1">
+            <div class="role-label">ROLE 1 — PM·기획</div>
+            <h4>루나 (사용자)</h4>
+            <ul>
+              <li>비즈니스 요구사항 정의</li>
+              <li>마스터 컨텍스트 문서 관리</li>
+              <li>각 Task 검증 기준 판단</li>
+              <li>웹 아티팩트 빌드·문서허브 발행</li>
+              <li>인사이트 리포트 최종 생성·발송</li>
+            </ul>
+            <div class="tool">AWS + Claude Code</div>
+          </div>
+          <div class="collab-card r2">
+            <div class="role-label">ROLE 2 — 데이터</div>
+            <h4>동료 A</h4>
+            <ul>
+              <li>원천 DB 구조 파악·정리</li>
+              <li>SQL 쿼리 생성 및 Impala 실행·검증</li>
+              <li>ERD·테이블 정의 AI 생성·검토</li>
+              <li>KPI 산출 로직 정합성 검증</li>
+              <li>결과 데이터 정리 후 루나에게 전달</li>
+            </ul>
+            <div class="tool">Windows PC + AIPro/FabriX</div>
+          </div>
+          <div class="collab-card r3">
+            <div class="role-label">ROLE 3 — 프론트</div>
+            <h4>동료 B</h4>
+            <ul>
+              <li>KPI 시각화 방식 정의</li>
+              <li>AI 기반 HTML 시안 생성·검토</li>
+              <li>데이터 시뮬레이션 시나리오 설계</li>
+              <li>화면 UX 검증 및 수정 요청 정의</li>
+              <li>와이어프레임 → 실구현 비교 검증</li>
+            </ul>
+            <div class="tool">Windows PC + AIPro/FabriX</div>
+          </div>
+        </div>
+      </div>
+      <div class="block">
+        <div class="block-title">공유 컨텍스트 문서 체계 — AI에게 줄 마스터 입력물</div>
+        <table class="context-table">
+          <thead>
+            <tr>
+              <th>문서명</th>
+              <th>내용</th>
+              <th>관리 주체</th>
+              <th>활용 Task</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>지표 정의 마스터</strong></td>
+              <td>51개 지표 산식·집계 기준·BO 기준·솔루션 기준</td>
+              <td>루나</td>
+              <td>전 과제</td>
+            </tr>
+            <tr>
+              <td><strong>DB 스키마 요약</strong></td>
+              <td>l_sap.orderlist / bo_opportunity / solution_if_voc 테이블 DDL + 컬럼 설명</td>
+              <td>동료 A</td>
+              <td>Task 2, 4</td>
+            </tr>
+            <tr>
+              <td><strong>화면 설계 규칙</strong></td>
+              <td>6Row 12카드 레이아웃 스펙, 색상·폰트 규칙, 기존 와이어프레임 HTML</td>
+              <td>동료 B</td>
+              <td>Task 1, 3</td>
+            </tr>
+            <tr>
+              <td><strong>검증 기준 시트</strong></td>
+              <td>각 Task별 성공/실패 판단 기준, 담당자 합의 내용 기록</td>
+              <td>루나</td>
+              <td>전 과제</td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="font-size: 12px; color: #6b7280; margin-top: 10px;">* 마스터 문서는 문서허브에 HTML로 발행하여 3인이 동일 URL을 참조. AI에게 줄 때는 텍스트 형태로 복사하여 입력.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 수정된 Task 순서 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="tag tag-kpi">과제 순서 (수정)</span>
+      <h2>4개 과제 — 리스크 낮은 순으로 재편</h2>
+    </div>
+    <div class="section-body">
+      <p style="font-size: 13px; color: #555; margin-bottom: 20px;">기존 Task 1~4 번호 대신, 리스크와 의존성 기준으로 실행 순서를 재배치한다. 앞 단계 실패 시 뒷 단계 방식을 조정할 수 있도록 단계 간 체크포인트를 설정한다.</p>
+
+      <div class="task-row">
+        <div class="task-seq">1st</div>
+        <div class="task-content">
+          <h4>Task 3 → AI 기반 시안 생성 + 데이터 시뮬레이션</h4>
+          <div class="task-meta">
+            <span class="badge-tag" style="background:#fef9c3; color:#78350f;">DB 접근 불필요</span>
+            <span class="badge-tag" style="background:#f3f0ff; color:#6d28d9;">가상 데이터 사용 가능</span>
+            <span class="badge-tag" style="background:#f0fdf4; color:#166534;">리스크 최저</span>
+          </div>
+          <p>가상 데이터로 KPI 산출 로직을 시뮬레이션하고, AI가 HTML 시안을 생성하여 문서허브에서 렌더링 확인. DB 접근 없이도 AI의 설계 능력과 팀의 검증 역량을 동시에 테스트할 수 있어 첫 번째 과제로 적합.</p>
+          <div class="success-box"><strong>검증 성공 기준:</strong> AI가 생성한 시안이 기존 와이어프레임 스펙(6Row 12카드)을 충족하고, 가상 데이터 KPI 수치가 정의된 산식과 일치하면 성공</div>
+          <div class="risk-box"><strong>실패 시 대응:</strong> 시안 품질 미달 → 프롬프트 설계 방식 개선 후 재시도. 이 단계 실패는 Task 1(웹 재구축)의 방식도 수정 필요 신호</div>
+        </div>
+      </div>
+
+      <div class="task-row">
+        <div class="task-seq">2nd</div>
+        <div class="task-content">
+          <h4>Task 2 → AI 기반 데이터 모델 개선</h4>
+          <div class="task-meta">
+            <span class="badge-tag" style="background:#ffe4e6; color:#9f1239;">Impala DB 실행 필요</span>
+            <span class="badge-tag" style="background:#fef9c3; color:#78350f;">동료 A 주도</span>
+          </div>
+          <p>DB 스키마를 AI에게 제공하고 ERD·테이블 정의·SQL 쿼리를 생성하게 한 뒤 Impala에서 실행·검증. Task 1(웹 재구축)의 백엔드 SQL 레이어를 먼저 완성해야 화면에 실제 데이터를 연결할 수 있으므로 Task 1보다 선행.</p>
+          <div class="success-box"><strong>검증 성공 기준:</strong> AI 생성 SQL이 Impala에서 오류 없이 실행되고, 기존 Tableau 수치와 ±5% 이내 정합성을 보이면 성공</div>
+          <div class="risk-box"><strong>실패 시 대응:</strong> 환각(hallucination) 오류 다발 → 비즈니스 로직을 더 구체적인 단위로 분할해 AI에게 전달하는 프롬프트 전략 재설계</div>
+        </div>
+      </div>
+
+      <div class="task-row">
+        <div class="task-seq">3rd</div>
+        <div class="task-content">
+          <h4>Task 1 → AI 기반 웹 대시보드 재구축</h4>
+          <div class="task-meta">
+            <span class="badge-tag" style="background:#eff6ff; color:#1d4ed8;">Task 2 완료 후 착수</span>
+            <span class="badge-tag" style="background:#f0fdf4; color:#166534;">AWS 문서허브에 배포</span>
+          </div>
+          <p>Task 3에서 검증된 시안 + Task 2에서 완성된 SQL을 결합하여 실제 작동하는 웹 대시보드를 구축. 프론트엔드(HTML/JS)는 AWS Claude Code로, 데이터 레이어(SQL)는 Windows PC로 분리 개발 후 통합.</p>
+          <div class="success-box"><strong>검증 성공 기준:</strong> 실제 Impala 데이터가 연결된 대시보드가 문서허브에서 접근 가능하고, 사용자 3인이 요구사항 충족 판정 시 성공</div>
+          <div class="risk-box"><strong>실패 시 대응:</strong> 데이터 연결 통합 오류 → Windows(SQL) ↔ AWS(웹) 데이터 전달 포맷(JSON/CSV) 표준화 후 재시도</div>
+        </div>
+      </div>
+
+      <div class="task-row">
+        <div class="task-seq">4th</div>
+        <div class="task-content">
+          <h4>Task 4 → 자동 분석 + 인사이트 리포트 메일 발송</h4>
+          <div class="task-meta">
+            <span class="badge-tag" style="background:#ecfdf5; color:#065f46;">Phase 0 결과에 따라 범위 확정</span>
+            <span class="badge-tag" style="background:#fff7ed; color:#92400e;">부분 검증</span>
+          </div>
+          <p>AIPro/FabriX 스케줄 자동화 가능 여부에 따라 두 가지로 분기. 자동화 지원 시 전자동, 미지원 시 반자동 운영으로 진행. Task 1~3이 완성된 환경에서만 의미 있는 검증이 가능하므로 마지막 순서.</p>
+          <div class="success-box"><strong>검증 성공 기준 (반자동):</strong> 담당자가 SQL 실행 후 15분 이내에 인사이트 리포트 메일을 발송할 수 있으면 성공 (기존 수동 작업 대비 80% 이상 시간 단축)</div>
+          <div class="risk-box"><strong>실패 시 대응:</strong> 완전 자동화 불가 → "반자동 운영 SOP" 문서화로 대체. 실제 Web/WAS 서버 투입 시 자동화 재검토</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 실패 대응 체계 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="tag tag-kpi">리스크 관리</span>
+      <h2>실패 시나리오별 대응 체계</h2>
+    </div>
+    <div class="section-body">
+      <div class="fallback-grid">
+        <div class="fallback-item">
+          <div class="trigger">🚨 AIPro/FabriX가 대용량 컨텍스트를 처리 못할 경우</div>
+          <div class="action">→ 지표 정의서를 과제별로 분할 입력 / 마스터 문서를 청크(chunk) 단위로 쪼개는 프롬프트 전략 적용. 분할 전달이 불가하면 Claude Enterprise 직접 활용 타당성 재검토</div>
+        </div>
+        <div class="fallback-item">
+          <div class="trigger">🚨 SQL 환각 오류가 반복적으로 발생할 경우</div>
+          <div class="action">→ 비즈니스 로직을 단순 단위로 더 분해하여 AI에게 제공. BO 기준/솔루션 기준 등 복잡 집계 조건은 사람이 주석으로 명시하고 AI에게 채워달라는 방식(Fill-in-the-blank)으로 전환</div>
+        </div>
+        <div class="fallback-item">
+          <div class="trigger">🚨 Windows PC에서 웹 배포가 불가할 경우</div>
+          <div class="action">→ 이미 설계된 이중 레이어로 대응. SQL 결과 데이터를 사내 메일로 루나에게 전달 → AWS 문서허브에서 웹 페이지 생성·서빙. 두 레이어 역할이 명확히 분리되어 있으므로 블로커 아님</div>
+        </div>
+        <div class="fallback-item">
+          <div class="trigger">🚨 Task 4 자동화 스케줄이 AIPro/FabriX에서 미지원</div>
+          <div class="action">→ "주 1회 담당자 수동 실행 + 결과 메일 전달" 반자동 SOP로 대체. 완전 자동화는 실제 Web/WAS 서버 전환 후 Cron/스케줄러로 구현 (검증 단계의 범위 밖으로 명시)</div>
+        </div>
+        <div class="fallback-item">
+          <div class="trigger">🚨 3인 간 컨텍스트가 달라 결과물이 불일치</div>
+          <div class="action">→ 마스터 컨텍스트 문서를 단일 URL(문서허브)로 고정. 각 Task 착수 전 3인이 동일 문서를 AI에게 입력했는지 체크리스트 확인. 불일치 발생 시 루나가 통합 조정</div>
+        </div>
+        <div class="fallback-item">
+          <div class="trigger">🚨 검증 프로젝트 자체가 예상보다 오래 걸릴 경우</div>
+          <div class="action">→ Task 3(시뮬레이션)만이라도 완료하면 "AI 기반 시안·KPI 검증 가능"을 내부 공유 가능. 전체 4개 과제 완주보다 "단계별 가시적 성과물" 생성을 우선</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 전체 일정 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="tag tag-kpi">일정</span>
+      <h2>검증 프로젝트 전체 일정 (안)</h2>
+    </div>
+    <div class="section-body">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot p0"></div>
+          <div class="tl-content">
+            <div class="tl-period">Week 1~2 · Phase 0</div>
+            <h4>AIPro/FabriX 도구 검증 스파이크</h4>
+            <p>4가지 검증 항목 확인 → 각 Task 추진 방식 확정 → 마스터 컨텍스트 문서 초안 작성</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot p1"></div>
+          <div class="tl-content">
+            <div class="tl-period">Week 3~5 · Task 3 (1st)</div>
+            <h4>AI 시안 생성 + 데이터 시뮬레이션 검증</h4>
+            <p>동료 B 주도 · 가상 데이터 KPI 시뮬레이션 → AI 생성 HTML 시안 → 문서허브 렌더링 확인</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot p2"></div>
+          <div class="tl-content">
+            <div class="tl-period">Week 5~8 · Task 2 (2nd)</div>
+            <h4>AI 기반 데이터 모델 개선</h4>
+            <p>동료 A 주도 · ERD·SQL AI 생성 → Impala 실행·검증 → Tableau 수치와 정합성 비교</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot p3"></div>
+          <div class="tl-content">
+            <div class="tl-period">Week 8~12 · Task 1 (3rd)</div>
+            <h4>AI 기반 웹 대시보드 재구축</h4>
+            <p>시안(Task 3) + SQL(Task 2) 결합 → AWS 문서허브에 실 데이터 연결 웹 대시보드 배포</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot p4"></div>
+          <div class="tl-content">
+            <div class="tl-period">Week 12~14 · Task 4 (4th)</div>
+            <h4>자동 분석 + 인사이트 리포트 메일 발송</h4>
+            <p>Phase 0 결과 기반으로 자동화 또는 반자동 SOP 적용 → 리포트 생성·발송 검증</p>
+          </div>
+        </div>
+      </div>
+      <p style="font-size: 12px; color: #6b7280; margin-top: 20px;">* 일정은 Phase 0 결과 및 팀 투입 가능 공수에 따라 조정. Task 간 체크포인트에서 이전 단계 완료 여부 확인 후 착수.</p>
+    </div>
+  </div>
+
+  <!-- 다음 행동 -->
+  <div class="next-section">
+    <h2>즉시 착수 행동 (이번 주)</h2>
+    <div class="sub">계획서 작성 완료 후 → 3인 킥오프 미팅 전 루나가 준비할 항목</div>
+    <div class="next-row">
+      <span class="next-step">Action 1</span>
+      <p>Phase 0 검증 항목 4가지를 AIPro/FabriX 개발팀에 질의하거나, 직접 테스트할 담당자(루나 또는 동료)를 지정</p>
+    </div>
+    <div class="next-row">
+      <span class="next-step">Action 2</span>
+      <p>마스터 컨텍스트 문서 초안 작성 — 지표 정의서(51개) + DB 스키마 요약 + 화면 설계 규칙을 단일 문서로 통합, 문서허브에 발행</p>
+    </div>
+    <div class="next-row">
+      <span class="next-step">Action 3</span>
+      <p>3인 역할 합의 — 동료 A(데이터), 동료 B(프론트) 역할 공식 합의 + 이 계획서 공유 및 의견 수렴</p>
+    </div>
+    <div class="next-row">
+      <span class="next-step">Action 4</span>
+      <p>Task 3 시뮬레이션 시나리오 정의 — 동료 B와 함께 "어떤 KPI를 어떤 가상 데이터로 검증할 것인가" 1~2개 시나리오 확정</p>
+    </div>
+    <div class="next-row">
+      <span class="next-step">Action 5</span>
+      <p>이 계획서를 기반으로 내부 보고 여부 판단 — 검증 프로젝트를 상위 보고 또는 팀 내 자체 진행할지 결정</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>Samsung SDS 솔루션사업부 기획팀 · 사업건전성 대시보드 검증 계획 v1.0 · 2026-06-30</footer>
+
+</body>
+</html>

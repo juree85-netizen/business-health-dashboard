@@ -22,11 +22,21 @@ cp -rv "$REPO_DIR/agents/"* "$CLAUDE_DIR/agents/"
 echo "[2/4] commands 동기화..."
 cp -rv "$REPO_DIR/commands/"* "$CLAUDE_DIR/commands/"
 
-# memory 복사 (프로젝트 경로 자동 감지)
+# memory 복사 (OS별 경로 자동 감지)
 echo "[3/4] memory 동기화..."
-# Claude Code는 홈 디렉토리 기준으로 프로젝트 경로를 생성
-# 예: /home/ubuntu → ~/.claude/projects/-home-ubuntu/memory/
-HOME_ESCAPED=$(echo "$HOME" | sed 's|/|-|g')
+# Claude Code 메모리 경로 = ~/.claude/projects/<escaped-working-dir>/memory/
+# Linux/Mac: /home/ubuntu → -home-ubuntu
+# Windows(Git Bash): /c/Users/SDS → C--Users-SDS (드라이브 레터 대문자, :와 \ 모두 -)
+if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" || "$OS" == "Windows_NT" ]]; then
+  # Windows: /c/Users/SDS → C--Users-SDS
+  DRIVE=$(echo "$HOME" | cut -d'/' -f2 | tr 'a-z' 'A-Z')
+  REST=$(echo "$HOME" | cut -d'/' -f3- | sed 's|/|-|g')
+  HOME_ESCAPED="${DRIVE}--${REST}"
+else
+  # Linux/Mac: /home/ubuntu → -home-ubuntu
+  HOME_ESCAPED=$(echo "$HOME" | sed 's|/|-|g')
+fi
+echo "  감지된 메모리 경로 키: ${HOME_ESCAPED}"
 MEMORY_DIR="$CLAUDE_DIR/projects/${HOME_ESCAPED}/memory"
 mkdir -p "$MEMORY_DIR"
 cp -rv "$REPO_DIR/memory/"* "$MEMORY_DIR/"
@@ -41,4 +51,5 @@ cp "$REPO_DIR/settings.json" "$CLAUDE_DIR/settings.json"
 
 echo ""
 echo "=== 완료 ==="
+echo "메모리 저장 위치: $MEMORY_DIR"
 echo "claude 명령어로 재시작하면 메모리·에이전트·커맨드가 모두 로드됩니다."

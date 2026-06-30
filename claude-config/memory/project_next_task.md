@@ -10,27 +10,18 @@ metadata:
 ## 다음 세션 우선 안내 항목
 
 **최신 스냅샷**
-- 메인(business-health-dashboard): v4.25.1 (2026-06-25)
+- 메인(business-health-dashboard): v4.25.1 (2026-06-25) + 2026-06-30 FCF 수정 커밋
 - 셀레요(selleyo): selleyo-v1.6 + React Native 확정 반영 (2026-06-18)
 
 ---
 
-## [우선] Coupa 보고서 FCF 수치 수정 (2026-06-26 세션 미완료)
+## [완료] Coupa 보고서 FCF 수치 수정 (2026-06-30)
 
-파일: `/home/ubuntu/files/coupa_investment_report.html`
-
-SEC 10-K 검증 결과 아래 3건 수정 필요:
-
-| 항목 | 현재 보고서 | 수정값 | 기준 |
-|------|-----------|--------|------|
-| FY2021 FCF | +$108M | **+$113.5M** | Adj.FCF (8-K 공시) |
-| FY2021 FCF 마진 | 20% | **20.9%** | Adj.FCF 마진 |
-| FY2022 FCF | +$158M | **+$155.6M** | Adj.FCF (8-K 공시) |
-| FY2022 FCF 마진 | 22% | **21.5%** | Adj.FCF 마진 |
-| FY2023 Q1~Q3 누적 순손실 | -$241.5M | **-$235.9M** | Q3 FY2023 8-K 공시 |
-
-※ 매출·순손실 수치는 모두 정확 (수정 불필요)
-※ FCF 정의: 영업CF - 설비투자 + 전환사채 할인상환 + 인수관련 주식보상 일시지급
+- 현행 파일: `/home/ubuntu/coupa_rossum_report_v2_20260623.html` (v2로 일원화)
+- 구버전 `files/coupa_investment_report.html` 삭제 완료
+- FY2023 Q1~Q3 누적 순손실 -$241.5M → **-$235.9M** 반영 완료
+- v2는 Adj.FCF 8-K 정확값($113.5M / $155.6M) 이미 반영 상태
+- GitHub push 완료 (커밋 ea557c9, 500bd79)
 
 ---
 

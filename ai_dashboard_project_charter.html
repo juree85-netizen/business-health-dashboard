@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>사업건전성 대시보드 AI 구축 검증 프로젝트 — 프로젝트 구조서</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+      background: #f4f6f9;
+      color: #1a1a2e;
+      line-height: 1.75;
+    }
+
+    /* 커버 */
+    .cover {
+      background: linear-gradient(135deg, #0d1b2a 0%, #1b2a4a 60%, #0f3460 100%);
+      color: #fff;
+      padding: 64px 60px 56px;
+    }
+    .cover .badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 20px;
+      padding: 5px 16px;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      margin-bottom: 22px;
+      text-transform: uppercase;
+    }
+    .cover h1 { font-size: 28px; font-weight: 700; line-height: 1.45; margin-bottom: 12px; }
+    .cover .subtitle { font-size: 14px; color: rgba(255,255,255,0.6); margin-bottom: 36px; }
+    .cover .one-liner {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px;
+      padding: 16px 22px;
+      font-size: 15px;
+      color: rgba(255,255,255,0.9);
+      font-weight: 600;
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+    .cover .one-liner .ql { color: rgba(255,255,255,0.45); font-size: 13px; font-weight: 400; display: block; margin-bottom: 6px; }
+    .cover .meta {
+      display: flex; gap: 32px; font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 22px;
+    }
+    .cover .meta span strong { color: rgba(255,255,255,0.85); display: block; margin-bottom: 2px; }
+
+    /* 레이아웃 */
+    .container { max-width: 960px; margin: 0 auto; padding: 44px 32px 60px; }
+
+    /* 섹션 공통 */
+    .sec {
+      background: #fff;
+      border-radius: 12px;
+      margin-bottom: 22px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+      overflow: hidden;
+    }
+    .sec-head {
+      padding: 18px 28px 14px;
+      border-bottom: 1px solid #f0f0f0;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .sec-head .num {
+      width: 26px; height: 26px; border-radius: 50%;
+      background: #0f3460; color: #fff;
+      font-size: 12px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .sec-head h2 { font-size: 16px; font-weight: 700; color: #1a1a2e; }
+    .sec-body { padding: 22px 28px; }
+
+    /* 2단 그리드 */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+    /* 박스 타입 */
+    .box {
+      border-radius: 8px;
+      padding: 16px 20px;
+    }
+    .box.gray  { background: #f8fafc; border: 1px solid #e5e7eb; }
+    .box.blue  { background: #eef6ff; border: 1px solid #bfdbfe; }
+    .box.green { background: #f0fdf4; border: 1px solid #bbf7d0; }
+    .box.amber { background: #fffbeb; border: 1px solid #fde68a; }
+    .box.red   { background: #fff1f2; border: 1px solid #fecdd3; }
+    .box.purple{ background: #f5f3ff; border: 1px solid #ddd6fe; }
+    .box .box-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 8px;
+    }
+    .box.gray   .box-label { color: #6b7280; }
+    .box.blue   .box-label { color: #1d4ed8; }
+    .box.green  .box-label { color: #166534; }
+    .box.amber  .box-label { color: #92400e; }
+    .box.red    .box-label { color: #9f1239; }
+    .box.purple .box-label { color: #6d28d9; }
+    .box h4 { font-size: 14px; font-weight: 700; margin-bottom: 8px; color: #1a1a2e; }
+    .box p  { font-size: 13px; color: #444; margin-bottom: 4px; line-height: 1.6; }
+    .box ul { padding-left: 16px; }
+    .box ul li { font-size: 13px; color: #444; margin-bottom: 3px; }
+
+    /* 화살표 구분자 */
+    .arrow-sep {
+      display: flex; align-items: center; justify-content: center;
+      color: #9ca3af; font-size: 20px; padding: 4px 0;
+    }
+
+    /* 구조 다이어그램 — AS-IS / TO-BE */
+    .struct-grid {
+      display: grid;
+      grid-template-columns: 1fr 48px 1fr;
+      gap: 0;
+      align-items: stretch;
+    }
+    .struct-box {
+      border-radius: 8px;
+      padding: 18px 20px;
+    }
+    .struct-box.asis {
+      background: #fafafa; border: 1.5px solid #e5e7eb;
+    }
+    .struct-box.tobe {
+      background: #eef6ff; border: 1.5px solid #bfdbfe;
+    }
+    .struct-box .s-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 10px;
+    }
+    .struct-box.asis .s-label { color: #6b7280; }
+    .struct-box.tobe .s-label { color: #1d4ed8; }
+    .struct-box .s-stack {
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .s-layer {
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 13px;
+      font-weight: 600;
+      text-align: center;
+    }
+    .asis .s-layer { background: #f3f4f6; color: #374151; }
+    .tobe .s-layer.ai { background: #dbeafe; color: #1e40af; }
+    .tobe .s-layer.web { background: #e0e7ff; color: #3730a3; }
+    .tobe .s-layer.db { background: #dcfce7; color: #14532d; }
+    .s-mid {
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      font-size: 20px; color: #2563eb;
+    }
+    .s-mid span { font-size: 10px; color: #9ca3af; margin-top: 4px; }
+    .s-note { font-size: 11px; color: #9ca3af; margin-top: 10px; text-align: center; }
+
+    /* 환경 제약 */
+    .constraint-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .c-item {
+      display: flex; gap: 12px;
+      padding: 14px 16px;
+      border-radius: 8px;
+      background: #fafafa;
+      border: 1px solid #e5e7eb;
+      align-items: flex-start;
+    }
+    .c-icon {
+      font-size: 18px; flex-shrink: 0; margin-top: 2px;
+    }
+    .c-text h4 { font-size: 13px; font-weight: 700; color: #1a1a2e; margin-bottom: 4px; }
+    .c-text p  { font-size: 12px; color: #555; line-height: 1.5; }
+    .c-text .ctag {
+      display: inline-block; margin-top: 6px;
+      font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px;
+    }
+    .ctag.ok     { background: #dcfce7; color: #166534; }
+    .ctag.block  { background: #fee2e2; color: #991b1b; }
+    .ctag.cond   { background: #fef9c3; color: #78350f; }
+
+    /* 팀 */
+    .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .team-card {
+      border-radius: 10px; padding: 18px 20px;
+      border: 1.5px solid;
+    }
+    .team-card.t1 { background: #f0fdf4; border-color: #86efac; }
+    .team-card.t2 { background: #fffbeb; border-color: #fde68a; }
+    .team-card.t3 { background: #fffbeb; border-color: #fde68a; }
+    .team-card .t-role { font-size: 11px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 6px; }
+    .team-card.t1 .t-role { color: #166534; }
+    .team-card.t2 .t-role, .team-card.t3 .t-role { color: #92400e; }
+    .team-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+    .team-card ul { padding-left: 15px; }
+    .team-card ul li { font-size: 12px; color: #444; margin-bottom: 3px; }
+    .team-card .t-tool {
+      margin-top: 12px; font-size: 11px; font-weight: 700;
+      padding: 4px 10px; border-radius: 4px; display: inline-block;
+    }
+    .team-card.t1 .t-tool { background: #dcfce7; color: #166534; }
+    .team-card.t2 .t-tool, .team-card.t3 .t-tool { background: #fef9c3; color: #78350f; }
+
+    /* 사전 작업 */
+    .done-list { display: flex; flex-direction: column; gap: 8px; }
+    .done-item {
+      display: flex; gap: 12px; align-items: flex-start;
+      padding: 12px 16px; border-radius: 8px;
+      background: #fafafa; border: 1px solid #e5e7eb;
+    }
+    .done-check { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+    .done-content h4 { font-size: 13px; font-weight: 700; color: #1a1a2e; margin-bottom: 3px; }
+    .done-content p  { font-size: 12px; color: #555; }
+
+    /* 검토 필요 */
+    .review-list { display: flex; flex-direction: column; gap: 8px; }
+    .review-item {
+      display: flex; gap: 12px; align-items: flex-start;
+      padding: 12px 16px; border-radius: 8px;
+      background: #fff7ed; border: 1px solid #fed7aa;
+    }
+    .review-num {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: #f97316; color: #fff;
+      font-size: 11px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 2px;
+    }
+    .review-content h4 { font-size: 13px; font-weight: 700; color: #1a1a2e; margin-bottom: 3px; }
+    .review-content p  { font-size: 12px; color: #555; }
+
+    /* 전환 조건 */
+    .transition-box {
+      background: #1a1a2e; border-radius: 12px;
+      padding: 28px 32px; color: #fff; margin-bottom: 0;
+    }
+    .transition-box h3 { font-size: 16px; font-weight: 700; margin-bottom: 16px; }
+    .t-flow {
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    }
+    .t-node {
+      border-radius: 8px; padding: 12px 18px;
+      font-size: 13px; font-weight: 600; white-space: nowrap;
+    }
+    .t-node.verify { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.85); }
+    .t-node.success { background: #15803d; color: #fff; }
+    .t-node.real { background: #1d4ed8; color: #fff; }
+    .t-arrow { color: rgba(255,255,255,0.4); font-size: 18px; }
+    .t-cond { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 12px; }
+
+    /* 핵심 가설 강조 */
+    .hypothesis {
+      background: #fff;
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin-bottom: 22px;
+      border: 2px solid #0f3460;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    }
+    .hypothesis .h-label {
+      font-size: 11px; font-weight: 700; color: #0f3460;
+      letter-spacing: 1px; margin-bottom: 10px; text-transform: uppercase;
+    }
+    .hypothesis p {
+      font-size: 16px; font-weight: 700; color: #1a1a2e; line-height: 1.55;
+    }
+    .hypothesis .h-sub {
+      font-size: 13px; color: #555; font-weight: 400; margin-top: 8px;
+    }
+
+    footer {
+      text-align: center; font-size: 12px; color: #aaa; padding: 24px 0 40px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- 커버 -->
+<div class="cover">
+  <div class="badge">Project Charter · v1.0</div>
+  <h1>사업건전성 대시보드<br>AI 구축·운영 검증 프로젝트</h1>
+  <div class="subtitle">프로젝트 구조서 — 전제·목표·환경·팀·제약·사전작업 전체 정리</div>
+  <div class="one-liner">
+    <span class="ql">핵심 질문</span>
+    웹디자이너·Tableau 개발자·DB 개발자 없이,<br>
+    AI만으로 사업건전성 대시보드를 구축·운영·유지보수할 수 있는가?
+  </div>
+  <div class="meta">
+    <div><span><strong>작성일</strong>2026-06-30</span></div>
+    <div><span><strong>담당</strong>솔루션사업부 기획팀</span></div>
+    <div><span><strong>팀 규모</strong>3인 (Claude Enterprise)</span></div>
+    <div><span><strong>단계</strong>검증 프로젝트</span></div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- 핵심 가설 -->
+  <div class="hypothesis">
+    <div class="h-label">검증 가설</div>
+    <p>AI를 활용하면 전문 개발 인력(Tableau 개발자·DB 전문가·웹디자이너) 없이도<br>기획자가 사업건전성 대시보드를 직접 구축·운영·유지보수할 수 있다.</p>
+    <div class="h-sub">이 가설이 검증되면 → 실제 Web/WAS 서버 기반 프로젝트로 전환. 검증 실패 또는 부분 성공 시 → 결과에 따라 범위 조정 후 재설계.</div>
+  </div>
+
+  <!-- 1. 현황 -->
+  <div class="sec">
+    <div class="sec-head">
+      <div class="num">1</div>
+      <h2>현황 — 지금 어떻게 운영하고 있는가</h2>
+    </div>
+    <div class="sec-body">
+      <div class="two-col">
+        <div class="box gray">
+          <div class="box-label">현재 기술 스택</div>
+          <ul>
+            <li><strong>시각화:</strong> Tableau</li>
+            <li><strong>데이터베이스:</strong> Impala DB</li>
+            <li><strong>대상:</strong> 사업건전성 대시보드</li>
+          </ul>
+        </div>
+        <div class="box red">
+          <div class="box-label">현재 운영의 문제</div>
+          <ul>
+            <li>Tableau 개발자 상시 필요</li>
+            <li>DB 전문가 상시 필요</li>
+            <li>웹디자이너 상시 필요</li>
+            <li>→ <strong>요구사항 적기 반영 어려움</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. 목표 구조 변화 -->
+  <div class="sec">
+    <div class="sec-head">
+      <div class="num">2</div>
+      <h2>목표 — 무엇을 바꾸려 하는가</h2>
+    </div>
+    <div class="sec-body">
+      <div class="struct-grid">
+        <div class="struct-box asis">
+          <div class="s-label">AS-IS (현재)</div>
+          <div class="s-stack">
+            <div class="s-layer">Tableau (시각화)</div>
+            <div class="s-layer">Impala DB (데이터)</div>
+            <div class="s-layer">전문가 팀 (개발·유지보수)</div>
+          </div>
+          <div class="s-note">느리다 · 비용이 크다 · 기획자 통제권 없음</div>
+        </div>
+        <div class="s-mid">
+          →
+          <span>대체</span>
+        </div>
+        <div class="struct-box tobe">
+          <div class="s-label">TO-BE (목표)</div>
+          <div class="s-stack">
+            <div class="s-layer ai">AI (설계·개발·유지보수 주도)</div>
+            <div class="s-layer web">Web/WAS Server (시각화)</div>
+            <div class="s-layer db">Impala DB (데이터, 유지)</div>
+          </div>
+          <div class="s-note">빠르다 · 기획자가 직접 주도 · 전문가 의존 낮음</div>
+        </div>
+      </div>
+      <p style="margin-top: 14px; font-size: 13px; color: #555;">Tableau를 Web/WAS Server + 필요 애플리케이션으로 대체. Impala DB는 그대로 유지. <strong>핵심 변화는 "누가 개발하는가"</strong> — 전문가에서 AI(+기획자)로.</p>
+    </div>
+  </div>
+
+  <!-- 3. 검증 방식 -->
+  <div class="sec">
+    <div class="sec-head">
+      <div class="num">3</div>
+      <h2>검증 방식 — 어떻게 검증하는가</h2>
+    </div>
+    <div class="sec-body">
+      <div class="two-col">
+        <div class="box blue">
+          <div class="box-label">검증 프로젝트 (현재)</div>
+          <h4>Windows PC + Impala DB</h4>
+          <ul>
+            <li>실제 Web/WAS 서버 대신 사내 Windows PC 활용</li>
+            <li>Impala DB 접근 가능한 PC를 개발·검증 환경으로 사용</li>
+            <li>소규모·저비용으로 가설 먼저 검증</li>
+          </ul>
+        </div>
+        <div class="box green">
+          <div class="box-label">실제 프로젝트 (검증 후 전환)</div>
+          <h4>Web/WAS Server + Impala DB</h4>
+          <ul>
+            <li>검증 성공 시 실제 서버 환경으로 전환</li>
+            <li>운영 수준의 인프라 및 보안 체계 적용</li>
+            <li>조직 내 공식 프로젝트로 승인·추진</li>
+          </ul>
+        </div>
+      </div>
+      <div class="arrow-sep" style="padding: 10px 0 4px;">↓</div>
+      <div class="box amber" style="margin-top: 0;">
+        <div class="box-label">검증의 핵심 질문 3가지</div>
+        <ul>
+          <li><strong>구축:</strong> AI가 요구사항을 받아 웹 대시보드를 실제로 만들 수 있는가?</li>
+          <li><strong>운영:</strong> AI가 데이터 변경·오류 대응을 기획자와 함께 처리할 수 있는가?</li>
+          <li><strong>유지보수:</strong> AI가 요구사항 변경 시 수정·배포를 신속하게 반영할 수 있는가?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 환경 제약 -->
+  <div class="sec">
+    <div class="sec-head">
+      <div class="num">4</div>
+      <h2>환경 제약 — 어떤 조건에서 검증하는가</h2>
+    </div>
+    <div class="sec-body">
+      <div class="constraint-grid">
+        <div class="c-item">
+          <div class="c-icon">🖥️</div>
+          <div class="c-text">
+            <h4>Impala DB 접근 가능</h4>
+            <p>검증에 사용할 Windows PC는 사내 Impala DB에 직접 쿼리 가능</p>
+            <span class="ctag ok">허용</span>
+          </div>
+        </div>
+        <div class="c-item">
+          <div class="c-icon">📧</div>
+          <div class="c-text">
+            <h4>사내 웹메일로만 외부 소통</h4>
+            <p>보안 정책 상 Impala 접근 PC는 사내 웹메일 시스템을 통해서만 외부와 소통 가능</p>
+            <span class="ctag block">제한</span>
+          </div>
+        </div>
+        <div class="c-item">
+          <div class="c-icon">🌐</div>
+          <div class="c-text">
+            <h4>실제 Web/WAS 서버 없음</h4>
+            <p>검증 단계에서는 실제 서버 구축 없이 진행. 웹 아티팩트 호스팅 환경 별도 마련 필요</p>
+            <span class="ctag cond">대안 필요</span>
+          </div>
+        </div>
+        <div class="c-item">
+          <div class="c-icon">⚙️</div>
+          <div class="c-text">
+            <h4>자동화·스케줄 실행 제약</h4>
+            <p>Windows PC 보안 환경에서 배치·스케줄 자동 실행이 가능한지 미확인 상태</p>
+            <span class="ctag cond">확인 필요</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. 팀 구성 -->
+  <div class="sec">
+    <div class="sec-head">
+      <div class="num">5</div>
+      <h2>팀 구성 — 누가 어떤 도구로 진행하는가</h2>
+    </div>
+    <div class="sec-body">
+      <div class="team-grid">
+        <div class="team-card t1">
+          <div class="t-role">MEMBER 1 — PM</div>
+          <h4>프로젝트 리드</h4>
+          <ul>
+            <li>비즈니스 요구사항 정의</li>
+            <li>검증 기준 판단</li>
+            <li>결과물 통합·발행</li>
+            <li>팀 간 컨텍스트 조율</li>
+          </ul>
+          <div class="t-tool">Claude Enterprise</div>
+        </div>
+        <div class="team-card t2">
+          <div class="t-role">MEMBER 2 — 동료</div>
+          <h4>검증 참여</h4>
+          <ul>
+            <li>역할 분담 미확정</li>
+            <li>Claude Enterprise 사용</li>
+            <li>Windows PC (Impala 접근)</li>
+          </ul>
+          <div class="t-tool">Claude Enterprise</div>
+        </div>
+        <div class="team-card t3">
+          <div class="t-role">MEMBER 3 — 동료</div>
+          <h4>검증 참여</h4>
+          <ul>
+            <li>역할 분담 미확정</li>
+            <li>Claude Enterprise 사용</li>
+            <li>Windows PC (Impala 접근)</li>
+          </ul>
+          <div class="t-tool">Claude Enterprise</div>
+        </div>
+      </div>
+      <div class="box amber" style="margin-top: 14px;">
+        <div class="box-label">미결 사항 — 환경 설정 검토 필요</div>
+        <ul>
+          <li>3인이 Claude Enterprise를 어떻게 연동해서 협업할 것인가 (공유 컨텍스트, 프로젝트 공간)</li>
+          <li>각 역할(데이터/프론트/PM)을 어떻게 나눌 것인가</li>
+          <li>Windows PC 환경에서 Claude Enterprise 사용 방식 (설치 가능 여부, 브라우저 접근 여부)</li>
+          <li>팀 간 결과물 공유 방식 (사내 메일 경유 vs. 공유 드라이브 vs. GitHub)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 사전 작업 현황 -->
+  <div class="sec">
+    <div class="sec-head">
+      <div class="num">6</div>
+      <h2>사전 작업 현황 — 지금까지 무엇을 해뒀는가</h2>
+    </div>
+    <div class="sec-body">
+      <div class="done-list">
+        <div class="done-item">
+          <div class="done-check">✅</div>
+          <div class="done-content">
+            <h4>프로젝트 계획</h4>
+            <p>검증 프로젝트 추진 방향 및 4개 과제(웹 재구축·DB 모델 개선·시안 시뮬레이션·자동 리포트) 정의 완료. GitHub 저장.</p>
+          </div>
+        </div>
+        <div class="done-item">
+          <div class="done-check">✅</div>
+          <div class="done-content">
+            <h4>DB 재설계</h4>
+            <p>사업건전성 대시보드용 데이터 모델 재설계 작업 진행. 지표 정의·테이블 구조·SQL 쿼리 설계 포함. GitHub 저장.</p>
+          </div>
+        </div>
+        <div class="done-item">
+          <div class="done-check">✅</div>
+          <div class="done-content">
+            <h4>와이어프레임</h4>
+            <p>대시보드 화면 설계(6Row 12카드 구조, KPI 레이아웃) 완료. HTML 형태로 문서허브 및 GitHub 저장.</p>
+          </div>
+        </div>
+        <div class="done-item">
+          <div class="done-check">✅</div>
+          <div class="done-content">
+            <h4>지표 정의서 (51개)</h4>
+            <p>Finance·Sales·CS·Market 4개 영역 51개 지표 산식·집계 기준·DB 컬럼 매핑 확정. 공유 문서 존재.</p>
+          </div>
+        </div>
+        <div class="done-item">
+          <div class="done-check">✅</div>
+          <div class="done-content">
+            <h4>기술 검토서 (AIPro/FabriX)</h4>
+            <p>4개 과제별 AI 활용 방안·해결해야 할 기술 문제 정리. 개발자 미팅 전 검토용 자료 완성.</p>
+          </div>
+        </div>
+        <div class="done-item">
+          <div class="done-check">✅</div>
+          <div class="done-content">
+            <h4>문서허브 운영 중</h4>
+            <p>http://13.49.177.238:8090 — HTML 기반 문서 발행·공유 환경 구축 완료. GitHub 연동.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. 검토가 필요한 것 -->
+  <div class="sec">
+    <div class="sec-head">
+      <div class="num">7</div>
+      <h2>검토 필요 사항 — 아직 결정되지 않은 것</h2>
+    </div>
+    <div class="sec-body">
+      <div class="review-list">
+        <div class="review-item">
+          <div class="review-num">①</div>
+          <div class="review-content">
+            <h4>Claude Enterprise 3인 협업 환경 설정</h4>
+            <p>3인이 동일 프로젝트 컨텍스트를 공유하는 방법, Claude Enterprise의 팀/프로젝트 기능 활용 방식 확인 필요</p>
+          </div>
+        </div>
+        <div class="review-item">
+          <div class="review-num">②</div>
+          <div class="review-content">
+            <h4>AIPro/FabriX 기능 범위 확인</h4>
+            <p>사내 AI 도구(AIPro/FabriX)가 코드 생성·SQL 생성·파일 업로드·스케줄 실행 중 무엇을 지원하는지 미확인. 지원 범위에 따라 과제 추진 방식이 달라짐</p>
+          </div>
+        </div>
+        <div class="review-item">
+          <div class="review-num">③</div>
+          <div class="review-content">
+            <h4>Windows PC에서 웹 아티팩트 배포 방식</h4>
+            <p>AI가 생성한 HTML/JS 코드를 어디에 배포하여 실제로 확인할 것인가. 실제 Web 서버가 없는 상태에서의 대안 환경 확정 필요</p>
+          </div>
+        </div>
+        <div class="review-item">
+          <div class="review-num">④</div>
+          <div class="review-content">
+            <h4>3인 역할 분담 확정</h4>
+            <p>현재 동료 2인의 역할이 미정. 데이터/프론트/PM으로 분리할 것인지, 또는 다른 분담 방식을 택할지 킥오프 전 합의 필요</p>
+          </div>
+        </div>
+        <div class="review-item">
+          <div class="review-num">⑤</div>
+          <div class="review-content">
+            <h4>사전 작업 결과물의 AI 입력 방식</h4>
+            <p>GitHub에 저장된 계획서·DB 재설계·와이어프레임을 AI에게 어떻게 전달할 것인가. 파일 업로드, URL 참조, 텍스트 복사 중 어떤 방식이 현실적인지 확인 필요</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. 검증 후 전환 조건 -->
+  <div class="transition-box">
+    <h3>검증 완료 후 전환 조건</h3>
+    <div class="t-flow">
+      <div class="t-node verify">검증 프로젝트<br><small style="font-weight:400; font-size:11px;">Windows PC + Impala DB</small></div>
+      <div class="t-arrow">→</div>
+      <div class="t-node success">검증 성공 판정<br><small style="font-weight:400; font-size:11px;">3가지 핵심 질문 충족</small></div>
+      <div class="t-arrow">→</div>
+      <div class="t-node real">실제 프로젝트<br><small style="font-weight:400; font-size:11px;">Web/WAS Server + Impala DB</small></div>
+    </div>
+    <div class="t-cond">
+      성공 판정 기준: ① AI로 실제 작동하는 대시보드를 구축할 수 있다 &nbsp;|&nbsp;
+      ② AI로 데이터 오류·변경에 대응할 수 있다 &nbsp;|&nbsp;
+      ③ AI로 요구사항 변경을 신속하게 반영할 수 있다
+    </div>
+  </div>
+
+</div>
+
+<footer>Samsung SDS 솔루션사업부 기획팀 · 사업건전성 대시보드 AI 검증 프로젝트 · 2026-06-30</footer>
+
+</body>
+</html>

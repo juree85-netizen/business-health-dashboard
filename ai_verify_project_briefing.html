@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>사업건전성 대시보드 AI 구축·운영 검증 프로젝트 — 킥오프 브리핑</title>
+<style>
+  :root{
+    --navy:#1428A0; --navy-dark:#0c1c68; --navy-deep:#081450; --navy-light:#eef0fb;
+    --navy-soft:#dfe3f7; --ink:#12142b; --gray:#565b73; --gray-soft:#8489a0;
+    --border:#dcdfef; --bg:#f5f6fb; --card:#ffffff;
+    --warn-bg:#fff6e5; --warn-bd:#e8a33d; --warn-tx:#8a5a00;
+    --good-bg:#eaf7ef; --good-bd:#2f9e56; --good-tx:#1c6b39;
+    --risk1:#2f9e56; --risk2:#3d7fd1; --risk3:#c98a1f; --risk4:#c2492f;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Malgun Gothic","맑은 고딕","Apple SD Gothic Neo",sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.6; font-size:15px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1040px; margin:0 auto; padding:0 24px 80px;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:linear-gradient(135deg,var(--navy) 0%,var(--navy-dark) 62%,var(--navy-deep) 100%);
+    color:#fff; padding:56px 24px 44px; position:relative; overflow:hidden;
+  }
+  .hero::after{
+    content:''; position:absolute; right:-120px; top:-120px; width:420px; height:420px;
+    border-radius:50%; background:rgba(255,255,255,0.06);
+  }
+  .hero::before{
+    content:''; position:absolute; left:-80px; bottom:-140px; width:320px; height:320px;
+    border-radius:50%; background:rgba(255,255,255,0.045);
+  }
+  .hero-inner{max-width:1040px; margin:0 auto; position:relative; z-index:1;}
+  .badges{display:flex; gap:8px; margin-bottom:18px; flex-wrap:wrap;}
+  .badge{
+    display:inline-block; font-size:11px; font-weight:700; letter-spacing:0.6px;
+    padding:4px 10px; border-radius:20px; background:rgba(255,255,255,0.14);
+    border:1px solid rgba(255,255,255,0.3); color:#fff;
+  }
+  .badge.v{background:rgba(255,255,255,0.94); color:var(--navy-dark);}
+  .hero h1{font-size:30px; font-weight:800; line-height:1.35; letter-spacing:-0.5px; margin-bottom:12px;}
+  .hero .sub{font-size:16px; color:rgba(255,255,255,0.88); font-weight:500; margin-bottom:28px; max-width:640px; line-height:1.6;}
+  .meta-grid{
+    display:grid; grid-template-columns:repeat(5,1fr); gap:1px;
+    background:rgba(255,255,255,0.18); border-radius:10px; overflow:hidden;
+    border:1px solid rgba(255,255,255,0.18);
+  }
+  .meta-cell{background:rgba(255,255,255,0.06); padding:12px 14px;}
+  .meta-cell .k{font-size:10.5px; color:rgba(255,255,255,0.62); font-weight:700; letter-spacing:0.5px; text-transform:uppercase; margin-bottom:4px;}
+  .meta-cell .v{font-size:13.5px; font-weight:700; color:#fff; line-height:1.4;}
+
+  /* ---------- SECTION SHELL ---------- */
+  section.sec{padding:52px 0 8px; border-bottom:1px solid var(--border);}
+  section.sec:last-of-type{border-bottom:none;}
+  .sec-head{display:flex; align-items:baseline; gap:14px; margin-bottom:26px;}
+  .sec-no{
+    font-size:13px; font-weight:800; color:#fff; background:var(--navy);
+    padding:4px 11px; border-radius:6px; letter-spacing:1px; flex-shrink:0;
+  }
+  .sec-title{font-size:21px; font-weight:800; color:var(--ink); letter-spacing:-0.3px;}
+  .sec-desc{font-size:13.5px; color:var(--gray); margin:-16px 0 24px; padding-left:2px;}
+
+  /* ---------- GENERIC CARD ---------- */
+  .card{background:var(--card); border:1px solid var(--border); border-radius:12px; padding:20px 22px; box-shadow:0 1px 3px rgba(20,40,160,0.04);}
+  .note{
+    font-size:12.5px; color:var(--gray); background:var(--navy-light); border-radius:8px;
+    padding:9px 13px; margin-top:14px; line-height:1.65;
+  }
+  .note b{color:var(--navy-dark);}
+  .warn{
+    background:var(--warn-bg); border:1px solid var(--warn-bd); border-radius:8px;
+    padding:12px 15px; font-size:13px; color:var(--warn-tx); margin-top:16px; line-height:1.7;
+    display:flex; gap:9px; align-items:flex-start;
+  }
+  .warn .ic{font-size:15px; flex-shrink:0;}
+
+  /* ---------- 01 가설 / AS-IS TO-BE ---------- */
+  .hypothesis{
+    background:var(--navy); color:#fff; border-radius:12px; padding:20px 24px;
+    font-size:15.5px; font-weight:700; line-height:1.6; margin-bottom:22px;
+  }
+  .hypothesis .tag{display:block; font-size:10.5px; font-weight:700; letter-spacing:1px; color:rgba(255,255,255,0.72); margin-bottom:6px;}
+  .flow{display:flex; align-items:stretch; gap:0; margin-bottom:6px;}
+  .flow-box{
+    flex:1; background:var(--card); border:1.5px solid var(--border); border-radius:12px;
+    padding:18px 20px;
+  }
+  .flow-box.tobe{border-color:var(--navy); background:var(--navy-light);}
+  .flow-box .lab{font-size:11px; font-weight:800; letter-spacing:1px; margin-bottom:8px;}
+  .flow-box.asis .lab{color:var(--gray-soft);}
+  .flow-box.tobe .lab{color:var(--navy);}
+  .flow-box ul{list-style:none;}
+  .flow-box li{font-size:13.5px; padding:4px 0 4px 16px; position:relative; color:var(--ink);}
+  .flow-box li::before{content:'·'; position:absolute; left:2px; font-weight:800; color:var(--gray-soft);}
+  .flow-box.tobe li::before{color:var(--navy);}
+  .flow-arrow{
+    display:flex; align-items:center; justify-content:center; padding:0 14px;
+    font-size:22px; color:var(--navy); font-weight:800; flex-shrink:0;
+  }
+  .key-change{
+    text-align:center; margin-top:14px; font-size:13px; color:var(--navy-dark); font-weight:700;
+    background:var(--navy-soft); padding:8px; border-radius:8px;
+  }
+
+  /* ---------- 02 토폴로지 ---------- */
+  .topo{display:flex; align-items:stretch; gap:0; margin-bottom:16px;}
+  .topo-node{
+    flex:1; background:var(--card); border:1.5px solid var(--border); border-radius:12px;
+    padding:18px 16px; text-align:center; position:relative;
+  }
+  .topo-node.bus{background:var(--navy); color:#fff; border-color:var(--navy);}
+  .topo-node .role{font-size:10px; font-weight:700; letter-spacing:1px; color:var(--gray-soft); text-transform:uppercase; margin-bottom:6px;}
+  .topo-node.bus .role{color:rgba(255,255,255,0.68);}
+  .topo-node .name{font-size:14.5px; font-weight:800; margin-bottom:8px;}
+  .topo-node .desc{font-size:12px; color:var(--gray); line-height:1.6;}
+  .topo-node.bus .desc{color:rgba(255,255,255,0.85);}
+  .topo-node .repo{
+    display:inline-block; margin-top:8px; font-family:ui-monospace,Menlo,Consolas,monospace;
+    font-size:11px; background:rgba(255,255,255,0.16); padding:3px 9px; border-radius:5px;
+  }
+  .topo-conn{
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    width:64px; flex-shrink:0; gap:2px;
+  }
+  .topo-conn .arr{font-size:20px; color:var(--navy); font-weight:800; line-height:1;}
+  .topo-conn .lb{font-size:9.5px; color:var(--gray-soft); text-align:center; font-weight:700;}
+  .relay-strip{
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+    background:var(--navy-light); border-radius:10px; padding:14px 16px; font-size:12.5px;
+    font-weight:700; color:var(--navy-dark);
+  }
+  .relay-strip .step{background:#fff; border:1px solid var(--navy-soft); border-radius:20px; padding:5px 13px;}
+  .relay-strip .sep{color:var(--navy); font-weight:800;}
+
+  /* ---------- 03 역할카드 ---------- */
+  .role-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px;}
+  .role-card{
+    background:var(--card); border:1.5px solid var(--border); border-radius:12px;
+    padding:20px 18px; position:relative; overflow:hidden;
+  }
+  .role-card::before{content:''; position:absolute; top:0; left:0; right:0; height:5px; background:var(--navy);}
+  .role-card.pm::before{background:var(--navy);}
+  .role-card.data::before{background:#3d7fd1;}
+  .role-card.front::before{background:#2f9e56;}
+  .role-card .avatar{
+    width:44px; height:44px; border-radius:50%; background:var(--navy-light); color:var(--navy);
+    display:flex; align-items:center; justify-content:center; font-weight:800; font-size:15px; margin-bottom:12px;
+  }
+  .role-card .rname{font-size:15.5px; font-weight:800; margin-bottom:2px;}
+  .role-card .rtitle{font-size:12px; color:var(--navy); font-weight:700; margin-bottom:12px;}
+  .role-card .tags{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px;}
+  .role-card .tags span{font-size:10.5px; font-weight:700; background:var(--navy-light); color:var(--navy-dark); padding:2px 8px; border-radius:20px;}
+  .role-card ul{list-style:none;}
+  .role-card li{font-size:12.5px; color:var(--gray); padding:3px 0 3px 14px; position:relative;}
+  .role-card li::before{content:'—'; position:absolute; left:0; color:var(--gray-soft); font-size:10px; top:5px;}
+
+  /* ---------- 04 워크스페이스 ---------- */
+  .ws-cols{display:grid; grid-template-columns:1.1fr 1fr; gap:20px; align-items:start;}
+  .tree{
+    background:var(--navy-deep); color:#dfe4ff; border-radius:12px; padding:18px 20px;
+    font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12.5px; line-height:2;
+  }
+  .tree .repo-name{color:#fff; font-weight:800; font-size:13px; margin-bottom:6px; display:block;}
+  .tree .dir{color:#8fb0ff; font-weight:700;}
+  .tree .cm{color:#6b7399; margin-left:8px;}
+  .rules{list-style:none;}
+  .rules li{
+    display:flex; gap:10px; padding:9px 0; border-bottom:1px dashed var(--border); font-size:13px;
+  }
+  .rules li:last-child{border-bottom:none;}
+  .rules .num{
+    flex-shrink:0; width:22px; height:22px; border-radius:50%; background:var(--navy);
+    color:#fff; font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center;
+  }
+  .rules b{color:var(--ink);}
+
+  /* ---------- 05 로드맵 ---------- */
+  .phase0-strip{
+    display:flex; align-items:center; gap:12px; background:var(--good-bg); border:1px solid var(--good-bd);
+    border-radius:10px; padding:12px 16px; margin-bottom:20px; font-size:13px; color:var(--good-tx);
+  }
+  .phase0-strip .pill{font-weight:800; background:var(--good-bd); color:#fff; padding:3px 10px; border-radius:20px; font-size:11px; flex-shrink:0;}
+  .roadmap{display:flex; flex-direction:column; gap:0;}
+  .rm-item{display:flex; gap:16px; position:relative; padding-bottom:22px;}
+  .rm-item:last-child{padding-bottom:0;}
+  .rm-item .rail{display:flex; flex-direction:column; align-items:center; flex-shrink:0; width:34px;}
+  .rm-item .dot{
+    width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    color:#fff; font-weight:800; font-size:13px; z-index:1;
+  }
+  .rm-item .line{width:2px; flex:1; background:var(--border); margin-top:2px;}
+  .rm-item:last-child .line{display:none;}
+  .rm-item .body{flex:1; background:var(--card); border:1px solid var(--border); border-radius:10px; padding:13px 16px; margin-top:1px;}
+  .rm-item .top-row{display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; margin-bottom:5px;}
+  .rm-item .ttl{font-size:14.5px; font-weight:800;}
+  .rm-item .wk{font-size:11px; font-weight:700; color:#fff; padding:2px 9px; border-radius:20px;}
+  .rm-item .risk{font-size:12px; color:var(--gray);}
+
+  /* ---------- 06 결정사항 ---------- */
+  .decisions{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:12px;}
+  .dec-item{
+    display:flex; gap:12px; background:var(--card); border:1px solid var(--border); border-radius:10px;
+    padding:13px 15px; align-items:flex-start;
+  }
+  .dec-item .num{
+    flex-shrink:0; width:26px; height:26px; border-radius:7px; background:var(--navy-light); color:var(--navy);
+    font-weight:800; font-size:12.5px; display:flex; align-items:center; justify-content:center;
+  }
+  .dec-item .tx{font-size:13.5px; font-weight:700; color:var(--ink); line-height:1.5;}
+
+  /* ---------- 07 준비사항 ---------- */
+  .prep-table{width:100%; border-collapse:collapse; font-size:13.5px;}
+  .prep-table th{
+    background:var(--navy); color:#fff; text-align:left; padding:9px 14px; font-size:12px;
+    font-weight:700; letter-spacing:0.3px;
+  }
+  .prep-table th:first-child{border-radius:8px 0 0 0;}
+  .prep-table th:last-child{border-radius:0 8px 0 0;}
+  .prep-table td{padding:11px 14px; border-bottom:1px solid var(--border); vertical-align:top;}
+  .prep-table tr:last-child td{border-bottom:none;}
+  .prep-table td.who{font-weight:800; color:var(--navy-dark); white-space:nowrap;}
+  .prep-table ul{list-style:none;}
+  .prep-table li{padding:2px 0 2px 14px; position:relative;}
+  .prep-table li::before{content:'□'; position:absolute; left:0; color:var(--gray-soft); font-size:11px; top:5px;}
+
+  /* ---------- FOOTER ---------- */
+  footer{text-align:center; padding:40px 24px 10px; font-size:11.5px; color:var(--gray-soft);}
+
+  @media (max-width:820px){
+    .meta-grid{grid-template-columns:repeat(2,1fr);}
+    .role-grid{grid-template-columns:1fr;}
+    .ws-cols{grid-template-columns:1fr;}
+    .flow{flex-direction:column;}
+    .flow-arrow{transform:rotate(90deg); padding:8px 0;}
+    .topo{flex-direction:column;}
+    .topo-conn{width:auto; flex-direction:row; padding:6px 0;}
+    .topo-conn .arr{transform:rotate(90deg);}
+    .hero h1{font-size:24px;}
+  }
+
+  @media print{
+    body{background:#fff;}
+    .hero{background:var(--navy) !important; -webkit-print-color-adjust:exact; print-color-adjust:exact;}
+    section.sec{page-break-inside:avoid; padding:28px 0 8px;}
+    .card, .role-card, .rm-item .body, .dec-item{box-shadow:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="badges">
+      <span class="badge">INTERNAL</span>
+      <span class="badge">킥오프 브리핑 v1.0</span>
+      <span class="badge v">작성 2026-07-03</span>
+    </div>
+    <h1>사업건전성 대시보드<br>AI 구축·운영 검증 프로젝트</h1>
+    <p class="sub">웹디자이너·Tableau·DB 전문가 없이 AI만으로 대시보드를 만들 수 있는가</p>
+    <div class="meta-grid">
+      <div class="meta-cell"><div class="k">담당</div><div class="v">솔루션사업부 기획팀</div></div>
+      <div class="meta-cell"><div class="k">팀 구성</div><div class="v">3인</div></div>
+      <div class="meta-cell"><div class="k">AI 도구</div><div class="v">Claude Enterprise + AIPro</div></div>
+      <div class="meta-cell"><div class="k">데드라인</div><div class="v">2026년 10월</div></div>
+      <div class="meta-cell"><div class="k">문서 상태</div><div class="v">킥오프 브리핑</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- 01 검증 가설 -->
+  <section class="sec">
+    <div class="sec-head"><span class="sec-no">01</span><span class="sec-title">검증 가설</span></div>
+    <div class="hypothesis">
+      <span class="tag">HYPOTHESIS</span>
+      전문가(웹디자이너·Tableau 개발자·DB 전문가) 없이, AI 도구 + 기획자만으로<br>
+      대시보드를 <u>구축 → 운영 → 유지보수</u>까지 전 주기 수행할 수 있는가?
+    </div>
+    <div class="flow">
+      <div class="flow-box asis">
+        <div class="lab">AS-IS</div>
+        <ul>
+          <li>Tableau 기반 시각화</li>
+          <li>Impala 데이터 레이어</li>
+          <li>전문가팀(디자이너·개발자·DBA) 의존</li>
+        </ul>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box tobe">
+        <div class="lab">TO-BE</div>
+        <ul>
+          <li>AI 주도 개발 (Claude / AIPro)</li>
+          <li>Web / WAS 자체 구현</li>
+          <li>Impala는 데이터 레이어로 유지</li>
+        </ul>
+      </div>
+    </div>
+    <div class="key-change">핵심 변화 = <strong>&ldquo;누가 개발하는가&rdquo;</strong> — 도구·아키텍처가 아니라 개발 주체의 전환</div>
+  </section>
+
+  <!-- 02 검증환경 토폴로지 -->
+  <section class="sec">
+    <div class="sec-head"><span class="sec-no">02</span><span class="sec-title">검증 환경 토폴로지</span></div>
+    <div class="topo">
+      <div class="topo-node">
+        <div class="role">데이터 레이어</div>
+        <div class="name">VDI</div>
+        <div class="desc">개인정보 취급용 환경<br>AIPro CLI + Impala</div>
+      </div>
+      <div class="topo-conn"><span class="arr">⇄</span><span class="lb">commit / pull</span></div>
+      <div class="topo-node bus">
+        <div class="role">공유 버스</div>
+        <div class="name">사내 GitHub</div>
+        <div class="desc">code.sdsdev.co.kr</div>
+        <div class="repo">biz-health-verify</div>
+      </div>
+      <div class="topo-conn"><span class="arr">⇄</span><span class="lb">commit / pull</span></div>
+      <div class="topo-node">
+        <div class="role">프레젠테이션 레이어</div>
+        <div class="name">회사 PC</div>
+        <div class="desc">Claude</div>
+      </div>
+    </div>
+    <div class="relay-strip">
+      <span class="step">커밋</span><span class="sep">→</span>
+      <span class="step">pull</span><span class="sep">→</span>
+      <span class="step">작업</span><span class="sep">→</span>
+      <span class="step">되커밋</span>
+      <span style="margin-left:6px; font-weight:600; color:var(--gray);">— 릴레이 구조로 VDI ↔ 회사PC 간 컨텍스트 동기화</span>
+    </div>
+    <div class="warn">
+      <span class="ic">⚠</span>
+      <span><b>Phase0 확인 필요</b> — VDI 방화벽 허용 목록의 &ldquo;GitHub&rdquo;가 실제로 <code>code.sdsdev.co.kr</code>(사내 GitHub)을 의미하는지 사전 확인 필요. 확인 전까지 릴레이 구조 전체가 가정 단계임.</span>
+    </div>
+  </section>
+
+  <!-- 03 역할 카드 -->
+  <section class="sec">
+    <div class="sec-head"><span class="sec-no">03</span><span class="sec-title">3인 역할</span></div>
+    <div class="role-grid">
+      <div class="role-card pm">
+        <div class="avatar">PM</div>
+        <div class="rname">유주리</div>
+        <div class="rtitle">PM</div>
+        <div class="tags"><span>Claude</span><span>회사PC</span></div>
+        <ul>
+          <li>프로젝트 총괄·일정 관리</li>
+          <li>회사PC 프레젠테이션 레이어 작업</li>
+        </ul>
+      </div>
+      <div class="role-card data">
+        <div class="avatar">A</div>
+        <div class="rname">동료 A</div>
+        <div class="rtitle">데이터</div>
+        <div class="tags"><span>AIPro</span><span>VDI</span></div>
+        <ul>
+          <li>SQL 설계·검증</li>
+          <li>ERD 작성</li>
+          <li>Impala 데이터 검증</li>
+        </ul>
+      </div>
+      <div class="role-card front">
+        <div class="avatar">B</div>
+        <div class="rname">동료 B</div>
+        <div class="rtitle">프론트</div>
+        <div class="tags"><span>시안</span><span>UX</span></div>
+        <ul>
+          <li>화면 시안 제작</li>
+          <li>시뮬레이션·프로토타입</li>
+          <li>UX 검토</li>
+        </ul>
+      </div>
+    </div>
+    <div class="note">※ 위 역할 구성은 <b>제안안</b>이며, 킥오프 미팅에서 팀원 간 협의를 거쳐 최종 확정한다.</div>
+  </section>
+
+  <!-- 04 워크스페이스 구조 -->
+  <section class="sec">
+    <div class="sec-head"><span class="sec-no">04</span><span class="sec-title">워크스페이스 구조 &amp; 협업 규약</span></div>
+    <div class="ws-cols">
+      <div class="tree">
+        <span class="repo-name">biz-health-verify/</span>
+        <div><span class="dir">context/</span> <span class="cm"># 00~50 마스터 컨텍스트</span></div>
+        <div><span class="dir">plan/</span> <span class="cm"># 작업별 계획서</span></div>
+        <div><span class="dir">work/</span></div>
+        <div>&nbsp;&nbsp;├─ <span class="dir">data/</span> <span class="cm"># AIPro 담당</span></div>
+        <div>&nbsp;&nbsp;└─ <span class="dir">web/</span> <span class="cm"># Claude 담당</span></div>
+        <div><span class="dir">handoff/</span> <span class="cm"># 세션 간 인계 메모</span></div>
+        <div><span class="dir">verify/</span> <span class="cm"># 검증 결과·로그</span></div>
+      </div>
+      <ul class="rules">
+        <li><span class="num">1</span><span><b>기준 파일</b> — CLAUDE.md · AIPRO.md 를 각 환경의 단일 진실 소스로 유지</span></li>
+        <li><span class="num">2</span><span><b>3단 분리</b> — 계획(plan) / 실행(work) / 검증(verify) 산출물을 명확히 분리</span></li>
+        <li><span class="num">3</span><span><b>INDEX.md</b> — 레포 전체 현황을 한눈에 보는 색인 문서 상시 갱신</span></li>
+        <li><span class="num">4</span><span><b>커밋 규약</b> — <code>[에이전트][task]</code> 형식으로 작성 주체·작업 단위 명시</span></li>
+        <li><span class="num">5</span><span><b>세션 루틴</b> — 세션 시작·종료 시 상태 점검·인계 절차 고정</span></li>
+        <li><span class="num">6</span><span><b>템플릿</b> — plan / verify 문서는 공통 템플릿 사용</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 05 과제 순서 -->
+  <section class="sec">
+    <div class="sec-head"><span class="sec-no">05</span><span class="sec-title">과제 순서 — 리스크 낮은 순</span></div>
+    <div class="phase0-strip">
+      <span class="pill">PHASE 0</span>
+      <span>도구 검증 스파이크 (2주) — 본 로드맵 전체의 선행 조건. VDI·GitHub 연결, AIPro/Claude 기본 동작 확인 후 Task 착수</span>
+    </div>
+    <div class="roadmap">
+      <div class="rm-item">
+        <div class="rail"><div class="dot" style="background:var(--risk1);">1</div><div class="line"></div></div>
+        <div class="body">
+          <div class="top-row"><span class="ttl">Task 3 — 시안 + 시뮬레이션</span><span class="wk" style="background:var(--risk1);">Wk 3–5</span></div>
+          <div class="risk">리스크 최저 · 화면 설계·프로토타입 중심, 데이터 의존도 낮음</div>
+        </div>
+      </div>
+      <div class="rm-item">
+        <div class="rail"><div class="dot" style="background:var(--risk2);">2</div><div class="line"></div></div>
+        <div class="body">
+          <div class="top-row"><span class="ttl">Task 2 — 데이터 모델</span><span class="wk" style="background:var(--risk2);">Wk 5–8</span></div>
+          <div class="risk">목표 정합도 ±5% · SQL/ERD/Impala 검증 기반 데이터 모델 확정</div>
+        </div>
+      </div>
+      <div class="rm-item">
+        <div class="rail"><div class="dot" style="background:var(--risk3);">3</div><div class="line"></div></div>
+        <div class="body">
+          <div class="top-row"><span class="ttl">Task 1 — 웹 재구축</span><span class="wk" style="background:var(--risk3);">Wk 8–12</span></div>
+          <div class="risk">Web/WAS 실제 구현 · 시안·데이터 모델 결과를 통합</div>
+        </div>
+      </div>
+      <div class="rm-item">
+        <div class="rail"><div class="dot" style="background:var(--risk4);">4</div></div>
+        <div class="body">
+          <div class="top-row"><span class="ttl">Task 4 — 자동 리포트</span><span class="wk" style="background:var(--risk4);">Wk 12–14</span></div>
+          <div class="risk">자동/반자동 방식 · 앞선 3개 과제 산출물 기반 최종 자동화</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 킥오프 결정사항 -->
+  <section class="sec">
+    <div class="sec-head"><span class="sec-no">06</span><span class="sec-title">킥오프 결정사항</span></div>
+    <div class="decisions">
+      <div class="dec-item"><span class="num">1</span><span class="tx">역할 분담 최종 확정</span></div>
+      <div class="dec-item"><span class="num">2</span><span class="tx">검증 범위 — 상품 1~2개 · 지표 10~15개</span></div>
+      <div class="dec-item"><span class="num">3</span><span class="tx">VDI 방화벽 GitHub 접근 여부 확인</span></div>
+      <div class="dec-item"><span class="num">4</span><span class="tx">AIPro 기능 범위 정의</span></div>
+      <div class="dec-item"><span class="num">5</span><span class="tx">컨텍스트 공유 방식 결정</span></div>
+    </div>
+  </section>
+
+  <!-- 07 동료 준비사항 -->
+  <section class="sec">
+    <div class="sec-head"><span class="sec-no">07</span><span class="sec-title">동료 준비사항</span></div>
+    <table class="prep-table">
+      <tr><th style="width:16%;">대상</th><th>준비사항</th></tr>
+      <tr>
+        <td class="who">공통</td>
+        <td><ul><li>본 브리핑 사전 검토</li><li>희망 역할·의견 준비</li></ul></td>
+      </tr>
+      <tr>
+        <td class="who">동료 A</td>
+        <td><ul><li>VDI 접속 확인</li><li>Impala 접속 확인</li><li><code>code.sdsdev.co.kr</code> 접속 확인</li></ul></td>
+      </tr>
+      <tr>
+        <td class="who">동료 B</td>
+        <td><ul><li>대표 KPI 1~2개 제안 준비</li></ul></td>
+      </tr>
+      <tr>
+        <td class="who">공통</td>
+        <td><ul><li>계정·환경 점검 (VDI / GitHub / AIPro / Claude 접근 권한)</li></ul></td>
+      </tr>
+    </table>
+  </section>
+
+</div>
+
+<footer>사업건전성 대시보드 AI 구축·운영 검증 프로젝트 · 킥오프 브리핑 v1.0 · INTERNAL · 2026-07-03</footer>
+
+</body>
+</html>

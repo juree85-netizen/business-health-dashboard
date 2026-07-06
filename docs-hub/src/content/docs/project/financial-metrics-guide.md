@@ -12,7 +12,7 @@ description: EBITDA에서 FCF까지 재무 지표 하강 체계(Waterfall) + CAP
 아래 버튼을 클릭하면 HTML 보고서가 새 탭에서 열립니다.
 
 <p>
-  <a href="/financial_metrics_guide_20260624.html" target="_blank" rel="noopener"
+  <a href="../../html/financial_metrics_guide_20260624.html" target="_blank" rel="noopener"
     style="display:inline-block;padding:0.6em 1.4em;background:#2563eb;color:#fff;border-radius:6px;font-weight:600;text-decoration:none;">
     📄 재무 지표 해설 보고서 열기 ↗
   </a>

@@ -12,7 +12,7 @@ description: AI 활용 리서치·문서 작성 워크플로우 — 슬라이드
 아래 버튼을 클릭하면 HTML 슬라이드가 새 탭에서 열립니다.
 
 <p>
-  <a href="/files/ai_research_workflow_slides.html" target="_blank" rel="noopener"
+  <a href="../../files/ai_research_workflow_slides.html" target="_blank" rel="noopener"
     style="display:inline-block;padding:0.6em 1.4em;background:#2563eb;color:#fff;border-radius:6px;font-weight:600;text-decoration:none;">
     🖥️ AI 워크플로우 슬라이드 열기 ↗
   </a>

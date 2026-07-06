@@ -1,0 +1,1496 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>재무 지표 완전 해설 — EBITDA · EBIT · Net Income · OCF · FCF · CAPEX · D&A (2026. 6. 24.)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Batang','BatangChe','바탕','바탕체','Nanum Myeongjo','NanumMyeongjo',Georgia,serif;
+    font-size: 14px; line-height: 1.85; color: #000;
+    background: #d0d0d0; padding: 32px 0;
+  }
+  .doc-page {
+    width: 794px; min-height: 1122px;
+    margin: 0 auto 28px auto;
+    background: #fff; padding: 60px 56px 70px 56px;
+    box-shadow: 0 3px 14px rgba(0,0,0,0.20); position: relative;
+  }
+  .page-no { position: absolute; bottom: 24px; left: 0; right: 0; text-align: center; font-size: 12px; color: #555; letter-spacing: 0.5px; }
+
+  .doc-header-box {
+    border-top: 2.5px solid #000;
+    border-bottom: 1px solid #000;
+    margin-bottom: 14px;
+  }
+  .doc-header-row {
+    display: flex; align-items: stretch;
+    border-bottom: 1px solid #ccc;
+    font-size: 14px; line-height: 1.6;
+  }
+  .doc-header-row:last-child { border-bottom: none; }
+  .doc-header-label {
+    width: 96px; min-width: 96px;
+    font-weight: 700; padding: 5px 12px;
+    border-right: 1px solid #ccc;
+    background: #f8f8f8;
+    letter-spacing: 2px;
+  }
+  .doc-header-value { padding: 5px 14px; flex: 1; }
+  .doc-header-title-value { padding: 5px 14px; flex: 1; font-weight: 700; font-size: 15px; letter-spacing: -0.3px; }
+
+  .doc-main-title { font-size: 20px; font-weight: 700; text-decoration: underline; text-align: center; margin: 10px 0 6px 0; line-height: 1.4; letter-spacing: -0.5px; }
+  .summary-tbl { width: 100%; border-collapse: collapse; margin: 4px 0 14px 0; }
+  .summary-tbl .s-pad { border: none; width: 3%; }
+  .summary-tbl .s-main { border: 1px solid #000; padding: 9px 14px; font-size: 14px; line-height: 1.85; }
+
+  .ch { font-size: 14px; font-weight: 700; margin: 16px 0 10px 0; }
+  .ch2 { font-size: 13px; font-weight: 700; margin: 12px 0 8px 0; padding-left: 1.5em; }
+  .sq { font-size: 14px; margin: 10px 0 6px 0; padding-left: 1em; }
+  .sq::before { content: '□ '; }
+  .body-p { padding-left: 3em; margin-bottom: 9px; font-size: 14px; }
+  .body-p2 { padding-left: 4.5em; margin-bottom: 7px; font-size: 14px; }
+
+  ul.dash { list-style: none; padding-left: 3em; margin: 4px 0; }
+  ul.dash > li { position: relative; padding-left: 1em; margin-bottom: 7px; font-size: 14px; }
+  ul.dash > li::before { content: '-'; position: absolute; left: 0; }
+  ul.dot { list-style: none; padding-left: 5em; margin: 4px 0; }
+  ul.dot > li { position: relative; padding-left: 1em; margin-bottom: 7px; font-size: 14px; }
+  ul.dot > li::before { content: '·'; position: absolute; left: 0; }
+
+  .fn { font-size: 10px; color: #333; padding-left: 3em; margin-top: 5px; line-height: 1.7; }
+  .fn::before { content: '※ '; font-weight: 700; }
+  .def { font-size: 9.5px; color: #1a5faa; font-style: normal; letter-spacing: -0.1px; }
+
+  .sep { border: none; border-top: 1px solid #ccc; margin: 14px 0; }
+  .sep-dash { border: none; border-top: 1px dashed #bbb; margin: 12px 0; }
+
+  table.t { width: 100%; border-collapse: collapse; font-size: 13px; margin: 7px 0 12px 0; }
+  table.t th { background: #222; color: #fff; padding: 6px 9px; text-align: center; font-weight: 700; border: 1px solid #444; }
+  table.t td { padding: 5px 9px; border: 1px solid #bbb; vertical-align: top; line-height: 1.75; }
+  table.t td.c { text-align: center; }
+  table.t td.b { font-weight: 700; }
+  table.t td.r { color: #b00; font-weight: 700; }
+  table.t td.g { color: #0a6e00; font-weight: 700; }
+  table.t td.bl { color: #1a5faa; font-weight: 700; }
+  table.t tr.hl-row > td { background: #fef9e5; }
+  table.t tr.hl-blue > td { background: #e8f0fb; }
+  table.t tr.sep-row > td { background: #e0e0e0; font-weight: 700; font-size: 12px; text-align: center; letter-spacing: 0.5px; border-color: #999; }
+
+  .box-key { border: 1px solid #888; border-left: 3px solid #222; padding: 9px 13px; margin: 8px 0; font-size: 13px; background: #f5f5f5; line-height: 1.8; }
+  .box { border: 1px solid #aaa; padding: 9px 13px; margin: 8px 0; font-size: 13px; background: #fafafa; line-height: 1.8; }
+  .box-blue { border: 1px solid #7aa6d4; border-left: 3px solid #1a5faa; padding: 9px 13px; margin: 8px 0; font-size: 13px; background: #f0f6ff; line-height: 1.8; }
+  .box-warn { border: 1px solid #d4a07a; border-left: 3px solid #b05000; padding: 9px 13px; margin: 8px 0; font-size: 13px; background: #fff8f0; line-height: 1.8; }
+
+  /* waterfall diagram */
+  .waterfall { font-family: 'Courier New', monospace; font-size: 12.5px; line-height: 1.9; padding: 12px 16px; background: #f4f4f4; border: 1px solid #ccc; margin: 8px 0; }
+  .wf-label { color: #000; font-weight: 700; }
+  .wf-op { color: #555; }
+  .wf-result { color: #1a5faa; font-weight: 700; }
+  .wf-arrow { color: #888; }
+  .wf-note { color: #b00; font-size: 11px; }
+
+  .badge { display: inline-block; background: #222; color: #fff; font-size: 10px; font-weight: 700; padding: 1px 6px; margin-right: 4px; vertical-align: middle; letter-spacing: 0.5px; }
+  .badge-b { background: #1a5faa; }
+  .badge-g { background: #0a6e00; }
+  .badge-r { background: #b00; }
+
+  .indent1 { padding-left: 2em; }
+  .indent2 { padding-left: 4em; }
+  .indent3 { padding-left: 6em; }
+
+  .toc-item { padding-left: 2em; margin-bottom: 4px; font-size: 13px; }
+  .toc-ch { font-weight: 700; margin-bottom: 4px; margin-top: 8px; font-size: 14px; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════ PAGE 1 ══ -->
+<div class="doc-page">
+
+  <div class="doc-header-box">
+    <div class="doc-header-row">
+      <div class="doc-header-label">분 류</div>
+      <div class="doc-header-value">재무 분석 / 기본 개념 해설</div>
+      <div class="doc-header-label" style="border-left:1px solid #ccc;">작 성 일</div>
+      <div class="doc-header-value">2026. 6. 24.</div>
+    </div>
+    <div class="doc-header-row">
+      <div class="doc-header-label">제 목</div>
+      <div class="doc-header-title-value">재무 지표 완전 해설 — EBITDA · EBIT · Net Income · OCF · FCF · CAPEX · D&A</div>
+    </div>
+    <div class="doc-header-row">
+      <div class="doc-header-label">목 적</div>
+      <div class="doc-header-value">기업의 수익성·현금 창출력을 분석하는 핵심 재무 지표 개념·산식·상호 관계·실전 활용법 정리</div>
+    </div>
+  </div>
+
+  <p class="doc-main-title">재무 지표 완전 해설</p>
+  <p style="text-align:center; font-size:13px; color:#555; margin-bottom:14px;">EBITDA에서 FCF까지 — 손익계산서·현금흐름표·대차대조표를 관통하는 지표 체계</p>
+
+  <table class="summary-tbl">
+    <tr>
+      <td class="s-pad"></td>
+      <td class="s-main">
+        기업이 "얼마나 벌었는가"를 묻는 방식은 보는 주체마다 다르다. 채권자는 이자를 받을 수 있는지, 주주는 배당 재원이 있는지, 인수자는 영업 자체의 수익력이 어느 정도인지를 각각 다른 지표로 확인한다. 본 문서는 EBITDA → EBIT → Net Income → OCF → FCF로 이어지는 재무 지표의 하강 체계(Waterfall)와, 이 체계를 구성하는 핵심 요소인 CAPEX·감가상각비(D&A)·운전자본의 개념을 재무제표 3종(손익계산서·대차대조표·현금흐름표)과의 연결 구조 안에서 상세히 해설한다.
+      </td>
+      <td class="s-pad"></td>
+    </tr>
+  </table>
+
+  <!-- 목차 -->
+  <div class="ch">목 차</div>
+  <div class="toc-ch">제1장. 왜 지표가 여러 개인가 — 이해관계자별 요구</div>
+  <div class="toc-ch">제2장. 재무 지표 하강 체계 (Waterfall)</div>
+  <div class="toc-item">§ 2-1. 전체 구조 한눈에 보기</div>
+  <div class="toc-item">§ 2-2. EBITDA — 상각 전 영업이익</div>
+  <div class="toc-item">§ 2-3. EBIT — 영업이익</div>
+  <div class="toc-item">§ 2-4. Net Income — 순이익</div>
+  <div class="toc-item">§ 2-5. OCF — 영업현금흐름</div>
+  <div class="toc-item">§ 2-6. FCF — 잉여(자유)현금흐름</div>
+  <div class="toc-ch">제3장. CAPEX와 감가상각비 — 두 개념의 관계</div>
+  <div class="toc-item">§ 3-1. CAPEX란 무엇인가</div>
+  <div class="toc-item">§ 3-2. 감가상각비(D&A)란 무엇인가</div>
+  <div class="toc-item">§ 3-3. D&A가 두 번 등장하는 이유</div>
+  <div class="toc-ch">제4장. 재무제표 3종 구조와 지표 연결</div>
+  <div class="toc-item">§ 4-1. 손익계산서 (I/S)</div>
+  <div class="toc-item">§ 4-2. 대차대조표 (B/S)</div>
+  <div class="toc-item">§ 4-2 심화. 실제 B/S 항목 해설 — SaaS · PE 인수 기업 사례</div>
+  <div class="toc-item">§ 4-3. 현금흐름표 (C/F)</div>
+  <div class="toc-item">§ 4-4. 세 표의 연결 고리</div>
+  <div class="toc-ch">제5장. FCF vs 재무현금흐름(CFF) — 가장 흔한 혼동</div>
+  <div class="toc-ch">제6장. 지표별 실전 활용 사례</div>
+  <div class="toc-ch">제7장. 종합 트리 구조 & 비유</div>
+  <div class="toc-ch">제8장. 실전 Q&A — 현장에서 가장 자주 막히는 7가지 질문</div>
+
+  <hr class="sep">
+
+  <div class="ch">요약 정리</div>
+
+  <table class="t">
+    <tr>
+      <th>지표</th>
+      <th>한 줄 정의</th>
+      <th>현금 여부</th>
+      <th>핵심 사용처</th>
+    </tr>
+    <tr>
+      <td class="b">EBITDA</td>
+      <td>자본 구조 무관 영업 수익력</td>
+      <td class="r c">발생주의</td>
+      <td>M&A, 기업 간 비교</td>
+    </tr>
+    <tr>
+      <td class="b">EBIT</td>
+      <td>감가상각 반영 영업이익</td>
+      <td class="r c">발생주의</td>
+      <td>이자보상배율</td>
+    </tr>
+    <tr>
+      <td class="b">Net Income</td>
+      <td>주주 귀속 최종 이익</td>
+      <td class="r c">발생주의</td>
+      <td>EPS, 배당</td>
+    </tr>
+    <tr class="hl-blue">
+      <td class="b">OCF</td>
+      <td>영업이 실제 창출한 현금</td>
+      <td class="bl c">현금주의</td>
+      <td>단기 유동성</td>
+    </tr>
+    <tr class="hl-blue">
+      <td class="b">FCF</td>
+      <td>투자 후 자유롭게 쓸 수 있는 현금</td>
+      <td class="bl c">현금주의</td>
+      <td>DCF, 내재가치</td>
+    </tr>
+    <tr>
+      <td class="b">CAPEX</td>
+      <td>장기 자산 취득 현금 지출</td>
+      <td class="r c">현금 유출</td>
+      <td>투자 강도 분석</td>
+    </tr>
+    <tr>
+      <td class="b">D&A</td>
+      <td>CAPEX를 기간별 비용 배분</td>
+      <td class="g c">비현금</td>
+      <td>EBITDA → EBIT / OCF 조정</td>
+    </tr>
+    <tr>
+      <td class="b">CFF</td>
+      <td>자금 조달·배분 현금 흐름</td>
+      <td class="bl c">현금주의</td>
+      <td>FCF의 배분처 기록</td>
+    </tr>
+  </table>
+
+  <div class="page-no">- 1 -</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ PAGE 2 ══ -->
+<div class="doc-page">
+
+  <div class="ch">제1장. 왜 지표가 여러 개인가 — 이해관계자별 요구</div>
+
+  <p class="body-p">단 하나의 숫자로 기업의 모든 면을 설명할 수 없다. 재무 지표가 여러 개인 이유는 보는 주체마다 <strong>"내가 가져갈 몫"</strong>이 다르기 때문이다.</p>
+
+  <table class="t" style="margin-top:10px;">
+    <tr>
+      <th>지표</th>
+      <th>핵심 질문</th>
+      <th>주요 사용자</th>
+      <th>특징</th>
+    </tr>
+    <tr class="hl-row">
+      <td class="b">EBITDA</td>
+      <td>자본 구조·세금·감가상각 없이 영업 자체는 얼마나 버는가?</td>
+      <td>M&A 인수자, PE, 기업 간 비교</td>
+      <td>국가·구조 중립, 가장 넓은 비교 가능성</td>
+    </tr>
+    <tr>
+      <td class="b">EBIT</td>
+      <td>감가상각을 반영한 진짜 영업이익은?</td>
+      <td>채권자 (이자 커버리지 판단)</td>
+      <td>영업 레버리지 측정</td>
+    </tr>
+    <tr>
+      <td class="b">Net Income</td>
+      <td>주주에게 귀속되는 최종 이익은?</td>
+      <td>주주, 배당 정책</td>
+      <td>자본 구조·세금 모두 반영</td>
+    </tr>
+    <tr class="hl-blue">
+      <td class="b">OCF</td>
+      <td>영업으로 실제 창출한 현금은?</td>
+      <td>단기 유동성 관리자</td>
+      <td>발생주의→현금주의 전환</td>
+    </tr>
+    <tr class="hl-blue">
+      <td class="b">FCF</td>
+      <td>투자 후 자유롭게 쓸 수 있는 현금은?</td>
+      <td>장기 투자자, DCF 밸류에이션</td>
+      <td>진짜 자유 현금, 기업가치의 근거</td>
+    </tr>
+  </table>
+
+  <div class="box-blue">
+    <strong>핵심 구분선:</strong> EBITDA·EBIT·Net Income은 <strong>발생주의(Accrual)</strong> — "언제 번 것으로 인식하는가"를 따르며 손익계산서 위에 있다. OCF·FCF는 <strong>현금주의(Cash Basis)</strong> — "실제 현금이 들어왔는가"를 따르며 현금흐름표와 연결된다.
+  </div>
+
+  <hr class="sep">
+
+  <div class="ch">제2장. 재무 지표 하강 체계 (Waterfall)</div>
+
+  <div class="sq">§ 2-1. 전체 구조 한눈에 보기</div>
+
+  <p class="body-p">아래 다이어그램은 EBITDA에서 FCF까지, 각 단계에서 <strong>무엇을 추가로 차감·조정해 다음 지표를 도출하는지</strong>를 위에서 아래로 흐르는 구조로 보여준다. 위로 갈수록 덜 차감된 넓은 개념, 아래로 갈수록 더 많이 차감된 좁은(엄밀한) 개념이다.</p>
+
+  <!-- ── Waterfall 시각 다이어그램 ── -->
+  <div style="margin:10px 0; border:1px solid #bbb; font-family:'Batang','BatangChe','바탕',Georgia,serif;">
+
+    <!-- 손익계산서 섹션 헤더 -->
+    <div style="background:#444; color:#fff; font-size:9.5px; font-weight:700; letter-spacing:2.5px; padding:4px 14px; text-align:center;">
+      손 익 계 산 서 &nbsp;·&nbsp; 발 생 주 의 (Accrual Basis)
+    </div>
+
+    <!-- EBITDA -->
+    <div style="background:#1e1e1e; color:#fff; padding:10px 16px; display:flex; justify-content:space-between; align-items:center;">
+      <div>
+        <div style="font-size:16px; font-weight:700; letter-spacing:1px;">EBITDA</div>
+        <div style="font-size:10px; color:#bbb; margin-top:2px;">상각 전 영업이익</div>
+      </div>
+      <div style="font-size:10px; color:#999; text-align:right; line-height:1.7;">
+        Earnings Before Interest, Tax,<br>Depreciation &amp; Amortization
+      </div>
+    </div>
+
+    <!-- 커넥터: − D&A -->
+    <div style="background:#fafafa; padding:7px 16px 7px 40px; border-left:2px solid #ccc; border-right:2px solid #ccc; display:flex; align-items:flex-start;">
+      <div style="margin-right:10px; color:#888; font-size:17px; line-height:1.3; margin-top:1px;">↓</div>
+      <div>
+        <span style="font-size:12.5px; font-weight:700; color:#c00;">− D&amp;A</span>
+        <span style="font-size:10.5px; color:#666; margin-left:8px;">감가상각비(Depreciation) + 무형자산상각비(Amortization)</span>
+        <span style="font-size:10px; color:#999; margin-left:6px;">[비현금 비용]</span>
+      </div>
+    </div>
+
+    <!-- EBIT -->
+    <div style="background:#2e2e2e; color:#fff; padding:10px 16px; display:flex; justify-content:space-between; align-items:center;">
+      <div>
+        <div style="font-size:16px; font-weight:700; letter-spacing:1px;">EBIT</div>
+        <div style="font-size:10px; color:#bbb; margin-top:2px;">영업이익 · Operating Profit</div>
+      </div>
+      <div style="font-size:10px; color:#999; text-align:right; line-height:1.7;">
+        Earnings Before<br>Interest &amp; Tax
+      </div>
+    </div>
+
+    <!-- 커넥터: − 이자 − 세금 -->
+    <div style="background:#fafafa; padding:7px 16px 7px 40px; border-left:2px solid #ccc; border-right:2px solid #ccc; display:flex; align-items:flex-start;">
+      <div style="margin-right:10px; color:#888; font-size:17px; line-height:1.3; margin-top:1px;">↓</div>
+      <div>
+        <div style="font-size:12.5px; font-weight:700; color:#c00; margin-bottom:2px;">− 이자비용 (Interest Expense)</div>
+        <div style="font-size:12.5px; font-weight:700; color:#c00;">− 법인세 (Income Tax)</div>
+      </div>
+    </div>
+
+    <!-- Net Income -->
+    <div style="background:#424242; color:#fff; padding:10px 16px; display:flex; justify-content:space-between; align-items:center;">
+      <div>
+        <div style="font-size:16px; font-weight:700; letter-spacing:0.5px;">Net Income</div>
+        <div style="font-size:10px; color:#bbb; margin-top:2px;">순이익 (당기순이익)</div>
+      </div>
+      <div style="font-size:10px; color:#999; text-align:right; line-height:1.7;">
+        주주 귀속 최종 이익
+      </div>
+    </div>
+
+    <!-- 전환선 -->
+    <div style="background:#e8f0fb; border-top:2px dashed #1a5faa; border-bottom:2px dashed #1a5faa; padding:5px 14px; text-align:center; font-size:10.5px; color:#1a5faa; font-weight:700; letter-spacing:0.5px;">
+      ▼ &nbsp; 발생주의 → 현금주의 전환 &nbsp;·&nbsp; 손익계산서 → 현금흐름표 &nbsp; ▼
+    </div>
+
+    <!-- 현금흐름표 섹션 헤더 -->
+    <div style="background:#1a5faa; color:#fff; font-size:9.5px; font-weight:700; letter-spacing:2.5px; padding:4px 14px; text-align:center;">
+      현 금 흐 름 표 &nbsp;·&nbsp; 현 금 주 의 (Cash Basis)
+    </div>
+
+    <!-- 커넥터: + D&A ± 운전자본 -->
+    <div style="background:#f0f6ff; padding:7px 16px 9px 40px; border-left:2px solid #7aa6d4; border-right:2px solid #7aa6d4; display:flex; align-items:flex-start;">
+      <div style="margin-right:10px; color:#1a5faa; font-size:17px; line-height:1.3; margin-top:1px;">↓</div>
+      <div>
+        <div style="font-size:12.5px; font-weight:700; color:#0a6e00; margin-bottom:3px;">
+          + D&amp;A 재가산
+          <span style="font-size:10px; font-weight:400; color:#555; margin-left:6px;">비현금 비용 환원 — 이번 기간에 현금이 나간 것이 아니므로</span>
+        </div>
+        <div style="font-size:12.5px; font-weight:700; color:#555; margin-bottom:3px;">± 운전자본 변동 (ΔWC)</div>
+        <div style="font-size:10.5px; color:#c00; padding-left:1.2em; margin-bottom:1px;">− 매출채권 증가 &nbsp;<span style="color:#777; font-weight:400;">(현금 아직 미수령 — 이익엔 잡혔지만 현금이 안 들어옴)</span></div>
+        <div style="font-size:10.5px; color:#c00; padding-left:1.2em; margin-bottom:1px;">− 재고자산 증가 &nbsp;<span style="color:#777; font-weight:400;">(현금 선집행 — 팔기 전에 돈이 나감)</span></div>
+        <div style="font-size:10.5px; color:#0a6e00; padding-left:1.2em;">+ 매입채무 증가 &nbsp;<span style="color:#777; font-weight:400;">(현금 미지급 → 아직 안 나간 돈)</span></div>
+      </div>
+    </div>
+
+    <!-- OCF -->
+    <div style="background:#1a3d6e; color:#fff; padding:10px 16px; display:flex; justify-content:space-between; align-items:center;">
+      <div>
+        <div style="font-size:16px; font-weight:700; letter-spacing:1px;">OCF</div>
+        <div style="font-size:10px; color:#aaa; margin-top:2px;">영업현금흐름</div>
+      </div>
+      <div style="font-size:10px; color:#999; text-align:right; line-height:1.7;">
+        Operating Cash Flow<br>영업이 실제 창출한 현금
+      </div>
+    </div>
+
+    <!-- 커넥터: − CAPEX -->
+    <div style="background:#f0f6ff; padding:7px 16px 7px 40px; border-left:2px solid #7aa6d4; border-right:2px solid #7aa6d4; display:flex; align-items:flex-start;">
+      <div style="margin-right:10px; color:#1a5faa; font-size:17px; line-height:1.3; margin-top:1px;">↓</div>
+      <div>
+        <div style="font-size:12.5px; font-weight:700; color:#c00; margin-bottom:2px;">− CAPEX (자본적 지출)</div>
+        <div style="font-size:10.5px; color:#666; padding-left:1.2em;">유형·무형자산 취득 지출 (유지 CAPEX + 성장 CAPEX)</div>
+      </div>
+    </div>
+
+    <!-- FCF -->
+    <div style="background:#0a2540; color:#fff; padding:12px 16px; display:flex; justify-content:space-between; align-items:center;">
+      <div>
+        <div style="font-size:18px; font-weight:700; letter-spacing:1px;">FCF</div>
+        <div style="font-size:10px; color:#aaa; margin-top:2px;">잉여현금흐름 · 진짜 자유 현금</div>
+      </div>
+      <div style="font-size:10px; color:#999; text-align:right; line-height:1.7;">
+        Free Cash Flow<br>기업가치(DCF)의 근거
+      </div>
+    </div>
+
+  </div>
+  <!-- ── Waterfall 다이어그램 끝 ── -->
+
+  <p class="body-p" style="margin-top:10px;">위 구조에서 주목할 점은 <strong>D&A가 한 번 빠지고(EBITDA→EBIT) 한 번 다시 더해진다(Net Income→OCF)</strong>는 사실이다. 이유는 제3장에서 상세히 설명한다.</p>
+
+  <div class="page-no">- 2 -</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ PAGE 3 ══ -->
+<div class="doc-page">
+
+  <div class="sq">§ 2-2. EBITDA — 상각 전 영업이익</div>
+
+  <div class="box-key">
+    <strong>산식:</strong> EBITDA = 매출 − 매출원가 − 판관비 (단, 감가상각비·무형자산상각비 제외)<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= EBIT + D&amp;A
+  </div>
+
+  <p class="body-p">EBITDA는 <strong>자본 구조(부채/자본 비율)·세금 제도·감가상각 방법과 무관하게</strong> 기업의 영업 수익력을 비교할 수 있는 지표다. 국가별로 세율이 다르고, 기업마다 감가상각 방법이 달라도 동일한 잣대로 비교할 수 있어 <strong>M&A 딜, 기업 간 벤치마크, PE 투자</strong>에서 표준 출발점으로 쓰인다.</p>
+
+  <ul class="dash">
+    <li>장점: 국가·구조 중립, 현금 창출의 상한선 역할</li>
+    <li>한계: CAPEX를 무시함 → 장치 산업에서 EBITDA가 높아도 현금이 없을 수 있음</li>
+  </ul>
+
+  <hr class="sep-dash">
+
+  <div class="sq">§ 2-3. EBIT — 영업이익</div>
+
+  <div class="box-key">
+    <strong>산식:</strong> EBIT = EBITDA − D&amp;A = 매출 − 매출원가 − 판관비
+  </div>
+
+  <p class="body-p">EBIT는 감가상각을 반영해 <strong>자산의 실제 소모분을 비용화</strong>한 영업이익이다. 이자와 세금을 공제하기 전 수치이므로, 채권자 입장에서 <strong>"이 기업이 이자를 낼 수 있는가"</strong>를 판단하는 데 쓴다.</p>
+  <p class="body-p"><strong>이자보상배율(Interest Coverage Ratio) = EBIT ÷ 이자비용</strong> — 이 값이 1.5 이하면 이자 상환에 빨간불이 켜진다고 본다.</p>
+
+  <hr class="sep-dash">
+
+  <div class="sq">§ 2-4. Net Income — 순이익</div>
+
+  <div class="box-key">
+    <strong>산식:</strong> Net Income = EBIT − 이자비용 − 법인세 ± 영업외손익
+  </div>
+
+  <p class="body-p">주주에게 귀속되는 최종 이익이다. 동일한 EBIT라도 부채가 많을수록 이자비용이 커져 Net Income은 쪼그라든다. <strong>재무 레버리지의 효과가 가장 직접적으로 드러나는 지표</strong>다.</p>
+  <p class="body-p">단, Net Income은 <strong>발생주의</strong>이므로 "인식된 이익"과 "실제 현금"이 다를 수 있다. 이 간극을 메우는 것이 OCF로의 전환 과정이다.</p>
+
+  <hr class="sep-dash">
+
+  <div class="sq">§ 2-5. OCF — 영업현금흐름</div>
+
+  <div class="box-key">
+    <strong>산식:</strong> OCF = Net Income + D&amp;A ± 운전자본 변동(ΔWC)<br>
+    <strong>ΔWC:</strong> − 매출채권 증가 − 재고자산 증가 + 매입채무 증가
+  </div>
+
+  <p class="body-p">OCF는 <strong>"영업 활동이 실제로 만들어낸 현금"</strong>이다. Net Income에서 출발해 두 가지를 조정한다.</p>
+
+  <table class="t">
+    <tr>
+      <th>조정 항목</th>
+      <th>방향</th>
+      <th>이유</th>
+    </tr>
+    <tr>
+      <td class="b">D&amp;A 재가산</td>
+      <td class="g c">+</td>
+      <td>현금 유출 없이 장부에서만 비용 처리된 항목 → 다시 더해 현금 기준으로 환원</td>
+    </tr>
+    <tr>
+      <td class="b">매출채권 증가</td>
+      <td class="r c">−</td>
+      <td>매출은 인식했지만 현금 아직 미수령 → 차감</td>
+    </tr>
+    <tr>
+      <td class="b">재고자산 증가</td>
+      <td class="r c">−</td>
+      <td>현금을 먼저 써서 재고를 쌓은 상태 → 차감</td>
+    </tr>
+    <tr>
+      <td class="b">매입채무 증가</td>
+      <td class="g c">+</td>
+      <td>납품받았지만 현금을 아직 지급하지 않음 → 가산 (현금 보유 유리)</td>
+    </tr>
+  </table>
+
+  <div class="box-warn">
+    <strong>순이익은 높은데 OCF가 낮은 경우</strong>: 매출 인식은 많이 했지만 현금이 아직 매출채권에 묶여 있거나, 재고를 먼저 대규모로 사입했을 때 발생한다. 이는 단기 유동성 위기의 전조일 수 있다.
+  </div>
+
+  <div class="page-no">- 3 -</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ PAGE 4 ══ -->
+<div class="doc-page">
+
+  <div class="sq">§ 2-6. FCF — 잉여(자유)현금흐름</div>
+
+  <div class="box-key">
+    <strong>산식:</strong> FCF = OCF − CAPEX
+  </div>
+
+  <p class="body-p">FCF는 <strong>"사업 운영에 필요한 투자까지 끝내고 남은 현금"</strong>이다. 재무제표의 공식 항목이 아니라 분석 지표이지만, 장기 투자자와 기업가치 평가에서 가장 중요하게 다루어진다.</p>
+
+  <ul class="dash">
+    <li>FCF가 플러스: 배당, 부채 상환, 자사주 매입, M&A에 자유롭게 쓸 수 있는 현금이 남는다.</li>
+    <li>FCF가 마이너스: 영업현금보다 더 많은 투자가 집행되고 있다는 의미 — 성장 투자일 수도, 수익성 문제일 수도 있다.</li>
+  </ul>
+
+  <p class="body-p">DCF(현금흐름 할인법) 밸류에이션은 미래 FCF를 WACC로 할인해 현재가치를 산출한다. <strong>"기업의 내재가치 = 미래 FCF의 현가 합"</strong>이 핵심 명제다.</p>
+
+  <div class="box-blue">
+    <strong>EBITDA vs FCF — 업종별 괴리</strong><br>
+    CAPEX 강도가 낮은 <strong>SaaS·소프트웨어</strong>: EBITDA ≈ FCF (두 지표 차이가 작음)<br>
+    CAPEX 강도가 높은 <strong>반도체·철강·통신</strong>: EBITDA는 크지만 FCF는 훨씬 작을 수 있음<br>
+    → 동일 EBITDA 멀티플을 업종 구분 없이 적용하면 왜곡이 생기는 이유가 여기에 있다.
+  </div>
+
+  <hr class="sep">
+
+  <div class="ch">제3장. CAPEX와 감가상각비 — 두 개념의 관계</div>
+
+  <div class="sq">§ 3-1. CAPEX란 무엇인가</div>
+
+  <div class="box-key">
+    CAPEX (Capital Expenditure, 자본적 지출) = 장기간 사용할 유형·무형 자산을 취득하는 데 쓰는 현금 지출
+  </div>
+
+  <p class="body-p">CAPEX는 지출 즉시 비용이 아니라 <strong>자산</strong>으로 계상된다. 손익계산서에 바로 영향을 주지 않고, 재무상태표(대차대조표)의 자산 항목이 증가하며, 현금흐름표에서는 <strong>투자활동 현금 유출</strong>로 기록된다.</p>
+
+  <table class="t">
+    <tr>
+      <th>구분</th>
+      <th>예시</th>
+      <th>재무제표 반영</th>
+    </tr>
+    <tr>
+      <td class="b">유형자산 CAPEX</td>
+      <td>공장, 생산 설비, 서버, 차량, 건물</td>
+      <td>B/S 유형자산 증가, C/F 투자 현금 유출</td>
+    </tr>
+    <tr>
+      <td class="b">무형자산 CAPEX</td>
+      <td>소프트웨어, 개발비, 특허권, 라이선스</td>
+      <td>B/S 무형자산 증가, C/F 투자 현금 유출</td>
+    </tr>
+    <tr>
+      <td class="b">유지 CAPEX</td>
+      <td>기존 설비 교체·수선</td>
+      <td>사업 유지를 위한 최소 투자</td>
+    </tr>
+    <tr>
+      <td class="b">성장 CAPEX</td>
+      <td>신공장, 데이터센터 확장</td>
+      <td>미래 수익 창출을 위한 추가 투자</td>
+    </tr>
+  </table>
+
+  <div class="sq">§ 3-2. 감가상각비(D&A)란 무엇인가</div>
+
+  <div class="box-key">
+    D&amp;A (Depreciation &amp; Amortization) = CAPEX로 취득한 자산을 내용연수에 걸쳐 나누어 비용화하는 것
+  </div>
+
+  <p class="body-p">서버를 1억 원에 사고(= CAPEX), 내용연수가 5년이면 정액법 기준으로 매년 2,000만 원씩 손익계산서에 감가상각비로 반영한다. <strong>현금은 구매 시점에 한 번만 나가지만, 비용은 5년에 걸쳐 분산 인식</strong>된다.</p>
+
+  <table class="t">
+    <tr>
+      <th>구분</th>
+      <th>방법</th>
+      <th>특징</th>
+    </tr>
+    <tr>
+      <td class="b">정액법</td>
+      <td>취득원가 ÷ 내용연수 = 매년 동일 금액</td>
+      <td>예측 가능, 가장 보편적</td>
+    </tr>
+    <tr>
+      <td class="b">정률법</td>
+      <td>장부가액 × 일정 비율 = 초기 비용 더 큼</td>
+      <td>초기에 비용 집중, 기계·차량에 적용</td>
+    </tr>
+    <tr>
+      <td class="b">내용연수 기준</td>
+      <td>자산별 사용 기간에 따라 설정</td>
+      <td>건물 30~40년, 서버 3~5년, 소프트웨어 3~5년</td>
+    </tr>
+  </table>
+
+  <div class="page-no">- 4 -</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ PAGE 5 ══ -->
+<div class="doc-page">
+
+  <div class="sq">§ 3-3. D&A가 두 번 등장하는 이유 — "왕복 여행"</div>
+
+  <p class="body-p">재무 지표 체계에서 D&A는 <strong>한 번 빠지고(EBITDA→EBIT), 한 번 다시 더해진다(Net Income→OCF)</strong>. 이것이 처음 보면 혼란스러운 부분이다.</p>
+
+  <div class="box-warn">
+    <strong>왜 빠지는가 (EBITDA → EBIT):</strong><br>
+    자산이 실제로 소모되고 있다는 사실을 비용으로 인식해야 진짜 영업이익이 나온다. 서버가 매년 닳아 없어지는 만큼은 비용이다.<br><br>
+    <strong>왜 다시 더하는가 (Net Income → OCF):</strong><br>
+    그런데 D&A는 <span style="text-decoration:underline;">이번 기간에 현금이 나간 것이 아니다.</span> 현금은 서버를 산 그 시점(CAPEX)에 이미 나갔다. 손익계산서에서 비용으로 뺀 것은 장부상의 처리일 뿐, 현금 유출이 아니므로 현금흐름 계산에서 다시 환원한다.
+  </div>
+
+  <div class="waterfall">
+자산 취득 시:   현금 −1억 (CAPEX, 현금흐름표 반영)
+               자산 +1억 (대차대조표 반영)
+
+매년:           손익계산서에 감가상각비 −2천만 (비현금 비용)
+               → EBITDA에서 EBIT로 이동 시 차감
+               → Net Income에서 OCF로 이동 시 재가산 (현금 안 나갔으므로)
+  </div>
+
+  <table class="t" style="margin-top:10px;">
+    <tr>
+      <th>비교 항목</th>
+      <th>CAPEX</th>
+      <th>감가상각비 (D&A)</th>
+    </tr>
+    <tr>
+      <td class="b">성격</td>
+      <td>현금 지출 (투자)</td>
+      <td>비현금 비용 (회계 처리)</td>
+    </tr>
+    <tr>
+      <td class="b">현금흐름 영향</td>
+      <td class="r">지출 시점에 현금 유출</td>
+      <td class="g">현금 유출 없음</td>
+    </tr>
+    <tr>
+      <td class="b">재무제표 위치</td>
+      <td>현금흐름표(투자), 대차대조표(자산)</td>
+      <td>손익계산서(비용)</td>
+    </tr>
+    <tr>
+      <td class="b">FCF 계산 관계</td>
+      <td>OCF에서 차감 (FCF = OCF − <strong>CAPEX</strong>)</td>
+      <td>Net Income에 재가산 → OCF 도출</td>
+    </tr>
+    <tr class="hl-row">
+      <td class="b">비유</td>
+      <td>자동차를 사는 행위 (현금 지출)</td>
+      <td>그 자동차가 매년 조금씩 닳는 것을 비용으로 계산</td>
+    </tr>
+  </table>
+
+  <div class="fn">CAPEX가 크고 D&A가 작은 경우는 최근 대규모 투자를 집행했다는 신호이고, D&A가 CAPEX보다 크게 큰 경우는 과거 투자가 비용화되는 시기에 신규 투자가 줄었다는 신호일 수 있다.</div>
+
+  <hr class="sep">
+
+  <div class="ch">제4장. 재무제표 3종 구조와 지표 연결</div>
+
+  <div class="sq">§ 4-1. 손익계산서 (Income Statement, I/S)</div>
+
+  <p class="body-p">손익계산서는 <strong>일정 기간 동안 얼마나 벌고 썼는가</strong>를 발생주의 기준으로 보여주는 표다.</p>
+
+  <div class="waterfall">
+매출 (Revenue)
+  − 매출원가 (COGS)
+= 매출총이익 (Gross Profit)
+  − 판매관리비 (SG&amp;A) ← <span class="wf-note">여기에 D&amp;A 포함</span>
+= <span class="wf-result">영업이익 (EBIT)</span>
+  + D&amp;A 환원  →  <span class="wf-result">EBITDA</span>
+  − 이자비용
+  − 법인세
+= <span class="wf-result">순이익 (Net Income)</span>
+  </div>
+
+  <div class="sq">§ 4-2. 대차대조표 (Balance Sheet, B/S)</div>
+
+  <p class="body-p">대차대조표는 <strong>특정 시점의 재무 상태</strong>를 보여주는 스냅샷이다. 자산 = 부채 + 자본이 항상 성립한다.</p>
+
+  <table class="t">
+    <tr>
+      <th colspan="2">자산 (Assets)</th>
+      <th colspan="2">부채 + 자본</th>
+    </tr>
+    <tr>
+      <td class="b">유동자산</td>
+      <td>현금, 매출채권, 재고자산</td>
+      <td class="b">유동부채</td>
+      <td>매입채무, 단기차입금</td>
+    </tr>
+    <tr>
+      <td class="b">비유동자산</td>
+      <td>유형자산(CAPEX 취득분), 무형자산</td>
+      <td class="b">비유동부채</td>
+      <td>장기차입금, 사채</td>
+    </tr>
+    <tr class="hl-row">
+      <td colspan="2" class="c">← CAPEX 집행 시 여기에 자산 계상</td>
+      <td class="b">자본</td>
+      <td>자본금, 이익잉여금 ← Net Income 누적</td>
+    </tr>
+  </table>
+
+  <div class="page-no">- 5 -</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ PAGE 5-B ══ -->
+<div class="doc-page">
+
+  <div class="sq">§ 4-2 심화. 실제 B/S 항목 해설 — SaaS · PE 인수 기업 사례</div>
+
+  <p class="body-p">아래는 SaaS 기업이 PE(사모펀드)에 인수된 이후의 실제 대차대조표 항목을 기반으로, 각 줄이 <strong>무엇을 의미하는지</strong> 개념 중심으로 해설한다. 숫자는 배제하고, 항목의 정의와 해당 기업 유형에서 특히 중요한 이유에 집중한다.</p>
+
+  <div class="box-warn" style="margin-bottom:12px;">
+    <strong>Successor / Predecessor 구조란?</strong><br>
+    PE가 기업을 인수하면 회계상 <strong>새로운 법인(Successor)</strong>이 탄생한다. 인수 전 법인은 Predecessor로 구분된다.
+    인수 시점에 <strong>Purchase Price Allocation(PPA)</strong>이 이루어지므로, Successor B/S에는 Goodwill과 Intangible Assets가 대폭 증가한다.
+    두 기간을 단순 비교할 수 없으며, 인수 전후의 자본 구조도 완전히 달라진다.
+  </div>
+
+  <!-- 자산 섹션 -->
+  <div class="ch2" style="margin-top:10px;">■ 자산 (Assets)</div>
+
+  <table class="t">
+    <tr><td colspan="3" class="sep-row">유동자산 (Current Assets) — 1년 이내 현금화 가능한 자산</td></tr>
+    <tr>
+      <th style="width:30%;">항목</th>
+      <th style="width:35%;">개념</th>
+      <th style="width:35%;">SaaS 기업에서의 의미</th>
+    </tr>
+    <tr>
+      <td class="b">Cash &amp; Cash Equivalents<br>현금 및 현금성자산</td>
+      <td>즉시 사용 가능한 현금 + 만기 3개월 이내 단기 금융상품</td>
+      <td>인수 후 급감하는 경우가 많음 — 인수 대금 지급·구조 재편으로 소진</td>
+    </tr>
+    <tr>
+      <td class="b">Marketable Securities<br>시장성 유가증권</td>
+      <td>단기 투자 목적으로 보유하는 주식·채권 등 시장에서 매매 가능한 금융자산</td>
+      <td>현금 여유가 있을 때 단기 운용. PE 인수 후 차입금 상환 재원으로 활용되기도 함</td>
+    </tr>
+    <tr class="hl-row">
+      <td class="b">Accounts Receivable, net<br>매출채권 (순액)</td>
+      <td>고객에게 제품·서비스를 제공했으나 아직 현금을 받지 못한 금액. "net"은 회수 불가 예상액(대손충당금)을 차감한 순액</td>
+      <td>SaaS는 선불(Deferred Revenue)이 많아 AR이 상대적으로 작음. 갱신 주기·청구 주기에 따라 변동</td>
+    </tr>
+    <tr>
+      <td class="b">Prepaid Expenses<br>선급비용 및 기타 유동자산</td>
+      <td>미래 서비스에 대해 미리 지급한 비용 (보험료·임차료 등). 기간이 도래하면 비용으로 전환</td>
+      <td>클라우드 인프라 선지급(AWS·Azure 등) 비중이 큰 SaaS에서 규모 가 커질 수 있음</td>
+    </tr>
+    <tr>
+      <td class="b">Deferred Commissions (Current)<br>이연 판매수수료 (유동)</td>
+      <td>영업사원 수수료를 계약 기간에 걸쳐 배분하는 항목. ASC 606 기준으로 비용을 이연 처리</td>
+      <td class="r">SaaS 고유 항목. 계약 체결 시 비용 처리하지 않고 자산화 후 구독 기간 동안 상각. 계약이 늘수록 잔액이 커짐</td>
+    </tr>
+    <tr><td colspan="3" class="sep-row">비유동자산 (Non-current Assets) — 장기 보유 자산</td></tr>
+    <tr>
+      <td class="b">Property &amp; Equipment, net<br>유형자산 (순액)</td>
+      <td>서버·사무가구·설비 등 물리적 자산. CAPEX로 취득 후 감가상각. "net"은 누적 감가상각 차감 후 장부가</td>
+      <td>SaaS는 클라우드 중심이라 유형자산 비중이 제조업보다 훨씬 작음</td>
+    </tr>
+    <tr class="hl-row">
+      <td class="b">Goodwill<br>영업권</td>
+      <td>인수 금액이 순자산 공정가치를 초과하는 부분. "이 회사의 브랜드·고객 관계·시너지에 대한 프리미엄"</td>
+      <td class="r">PE 인수 후 폭발적으로 증가. 매년 손상검사(Impairment Test) 필요 — 손상 시 대규모 손실 발생</td>
+    </tr>
+    <tr class="hl-row">
+      <td class="b">Intangible Assets, net<br>무형자산 (순액)</td>
+      <td>PPA(인수가격 배분)로 식별된 무형자산 — 고객 관계, 기술(소프트웨어), 브랜드, 계약 등</td>
+      <td class="r">PE 인수 시 대규모 계상. 내용연수에 걸쳐 상각(D&amp;A의 Amortization 부분) → 순이익 압박 요인</td>
+    </tr>
+    <tr>
+      <td class="b">Operating Lease ROU Assets<br>운용리스 사용권자산</td>
+      <td>IFRS 16 / ASC 842 기준으로, 운용리스 계약도 자산(사용권)과 부채(리스부채)로 함께 인식</td>
+      <td>사무실·데이터센터 임차 계약이 주 구성. 리스 기간이 길수록 금액이 커짐</td>
+    </tr>
+  </table>
+
+  <div class="page-no">- 5B -</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ PAGE 5-C ══ -->
+<div class="doc-page">
+
+  <div class="sq" style="margin-top:0;">§ 4-2 심화 (계속) — 부채 및 자본 항목 해설</div>
+
+  <!-- 부채 섹션 -->
+  <div class="ch2" style="margin-top:8px;">■ 부채 (Liabilities)</div>
+
+  <table class="t">
+    <tr><td colspan="3" class="sep-row">유동부채 (Current Liabilities) — 1년 이내 상환 의무</td></tr>
+    <tr>
+      <th style="width:30%;">항목</th>
+      <th style="width:35%;">개념</th>
+      <th style="width:35%;">SaaS 기업에서의 의미</th>
+    </tr>
+    <tr>
+      <td class="b">Accounts Payable<br>매입채무</td>
+      <td>공급업체에 물건·서비스를 받았지만 아직 현금을 지급하지 않은 금액. OCF 계산 시 증가하면 현금 유리</td>
+      <td>SaaS는 물리적 원재료가 없어 상대적으로 규모 작음. 클라우드 인프라·외주 서비스 등이 주 구성</td>
+    </tr>
+    <tr>
+      <td class="b">Accrued Expenses<br>미지급비용 및 기타 유동부채</td>
+      <td>이미 발생했지만 아직 지급하지 않은 비용 (급여·성과급·세금 등). 발생주의 회계의 대표적 항목</td>
+      <td>인수 후 구조조정 비용·법무 비용 등이 일시적으로 증가할 수 있음</td>
+    </tr>
+    <tr class="hl-row">
+      <td class="b">Deferred Revenue (Current)<br>이연수익 (선수금, 유동)</td>
+      <td>고객이 이미 돈을 냈지만 아직 서비스를 제공하지 않은 금액. 부채로 분류 — "이행해야 할 의무"</td>
+      <td class="r">SaaS의 핵심 지표. 규모가 클수록 미래 수익이 확보된 것. 갱신율이 높으면 안정적으로 유지됨. ARR의 선행 지표 역할</td>
+    </tr>
+    <tr>
+      <td class="b">Convertible Notes / Term Loan<br>전환사채 / 차입금 (유동)</td>
+      <td>1년 이내 만기 도래하는 부채. Convertible Notes는 주식 전환 옵션 부가 채권</td>
+      <td>PE 인수 전(Predecessor)에는 전환사채가 주요 자금원. 인수 후(Successor)에는 Term Loan으로 교체</td>
+    </tr>
+    <tr><td colspan="3" class="sep-row">비유동부채 (Non-current Liabilities) — 장기 상환 의무</td></tr>
+    <tr class="hl-row">
+      <td class="b">Convertible Senior Notes<br>전환사채 (Predecessor)</td>
+      <td>상장 기업이 자금 조달 목적으로 발행하는 채권. 주가가 전환가격을 초과하면 주주가 주식으로 전환 요구 가능</td>
+      <td class="r">Predecessor(상장 시절)의 주요 부채. 인수 완료 후 전액 상환·소멸</td>
+    </tr>
+    <tr class="hl-row">
+      <td class="b">Term Loan<br>기간 대출 (Successor)</td>
+      <td>PE의 LBO(차입매수) 핵심 수단. 피인수 기업의 자산·현금흐름을 담보로 대규모 차입. 원금을 분할 상환</td>
+      <td class="r">Successor(PE 인수 후)의 핵심 부채. 금액이 크고 이자비용이 높아 Net Income 압박. FCF로 조기 상환이 목표</td>
+    </tr>
+    <tr>
+      <td class="b">Deferred Revenue (Non-current)<br>이연수익 (비유동)</td>
+      <td>다년 계약 중 1년 이상 후에 인식될 수익 부분</td>
+      <td>다년 구독 계약(Multi-year)이 많을수록 비유동 이연수익 비중이 높아짐</td>
+    </tr>
+    <tr>
+      <td class="b">Deferred Tax Liability<br>이연법인세부채</td>
+      <td>회계상 이익과 세무상 소득의 차이로 발생. 미래에 납부할 세금을 미리 부채로 인식</td>
+      <td>PE 인수 시 PPA로 인한 무형자산 상각 효과가 세무 vs 회계상 차이를 만들어 급증하는 경우 많음</td>
+    </tr>
+    <tr>
+      <td class="b">Operating Lease Liabilities<br>운용리스부채</td>
+      <td>사용권자산(ROU)과 쌍을 이루는 부채. 미래 리스료 지급 의무를 현재가치로 계상</td>
+      <td>사무실·시설 임차의 미래 지급 의무. 매년 리스료 지급 시 부채 감소</td>
+    </tr>
+  </table>
+
+  <!-- 자본 섹션 -->
+  <div class="ch2" style="margin-top:10px;">■ 자본 (Stockholders' Equity)</div>
+
+  <table class="t">
+    <tr>
+      <th style="width:30%;">항목</th>
+      <th style="width:35%;">개념</th>
+      <th style="width:35%;">SaaS · PE 인수 기업에서의 의미</th>
+    </tr>
+    <tr>
+      <td class="b">Common / Preferred Stock<br>보통주·우선주</td>
+      <td>발행 주식의 액면 총액. 매우 소액 (미국은 $0.0001~$0.01 par value 일반적)</td>
+      <td>PE 인수 후 Successor는 새로운 주식 구조로 전환. 상장 주식 수 → 비상장 유한주(100% PE 소유)</td>
+    </tr>
+    <tr class="hl-row">
+      <td class="b">Additional Paid-in Capital<br>주식발행초과금</td>
+      <td>주식 액면 초과 납입금. 실질적인 출자금 총액을 나타냄</td>
+      <td class="r">PE 인수 후 폭증 — PE가 지분 투자한 금액(Equity check)이 여기에 반영됨. LBO 구조의 자기자본 부분</td>
+    </tr>
+    <tr>
+      <td class="b">Accumulated Other Comprehensive Income<br>기타포괄손익누계액</td>
+      <td>순이익에 포함되지 않는 포괄손익 누적액 (환율변동·금융자산 평가손익 등)</td>
+      <td>글로벌 SaaS는 외화 환산 효과가 주 구성 요소. 환율 변동에 따라 매 기간 변동</td>
+    </tr>
+    <tr class="hl-row">
+      <td class="b">Accumulated Deficit<br>결손금 (누적 적자)</td>
+      <td>창업 이후 누적된 순손실 합계. Retained Earnings가 마이너스인 상태</td>
+      <td class="r">고성장 SaaS의 전형적 특징 — 공격적 투자·영업 비용으로 적자 누적. PE 인수 전에는 수년간의 적자가 쌓여있는 경우 많음. 인수 후 PPA 상각이 추가되어 적자가 지속되기도 함</td>
+    </tr>
+    <tr>
+      <td class="b">Redeemable Non-Controlling Interests<br>상환가능 비지배주주 지분</td>
+      <td>자회사 지분 중 모회사 외의 제3자(소수주주) 지분. "상환가능"은 특정 조건 충족 시 현금 매입 의무 존재</td>
+      <td>PE가 인수한 자회사 또는 JV 구조에서 발생. 자본과 부채 사이의 중간 성격(Mezzanine)</td>
+    </tr>
+  </table>
+
+  <div class="box-blue" style="margin-top:10px;">
+    <strong>B/S로 보는 PE LBO 구조의 핵심:</strong><br>
+    인수 전(Predecessor): 전환사채 + 자체 영업현금 중심 → 인수 후(Successor): <strong>Term Loan(차입) + PE Equity(주식발행초과금)</strong> 구조로 전환.<br>
+    Goodwill·Intangibles 급증 = PPA 반영 / Term Loan 급증 = LBO 차입 / 주식발행초과금 급증 = PE 자기자본 투입.
+    이 세 가지가 PE 인수 후 B/S의 3대 특징이다.
+  </div>
+
+  <div class="page-no">- 5C -</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ PAGE 6 ══ -->
+<div class="doc-page">
+
+  <div class="sq">§ 4-3. 현금흐름표 (Cash Flow Statement, C/F)</div>
+
+  <p class="body-p">현금흐름표는 <strong>현금이 어떻게 들어오고 나갔는가</strong>를 세 영역으로 나누어 보여준다.</p>
+
+  <table class="t">
+    <tr>
+      <th>구분</th>
+      <th>핵심 질문</th>
+      <th>주요 항목</th>
+      <th>FCF 관련성</th>
+    </tr>
+    <tr class="hl-blue">
+      <td class="b">영업현금흐름<br>(OCF)</td>
+      <td>영업으로 벌어들인 현금은?</td>
+      <td>Net Income + D&A ± 운전자본</td>
+      <td class="bl b">FCF 계산의 출발점</td>
+    </tr>
+    <tr>
+      <td class="b">투자현금흐름<br>(ICF)</td>
+      <td>자산 취득·처분에 현금을 어떻게 썼나?</td>
+      <td>CAPEX(−), 자산 매각(+), 금융자산 투자</td>
+      <td class="r b">CAPEX가 여기에 포함</td>
+    </tr>
+    <tr>
+      <td class="b">재무현금흐름<br>(CFF)</td>
+      <td>자금 조달·상환에 현금이 어떻게 움직였나?</td>
+      <td>차입금 증감, 배당 지급, 자사주 매입</td>
+      <td>FCF와 별개 개념</td>
+    </tr>
+  </table>
+
+  <div class="fn">FCF = OCF − CAPEX 이므로, FCF는 영업현금흐름(OCF)에서 투자현금흐름(ICF) 중 CAPEX만 차감한 것이다. 투자현금흐름 전체를 차감하는 것이 아님에 유의.</div>
+
+  <div class="sq">§ 4-4. 세 재무제표의 연결 고리</div>
+
+  <!-- ── 재무제표 연결 다이어그램 ── -->
+  <div style="margin:10px 0; font-family:'Batang','BatangChe',Georgia,serif;">
+
+    <!-- 상단 행: I/S ─①→ B/S -->
+    <div style="display:flex; align-items:stretch; gap:0; margin-bottom:0;">
+
+      <!-- 손익계산서 박스 -->
+      <div style="flex:1; background:#1e1e1e; color:#fff; padding:12px 14px; border-radius:2px 0 0 0;">
+        <div style="font-size:10px; letter-spacing:2px; color:#aaa; margin-bottom:3px;">손익계산서 (I/S) · 발생주의</div>
+        <div style="font-size:12.5px; line-height:1.85;">
+          매출 − 원가 − 판관비<br>
+          = <strong>EBIT</strong> (영업이익)<br>
+          − 이자비용 &nbsp; − 법인세
+        </div>
+        <div style="margin-top:8px; padding:5px 8px; background:#111; border-left:3px solid #fff; font-size:13px; font-weight:700;">
+          Net Income (순이익)
+        </div>
+      </div>
+
+      <!-- 화살표 ① -->
+      <div style="width:72px; display:flex; flex-direction:column; align-items:center; justify-content:center; background:#f0f0f0; padding:8px 4px; gap:3px;">
+        <div style="font-size:10px; font-weight:700; color:#1a5faa; background:#dde8f8; padding:1px 5px; border-radius:10px;">①</div>
+        <div style="font-size:18px; color:#555; line-height:1;">→</div>
+        <div style="font-size:9px; color:#666; text-align:center; line-height:1.5;">Net Income<br>→ 이익잉여금</div>
+      </div>
+
+      <!-- 대차대조표 박스 -->
+      <div style="flex:1; background:#383838; color:#fff; padding:12px 14px; border-radius:0 2px 0 0;">
+        <div style="font-size:10px; letter-spacing:2px; color:#aaa; margin-bottom:3px;">대차대조표 (B/S) · 시점 스냅샷</div>
+        <div style="font-size:11.5px; line-height:1.85;">
+          자산: 현금 · 매출채권 · 재고 · 유형자산<br>
+          부채: 매입채무 · 차입금<br>
+          자본: 자본금 + <strong style="color:#ffd700;">이익잉여금</strong>
+        </div>
+        <div style="margin-top:6px; font-size:10px; color:#aaa; border-top:1px solid #555; padding-top:5px;">
+          ① Net Income 누적 → 이익잉여금 증가<br>
+          ③ C/F 기말현금 → 현금 자산과 일치
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 중간 행: ② 아래 화살표 (I/S → C/F) + ③ 위 화살표 (C/F → B/S) -->
+    <div style="display:flex; align-items:stretch; gap:0;">
+
+      <!-- I/S 아래 화살표 열 -->
+      <div style="flex:1; display:flex; justify-content:center; align-items:center; background:#f7f7f7; padding:8px; border-left:1px solid #ddd; gap:6px;">
+        <div style="display:flex; flex-direction:column; align-items:center; gap:2px;">
+          <div style="font-size:10px; font-weight:700; color:#1a5faa; background:#dde8f8; padding:1px 5px; border-radius:10px;">②</div>
+          <div style="font-size:18px; color:#555; line-height:1;">↓</div>
+          <div style="font-size:9px; color:#666; text-align:center; line-height:1.5;">Net Income<br>→ OCF 출발점</div>
+        </div>
+      </div>
+
+      <!-- 가운데 빈 공간 (화살표 열) -->
+      <div style="width:72px; background:#f0f0f0; border-left:1px solid #ddd; border-right:1px solid #ddd;"></div>
+
+      <!-- B/S 아래 / C/F 위 연결 -->
+      <div style="flex:1; display:flex; justify-content:center; align-items:center; background:#f7f7f7; padding:8px; border-right:1px solid #ddd; gap:6px;">
+        <div style="display:flex; flex-direction:column; align-items:center; gap:2px;">
+          <div style="font-size:10px; font-weight:700; color:#1a5faa; background:#dde8f8; padding:1px 5px; border-radius:10px;">③</div>
+          <div style="font-size:18px; color:#555; line-height:1;">↑</div>
+          <div style="font-size:9px; color:#666; text-align:center; line-height:1.5;">기말 현금<br>→ B/S 현금과 일치</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 하단 행: C/F 박스 전체 폭 -->
+    <div style="display:flex; align-items:stretch; gap:0;">
+
+      <!-- 현금흐름표 박스 (좌) -->
+      <div style="flex:1; background:#1a3d6e; color:#fff; padding:12px 14px; border-radius:0 0 0 2px;">
+        <div style="font-size:10px; letter-spacing:2px; color:#aaa; margin-bottom:3px;">현금흐름표 (C/F) · 현금주의</div>
+        <div style="font-size:11.5px; line-height:1.9;">
+          <span style="color:#aaa;">② 출발:</span> <strong>Net Income</strong><br>
+          + D&amp;A 재가산 &nbsp; ± 운전자본 변동<br>
+          = <strong style="font-size:13px;">OCF</strong> (영업현금흐름)<br>
+          OCF − CAPEX = <strong style="font-size:13px;">FCF</strong>
+        </div>
+        <div style="margin-top:8px; padding:5px 8px; background:#0f2a4a; border-left:3px solid #7aa6d4; font-size:11px; color:#cce0ff; line-height:1.7;">
+          기말 현금 = 기초 현금 + OCF + ICF + CFF
+        </div>
+      </div>
+
+      <!-- 가운데 화살표 열 (빈칸) -->
+      <div style="width:72px; background:#e8f0fb; border-left:1px solid #7aa6d4; border-right:1px solid #7aa6d4;"></div>
+
+      <!-- 우측: 연결 포인트 요약 -->
+      <div style="flex:1; background:#e8f0fb; border:1px solid #7aa6d4; border-top:none; border-radius:0 0 2px 0; padding:12px 14px;">
+        <div style="font-size:10px; font-weight:700; color:#1a5faa; letter-spacing:1px; margin-bottom:8px;">연결 포인트 3가지</div>
+        <div style="font-size:11.5px; color:#222; line-height:2.0;">
+          <span style="background:#dde8f8; font-weight:700; padding:0 5px; border-radius:2px; color:#1a5faa;">①</span>
+          &nbsp;I/S → B/S<br>
+          <span style="color:#555; font-size:10.5px; padding-left:1.5em;">Net Income → 이익잉여금(자본) 누적</span><br>
+          <span style="background:#dde8f8; font-weight:700; padding:0 5px; border-radius:2px; color:#1a5faa;">②</span>
+          &nbsp;I/S → C/F<br>
+          <span style="color:#555; font-size:10.5px; padding-left:1.5em;">Net Income이 OCF 계산의 출발점</span><br>
+          <span style="background:#dde8f8; font-weight:700; padding:0 5px; border-radius:2px; color:#1a5faa;">③</span>
+          &nbsp;C/F → B/S<br>
+          <span style="color:#555; font-size:10.5px; padding-left:1.5em;">C/F 기말현금 = B/S 현금 자산</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <!-- ── 연결 다이어그램 끝 ── -->
+
+  <p class="body-p">서버 100억 원 구매 사례로 세 표의 연동을 확인하면:</p>
+
+  <table class="t">
+    <tr>
+      <th>재무제표</th>
+      <th>구매 시점 (CAPEX 100억)</th>
+      <th>매년 이후 (D&A 20억/년)</th>
+    </tr>
+    <tr>
+      <td class="b">대차대조표 (B/S)</td>
+      <td>유형자산 +100억, 현금 −100억</td>
+      <td>유형자산 −20억 (누적 감가), 이익잉여금 −20억</td>
+    </tr>
+    <tr>
+      <td class="b">손익계산서 (I/S)</td>
+      <td>변화 없음 (비용 미인식)</td>
+      <td>감가상각비 −20억 → EBIT 감소 → Net Income 감소</td>
+    </tr>
+    <tr class="hl-row">
+      <td class="b">현금흐름표 (C/F)</td>
+      <td>투자활동 현금 −100억 (CAPEX)</td>
+      <td>OCF에서 D&A 재가산 +20억 (비현금 환원)</td>
+    </tr>
+  </table>
+
+  <hr class="sep">
+
+  <div class="ch">제5장. FCF vs 재무현금흐름(CFF) — 가장 흔한 혼동</div>
+
+  <p class="body-p">FCF(Free Cash Flow)와 재무현금흐름(Financing Cash Flow, CFF)은 이름이 비슷하지만 완전히 다른 개념이다.</p>
+
+  <table class="t">
+    <tr>
+      <th>구분</th>
+      <th>FCF (잉여현금흐름)</th>
+      <th>CFF (재무현금흐름)</th>
+    </tr>
+    <tr>
+      <td class="b">정의</td>
+      <td>영업 투자 후 남은 자유 현금</td>
+      <td>자금 조달·상환에서 발생한 현금 흐름</td>
+    </tr>
+    <tr>
+      <td class="b">성격</td>
+      <td>분석 지표 (재무제표 항목 아님)</td>
+      <td>현금흐름표의 공식 구분</td>
+    </tr>
+    <tr>
+      <td class="b">산식</td>
+      <td>OCF − CAPEX</td>
+      <td>차입금 증가/상환 + 배당 지급 + 자사주 매입/매각</td>
+    </tr>
+    <tr class="hl-row">
+      <td class="b">역할</td>
+      <td><strong>"돈을 얼마나 창출했는가"</strong></td>
+      <td><strong>"그 돈을 어떻게 조달·사용했는가"</strong></td>
+    </tr>
+  </table>
+
+  <div class="box-key" style="margin-top:10px;">
+    FCF는 CFF의 <strong>재원(Source)</strong>이다.<br>
+    FCF가 700억 → 부채 상환 200억 / 배당 100억 / 자사주 매입 50억 → 이 300억이 CFF(재무현금흐름)로 나간다.<br>
+    즉, FCF가 먼저 만들어지고, CFF는 그 돈을 어디에 썼는지를 기록하는 것이다.
+  </div>
+
+  <div class="page-no">- 6 -</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ PAGE 7 ══ -->
+<div class="doc-page">
+
+  <div class="waterfall">
+<span class="wf-label">FCF 700억 창출</span>
+   ↓
+배당 지급 −100억 ┐
+부채 상환 −200억 ├── 모두 <span class="wf-result">재무현금흐름(CFF)</span>에 반영
+자사주 매입 −50억 ┘
+
+<span class="wf-note">FCF = 돈이 얼마나 창출됐는가 (원천)</span>
+<span class="wf-note">CFF = 그 돈을 어떻게 조달하고 배분했는가 (사용)</span>
+  </div>
+
+  <hr class="sep">
+
+  <div class="ch">제6장. 지표별 실전 활용 사례</div>
+
+  <div class="sq">사례 1. M&A 딜 — EBITDA 멀티플 밸류에이션</div>
+  <p class="body-p">인수 협상에서 "EV/EBITDA 10배"처럼 EBITDA를 기준으로 기업가치(Enterprise Value)를 산정한다. 자본 구조가 달라도 동일 잣대로 비교 가능하다는 장점이 있다. 단, CAPEX 강도가 높은 산업(통신·철강·반도체)에서는 FCF 멀티플로 보정해야 한다. CAPEX가 적은 SaaS 기업은 EBITDA 멀티플 자체가 FCF 멀티플에 가깝다.</p>
+
+  <div class="sq">사례 2. PE 투자 — 이자보상배율 모니터링</div>
+  <p class="body-p">PE(사모펀드)가 차입매수(LBO)로 기업을 인수할 때 EBIT 기준 이자보상배율(EBIT ÷ 이자비용)이 핵심 리스크 지표다. 비율이 1.5 이하로 내려오면 부채 상환 압박이 커진다. FCF 전환 타임라인(언제 FCF 흑자를 내는가)도 인수 의사결정의 핵심이다.</p>
+
+  <div class="sq">사례 3. SaaS 스타트업 투자 — Rule of 40</div>
+  <p class="body-p">성장률 + EBITDA 마진 ≥ 40%가 건강한 SaaS의 기준이다. 초기 단계에서 Net Income이 적자여도 EBITDA 마진이 개선되면 투자자는 긍정적으로 본다. SaaS는 CAPEX가 적어 EBITDA ≈ FCF에 가까워지므로 FCF 전환도 상대적으로 빠르다.</p>
+
+  <div class="sq">사례 4. DCF 밸류에이션 — FCF 현가 합산</div>
+  <p class="body-p">미래 FCF를 WACC(가중평균자본비용)로 할인해 현재가치를 구하는 것이 DCF의 핵심이다. "기업이 앞으로 매년 얼마의 자유현금을 만들어내는가"가 내재가치의 근거다. Coupa·Rossum 같은 기업 분석에서 FCF 흑자 전환 시점이 핵심 판단 기준이 되는 이유가 여기에 있다.</p>
+
+  <div class="sq">사례 5. 유동성 위기 판단 — OCF와 순이익의 괴리</div>
+  <p class="body-p">순이익이 높아도 OCF가 현저히 낮은 경우(영업 현금 전환율이 떨어지는 경우)는 운전자본 악화 또는 매출 인식 회계처리 문제의 징후일 수 있다. 영업 현금 전환율 = OCF ÷ Net Income이 지속적으로 1 미만이면 재무 구조 점검이 필요하다.</p>
+
+  <hr class="sep">
+
+  <div class="ch">제7장. 종합 트리 구조 & 비유</div>
+
+  <div class="sq">§ 7-1. 전체 트리 구조</div>
+
+  <!-- ── 트리 다이어그램 ── -->
+  <div style="margin:10px 0; border:1px solid #ccc; background:#fafafa; padding:16px 18px; font-family:'Batang','BatangChe',Georgia,serif; font-size:12.5px; line-height:2.0;">
+
+    <!-- 루트 -->
+    <div style="font-size:14px; font-weight:700; border-bottom:2px solid #333; padding-bottom:5px; margin-bottom:10px; letter-spacing:-0.3px;">
+      재무제표 생태계
+    </div>
+
+    <!-- ─ 가지 1: 손익계산서 ─ -->
+    <div style="display:flex; align-items:baseline;">
+      <span style="color:#aaa; font-family:'Courier New',monospace; white-space:pre; margin-right:4px;">├──</span>
+      <span style="background:#2c2c2c; color:#fff; padding:1px 10px; font-weight:700; font-size:12px; letter-spacing:0.5px;">손익계산서 &nbsp;(발생주의)</span>
+    </div>
+
+    <div style="margin-left:1.5em; border-left:2px solid #ccc; padding-left:10px; margin-bottom:8px;">
+      <div>
+        <span style="color:#bbb; font-family:'Courier New',monospace;">├── </span>
+        매출 − 원가 − 판관비 (D&amp;A 포함)
+      </div>
+      <div>
+        <span style="color:#bbb; font-family:'Courier New',monospace;">├── </span>
+        <strong style="color:#1a5faa; font-size:13px;">EBIT</strong> (영업이익)
+        <span style="color:#555; margin:0 6px;">·</span>
+        + D&amp;A 환원
+        <span style="color:#555; margin:0 4px;">→</span>
+        <strong style="color:#1a5faa; font-size:13px;">EBITDA</strong>
+        <div style="margin-left:2.4em; border-left:1px dashed #ddd; padding-left:8px;">
+          <span style="color:#ccc; font-family:'Courier New',monospace;">└── </span>
+          <span style="color:#666; font-size:11.5px;">이자보상배율 = EBIT ÷ 이자비용</span>
+        </div>
+      </div>
+      <div>
+        <span style="color:#bbb; font-family:'Courier New',monospace;">├── </span>
+        <span style="color:#c00; font-weight:700;">− 이자비용</span>
+        <span style="color:#888; margin:0 4px;">,</span>
+        <span style="color:#c00; font-weight:700;">− 법인세</span>
+      </div>
+      <div>
+        <span style="color:#bbb; font-family:'Courier New',monospace;">└── </span>
+        <strong style="color:#1a5faa; font-size:13px;">Net Income</strong>
+        <span style="color:#666; font-size:11.5px; margin-left:6px;">(순이익 · 당기순이익)</span>
+      </div>
+    </div>
+
+    <!-- ─ 가지 2: 대차대조표 ─ -->
+    <div style="display:flex; align-items:baseline;">
+      <span style="color:#aaa; font-family:'Courier New',monospace; white-space:pre; margin-right:4px;">├──</span>
+      <span style="background:#555; color:#fff; padding:1px 10px; font-weight:700; font-size:12px; letter-spacing:0.5px;">대차대조표 &nbsp;(특정 시점 스냅샷)</span>
+    </div>
+
+    <div style="margin-left:1.5em; border-left:2px solid #ccc; padding-left:10px; margin-bottom:8px;">
+      <div>
+        <span style="color:#bbb; font-family:'Courier New',monospace;">├── </span>
+        <strong>자산</strong>: 현금 &nbsp;/&nbsp; 매출채권 &nbsp;/&nbsp; 재고 &nbsp;/&nbsp; 유형자산 (CAPEX) &nbsp;/&nbsp; 무형자산
+      </div>
+      <div>
+        <span style="color:#bbb; font-family:'Courier New',monospace;">├── </span>
+        <strong>부채</strong>: 매입채무 &nbsp;/&nbsp; 차입금
+      </div>
+      <div>
+        <span style="color:#bbb; font-family:'Courier New',monospace;">└── </span>
+        <strong>자본</strong>: 자본금 &nbsp;/&nbsp; 이익잉여금
+        <span style="color:#888; font-size:11px; margin-left:6px;">← Net Income 누적</span>
+      </div>
+    </div>
+
+    <!-- ─ 가지 3: 현금흐름표 ─ -->
+    <div style="display:flex; align-items:baseline;">
+      <span style="color:#aaa; font-family:'Courier New',monospace; white-space:pre; margin-right:4px;">└──</span>
+      <span style="background:#1a5faa; color:#fff; padding:1px 10px; font-weight:700; font-size:12px; letter-spacing:0.5px;">현금흐름표 &nbsp;(현금주의)</span>
+    </div>
+
+    <div style="margin-left:1.5em; padding-left:10px;">
+
+      <!-- OCF -->
+      <div>
+        <span style="color:#bbb; font-family:'Courier New',monospace;">├── </span>
+        <strong style="color:#1a5faa; font-size:13px;">OCF</strong>
+        <span style="color:#555; margin-left:4px;">(영업현금흐름 · Operating Cash Flow)</span>
+        <div style="margin-left:2.4em; border-left:1px dashed #c5d8f0; padding-left:8px;">
+          <div style="color:#555; font-size:11.5px;">= Net Income &nbsp;+ D&amp;A &nbsp;± 운전자본 변동</div>
+          <div style="font-size:11.5px;">
+            <span style="color:#ccc; font-family:'Courier New',monospace;">└── </span>
+            <span style="color:#c00;">− 매출채권↑</span>
+            &nbsp;&nbsp;
+            <span style="color:#c00;">− 재고자산↑</span>
+            &nbsp;&nbsp;
+            <span style="color:#0a6e00;">+ 매입채무↑</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ICF -->
+      <div style="margin-top:2px;">
+        <span style="color:#bbb; font-family:'Courier New',monospace;">├── </span>
+        <strong>ICF</strong>
+        <span style="color:#555; margin-left:4px;">(투자현금흐름 · Investing Cash Flow)</span>
+        <div style="margin-left:2.4em; border-left:1px dashed #c5d8f0; padding-left:8px;">
+          <span style="color:#ccc; font-family:'Courier New',monospace;">└── </span>
+          <span style="color:#c00; font-size:11.5px; font-weight:700;">− CAPEX</span>
+          <span style="color:#666; font-size:11.5px; margin-left:4px;">(유형·무형자산 취득 지출)</span>
+        </div>
+      </div>
+
+      <!-- CFF -->
+      <div style="margin-top:2px;">
+        <span style="color:#bbb; font-family:'Courier New',monospace;">└── </span>
+        <strong>CFF</strong>
+        <span style="color:#555; margin-left:4px;">(재무현금흐름 · Financing Cash Flow)</span>
+        <span style="color:#888; font-size:11px; margin-left:6px;">← FCF 창출 후 배분처</span>
+        <div style="margin-left:2.4em; border-left:1px dashed #c5d8f0; padding-left:8px;">
+          <span style="color:#ccc; font-family:'Courier New',monospace;">└── </span>
+          <span style="color:#555; font-size:11.5px;">차입금 증감 &nbsp;/&nbsp; 배당 지급 &nbsp;/&nbsp; 자사주 매입</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- FCF 강조 박스 -->
+    <div style="margin-top:12px; padding:8px 14px; background:#e8f0fb; border:1.5px solid #1a5faa; border-radius:1px;">
+      <strong style="color:#1a5faa; font-size:13px;">FCF</strong>
+      <span style="font-size:12.5px; margin-left:6px;">= OCF − CAPEX</span>
+      <span style="color:#888; font-size:11px; margin:0 8px;">·</span>
+      <span style="color:#555; font-size:11.5px;">재무제표 공식 항목이 아닌 <strong>분석 지표</strong> — 기업 내재가치(DCF)의 근거</span>
+    </div>
+
+  </div>
+  <!-- ── 트리 다이어그램 끝 ── -->
+
+  <div class="page-no">- 7 -</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ PAGE 8 ══ -->
+<div class="doc-page">
+
+  <div class="sq">§ 7-2. 비유 — 워터파크 물통과 슬라이드</div>
+
+  <p class="body-p">꼭대기의 큰 물통(EBITDA)에서 물이 흘러내린다.</p>
+
+  <table class="t">
+    <tr>
+      <th>단계</th>
+      <th>재무 지표</th>
+      <th>워터파크 비유</th>
+    </tr>
+    <tr>
+      <td class="b c">1단계</td>
+      <td class="b">EBITDA</td>
+      <td>꼭대기 큰 물통 — 영업이 만들어내는 총 수익</td>
+    </tr>
+    <tr>
+      <td class="b c">2단계</td>
+      <td class="b">− D&A</td>
+      <td>첫 번째 구멍 — 슬라이드 노후화(감가상각). <strong>장부에서 빠지지만 지금 현금이 새는 건 아님</strong></td>
+    </tr>
+    <tr>
+      <td class="b c">3단계</td>
+      <td class="b">EBIT</td>
+      <td>중간 탱크 1 — 채권자가 이자를 확인하는 수위</td>
+    </tr>
+    <tr>
+      <td class="b c">4단계</td>
+      <td class="b">− 이자·세금</td>
+      <td>두 번째 구멍 — 은행(이자)과 세무서(세금)가 먼저 가져감</td>
+    </tr>
+    <tr>
+      <td class="b c">5단계</td>
+      <td class="b">Net Income</td>
+      <td>중간 탱크 2 — 주주 몫. 하지만 아직 장부상 숫자</td>
+    </tr>
+    <tr class="hl-blue">
+      <td class="b c">6단계</td>
+      <td class="b">+ D&A 재가산</td>
+      <td>막혀있던 D&A 물을 <strong>다시 부어넣음</strong> (현금 안 나갔으니)</td>
+    </tr>
+    <tr class="hl-blue">
+      <td class="b c">7단계</td>
+      <td class="b">± 운전자본</td>
+      <td>외상 판매 미수령(빠짐) / 미지급 납품(추가) 조정</td>
+    </tr>
+    <tr class="hl-blue">
+      <td class="b c">8단계</td>
+      <td class="b">OCF</td>
+      <td>실제로 워터파크에 들어온 현금</td>
+    </tr>
+    <tr>
+      <td class="b c">9단계</td>
+      <td class="b">− CAPEX</td>
+      <td>슬라이드 유지보수 + 신규 슬라이드 건설비</td>
+    </tr>
+    <tr class="hl-row">
+      <td class="b c">10단계</td>
+      <td class="b">FCF</td>
+      <td><strong>워터파크 사장이 진짜 자기 주머니에 넣을 수 있는 돈</strong></td>
+    </tr>
+  </table>
+
+  <div class="box-blue" style="margin-top:14px;">
+    <strong>개인 재무로 치환하면:</strong><br>
+    월급(OCF) − 생활 유지비(CAPEX) = 저축 가능 금액(FCF)<br><br>
+    월급 500만 원, 생활비 300만 원 → FCF 200만 원<br>
+    이 200만 원으로 대출 상환, 투자, 저축 등을 결정하는 것이 재무현금흐름(CFF)에 해당한다.
+  </div>
+
+  <p class="body-p" style="margin-top:14px; font-style:italic; color:#555;">
+    본 문서는 재무 지표 학습을 위한 개념 해설 자료이며, 실제 투자 의사결정에는 개별 기업의 세부 사항과 전문가 자문을 함께 고려해야 한다.
+  </p>
+
+  <div class="page-no">- 8 -</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ PAGE 9 ══ -->
+<div class="doc-page">
+
+  <div class="ch">제8장. 실전 Q&A — 현장에서 가장 자주 막히는 7가지 질문</div>
+  <p class="body-p" style="color:#555; font-style:italic;">재무 지표를 처음 접하는 실무자들이 실제로 헷갈리는 포인트를 질문·답변 형식으로 정리한다.</p>
+
+  <hr class="sep-dash">
+
+  <div class="sq">Q1. 영업이익, Operating Profit, EBIT — 이거 다 같은 건가요?</div>
+  <div class="box-blue">
+    <strong>A. 대부분의 경우 같다. 단, 완전히 동일하지 않을 수 있다.</strong><br><br>
+    한국 회계 기준의 <strong>영업이익</strong>과 국제 기준의 <strong>EBIT(Earnings Before Interest &amp; Tax)</strong>는 개념상 거의 같다 — 이자와 세금을 빼기 전 영업 수익. Operating Profit도 마찬가지다.<br><br>
+    단, 회사마다 영업 외 항목을 어디에 분류하느냐에 따라 미세하게 달라질 수 있다. 실무에서는 <strong>"영업이익 ≈ EBIT"</strong>로 이해하고, 정밀한 분석이 필요할 때만 세부 차이를 확인하면 된다.
+  </div>
+
+  <hr class="sep-dash">
+
+  <div class="sq">Q2. EBITDA가 EBIT보다 숫자가 큰데, 왜 Waterfall에서는 EBITDA가 위에 있나요?</div>
+  <div class="box-blue">
+    <strong>A. 차감 항목이 적을수록 위, 많을수록 아래다 — 숫자 크기가 아니라 "무엇을 뺐는가"의 순서다.</strong><br><br>
+    Waterfall은 "무엇을 추가로 차감했는가"를 쌓아가는 구조다.<br>
+    EBITDA에서 D&amp;A를 빼면 → EBIT<br>
+    EBIT에서 이자·세금을 빼면 → Net Income<br><br>
+    즉, <strong>위에 있을수록 덜 빠진 상태(더 넓은 개념)</strong>이다. 숫자는 EBITDA > EBIT > Net Income 순으로 작아진다.
+  </div>
+
+  <hr class="sep-dash">
+
+  <div class="sq">Q3. 감가상각(D&A)이 OCF 계산에서 왜 "더해지는" 건가요? 이미 비용으로 뺐는데?</div>
+  <div class="box-key">
+    <strong>A. 감가상각은 "현금이 안 나간 비용"이기 때문이다.</strong><br><br>
+    예: PC를 1,000만 원에 구매(= CAPEX, 현금 1,000만 원 유출) → 내용연수 4년 → 매년 감가상각비 250만 원<br><br>
+    손익계산서에서는 매년 250만 원씩 비용으로 처리되어 EBIT, Net Income을 줄인다.<br>
+    하지만 <strong>이 250만 원은 올해 새로 현금이 나간 것이 아니다.</strong> 현금은 PC 살 때 이미 다 나갔다.<br><br>
+    현금흐름(OCF)을 계산할 때는 "실제 현금 기준"으로 봐야 하므로, 장부에서만 비용으로 처리된 D&amp;A를 <strong>다시 더해서 없애주는 것</strong>이다.<br><br>
+    정리: <strong>빼는 이유(EBITDA→EBIT)</strong> = 자산이 실제 소모되고 있으므로 비용 인식<br>
+    <strong>다시 더하는 이유(Net Income→OCF)</strong> = 현금이 실제로 이번에 나간 게 아니므로 환원
+  </div>
+
+  <div class="page-no">- 9 -</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ PAGE 10 ══ -->
+<div class="doc-page">
+
+  <div class="sq">Q4. CAPEX와 감가상각비가 헷갈립니다. 둘 다 같은 자산 얘기 아닌가요?</div>
+  <div class="box-key">
+    <strong>A. 같은 자산에 대한 이야기지만, 시점과 관점이 다르다.</strong>
+  </div>
+
+  <table class="t" style="margin-top:8px;">
+    <tr>
+      <th></th>
+      <th>CAPEX</th>
+      <th>감가상각비 (D&A)</th>
+    </tr>
+    <tr>
+      <td class="b">무엇인가</td>
+      <td>자산을 <strong>살 때</strong> 나가는 진짜 현금</td>
+      <td>그 자산을 <strong>쓰는 기간 동안</strong> 나눠 인식하는 회계상 비용</td>
+    </tr>
+    <tr>
+      <td class="b">현금 유출</td>
+      <td class="r c">구매 시점에 한 번에 유출</td>
+      <td class="g c">현금 유출 없음 (이미 CAPEX로 나감)</td>
+    </tr>
+    <tr class="hl-row">
+      <td class="b">예시<br>(공장 100억, 10년)</td>
+      <td>1년차에 현금 100억 지출 → 현금흐름표 반영</td>
+      <td>매년 10억씩 손익계산서에 비용 반영 (10년간)</td>
+    </tr>
+  </table>
+
+  <div class="box-warn" style="margin-top:8px;">
+    <strong>핵심 직관:</strong> CAPEX는 "오늘 지갑에서 나간 돈"이고, 감가상각비는 "그 지출의 결과를 매년 조금씩 인식하는 회계 처리"다. 둘은 같은 사건의 두 가지 기록 방식이다.
+  </div>
+
+  <hr class="sep-dash">
+
+  <div class="sq">Q5. 운전자본에서 매출채권·재고자산은 왜 빼고, 매입채무는 왜 더하나요?</div>
+
+  <table class="t">
+    <tr>
+      <th>항목</th>
+      <th>뜻</th>
+      <th>OCF 계산 시</th>
+      <th>이유</th>
+    </tr>
+    <tr>
+      <td class="b">매출채권 증가</td>
+      <td>매출은 잡혔지만 현금을 아직 못 받음</td>
+      <td class="r c">차감 (−)</td>
+      <td>이익엔 잡혔지만 실제 현금이 안 들어왔으므로 빼야 함</td>
+    </tr>
+    <tr>
+      <td class="b">재고자산 증가</td>
+      <td>현금을 써서 재고를 사뒀지만 아직 안 팔림</td>
+      <td class="r c">차감 (−)</td>
+      <td>현금이 이미 나갔는데 손익에 반영 안 됨 → 빼야 함</td>
+    </tr>
+    <tr class="hl-row">
+      <td class="b">매입채무 증가</td>
+      <td>물건은 받았지만 아직 돈을 안 줌</td>
+      <td class="g c">가산 (+)</td>
+      <td>현금이 나갔어야 하는데 아직 안 나감 → 더해야 함</td>
+    </tr>
+  </table>
+
+  <div class="box-blue" style="margin-top:6px;">
+    <strong>하나의 원칙으로 기억하기:</strong><br>
+    손익계산서에는 잡혔지만 <strong>현금이 아직 안 들어온 것 → 빼기</strong><br>
+    현금이 나가야 하는데 <strong>아직 안 나간 것 → 더하기</strong>
+  </div>
+
+  <hr class="sep-dash">
+
+  <div class="sq">Q6. 감가상각비는 직접원가에 포함되나요, 간접원가에 포함되나요?</div>
+  <div class="box-blue">
+    <strong>A. 회사마다 다르다 — 자산의 성격과 회사 회계정책에 따라 결정된다.</strong><br><br>
+    <strong>직접원가(매출원가)에 포함되는 경우:</strong> 생산 설비, 공장, 제품 생산에 직접 사용하는 기계의 감가상각비<br>
+    <strong>간접원가(판관비)에 포함되는 경우:</strong> 사무용 PC, 오피스 건물, 영업·관리 지원 자산의 감가상각비<br><br>
+    소프트웨어 개발비의 경우, 시기와 회사 정책에 따라 <strong>① 즉시 비용처리(원가), ② 자산화 후 감가상각</strong> 중 선택하기도 한다. 우리 회사의 기준을 재무팀에 확인하는 것이 정확하다.
+  </div>
+
+  <hr class="sep-dash">
+
+  <div class="sq">Q7. OCF에서 감가상각을 더하고, FCF에서 CAPEX를 빼면 — 같은 자산을 두 번 처리하는 건 아닌가요?</div>
+  <div class="box-key">
+    <strong>A. 아니다. 서로 다른 시점·다른 자산에 대한 처리다.</strong><br><br>
+    <strong>D&amp;A를 더하는 것 (Net Income → OCF)</strong>: <u>과거에 구입한 자산</u>의 감가상각이 손익에 반영됐지만 현금 유출이 없으므로 환원<br><br>
+    <strong>CAPEX를 빼는 것 (OCF → FCF)</strong>: <u>이번 기간에 새로 집행한</u> 자산 투자의 실제 현금 유출 반영<br><br>
+    즉, D&amp;A는 "지난 투자의 회계 처리 환원"이고 CAPEX는 "이번 투자의 현금 집행"이다. 겹치는 것이 아니라 <strong>서로 다른 시점의 자산을 각각 처리</strong>하는 것이다.
+  </div>
+
+  <div class="fn">결국 FCF의 핵심 직관은 "내가 영업으로 번 현금(OCF)에서, 사업을 유지·성장시키기 위해 이번에 새로 투자한 돈(CAPEX)을 빼고 남은 진짜 자유 현금"이다. 눈에 보이는 쓸 수 있는 돈이 FCF다.</div>
+
+  <div class="page-no">- 10 -</div>
+</div>
+
+</body>
+</html>

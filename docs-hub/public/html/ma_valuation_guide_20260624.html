@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>기업가치 평가 · M&A 인수가액 · PPA 해설</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #e0e0e0;
+    font-family: 'Batang', 'BatangChe', 'Noto Serif KR', Georgia, serif;
+    font-size: 12px;
+    color: #111;
+  }
+
+  .doc-page {
+    width: 794px;
+    min-height: 1123px;
+    margin: 28px auto;
+    background: #fff;
+    padding: 56px 64px 64px 64px;
+    border: 1px solid #ccc;
+    position: relative;
+  }
+
+  /* ─── 헤더 ─── */
+  .doc-header {
+    border-top: 3px solid #111;
+    border-bottom: 1.5px solid #111;
+    padding: 10px 0 8px 0;
+    margin-bottom: 18px;
+    text-align: center;
+  }
+  .doc-header .org { font-size: 10px; letter-spacing: 3px; color: #555; margin-bottom: 4px; }
+  .doc-header .title { font-size: 18px; font-weight: 700; letter-spacing: 1px; }
+  .doc-header .subtitle { font-size: 11px; color: #444; margin-top: 4px; }
+  .doc-meta { display: flex; justify-content: space-between; font-size: 10px; color: #666; margin-top: 6px; }
+
+  /* ─── 목차 ─── */
+  .toc-box {
+    border: 1px solid #bbb;
+    padding: 14px 18px;
+    margin-bottom: 16px;
+    background: #fafafa;
+  }
+  .toc-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-bottom: 8px; }
+  .toc-item { font-size: 11px; padding: 2px 0; color: #333; }
+  .toc-item.sub { padding-left: 16px; color: #555; }
+
+  /* ─── 장·절 제목 ─── */
+  .ch {
+    font-size: 13px;
+    font-weight: 700;
+    border-left: 4px solid #111;
+    padding-left: 8px;
+    margin: 18px 0 8px 0;
+  }
+  .ch2 { font-size: 12px; font-weight: 700; margin: 12px 0 6px 0; color: #222; }
+  .sq {
+    font-size: 12px;
+    font-weight: 700;
+    border-bottom: 1.5px solid #111;
+    padding-bottom: 4px;
+    margin-bottom: 10px;
+  }
+
+  /* ─── 본문 ─── */
+  .body-p { font-size: 11.5px; line-height: 1.9; margin-bottom: 8px; text-indent: 1em; }
+  .body-p.no-indent { text-indent: 0; }
+
+  /* ─── 박스 ─── */
+  .box-key {
+    background: #f8f8f8;
+    border-left: 3px solid #111;
+    padding: 8px 12px;
+    margin: 8px 0;
+    font-size: 11.5px;
+    line-height: 1.8;
+  }
+  .box-blue {
+    background: #e8f0fb;
+    border-left: 3px solid #1a5faa;
+    padding: 8px 12px;
+    margin: 8px 0;
+    font-size: 11.5px;
+    line-height: 1.8;
+    color: #1a3d6e;
+  }
+  .box-warn {
+    background: #fff8e1;
+    border-left: 3px solid #e5a000;
+    padding: 8px 12px;
+    margin: 8px 0;
+    font-size: 11.5px;
+    line-height: 1.8;
+  }
+  .box-dark {
+    background: #1e1e1e;
+    color: #eee;
+    padding: 10px 14px;
+    margin: 8px 0;
+    font-size: 11.5px;
+    line-height: 1.9;
+  }
+
+  /* ─── 표 ─── */
+  .t {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+    margin: 8px 0;
+  }
+  .t th {
+    background: #222;
+    color: #fff;
+    padding: 6px 8px;
+    font-weight: 700;
+    text-align: left;
+  }
+  .t td {
+    padding: 6px 8px;
+    border-bottom: 1px solid #ddd;
+    vertical-align: top;
+    line-height: 1.7;
+  }
+  .t tr:nth-child(even) td { background: #f7f7f7; }
+  .t .b { font-weight: 700; }
+  .t .hl { background: #e8f0fb !important; }
+  .t .sep-row td { background: #444; color: #fff; font-weight: 700; padding: 4px 8px; font-size: 10.5px; }
+  .t .r { color: #c00; }
+
+  /* ─── 구분선 ─── */
+  .sep { border: none; border-top: 1px solid #ddd; margin: 12px 0; }
+
+  /* ─── 각주 ─── */
+  .fn { font-size: 9.5px; color: #777; border-top: 1px solid #ddd; margin-top: 12px; padding-top: 4px; line-height: 1.7; }
+
+  /* ─── 페이지 번호 ─── */
+  .page-no {
+    text-align: center;
+    font-size: 10px;
+    color: #999;
+    position: absolute;
+    bottom: 24px;
+    left: 0; right: 0;
+  }
+
+  /* ─── 요약 테이블 ─── */
+  .summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+    margin: 10px 0;
+  }
+  .summary-table th {
+    background: #111;
+    color: #fff;
+    padding: 7px 10px;
+    text-align: center;
+    font-weight: 700;
+  }
+  .summary-table td {
+    padding: 7px 10px;
+    border: 1px solid #ccc;
+    vertical-align: top;
+    line-height: 1.75;
+  }
+  .summary-table tr:nth-child(even) td { background: #f5f5f5; }
+  .summary-table .cat { font-weight: 700; background: #f0f0f0 !important; }
+
+  strong { font-weight: 700; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════ PAGE 1 ══ -->
+<div class="doc-page">
+
+  <div class="doc-header">
+    <div class="org">삼성SDS 솔루션사업부 기획팀</div>
+    <div class="title">기업가치 평가 · M&A 인수가액 · PPA 완전 해설</div>
+    <div class="subtitle">멀티플은 원인인가 결과인가 — DCF · LBO · PPA까지 M&A 재무의 흐름</div>
+    <div class="doc-meta">
+      <span>작성일: 2026. 06. 24.</span>
+      <span>분류: 기업분석 / 재무</span>
+      <span>버전: v1.0</span>
+    </div>
+  </div>
+
+  <!-- 목차 -->
+  <div class="toc-box">
+    <div class="toc-title">목 차</div>
+    <div class="toc-item">제1장. 멀티플은 원인이 아니라 결과다</div>
+    <div class="toc-item sub">§ 1-1. 흔한 오해와 실제 순서</div>
+    <div class="toc-item sub">§ 1-2. 주요 멀티플 지표 비교</div>
+    <div class="toc-item sub">§ 1-3. 같은 혼동 구조를 가진 개념 쌍들</div>
+    <div class="toc-item">제2장. 인수가액 산정 — 4가지 방법</div>
+    <div class="toc-item sub">§ 2-1. DCF (현금흐름 할인법)</div>
+    <div class="toc-item sub">§ 2-2. Comparable Multiples (비교가치법)</div>
+    <div class="toc-item sub">§ 2-3. LBO 모델 (PE 고유 방식)</div>
+    <div class="toc-item sub">§ 2-4. Strategic Premium (전략적 가치)</div>
+    <div class="toc-item">제3장. PPA (Purchase Price Allocation · 인수가격 배분)</div>
+    <div class="toc-item sub">§ 3-1. PPA란 무엇인가</div>
+    <div class="toc-item sub">§ 3-2. 배분 순서와 항목별 개념</div>
+    <div class="toc-item sub">§ 3-3. PPA가 이후 재무제표에 미치는 영향</div>
+    <div class="toc-item sub">§ 3-4. Successor / Predecessor 구조</div>
+    <div class="toc-item">제4장. 전체 흐름 요약</div>
+    <div class="toc-item sub">§ 4-3. 비유 — 집 살 때와 똑같다</div>
+  </div>
+
+  <!-- 요약 표 -->
+  <div class="ch2">■ 핵심 개념 요약</div>
+  <table class="summary-table">
+    <tr>
+      <th style="width:22%;">개념</th>
+      <th style="width:40%;">한 줄 정의</th>
+      <th style="width:38%;">실무 포인트</th>
+    </tr>
+    <tr>
+      <td class="cat">멀티플</td>
+      <td>인수가격의 결과값. 상대가치 검증 도구</td>
+      <td>EV/Revenue, EV/EBITDA, EV/ARR 등. 가격을 정하는 공식이 아님</td>
+    </tr>
+    <tr>
+      <td class="cat">DCF</td>
+      <td>미래 FCF를 현재가치로 환산한 내재가치</td>
+      <td>FCF 예측 정확도가 핵심. 할인율(WACC) 민감도 높음</td>
+    </tr>
+    <tr>
+      <td class="cat">LBO 모델</td>
+      <td>PE가 목표 IRR 기준으로 역산한 최대 인수가격</td>
+      <td>차입금 규모·FCF·Exit Multiple이 3대 변수</td>
+    </tr>
+    <tr>
+      <td class="cat">Strategic Premium</td>
+      <td>재무 모델을 초과하는 전략적 추가 지불</td>
+      <td>시너지·독점방어·플랫폼 확장 가치가 근거</td>
+    </tr>
+    <tr>
+      <td class="cat">PPA</td>
+      <td>인수가격을 자산 항목별로 배분하는 회계 작업</td>
+      <td>Goodwill·무형자산 급증, 이후 상각으로 이익 압박</td>
+    </tr>
+    <tr>
+      <td class="cat">Goodwill</td>
+      <td>PPA 후 남는 잔여 프리미엄</td>
+      <td>정기 상각 없음. 매년 손상검사(Impairment Test)</td>
+    </tr>
+    <tr>
+      <td class="cat">Successor / Predecessor</td>
+      <td>인수 전후 회계 실체 분리 구조</td>
+      <td>PPA로 B/S 기준이 바뀌어 두 기간 단순 비교 불가</td>
+    </tr>
+  </table>
+
+  <div class="page-no">- 1 -</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ PAGE 2 ══ -->
+<div class="doc-page">
+
+  <div class="ch">제1장. 멀티플은 원인이 아니라 결과다</div>
+
+  <div class="sq">§ 1-1. 흔한 오해와 실제 순서</div>
+
+  <p class="body-p">M&A 현장에서 가장 자주 나오는 오해는 멀티플이 인수가격을 결정한다는 생각이다. "EV/Revenue 8배니까 매출 1B × 8 = 8B에 산다"는 공식처럼 쓰이지만, 실제 M&A 프로세스는 정반대 방향으로 진행된다.</p>
+
+  <!-- 오해 vs 실제 다이어그램 -->
+  <div style="display:flex; gap:12px; margin:12px 0;">
+
+    <!-- 오해 -->
+    <div style="flex:1; border:1.5px solid #c00; border-radius:2px; overflow:hidden;">
+      <div style="background:#c00; color:#fff; padding:6px 12px; font-size:10.5px; font-weight:700; letter-spacing:1px;">
+        ✕ 흔한 오해 — 멀티플이 원인
+      </div>
+      <div style="padding:12px; font-size:11.5px; line-height:2.0; color:#333;">
+        시장 EV/Revenue 평균 <strong>8배</strong><br>
+        <span style="color:#888; font-size:10px;">↓ 멀티플 먼저 결정</span><br>
+        매출 1B × 8 = <strong style="color:#c00;">인수가 8B</strong>
+      </div>
+    </div>
+
+    <!-- 실제 -->
+    <div style="flex:1; border:1.5px solid #1a5faa; border-radius:2px; overflow:hidden;">
+      <div style="background:#1a5faa; color:#fff; padding:6px 12px; font-size:10.5px; font-weight:700; letter-spacing:1px;">
+        ○ 실제 순서 — 멀티플은 결과
+      </div>
+      <div style="padding:12px; font-size:11.5px; line-height:2.0; color:#333;">
+        DCF · LBO · 전략적 가치 분석<br>
+        <span style="color:#888; font-size:10px;">↓ 가치 산정 후 가격 협상</span><br>
+        인수가 <strong>8B</strong> 확정<br>
+        <span style="color:#888; font-size:10px;">↓ 사후 계산</span><br>
+        EV ÷ Revenue = <strong style="color:#1a5faa;">8배</strong> (결과값)
+      </div>
+    </div>
+
+  </div>
+
+  <div class="box-blue">
+    <strong>핵심 원칙:</strong> 멀티플은 결정된 가격이 시장 대비 비싼지 싼지를 검증하는 <strong>상대가치 잣대</strong>다. 가격을 만드는 공식이 아니라, 가격을 설명하는 언어에 가깝다. 따라서 어떤 거래가 "비싸게 샀다"는 판단은 멀티플 숫자가 아니라, 당시 분석이 합리적이었는지와 최종 Exit 수익률로 해야 한다.
+  </div>
+
+  <div class="sq" style="margin-top:16px;">§ 1-2. 주요 멀티플 지표 비교</div>
+
+  <div style="border:1px solid #ccc; background:#fafafa; padding:10px 16px; margin-bottom:8px; font-family:monospace; font-size:11px; line-height:2.1; color:#222;">
+    <span style="font-weight:700; font-size:12px;">EV (기업가치)</span><br>
+    ├── ÷ Revenue &nbsp;&nbsp;&nbsp;→ <strong>EV/Revenue</strong> &nbsp;&nbsp;&nbsp;(성장 초기 SaaS, 이익 없는 기업)<br>
+    ├── ÷ EBITDA &nbsp;&nbsp;&nbsp;&nbsp;→ <strong>EV/EBITDA</strong> &nbsp;&nbsp;&nbsp;(성숙 기업, PE 인수 비교)<br>
+    ├── ÷ EBIT &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ <strong>EV/EBIT</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(감가상각 차이 있는 기업 비교)<br>
+    ├── ÷ FCF &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ <strong>EV/FCF</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(현금창출력 중심 비교)<br>
+    └── ÷ ARR &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ <strong>EV/ARR</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(SaaS 전용, 구독 반복매출 기준)
+  </div>
+
+  <table class="t">
+    <tr>
+      <th style="width:22%;">멀티플</th>
+      <th style="width:28%;">산식</th>
+      <th style="width:25%;">주로 쓰는 상황</th>
+      <th style="width:25%;">해석 시 주의점</th>
+    </tr>
+    <tr>
+      <td class="b">EV / Revenue</td>
+      <td>기업가치 ÷ 연간 매출</td>
+      <td>고성장 SaaS처럼 이익이 적거나 없는 기업</td>
+      <td>수익성 무시. 성장률 차이를 반영 못함</td>
+    </tr>
+    <tr>
+      <td class="b">EV / EBITDA</td>
+      <td>기업가치 ÷ EBITDA</td>
+      <td>성숙 기업, PE 인수 시 현금창출력 비교</td>
+      <td>CAPEX 차이를 무시. 자본집약도 비교 불가</td>
+    </tr>
+    <tr>
+      <td class="b hl">EV / ARR</td>
+      <td>기업가치 ÷ 연간반복매출</td>
+      <td>SaaS 기업 전용. 구독 규모 기준 비교</td>
+      <td>성장률·NRR을 함께 봐야 의미 있음</td>
+    </tr>
+    <tr>
+      <td class="b">EV / FCF</td>
+      <td>기업가치 ÷ FCF</td>
+      <td>현금창출 효율성 중심 비교. PE 선호</td>
+      <td>CAPEX 투자 시기에 따라 왜곡 가능</td>
+    </tr>
+    <tr>
+      <td class="b">P/E</td>
+      <td>주가 ÷ EPS (주당순이익)</td>
+      <td>상장 주식 비교. 전통 산업</td>
+      <td>회계 정책·비현금 항목에 민감</td>
+    </tr>
+  </table>
+
+  <p class="body-p">SaaS 기업 분석에서 EV/ARR과 EV/Revenue가 자주 사용되는 이유는, 초기 성장 단계에서 EBITDA나 FCF가 의미 있는 수준이 아니기 때문이다. 단, 멀티플 비교는 반드시 <strong>성장률·마진·NRR(순수익 유지율)</strong>을 함께 봐야 한다. 같은 EV/Revenue 8배라도 성장률 40% 기업과 5% 기업은 완전히 다른 가격이다.</p>
+
+  <div class="fn">
+    * EV(Enterprise Value) = 시가총액 + 순차입금(차입금 − 현금). 주주 외 채권자 지분까지 포함한 전체 기업가치.<br>
+    * ARR(Annual Recurring Revenue) = 구독·라이선스 기반의 연간 반복 매출. 일회성 매출 제외.
+  </div>
+
+  <div class="sq" style="margin-top:14px;">§ 1-3. 같은 혼동 구조를 가진 다른 개념 쌍들</div>
+
+  <p class="body-p no-indent">"결정값 → 역산 → 설명값"의 구조는 M&A만의 혼동이 아니다. 일상에서도 동일한 인과관계 역전 오류가 반복된다.</p>
+
+  <table class="t">
+    <tr>
+      <th style="width:22%;">개념 쌍</th>
+      <th style="width:22%;">결정값</th>
+      <th style="width:22%;">설명값 (역산)</th>
+      <th style="width:34%;">흔한 오류</th>
+    </tr>
+    <tr>
+      <td class="b">주가 · PER</td>
+      <td>주가 (시장이 결정)</td>
+      <td>PER = 주가 ÷ EPS</td>
+      <td>"PER 20배니까 이 주가가 맞다" — 역산을 검증으로 쓰는 함정</td>
+    </tr>
+    <tr>
+      <td class="b">집값 · 평당가</td>
+      <td>집값 (협상·감정가)</td>
+      <td>평당가 = 집값 ÷ 평수</td>
+      <td>"평당 3,000이니까 30평 = 9억" — 평당가가 집값을 만드는 것처럼 보이나 반대</td>
+    </tr>
+    <tr>
+      <td class="b">연봉 · 시급</td>
+      <td>연봉 (협상 결과)</td>
+      <td>시급 = 연봉 ÷ 근무시간</td>
+      <td>"시급이 이러니까 연봉이 맞다" — 시급으로 연봉을 역으로 정당화</td>
+    </tr>
+    <tr class="hl">
+      <td class="b">인수가 · 멀티플</td>
+      <td>인수가 (DCF · LBO 분석)</td>
+      <td>멀티플 = EV ÷ 재무지표</td>
+      <td class="r"><strong>"8배니까 8B"</strong> — 가장 흔하고 임팩트 큰 역산 오류</td>
+    </tr>
+  </table>
+
+  <div class="box-key">
+    공통 구조: <strong>결정 → 역산(표현)</strong>인데, 표현 도구가 결정 공식처럼 보인다. 멀티플이 인수가를 결정한다는 착각은 이 구조적 혼동에서 비롯된다.
+  </div>
+
+  <div class="page-no">- 2 -</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ PAGE 3 ══ -->
+<div class="doc-page">
+
+  <div class="ch">제2장. 인수가액 산정 — 4가지 방법</div>
+
+  <div class="sq">§ 2-1. DCF (Discounted Cash Flow · 현금흐름 할인법)</div>
+
+  <p class="body-p">가장 정석적인 내재가치 산정 방식이다. "이 회사가 앞으로 만들어낼 현금이 얼마인가"를 계산해서 현재가치로 환산한다.</p>
+
+  <!-- DCF 흐름 다이어그램 -->
+  <div style="margin:10px 0; border:1px solid #bbb; font-family:'Batang','BatangChe',Georgia,serif;">
+
+    <div style="background:#1e1e1e; color:#fff; padding:7px 14px; font-size:10.5px; letter-spacing:1px; font-weight:700;">
+      DCF 계산 구조
+    </div>
+
+    <div style="padding:0;">
+      <!-- Step 1 -->
+      <div style="background:#2a2a2a; color:#eee; padding:8px 14px; border-bottom:1px solid #444; font-size:11.5px;">
+        <span style="color:#aaa; font-size:10px;">STEP 1</span>&nbsp;&nbsp;
+        향후 5~10년 <strong>FCF 예측</strong> &nbsp;(매출 성장률 · 마진 · CAPEX 가정)
+      </div>
+
+      <div style="display:flex; justify-content:center; padding:4px 0; background:#232323; color:#aaa; font-size:13px;">↓</div>
+
+      <!-- Step 2 -->
+      <div style="background:#2a2a2a; color:#eee; padding:8px 14px; border-bottom:1px solid #444; font-size:11.5px;">
+        <span style="color:#aaa; font-size:10px;">STEP 2</span>&nbsp;&nbsp;
+        <strong>할인율(WACC)</strong> 적용 → 각 연도 FCF를 현재가치로 환산
+      </div>
+
+      <div style="display:flex; justify-content:center; padding:4px 0; background:#232323; color:#aaa; font-size:13px;">↓</div>
+
+      <!-- Step 3 -->
+      <div style="background:#2a2a2a; color:#eee; padding:8px 14px; border-bottom:1px solid #444; font-size:11.5px;">
+        <span style="color:#aaa; font-size:10px;">STEP 3</span>&nbsp;&nbsp;
+        예측 기간 이후 가치 = <strong>Terminal Value</strong> 계산 후 현재가치 환산
+      </div>
+
+      <div style="display:flex; justify-content:center; padding:4px 0; background:#232323; color:#aaa; font-size:13px;">↓</div>
+
+      <!-- Result -->
+      <div style="background:#0a2540; color:#cce0ff; padding:10px 14px; font-size:12.5px; font-weight:700;">
+        기업가치(EV) = PV(FCF 합산) + PV(Terminal Value)
+      </div>
+    </div>
+  </div>
+
+  <div class="box-blue" style="margin-top:8px;">
+    <strong>FCF가 DCF의 핵심 입력값이다.</strong> FCF가 높을수록 → 내재가치 상승 → 더 높은 인수가격 정당화. 재무 지표 해설 보고서에서 FCF를 따로 다룬 이유가 바로 여기에 있다.
+  </div>
+
+  <div class="ch2" style="margin-top:4px;">DCF의 한계</div>
+  <table class="t">
+    <tr><th>한계</th><th>영향</th></tr>
+    <tr><td class="b">FCF 예측의 불확실성</td><td>5년 후 FCF는 가정에 따라 크게 달라짐 — 결과가 민감하게 변동</td></tr>
+    <tr><td class="b">할인율(WACC) 민감도</td><td>WACC 1%p 변동이 기업가치 수십 % 변동으로 이어질 수 있음</td></tr>
+    <tr><td class="b">Terminal Value 비중</td><td>전체 가치의 60~80%가 Terminal Value — 가정이 곧 결론</td></tr>
+  </table>
+
+  <div class="sq" style="margin-top:14px;">§ 2-2. Comparable Multiples (비교가치법)</div>
+
+  <p class="body-p">유사 기업 또는 유사 거래의 멀티플을 참고하여 가치를 검증하는 방법이다. DCF로 산정한 내재가치가 시장 기준과 얼마나 차이나는지 확인하는 데 주로 쓴다.</p>
+
+  <table class="t">
+    <tr><th style="width:30%;">비교 대상</th><th>적용 방식</th><th style="width:30%;">활용 목적</th></tr>
+    <tr>
+      <td class="b">Comparable Companies<br>(상장 유사 기업)</td>
+      <td>동종 상장사의 EV/EBITDA, EV/Revenue 범위를 구해 적용</td>
+      <td>현재 시장이 이 업종을 어떻게 평가하는지 벤치마크</td>
+    </tr>
+    <tr>
+      <td class="b">Comparable Transactions<br>(유사 M&A 거래)</td>
+      <td>최근 유사 기업 인수 사례의 거래 멀티플 범위 참고</td>
+      <td>실제 인수 시 지불된 "컨트롤 프리미엄" 포함 가격 벤치마크</td>
+    </tr>
+  </table>
+
+  <div class="box-warn" style="margin-top:6px;">
+    <strong>주의:</strong> 비교 대상 기업 간 성장률·마진·사업 구조 차이를 반드시 조정해야 한다. 단순히 평균 멀티플을 곱하면 왜곡된 결론이 나온다. Comparable은 "범위 추정"의 도구이지, 정답 공식이 아니다. 인수 이후 금리·시장 환경이 변했다는 이유로 당시 결정을 소급하여 "비쌌다"고 평가하는 것도 마찬가지 오류다. 결정의 적정성은 언제나 당시 가용한 정보 기준으로만 판단해야 한다.
+  </div>
+
+  <div class="page-no">- 3 -</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ PAGE 4 ══ -->
+<div class="doc-page">
+
+  <div class="sq">§ 2-3. LBO 모델 (Leveraged Buyout Model · PE 고유 방식)</div>
+
+  <p class="body-p">PE(사모펀드)가 기업을 인수할 때 핵심적으로 사용하는 방법이다. 핵심 질문은 하나다: <strong>"지금 이 가격에 사서, 5년 뒤 팔았을 때 목표 IRR이 나오는가?"</strong> 거꾸로 계산해서 현재 지불 가능한 최대 가격을 역산한다.</p>
+
+  <!-- LBO 흐름 다이어그램 -->
+  <div style="margin:10px 0; font-family:'Batang','BatangChe',Georgia,serif;">
+
+    <div style="display:flex; gap:10px; align-items:flex-start;">
+
+      <!-- 왼쪽: 인수 구조 -->
+      <div style="flex:1.1; border:1px solid #555; overflow:hidden;">
+        <div style="background:#333; color:#fff; padding:6px 12px; font-size:10.5px; font-weight:700;">인수 시 자본 구조</div>
+        <div style="padding:10px 12px; font-size:11.5px; line-height:2.0;">
+          <div style="display:flex; justify-content:space-between; border-bottom:1px solid #ddd; padding-bottom:4px; margin-bottom:4px;">
+            <span style="color:#c00; font-weight:700;">차입금 (Debt) 60%</span>
+            <span style="color:#c00;">= 4.8B</span>
+          </div>
+          <div style="font-size:10px; color:#888; margin-bottom:6px;">LBO의 핵심 — 피인수 기업의<br>자산·FCF를 담보로 대규모 차입</div>
+          <div style="display:flex; justify-content:space-between; border-bottom:1px solid #ddd; padding-bottom:4px; margin-bottom:4px;">
+            <span style="color:#1a5faa; font-weight:700;">자기자본 (Equity) 40%</span>
+            <span style="color:#1a5faa;">= 3.2B</span>
+          </div>
+          <div style="font-size:10px; color:#888;">PE가 실제 투입하는 금액</div>
+        </div>
+        <div style="background:#1e1e1e; color:#fff; padding:6px 12px; font-size:11.5px; font-weight:700; text-align:center;">
+          인수가 (EV) = 8B
+        </div>
+      </div>
+
+      <!-- 가운데 화살표 -->
+      <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; padding-top:40px; gap:4px; color:#555; font-size:11px;">
+        <div>5년간</div>
+        <div>FCF로</div>
+        <div>차입 상환</div>
+        <div style="font-size:18px;">→</div>
+      </div>
+
+      <!-- 오른쪽: 매각 -->
+      <div style="flex:1.1; border:1px solid #555; overflow:hidden;">
+        <div style="background:#1a3d6e; color:#fff; padding:6px 12px; font-size:10.5px; font-weight:700;">5년 후 매각</div>
+        <div style="padding:10px 12px; font-size:11.5px; line-height:2.0;">
+          <div style="margin-bottom:4px;">EBITDA 1B × 10배</div>
+          <div style="font-weight:700; font-size:13px; color:#1a3d6e; margin-bottom:8px;">매각가 = 10B</div>
+          <div style="font-size:10px; color:#888; margin-bottom:6px;">차입금 상환 후<br>잔여 = PE 회수금</div>
+          <div style="border-top:1px solid #ddd; padding-top:6px;">
+            <span style="font-weight:700;">IRR = ?</span><br>
+            <span style="font-size:10px; color:#888;">목표 20%+ 이면 OK<br>→ 8B 지불 가능 판단</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="box-key" style="margin-top:6px;">
+    <strong>FCF가 높을수록 차입금을 빨리 갚고 → 매각 시 PE 회수금이 커지고 → IRR이 올라간다.</strong><br>
+    PE가 인수 대상 기업의 FCF를 집착적으로 분석하는 이유가 여기에 있다. PE 투자의 성패는 통상 5~7년 보유 후 실현되는 Exit IRR로 판단한다. 보유 중 특정 시점의 멀티플이나 단기 실적이 기대에 못 미친다고 해서 당초 인수 결정이 틀렸다고 보기는 어렵다.
+  </div>
+
+  <div class="sq" style="margin-top:14px;">§ 2-4. Strategic Premium (전략적 가치)</div>
+
+  <p class="body-p">재무 모델만으로 설명되지 않는 추가 지불 의사를 Strategic Premium이라 한다. 전략적 인수자(Strategic Buyer)가 재무적 투자자(PE)보다 높은 가격을 제시할 수 있는 이유이기도 하다.</p>
+
+  <table class="t">
+    <tr><th style="width:30%;">Premium 근거</th><th>설명</th><th style="width:30%;">사례</th></tr>
+    <tr>
+      <td class="b">시너지 (Revenue Synergy)</td>
+      <td>인수 후 크로스셀·업셀·고객 확대로 추가 매출 창출</td>
+      <td>Coupa가 Rossum 인수 시 Invoicing 플랫폼 통합</td>
+    </tr>
+    <tr>
+      <td class="b">비용 시너지 (Cost Synergy)</td>
+      <td>중복 조직·시스템 통합으로 비용 절감</td>
+      <td>영업·마케팅·인프라 중복 제거</td>
+    </tr>
+    <tr>
+      <td class="b">독점 방어</td>
+      <td>경쟁사가 인수하면 안 되는 경우 — 방어적 인수</td>
+      <td>핵심 기술·고객 기반을 경쟁사로부터 차단</td>
+    </tr>
+    <tr>
+      <td class="b">플랫폼 확장</td>
+      <td>기존 플랫폼에 통합 시 독립 운영 대비 훨씬 높은 가치 창출</td>
+      <td>SaaS Suite 전략 — 단일 플랫폼 확장</td>
+    </tr>
+  </table>
+
+  <div class="box-warn" style="margin-top:6px;">
+    Strategic Premium은 "우리한테는 이 정도 가치"이지, 시장 기준 가치가 아니다. 과도하면 <strong>승자의 저주(Winner's Curse)</strong> — 너무 비싸게 사서 시너지가 기대치 이하일 때 대규모 Goodwill 손상으로 이어진다.
+  </div>
+
+  <div class="page-no">- 4 -</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ PAGE 5 ══ -->
+<div class="doc-page">
+
+  <div class="ch">제3장. PPA (Purchase Price Allocation · 인수가격 배분)</div>
+
+  <div class="sq">§ 3-1. PPA란 무엇인가</div>
+
+  <p class="body-p">인수가격이 확정되면 회계 처리가 시작된다. PE가 8B에 기업을 인수했을 때, 그 8B가 대차대조표(B/S)의 어떤 항목으로 잡히는가? 이 질문에 답하는 작업이 PPA다.</p>
+
+  <p class="body-p">인수한 기업의 순자산(자산 − 부채)을 공정가치로 재평가하고, 인수가격과의 차이를 식별 가능한 무형자산과 Goodwill로 배분하는 것이다. ASC 805 (US GAAP) 또는 IFRS 3 기준으로 이루어진다.</p>
+
+  <div class="box-warn">
+    <strong>왜 해야 하는가:</strong> 인수가격 8B를 그냥 "투자금"으로만 처리하면, 이후 재무제표에서 이 자산이 어떤 가치를 가지고 어떻게 줄어드는지를 설명할 수 없다. PPA는 가격의 구성요소를 회계적으로 투명하게 만드는 과정이다.
+  </div>
+
+  <div class="sq" style="margin-top:14px;">§ 3-2. 배분 순서와 항목별 개념</div>
+
+  <!-- PPA 배분 다이어그램 -->
+  <div style="margin:10px 0; border:1px solid #bbb; font-family:'Batang','BatangChe',Georgia,serif;">
+
+    <div style="background:#1e1e1e; color:#fff; padding:7px 14px; font-size:10.5px; letter-spacing:1px; font-weight:700;">
+      PPA 배분 구조 (인수가 8B 예시)
+    </div>
+
+    <!-- 인수가 -->
+    <div style="background:#2a2a2a; color:#fff; padding:8px 14px; font-size:12px; font-weight:700; border-bottom:1px solid #555;">
+      인수가액 (EV) &nbsp;=&nbsp; 8B
+    </div>
+
+    <!-- 배분 1 -->
+    <div style="display:flex; background:#f5f5f5; border-bottom:1px dashed #ccc;">
+      <div style="width:32px; display:flex; align-items:center; justify-content:center; background:#ddd; font-size:14px; color:#555;">①</div>
+      <div style="flex:1; padding:8px 12px; font-size:11.5px; line-height:1.8;">
+        <strong>순자산 공정가치 재평가</strong>&nbsp;&nbsp;= 2B<br>
+        <span style="color:#666; font-size:10.5px;">기존 자산·부채를 공정가치(시장가)로 다시 측정. 장부가와 차이가 나면 조정</span>
+      </div>
+    </div>
+
+    <!-- 배분 2 -->
+    <div style="display:flex; background:#e8f0fb; border-bottom:1px dashed #7aa6d4;">
+      <div style="width:32px; display:flex; align-items:center; justify-content:center; background:#c5d8f0; font-size:14px; color:#1a5faa;">②</div>
+      <div style="flex:1; padding:8px 12px; font-size:11.5px; line-height:1.8; color:#1a3d6e;">
+        <strong>식별 가능 무형자산 (Identifiable Intangibles)</strong>&nbsp;&nbsp;= 3B<br>
+        <span style="font-size:10.5px; color:#336;">
+          · 고객 관계 (Customer Relationships)<br>
+          · 개발 완료 기술 (Developed Technology / Software)<br>
+          · 브랜드·상표 (Trade Name)<br>
+          · 유리한 계약 (Favorable Contracts) 등
+        </span>
+      </div>
+    </div>
+
+    <!-- 배분 3 (Goodwill) -->
+    <div style="display:flex; background:#1a3d6e; color:#fff;">
+      <div style="width:32px; display:flex; align-items:center; justify-content:center; background:#0a2540; font-size:14px; color:#7aa6d4;">③</div>
+      <div style="flex:1; padding:8px 12px; font-size:11.5px; line-height:1.8;">
+        <strong>Goodwill (영업권) = 잔여 배분액</strong>&nbsp;&nbsp;= 3B<br>
+        <span style="font-size:10.5px; color:#aaa;">① ② 배분 후 남는 금액 전부. 시너지·브랜드 등 식별 불가능한 프리미엄</span>
+      </div>
+    </div>
+
+  </div>
+
+  <table class="t" style="margin-top:10px;">
+    <tr>
+      <th style="width:28%;">무형자산 항목</th>
+      <th style="width:36%;">의미</th>
+      <th style="width:18%;">내용연수</th>
+      <th style="width:18%;">상각 처리</th>
+    </tr>
+    <tr>
+      <td class="b">고객 관계</td>
+      <td>기존 고객의 계약 유지·갱신 가능성에 부여한 가치</td>
+      <td>5~15년</td>
+      <td>정액 상각</td>
+    </tr>
+    <tr>
+      <td class="b">개발 완료 기술</td>
+      <td>현재 시장에 판매 중인 소프트웨어·플랫폼 가치</td>
+      <td>3~10년</td>
+      <td>정액 상각</td>
+    </tr>
+    <tr>
+      <td class="b">브랜드·상표</td>
+      <td>제품명·사명의 시장 인지도 가치</td>
+      <td>무한 or 유한</td>
+      <td>유한이면 상각</td>
+    </tr>
+    <tr class="hl">
+      <td class="b">Goodwill</td>
+      <td>식별 후 남는 전체 프리미엄. 초과 수익 창출 능력</td>
+      <td>무한 (비한정)</td>
+      <td><strong class="r">상각 없음. 손상검사</strong></td>
+    </tr>
+  </table>
+
+  <div class="page-no">- 5 -</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ PAGE 6 ══ -->
+<div class="doc-page">
+
+  <div class="sq">§ 3-3. PPA가 이후 재무제표에 미치는 영향</div>
+
+  <p class="body-p">PPA는 인수 시점의 일회성 작업이 아니다. 배분된 무형자산은 내용연수 동안 매년 상각(Amortization)되어 이후 수년간 손익계산서를 압박한다. PE 인수 후 기업이 흑자를 내기 어려운 주요 원인 중 하나가 이것이다.</p>
+
+  <!-- PPA → 재무제표 영향 다이어그램 -->
+  <div style="margin:10px 0; display:flex; gap:10px;">
+
+    <!-- 왼쪽: PPA 결과 -->
+    <div style="flex:1; border:1px solid #bbb; overflow:hidden;">
+      <div style="background:#333; color:#fff; padding:6px 12px; font-size:10.5px; font-weight:700;">PPA 결과 (인수 직후 B/S)</div>
+      <div style="padding:10px 12px; font-size:11.5px; line-height:2.0;">
+        무형자산 급증&nbsp;&nbsp;<span style="color:#c00; font-weight:700;">+3B</span><br>
+        Goodwill 급증&nbsp;&nbsp;<span style="color:#c00; font-weight:700;">+3B</span><br>
+        <span style="color:#888; font-size:10px; display:block; margin-top:4px;">Predecessor 대비<br>자산 총액 급증</span>
+      </div>
+    </div>
+
+    <!-- 화살표 -->
+    <div style="display:flex; align-items:center; color:#555; font-size:18px; padding-top:10px;">→</div>
+
+    <!-- 오른쪽: 이후 영향 -->
+    <div style="flex:1.5; border:1px solid #1a5faa; overflow:hidden;">
+      <div style="background:#1a5faa; color:#fff; padding:6px 12px; font-size:10.5px; font-weight:700;">이후 매년 손익계산서 영향</div>
+      <div style="padding:10px 12px; font-size:11.5px; line-height:2.0;">
+        무형자산 상각비 (Amortization)<br>
+        <span style="color:#c00; font-weight:700;">예) 3B ÷ 7년 ≈ 매년 430M 추가 D&A</span><br>
+        <span style="font-size:10.5px; color:#555; display:block; margin-top:4px;">
+          → EBIT 감소 → Net Income 감소<br>
+          → "왜 인수 후 더 적자냐"의 주원인<br>
+          → EBITDA는 상각 전이라 영향 없음
+        </span>
+      </div>
+    </div>
+
+  </div>
+
+  <table class="t" style="margin-top:4px;">
+    <tr>
+      <th style="width:22%;">재무 지표</th>
+      <th>PPA 상각의 영향</th>
+      <th style="width:25%;">실무 해석 포인트</th>
+    </tr>
+    <tr>
+      <td class="b">EBITDA</td>
+      <td>영향 없음 — 상각(D&A) 전 지표이므로 PPA 상각 제외</td>
+      <td>PE가 EBITDA를 핵심 KPI로 쓰는 이유</td>
+    </tr>
+    <tr>
+      <td class="b">EBIT (영업이익)</td>
+      <td>무형자산 상각(Amortization)이 영업비용에 포함 → 감소</td>
+      <td>인수 전후 EBIT 비교 시 PPA 효과 제거 필요</td>
+    </tr>
+    <tr>
+      <td class="b r">Net Income</td>
+      <td class="r">EBIT 감소 + 차입금 이자비용 증가 → 대규모 순손실 가능</td>
+      <td>PE 인수 후 수년간 순손실이 정상. 회계상 손실 ≠ 사업 악화</td>
+    </tr>
+    <tr>
+      <td class="b">Goodwill</td>
+      <td>정기 상각 없음. 매년 손상검사 — 사업가치 하락 시 손상차손</td>
+      <td>손상 발생 시 대규모 일회성 손실로 계상</td>
+    </tr>
+    <tr>
+      <td class="b">FCF</td>
+      <td>PPA 상각은 비현금 항목 → OCF 계산 시 재가산 → FCF 영향 작음</td>
+      <td>PE가 Net Income보다 FCF를 더 신뢰하는 이유</td>
+    </tr>
+  </table>
+
+  <div class="box-blue" style="margin-top:8px;">
+    <strong>왜 PE는 EBITDA와 FCF에 집착하는가:</strong><br>
+    PPA 상각은 실제 현금 지출이 없는 회계상 비용이다. Net Income은 이 비용에 크게 영향받지만, EBITDA(상각 전)와 FCF(비현금 환원)는 영향을 거의 받지 않는다. 따라서 PE는 현금창출 능력을 보기 위해 Net Income 대신 EBITDA와 FCF를 핵심 지표로 사용한다.
+  </div>
+
+  <div class="sq" style="margin-top:14px;">§ 3-4. Successor / Predecessor 구조</div>
+
+  <p class="body-p">PPA는 새로운 회계 실체(Entity)를 만든다. 인수 전 법인을 <strong>Predecessor</strong>, 인수 후 법인을 <strong>Successor</strong>라 한다. 재무제표상 두 기간을 세로선(|)으로 구분하여 표기한다.</p>
+
+  <table class="t">
+    <tr>
+      <th style="width:20%;">구분</th>
+      <th style="width:40%;">Predecessor (인수 전)</th>
+      <th style="width:40%;">Successor (인수 후)</th>
+    </tr>
+    <tr>
+      <td class="b">회계 실체</td>
+      <td>기존 상장 법인</td>
+      <td>PE 인수 후 신설 또는 재편된 법인</td>
+    </tr>
+    <tr>
+      <td class="b">B/S 기준</td>
+      <td>기존 역사적 원가 기준</td>
+      <td>PPA 반영 공정가치 기준 — 완전히 다른 B/S</td>
+    </tr>
+    <tr class="hl">
+      <td class="b">Goodwill / 무형자산</td>
+      <td>상대적으로 소규모</td>
+      <td><strong>대폭 증가</strong> — PPA 반영</td>
+    </tr>
+    <tr class="hl">
+      <td class="b">부채 구조</td>
+      <td>전환사채 등 상장사 조달 수단</td>
+      <td><strong>Term Loan</strong> 중심 — LBO 차입 구조</td>
+    </tr>
+    <tr>
+      <td class="b">비교 가능성</td>
+      <td colspan="2" style="text-align:center; color:#c00; font-weight:700;">단순 비교 불가 — B/S 기준 자체가 달라졌음</td>
+    </tr>
+  </table>
+
+  <div class="fn">
+    * 재무제표 원문에서 Successor와 Predecessor 기간은 수직선(|)으로 구분되어 표기됨.<br>
+    * 두 기간의 수치를 합산하거나 단순 비교하는 것은 회계 원칙상 부적절하며, 분석 시 반드시 구분하여 해석해야 함.
+  </div>
+
+  <div class="page-no">- 6 -</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ PAGE 7 ══ -->
+<div class="doc-page">
+
+  <div class="ch">제4장. 전체 흐름 요약</div>
+
+  <div class="sq">§ 4-1. M&A 재무 흐름 한눈에 보기</div>
+
+  <!-- 전체 흐름 다이어그램 -->
+  <div style="margin:10px 0; font-family:'Batang','BatangChe',Georgia,serif; border:1px solid #bbb;">
+
+    <div style="background:#111; color:#fff; padding:7px 14px; font-size:10.5px; font-weight:700; letter-spacing:1px;">
+      인수 검토 → 가격 결정 → 회계 처리 → 이후 경영 전체 흐름
+    </div>
+
+    <!-- STEP 1 -->
+    <div style="display:flex; align-items:stretch; border-bottom:1px solid #ddd;">
+      <div style="width:90px; background:#222; color:#fff; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; padding:8px; text-align:center; line-height:1.6;">STEP 1<br>가치 산정</div>
+      <div style="flex:1; padding:10px 14px; font-size:11.5px; line-height:1.9;">
+        <strong>DCF</strong> — 미래 FCF 현재가치 (내재가치)<br>
+        <strong>LBO 모델</strong> — 목표 IRR 기준 최대 지불가능 가격<br>
+        <strong>Comparable</strong> — 시장 멀티플 기준 범위 검증<br>
+        <strong>Strategic Premium</strong> — 시너지·방어 가치 추가
+      </div>
+    </div>
+
+    <!-- 화살표 -->
+    <div style="text-align:center; padding:4px; background:#f5f5f5; color:#888; font-size:11px;">↓ 4가지 방법 종합 → 인수가격 협상 → 확정</div>
+
+    <!-- STEP 2 -->
+    <div style="display:flex; align-items:stretch; border-bottom:1px solid #ddd;">
+      <div style="width:90px; background:#1a3d6e; color:#fff; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; padding:8px; text-align:center; line-height:1.6;">STEP 2<br>PPA 수행</div>
+      <div style="flex:1; padding:10px 14px; font-size:11.5px; line-height:1.9;">
+        인수가격 배분: <strong>순자산 재평가</strong> + <strong>무형자산 식별</strong> + <strong>Goodwill</strong><br>
+        새로운 B/S 확정 → <strong>Successor 재무제표</strong> 시작<br>
+        멀티플은 사후 계산: EV ÷ Revenue, EV ÷ EBITDA 등
+      </div>
+    </div>
+
+    <!-- 화살표 -->
+    <div style="text-align:center; padding:4px; background:#f5f5f5; color:#888; font-size:11px;">↓ 인수 완료 → 경영 시작</div>
+
+    <!-- STEP 3 -->
+    <div style="display:flex; align-items:stretch;">
+      <div style="width:90px; background:#0a2540; color:#fff; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; padding:8px; text-align:center; line-height:1.6;">STEP 3<br>인수 후<br>경영</div>
+      <div style="flex:1; padding:10px 14px; font-size:11.5px; line-height:1.9;">
+        무형자산 <strong>매년 상각</strong> → D&A 증가 → Net Income 압박<br>
+        Term Loan <strong>이자비용</strong> → FCF로 상환<br>
+        Goodwill <strong>손상검사</strong> (사업 전망 악화 시 손상차손)<br>
+        목표: EBITDA·FCF 성장 → 5년 후 Exit (재매각·IPO)
+      </div>
+    </div>
+
+  </div>
+
+  <div class="sq" style="margin-top:14px;">§ 4-2. 사업부장님 보고용 핵심 정리</div>
+
+  <div class="box-key">
+    <strong>멀티플과 인수가액의 관계</strong><br>
+    멀티플은 인수가격을 결정하는 공식이 아니라, 결정된 가격이 시장 대비 적정한지 검증하는 상대가치 지표다. 실제 인수가격은 DCF(내재가치), LBO 모델(PE 목표 IRR 역산), 유사 거래 비교, 전략적 시너지를 종합하여 산정하며, 거래 확정 후 EV를 매출·EBITDA 등으로 나눈 것이 멀티플이다. 멀티플 수준이 높다는 것만으로 "비싸게 샀다"고 단정할 수 없다. 인수 시점의 시장 환경·금리·동종 거래 기준이 같은 조건에서 비교해야 하고, 버블 피크 대비 이미 크게 조정된 시점의 거래라면 겉으로 높아 보이는 멀티플도 실제로는 압축된 수준일 수 있다.
+  </div>
+
+  <div class="box-blue" style="margin-top:6px;">
+    <strong>PPA와 Goodwill</strong><br>
+    인수가격과 피인수 기업 순자산 공정가치의 차이는 식별 가능한 무형자산(고객관계·기술·브랜드)과 Goodwill로 배분된다. 무형자산은 내용연수에 걸쳐 상각되어 이후 수년간 EBIT·Net Income을 압박하고, Goodwill은 정기 상각 없이 매년 손상검사를 받는다. PE 인수 후 Net Income이 악화되는 주요 회계적 원인이다.
+  </div>
+
+  <div class="box-warn" style="margin-top:6px;">
+    <strong>Successor / Predecessor 구조</strong><br>
+    PPA로 회계 실체가 바뀌므로 인수 전후 재무제표는 단순 비교 불가. Successor B/S에는 Goodwill·무형자산이 대폭 증가하고 부채 구조도 전환사채 → Term Loan으로 전환된다. 두 기간을 비교할 때는 이 구조 변화를 먼저 인지해야 한다.
+  </div>
+
+  <div class="sq" style="margin-top:14px;">§ 4-3. 비유 — 집 살 때와 똑같다</div>
+
+  <p class="body-p no-indent">집을 살 때 "평당 3,000만 원이니까 30평 × 3,000 = 9억"으로 시작하지 않는다. 평당가는 결과이지, 가격을 만드는 공식이 아니다. M&A 멀티플도 정확히 같다.</p>
+
+  <div style="margin:8px 0; display:flex; gap:12px; align-items:stretch;">
+
+    <div style="flex:1.2; border:1px solid #bbb; overflow:hidden;">
+      <div style="background:#222; color:#fff; padding:6px 12px; font-size:10.5px; font-weight:700;">집 살 때 실제 판단 순서</div>
+      <div style="padding:10px 14px; font-size:11.5px; line-height:2.2;">
+        대출 얼마나 받을 수 있나?<br>
+        <span style="color:#888; font-size:10px; padding-left:1em;">→ LBO의 차입 한도</span><br>
+        10년 살면 얼마나 가치 있나?<br>
+        <span style="color:#888; font-size:10px; padding-left:1em;">→ DCF</span><br>
+        근처 비슷한 집은 얼마에 거래되나?<br>
+        <span style="color:#888; font-size:10px; padding-left:1em;">→ Comparable</span><br>
+        꼭 이 집이어야 하는 이유 있나?<br>
+        <span style="color:#888; font-size:10px; padding-left:1em;">→ Strategic Premium</span>
+      </div>
+    </div>
+
+    <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; color:#999; font-size:18px; gap:4px;">
+      <span>→</span>
+      <span style="font-size:9px; color:#bbb; writing-mode:vertical-rl; letter-spacing:2px;">결정 후 역산</span>
+    </div>
+
+    <div style="flex:1; border:1px solid #1a5faa; overflow:hidden;">
+      <div style="background:#1a5faa; color:#fff; padding:6px 12px; font-size:10.5px; font-weight:700;">사후 표현 (결과)</div>
+      <div style="padding:10px 14px; font-size:11.5px; line-height:2.2;">
+        위 4가지 따져서<br>
+        <strong>"9억 줄게"</strong> 결정<br><br>
+        그 다음에:<br>
+        <strong style="color:#1a5faa;">"평당 3,000만 원에 샀네"</strong><br><br>
+        <span style="font-size:10.5px; color:#555;">평당가는 결과.<br>가격을 만든 게 아니다.</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="fn">
+    본 문서는 재무 지표 해설 보고서(financial_metrics_guide_20260624.html)의 후속 문서로, 기업가치 평가 및 M&A 회계 개념을 실무 관점에서 정리한 참고 자료입니다.<br>
+    작성: 솔루션사업부 기획팀 / 2026.06.24.
+  </div>
+
+  <div class="page-no">- 7 -</div>
+</div>
+
+</body>
+</html>

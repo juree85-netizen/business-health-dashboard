@@ -12,7 +12,7 @@ description: Coupa의 Rossum 인수 분석 및 Medallia 사례 비교 평가 —
 아래 버튼을 클릭하면 HTML 보고서가 새 탭에서 열립니다.
 
 <p>
-  <a href="/coupa_rossum_report_v3_20260630.html" target="_blank" rel="noopener"
+  <a href="../../html/coupa_rossum_report_v3_20260630.html" target="_blank" rel="noopener"
     style="display:inline-block;padding:0.6em 1.4em;background:#2563eb;color:#fff;border-radius:6px;font-weight:600;text-decoration:none;">
     📄 인수 분석 보고서 v3 열기 ↗
   </a>

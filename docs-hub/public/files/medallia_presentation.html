@@ -1,0 +1,1585 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medallia 사례로 본 SaaS 기업 가치 평가 — 발표자료</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-snap-type: y mandatory;
+      overflow-y: scroll;
+      height: 100%;
+    }
+    body {
+      font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', sans-serif;
+      color: #172B4D;
+      height: 100%;
+    }
+
+    /* ── Slide base ── */
+    .slide {
+      height: 100vh;
+      scroll-snap-align: start;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 52px 80px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ── Themes ── */
+    .dark  { background: #0D1B35; color: #fff; }
+    .light { background: #F4F6FB; }
+    .white { background: #fff; }
+    .blue  { background: #1868DB; color: #fff; }
+
+    /* ── Page number ── */
+    .pg {
+      position: absolute;
+      bottom: 28px; right: 48px;
+      font-size: 11px;
+      opacity: 0.3;
+      letter-spacing: 1px;
+    }
+
+    /* ── Nav dots ── */
+    #nav {
+      position: fixed;
+      right: 18px; top: 50%;
+      transform: translateY(-50%);
+      display: flex; flex-direction: column; gap: 10px;
+      z-index: 999;
+    }
+    .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(120,130,160,0.35);
+      cursor: pointer;
+      transition: background .2s, transform .2s;
+      border: none; padding: 0;
+    }
+    .dot.active { background: #1868DB; transform: scale(1.45); }
+    .dark  .dot { background: rgba(255,255,255,0.25); }
+    .dot:focus-visible { outline: 2px solid #1868DB; outline-offset: 4px; }
+    .dark .dot:focus-visible { outline-color: #7BB4FF; }
+
+    /* ── Typography ── */
+    .eyebrow {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      color: #1868DB; margin-bottom: 10px;
+    }
+    .dark .eyebrow  { color: #7BB4FF; }
+    .blue .eyebrow  { color: rgba(255,255,255,0.55); }
+
+    .h1 { font-size: 44px; font-weight: 700; line-height: 1.18; margin-bottom: 14px; }
+    .h2 { font-size: 34px; font-weight: 700; line-height: 1.2;  margin-bottom: 28px; }
+    .sub { font-size: 17px; opacity: .6; line-height: 1.55; margin-bottom: 36px; }
+
+    /* ── Layout ── */
+    .cols2 { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+    .cols3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+
+    /* ── Cards ── */
+    .card {
+      background: #fff;
+      border-radius: 12px; padding: 22px 24px;
+      box-shadow: 0 2px 14px rgba(0,0,0,.07);
+    }
+    .card.glass {
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.13);
+      box-shadow: none;
+    }
+    .card.panel {
+      background: #F4F6FB;
+      border-radius: 12px; padding: 22px 24px;
+    }
+    .metric { font-size: 34px; font-weight: 700; line-height: 1; margin-bottom: 5px; }
+    .metric-label { font-size: 12px; color: #6B778C; }
+    .card.glass .metric-label { color: rgba(255,255,255,.45); }
+
+    /* ── Tags ── */
+    .tag {
+      display: inline-block; font-size: 11px; font-weight: 700;
+      padding: 3px 10px; border-radius: 20px; margin-bottom: 10px;
+    }
+    .t-red  { background: #FFEBE6; color: #BF2600; }
+    .t-blue { background: #DEEBFF; color: #0052CC; }
+    .t-org  { background: #FFF4E5; color: #974F0C; }
+    .t-grn  { background: #E3FCEF; color: #006644; }
+
+    /* ── Bullets ── */
+    .bl { list-style: none; }
+    .bl li {
+      padding: 9px 0 9px 24px; position: relative;
+      font-size: 15px; line-height: 1.55;
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+    .bl li:last-child { border-bottom: none; }
+    .bl li::before {
+      content: ''; position: absolute;
+      left: 0; top: 17px;
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #1868DB;
+    }
+    .dark .bl li { border-bottom-color: rgba(255,255,255,.07); }
+    .dark .bl li::before { background: #7BB4FF; }
+    .blue .bl li { border-bottom-color: rgba(255,255,255,.15); }
+    .blue .bl li::before { background: rgba(255,255,255,.6); }
+
+    /* ── Alert box ── */
+    .alert {
+      border-radius: 10px; padding: 14px 20px;
+      font-size: 14px; line-height: 1.7;
+    }
+    .alert-warn {
+      background: #FFF8E1;
+      border-left: 4px solid #F9A825;
+      color: #5D4037;
+    }
+    .alert-danger {
+      background: rgba(191,38,0,.1);
+      border: 1px solid rgba(191,38,0,.25);
+      color: rgba(255,255,255,.85);
+    }
+    .alert-info {
+      background: rgba(24,104,219,.1);
+      border: 1px solid rgba(24,104,219,.25);
+      color: rgba(255,255,255,.85);
+    }
+
+    /* ── Divider ── */
+    .rule { width: 44px; height: 3px; background: #1868DB; border-radius: 2px; margin-bottom: 20px; }
+    .blue .rule { background: rgba(255,255,255,.4); }
+
+    /* ── Abbreviation Highlight & Memo Tooltip ── */
+    .abbr-hl {
+      border-bottom: 1.5px dotted rgba(24,104,219,0.5);
+      cursor: help;
+    }
+    .dark .abbr-hl { border-bottom-color: rgba(123,180,255,0.55); }
+    .blue .abbr-hl { border-bottom-color: rgba(255,255,255,0.45); }
+
+    #memo-tip {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      min-width: 200px;
+      max-width: 260px;
+      border-radius: 2px 8px 8px 8px;
+      overflow: hidden;
+      box-shadow: 4px 6px 20px rgba(0,0,0,0.22);
+      pointer-events: none;
+      font-family: 'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif;
+    }
+    #memo-tip .tip-header {
+      background: #F5C542;
+      padding: 5px 12px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    #memo-tip .tip-label {
+      font-size: 9px; font-weight: 800;
+      letter-spacing: 2px; color: #7A5200;
+      text-transform: uppercase;
+    }
+    #memo-tip .tip-body {
+      background: #FFFEF2;
+      padding: 10px 14px 13px;
+      background-image: repeating-linear-gradient(
+        transparent, transparent 23px,
+        rgba(24,104,219,0.09) 23px, rgba(24,104,219,0.09) 24px
+      );
+    }
+    #memo-tip .tip-abbr { font-size:14px; font-weight:700; color:#1868DB; margin-bottom:2px; }
+    #memo-tip .tip-full { font-size:10px; color:#888; font-style:italic; margin-bottom:8px; white-space:pre-line; }
+    #memo-tip .tip-sep  { height:1px; background:rgba(24,104,219,0.15); margin-bottom:8px; }
+    #memo-tip .tip-desc { font-size:12px; color:#333; line-height:1.65; white-space:pre-line; }
+    #memo-tip.wide { max-width:350px; }
+    text.abbr-svg-hl { cursor: help; }
+    #memo-tip .tip-detail { border-top:1px solid rgba(24,104,219,0.15); margin-top:9px; padding-top:9px; display:none; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-snap-type: none; }
+    }
+    #memo-tip .tip-dsec { margin-bottom:9px; }
+    #memo-tip .tip-dsec:last-child { margin-bottom:0; }
+    #memo-tip .tip-dtitle { font-size:10px; font-weight:700; color:#1868DB; letter-spacing:0.5px; margin-bottom:5px; }
+    #memo-tip .tip-drow { display:flex; justify-content:space-between; gap:8px; font-size:11px; padding:2.5px 0; border-bottom:1px solid rgba(24,104,219,0.07); }
+    #memo-tip .tip-drow:last-child { border-bottom:none; }
+    #memo-tip .tip-dkey { color:#1868DB; font-weight:600; flex-shrink:0; }
+    #memo-tip .tip-dkey.curr { background:#DEEBFF; border-radius:3px; padding:0 4px; }
+    #memo-tip .tip-dval { color:#555; text-align:right; }
+    #memo-tip .tip-dval.danger { color:#BF2600; font-weight:600; }
+    #memo-tip .tip-dval.good   { color:#006644; font-weight:600; }
+  </style>
+</head>
+<body>
+
+<!-- ── Memo Tooltip ── -->
+<div id="memo-tip">
+  <div class="tip-header">
+    <span style="font-size:11px">📋</span>
+    <span class="tip-label">Memo</span>
+  </div>
+  <div class="tip-body">
+    <div class="tip-abbr"></div>
+    <div class="tip-full"></div>
+    <div class="tip-sep"></div>
+    <div class="tip-desc"></div>
+    <div class="tip-detail"></div>
+  </div>
+</div>
+
+<!-- ── Nav dots ── -->
+<nav id="nav" aria-label="슬라이드 내비게이션">
+  <button class="dot active" onclick="go(0)" aria-label="슬라이드 1: 표지"></button>
+  <button class="dot" onclick="go(1)" aria-label="슬라이드 2: Medallia 개요"></button>
+  <button class="dot" onclick="go(2)" aria-label="슬라이드 3: 타임라인"></button>
+  <button class="dot" onclick="go(3)" aria-label="슬라이드 4: 인수 구조"></button>
+  <button class="dot" onclick="go(4)" aria-label="슬라이드 5: 현금흐름 위기"></button>
+  <button class="dot" onclick="go(5)" aria-label="슬라이드 6: 부채 구조 악화"></button>
+  <button class="dot" onclick="go(6)" aria-label="슬라이드 7: 탈출 실패"></button>
+  <button class="dot" onclick="go(7)" aria-label="슬라이드 8: 파급 효과"></button>
+  <button class="dot" onclick="go(8)" aria-label="슬라이드 9: 시사점"></button>
+</nav>
+
+<!-- ════════════════════════════════
+     SLIDE 1 · 표지
+════════════════════════════════ -->
+<section class="slide dark" id="s0">
+  <!-- Background decoration -->
+  <svg style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;" viewBox="0 0 1400 900" preserveAspectRatio="xMidYMid slice">
+    <circle cx="1200" cy="150" r="320" fill="rgba(24,104,219,0.07)"/>
+    <circle cx="1300" cy="500" r="200" fill="rgba(24,104,219,0.05)"/>
+    <circle cx="-80" cy="800" r="250" fill="rgba(24,104,219,0.04)"/>
+  </svg>
+
+  <div style="display:flex; gap:52px; align-items:center; width:100%; position:relative;">
+
+    <!-- LEFT: 제목 영역 -->
+    <div style="flex:1; min-width:0;">
+      <div class="eyebrow">Medallia · Thoma Bravo · PE LBO 사례 분석</div>
+      <h1 class="h1">Medallia로 보는<br>SaaS 기업 가치 평가</h1>
+      <div style="font-size:22px; font-weight:600; opacity:.6; margin-bottom:36px; line-height:1.4;">$6.4B SaaS 인수, 왜 실패했나</div>
+      <div style="display:flex; gap:40px;">
+        <span style="font-size:13px; opacity:.4;">솔루션전략그룹(솔루션)</span>
+        <span style="font-size:13px; opacity:.4;">'26.05.19</span>
+        <span style="font-size:13px; opacity:.4;">9 Slides</span>
+      </div>
+    </div>
+
+    <!-- RIGHT: 분석 범위 + 분석 목적 + 타임라인 -->
+    <div style="width:360px; flex-shrink:0; display:flex; flex-direction:column; gap:10px;">
+
+      <!-- 분석 범위 -->
+      <div style="background:rgba(24,104,219,0.12); border:1px solid rgba(24,104,219,0.30); border-radius:12px; padding:16px 20px;">
+        <div style="font-size:9px; font-weight:700; letter-spacing:2px; color:#7BB4FF; text-transform:uppercase; margin-bottom:12px;">분석 범위</div>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <div style="display:flex; gap:10px; font-size:12.5px; line-height:1.5;">
+            <span style="color:rgba(255,255,255,.4); min-width:52px; flex-shrink:0;">대상</span>
+            <span style="color:#fff; font-weight:600;">Medallia / Thoma Bravo</span>
+          </div>
+          <div style="display:flex; gap:10px; font-size:12.5px; line-height:1.5;">
+            <span style="color:rgba(255,255,255,.4); min-width:52px; flex-shrink:0;">기간</span>
+            <span style="color:rgba(255,255,255,.85);">'21년 인수 ~ '26년 채권단 경영권 이전</span>
+          </div>
+          <div style="display:flex; gap:10px; font-size:12.5px; line-height:1.5;">
+            <span style="color:rgba(255,255,255,.4); min-width:52px; flex-shrink:0;">출처</span>
+            <span style="color:rgba(255,255,255,.55);">Bloomberg, OnlyCFO 분석 기반 추정치</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 분석 목적 -->
+      <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.10); border-radius:12px; padding:16px 20px;">
+        <div style="font-size:9px; font-weight:700; letter-spacing:2px; color:rgba(255,255,255,.4); text-transform:uppercase; margin-bottom:12px;">분석 목적</div>
+        <div style="display:flex; flex-direction:column; gap:9px;">
+          <div style="display:flex; gap:9px; align-items:flex-start; font-size:12.5px; line-height:1.6;">
+            <span style="color:#7BB4FF; font-weight:700; flex-shrink:0; margin-top:1px;">①</span>
+            <span style="color:rgba(255,255,255,.85);">PE 기반 SaaS 차입매수(LBO) 방식의 실패 원인 분석</span>
+          </div>
+          <div style="display:flex; gap:9px; align-items:flex-start; font-size:12.5px; line-height:1.6;">
+            <span style="color:#7BB4FF; font-weight:700; flex-shrink:0; margin-top:1px;">②</span>
+            <span style="color:rgba(255,255,255,.85);">SaaS 기업가치 및 M&amp;A 추진 시 평가 기준 재점검</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 타임라인 (condensed) -->
+      <div style="background:rgba(24,104,219,0.08); border:1px solid rgba(24,104,219,0.20); border-radius:12px; padding:16px 20px;">
+        <div style="font-size:9px; font-weight:700; letter-spacing:2px; color:rgba(255,255,255,.35); text-transform:uppercase; margin-bottom:14px;">Timeline</div>
+        <div style="display:flex; gap:12px; align-items:flex-start;">
+          <div style="display:flex; flex-direction:column; align-items:center; flex-shrink:0;">
+            <div style="width:9px; height:9px; border-radius:50%; background:#1868DB; margin-top:3px;"></div>
+            <div style="width:1px; height:36px; background:rgba(255,255,255,0.12); margin-top:4px;"></div>
+          </div>
+          <div style="padding-bottom:10px;">
+            <div style="font-size:10.5px; color:rgba(255,255,255,.35); margin-bottom:2px;">2021.10</div>
+            <div style="font-size:13px; font-weight:700; color:#fff; margin-bottom:2px;">Thoma Bravo 인수</div>
+            <div style="font-size:12px; color:#7BB4FF;">$6.4B (Equity $4.6B + Debt $1.8B)</div>
+          </div>
+        </div>
+        <div style="display:flex; gap:12px; align-items:flex-start;">
+          <div style="flex-shrink:0; padding-top:3px;">
+            <div style="width:9px; height:9px; border-radius:50%; background:#FF5630;"></div>
+          </div>
+          <div>
+            <div style="font-size:10.5px; color:rgba(255,255,255,.35); margin-bottom:2px;">2026.04</div>
+            <div style="font-size:13px; font-weight:700; color:#fff; margin-bottom:2px;">채권단 경영권 이전</div>
+            <div style="font-size:12px; color:#FF8F73;">투자금 $4.6B 사실상 전액 손실</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="pg">01 / 09</div>
+</section>
+
+<!-- ════════════════════════════════
+     SLIDE 2 · Medallia 개요
+════════════════════════════════ -->
+<section class="slide dark" id="s2">
+  <div class="eyebrow">Company Profile</div>
+  <h2 class="h2">Medallia는 어떤 회사인가</h2>
+
+  <div class="cols2" style="align-items:start; gap:40px;">
+    <!-- Left: bullets -->
+    <div>
+      <ul class="bl">
+        <li>2001년 설립, 샌프란시스코 소재 <strong>CX(고객경험) 관리 SaaS</strong></li>
+        <li>VoC 플랫폼 글로벌 <strong>2위</strong> — 1위는 Qualtrics</li>
+        <li>주요 고객: 금융·항공·호텔·통신 약 1,000개사</li>
+        <li>Gartner Magic Quadrant '26년 <strong>Leader</strong> 선정</li>
+        <li>2019 NYSE 상장 → 2021 Thoma Bravo 인수, 상장폐지</li>
+      </ul>
+    </div>
+    <!-- Right: metric grid + warning -->
+    <div>
+      <div class="card glass" style="margin-bottom:16px;">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px 32px;">
+          <div>
+            <div class="metric" style="color:#7BB4FF;">$477M</div>
+            <div class="metric-label">매출 (FY2021)</div>
+          </div>
+          <div>
+            <div class="metric" style="color:#FF5630;">-$109M</div>
+            <div class="metric-label">EBITDA (FY2021)</div>
+          </div>
+          <div>
+            <div class="metric" style="color:#7BB4FF; font-size:24px;">23~26%</div>
+            <div class="metric-label">ARR 성장률 (FY2021)</div>
+          </div>
+          <div>
+            <div class="metric" style="color:#FF5630;">10</div>
+            <div class="metric-label">Rule of 40 (하위 10%)</div>
+          </div>
+        </div>
+      </div>
+      <div class="alert alert-danger">
+        <span style="color:#FF8F73; font-weight:700;">⚠ 인수 당시 이미 알려진 부정적 신호</span><br>
+        FCF 적자 · Rule of 40 = 10 (하위 10%) · <strong style="color:#FF8F73;">NRR 하락세 (126% → ~108%)</strong><br>
+        그럼에도 <strong style="color:#fff;">고성장(ARR 23~26%)</strong>을 이유로 인수를 결정
+      </div>
+    </div>
+  </div>
+
+  <div class="pg">02 / 09</div>
+</section>
+
+<!-- ════════════════════════════════
+     SLIDE 3 · 전체 타임라인
+════════════════════════════════ -->
+<section class="slide light" id="s1">
+  <div class="eyebrow">Timeline</div>
+  <h2 class="h2">무슨 일이 있었나</h2>
+
+  <!-- Timeline SVG -->
+  <svg width="100%" height="200" viewBox="0 0 1100 200" preserveAspectRatio="xMidYMid meet" style="overflow:visible; margin-bottom:24px;">
+    <defs>
+      <marker id="ah" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto">
+        <circle cx="3.5" cy="3.5" r="2.5" fill="#C0C8D8"/>
+      </marker>
+    </defs>
+    <!-- Rail -->
+    <line x1="60" y1="96" x2="1040" y2="96" stroke="#D0D8E8" stroke-width="2.5"/>
+
+    <!-- 2001 -->
+    <circle cx="60" cy="96" r="11" fill="#1868DB"/>
+    <text x="60" y="66" text-anchor="middle" font-size="13" font-weight="700" fill="#172B4D">2001</text>
+    <text x="60" y="120" text-anchor="middle" font-size="12" fill="#6B778C">설립</text>
+    <text x="60" y="135" text-anchor="middle" font-size="11" fill="#6B778C">CX SaaS</text>
+
+    <!-- 2019 -->
+    <circle cx="270" cy="96" r="11" fill="#1868DB"/>
+    <text x="270" y="66" text-anchor="middle" font-size="13" font-weight="700" fill="#172B4D">2019</text>
+    <text x="270" y="120" text-anchor="middle" font-size="12" fill="#6B778C">NYSE 상장</text>
+    <text x="270" y="135" text-anchor="middle" font-size="11" fill="#6B778C">IPO $21</text>
+    <text x="270" y="150" text-anchor="middle" font-size="10.5" fill="#94A3B8">상장 후 $16~$48</text>
+
+    <!-- 2021.07 — key event -->
+    <circle cx="490" cy="96" r="16" fill="#1868DB" stroke="#fff" stroke-width="3"/>
+    <text x="490" y="59" text-anchor="middle" font-size="13" font-weight="700" fill="#172B4D">2021.07</text>
+    <text x="490" y="73" text-anchor="middle" font-size="11" fill="#6B778C">Thoma Bravo 인수</text>
+    <text x="490" y="122" text-anchor="middle" font-size="15" font-weight="700" fill="#1868DB">$6.4B</text>
+    <text x="490" y="139" text-anchor="middle" font-size="11" fill="#6B778C" class="abbr-svg-hl" data-abbr-key="EV/Revenue">EV/Rev 9× · 상장폐지</text>
+    <text x="490" y="154" text-anchor="middle" font-size="10.5" fill="#94A3B8">인수 당시 주가 $34</text>
+
+    <!-- 2022~2025 -->
+    <circle cx="730" cy="96" r="13" fill="#FF5630"/>
+    <text x="730" y="63" text-anchor="middle" font-size="13" font-weight="700" fill="#172B4D">2022~2025</text>
+    <text x="730" y="76" text-anchor="middle" font-size="11" fill="#FF5630">금리 급등</text>
+    <text x="730" y="120" text-anchor="middle" font-size="12" fill="#6B778C" class="abbr-svg-hl" data-abbr-key="SOFR">SOFR 0.75% → 5.4%</text>
+    <text x="730" y="136" text-anchor="middle" font-size="11" fill="#6B778C">연이자 $135M → $300M</text>
+
+    <!-- 2026.04 -->
+    <circle cx="1040" cy="96" r="14" fill="#BF2600" stroke="#fff" stroke-width="2"/>
+    <text x="1040" y="59" text-anchor="middle" font-size="13" font-weight="700" fill="#172B4D">2026.04</text>
+    <text x="1040" y="73" text-anchor="middle" font-size="11" fill="#BF2600">채권단 경영권 이전</text>
+    <text x="1040" y="120" text-anchor="middle" font-size="13" font-weight="700" fill="#BF2600">손실 확정</text>
+    <text x="1040" y="137" text-anchor="middle" font-size="11" fill="#6B778C">PE 역사상 최대</text>
+    <text x="1040" y="152" text-anchor="middle" font-size="11" fill="#6B778C">SaaS LBO 실패</text>
+  </svg>
+
+  <!-- 핵심 요약 카드 4개 -->
+  <div style="display:flex; gap:18px;">
+    <div class="card" style="flex:1;">
+      <div class="tag t-blue">인수 멀티플</div>
+      <div class="metric" style="color:#1868DB;">9×</div>
+      <div class="metric-label">EV/Revenue ('21년)</div>
+    </div>
+    <div class="card" style="flex:1;">
+      <div class="tag t-red">이자 최고점</div>
+      <div class="metric" style="color:#FF5630;">$300M</div>
+      <div class="metric-label">연간 이자비용 ('23년)</div>
+    </div>
+    <div class="card" style="flex:1;">
+      <div class="tag t-red">이자 > EBITDA</div>
+      <div class="metric" style="color:#FF5630;">$270M</div>
+      <div class="metric-label">이자 ('25년) vs EBITDA $200M</div>
+    </div>
+    <div class="card" style="flex:1;">
+      <div class="tag t-org">투자 기간</div>
+      <div class="metric" style="color:#974F0C;">5년</div>
+      <div class="metric-label">EXIT 실패 → 손실 처리</div>
+    </div>
+  </div>
+
+  <div class="pg">03 / 09</div>
+</section>
+
+<!-- ════════════════════════════════
+     SLIDE 4 · 인수 자금 조달 구조
+════════════════════════════════ -->
+<section class="slide white" id="s3">
+  <div class="eyebrow">Deal Structure</div>
+  <h2 class="h2" style="margin-bottom:16px;">인수 자금 조달 구조 및 판단 기준</h2>
+
+  <!-- ── 상단: 플로우(좌) + 차트(우) ── -->
+  <div style="display:grid; grid-template-columns:1.05fr 1fr; gap:28px; align-items:start; margin-bottom:14px;">
+
+    <!-- LEFT: Flow diagram -->
+    <svg width="100%" viewBox="0 0 700 210" preserveAspectRatio="xMidYMid meet" style="overflow:visible;">
+      <defs>
+        <marker id="aBlue" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+          <path d="M0,0 L9,4.5 L0,9 Z" fill="#1868DB"/>
+        </marker>
+        <marker id="aRed" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+          <path d="M0,0 L9,4.5 L0,9 Z" fill="#FF5630"/>
+        </marker>
+        <marker id="aDark" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+          <path d="M0,0 L9,4.5 L0,9 Z" fill="#172B4D"/>
+        </marker>
+      </defs>
+      <rect x="222" y="1" width="256" height="20" rx="10" fill="#EFF4FF" stroke="#1868DB" stroke-width="0.8"/>
+      <text x="350" y="14.5" text-anchor="middle" font-size="10" fill="#0052CC" font-weight="700">LIBOR 0.75% — 초저금리 환경 (2021)</text>
+      <rect x="4" y="26" width="188" height="88" rx="10" fill="#DEEBFF" stroke="#1868DB" stroke-width="1.5"/>
+      <text x="98" y="53" text-anchor="middle" font-size="13" font-weight="700" fill="#0052CC">Thoma Bravo 등</text>
+      <text x="98" y="80" text-anchor="middle" font-size="26" font-weight="700" fill="#1868DB">$4.6B</text>
+      <text x="98" y="103" text-anchor="middle" font-size="11.5" fill="#6B778C">Equity (지분 투자)</text>
+      <rect x="4" y="126" width="188" height="88" rx="10" fill="#FFEBE6" stroke="#FF5630" stroke-width="1.5"/>
+      <text x="98" y="153" text-anchor="middle" font-size="13" font-weight="700" fill="#BF2600">Blackstone 등 (채권단)</text>
+      <text x="98" y="180" text-anchor="middle" font-size="26" font-weight="700" fill="#FF5630">$1.8B</text>
+      <text x="98" y="203" text-anchor="middle" font-size="11.5" fill="#6B778C">Debt · 변동금리 차입</text>
+      <line x1="192" y1="70" x2="240" y2="110" stroke="#1868DB" stroke-width="2" marker-end="url(#aBlue)"/>
+      <line x1="192" y1="170" x2="240" y2="130" stroke="#FF5630" stroke-width="2" marker-end="url(#aRed)"/>
+      <rect x="240" y="83" width="178" height="98" rx="12" fill="#0D1B35"/>
+      <text x="329" y="113" text-anchor="middle" font-size="12" fill="rgba(255,255,255,.5)">총 인수 금액</text>
+      <text x="329" y="148" text-anchor="middle" font-size="32" font-weight="700" fill="#fff">$6.4B</text>
+      <text x="329" y="170" text-anchor="middle" font-size="11" fill="rgba(255,255,255,.4)" class="abbr-svg-hl" data-abbr-key="EV/Revenue">EV/Revenue 약 9×</text>
+      <line x1="418" y1="132" x2="460" y2="132" stroke="#0D1B35" stroke-width="2.5" marker-end="url(#aDark)"/>
+      <text x="439" y="125" text-anchor="middle" font-size="10" fill="#6B778C">인수</text>
+      <rect x="460" y="74" width="236" height="126" rx="12" fill="#F4F6FB" stroke="#DFE1E6" stroke-width="1.5"/>
+      <text x="578" y="107" text-anchor="middle" font-size="15" font-weight="700" fill="#172B4D">Medallia</text>
+      <text x="578" y="127" text-anchor="middle" font-size="12" fill="#6B778C">CX SaaS · VoC 글로벌 2위</text>
+      <text x="578" y="147" text-anchor="middle" font-size="12" fill="#6B778C">매출 $477M · EBITDA −$109M</text>
+      <text x="578" y="166" text-anchor="middle" font-size="11.5" fill="#FF5630" font-weight="600">Rule of 40: 10 (하위 10%)</text>
+      <text x="578" y="184" text-anchor="middle" font-size="11" fill="#6B778C">ARR 성장 23~26%</text>
+    </svg>
+
+    <!-- RIGHT: EV/NTM FCF Chart (크게) -->
+    <svg viewBox="0 0 460 210" width="100%" preserveAspectRatio="xMidYMid meet">
+      <!-- Title -->
+      <text x="228" y="12" text-anchor="middle" font-size="9.5" fill="#6B778C" font-weight="600">EV / NTM FCF Multiple — FCF Positive SaaS 기업 중앙값</text>
+      <!-- Chart bg -->
+      <rect x="38" y="18" width="380" height="148" fill="#F8FAFC" rx="4"/>
+      <!-- Grid lines -->
+      <line x1="38" y1="166" x2="418" y2="166" stroke="#DFE1E6" stroke-width="0.6"/>
+      <line x1="38" y1="133" x2="418" y2="133" stroke="#E5E7EB" stroke-width="0.5"/>
+      <line x1="38" y1="100" x2="418" y2="100" stroke="#E5E7EB" stroke-width="0.5"/>
+      <line x1="38" y1="67"  x2="418" y2="67"  stroke="#E5E7EB" stroke-width="0.5"/>
+      <line x1="38" y1="34"  x2="418" y2="34"  stroke="#E5E7EB" stroke-width="0.5"/>
+      <line x1="38" y1="18"  x2="418" y2="18"  stroke="#E5E7EB" stroke-width="0.5"/>
+      <!-- Y-axis labels
+           Scale: y = 166 - (val/110)*148  →  0×=166, 22×=137, 50×=99, 75×=65.5≈66, 100×=32
+      -->
+      <text x="33" y="169" text-anchor="end" font-size="8.5" fill="#9CA3AF">0×</text>
+      <text x="33" y="103" text-anchor="end" font-size="8.5" fill="#9CA3AF">50×</text>
+      <text x="33" y="35"  text-anchor="end" font-size="8.5" fill="#9CA3AF">100×</text>
+      <!-- 22× LT Avg marker -->
+      <line x1="36" y1="137" x2="38" y2="137" stroke="#94A3B8" stroke-width="2"/>
+      <text x="32" y="135" text-anchor="end" font-size="8.5" fill="#94A3B8" font-weight="700">22×</text>
+      <!-- LT Average line -->
+      <line x1="38" y1="137" x2="418" y2="137" stroke="#94A3B8" stroke-width="1.4" stroke-dasharray="5,4"/>
+      <text x="421" y="134" font-size="8" fill="#94A3B8" font-weight="600">LT Avg</text>
+      <text x="421" y="144" font-size="8" fill="#94A3B8">~22×</text>
+      <!-- Data points: val→y = 166-(val/110)*148
+           '18 22→137  '19 27→130  '20 42→110  '21 72→69  '22 28→128.5≈129  '23 19→141  '24 22→137
+           x: '18=38, '19=101, '20=164, '21=227, '22=290, '23=355, '24=418  (step=380/6≈63.3)
+      -->
+      <polygon points="38,137 101,130 164,110 227,69 290,129 355,141 418,137 418,166 38,166" fill="rgba(24,104,219,0.08)"/>
+      <polyline points="38,137 101,130 164,110 227,69 290,129 355,141 418,137"
+        fill="none" stroke="#1868DB" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/>
+      <circle cx="38"  cy="137" r="3.5" fill="#1868DB"/>
+      <circle cx="101" cy="130" r="3.5" fill="#1868DB"/>
+      <circle cx="164" cy="110" r="3.5" fill="#1868DB"/>
+      <circle cx="227" cy="69"  r="5"   fill="#1868DB"/>
+      <circle cx="290" cy="129" r="3.5" fill="#1868DB"/>
+      <circle cx="355" cy="141" r="3.5" fill="#1868DB"/>
+      <circle cx="418" cy="137" r="3.5" fill="#1868DB"/>
+      <!-- Peak label -->
+      <text x="222" y="61" text-anchor="middle" font-size="11" fill="#1868DB" font-weight="700">72×</text>
+      <!-- Peak callout -->
+      <rect x="238" y="22" width="108" height="28" rx="4" fill="rgba(24,104,219,0.07)" stroke="rgba(24,104,219,0.22)" stroke-width="0.8"/>
+      <text x="292" y="33" text-anchor="middle" font-size="8" fill="#6B778C">LT 평균(22×)의</text>
+      <text x="292" y="45" text-anchor="middle" font-size="9" fill="#1868DB" font-weight="700">3.3배 팽창</text>
+      <line x1="238" y1="33" x2="231" y2="65" stroke="rgba(24,104,219,0.25)" stroke-width="1" stroke-dasharray="2,2"/>
+      <!-- Medallia marker (Oct 2021 ≈ x=275) -->
+      <line x1="275" y1="18" x2="275" y2="175" stroke="#FF5630" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.9"/>
+      <polygon points="275,69 269,58 281,58" fill="#FF5630"/>
+      <!-- X-axis labels -->
+      <text x="38"  y="180" text-anchor="middle" font-size="8.5" fill="#6B778C">'18</text>
+      <text x="101" y="180" text-anchor="middle" font-size="8.5" fill="#6B778C">'19</text>
+      <text x="164" y="180" text-anchor="middle" font-size="8.5" fill="#6B778C">'20</text>
+      <text x="227" y="180" text-anchor="middle" font-size="8.5" fill="#6B778C">'21</text>
+      <text x="290" y="180" text-anchor="middle" font-size="8.5" fill="#6B778C">'22</text>
+      <text x="355" y="180" text-anchor="middle" font-size="8.5" fill="#6B778C">'23</text>
+      <text x="418" y="180" text-anchor="middle" font-size="8.5" fill="#6B778C">'24</text>
+      <!-- Medallia label -->
+      <text x="277" y="190" font-size="8" fill="#FF5630" font-weight="600">인수 '21.10</text>
+      <!-- Legend -->
+      <line x1="38" y1="204" x2="56" y2="204" stroke="#1868DB" stroke-width="2"/>
+      <circle cx="47" cy="204" r="2.5" fill="#1868DB"/>
+      <text x="60" y="207" font-size="7.5" fill="#6B778C" class="abbr-svg-hl" data-abbr-key="FCF Positive Median" style="cursor:pointer;">FCF Positive Median</text>
+      <line x1="162" y1="204" x2="178" y2="204" stroke="#94A3B8" stroke-width="1.4" stroke-dasharray="5,4"/>
+      <text x="182" y="207" font-size="7.5" fill="#94A3B8" class="abbr-svg-hl" data-abbr-key="LT Average" style="cursor:pointer;">LT Average (~22×)</text>
+      <line x1="290" y1="204" x2="303" y2="204" stroke="#FF5630" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.9"/>
+      <text x="307" y="207" font-size="7.5" fill="#FF5630">Medallia 인수 시점</text>
+      <text x="418" y="207" text-anchor="end" font-size="7" fill="#CBD5E0">Bloomberg, PitchBook</text>
+    </svg>
+  </div>
+
+  <!-- ── 하단: 판단 기준 3개 카드 ── -->
+  <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-bottom:14px;">
+
+    <div style="background:#F4F6FB; border-radius:10px; padding:12px 16px; border-left:3px solid #1868DB;">
+      <div style="font-size:9px; font-weight:700; letter-spacing:1.5px; color:#1868DB; text-transform:uppercase; margin-bottom:7px;">이자 부담</div>
+      <div style="font-size:13px; color:#172B4D; line-height:1.7;">
+        차입 $1.8B × LIBOR 0.75% + 스프레드<br>
+        → 연이자 <strong>~$135M</strong>
+        <span style="font-size:11px; color:#6B778C;">(≈1,550억 원, 2021년)</span>
+      </div>
+    </div>
+
+    <div style="background:#EFF4FF; border-radius:10px; padding:12px 16px; border-left:3px solid #0052CC;">
+      <div style="font-size:9px; font-weight:700; letter-spacing:1.5px; color:#0052CC; text-transform:uppercase; margin-bottom:7px;">인수 근거</div>
+      <div style="font-size:13px; color:#172B4D; line-height:1.7;">
+        <strong style="color:#0052CC;">ARR 23~26% 고성장</strong> → FCF 적자이나<br>
+        향후 개선 전망, 이자 감당 가능 판단<br>
+        고성장 SaaS 대비 <strong>EV/Rev 9× — 상대적 저평가</strong>
+      </div>
+    </div>
+
+    <div style="background:#FFF0EC; border-radius:10px; padding:12px 16px; border-left:3px solid #BF2600;">
+      <div style="font-size:9px; font-weight:700; letter-spacing:1.5px; color:#BF2600; text-transform:uppercase; margin-bottom:7px;">인지된 리스크</div>
+      <div style="font-size:13px; color:#172B4D; line-height:1.7;">
+        Rule of 40 · FCF 마진<br>
+        <strong style="color:#BF2600;">동종업계 하위 10%</strong><br>
+        리스크를 인지하고도 인수 결정
+      </div>
+    </div>
+
+  </div>
+
+  <div class="alert alert-warn">
+    <strong>인수 당시 계획:</strong> 저금리 환경에서 낮은 이자로 차입 매수 → 영업현금흐름으로 이자 감당 →
+    3~5년 내 매각 또는 IPO 재상장으로 투자금 회수
+  </div>
+
+  <div class="pg">04 / 09</div>
+</section>
+
+<!-- ════════════════════════════════
+     SLIDE 5 · 현금흐름 위기
+════════════════════════════════ -->
+<section class="slide dark" id="s4">
+  <div class="eyebrow">Financial Deterioration</div>
+  <h2 class="h2">현금흐름은 어떻게 무너졌나</h2>
+
+  <div class="cols2" style="gap:48px; align-items:center;">
+    <!-- Bar chart SVG -->
+    <div>
+      <div style="font-size:12px; color:rgba(255,255,255,.4); margin-bottom:10px;">
+        FCF Coverage (FCF ÷ 연이자) — 1.0× 미만이면 이자를 FCF로 감당 불가
+      </div>
+      <svg width="100%" height="250" viewBox="0 0 520 250" preserveAspectRatio="xMidYMid meet">
+        <!-- Axes -->
+        <line x1="50" y1="28" x2="50" y2="200" stroke="rgba(255,255,255,.15)" stroke-width="1.5"/>
+        <line x1="50" y1="200" x2="495" y2="200" stroke="rgba(255,255,255,.15)" stroke-width="1.5"/>
+
+        <!-- 1.0× 기준선 (170px = 1.0×, baseline y=200, top y=30) -->
+        <line x1="50" y1="30" x2="495" y2="30" stroke="rgba(255,255,255,.22)" stroke-width="1" stroke-dasharray="5,4"/>
+        <text x="43" y="34" text-anchor="end" font-size="11" fill="rgba(255,255,255,.4)">1.0×</text>
+        <text x="295" y="22" text-anchor="middle" font-size="10" fill="rgba(255,255,255,.3)">이자 감당 가능 기준선</text>
+
+        <!-- FY2022: 0.85×170=144.5 → y=55.5→56, h=144 -->
+        <rect x="68" y="56" width="52" height="144" rx="5" fill="#4C9AFF" opacity=".75"/>
+        <text x="94" y="49" text-anchor="middle" font-size="12" font-weight="700" fill="#4C9AFF">0.85×</text>
+        <text x="94" y="216" text-anchor="middle" font-size="11" fill="rgba(255,255,255,.5)">FY2022</text>
+        <text x="94" y="229" text-anchor="middle" font-size="10" fill="rgba(255,255,255,.3)">인수년</text>
+
+        <!-- FY2023: 0.06×170=10.2 → y=189.8→190, h=10 -->
+        <rect x="152" y="190" width="52" height="10" rx="3" fill="#FF5630"/>
+        <!-- 레이블→막대 연결 점선 -->
+        <line x1="178" y1="149" x2="178" y2="188" stroke="#FF5630" stroke-width="1" stroke-dasharray="3,3" opacity=".55"/>
+        <text x="178" y="143" text-anchor="middle" font-size="12" font-weight="700" fill="#FF5630">0.06×</text>
+        <text x="178" y="216" text-anchor="middle" font-size="11" fill="rgba(255,255,255,.5)">FY2023</text>
+
+        <!-- FY2024: 0.03×170=5.1 → y=194.9→195, h=5 -->
+        <rect x="236" y="195" width="52" height="5" rx="2" fill="#FF5630"/>
+        <line x1="262" y1="149" x2="262" y2="193" stroke="#FF5630" stroke-width="1" stroke-dasharray="3,3" opacity=".55"/>
+        <text x="262" y="143" text-anchor="middle" font-size="12" font-weight="700" fill="#FF5630">0.03×</text>
+        <text x="262" y="216" text-anchor="middle" font-size="11" fill="rgba(255,255,255,.5)">FY2024</text>
+
+        <!-- FY2025: 0.02×170=3.4 → y=196.6→197, h=3 -->
+        <rect x="320" y="197" width="52" height="3" rx="2" fill="#FF5630"/>
+        <line x1="346" y1="149" x2="346" y2="195" stroke="#FF5630" stroke-width="1" stroke-dasharray="3,3" opacity=".55"/>
+        <text x="346" y="143" text-anchor="middle" font-size="12" font-weight="700" fill="#FF5630">0.02×</text>
+        <text x="346" y="216" text-anchor="middle" font-size="11" fill="rgba(255,255,255,.5)">FY2025</text>
+
+        <!-- FY2026: 0.28×170=47.6 → y=152.4→152, h=48 -->
+        <rect x="404" y="152" width="52" height="48" rx="5" fill="#F59E0B" opacity=".8"/>
+        <text x="430" y="145" text-anchor="middle" font-size="12" font-weight="700" fill="#F59E0B">0.28×</text>
+        <text x="430" y="216" text-anchor="middle" font-size="11" fill="rgba(255,255,255,.5)">FY2026</text>
+        <text x="430" y="229" text-anchor="middle" font-size="10" fill="rgba(255,255,255,.3)">경영권 이전</text>
+
+        <!-- Danger zone annotation (레이블 아래, 막대 위에 배치) -->
+        <rect x="140" y="158" width="248" height="22" rx="4" fill="rgba(191,38,0,.25)"/>
+        <text x="264" y="173" text-anchor="middle" font-size="11" fill="rgba(255,130,100,.9)">4년 연속 0.1× 미만 — 구조적 부실</text>
+      </svg>
+    </div>
+
+    <!-- Right: key numbers -->
+    <div style="display:flex; flex-direction:column; gap:16px;">
+      <div class="card glass">
+        <div style="font-size:12px; color:rgba(255,255,255,.4); margin-bottom:10px;">연이자 변화</div>
+        <div style="display:flex; align-items:center; gap:14px;">
+          <div style="font-size:30px; font-weight:700; color:#7BB4FF;">$135M</div>
+          <div style="font-size:22px; color:rgba(255,255,255,.25);">→</div>
+          <div style="font-size:30px; font-weight:700; color:#FF5630;">$300M</div>
+        </div>
+        <div style="font-size:12px; color:rgba(255,255,255,.35); margin-top:4px;">'21년 → '23년 (SOFR 연동 변동금리)</div>
+      </div>
+      <div class="card glass">
+        <div style="font-size:12px; color:rgba(255,255,255,.4); margin-bottom:10px;">원금 누적 (PIK 효과)</div>
+        <div style="display:flex; align-items:center; gap:14px;">
+          <div style="font-size:30px; font-weight:700; color:#7BB4FF;">$1.8B</div>
+          <div style="font-size:22px; color:rgba(255,255,255,.25);">→</div>
+          <div style="font-size:30px; font-weight:700; color:#FF5630;">$2.8B</div>
+        </div>
+        <div style="font-size:12px; color:rgba(255,255,255,.35); margin-top:4px;">'21년 → '25년 (PIK 이자 원금 누적)</div>
+        <div style="font-size:11px; color:rgba(255,180,100,.6); margin-top:7px; line-height:1.6;">
+          PIK 구조: 이자 현금 미납 → 원금 가산 → 다음 해 더 많은 이자 → 부채 자동 팽창
+        </div>
+      </div>
+      <div class="alert alert-danger">
+        <span style="color:#FF8F73; font-weight:700;">'25년 결정타</span><br>
+        연이자 <strong style="color:#FF5630;">$270M</strong> &gt; EBITDA <strong style="color:#fff;">$200M</strong><br>
+        영업이익으로도 이자를 감당할 수 없는 상태 도달
+      </div>
+    </div>
+  </div>
+
+  <div class="pg">05 / 09</div>
+</section>
+
+<!-- ════════════════════════════════
+     SLIDE 6 · 부채 구조 악화
+════════════════════════════════ -->
+<section class="slide dark" id="s4b">
+  <div class="eyebrow">Debt Structure</div>
+  <h2 class="h2" style="margin-bottom:22px;">부채 구조가 어떻게 악화됐나</h2>
+
+  <div style="display:grid; grid-template-columns:1.15fr 1fr; gap:28px; align-items:start;">
+
+    <!-- PIK 원금 누적 시뮬레이션 -->
+    <div>
+      <div style="font-size:10px; font-weight:700; letter-spacing:1.8px; color:rgba(255,255,255,.4); text-transform:uppercase; margin-bottom:10px;">PIK 원금 누적 시뮬레이션</div>
+      <table style="width:100%; border-collapse:collapse; font-size:12px;">
+        <thead>
+          <tr style="background:rgba(255,255,255,.07);">
+            <th style="padding:8px 10px; text-align:left;   color:rgba(255,255,255,.45); font-weight:600; font-size:10.5px; border-bottom:1px solid rgba(255,255,255,.10);">기간</th>
+            <th style="padding:8px 8px;  text-align:center; color:rgba(255,255,255,.45); font-weight:600; font-size:10.5px; border-bottom:1px solid rgba(255,255,255,.10);">PIK%</th>
+            <th style="padding:8px 8px;  text-align:right;  color:rgba(255,255,255,.45); font-weight:600; font-size:10.5px; border-bottom:1px solid rgba(255,255,255,.10);">기초 원금</th>
+            <th style="padding:8px 8px;  text-align:right;  color:rgba(255,255,255,.45); font-weight:600; font-size:10.5px; border-bottom:1px solid rgba(255,255,255,.10);">PIK이자+</th>
+            <th style="padding:8px 8px;  text-align:right;  color:rgba(255,255,255,.45); font-weight:600; font-size:10.5px; border-bottom:1px solid rgba(255,255,255,.10);">현금이자</th>
+            <th style="padding:8px 8px;  text-align:right;  color:rgba(255,255,255,.45); font-weight:600; font-size:10.5px; border-bottom:1px solid rgba(255,255,255,.10);">기타 증감</th>
+            <th style="padding:8px 10px; text-align:right;  color:rgba(255,255,255,.45); font-weight:600; font-size:10.5px; border-bottom:1px solid rgba(255,255,255,.10);">기말 원금</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid rgba(255,255,255,.06);">
+            <td style="padding:8px 10px; color:rgba(255,255,255,.5); font-size:11px;">'21~'22</td>
+            <td style="padding:8px 8px;  text-align:center; color:rgba(255,255,255,.75);">100%</td>
+            <td style="padding:8px 8px;  text-align:right;  color:rgba(255,255,255,.8);">$1.80B</td>
+            <td style="padding:8px 8px;  text-align:right;  color:#FF8F73; font-weight:600;">+$0.14B</td>
+            <td style="padding:8px 8px;  text-align:right;  color:rgba(255,255,255,.35);">$0</td>
+            <td style="padding:8px 8px;  text-align:right;  color:rgba(255,255,255,.25);">—</td>
+            <td style="padding:8px 10px; text-align:right;  color:#fff; font-weight:700;">$1.94B</td>
+          </tr>
+          <tr style="background:rgba(255,255,255,.025); border-bottom:1px solid rgba(255,255,255,.06);">
+            <td style="padding:8px 10px; color:rgba(255,255,255,.5); font-size:11px;">'22~'23</td>
+            <td style="padding:8px 8px;  text-align:center; color:rgba(255,255,255,.75);">50%</td>
+            <td style="padding:8px 8px;  text-align:right;  color:rgba(255,255,255,.8);">$1.94B</td>
+            <td style="padding:8px 8px;  text-align:right;  color:#FF8F73; font-weight:600;">+$0.10B</td>
+            <td style="padding:8px 8px;  text-align:right;  color:rgba(255,255,255,.7);">$0.10B</td>
+            <td style="padding:8px 8px;  text-align:right;  color:rgba(255,255,255,.25);">—</td>
+            <td style="padding:8px 10px; text-align:right;  color:#fff; font-weight:700;">$2.04B</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,.06);">
+            <td style="padding:8px 10px; color:rgba(255,255,255,.5); font-size:11px;">'23~'25</td>
+            <td style="padding:8px 8px;  text-align:center; color:rgba(255,255,255,.75);">35%</td>
+            <td style="padding:8px 8px;  text-align:right;  color:rgba(255,255,255,.8);">$2.04B</td>
+            <td style="padding:8px 8px;  text-align:right;  color:#FF8F73; font-weight:600;">+$0.14B</td>
+            <td style="padding:8px 8px;  text-align:right;  color:rgba(255,255,255,.7);">$0.18B</td>
+            <td style="padding:8px 8px;  text-align:right;  color:#F59E0B; font-size:11px;">추가 +$0.60B</td>
+            <td style="padding:8px 10px; text-align:right;  color:#FF8F73; font-weight:700;">$2.78B</td>
+          </tr>
+          <tr style="background:rgba(255,255,255,.025);">
+            <td style="padding:8px 10px; color:rgba(255,255,255,.5); font-size:11px;">'25~'26</td>
+            <td style="padding:8px 8px;  text-align:center; color:rgba(255,255,255,.75);">0%</td>
+            <td style="padding:8px 8px;  text-align:right;  color:rgba(255,255,255,.8);">$2.78B</td>
+            <td style="padding:8px 8px;  text-align:right;  color:rgba(255,255,255,.3);">$0</td>
+            <td style="padding:8px 8px;  text-align:right;  color:rgba(255,255,255,.7);">$0.27B</td>
+            <td style="padding:8px 8px;  text-align:right;  color:rgba(255,255,255,.25);">—</td>
+            <td style="padding:8px 10px; text-align:right;  color:#FF5630; font-weight:700;">$2.78B → D/E Swap</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="font-size:10px; color:rgba(255,255,255,.3); margin-top:10px; line-height:1.65; border-top:1px solid rgba(255,255,255,.07); padding-top:10px;">
+        ※ PIK(Payment-in-Kind): 현금 대신 원금 증가로 이자를 결제하는 구조.<br>
+        단기 현금 부담을 줄이되 원금이 복리로 자동 증가하는 구조적 위험.
+      </div>
+    </div>
+
+    <!-- EV/Par Coverage 이탈 과정 -->
+    <div>
+      <div style="font-size:10px; font-weight:700; letter-spacing:1.8px; color:rgba(255,255,255,.4); text-transform:uppercase; margin-bottom:10px;">EV/Par Coverage 이탈 과정</div>
+      <table style="width:100%; border-collapse:collapse; font-size:12px;">
+        <thead>
+          <tr style="background:rgba(255,255,255,.07);">
+            <th style="padding:8px 10px; text-align:left;   color:rgba(255,255,255,.45); font-weight:600; font-size:10.5px; border-bottom:1px solid rgba(255,255,255,.10);">시점</th>
+            <th style="padding:8px 8px;  text-align:right;  color:rgba(255,255,255,.45); font-weight:600; font-size:10.5px; border-bottom:1px solid rgba(255,255,255,.10);">추정 EV</th>
+            <th style="padding:8px 8px;  text-align:right;  color:rgba(255,255,255,.45); font-weight:600; font-size:10.5px; border-bottom:1px solid rgba(255,255,255,.10);">Loan Par</th>
+            <th style="padding:8px 8px;  text-align:center; color:rgba(255,255,255,.45); font-weight:600; font-size:10.5px; border-bottom:1px solid rgba(255,255,255,.10);">EV/Par</th>
+            <th style="padding:8px 10px; text-align:left;   color:rgba(255,255,255,.45); font-weight:600; font-size:10.5px; border-bottom:1px solid rgba(255,255,255,.10);">상태</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid rgba(255,255,255,.06);">
+            <td style="padding:8px 10px; color:rgba(255,255,255,.5); font-size:11px;">'21 인수</td>
+            <td style="padding:8px 8px;  text-align:right; color:rgba(255,255,255,.8);">$6.40B</td>
+            <td style="padding:8px 8px;  text-align:right; color:rgba(255,255,255,.8);">$1.80B</td>
+            <td style="padding:8px 8px;  text-align:center; font-weight:700; color:#4ADE80; font-size:14px;">3.56×</td>
+            <td style="padding:8px 10px; font-size:11px; color:#4ADE80; font-weight:600;">안전</td>
+          </tr>
+          <tr style="background:rgba(255,255,255,.025); border-bottom:1px solid rgba(255,255,255,.06);">
+            <td style="padding:8px 10px; color:rgba(255,255,255,.5); font-size:11px;">'22년 말</td>
+            <td style="padding:8px 8px;  text-align:right; color:rgba(255,255,255,.8);">~$5.20B</td>
+            <td style="padding:8px 8px;  text-align:right; color:rgba(255,255,255,.8);">$1.94B</td>
+            <td style="padding:8px 8px;  text-align:center; font-weight:700; color:#7BB4FF; font-size:14px;">2.68×</td>
+            <td style="padding:8px 10px; font-size:11px; color:#7BB4FF; font-weight:600;">안전</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,.06);">
+            <td style="padding:8px 10px; color:rgba(255,255,255,.5); font-size:11px;">'23년 말</td>
+            <td style="padding:8px 8px;  text-align:right; color:rgba(255,255,255,.8);">~$4.00B</td>
+            <td style="padding:8px 8px;  text-align:right; color:rgba(255,255,255,.8);">$2.20B</td>
+            <td style="padding:8px 8px;  text-align:center; font-weight:700; color:#F59E0B; font-size:14px;">1.82×</td>
+            <td style="padding:8px 10px; font-size:11px; color:#F59E0B; font-weight:600;">주의 (2.0× 하회)</td>
+          </tr>
+          <tr style="background:rgba(255,255,255,.025); border-bottom:1px solid rgba(255,255,255,.06);">
+            <td style="padding:8px 10px; color:rgba(255,255,255,.5); font-size:11px;">'24년 말</td>
+            <td style="padding:8px 8px;  text-align:right; color:rgba(255,255,255,.8);">~$3.00B</td>
+            <td style="padding:8px 8px;  text-align:right; color:rgba(255,255,255,.8);">$2.78B</td>
+            <td style="padding:8px 8px;  text-align:center; font-weight:700; color:#FF5630; font-size:14px;">1.08×</td>
+            <td style="padding:8px 10px; font-size:11px; color:#FF5630; font-weight:600;">위험 (1.5× 하회)</td>
+          </tr>
+          <tr style="background:rgba(191,38,0,.20);">
+            <td style="padding:8px 10px; color:#FF8F73; font-size:11px; font-weight:700;">'26.1Q</td>
+            <td style="padding:8px 8px;  text-align:right; color:#FF8F73; font-weight:600;">~$2.20B</td>
+            <td style="padding:8px 8px;  text-align:right; color:#FF8F73; font-weight:600;">$2.78B</td>
+            <td style="padding:8px 8px;  text-align:center; font-weight:700; color:#FF5630; font-size:16px;">0.79×</td>
+            <td style="padding:8px 10px; font-size:11px; color:#FF5630; font-weight:700; line-height:1.5;">임계치 이탈<br>→ 경영권 이전</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="font-size:10px; color:rgba(255,255,255,.3); margin-top:10px; line-height:1.65; border-top:1px solid rgba(255,255,255,.07); padding-top:10px;">
+        ※ EV/Par = EV ÷ Loan Par. 1.0× 미만 → 채권단 D/E Swap 논리 성립.<br>
+        ※ EV 추정: 당해 매출 × EV/Rev 역산 ('21년 9× → '23년 5× → '25년 3×). 상장폐지 후 비공개 재무, 추정치.
+      </div>
+    </div>
+
+  </div>
+
+  <div class="pg">06 / 09</div>
+</section>
+
+<!-- ════════════════════════════════
+     SLIDE 6 · 탈출 실패 요인
+════════════════════════════════ -->
+<section class="slide light" id="s5">
+  <div class="eyebrow">Exit Failure</div>
+  <h2 class="h2" style="margin-bottom:16px;">왜 빠져나오지 못했나</h2>
+
+  <!-- ① ② ③ 탈출 전략 실패 (3열) -->
+  <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin-bottom:14px;">
+    <div class="card" style="border-left:4px solid #FF5630;">
+      <div class="tag t-red">① 전략적 매각 실패</div>
+      <div style="font-size:16px; font-weight:700; margin:8px 0; color:#172B4D;">매각가 $5B 산정 → 인수자 없음</div>
+      <div style="font-size:13px; color:#6B778C; line-height:1.6;">
+        Gen AI 위협으로 CX SaaS 가치 급락.<br>고부채 구조로 전략적 인수자 부재
+      </div>
+      <div style="font-size:11.5px; color:#974F0C; margin-top:8px; line-height:1.6; background:#FFF4E5; border-radius:4px; padding:6px 10px;">
+        VoC 요약·분석·인사이트 추출 → LLM으로 빠르게 대체 가능
+      </div>
+    </div>
+    <div class="card" style="border-left:4px solid #FF5630;">
+      <div class="tag t-red">② IPO 재상장 불가</div>
+      <div style="font-size:16px; font-weight:700; margin:8px 0; color:#172B4D;">SaaS 멀티플 수축기 직격</div>
+      <div style="font-size:13px; color:#6B778C; line-height:1.6;">
+        불안정 FCF · 성장률 둔화 · 부채 구조<br>'22~'25년 SaaS 투자자 확보 불가
+      </div>
+    </div>
+    <div class="card" style="border-left:4px solid #F59E0B;">
+      <div class="tag t-org">③ 자본구조 재조정 실패</div>
+      <div style="font-size:16px; font-weight:700; margin:8px 0; color:#172B4D;">채권단의 부채 감면 거부</div>
+      <div style="font-size:13px; color:#6B778C; line-height:1.6;">
+        추가 자본 조달 불가.<br>Blackstone: "현금 이자 상환 OR 경영권 이전" 압박
+      </div>
+    </div>
+  </div>
+
+  <!-- ④ + 악순환 구조 + 결과 (하나의 연결 블록) -->
+  <div style="display:grid; grid-template-columns:1fr 2.4fr; gap:0; align-items:stretch; background:#0D1B35; border-radius:10px; overflow:hidden;">
+
+    <!-- ④ 상품 경쟁력 약화 (악순환의 결과이자 원인) -->
+    <div style="padding:18px 20px; border-right:1px solid rgba(255,255,255,.08);">
+      <div style="font-size:9px; font-weight:700; letter-spacing:1.5px; color:rgba(255,255,255,.3); text-transform:uppercase; margin-bottom:10px;">④ 상품 경쟁력 약화</div>
+      <div style="font-size:15px; font-weight:700; color:#fff; margin-bottom:8px; line-height:1.4;">혁신 투자 축소<br>→ 고객 이탈 가속</div>
+      <div style="font-size:12.5px; color:rgba(255,255,255,.45); line-height:1.65;">
+        이자 부담 증가 → 현금 부족<br>→ R&amp;D 축소 → 경쟁력 하락<br>Qualtrics 등 AI 경쟁사로 이탈
+      </div>
+    </div>
+
+    <!-- 악순환 구조 → 결과 (④의 원인이자 최종 귀결) -->
+    <div style="padding:18px 22px;">
+      <div style="font-size:9px; font-weight:700; letter-spacing:1.5px; color:rgba(255,255,255,.3); text-transform:uppercase; margin-bottom:10px;">④의 배경 — 악순환 구조</div>
+      <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+        <span style="background:rgba(255,86,48,.18); border:1px solid rgba(255,86,48,.35); border-radius:4px; padding:3px 10px; font-size:12px; color:#FF8F73;">이자 부담 증가</span>
+        <span style="color:rgba(255,255,255,.25); font-size:13px;">→</span>
+        <span style="background:rgba(255,86,48,.18); border:1px solid rgba(255,86,48,.35); border-radius:4px; padding:3px 10px; font-size:12px; color:#FF8F73;">현금 부족</span>
+        <span style="color:rgba(255,255,255,.25); font-size:13px;">→</span>
+        <span style="background:rgba(255,86,48,.18); border:1px solid rgba(255,86,48,.35); border-radius:4px; padding:3px 10px; font-size:12px; color:#FF8F73;">R&amp;D 축소</span>
+        <span style="color:rgba(255,255,255,.25); font-size:13px;">→</span>
+        <span style="background:rgba(255,86,48,.18); border:1px solid rgba(255,86,48,.35); border-radius:4px; padding:3px 10px; font-size:12px; color:#FF8F73;">경쟁력 약화</span>
+        <span style="color:rgba(255,255,255,.25); font-size:13px;">→</span>
+        <span style="background:rgba(255,86,48,.18); border:1px solid rgba(255,86,48,.35); border-radius:4px; padding:3px 10px; font-size:12px; color:#FF8F73;">고객 이탈</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 최종 결과 — 독립 박스 -->
+  <div style="margin-top:10px; background:#0D1B35; border-radius:10px; padding:14px 24px; border-left:4px solid #FF5630; display:flex; align-items:center; gap:20px;">
+    <div style="font-size:13px; font-weight:700; color:#FF5630; letter-spacing:0.5px; flex-shrink:0; line-height:1.4; white-space:nowrap;">최종<br>결과</div>
+    <div style="width:1px; height:38px; background:rgba(255,255,255,.1); flex-shrink:0;"></div>
+    <div style="font-size:13.5px; color:rgba(255,255,255,.85); line-height:1.65;">
+      채권단 보유 $2.8B 채권을 지분 전환 → 채권단이 최대주주 등극. Thoma Bravo 투자 손실 확정.<br>
+      <strong style="color:#fff;">PE 투자 역사상 최대 규모 SaaS LBO 실패 사례</strong>
+    </div>
+  </div>
+
+  <div class="pg">07 / 09</div>
+</section>
+
+<!-- ════════════════════════════════
+     SLIDE 7 · 파급 효과
+════════════════════════════════ -->
+<section class="slide dark" id="s6">
+  <div class="eyebrow">Ripple Effect</div>
+  <h2 class="h2">파급 효과</h2>
+
+  <div class="cols3" style="margin-bottom:20px;">
+    <!-- Medallia -->
+    <div class="card glass" style="border-top:3px solid #7BB4FF;">
+      <div style="font-size:13px; font-weight:700; color:#7BB4FF; margin-bottom:14px;">Medallia</div>
+      <ul class="bl">
+        <li style="font-size:14px;">투자 축소 → 서비스 경쟁력 저하</li>
+        <li style="font-size:14px;">상품 로드맵 불확실성 확대</li>
+        <li style="font-size:14px;">Qualtrics·Salesforce로 고객 이탈</li>
+      </ul>
+    </div>
+    <!-- PE 시장 -->
+    <div class="card glass" style="border-top:3px solid #FF5630;">
+      <div style="font-size:13px; font-weight:700; color:#FF5630; margin-bottom:14px;">사모펀드(PE) 시장</div>
+      <ul class="bl">
+        <li style="font-size:14px;">유사 구조 SaaS 12개+ 위험 노출</li>
+        <li style="font-size:14px;">$500B+ 소프트웨어 부채 부도 위험</li>
+        <li style="font-size:14px;">Zendesk · Qualtrics 연쇄 불안</li>
+      </ul>
+    </div>
+    <!-- 민간 대출 -->
+    <div class="card glass" style="border-top:3px solid #F59E0B;">
+      <div style="font-size:13px; font-weight:700; color:#F59E0B; margin-bottom:14px;">민간 대출 시장</div>
+      <ul class="bl">
+        <li style="font-size:14px;">Blackstone 원금 손실 가능성</li>
+        <li style="font-size:14px;">글로벌 사모대출($1.8조) 충격</li>
+        <li style="font-size:14px;">Apollo·Ares 환매 제한 비상 조치</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SaaSpocalypse -->
+  <div class="alert alert-info">
+    <strong style="color:#7BB4FF;">SaaSpocalypse</strong> —
+    고금리 + AI 대체 가능성 + 성장 둔화 + 멀티플 붕괴가 겹치면서
+    SaaS 기업들의 가치와 생존 환경이 급격히 악화되는 현상.
+    Medallia는 그 첫 번째 대형 사례.
+  </div>
+
+  <div class="pg">08 / 09</div>
+</section>
+
+<!-- ════════════════════════════════
+     SLIDE 8 · 시사점
+════════════════════════════════ -->
+<section class="slide blue" id="s7">
+  <!-- Background decoration -->
+  <svg style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;" viewBox="0 0 1400 900" preserveAspectRatio="xMidYMid slice">
+    <circle cx="1300" cy="100" r="300" fill="rgba(255,255,255,0.04)"/>
+    <circle cx="1100" cy="800" r="250" fill="rgba(255,255,255,0.03)"/>
+  </svg>
+
+  <div style="position:relative;">
+    <div class="eyebrow">Our Takeaway</div>
+    <h2 class="h2" style="color:#fff;">우리의 시사점</h2>
+
+    <div class="cols3" style="margin-bottom:28px;">
+      <!-- 01 -->
+      <div style="background:rgba(255,255,255,.12); border-radius:14px; padding:28px 24px; border:1px solid rgba(255,255,255,.15);">
+        <div style="font-size:36px; font-weight:700; color:rgba(255,255,255,.25); line-height:1; margin-bottom:10px;">01</div>
+        <div style="font-size:16px; font-weight:700; color:#fff; margin-bottom:14px; line-height:1.4;">M&A 평가 시<br>현금창출능력 필수 확인</div>
+        <ul class="bl" style="font-size:13px;">
+          <li>FCF Coverage <strong style="color:#fff;">1.0×</strong> 이상</li>
+          <li>Rule of 40: <strong style="color:#fff;">30</strong> 이상</li>
+          <li>NRR: <strong style="color:#fff;">110%</strong> 이상</li>
+          <li>EV/Par Coverage: <strong style="color:#fff;">2</strong> 이상</li>
+        </ul>
+      </div>
+      <!-- 02 -->
+      <div style="background:rgba(255,255,255,.12); border-radius:14px; padding:28px 24px; border:1px solid rgba(255,255,255,.15);">
+        <div style="font-size:36px; font-weight:700; color:rgba(255,255,255,.25); line-height:1; margin-bottom:10px;">02</div>
+        <div style="font-size:16px; font-weight:700; color:#fff; margin-bottom:14px; line-height:1.4;">자사 솔루션의<br>Gen AI 대체 가능성 판단</div>
+        <ul class="bl" style="font-size:13px;">
+          <li>데이터 폐쇄성이 낮으면 위험</li>
+          <li>성과 기반 가격 체계 여부</li>
+          <li>전문성·정확성 요구 수준 확인</li>
+        </ul>
+      </div>
+      <!-- 03 -->
+      <div style="background:rgba(255,255,255,.12); border-radius:14px; padding:28px 24px; border:1px solid rgba(255,255,255,.15);">
+        <div style="font-size:36px; font-weight:700; color:rgba(255,255,255,.25); line-height:1; margin-bottom:10px;">03</div>
+        <div style="font-size:16px; font-weight:700; color:#fff; margin-bottom:14px; line-height:1.4;">현금흐름 통합<br>모니터링 체계 필요</div>
+        <ul class="bl" style="font-size:13px;">
+          <li>매출·영업이익만으로 부족</li>
+          <li>FCF · Rule of 40 · NRR 통합 추적</li>
+          <li><strong style="color:#fff;">→ 사업건전성 대시보드 활용</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="font-size:13px; color:rgba(255,255,255,.35); text-align:right;">
+      솔루션전략그룹(솔루션) &nbsp;·&nbsp; '26.05.19 &nbsp;·&nbsp; 원본 보고서: Medallia 사례로 본 SaaS 기업 가치 평가
+    </div>
+  </div>
+
+  <div class="pg" style="color:rgba(255,255,255,.3);">09 / 09</div>
+</section>
+
+<!-- ── Script ── -->
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const dots   = document.querySelectorAll('.dot');
+
+  function go(i) {
+    const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+    slides[i].scrollIntoView({ behavior });
+  }
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const idx = [...slides].indexOf(e.target);
+        dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+      }
+    });
+  }, { threshold: 0.5 });
+
+  slides.forEach(s => obs.observe(s));
+
+  // Keyboard navigation
+  document.addEventListener('keydown', e => {
+    if (!['ArrowDown','ArrowUp','PageDown','PageUp'].includes(e.key)) return;
+    e.preventDefault();
+    const idx = Math.round(window.scrollY / window.innerHeight);
+    if (e.key === 'ArrowDown' || e.key === 'PageDown') go(Math.min(idx + 1, slides.length - 1));
+    if (e.key === 'ArrowUp'   || e.key === 'PageUp')   go(Math.max(idx - 1, 0));
+  });
+
+  // ── Abbreviation Memo Tooltips ──
+  const _evRevDetail = {sections:[
+    {title:'📊 멀티플의 종류', rows:[
+      {key:'EV/Revenue',  val:'적자·성장 기업 / SaaS',  flag:'curr'},
+      {key:'EV/EBITDA',   val:'수익성 기업의 범용 기준', flag:''},
+      {key:'EV/ARR',      val:'SaaS 구독 매출 특화',    flag:''},
+      {key:'P/E',         val:'이익 실현 기업·상장주',  flag:''},
+    ]},
+    {title:'📈 SaaS EV/Revenue 추이', rows:[
+      {key:'2021 고점',        val:'15~40× (SaaS 버블)',  flag:'danger'},
+      {key:'현재 일반 SaaS',   val:'3~8× (멀티플 수축)', flag:''},
+      {key:'AI 프리미엄 SaaS', val:'15~30× (양극화)',    flag:'good'},
+    ]},
+  ]};
+  // !! longest-match-first 순서 필수 — 짧은 약어가 앞에 오면 긴 약어 미인식
+  const ABBRS = [
+    { abbr:'SaaSpocalypse', full:'SaaSpocalypse', desc:'SaaS + Apocalypse\n고금리·AI 대체·성장 둔화·멀티플 붕괴가 겹치며\nSaaS 기업 생존환경이 급격히 악화되는 현상',
+      detail:{sections:[
+        {title:'📐 복합 위기 구조', rows:[
+          {key:'고금리',       val:'LBO 이자 부담 급증',          flag:'danger'},
+          {key:'AI 대체',      val:'범용 SaaS 기능 commoditize', flag:'danger'},
+          {key:'성장 둔화',    val:'멀티플 정당화 근거 소멸',     flag:'danger'},
+          {key:'멀티플 붕괴',  val:'EXIT 불가 → 손실 확정',      flag:'danger'},
+        ]},
+        {title:'💡 시장 맥락', rows:[
+          {key:'첫 사례',   val:'Medallia ($6.4B LBO 실패)'},
+          {key:'잠재 규모', val:'유사 SaaS 12개+, $500B+ 부채'},
+        ]},
+      ]}
+    },
+    { abbr:'Rule of 40', full:'Rule of 40', desc:'성장률(%) + 이익률(%) ≥ 40\n건강한 SaaS 기업의 판단 기준',
+      detail:{sections:[
+        {title:'📐 산식 & 판단 기준', rows:[
+          {key:'산식',     val:'매출 성장률(%) + 영업이익률(%)'},
+          {key:'40 이상',  val:'건강한 SaaS 기업',      flag:'good'},
+          {key:'30~40',    val:'주의 필요 구간'},
+          {key:'30 미만',  val:'성장·수익 동시 부진',   flag:'danger'},
+        ]},
+        {title:'⚠ Medallia 사례', rows:[
+          {key:'성장률',       val:'+23~26%'},
+          {key:'영업이익률',   val:'−23% (EBITDA 기준)'},
+          {key:'결과',         val:'Rule of 40 = 10 → 하위 10%', flag:'danger'},
+        ]},
+      ]}
+    },
+    { abbr:'FCF Coverage', full:'FCF Coverage', desc:'FCF ÷ 연이자\n1.0× 미만이면 이자를 FCF로 감당 불가',
+      detail:{sections:[
+        {title:'📐 산식 & 판단 기준', rows:[
+          {key:'산식',       val:'잉여현금흐름(FCF) ÷ 연이자'},
+          {key:'1.0× 이상',  val:'FCF로 이자 감당 가능',  flag:'good'},
+          {key:'0.5~1.0×',   val:'위험 신호 구간'},
+          {key:'0.5× 미만',  val:'구조적 현금 부족',      flag:'danger'},
+        ]},
+        {title:'📉 Medallia 추이', rows:[
+          {key:'FY2022', val:'0.85× (이미 1.0× 미달)'},
+          {key:'FY2023', val:'0.06× (사실상 붕괴)',  flag:'danger'},
+          {key:'FY2025', val:'0.02× (구조적 부실)',  flag:'danger'},
+        ]},
+      ]}
+    },
+    { abbr:'EV/Revenue', full:'EV / Revenue 멀티플', desc:'기업가치(EV) ÷ 연매출\nSaaS·고성장 기업 가치평가 배수',
+      detail: _evRevDetail },
+    { abbr:'EV/Rev', full:'EV / Revenue 멀티플 (축약)', desc:'EV/Revenue의 축약 표기\n기업가치(EV) ÷ 연매출\nSaaS·고성장 기업 가치평가 배수',
+      detail: _evRevDetail },
+    { abbr:'EV/Par', full:'EV / Par Coverage', desc:'기업가치(EV) ÷ 채권 원금(Par)\n채권단 원금 회수 가능 여부 판단 지표',
+      detail:{sections:[
+        {title:'📐 산식 & 의미', rows:[
+          {key:'산식',       val:'기업가치(EV) ÷ 채권 원금(Par)'},
+          {key:'1.0× 이상',  val:'채권 원금 전액 회수 가능',   flag:'good'},
+          {key:'1.0× 미만',  val:'채권단도 손실 → 사실상 파산', flag:'danger'},
+        ]},
+        {title:'⚠ Medallia 사례', rows:[
+          {key:'채권 원금',  val:'$2.8B (PIK 누적)'},
+          {key:'EV 추정',    val:'채권 잔액 이하로 하락',      flag:'danger'},
+          {key:'결과',       val:'채권단이 경영권 이전 요구',   flag:'danger'},
+        ]},
+      ]}
+    },
+    { abbr:'Gen AI', full:'Generative AI', desc:'생성형 인공지능',
+      detail:{sections:[
+        {title:'📐 SaaS에 미치는 영향', rows:[
+          {key:'위협',      val:'범용 기능 → LLM으로 대체'},
+          {key:'주요 대상', val:'VOC 분석·설문·인사이트 추출', flag:'danger'},
+          {key:'방어 조건', val:'데이터 폐쇄성·전문성이 핵심'},
+        ]},
+      ]}
+    },
+    { abbr:'EBITDA', full:'Earnings Before Interest, Taxes,\nDepreciation & Amortization', desc:'이자·세금·감가상각 전 영업이익',
+      detail:{sections:[
+        {title:'📐 구성 & 특징', rows:[
+          {key:'산식',  val:'영업이익 + 감가상각(D&A)'},
+          {key:'활용',  val:'기업 영업 수익성 비교 기준'},
+          {key:'한계',  val:'설비투자·이자·세금 미반영'},
+        ]},
+        {title:'📊 EBITDA vs FCF', rows:[
+          {key:'EBITDA 양호', val:'이익처럼 보여도'},
+          {key:'FCF 적자',    val:'실제 현금 유출 중',        flag:'danger'},
+          {key:'교훈',        val:'"EBITDA만 보면 속는다"',  flag:'danger'},
+        ]},
+      ]}
+    },
+    { abbr:'스프레드', full:'신용 스프레드 (Credit Spread)', desc:'기준금리에 추가되는 리스크 프리미엄\nLBO 차입의 경우 통상 5~8% 수준',
+      detail:{sections:[
+        {title:'📐 구성', rows:[
+          {key:'기준금리', val:'LIBOR 또는 SOFR (무위험 금리)'},
+          {key:'스프레드', val:'차주의 신용리스크 반영 추가금리'},
+          {key:'실질금리', val:'기준금리 + 스프레드 = 실제 차입금리'},
+        ]},
+        {title:'💡 Medallia LBO', rows:[
+          {key:'LIBOR',   val:'0.75% (2021년 초저금리)',      flag:'good'},
+          {key:'스프레드', val:'~6~7% (레버리지 론 수준)'},
+          {key:'실질금리', val:'~7.5% → 연이자 ~$135M',       flag:'danger'},
+        ]},
+      ]}
+    },
+    { abbr:'LIBOR', full:'London Interbank Offered Rate', desc:'런던 은행간 기준금리\n현재는 SOFR로 대체됨',
+      detail:{sections:[
+        {title:'📐 금리 변화 (Medallia)', rows:[
+          {key:'2021 인수 시',  val:'LIBOR 0.75% (초저금리)',  flag:'good'},
+          {key:'→ SOFR 전환',  val:'2023년 5.4%로 급등',      flag:'danger'},
+          {key:'결과',          val:'연이자 $135M → $300M',    flag:'danger'},
+        ]},
+      ]}
+    },
+    { abbr:'SOFR', full:'Secured Overnight Financing Rate', desc:'담보부 익일물 금리\nLIBOR를 대체한 미국 기준금리',
+      detail:{sections:[
+        {title:'📐 금리 변화 (Medallia)', rows:[
+          {key:'2021',  val:'0.75% (인수 당시)',          flag:'good'},
+          {key:'2023',  val:'5.4% (최고점)',              flag:'danger'},
+          {key:'영향',  val:'변동금리 이자 2배 이상 급등', flag:'danger'},
+        ]},
+      ]}
+    },
+    { abbr:'NYSE', full:'New York Stock Exchange', desc:'뉴욕증권거래소' },
+    { abbr:'SaaS', full:'Software as a Service', desc:'구독형 소프트웨어 서비스',
+      detail:{sections:[
+        {title:'📐 비즈니스 특징', rows:[
+          {key:'구독 기반',  val:'반복 매출(ARR/MRR) 구조'},
+          {key:'높은 CAC',   val:'고객 유치 비용 선 집행'},
+          {key:'규모 경제',  val:'고객 증가 → 마진 개선'},
+        ]},
+        {title:'📊 가치평가 특징', rows:[
+          {key:'EV/Revenue',   val:'매출 배수 중심 (수익성 무관)'},
+          {key:'고성장 시',    val:'높은 멀티플 정당화',  flag:'good'},
+          {key:'성장 둔화 시', val:'멀티플 급락 위험',    flag:'danger'},
+        ]},
+      ]}
+    },
+    { abbr:'NRR', full:'Net Revenue Retention', desc:'순 매출 유지율\n기존 고객에서의 매출 증감률',
+      detail:{sections:[
+        {title:'📐 의미 & 기준', rows:[
+          {key:'산식',       val:'기말 기존고객 매출 ÷ 기초 매출'},
+          {key:'110% 이상',  val:'기존 고객 확장 → 우수',  flag:'good'},
+          {key:'100%',       val:'이탈 = 확장, 현상 유지'},
+          {key:'100% 미만',  val:'순 이탈 → 성장 한계',    flag:'danger'},
+        ]},
+        {title:'💡 Medallia 사례', rows:[
+          {key:'고점',   val:'126% (인수 3년 전)',         flag:'good'},
+          {key:'인수시', val:'~108% (하락 추세)',           flag:'danger'},
+          {key:'교훈',   val:'하락세 NRR + FCF 적자 = 복합 경고', flag:'danger'},
+        ]},
+      ]}
+    },
+    { abbr:'ARR', full:'Annual Recurring Revenue', desc:'연간 반복 매출',
+      detail:{sections:[
+        {title:'📐 의미 & 활용', rows:[
+          {key:'산식',    val:'월 반복 매출(MRR) × 12'},
+          {key:'의미',    val:'예측 가능한 연간 수익 규모'},
+          {key:'vs 매출', val:'계약 기반 → 미래 보장 매출'},
+        ]},
+      ]}
+    },
+    { abbr:'LBO', full:'Leveraged Buyout', desc:'차입매수\n부채를 활용해 기업을 인수하는 방식',
+      detail:{sections:[
+        {title:'📐 구조', rows:[
+          {key:'방식',      val:'기업 자산·현금흐름 담보 차입'},
+          {key:'레버리지',  val:'자기자본 少, 부채 多 → 고수익 목표'},
+          {key:'EXIT',      val:'3~7년 내 매각·IPO로 투자금 회수'},
+        ]},
+        {title:'⚠ 리스크', rows:[
+          {key:'금리 상승',  val:'변동금리 이자 급등',      flag:'danger'},
+          {key:'현금 부족',  val:'FCF로 이자 감당 불가',    flag:'danger'},
+          {key:'최악',       val:'투자금 전액 손실 가능',   flag:'danger'},
+        ]},
+      ]}
+    },
+    { abbr:'IPO', full:'Initial Public Offering', desc:'기업공개 (주식시장 상장)',
+      detail:{sections:[
+        {title:'📐 PE의 IPO 활용', rows:[
+          {key:'목적',     val:'투자금 회수(EXIT) 수단'},
+          {key:'조건',     val:'안정적 FCF + 성장성 필요'},
+          {key:'Medallia', val:'멀티플 수축으로 재상장 불가', flag:'danger'},
+        ]},
+      ]}
+    },
+    { abbr:'PIK', full:'Payment in Kind', desc:'현물지급\n현금 대신 이자를 원금에 누적',
+      detail:{sections:[
+        {title:'📐 메커니즘', rows:[
+          {key:'방식',    val:'현금 미납 이자 → 원금 가산'},
+          {key:'효과',    val:'원금 자동 팽창 (복리 효과)', flag:'danger'},
+          {key:'트리거',  val:'FCF 고갈 시 채무자가 선택'},
+        ]},
+        {title:'⚠ Medallia 사례', rows:[
+          {key:'부채 팽창',  val:'$1.8B → $2.8B (+$1B)',     flag:'danger'},
+          {key:'신호',       val:'현금 고갈의 전조 증상'},
+          {key:'결과',       val:'채권단 원금 회수 불가 위기', flag:'danger'},
+        ]},
+      ]}
+    },
+    { abbr:'FCF', full:'Free Cash Flow', desc:'잉여현금흐름\n영업현금흐름 − 설비투자(CAPEX)',
+      detail:{sections:[
+        {title:'📐 산식 & 의미', rows:[
+          {key:'산식',      val:'영업현금흐름 − 설비투자(CAPEX)'},
+          {key:'의미',      val:'"진짜 쓸 수 있는 현금"'},
+          {key:'vs EBITDA', val:'EBITDA는 추정값, FCF는 실제'},
+        ]},
+        {title:'📊 판단 기준', rows:[
+          {key:'FCF > 0',  val:'자체 성장·부채 상환 가능', flag:'good'},
+          {key:'FCF < 0',  val:'외부 자금 없이 지속 불가', flag:'danger'},
+          {key:'SaaS 핵심', val:'구독 매출 → FCF 전환율이 관건'},
+        ]},
+      ]}
+    },
+    { abbr:'FCF Positive Median', full:'FCF Positive Median', desc:'FCF 흑자 SaaS 기업의 EV/NTM FCF 배수 중앙값\n차트의 파란 실선',
+      detail:{sections:[
+        {title:'📐 정의', rows:[
+          {key:'대상',   val:'FCF > 0인 상장 SaaS 기업'},
+          {key:'지표',   val:'EV ÷ NTM FCF (향후 12개월 FCF 전망)'},
+          {key:'표시',   val:'업계 중앙값 (Median) 추이'},
+        ]},
+        {title:'📊 추이 (차트)', rows:[
+          {key:"'18",    val:'22× (LT 평균 수준)'},
+          {key:"'21 정점", val:'72× (버블 최고점)',  flag:'danger'},
+          {key:"'24",    val:'22× (정상화)',          flag:'good'},
+        ]},
+      ]}
+    },
+    { abbr:'LT Average', full:'Long-Term Average (장기 평균)', desc:'EV/NTM FCF 배수의 장기 평균선\n차트의 회색 점선 (~22×)',
+      detail:{sections:[
+        {title:'📐 의미', rows:[
+          {key:'수준',   val:'~22× (역사적 장기 평균)'},
+          {key:'역할',   val:'밸류에이션 고평가·저평가 기준선'},
+          {key:'표시',   val:'회색 점선 (-- LT Avg --)'},
+        ]},
+        {title:'💡 Medallia 인수 당시', rows:[
+          {key:'인수 시점', val:"'21.10 — 72× (LT 평균의 3.3배)", flag:'danger'},
+          {key:'판단',     val:'버블 환경이나 EV/Rev 9×로 상대적 저평가 인식'},
+          {key:'결과',     val:'멀티플 수축 후 EXIT 불가',             flag:'danger'},
+        ]},
+      ]}
+    },
+    { abbr:'VoC', full:'Voice of Customer (VoC 플랫폼)', desc:'고객의 소리 · 고객 피드백을 수집·분석·행동화하는 엔터프라이즈 플랫폼',
+      detail:{sections:[
+        {title:'📋 VoC 플랫폼이 하는 일', rows:[
+          {key:'① 수집', val:'설문·앱리뷰·콜센터 녹취·SNS 멀티채널 통합'},
+          {key:'② 분석', val:'감성 분석·자동 분류·이슈 트렌드 파악'},
+          {key:'③ 인사이트', val:'실시간 대시보드·고객 이탈 예측 신호'},
+          {key:'④ 액션화', val:'담당자 알림 자동화·개선 과제 연결'},
+        ]},
+        {title:'💡 주요 활용 산업', rows:[
+          {key:'금융·보험', val:'민원 즉시 대응·해지 방어 체계'},
+          {key:'항공·호텔', val:'서비스 품질 실시간 모니터링'},
+          {key:'통신·유통', val:'NPS 추적·고객 생애가치 관리'},
+        ]},
+      ]}
+    },
+    { abbr:'CX',  full:'Customer Experience', desc:'고객경험' },
+    { abbr:'R&D', full:'Research & Development', desc:'연구개발' },
+    { abbr:'EV',  full:'Enterprise Value', desc:'기업가치\n시가총액 + 순부채',
+      detail:{sections:[
+        {title:'📐 산식 & 활용', rows:[
+          {key:'산식',       val:'시가총액 + 순부채 (부채 − 현금)'},
+          {key:'의미',       val:'인수 시 실제 지불하는 총액'},
+          {key:'EV vs 시총', val:'부채 많을수록 EV > 시가총액'},
+        ]},
+      ]}
+    },
+    { abbr:'Qualtrics', full:'Qualtrics', desc:'CX/VoC 플랫폼 글로벌 1위 · Medallia의 직접 경쟁자',
+      detail:{sections:[
+        {title:'📋 기본 정보', rows:[
+          {key:'분야',   val:'CX · VoC · EX 플랫폼'},
+          {key:'시장',   val:'Medallia와 같은 카테고리 글로벌 1위'},
+          {key:'역사',   val:'SAP 산하 → 2023년 $3.1B 분리 매각'},
+        ]},
+        {title:'💡 Medallia와의 관계', rows:[
+          {key:'경쟁',   val:'글로벌 VoC 1위 vs Medallia 2위'},
+          {key:'이탈',   val:'Medallia 고객사가 이탈하는 주요 목적지'},
+          {key:'위험',   val:'PE 구조 후 유사 부채 리스크 공유', flag:'danger'},
+        ]},
+      ]}
+    },
+    { abbr:'Zendesk', full:'Zendesk', desc:'고객서비스 SaaS 기업 · Medallia와 유사한 PE LBO 인수 구조',
+      detail:{sections:[
+        {title:'📋 기본 정보', rows:[
+          {key:'분야',   val:'고객서비스(CS) · 헬프데스크 SaaS'},
+          {key:'규모',   val:'고객 10만개+ · ARR $2.1B (2022)'},
+          {key:'인수',   val:'2022년 Permira 등 PE 컨소시엄 $10B'},
+        ]},
+        {title:'💡 Medallia와의 연관', rows:[
+          {key:'구조',   val:'PE LBO 차입 인수 — Medallia와 동일 패턴'},
+          {key:'위험',   val:'고금리 전환 후 이자 부담 급증'},
+          {key:'시사점', val:'SaaSpocalypse 연쇄 위험 종목', flag:'danger'},
+        ]},
+      ]}
+    },
+    { abbr:'Blackstone', full:'Blackstone Inc.', desc:'세계 최대 대체투자사 · Medallia 채권단 주요 참여사',
+      detail:{sections:[
+        {title:'📋 기본 정보', rows:[
+          {key:'유형',   val:'대체투자 · 사모대출 · 부동산'},
+          {key:'AUM',    val:'$1조+ (운용자산) · 글로벌 최대 규모'},
+          {key:'역할',   val:'Medallia 인수 채권단($1.8B) 참여'},
+        ]},
+        {title:'💡 Medallia 관련', rows:[
+          {key:'포지션', val:'선순위 담보 대출 채권자'},
+          {key:'결과',   val:'2025.04 채권→지분 전환, 최대주주 등극'},
+          {key:'압박',   val:'"현금 이자 OR 경영권 이전" 최후통첩', flag:'danger'},
+        ]},
+      ]}
+    },
+    { abbr:'Apollo', full:'Apollo Global Management', desc:'미국 3대 사모대출 운용사 · 운용자산 $650B+',
+      detail:{sections:[
+        {title:'📋 기본 정보', rows:[
+          {key:'유형',   val:'사모대출(Direct Lending) · PE · 부동산'},
+          {key:'AUM',    val:'$650B+ (2024 기준)'},
+          {key:'특징',   val:'비은행 대출 시장의 핵심 플레이어'},
+        ]},
+        {title:'💡 Medallia 파급 관련', rows:[
+          {key:'노출',   val:'고위험 SaaS 대출 포트폴리오 보유'},
+          {key:'조치',   val:'환매 제한(Gate) 발동 비상 조치', flag:'danger'},
+          {key:'의미',   val:'민간 대출 시장 전반 유동성 불안 촉발'},
+        ]},
+      ]}
+    },
+    { abbr:'Ares', full:'Ares Management', desc:'사모대출·부동산 전문 대체투자사 · 운용자산 $420B+',
+      detail:{sections:[
+        {title:'📋 기본 정보', rows:[
+          {key:'유형',   val:'사모대출 · 부동산 · 인프라'},
+          {key:'AUM',    val:'$420B+ (2024 기준)'},
+          {key:'특징',   val:'Direct Lending 글로벌 선두권'},
+        ]},
+        {title:'💡 Medallia 파급 관련', rows:[
+          {key:'노출',   val:'레버리지 SaaS 대출 익스포저 보유'},
+          {key:'조치',   val:'환매 제한(Gate) 발동 비상 조치', flag:'danger'},
+          {key:'의미',   val:'사모대출 리스크 전반 재평가 촉발'},
+        ]},
+      ]}
+    },
+    { abbr:'Gartner Magic Quadrant', full:'Gartner Magic Quadrant (MQ)',
+      desc:'IT 시장 공급업체를 실행력·비전 기준으로 4분면 평가\nLeader = 실행력·비전 모두 최상위',
+      detail:{sections:[
+        {title:'📋 4분면 구조', rows:[
+          {key:'Leaders',     val:'실행력 ↑ · 비전 ↑ — 시장 최상위',  flag:'good'},
+          {key:'Challengers', val:'실행력 높음 · 비전 보통'},
+          {key:'Visionaries', val:'비전 높음 · 실행력 보통'},
+          {key:'Niche',       val:'특정 영역에 집중'},
+        ]},
+        {title:'💡 Medallia 맥락', rows:[
+          {key:'위치',  val:"CX 플랫폼 Leader ('26년 선정)",    flag:'good'},
+          {key:'의미',  val:'고객 신뢰도·시장 인지도 최상위'},
+          {key:'주의',  val:'MQ Leader ≠ 재무 건전성 보장',     flag:'danger'},
+        ]},
+      ]}
+    },
+    { abbr:'주요 고객', full:'주요 고객사 (대표 예시)',
+      desc:'글로벌 대형 엔터프라이즈 약 1,000개사\n계약 당 연간 수십만 달러+ 구독',
+      detail:{sections:[
+        {title:'📋 업종별 대표 고객사', rows:[
+          {key:'금융·보험', val:'씨티그룹 · HSBC · AXA 등'},
+          {key:'항공',      val:'Delta · United · Southwest 등'},
+          {key:'호텔',      val:'Marriott · Hilton · Hyatt 등'},
+          {key:'통신',      val:'AT&T · Verizon · T-Mobile 등'},
+        ]},
+        {title:'💡 고객 구조 특징', rows:[
+          {key:'계약 규모',   val:'대형 엔터프라이즈 — 연간 수십만 달러+'},
+          {key:'전환 비용',   val:'높음 — 데이터·워크플로 이관 복잡'},
+          {key:'이탈 리스크', val:'Gen AI 등장 후 이탈 가속 (2023~)', flag:'danger'},
+        ]},
+      ]}
+    },
+    { abbr:'PE',  full:'Private Equity', desc:'사모펀드\n비공개 기업에 투자하는 펀드',
+      detail:{sections:[
+        {title:'📐 운용 구조', rows:[
+          {key:'방식',   val:'비상장 기업 인수 → 가치 제고 → EXIT'},
+          {key:'수익',   val:'초과수익의 20% (Carried Interest)'},
+          {key:'기간',   val:'통상 3~7년 투자 후 매각'},
+        ]},
+        {title:'📊 EXIT 방식', rows:[
+          {key:'전략적 매각', val:'다른 기업에 매각'},
+          {key:'IPO',         val:'주식시장 재상장'},
+          {key:'파산',        val:'EXIT 실패 → 손실 확정', flag:'danger'},
+        ]},
+      ]}
+    },
+  ];
+
+  function processTextNode(node) {
+    const text = node.textContent;
+    if (!text.trim()) return;
+    let out = '', i = 0, changed = false;
+    while (i < text.length) {
+      let hit = false;
+      for (const { abbr, full, desc, detail } of ABBRS) {
+        if (text.slice(i, i + abbr.length) === abbr) {
+          const pre  = i === 0 ? ' ' : text[i - 1];
+          const post = i + abbr.length >= text.length ? ' ' : text[i + abbr.length];
+          if (!/[a-zA-Z가-힣0-9]/.test(pre) && !/[a-zA-Z가-힣0-9]/.test(post)) {
+            const ef = full.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/\n/g,'&#10;');
+            const ed = desc.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/\n/g,'&#10;');
+            const ea = abbr.replace(/&/g,'&amp;');
+            const da = detail ? ` data-detail="${JSON.stringify(detail).replace(/&/g,'&amp;').replace(/"/g,'&quot;')}"` : '';
+            out += `<span class="abbr-hl" data-full="${ef}" data-desc="${ed}"${da}>${ea}</span>`;
+            i += abbr.length; hit = true; changed = true; break;
+          }
+        }
+      }
+      if (!hit) {
+        const c = text[i];
+        out += c==='&'?'&amp;':c==='<'?'&lt;':c==='>'?'&gt;':c;
+        i++;
+      }
+    }
+    if (changed) {
+      const wrap = document.createElement('span');
+      wrap.innerHTML = out;
+      node.parentNode.replaceChild(wrap, node);
+    }
+  }
+
+  function initAbbrs() {
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        const el = node.parentElement;
+        if (!el || el.closest('svg,script,style,#memo-tip,#nav')) return NodeFilter.FILTER_REJECT;
+        if (el.classList.contains('abbr-hl')) return NodeFilter.FILTER_REJECT;
+        return node.textContent.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+      }
+    });
+    const nodes = [];
+    let n;
+    while ((n = walker.nextNode())) nodes.push(n);
+    nodes.forEach(processTextNode);
+  }
+
+  const memoTip   = document.getElementById('memo-tip');
+  const tipAbbr   = memoTip.querySelector('.tip-abbr');
+  const tipFull   = memoTip.querySelector('.tip-full');
+  const tipDesc   = memoTip.querySelector('.tip-desc');
+  const tipDetail = memoTip.querySelector('.tip-detail');
+
+  function renderDetail(detail) {
+    if (!detail) { tipDetail.style.display='none'; memoTip.classList.remove('wide'); return false; }
+    try {
+      const d = (typeof detail === 'string') ? JSON.parse(detail) : detail;
+      tipDetail.innerHTML = d.sections.map(sec =>
+        `<div class="tip-dsec"><div class="tip-dtitle">${sec.title}</div>` +
+        sec.rows.map(r =>
+          `<div class="tip-drow">` +
+          `<span class="tip-dkey${r.flag==='curr'?' curr':''}">${r.key}</span>` +
+          `<span class="tip-dval${r.flag==='danger'?' danger':r.flag==='good'?' good':''}">${r.val}</span>` +
+          `</div>`
+        ).join('') + `</div>`
+      ).join('');
+      tipDetail.style.display = 'block'; memoTip.classList.add('wide'); return true;
+    } catch(_) { tipDetail.style.display='none'; memoTip.classList.remove('wide'); return false; }
+  }
+
+  function positionTip(rect, hasDetail) {
+    const tipW = hasDetail ? 352 : 262;
+    memoTip.style.left = '-9999px'; memoTip.style.top = '-9999px';
+    memoTip.style.display = 'block';
+    const tipH = memoTip.offsetHeight;
+    let left = rect.right + 12, top = rect.top - 8;
+    if (left + tipW > window.innerWidth)  left = rect.left - tipW - 12;
+    if (left < 6) left = 6;
+    if (top + tipH > window.innerHeight)  top = window.innerHeight - tipH - 8;
+    if (top < 6)  top = 6;
+    memoTip.style.left = left + 'px'; memoTip.style.top = top + 'px';
+  }
+
+  // HTML abbr spans
+  document.body.addEventListener('mouseover', e => {
+    const t = e.target;
+    if (!t.classList.contains('abbr-hl')) return;
+    // data-full이 없으면 data-abbr-key로 ABBRS_MAP 조회 (수동 마크업 fallback)
+    const mapped = (!t.dataset.full && t.dataset.abbrKey) ? ABBRS_MAP[t.dataset.abbrKey] : null;
+    tipAbbr.textContent = t.textContent;
+    tipFull.textContent = t.dataset.full || (mapped && mapped.full) || '';
+    tipDesc.textContent = t.dataset.desc || (mapped && mapped.desc) || '';
+    positionTip(t.getBoundingClientRect(), renderDetail(t.dataset.detail || (mapped && mapped.detail) || null));
+  });
+
+  document.body.addEventListener('mouseout', e => {
+    if (e.target.classList.contains('abbr-hl')) memoTip.style.display = 'none';
+  });
+
+  // SVG text abbr elements
+  const ABBRS_MAP = Object.fromEntries(ABBRS.map(a => [a.abbr, a]));
+  document.querySelectorAll('text.abbr-svg-hl').forEach(el => {
+    el.addEventListener('mouseover', e => {
+      e.stopPropagation();
+      const item = ABBRS_MAP[el.dataset.abbrKey];
+      if (!item) return;
+      tipAbbr.textContent = item.abbr;
+      tipFull.textContent = item.full || '';
+      tipDesc.textContent = item.desc || '';
+      positionTip(el.getBoundingClientRect(), renderDetail(item.detail));
+    });
+    el.addEventListener('mouseout', () => { memoTip.style.display = 'none'; });
+  });
+
+  initAbbrs();
+</script>
+</body>
+</html>

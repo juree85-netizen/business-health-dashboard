@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>사업건전성 대시보드 AI 구축·운영 검증 프로젝트 — 통합 구조도</title>
+<style>
+  :root{
+    --navy:#1428A0; --navy-dark:#0c1c68; --navy-deep:#081450; --navy-light:#eef0fb;
+    --navy-soft:#dfe3f7; --ink:#12142b; --gray:#565b73; --gray-soft:#8489a0;
+    --border:#dcdfef; --bg:#f5f6fb; --card:#ffffff;
+    --warn-bg:#fff6e5; --warn-bd:#e8a33d; --warn-tx:#8a5a00;
+    --good-bg:#eaf7ef; --good-bd:#2f9e56; --good-tx:#1c6b39;
+    --risk-bg:#fdecea; --risk-bd:#c2492f; --risk-tx:#8e2c19;
+    --z-vdi:#c2492f; --z-git:#1428A0; --z-pc:#2f9e56; --z-ops:#7b4bc9;
+    --g1:#2f9e56; --g2:#3d7fd1; --g3:#c98a1f; --g4:#c2492f;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Malgun Gothic","맑은 고딕","Apple SD Gothic Neo",sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.6; font-size:15px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1120px; margin:0 auto; padding:0 24px 90px;}
+  code{font-family:ui-monospace,Menlo,Consolas,monospace; font-size:0.88em; background:var(--navy-light); padding:1px 6px; border-radius:5px; color:var(--navy-dark);}
+
+  /* ---------- HERO ---------- */
+  .hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-dark) 62%,var(--navy-deep) 100%);
+    color:#fff; padding:52px 24px 40px; position:relative; overflow:hidden;}
+  .hero::after{content:''; position:absolute; right:-120px; top:-120px; width:420px; height:420px; border-radius:50%; background:rgba(255,255,255,0.06);}
+  .hero::before{content:''; position:absolute; left:-80px; bottom:-140px; width:320px; height:320px; border-radius:50%; background:rgba(255,255,255,0.045);}
+  .hero-inner{max-width:1120px; margin:0 auto; position:relative; z-index:1;}
+  .badges{display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap;}
+  .badge{display:inline-block; font-size:11px; font-weight:700; letter-spacing:0.6px; padding:4px 10px; border-radius:20px; background:rgba(255,255,255,0.14); border:1px solid rgba(255,255,255,0.3); color:#fff;}
+  .badge.v{background:rgba(255,255,255,0.94); color:var(--navy-dark);}
+  .hero h1{font-size:29px; font-weight:800; line-height:1.35; letter-spacing:-0.5px; margin-bottom:10px;}
+  .hero .sub{font-size:15.5px; color:rgba(255,255,255,0.88); font-weight:500; margin-bottom:24px; max-width:720px; line-height:1.6;}
+  .toc{display:flex; gap:10px; flex-wrap:wrap;}
+  .toc a{font-size:12.5px; font-weight:700; color:#fff; text-decoration:none; background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.28); padding:7px 13px; border-radius:8px;}
+  .toc a:hover{background:rgba(255,255,255,0.22);}
+
+  /* ---------- SECTION ---------- */
+  section.sec{padding:50px 0 8px; border-bottom:1px solid var(--border);}
+  section.sec:last-of-type{border-bottom:none;}
+  .sec-head{display:flex; align-items:baseline; gap:14px; margin-bottom:8px;}
+  .sec-no{font-size:13px; font-weight:800; color:#fff; background:var(--navy); padding:4px 11px; border-radius:6px; letter-spacing:1px; flex-shrink:0;}
+  .sec-title{font-size:21px; font-weight:800; color:var(--ink); letter-spacing:-0.3px;}
+  .sec-desc{font-size:13.5px; color:var(--gray); margin:0 0 24px; padding-left:2px;}
+
+  .note{font-size:12.5px; color:var(--gray); background:var(--navy-light); border-radius:8px; padding:10px 14px; margin-top:16px; line-height:1.65;}
+  .note b{color:var(--navy-dark);}
+  .warn{background:var(--warn-bg); border:1px solid var(--warn-bd); border-radius:8px; padding:12px 15px; font-size:13px; color:var(--warn-tx); margin-top:16px; line-height:1.7; display:flex; gap:9px; align-items:flex-start;}
+  .warn.risk{background:var(--risk-bg); border-color:var(--risk-bd); color:var(--risk-tx);}
+  .warn.good{background:var(--good-bg); border-color:var(--good-bd); color:var(--good-tx);}
+  .warn .ic{font-size:15px; flex-shrink:0;}
+
+  /* ---------- LEGEND ---------- */
+  .legend{display:flex; gap:16px; flex-wrap:wrap; margin-bottom:22px; font-size:12px; color:var(--gray);}
+  .legend .lg{display:flex; align-items:center; gap:6px; font-weight:700;}
+  .legend .sw{width:14px; height:14px; border-radius:4px; flex-shrink:0;}
+  .lg-new{background:var(--warn-bg); border:1px dashed var(--warn-bd); color:var(--warn-tx); padding:2px 8px; border-radius:20px; font-size:11px; font-weight:800;}
+
+  /* ========== VIEW 1 : ARCHITECTURE ========== */
+  .zones{display:flex; align-items:stretch; gap:0; margin-bottom:8px;}
+  .zone{flex:1; border:2px solid; border-radius:14px; padding:16px 14px; position:relative; background:var(--card);}
+  .zone.vdi{border-color:var(--z-vdi);}
+  .zone.git{border-color:var(--z-git);}
+  .zone.pc{border-color:var(--z-pc);}
+  .zone .ztag{position:absolute; top:-11px; left:14px; font-size:10.5px; font-weight:800; letter-spacing:0.6px; color:#fff; padding:2px 10px; border-radius:20px;}
+  .zone.vdi .ztag{background:var(--z-vdi);}
+  .zone.git .ztag{background:var(--z-git);}
+  .zone.pc .ztag{background:var(--z-pc);}
+  .zone .zname{font-size:15px; font-weight:800; margin:6px 0 2px;}
+  .zone .zrole{font-size:11px; font-weight:700; color:var(--gray-soft); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:10px;}
+  .comp{background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:8px 11px; margin-bottom:7px; font-size:12.5px;}
+  .comp b{display:block; font-size:12.5px; font-weight:800; color:var(--ink);}
+  .comp span{font-size:11.5px; color:var(--gray);}
+  .zconn{display:flex; flex-direction:column; align-items:center; justify-content:center; width:96px; flex-shrink:0; gap:3px; padding:0 4px;}
+  .zconn .arr{font-size:22px; color:var(--navy); font-weight:800; line-height:1;}
+  .zconn .lb{font-size:9.5px; color:var(--gray-soft); text-align:center; font-weight:700; line-height:1.3;}
+  .boundary{position:relative; text-align:center; margin:2px 0;}
+  .boundary .line{border-top:2px dashed var(--z-vdi); margin:16px 0 6px;}
+  .boundary .cap{display:inline-block; background:var(--risk-bg); color:var(--risk-tx); border:1px solid var(--z-vdi); font-size:11.5px; font-weight:800; padding:4px 14px; border-radius:20px;}
+
+  .flowline{background:var(--navy-deep); color:#dfe4ff; border-radius:12px; padding:16px 18px; margin-top:20px; font-size:12.5px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; line-height:1.5;}
+  .flowline .fstep{background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:8px; padding:6px 11px; font-weight:700; color:#fff;}
+  .flowline .fstep small{display:block; font-size:10px; color:#9fb0e8; font-weight:600;}
+  .flowline .fsep{color:#8fb0ff; font-weight:800; font-size:16px;}
+
+  .ops-layer{margin-top:20px; border:2px dashed var(--z-ops); border-radius:14px; padding:16px 18px; background:#f7f3fc; position:relative;}
+  .ops-layer .otag{position:absolute; top:-11px; left:14px; font-size:10.5px; font-weight:800; color:#fff; background:var(--z-ops); padding:2px 10px; border-radius:20px;}
+  .ops-layer .ottl{font-size:14px; font-weight:800; margin:4px 0 8px; color:var(--z-ops);}
+  .ops-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:10px;}
+  .ops-grid .ob{background:#fff; border:1px solid #e3d8f5; border-radius:8px; padding:9px 11px; font-size:12px;}
+  .ops-grid .ob b{display:block; font-size:12.5px; color:var(--z-ops); margin-bottom:2px;}
+
+  /* ---------- DATA GRADE TABLE ---------- */
+  .grade-table{width:100%; border-collapse:collapse; font-size:13px; margin-top:22px;}
+  .grade-table th{background:var(--navy); color:#fff; text-align:left; padding:9px 13px; font-size:12px; font-weight:700;}
+  .grade-table th:first-child{border-radius:8px 0 0 0;} .grade-table th:last-child{border-radius:0 8px 0 0;}
+  .grade-table td{padding:10px 13px; border-bottom:1px solid var(--border); vertical-align:top;}
+  .grade-table tr:last-child td{border-bottom:none;}
+  .g-pill{font-size:11px; font-weight:800; padding:3px 10px; border-radius:20px; white-space:nowrap;}
+  .g-block{background:var(--risk-bg); color:var(--risk-tx); border:1px solid var(--z-vdi);}
+  .g-cond{background:var(--warn-bg); color:var(--warn-tx); border:1px solid var(--warn-bd);}
+  .g-ok{background:var(--good-bg); color:var(--good-tx); border:1px solid var(--good-bd);}
+
+  /* ========== VIEW 2 : WBS ========== */
+  .phase0-strip{display:flex; align-items:center; gap:12px; background:var(--good-bg); border:1px solid var(--good-bd); border-radius:10px; padding:12px 16px; margin-bottom:8px; font-size:13px; color:var(--good-tx);}
+  .phase0-strip .pill{font-weight:800; background:var(--good-bd); color:#fff; padding:3px 10px; border-radius:20px; font-size:11px; flex-shrink:0;}
+  .wbs-table{width:100%; border-collapse:collapse; font-size:12.5px; margin-top:8px;}
+  .wbs-table th{background:var(--navy); color:#fff; text-align:left; padding:9px 12px; font-size:11.5px; font-weight:700;}
+  .wbs-table th:first-child{border-radius:8px 0 0 0;} .wbs-table th:last-child{border-radius:0 8px 0 0;}
+  .wbs-table td{padding:10px 12px; border-bottom:1px solid var(--border); vertical-align:top; line-height:1.55;}
+  .wbs-table tr:last-child td{border-bottom:none;}
+  .wbs-table .tno{font-weight:800; white-space:nowrap;}
+  .wk-pill{display:inline-block; font-size:10.5px; font-weight:800; color:#fff; padding:2px 8px; border-radius:20px; white-space:nowrap;}
+  .dep{font-size:11px; color:var(--gray-soft); font-weight:700;}
+  .dod{font-size:11.5px; color:var(--gray);}
+  .success-box{background:var(--card); border:1.5px solid var(--navy); border-radius:12px; padding:16px 18px; margin-top:22px;}
+  .success-box h4{font-size:13px; color:var(--navy); margin-bottom:10px; letter-spacing:0.3px;}
+  .success-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:10px;}
+  .success-grid .sc{display:flex; gap:9px; align-items:flex-start; font-size:12.5px;}
+  .success-grid .sc .k{flex-shrink:0; width:20px; height:20px; border-radius:5px; background:var(--navy-light); color:var(--navy); font-weight:800; font-size:11px; display:flex; align-items:center; justify-content:center;}
+
+  /* ========== VIEW 3 : REPO ========== */
+  .repo-cols{display:grid; grid-template-columns:1.05fr 1fr; gap:20px; align-items:start;}
+  .tree{background:var(--navy-deep); color:#dfe4ff; border-radius:12px; padding:18px 20px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; line-height:1.95;}
+  .tree .repo-name{color:#fff; font-weight:800; font-size:13px; margin-bottom:6px; display:block;}
+  .tree .dir{color:#8fb0ff; font-weight:700;}
+  .tree .cm{color:#6b7399;}
+  .tree .own{color:#f0b45f; font-weight:700;}
+  .tree .new{color:#7fd6a0; font-weight:700;}
+  .rules{list-style:none;}
+  .rules li{display:flex; gap:10px; padding:9px 0; border-bottom:1px dashed var(--border); font-size:12.8px; line-height:1.55;}
+  .rules li:last-child{border-bottom:none;}
+  .rules .num{flex-shrink:0; width:22px; height:22px; border-radius:50%; background:var(--navy); color:#fff; font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center;}
+  .rules b{color:var(--ink);}
+
+  /* ========== VIEW 4 : GOVERNANCE ========== */
+  .gov-cols{display:grid; grid-template-columns:1fr 1fr; gap:20px; align-items:start;}
+  .rnr{display:flex; flex-direction:column; gap:12px;}
+  .rnr-card{border:1.5px solid var(--border); border-left-width:5px; border-radius:10px; padding:13px 16px; background:var(--card);}
+  .rnr-card.pm{border-left-color:var(--navy);}
+  .rnr-card.data{border-left-color:#3d7fd1;}
+  .rnr-card.front{border-left-color:#2f9e56;}
+  .rnr-card .rhead{display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;}
+  .rnr-card .rname{font-size:14px; font-weight:800;}
+  .rnr-card .renv{font-size:10.5px; font-weight:700; color:var(--gray-soft);}
+  .rnr-card .rrole{font-size:12px; color:var(--gray); line-height:1.5;}
+  .rnr-card .bus{font-size:11px; color:var(--warn-tx); background:var(--warn-bg); border-radius:6px; padding:4px 8px; margin-top:7px; display:inline-block;}
+  .decflow{background:var(--navy-light); border-radius:12px; padding:16px 18px;}
+  .decflow h4{font-size:12.5px; color:var(--navy-dark); margin-bottom:12px;}
+  .decstep{display:flex; gap:10px; align-items:flex-start; padding:8px 0; border-bottom:1px dashed var(--navy-soft); font-size:12.5px;}
+  .decstep:last-child{border-bottom:none;}
+  .decstep .dn{flex-shrink:0; width:22px; height:22px; border-radius:6px; background:#fff; border:1px solid var(--navy-soft); color:var(--navy); font-weight:800; font-size:11px; display:flex; align-items:center; justify-content:center;}
+  .decstep b{color:var(--ink);}
+
+  footer{text-align:center; padding:40px 24px 10px; font-size:11.5px; color:var(--gray-soft);}
+
+  @media (max-width:860px){
+    .zones{flex-direction:column;} .zconn{width:auto; flex-direction:row; padding:8px 0;} .zconn .arr{transform:rotate(90deg);}
+    .ops-grid{grid-template-columns:repeat(2,1fr);} .success-grid{grid-template-columns:1fr;}
+    .repo-cols,.gov-cols{grid-template-columns:1fr;} .flowline{font-size:11.5px;} .hero h1{font-size:23px;}
+  }
+  @media print{
+    body{background:#fff;}
+    .hero{background:var(--navy) !important; -webkit-print-color-adjust:exact; print-color-adjust:exact;}
+    section.sec{page-break-inside:avoid; padding:26px 0 8px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="badges">
+      <span class="badge">INTERNAL</span>
+      <span class="badge">통합 구조도 v1.0</span>
+      <span class="badge v">작성 2026-07-06</span>
+    </div>
+    <h1>사업건전성 대시보드 AI 구축·운영 검증 프로젝트<br>통합 구조도 (Architecture &amp; Structure)</h1>
+    <p class="sub">킥오프 브리핑 v1.0을 베스트프랙티스 기준으로 검증하고, 그 결과(보안 경계·데이터 등급·운영 레이어·성공 기준·DoD·버퍼)를 4개 뷰로 통합 도식화한 문서입니다. 원본 브리핑과 상호 보완됩니다.</p>
+    <div class="toc">
+      <a href="#v1">① 시스템 아키텍처 &amp; 데이터 흐름</a>
+      <a href="#v2">② WBS / 로드맵</a>
+      <a href="#v3">③ 레포 &amp; 워크스페이스 구조</a>
+      <a href="#v4">④ 거버넌스 &amp; 역할 구조</a>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- ============ VIEW 1 ============ -->
+  <section class="sec" id="v1">
+    <div class="sec-head"><span class="sec-no">VIEW 1</span><span class="sec-title">시스템 아키텍처 &amp; 데이터 흐름</span></div>
+    <p class="sec-desc">3계층(VDI · 사내 GitHub · 회사PC)을 <b>보안 경계</b>와 함께 배치하고, 데이터가 어디서 어디로 흐르는지 · 무엇이 반출 가능한지를 명시. 원본 02번 토폴로지에 <span class="lg-new">보안 경계선</span> <span class="lg-new">데이터 등급</span> <span class="lg-new">운영 레이어</span>를 추가한 정밀판.</p>
+
+    <div class="legend">
+      <div class="lg"><span class="sw" style="background:var(--z-vdi);"></span>VDI (개인정보 취급)</div>
+      <div class="lg"><span class="sw" style="background:var(--z-git);"></span>사내 GitHub (공유 버스)</div>
+      <div class="lg"><span class="sw" style="background:var(--z-pc);"></span>회사 PC (프레젠테이션)</div>
+      <div class="lg"><span class="sw" style="background:var(--z-ops);"></span>운영 레이어 (범위 결정 필요)</div>
+    </div>
+
+    <div class="zones">
+      <div class="zone vdi">
+        <span class="ztag">데이터 레이어</span>
+        <div class="zname">VDI</div>
+        <div class="zrole">개인정보 취급 환경</div>
+        <div class="comp"><b>Impala</b><span>원천 데이터 · 실적/개인정보</span></div>
+        <div class="comp"><b>AIPro CLI</b><span>SQL 설계·검증 · ERD</span></div>
+        <div class="comp"><b>마스킹/합성</b><span>반출 전 비식별화 처리</span></div>
+      </div>
+      <div class="zconn"><span class="arr">⇄</span><span class="lb">코드·스키마·<br>합성데이터만<br>commit / pull</span></div>
+      <div class="zone git">
+        <span class="ztag">공유 버스</span>
+        <div class="zname">사내 GitHub</div>
+        <div class="zrole">code.sdsdev.co.kr</div>
+        <div class="comp"><b>biz-health-verify</b><span>단일 레포 · 릴레이 허브</span></div>
+        <div class="comp"><b>context / plan</b><span>마스터 컨텍스트·계획</span></div>
+        <div class="comp"><b>work / verify</b><span>산출물 · 검증 로그</span></div>
+      </div>
+      <div class="zconn"><span class="arr">⇄</span><span class="lb">commit / pull<br>(코드·시안)</span></div>
+      <div class="zone pc">
+        <span class="ztag">프레젠테이션 레이어</span>
+        <div class="zname">회사 PC</div>
+        <div class="zrole">Claude Enterprise</div>
+        <div class="comp"><b>Web / WAS</b><span>대시보드 자체 구현</span></div>
+        <div class="comp"><b>화면 시안·UX</b><span>프로토타입·시뮬레이션</span></div>
+        <div class="comp"><b>PM 총괄</b><span>일정·산출물 통합</span></div>
+      </div>
+    </div>
+
+    <div class="boundary">
+      <div class="line"></div>
+      <span class="cap">⛔ 개인정보 반출 금지선 — VDI를 넘어가는 것은 코드·스키마·마스킹/합성 데이터로 한정</span>
+    </div>
+
+    <div class="warn risk">
+      <span class="ic">⛔</span>
+      <span><b>[검증 반영 · 최우선 리스크]</b> VDI ↔ GitHub ↔ 회사PC 릴레이는 데이터 유출 통로가 될 수 있음. <b>실데이터·개인정보·민감 실적치가 SQL 결과·핸드오프 메모·verify 로그에 섞여 반출되지 않도록</b> 커밋 전 스캔 규칙을 <code>CLAUDE.md</code>·<code>AIPRO.md</code> 최상단에 명문화.</span>
+    </div>
+
+    <!-- 데이터 흐름 -->
+    <div class="flowline">
+      <span class="fstep">Impala 원천<small>VDI · 개인정보</small></span>
+      <span class="fsep">→</span>
+      <span class="fstep">SQL 산출 (AIPro)<small>VDI 내부</small></span>
+      <span class="fsep">→</span>
+      <span class="fstep">마스킹/합성<small>비식별화</small></span>
+      <span class="fsep">⛔→</span>
+      <span class="fstep">GitHub 반출<small>코드·스키마·샘플</small></span>
+      <span class="fsep">→</span>
+      <span class="fstep">Web/WAS 구현 (Claude)<small>회사PC</small></span>
+      <span class="fsep">→</span>
+      <span class="fstep">대시보드 렌더링<small>검증 결과</small></span>
+    </div>
+
+    <!-- 운영 레이어 (원본 누락분) -->
+    <div class="ops-layer">
+      <span class="otag">검증 반영 · 신규</span>
+      <div class="ottl">운영 레이어 — 가설의 "운영·유지보수"에 대응 (원본 로드맵 누락분)</div>
+      <div class="ops-grid">
+        <div class="ob"><b>호스팅</b>Web/WAS 프로덕션 구동 위치 결정 필요</div>
+        <div class="ob"><b>인증·권한</b>사용자 접근 통제 방식 미정</div>
+        <div class="ob"><b>배포·모니터링</b>업데이트/장애 감지 절차 미정</div>
+        <div class="ob"><b>유지보수 주체</b>AI 산출물의 지식 이전·문서화</div>
+      </div>
+      <div class="note" style="margin-top:12px;">※ 가설은 <b>"구축→운영→유지보수 전 주기"</b>인데 원본 로드맵은 구축·자동화에서 종료. 킥오프에서 <b>운영을 검증 범위에 포함할지</b> 결정하고, 포함 시 <b>Task 5(운영 전환)</b>를 추가해야 가설-로드맵 정합이 맞음.</div>
+    </div>
+
+    <!-- 데이터 등급표 -->
+    <table class="grade-table">
+      <tr><th style="width:22%;">데이터 등급</th><th style="width:20%;">반출 가부</th><th>정의 &amp; 취급 규칙</th></tr>
+      <tr><td><b>원천 실데이터 / 개인정보</b></td><td><span class="g-pill g-block">반출 불가</span></td><td>Impala 원본 레코드·실적 수치·개인 식별 정보. VDI 밖으로 절대 이동 금지.</td></tr>
+      <tr><td><b>통계값 / 샘플 데이터</b></td><td><span class="g-pill g-cond">조건부</span></td><td>집계·요약·소량 샘플만. 개인 식별 불가·역산 불가 확인 후 verify 로그에 한해 허용.</td></tr>
+      <tr><td><b>마스킹 / 합성 데이터</b></td><td><span class="g-pill g-ok">반출 가능</span></td><td>비식별화 처리된 테스트 데이터. 화면 시안·시뮬레이션용으로 GitHub 반출 허용.</td></tr>
+      <tr><td><b>코드 / 스키마 / SQL / ERD</b></td><td><span class="g-pill g-ok">반출 가능</span></td><td>결과값이 아닌 로직·구조. 실데이터 미포함 조건. 릴레이의 기본 반출 대상.</td></tr>
+    </table>
+    <div class="warn"><span class="ic">⚠</span><span><b>Phase 0 확인 필요</b> — VDI 방화벽 허용 목록의 "GitHub"가 실제 <code>code.sdsdev.co.kr</code>를 의미하는지 확인 전까지 릴레이 구조 전체는 가정 단계. 차단 시 대체 동기화 채널(승인된 파일 공유)을 <b>Plan B</b>로 함께 확인.</span></div>
+  </section>
+
+  <!-- ============ VIEW 2 ============ -->
+  <section class="sec" id="v2">
+    <div class="sec-head"><span class="sec-no">VIEW 2</span><span class="sec-title">WBS / 로드맵</span></div>
+    <p class="sec-desc">리스크 낮은 순 착수(Task 3→2→1→4)에 <span class="lg-new">완료정의(DoD)</span> <span class="lg-new">오너</span> <span class="lg-new">의존성</span> <span class="lg-new">버퍼</span> <span class="lg-new">성공 기준</span> <span class="lg-new">Task 5 운영전환</span>을 추가한 실행 가능 버전.</p>
+
+    <div class="phase0-strip">
+      <span class="pill">PHASE 0</span>
+      <span><b>도구 검증 스파이크 (2주)</b> — 전체 선행 조건. VDI·GitHub(<code>code.sdsdev.co.kr</code>) 연결 확인 · AIPro/Claude 기본 동작 · 데이터 등급표 확정 · AIPro 기능 범위 정의. <b>실패 시 Plan B 채널 결정.</b></span>
+    </div>
+
+    <table class="wbs-table">
+      <tr><th style="width:6%;">순서</th><th style="width:20%;">Task</th><th style="width:11%;">기간</th><th style="width:12%;">오너</th><th style="width:14%;">의존성</th><th>완료 정의 (DoD)</th></tr>
+      <tr>
+        <td class="tno" style="color:var(--g1);">1</td>
+        <td><b>Task 3</b><br>시안 + 시뮬레이션</td>
+        <td><span class="wk-pill" style="background:var(--g1);">Wk 3–5</span></td>
+        <td>동료 B (프론트)</td>
+        <td class="dep">Phase 0</td>
+        <td class="dod">대표 KPI 1~2개 화면 시안·프로토타입 완성 · 마스킹/합성 데이터로 동작 · UX 검토 통과. <i>리스크 최저, 데이터 의존 낮음.</i></td>
+      </tr>
+      <tr>
+        <td class="tno" style="color:var(--g2);">2</td>
+        <td><b>Task 2</b><br>데이터 모델</td>
+        <td><span class="wk-pill" style="background:var(--g2);">Wk 5–8</span></td>
+        <td>동료 A (데이터)</td>
+        <td class="dep">Phase 0</td>
+        <td class="dod">SQL·ERD 확정 · Impala 검증으로 <b>정합도 ±5% 이내</b> 입증 · 시안 지표와 매핑 완료.</td>
+      </tr>
+      <tr>
+        <td class="tno" style="color:var(--g3);">3</td>
+        <td><b>Task 1</b><br>웹 재구축</td>
+        <td><span class="wk-pill" style="background:var(--g3);">Wk 8–12</span></td>
+        <td>동료 C (PM)</td>
+        <td class="dep">Task 3 + Task 2</td>
+        <td class="dod">Web/WAS 실제 구현 · 시안+데이터 모델 통합 · 지표 10~15개 재현 · 기존 Tableau 화면 대비 완성도 평가.</td>
+      </tr>
+      <tr>
+        <td class="tno" style="color:var(--g4);">4</td>
+        <td><b>Task 4</b><br>자동 리포트</td>
+        <td><span class="wk-pill" style="background:var(--g4);">Wk 12–14</span></td>
+        <td>동료 C + 동료 A</td>
+        <td class="dep">Task 1</td>
+        <td class="dod">월별 리포트 자동/반자동 생성 · 앞선 3개 산출물 기반 · 최종 검증 로그 정리.</td>
+      </tr>
+      <tr style="background:#f7f3fc;">
+        <td class="tno" style="color:var(--z-ops);">5</td>
+        <td><b>Task 5</b> <span class="lg-new">신규</span><br>운영 전환 (조건부)</td>
+        <td><span class="wk-pill" style="background:var(--z-ops);">Wk 14~ +버퍼</span></td>
+        <td>동료 C</td>
+        <td class="dep">Task 1·4</td>
+        <td class="dod">호스팅·인증·배포·유지보수 주체 결정 · 운영 전환 가능 여부(Y/N + 조건) 판정. <b>가설의 "운영·유지보수" 검증 대응.</b></td>
+      </tr>
+    </table>
+
+    <div class="warn"><span class="ic">⏱</span><span><b>[검증 반영 · 타임라인]</b> 7월 킥오프 + Phase0 2주 + Wk3~14 → 10월 말 마감에 <b>버퍼 0</b>. Task가 직렬 의존이라 한 곳만 밀리면 데드라인 초과. <b>각 Task 최소 1주 버퍼</b> 확보 권고. Task 5는 데드라인 외 조건부 트랙으로 분리 가능.</span></div>
+
+    <div class="success-box">
+      <h4>■ 검증 성공 기준 (Exit Criteria) — 원본 미정의분, 킥오프에서 확정 필요</h4>
+      <div class="success-grid">
+        <div class="sc"><span class="k">1</span><span><b>데이터 정합도</b> ≥ 95% (기존 Tableau 대비 지표값 일치)</span></div>
+        <div class="sc"><span class="k">2</span><span><b>공수·리드타임 절감률</b> — 기존 전문가 방식 대비 man-day / 기간</span></div>
+        <div class="sc"><span class="k">3</span><span><b>화면 재현율</b> — 대상 지표 N개 중 재현 성공 개수</span></div>
+        <div class="sc"><span class="k">4</span><span><b>운영 전환 가능 여부</b> — Y/N + 전환 조건 명시</span></div>
+      </div>
+      <div class="note" style="margin-top:12px;">※ <b>비교 기준선(Baseline) 선확보</b>: "전문가 없이 가능한가"를 정량 입증하려면 기존 Tableau 방식의 공수·기간·품질을 대조군으로 먼저 측정해야 함.</div>
+    </div>
+  </section>
+
+  <!-- ============ VIEW 3 ============ -->
+  <section class="sec" id="v3">
+    <div class="sec-head"><span class="sec-no">VIEW 3</span><span class="sec-title">레포 &amp; 워크스페이스 구조</span></div>
+    <p class="sec-desc">단일 레포 <code>biz-health-verify</code>의 폴더·문서·협업 규약. 원본 04번에 <span class="lg-new">쓰기 오너십</span> <span class="lg-new">PII 스캔 규칙</span> <span class="lg-new">브랜치 전략</span>을 추가해 릴레이 충돌·유출을 방지.</p>
+    <div class="repo-cols">
+      <div class="tree">
+        <span class="repo-name">biz-health-verify/</span>
+        <div><span class="dir">context/</span> <span class="cm"># 00~50 마스터 컨텍스트</span></div>
+        <div>&nbsp;&nbsp;├─ CLAUDE.md <span class="cm"># 회사PC 단일 진실 소스</span></div>
+        <div>&nbsp;&nbsp;└─ AIPRO.md <span class="cm"># VDI 단일 진실 소스</span></div>
+        <div><span class="dir">plan/</span> <span class="cm"># 작업별 계획서 (템플릿)</span></div>
+        <div><span class="dir">work/</span></div>
+        <div>&nbsp;&nbsp;├─ <span class="dir">data/</span> <span class="own">← 동료 A 전용 쓰기</span></div>
+        <div>&nbsp;&nbsp;└─ <span class="dir">web/</span> <span class="own">← PM/동료 B 쓰기</span></div>
+        <div><span class="dir">handoff/</span> <span class="cm"># 세션 간 인계 메모</span></div>
+        <div><span class="dir">verify/</span> <span class="cm"># 검증 결과·로그(샘플만)</span></div>
+        <div><span class="new">INDEX.md</span> <span class="cm"># 레포 현황 색인(상시)</span></div>
+        <div><span class="new">.gitignore + PII스캔</span> <span class="cm"># 반출 금지 항목</span></div>
+      </div>
+      <ul class="rules">
+        <li><span class="num">1</span><span><b>기준 파일</b> — <code>CLAUDE.md</code>·<code>AIPRO.md</code>를 각 환경의 단일 진실 소스로 유지</span></li>
+        <li><span class="num">2</span><span><b>3단 분리</b> — 계획(plan) / 실행(work) / 검증(verify) 산출물 명확 분리</span></li>
+        <li><span class="num">3</span><span><b>INDEX.md</b> — 레포 전체 현황 한눈에 보는 색인 상시 갱신</span></li>
+        <li><span class="num">4</span><span><b>커밋 규약</b> — <code>[에이전트][task]</code> 형식으로 주체·단위 명시</span></li>
+        <li><span class="num">5</span><span><b>세션 루틴</b> — 시작·종료 시 상태 점검·인계 절차 고정</span></li>
+        <li><span class="num">6</span><span><b>템플릿</b> — plan / verify 문서 공통 템플릿 사용</span></li>
+        <li><span class="num">7</span><span><b>쓰기 오너십</b> <span class="lg-new">신규</span> — <code>work/data/</code>는 A만, <code>work/web/</code>은 PM/B만. 동시 편집 금지로 머지 충돌 방지</span></li>
+        <li><span class="num">8</span><span><b>PII 스캔</b> <span class="lg-new">신규</span> — 커밋 전 실데이터·개인정보 포함 여부 스캔. 통계·샘플값만 허용</span></li>
+      </ul>
+    </div>
+    <div class="warn good"><span class="ic">✔</span><span><b>[유지]</b> 3단 분리 · 커밋 규약 · 세션 루틴 · 템플릿은 협업 추적성 관점에서 모범적. 오너십·PII 스캔 2건만 추가하면 릴레이 구조의 충돌·유출 리스크가 크게 낮아짐.</span></div>
+  </section>
+
+  <!-- ============ VIEW 4 ============ -->
+  <section class="sec" id="v4">
+    <div class="sec-head"><span class="sec-no">VIEW 4</span><span class="sec-title">거버넌스 &amp; 역할 구조</span></div>
+    <p class="sec-desc">3인 R&amp;R · 의사결정 흐름 · <span class="lg-new">bus factor 대비</span> · <span class="lg-new">데이터 반출 승인</span>. 역할 구성은 <b>제안안</b>이며 킥오프에서 협의·확정.</p>
+    <div class="gov-cols">
+      <div class="rnr">
+        <div class="rnr-card pm">
+          <div class="rhead"><span class="rname">동료 C — PM</span><span class="renv">Claude · 회사PC</span></div>
+          <div class="rrole">프로젝트 총괄·일정 관리 · 프레젠테이션 레이어(Web/WAS) 작업 · 산출물 통합 · 운영전환 판정</div>
+          <span class="bus">⚑ bus factor: PM 부재 시 Task 1 진행 정지 → 웹 작업 백업 지정 권고</span>
+        </div>
+        <div class="rnr-card data">
+          <div class="rhead"><span class="rname">동료 A — 데이터</span><span class="renv">AIPro · VDI</span></div>
+          <div class="rrole">SQL 설계·검증 · ERD 작성 · Impala 데이터 검증 · <b>데이터 반출 승인(비식별화 확인)</b></div>
+          <span class="bus">⚑ VDI/Impala 단독 접근 — 데이터 반출 게이트키퍼, 대체자 확보 필요</span>
+        </div>
+        <div class="rnr-card front">
+          <div class="rhead"><span class="rname">동료 B — 프론트</span><span class="renv">시안 · UX</span></div>
+          <div class="rrole">화면 시안 제작 · 시뮬레이션·프로토타입 · UX 검토 · 대표 KPI 제안</div>
+          <span class="bus">⚑ 시안 산출물은 레포 공유 → 상대적으로 대체 용이</span>
+        </div>
+      </div>
+      <div class="decflow">
+        <h4>■ 의사결정 흐름 &amp; 킥오프 확정 대상</h4>
+        <div class="decstep"><span class="dn">1</span><span><b>역할 분담 최종 확정</b> — 제안안 → 협의 확정 (오너·기한 부여)</span></div>
+        <div class="decstep"><span class="dn">2</span><span><b>검증 범위</b> — 상품 1~2개 · 지표 10~15개 · 운영 포함 여부</span></div>
+        <div class="decstep"><span class="dn">3</span><span><b>VDI 방화벽 GitHub 접근</b> 확인 (Phase 0 필수)</span></div>
+        <div class="decstep"><span class="dn">4</span><span><b>AIPro 기능 범위·버전</b> 정의 (Phase 0로 승격)</span></div>
+        <div class="decstep"><span class="dn">5</span><span><b>컨텍스트 공유 방식</b> 결정 (릴레이 or Plan B)</span></div>
+        <div class="decstep"><span class="dn">6</span><span><b>데이터 반출 승인 절차</b> <span class="lg-new">신규</span> — 누가 무엇을 승인하는가</span></div>
+        <div class="decstep"><span class="dn">7</span><span><b>성공 기준(Exit Criteria)</b> <span class="lg-new">신규</span> — VIEW 2 정량 지표 확정</span></div>
+      </div>
+    </div>
+    <div class="note">※ 결정사항 각 건에 <b>오너·기한(due date)</b>을 붙여 킥오프 아웃풋 = "누가 언제까지"로 관리. 1인 이탈 대비(bus factor)를 킥오프에서 한 줄이라도 합의할 것.</div>
+  </section>
+
+</div>
+
+<footer>사업건전성 대시보드 AI 구축·운영 검증 프로젝트 · 통합 구조도 v1.0 · INTERNAL · 2026-07-06 · 원본: ai_verify_project_briefing.html</footer>
+
+</body>
+</html>

@@ -93,6 +93,7 @@ export default defineConfig({
 						{ label: 'AIPro / FabriX 활용 과제 기술 검토서', link: '/guides/aipro-tech-review/' },
 						{ label: 'AI Use Case PoC 슬라이드', link: '/guides/ai-usecase/' },
 						{ label: '킥오프 브리핑', link: '/guides/ai-verify-project-briefing/' },
+						{ label: '통합 구조도', link: '/guides/ai-verify-architecture/' },
 					],
 				},
 				{

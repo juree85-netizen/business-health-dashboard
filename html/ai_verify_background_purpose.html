@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI를 이용한 사업건전성 대시보드 구축·운영 검증 프로젝트 — 추진 배경 및 목적</title>
+<style>
+  :root{
+    --navy:#1428A0; --navy-dark:#0c1c68; --navy-deep:#081450; --navy-light:#eef0fb;
+    --navy-soft:#dfe3f7; --ink:#12142b; --gray:#565b73; --gray-soft:#8489a0;
+    --border:#dcdfef; --bg:#f5f6fb; --card:#ffffff;
+    --warn-bg:#fff6e5; --warn-bd:#e8a33d; --warn-tx:#8a5a00;
+    --good-bg:#eaf7ef; --good-bd:#2f9e56; --good-tx:#1c6b39;
+    --risk1:#2f9e56; --risk2:#3d7fd1; --risk3:#c98a1f; --risk4:#c2492f;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Malgun Gothic","맑은 고딕","Apple SD Gothic Neo",sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.6; font-size:15px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1040px; margin:0 auto; padding:0 24px 80px;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:linear-gradient(135deg,var(--navy) 0%,var(--navy-dark) 62%,var(--navy-deep) 100%);
+    color:#fff; padding:56px 24px 44px; position:relative; overflow:hidden;
+  }
+  .hero::after{
+    content:''; position:absolute; right:-120px; top:-120px; width:420px; height:420px;
+    border-radius:50%; background:rgba(255,255,255,0.06);
+  }
+  .hero::before{
+    content:''; position:absolute; left:-80px; bottom:-140px; width:320px; height:320px;
+    border-radius:50%; background:rgba(255,255,255,0.045);
+  }
+  .hero-inner{max-width:1040px; margin:0 auto; position:relative; z-index:1;}
+  .badges{display:flex; gap:8px; margin-bottom:18px; flex-wrap:wrap;}
+  .badge{
+    display:inline-block; font-size:11px; font-weight:700; letter-spacing:0.6px;
+    padding:4px 10px; border-radius:20px; background:rgba(255,255,255,0.14);
+    border:1px solid rgba(255,255,255,0.3); color:#fff;
+  }
+  .badge.v{background:rgba(255,255,255,0.94); color:var(--navy-dark);}
+  .hero h1{font-size:28px; font-weight:800; line-height:1.35; letter-spacing:-0.5px; margin-bottom:12px;}
+  .hero .sub{font-size:16px; color:rgba(255,255,255,0.88); font-weight:500; margin-bottom:28px; max-width:680px; line-height:1.6;}
+  .meta-grid{
+    display:grid; grid-template-columns:repeat(5,1fr); gap:1px;
+    background:rgba(255,255,255,0.18); border-radius:10px; overflow:hidden;
+    border:1px solid rgba(255,255,255,0.18);
+  }
+  .meta-cell{background:rgba(255,255,255,0.06); padding:12px 14px;}
+  .meta-cell .k{font-size:10.5px; color:rgba(255,255,255,0.62); font-weight:700; letter-spacing:0.5px; text-transform:uppercase; margin-bottom:4px;}
+  .meta-cell .v{font-size:13.5px; font-weight:700; color:#fff; line-height:1.4;}
+
+  /* ---------- SECTION SHELL ---------- */
+  section.sec{padding:52px 0 8px; border-bottom:1px solid var(--border);}
+  section.sec:last-of-type{border-bottom:none;}
+  .sec-head{display:flex; align-items:baseline; gap:14px; margin-bottom:26px;}
+  .sec-no{
+    font-size:13px; font-weight:800; color:#fff; background:var(--navy);
+    padding:4px 11px; border-radius:6px; letter-spacing:1px; flex-shrink:0;
+  }
+  .sec-title{font-size:21px; font-weight:800; color:var(--ink); letter-spacing:-0.3px;}
+  .sec-desc{font-size:13.5px; color:var(--gray); margin:-16px 0 24px; padding-left:2px;}
+
+  /* ---------- GENERIC CARD ---------- */
+  .card{background:var(--card); border:1px solid var(--border); border-radius:12px; padding:20px 22px; box-shadow:0 1px 3px rgba(20,40,160,0.04);}
+  .note{
+    font-size:12.5px; color:var(--gray); background:var(--navy-light); border-radius:8px;
+    padding:9px 13px; margin-top:14px; line-height:1.65;
+  }
+  .note b{color:var(--navy-dark);}
+  .warn{
+    background:var(--warn-bg); border:1px solid var(--warn-bd); border-radius:8px;
+    padding:12px 15px; font-size:13px; color:var(--warn-tx); margin-top:16px; line-height:1.7;
+    display:flex; gap:9px; align-items:flex-start;
+  }
+  .warn .ic{font-size:15px; flex-shrink:0;}
+  .good{
+    background:var(--good-bg); border:1px solid var(--good-bd); border-radius:8px;
+    padding:12px 15px; font-size:13px; color:var(--good-tx); margin-top:16px; line-height:1.7;
+    display:flex; gap:9px; align-items:flex-start;
+  }
+  .good .ic{font-size:15px; flex-shrink:0;}
+
+  /* ---------- 01/02 배경·목적 flow ---------- */
+  .hypothesis{
+    background:var(--navy); color:#fff; border-radius:12px; padding:20px 24px;
+    font-size:15.5px; font-weight:700; line-height:1.6; margin-bottom:22px;
+  }
+  .hypothesis .tag{display:block; font-size:10.5px; font-weight:700; letter-spacing:1px; color:rgba(255,255,255,0.72); margin-bottom:6px;}
+  .pain-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
+  .pain-card{background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:16px 18px;}
+  .pain-card .ic{font-size:20px; margin-bottom:8px;}
+  .pain-card .ttl{font-size:13.5px; font-weight:800; margin-bottom:6px;}
+  .pain-card .tx{font-size:12.5px; color:var(--gray); line-height:1.6;}
+
+  .flow{display:flex; align-items:stretch; gap:0; margin-bottom:6px;}
+  .flow-box{
+    flex:1; background:var(--card); border:1.5px solid var(--border); border-radius:12px;
+    padding:18px 20px;
+  }
+  .flow-box.tobe{border-color:var(--navy); background:var(--navy-light);}
+  .flow-box .lab{font-size:11px; font-weight:800; letter-spacing:1px; margin-bottom:8px;}
+  .flow-box.asis .lab{color:var(--gray-soft);}
+  .flow-box.tobe .lab{color:var(--navy);}
+  .flow-box ul{list-style:none;}
+  .flow-box li{font-size:13.5px; padding:4px 0 4px 16px; position:relative; color:var(--ink);}
+  .flow-box li::before{content:'·'; position:absolute; left:2px; font-weight:800; color:var(--gray-soft);}
+  .flow-box.tobe li::before{color:var(--navy);}
+  .flow-arrow{
+    display:flex; align-items:center; justify-content:center; padding:0 14px;
+    font-size:22px; color:var(--navy); font-weight:800; flex-shrink:0;
+  }
+  .key-change{
+    text-align:center; margin-top:14px; font-size:13px; color:var(--navy-dark); font-weight:700;
+    background:var(--navy-soft); padding:8px; border-radius:8px;
+  }
+
+  /* ---------- 03 검증환경 토폴로지 ---------- */
+  .topo{display:flex; align-items:stretch; gap:0; margin-bottom:16px;}
+  .topo-node{
+    flex:1; background:var(--card); border:1.5px solid var(--border); border-radius:12px;
+    padding:18px 16px; text-align:center; position:relative;
+  }
+  .topo-node.bus{background:var(--navy); color:#fff; border-color:var(--navy);}
+  .topo-node .role{font-size:10px; font-weight:700; letter-spacing:1px; color:var(--gray-soft); text-transform:uppercase; margin-bottom:6px;}
+  .topo-node.bus .role{color:rgba(255,255,255,0.68);}
+  .topo-node .name{font-size:14.5px; font-weight:800; margin-bottom:8px;}
+  .topo-node .desc{font-size:12px; color:var(--gray); line-height:1.6;}
+  .topo-node.bus .desc{color:rgba(255,255,255,0.85);}
+  .topo-node .repo{
+    display:inline-block; margin-top:8px; font-family:ui-monospace,Menlo,Consolas,monospace;
+    font-size:11px; background:rgba(255,255,255,0.16); padding:3px 9px; border-radius:5px;
+  }
+  .topo-conn{
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    width:64px; flex-shrink:0; gap:2px;
+  }
+  .topo-conn .arr{font-size:20px; color:var(--navy); font-weight:800; line-height:1;}
+  .topo-conn .lb{font-size:9.5px; color:var(--gray-soft); text-align:center; font-weight:700;}
+
+  /* ---------- 04 목표 결정 그리드 ---------- */
+  .decisions{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:12px;}
+  .dec-item{
+    display:flex; gap:12px; background:var(--card); border:1px solid var(--border); border-radius:10px;
+    padding:13px 15px; align-items:flex-start;
+  }
+  .dec-item .num{
+    flex-shrink:0; width:26px; height:26px; border-radius:7px; background:var(--navy-light); color:var(--navy);
+    font-weight:800; font-size:12.5px; display:flex; align-items:center; justify-content:center;
+  }
+  .dec-item .tx{font-size:13.5px; font-weight:700; color:var(--ink); line-height:1.5;}
+
+  /* ---------- 05 팀·소통 역할카드 + 릴레이 ---------- */
+  .role-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:16px;}
+  .role-card{
+    background:var(--card); border:1.5px solid var(--border); border-radius:12px;
+    padding:18px 18px; position:relative; overflow:hidden;
+  }
+  .role-card::before{content:''; position:absolute; top:0; left:0; right:0; height:5px; background:var(--navy);}
+  .role-card .rname{font-size:14.5px; font-weight:800; margin-bottom:6px;}
+  .role-card .tags{display:flex; gap:6px; flex-wrap:wrap;}
+  .role-card .tags span{font-size:10.5px; font-weight:700; background:var(--navy-light); color:var(--navy-dark); padding:2px 8px; border-radius:20px;}
+  .relay-strip{
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+    background:var(--navy-light); border-radius:10px; padding:14px 16px; font-size:12.5px;
+    font-weight:700; color:var(--navy-dark);
+  }
+  .relay-strip .step{background:#fff; border:1px solid var(--navy-soft); border-radius:20px; padding:5px 13px;}
+  .relay-strip .sep{color:var(--navy); font-weight:800;}
+
+  /* ---------- 06 고려사항 rules ---------- */
+  .rules{list-style:none;}
+  .rules li{
+    display:flex; gap:10px; padding:9px 0; border-bottom:1px dashed var(--border); font-size:13px;
+  }
+  .rules li:last-child{border-bottom:none;}
+  .rules .num{
+    flex-shrink:0; width:22px; height:22px; border-radius:50%; background:var(--navy);
+    color:#fff; font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center;
+  }
+  .rules b{color:var(--ink);}
+  .rules .sub{display:block; margin-top:3px; color:var(--gray); font-size:12px; line-height:1.6;}
+
+  /* ---------- FOOTER ---------- */
+  footer{text-align:center; padding:40px 24px 10px; font-size:11.5px; color:var(--gray-soft);}
+
+  @media (max-width:820px){
+    .meta-grid{grid-template-columns:repeat(2,1fr);}
+    .role-grid{grid-template-columns:1fr;}
+    .pain-grid{grid-template-columns:1fr;}
+    .flow{flex-direction:column;}
+    .flow-arrow{transform:rotate(90deg); padding:8px 0;}
+    .topo{flex-direction:column;}
+    .topo-conn{width:auto; flex-direction:row; padding:6px 0;}
+    .topo-conn .arr{transform:rotate(90deg);}
+    .hero h1{font-size:22px;}
+  }
+
+  @media print{
+    body{background:#fff;}
+    .hero{background:var(--navy) !important; -webkit-print-color-adjust:exact; print-color-adjust:exact;}
+    section.sec{page-break-inside:avoid; padding:28px 0 8px;}
+    .card, .role-card, .dec-item{box-shadow:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="badges">
+      <span class="badge">INTERNAL</span>
+      <span class="badge">검증계획</span>
+      <span class="badge v">작성 2026-07-06</span>
+    </div>
+    <h1>AI를 이용한 사업건전성 대시보드<br>구축·운영 검증 프로젝트</h1>
+    <p class="sub">기획자가 AI만으로 구축·운영·유지보수할 수 있는가 검증</p>
+    <div class="meta-grid">
+      <div class="meta-cell"><div class="k">담당</div><div class="v">솔루션사업부 기획팀</div></div>
+      <div class="meta-cell"><div class="k">팀 구성</div><div class="v">3인</div></div>
+      <div class="meta-cell"><div class="k">AI 도구</div><div class="v">Claude CLI + AIPro CLI</div></div>
+      <div class="meta-cell"><div class="k">작성</div><div class="v">2026-07-06</div></div>
+      <div class="meta-cell"><div class="k">문서 상태</div><div class="v">검증계획</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- 01 배경 -->
+  <section class="sec">
+    <div class="sec-head"><span class="sec-no">01</span><span class="sec-title">추진 배경</span></div>
+    <div class="hypothesis">
+      <span class="tag">CURRENT STATE</span>
+      사업건전성 대시보드는 현재 <u>Tableau + Impala</u> 기반으로 운영 중이며,<br>
+      요구사항 변경 시마다 웹디자이너·Tableau 개발자·DB 개발자 등 전문 인력이 필요하다.
+    </div>
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="ic">🎨</div>
+        <div class="ttl">웹디자이너 리소스</div>
+        <div class="tx">화면 변경·신규 시안마다 별도 디자인 리소스 확보 필요</div>
+      </div>
+      <div class="pain-card">
+        <div class="ic">📊</div>
+        <div class="ttl">Tableau 개발자 리소스</div>
+        <div class="tx">지표 추가·대시보드 구조 변경 시 Tableau 개발 인력 의존</div>
+      </div>
+      <div class="pain-card">
+        <div class="ic">🗄️</div>
+        <div class="ttl">DB 개발자 리소스</div>
+        <div class="tx">데이터 모델·쿼리 변경마다 DB 전문 인력 필요</div>
+      </div>
+    </div>
+    <div class="note"><b>문제</b> — 전문 인력 리소스 과다 소요로 요구사항이 적기에 반영되지 못하는 구조적 지연이 반복됨.</div>
+  </section>
+
+  <!-- 02 목적 -->
+  <section class="sec">
+    <div class="sec-head"><span class="sec-no">02</span><span class="sec-title">추진 목적</span></div>
+    <div class="hypothesis">
+      <span class="tag">PURPOSE</span>
+      전문가(웹디자이너·Tableau 개발자·DB 개발자) 없이, 기획자가 AI 도구만으로<br>
+      대시보드를 <u>구축 → 운영 → 유지보수</u>할 수 있는지 검증한다.
+    </div>
+    <div class="flow">
+      <div class="flow-box asis">
+        <div class="lab">AS-IS</div>
+        <ul>
+          <li>Tableau 기반 시각화</li>
+          <li>Impala 데이터 레이어</li>
+          <li>전문가팀(디자이너·개발자·DBA) 의존</li>
+        </ul>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box tobe">
+        <div class="lab">TO-BE</div>
+        <ul>
+          <li>Web / WAS 자체 구현</li>
+          <li>필요 시 추가 애플리케이션 확장</li>
+          <li>Impala는 데이터 레이어로 유지</li>
+        </ul>
+      </div>
+    </div>
+    <div class="note">※ Tableau보다 <b>더 나은 대안</b>이 있는지, 전환 시 <b>보안 요건</b>을 충족하는지는 검증 과정에서 별도 검토가 필요하다.</div>
+  </section>
+
+  <!-- 03 검증환경 -->
+  <section class="sec">
+    <div class="sec-head"><span class="sec-no">03</span><span class="sec-title">검증 환경</span></div>
+    <div class="topo">
+      <div class="topo-node">
+        <div class="role">개인정보보호 PC</div>
+        <div class="name">가상 VDI</div>
+        <div class="desc">Impala와만 통신 가능<br>타 서버는 방화벽 승인 필요</div>
+      </div>
+      <div class="topo-conn"><span class="arr">⇄</span><span class="lb">방화벽 승인</span></div>
+      <div class="topo-node bus">
+        <div class="role">공유 버스</div>
+        <div class="name">사내 GitHub</div>
+        <div class="desc">code.sdsdev.co.kr<br>nexus.sdsdev.co.kr</div>
+      </div>
+      <div class="topo-conn"><span class="arr">⇄</span><span class="lb">일반 접속</span></div>
+      <div class="topo-node">
+        <div class="role">일반 PC</div>
+        <div class="name">개별 PC</div>
+        <div class="desc">사내 웹메일만 기본 접속<br>그 외 서버는 승인 필요</div>
+      </div>
+    </div>
+    <div class="good">
+      <span class="ic">✅</span>
+      <span><b>방화벽 승인 완료</b> — 본 프로젝트 추진을 통해 개인정보보호 PC(VDI)의 <code>code.sdsdev.co.kr</code>, <code>nexus.sdsdev.co.kr</code> 접근이 승인되었다.</span>
+    </div>
+  </section>
+
+  <!-- 04 목표 -->
+  <section class="sec">
+    <div class="sec-head"><span class="sec-no">04</span><span class="sec-title">목표</span></div>
+    <div class="decisions">
+      <div class="dec-item"><span class="num">1</span><span class="tx">검증 완료 후 실 운영 서버로 전환</span></div>
+      <div class="dec-item"><span class="num">2</span><span class="tx">Web/WAS 기반으로 추가 애플리케이션 손쉽게 구현</span></div>
+      <div class="dec-item"><span class="num">3</span><span class="tx">DevOps / CI-CD 체계 구축</span></div>
+      <div class="dec-item"><span class="num">4</span><span class="tx">개발 / 품질 / 운영 서버 단계 분리</span></div>
+    </div>
+  </section>
+
+  <!-- 05 팀 및 소통 -->
+  <section class="sec">
+    <div class="sec-head"><span class="sec-no">05</span><span class="sec-title">팀 구성 및 소통</span></div>
+    <div class="role-grid">
+      <div class="role-card">
+        <div class="rname">팀원 전원</div>
+        <div class="tags"><span>개별 PC</span><span>Claude</span><span>AIPro</span></div>
+      </div>
+      <div class="role-card">
+        <div class="rname">데이터 담당</div>
+        <div class="tags"><span>개인정보보호 PC</span><span>AIPro만 사용</span></div>
+      </div>
+      <div class="role-card">
+        <div class="rname">소통 허브</div>
+        <div class="tags"><span>사내 GitHub</span><span>Claude ↔ AIPro</span></div>
+      </div>
+    </div>
+    <div class="relay-strip">
+      <span class="step">Claude 저장</span><span class="sep">→</span>
+      <span class="step">AIPro 구현</span><span class="sep">→</span>
+      <span class="step">결과·DB정보 저장</span><span class="sep">→</span>
+      <span class="step">Claude 확인</span>
+    </div>
+    <div class="note">※ GitHub를 Hub이자 Claude↔AIPro 간 소통 채널로 사용하되, <b>더 나은 소통 방법</b>이 있는지는 지속 검토가 필요하다.</div>
+  </section>
+
+  <!-- 06 환경설정 고려사항 -->
+  <section class="sec">
+    <div class="sec-head"><span class="sec-no">06</span><span class="sec-title">환경설정 고려사항</span></div>
+    <ul class="rules">
+      <li><span class="num">1</span><span><b>워크스페이스 구조</b> — 레포 내 디렉터리 구조와 역할 분리 기준 확립<span class="sub">plan / work / handoff / verify 등 단계별 산출물 분리</span></span></li>
+      <li><span class="num">2</span><span><b>인덱스</b> — 레포 전체 현황을 한눈에 보는 색인 문서 상시 갱신</span></li>
+      <li><span class="num">3</span><span><b>문서 포맷</b> — Human readable / Machine readable 동시 고려<span class="sub">json / yaml / python 등 기계 판독 가능한 형식 활용</span></span></li>
+      <li><span class="num">4</span><span><b>스냅샷·버전 관리</b> — 주요 산출물 시점별 스냅샷·버전 관리 체계</span></li>
+      <li><span class="num">5</span><span><b>CLI 대화 지속성</b> — claude.md · agent.md · skill.md 기준으로 로그인 시 이전 대화 이어가기</span></li>
+      <li><span class="num">6</span><span><b>컨텍스트 과다 방지</b> — 대화·문서 컨텍스트가 과도하게 누적되지 않도록 관리</span></li>
+      <li><span class="num">7</span><span><b>Project Preview Hub</b> — 산출물을 미리보기로 확인할 수 있는 허브 운영</span></li>
+      <li><span class="num">8</span><span><b>3인 충돌·누락 방지</b> — 동시 작업 시 충돌·누락을 방지하는 협업 규약</span></li>
+      <li><span class="num">9</span><span><b>Public GitHub 활용</b> — 검증 단계 산출물의 Public 레포 활용 방안</span></li>
+      <li><span class="num">10</span><span><b>검증 → 운영 전환 용이성</b> — 검증 환경 산출물이 실 운영 서버 전환 시 재사용 가능하도록 설계</span></li>
+      <li><span class="num">11</span><span><b>업무 분장 3역할</b><span class="sub">① 기획·환경·DevOps·보안 &nbsp;② 사용자·화면·지표·Frontend &nbsp;③ Backend·데이터분석·모델링</span></span></li>
+      <li><span class="num">12</span><span><b>Impala c_tableau 규칙</b> — 기존 테이블·타 스키마 변경·삭제 금지, 검증용 테이블만 사용<span class="sub">AIPro는 서버·테이블·컬럼 정보를 변환하여 공유</span></span></li>
+    </ul>
+  </section>
+
+  <!-- 07 사전작업 및 이관 -->
+  <section class="sec">
+    <div class="sec-head"><span class="sec-no">07</span><span class="sec-title">사전작업 및 이관</span></div>
+    <div class="card">
+      <p style="font-size:13.5px; color:var(--ink); line-height:1.8;">
+        기존에 진행된 프로젝트 계획·DB 재설계·와이어프레임 등은 외부 GitHub(개인 레포)에 분산 저장되어 있었으며,
+        본 프로젝트를 계기로 사내 GitHub로 이관한다.
+      </p>
+    </div>
+    <div class="warn">
+      <span class="ic">⚠</span>
+      <span><b>보충 필요</b> — 원문 내용이 이 지점에서 끊겨 있어, 이관 대상 목록·일정 등 세부 내용은 추후 보충한다.</span>
+    </div>
+  </section>
+
+</div>
+
+<footer>AI를 이용한 사업건전성 대시보드 구축·운영 검증 프로젝트 · 추진 배경 및 목적 · INTERNAL · 2026-07-06</footer>
+
+</body>
+</html>

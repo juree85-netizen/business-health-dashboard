@@ -12,7 +12,7 @@ description: 사업건전성 대시보드 AI 고도화 — 4개 과제별 추진
 ## 문서 열기
 
 <p>
-  <a href="/aipro_tasks_tech_review.html" target="_blank" rel="noopener"
+  <a href="../../html/aipro_tasks_tech_review.html" target="_blank" rel="noopener"
     style="display:inline-block;padding:0.6em 1.4em;background:#0f3460;color:#fff;border-radius:6px;font-weight:600;text-decoration:none;">
     📋 AIPro / FabriX 기술 검토서 열기 ↗
   </a>

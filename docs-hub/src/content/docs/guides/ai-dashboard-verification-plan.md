@@ -13,7 +13,7 @@ description: 정반합 분석 기반 수정안 — Phase 0 도구 검증·이중
 ## 문서 열기
 
 <p>
-  <a href="/ai_dashboard_verification_plan.html" target="_blank" rel="noopener"
+  <a href="../../html/ai_dashboard_verification_plan.html" target="_blank" rel="noopener"
     style="display:inline-block;padding:0.6em 1.4em;background:#0f3460;color:#fff;border-radius:6px;font-weight:600;text-decoration:none;">
     📋 검증 계획서 열기 ↗
   </a>

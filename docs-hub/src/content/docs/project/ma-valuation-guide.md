@@ -10,7 +10,7 @@ description: 멀티플은 원인인가 결과인가 — DCF · LBO · PPA까지 
 ## 문서 열기
 
 <p>
-  <a href="/ma_valuation_guide_20260624.html" target="_blank" rel="noopener"
+  <a href="../../html/ma_valuation_guide_20260624.html" target="_blank" rel="noopener"
     style="display:inline-block;padding:0.6em 1.4em;background:#2563eb;color:#fff;border-radius:6px;font-weight:600;text-decoration:none;">
     📄 기업가치 평가 · PPA 해설 보고서 열기 ↗
   </a>

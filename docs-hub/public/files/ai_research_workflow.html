@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 활용 기업조사 & 보고서 작성 Workflow</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', sans-serif;
+      font-size: 14px;
+      color: #172B4D;
+      background: #F4F6FB;
+      line-height: 1.7;
+    }
+
+    /* ── Layout ── */
+    .layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      min-height: 100vh;
+    }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      background: #0D1B35;
+      color: #fff;
+      padding: 40px 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+    .sidebar-logo {
+      padding: 0 24px 24px;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+      margin-bottom: 20px;
+    }
+    .sidebar-logo-label {
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: rgba(255,255,255,.4);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .sidebar-logo-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.4;
+    }
+    .sidebar-section {
+      padding: 6px 24px 2px;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.3);
+      margin-top: 16px;
+    }
+    .sidebar a {
+      display: block;
+      padding: 7px 24px;
+      font-size: 13px;
+      color: rgba(255,255,255,.65);
+      text-decoration: none;
+      border-left: 3px solid transparent;
+      transition: all .15s;
+    }
+    .sidebar a:hover { color: #fff; background: rgba(255,255,255,.06); }
+    .sidebar a.active { color: #fff; border-left-color: #1868DB; background: rgba(24,104,219,.15); }
+
+    /* ── Main content ── */
+    .main {
+      padding: 52px 72px 80px 64px;
+      max-width: 900px;
+    }
+
+    /* ── Page header ── */
+    .page-header { margin-bottom: 48px; }
+    .page-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #1868DB;
+      margin-bottom: 10px;
+    }
+    .page-title {
+      font-size: 32px;
+      font-weight: 700;
+      color: #172B4D;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    .page-desc {
+      font-size: 15px;
+      color: #6B778C;
+      line-height: 1.65;
+      max-width: 640px;
+    }
+
+    /* ── Section ── */
+    .section { margin-bottom: 56px; }
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #172B4D;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #1868DB;
+      margin-bottom: 24px;
+    }
+    h3.sub {
+      font-size: 15px;
+      font-weight: 700;
+      color: #172B4D;
+      margin: 24px 0 10px;
+    }
+
+    /* ── Workflow Steps ── */
+    .step {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+      align-items: flex-start;
+    }
+    .step-num {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #1868DB;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .step-content { flex: 1; }
+    .step-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #172B4D;
+      margin-bottom: 4px;
+    }
+    .step-desc { font-size: 14px; color: #6B778C; line-height: 1.65; }
+    .step-connector {
+      width: 2px;
+      height: 16px;
+      background: #DFE1E6;
+      margin: 0 0 0 19px;
+    }
+
+    /* ── Cards ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      margin: 16px 0;
+    }
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 18px 20px;
+      box-shadow: 0 1px 8px rgba(0,0,0,.06);
+    }
+    .card-icon { font-size: 22px; margin-bottom: 8px; }
+    .card-title { font-size: 13px; font-weight: 700; color: #172B4D; margin-bottom: 4px; }
+    .card-desc { font-size: 12px; color: #6B778C; line-height: 1.6; }
+
+    /* ── Input/Output tags ── */
+    .io-row { display: flex; gap: 12px; flex-wrap: wrap; margin: 10px 0; }
+    .io-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 20px;
+    }
+    .io-input  { background: #DEEBFF; color: #0052CC; }
+    .io-ai     { background: #EAE6FF; color: #403294; }
+    .io-output { background: #E3FCEF; color: #006644; }
+    .io-human  { background: #FFFAE6; color: #974F0C; }
+
+    /* ── Code / Prompt block ── */
+    .prompt-block {
+      background: #0D1B35;
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin: 12px 0;
+      position: relative;
+    }
+    .prompt-label {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.35);
+      margin-bottom: 10px;
+    }
+    .prompt-text {
+      font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+      font-size: 13px;
+      color: #A8D8A8;
+      line-height: 1.7;
+      white-space: pre-wrap;
+    }
+    .prompt-text .hl { color: #FFD700; }
+    .prompt-text .cm { color: rgba(255,255,255,.35); }
+
+    /* ── Info boxes ── */
+    .info-box {
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin: 14px 0;
+      font-size: 13.5px;
+      line-height: 1.7;
+    }
+    .info-tip    { background: #E3FCEF; border-left: 4px solid #00875A; color: #1A4731; }
+    .info-warn   { background: #FFFAE6; border-left: 4px solid #F9A825; color: #5D4037; }
+    .info-note   { background: #DEEBFF; border-left: 4px solid #0052CC; color: #172B4D; }
+    .info-caution{ background: #FFEBE6; border-left: 4px solid #FF5630; color: #BF2600; }
+
+    /* ── Table ── */
+    table.t {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin: 14px 0;
+    }
+    table.t th {
+      background: #0D1B35;
+      color: #fff;
+      padding: 9px 14px;
+      text-align: left;
+      font-weight: 600;
+    }
+    table.t td {
+      padding: 9px 14px;
+      border-bottom: 1px solid #DFE1E6;
+      vertical-align: top;
+      line-height: 1.65;
+    }
+    table.t tr:last-child td { border-bottom: none; }
+    table.t tr:nth-child(even) td { background: #F8F9FA; }
+
+    /* ── Flow diagram ── */
+    .flow-wrap {
+      background: #fff;
+      border-radius: 12px;
+      padding: 28px 24px;
+      box-shadow: 0 1px 8px rgba(0,0,0,.06);
+      margin: 16px 0;
+    }
+
+    /* ── Badges ── */
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+    .b-blue  { background: #DEEBFF; color: #0052CC; }
+    .b-green { background: #E3FCEF; color: #006644; }
+    .b-org   { background: #FFFAE6; color: #974F0C; }
+    .b-red   { background: #FFEBE6; color: #BF2600; }
+    .b-purple{ background: #EAE6FF; color: #403294; }
+
+    /* ── Divider ── */
+    .divider { border: none; border-top: 1px solid #DFE1E6; margin: 32px 0; }
+
+    /* ── Footer ── */
+    .footer {
+      margin-top: 60px;
+      padding-top: 20px;
+      border-top: 1px solid #DFE1E6;
+      font-size: 12px;
+      color: #6B778C;
+    }
+
+    ul.check { list-style: none; padding-left: 0; }
+    ul.check li { padding: 5px 0 5px 24px; position: relative; font-size: 14px; }
+    ul.check li::before { content: '✓'; position: absolute; left: 0; color: #00875A; font-weight: 700; }
+
+    ul.dash { list-style: none; padding-left: 0; }
+    ul.dash li { padding: 4px 0 4px 16px; position: relative; font-size: 14px; color: #344563; }
+    ul.dash li::before { content: '—'; position: absolute; left: 0; color: #6B778C; }
+  </style>
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- ── Sidebar ── -->
+  <nav class="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-label">Guide</div>
+      <div class="sidebar-logo-title">AI 활용 기업조사<br>&amp; 보고서 작성</div>
+    </div>
+
+    <div class="sidebar-section">개요</div>
+    <a href="#overview" class="active">이 가이드에 대해</a>
+    <a href="#workflow">전체 Workflow 흐름</a>
+
+    <div class="sidebar-section">단계별 가이드</div>
+    <a href="#step1">1단계 · 목적 정의</a>
+    <a href="#step2">2단계 · Input 수집</a>
+    <a href="#step3">3단계 · AI 리서치</a>
+    <a href="#step4">4단계 · 검토 &amp; 통찰</a>
+    <a href="#step5">5단계 · Word 생성</a>
+
+    <div class="sidebar-section">실전 가이드</div>
+    <a href="#prompts">프롬프트 예시</a>
+    <a href="#tips">Tips &amp; 주의사항</a>
+    <a href="#casestudy">실전 사례 — Medallia</a>
+    <a href="#examples">산출물 예시</a>
+  </nav>
+
+  <!-- ── Main ── -->
+  <main class="main">
+
+    <!-- Page Header -->
+    <div class="page-header" id="overview">
+      <div class="page-eyebrow">Workflow Guide</div>
+      <div class="page-title">AI 활용 기업조사 &amp;<br>보고용 Word 문서 작성</div>
+      <div class="page-desc">
+        AI 에이전트를 활용하여 기업·시장 조사부터 보고용 Word 문서 완성까지
+        이어지는 전체 프로세스 가이드입니다. 기사 링크, 사람의 관점, AI의 리서치 능력을
+        결합하면 수 시간의 작업을 30~60분으로 단축할 수 있습니다.
+      </div>
+      <div style="margin-top:16px;">
+        <span class="badge b-blue">솔루션전략그룹</span>&nbsp;
+        <span class="badge b-org">'26.05.27 작성</span>&nbsp;
+        <span class="badge b-purple">AI 에이전트 활용</span>
+      </div>
+    </div>
+
+    <!-- ── SECTION: 전체 흐름 ── -->
+    <div class="section" id="workflow">
+      <div class="section-title">전체 Workflow 흐름</div>
+
+      <div class="flow-wrap">
+        <svg width="100%" height="120" viewBox="0 0 800 120" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+              <path d="M0,0 L8,4 L0,8 Z" fill="#C0C8D8"/>
+            </marker>
+          </defs>
+
+          <!-- Boxes -->
+          <!-- 1 -->
+          <rect x="0"   y="30" width="120" height="48" rx="8" fill="#DEEBFF" stroke="#1868DB" stroke-width="1.2"/>
+          <text x="60"  y="52" text-anchor="middle" font-size="12" font-weight="700" fill="#0052CC">① 목적 정의</text>
+          <text x="60"  y="68" text-anchor="middle" font-size="10" fill="#6B778C">무엇을 왜?</text>
+
+          <line x1="120" y1="54" x2="144" y2="54" stroke="#C0C8D8" stroke-width="1.5" marker-end="url(#arr)"/>
+
+          <!-- 2 -->
+          <rect x="144" y="30" width="120" height="48" rx="8" fill="#FFFAE6" stroke="#F9A825" stroke-width="1.2"/>
+          <text x="204" y="52" text-anchor="middle" font-size="12" font-weight="700" fill="#974F0C">② Input 수집</text>
+          <text x="204" y="68" text-anchor="middle" font-size="10" fill="#6B778C">링크·관점·양식</text>
+
+          <line x1="264" y1="54" x2="288" y2="54" stroke="#C0C8D8" stroke-width="1.5" marker-end="url(#arr)"/>
+
+          <!-- 3 -->
+          <rect x="288" y="30" width="120" height="48" rx="8" fill="#EAE6FF" stroke="#6554C0" stroke-width="1.2"/>
+          <text x="348" y="52" text-anchor="middle" font-size="12" font-weight="700" fill="#403294">③ AI 리서치</text>
+          <text x="348" y="68" text-anchor="middle" font-size="10" fill="#6B778C">AI가 수행</text>
+
+          <line x1="408" y1="54" x2="432" y2="54" stroke="#C0C8D8" stroke-width="1.5" marker-end="url(#arr)"/>
+
+          <!-- 4 -->
+          <rect x="432" y="30" width="120" height="48" rx="8" fill="#FFFAE6" stroke="#F9A825" stroke-width="1.2"/>
+          <text x="492" y="52" text-anchor="middle" font-size="12" font-weight="700" fill="#974F0C">④ 검토·통찰</text>
+          <text x="492" y="68" text-anchor="middle" font-size="10" fill="#6B778C">사람이 수행</text>
+
+          <line x1="552" y1="54" x2="576" y2="54" stroke="#C0C8D8" stroke-width="1.5" marker-end="url(#arr)"/>
+
+          <!-- 5 -->
+          <rect x="576" y="30" width="130" height="48" rx="8" fill="#E3FCEF" stroke="#00875A" stroke-width="1.2"/>
+          <text x="641" y="52" text-anchor="middle" font-size="12" font-weight="700" fill="#006644">⑤ Word 생성</text>
+          <text x="641" y="68" text-anchor="middle" font-size="10" fill="#6B778C">sds-word-writer</text>
+
+          <!-- Role labels -->
+          <text x="174" y="100" text-anchor="middle" font-size="10" fill="#974F0C">👤 사람</text>
+          <text x="348" y="100" text-anchor="middle" font-size="10" fill="#403294">🤖 AI 에이전트</text>
+          <text x="492" y="100" text-anchor="middle" font-size="10" fill="#974F0C">👤 사람</text>
+          <text x="641" y="100" text-anchor="middle" font-size="10" fill="#006644">🤖 AI 에이전트</text>
+        </svg>
+      </div>
+
+      <table class="t">
+        <tr>
+          <th style="width:14%;">단계</th>
+          <th style="width:18%;">담당</th>
+          <th style="width:38%;">주요 활동</th>
+          <th>소요 시간</th>
+        </tr>
+        <tr>
+          <td><strong>① 목적 정의</strong></td>
+          <td><span class="badge b-org">사람</span></td>
+          <td>보고 목적, 대상, 독자 명확화</td>
+          <td>5분</td>
+        </tr>
+        <tr>
+          <td><strong>② Input 수집</strong></td>
+          <td><span class="badge b-org">사람</span></td>
+          <td>기사 링크, 관점/가설, 보고서 양식 결정</td>
+          <td>10~15분</td>
+        </tr>
+        <tr>
+          <td><strong>③ AI 리서치</strong></td>
+          <td><span class="badge b-purple">AI 에이전트</span></td>
+          <td>링크 분석, 웹 검색, 구조화 초안 작성</td>
+          <td>10~20분</td>
+        </tr>
+        <tr>
+          <td><strong>④ 검토·통찰</strong></td>
+          <td><span class="badge b-org">사람</span></td>
+          <td>사실 확인, 우리 관점 추가, 강조점 조정</td>
+          <td>15~20분</td>
+        </tr>
+        <tr>
+          <td><strong>⑤ Word 생성</strong></td>
+          <td><span class="badge b-purple">AI 에이전트</span></td>
+          <td>sds-word-writer 스킬로 .docx 자동 생성</td>
+          <td>5분</td>
+        </tr>
+      </table>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ── STEP 1 ── -->
+    <div class="section" id="step1">
+      <div class="section-title">1단계 · 목적 정의</div>
+      <p style="margin-bottom:16px; color:#344563;">
+        가장 중요한 단계입니다. 목적이 흐릿하면 AI도 방향을 잡지 못합니다.
+        시작 전에 아래 3가지를 한 문장씩 확정하세요.
+      </p>
+
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-icon">🎯</div>
+          <div class="card-title">조사 목적</div>
+          <div class="card-desc">이 조사로 무엇을 결정하거나 이해하려는가?<br><em>예: PE 기반 SaaS 인수 실패 원인 학습</em></div>
+        </div>
+        <div class="card">
+          <div class="card-icon">👥</div>
+          <div class="card-title">보고 대상</div>
+          <div class="card-desc">누가 읽는가? 팀장/사업부장/팀 전체?<br><em>예: 그룹장 보고용 (1페이지 요약 필요)</em></div>
+        </div>
+        <div class="card">
+          <div class="card-icon">📄</div>
+          <div class="card-title">산출물 형태</div>
+          <div class="card-desc">분량, 형식, 제출 기한<br><em>예: A4 6장, Word 파일, 이번 주 금요일</em></div>
+        </div>
+      </div>
+
+      <div class="info-box info-tip">
+        <strong>좋은 목적 정의 예시:</strong><br>
+        "PE가 SaaS 기업을 인수할 때 어떤 기준으로 평가하는지, Medallia 실패 사례를 통해 분석하여
+        우리 솔루션 M&A 검토 시 적용 가능한 평가 기준을 도출하고 싶다."
+      </div>
+    </div>
+
+    <!-- ── STEP 2 ── -->
+    <div class="section" id="step2">
+      <div class="section-title">2단계 · Input 수집</div>
+      <p style="margin-bottom:20px; color:#344563;">
+        AI에게 줄 재료를 모읍니다. 재료가 풍부할수록 결과물의 품질이 높아집니다.
+      </p>
+
+      <h3 class="sub">Input 종류</h3>
+      <div class="card-grid" style="grid-template-columns: repeat(3, 1fr);">
+        <div class="card" style="border-top:3px solid #1868DB;">
+          <div class="card-icon">🔗</div>
+          <div class="card-title">기사·링크</div>
+          <div class="card-desc">
+            Bloomberg, Reuters, 업계 뉴스 기사 URL<br>
+            IR 자료, 공시 문서 링크<br>
+            분석 보고서 링크
+          </div>
+        </div>
+        <div class="card" style="border-top:3px solid #F9A825;">
+          <div class="card-icon">💡</div>
+          <div class="card-title">사람의 관점·가설</div>
+          <div class="card-desc">
+            "이 사례에서 특히 ___가 궁금하다"<br>
+            "우리 회사 관점에서 ___를 강조하고 싶다"<br>
+            이미 알고 있는 배경 지식
+          </div>
+        </div>
+        <div class="card" style="border-top:3px solid #00875A;">
+          <div class="card-icon">📋</div>
+          <div class="card-title">양식·제약 조건</div>
+          <div class="card-desc">
+            사용할 보고서 양식 (sds-word-writer)<br>
+            분량 제한<br>
+            포함해야 할 필수 섹션
+          </div>
+        </div>
+      </div>
+
+      <h3 class="sub">Input 품질 체크리스트</h3>
+      <ul class="check">
+        <li>링크가 실제로 열리는지 확인했는가?</li>
+        <li>링크 외에 내가 직접 알고 있는 정보(회의 내용, 내부 자료)가 있으면 텍스트로 정리해서 붙여넣기</li>
+        <li>"이 정보는 ___에서 나온 것"이라고 출처를 함께 제공</li>
+        <li>원하는 분석 각도(긍정/비판적/중립)를 명시</li>
+      </ul>
+
+      <div class="info-box info-warn">
+        <strong>주의:</strong> 링크만 던지면 AI가 방향을 추측합니다.
+        "이 링크에서 특히 자금 구조와 실패 원인 파트를 중심으로 분석해줘"처럼
+        <strong>집중 포인트를 함께 지정</strong>하면 정확도가 크게 올라갑니다.
+      </div>
+    </div>
+
+    <!-- ── STEP 3 ── -->
+    <div class="section" id="step3">
+      <div class="section-title">3단계 · AI 리서치 (AI가 수행)</div>
+      <p style="margin-bottom:20px; color:#344563;">
+        Input을 받은 AI가 수행하는 작업입니다. 사람은 기다리기만 하면 됩니다.
+      </p>
+
+      <h3 class="sub">AI가 하는 것</h3>
+      <div class="card-grid" style="grid-template-columns: repeat(2, 1fr);">
+        <div class="card">
+          <div class="card-title">🔍 링크 내용 분석</div>
+          <div class="card-desc">제공받은 URL의 전체 내용 파악, 핵심 수치·사실 추출</div>
+        </div>
+        <div class="card">
+          <div class="card-title">🌐 추가 웹 검색</div>
+          <div class="card-desc">링크에 없는 맥락 정보, 경쟁사 비교, 시장 데이터 검색</div>
+        </div>
+        <div class="card">
+          <div class="card-title">🗂 구조 설계</div>
+          <div class="card-desc">목차 구성, 섹션별 내용 배분, 분량 조절</div>
+        </div>
+        <div class="card">
+          <div class="card-title">✍ 초안 작성</div>
+          <div class="card-desc">보고서 문체로 전환, 표·그래프 데이터 정리, 별첨 구성</div>
+        </div>
+      </div>
+
+      <h3 class="sub">AI가 하지 않는 것 — 사람이 반드시 해야 할 것</h3>
+      <div class="card-grid" style="grid-template-columns: repeat(2, 1fr); margin-bottom:16px;">
+        <div class="card" style="border-left:3px solid #F9A825;">
+          <div class="card-title">📌 제목 선정</div>
+          <div class="card-desc">보고서 제목은 독자의 관심을 결정합니다. AI는 내용을 요약한 제목을 제안하지만, <strong>"이 보고를 왜 하는가"</strong>를 담은 제목은 사람만이 정할 수 있습니다.</div>
+        </div>
+        <div class="card" style="border-left:3px solid #F9A825;">
+          <div class="card-title">📎 데이터 참고문헌의 명확성</div>
+          <div class="card-desc">AI가 인용하는 수치의 출처가 명확한지 확인하세요. "추정치", "Bloomberg 기반", "공시 기준" 등 <strong>데이터 신뢰도와 출처를 직접 검증</strong>하고 표기해야 합니다.</div>
+        </div>
+        <div class="card" style="border-left:3px solid #6554C0;">
+          <div class="card-title">🤔 왜 저런 행동을 하지? — 동기·이해관계 해석</div>
+          <div class="card-desc">AI는 사실을 나열하지만, <strong>"누가 손해고 누가 이익인가"</strong>, <strong>"왜 저 시점에 그 결정을 했나"</strong>는 업계 경험과 인간의 직관이 있어야 해석됩니다.</div>
+        </div>
+        <div class="card" style="border-left:3px solid #6554C0; grid-column: span 2;">
+          <div class="card-title">🔍 데이터가 없을 때 — 논리적 추론 (2가지 접근법)</div>
+          <div class="card-desc" style="margin-bottom:12px;">공개 데이터가 없는 영역에서 AI는 추정을 거부하거나 일반론을 답합니다. 아래 두 가지 방법으로 사람이 직접 추론을 이끌어야 합니다.</div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:4px;">
+            <div style="background:#F4F0FF; border-radius:8px; padding:14px 16px;">
+              <div style="font-size:12px; font-weight:700; color:#6554C0; margin-bottom:6px;">4.1 데이터 → 추정</div>
+              <div style="font-size:13px; color:#344563; line-height:1.65;">연관된 <strong>확인 가능한 데이터를 최대한 수집</strong>하고, 그것을 기반으로 논리적 추론을 통해 원하는 데이터를 추정한다.<br><span style="color:#6B778C; font-size:12px;">예: 비공개 매출 → 유사 기업 멀티플 적용하여 역산</span></div>
+            </div>
+            <div style="background:#F4F0FF; border-radius:8px; padding:14px 16px;">
+              <div style="font-size:12px; font-weight:700; color:#6554C0; margin-bottom:6px;">4.2 가설 → 검증</div>
+              <div style="font-size:13px; color:#344563; line-height:1.65;"><strong>논리적 추론으로 가설을 먼저 세운 뒤</strong>, 이를 뒷받침하거나 반증할 확인 가능한 데이터를 수집하여 가설을 정교화한다.<br><span style="color:#6B778C; font-size:12px;">예: "이자 부담이 한계였을 것" → FCF Coverage 수치로 검증</span></div>
+            </div>
+          </div>
+          <!-- 4.3 추론 근거 명시 -->
+          <div style="margin-top:12px; background:#EAE6FF; border:1px solid #C0B6F2; border-radius:8px; padding:14px 16px;">
+            <div style="font-size:12px; font-weight:700; color:#403294; margin-bottom:8px;">4.3 추론 방식과 근거를 반드시 함께 명시할 것</div>
+            <div style="font-size:13px; color:#344563; line-height:1.7;">
+              4.1·4.2 어느 방식이든, <strong>추정값만 제시하면 안 됩니다.</strong>
+              보고 시 "이 숫자의 근거가 뭐냐"는 질문이 반드시 나옵니다.
+              AI에게 추론을 요청할 때는 아래 세 가지를 함께 출력하도록 지시하세요.
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:12px;">
+              <div style="background:#fff; border-radius:6px; padding:10px 12px; text-align:center;">
+                <div style="font-size:18px; margin-bottom:4px;">①</div>
+                <div style="font-size:12px; font-weight:700; color:#403294; margin-bottom:3px;">추론 방식</div>
+                <div style="font-size:11px; color:#6B778C; line-height:1.5;">어떤 논리 구조로 추정했는가<br><em>예: 유사 기업 평균 적용</em></div>
+              </div>
+              <div style="background:#fff; border-radius:6px; padding:10px 12px; text-align:center;">
+                <div style="font-size:18px; margin-bottom:4px;">②</div>
+                <div style="font-size:12px; font-weight:700; color:#403294; margin-bottom:3px;">사용한 근거 데이터</div>
+                <div style="font-size:11px; color:#6B778C; line-height:1.5;">어떤 수치·출처를 활용했는가<br><em>예: Bloomberg 기준 멀티플 9×</em></div>
+              </div>
+              <div style="background:#fff; border-radius:6px; padding:10px 12px; text-align:center;">
+                <div style="font-size:18px; margin-bottom:4px;">③</div>
+                <div style="font-size:12px; font-weight:700; color:#403294; margin-bottom:3px;">추정의 한계·불확실성</div>
+                <div style="font-size:11px; color:#6B778C; line-height:1.5;">어디까지가 추정이고 오차 가능성은<br><em>예: ±15% 오차 가능</em></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card" style="border-left:3px solid #FF5630;">
+          <div class="card-title">🏢 내부 비공개 정보</div>
+          <div class="card-desc">내부 회의 내용, 우리 회사만 아는 사업 맥락과 전략 방향. AI가 접근할 수 없으므로 직접 알려줘야 합니다.</div>
+          <div style="margin-top:10px; background:#FFEBE6; border-radius:6px; padding:10px 12px; font-size:12px; color:#BF2600; line-height:1.6;">
+            <strong>⚠ 보안 주의:</strong> 내부 민감정보(미공개 실적, 계약 조건, 인사 정보 등)를 외부 AI 서비스에 입력하는 것은 보안 사고로 이어질 수 있습니다. 보고서 작성 시 <strong>공개 가능한 수준의 정보만 활용</strong>하고, 민감정보는 익명화하거나 일반화하여 전달하세요.
+          </div>
+        </div>
+        <div class="card" style="border-left:3px solid #6B778C;">
+          <div class="card-title">👁 최종 수치 검증</div>
+          <div class="card-desc">AI 수치는 반드시 원본 대조 확인. 보고 받는 분의 관심 포인트 파악은 경험에서 나오는 판단입니다.</div>
+        </div>
+      </div>
+
+      <div class="info-box info-note">
+        <strong>소요 시간:</strong> 기사 3~5개 + 웹 검색 기준 약 10~20분.
+        복잡한 재무 분석이 포함되면 30분까지 소요될 수 있습니다.
+        AI가 작업 중이면 다른 업무를 병행해도 됩니다.
+      </div>
+    </div>
+
+    <!-- ── STEP 4 ── -->
+    <div class="section" id="step4">
+      <div class="section-title">4단계 · 사람의 검토 &amp; 통찰 주입</div>
+      <p style="margin-bottom:20px; color:#344563;">
+        AI 초안을 보고서 완성본으로 만드는 핵심 단계입니다.
+        AI가 채울 수 없는 부분을 사람이 채웁니다.
+      </p>
+
+      <h3 class="sub">검토 체크리스트</h3>
+      <ul class="check">
+        <li>수치가 실제 출처와 일치하는지 확인 (AI는 추정치를 쓸 수 있음)</li>
+        <li>맥락 오류: "이건 우리 업계에서 다르게 작동한다"는 부분 수정</li>
+        <li>우리 회사 관점 추가: "이 사례가 우리 솔루션에 주는 시사점"</li>
+        <li>강조점 조정: 보고 받는 분이 관심 가질 부분을 앞으로 이동</li>
+        <li>분량 조절: 너무 길면 컷, 부족하면 보완 요청</li>
+      </ul>
+
+      <h3 class="sub">수정 요청 방법</h3>
+      <div class="prompt-block">
+        <div class="prompt-label">수정 요청 예시</div>
+        <div class="prompt-text"><span class="hl">[AI 에이전트명]</span>, 3장 시사점 섹션에서
+<span class="hl">"우리 솔루션의 Gen AI 대체 가능성"</span> 파트를 좀 더 구체적으로 써줘.
+<span class="cm"># 우리 회사 솔루션 중 Knox Suite는 데이터 폐쇄성이 높아서 대체 가능성이 낮다는 점을 넣고,</span>
+<span class="cm"># Brity Automation은 반대로 대체 위험이 있다는 걸 언급해줘.</span>
+그리고 전체 분량을 A4 6장에 맞게 조정해줘.</div>
+      </div>
+
+      <div class="info-box info-tip">
+        <strong>통찰 주입 팁:</strong> "이렇게 바꿔줘" 대신 <strong>"우리 업에서는 ___이다, 이 맥락을 반영해줘"</strong>처럼
+        배경 정보를 주면 AI가 더 정확하게 반영합니다.
+      </div>
+    </div>
+
+    <!-- ── STEP 5 ── -->
+    <div class="section" id="step5">
+      <div class="section-title">5단계 · Word 문서 생성 (sds-word-writer)</div>
+      <p style="margin-bottom:20px; color:#344563;">
+        내용이 확정되면 <code style="background:#F4F6FB; padding:2px 6px; border-radius:4px; font-size:13px;">sds-word-writer</code>
+        스킬을 사용해 보고용 .docx 파일을 자동 생성합니다.
+      </p>
+
+      <h3 class="sub">Word 생성 트리거 방법</h3>
+      <div class="prompt-block">
+        <div class="prompt-label">프롬프트 예시</div>
+        <div class="prompt-text"><span class="hl">[AI 에이전트명]</span>, 지금까지 정리한 내용으로
+<span class="hl">sds-word-writer 스킬</span>을 써서 보고용 Word 파일 만들어줘.
+파일명: <span class="hl">medallia_lbo_analysis_20260527.docx</span>
+저장 위치: <span class="hl">files/</span>
+<span class="cm"># 문서 허브에도 링크 추가해줘.</span></div>
+      </div>
+
+      <h3 class="sub">Word 생성 시 자동 적용되는 것</h3>
+      <table class="t">
+        <tr>
+          <th>항목</th>
+          <th>자동 적용 내용</th>
+        </tr>
+        <tr>
+          <td>문서 양식</td>
+          <td>SDS 표준 보고서 양식 (헤더·푸터·폰트·여백)</td>
+        </tr>
+        <tr>
+          <td>목차</td>
+          <td>섹션 구조 기반 자동 생성</td>
+        </tr>
+        <tr>
+          <td>표·목록</td>
+          <td>보고서 스타일로 자동 변환</td>
+        </tr>
+        <tr>
+          <td>파일 저장</td>
+          <td>/home/ubuntu/files/ 에 .docx 저장</td>
+        </tr>
+        <tr>
+          <td>문서 허브 등록</td>
+          <td>요청 시 HTML 문서 목록 페이지에 링크 추가</td>
+        </tr>
+      </table>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ── PROMPTS ── -->
+    <div class="section" id="prompts">
+      <div class="section-title">프롬프트 예시 모음</div>
+
+      <h3 class="sub">A. 기사 링크 기반 기업 조사 시작</h3>
+      <div class="prompt-block">
+        <div class="prompt-label">처음 요청할 때</div>
+        <div class="prompt-text"><span class="hl">[AI 에이전트명]</span>, 기업 조사 부탁해.
+
+<span class="cm">## 목적</span>
+Qualtrics가 SAP에서 분리된 이후 어떻게 됐는지 알고 싶어.
+우리 팀에 공유할 10분짜리 설명용 자료 만들 거야.
+
+<span class="cm">## 참고 링크</span>
+- https://... (Bloomberg 기사)
+- https://... (IR 자료)
+
+<span class="cm">## 특히 알고 싶은 것</span>
+- 분리 이후 재무 상황이 어떻게 달라졌는지
+- Medallia와 어떻게 경쟁하고 있는지
+
+<span class="cm">## 산출물</span>
+A4 5장 분량 보고서 초안 → 나중에 Word로 변환 예정</div>
+      </div>
+
+      <h3 class="sub">B. 내부 정보 추가 주입</h3>
+      <div class="prompt-block">
+        <div class="prompt-label">사람의 통찰을 넣을 때</div>
+        <div class="prompt-text"><span class="hl">[AI 에이전트명]</span>, 시사점 섹션에 아래 내용을 반영해줘.
+
+<span class="cm"># 우리 팀 내부 논의에서 나온 건데,</span>
+우리 솔루션 중 Brity Works는 워크플로우 자동화라서
+GenAI 대체 위험이 높은 편이야. 이 관점을 2번 시사점에 추가해줘.
+
+반면 Knox Suite는 보안 규제 데이터를 다루기 때문에
+AI 대체 가능성이 낮다는 점도 균형 있게 써줘.</div>
+      </div>
+
+      <h3 class="sub">C. Word 파일 생성 요청</h3>
+      <div class="prompt-block">
+        <div class="prompt-label">최종 Word 생성 시</div>
+        <div class="prompt-text"><span class="hl">[AI 에이전트명]</span>, 지금까지 정리한 내용으로
+sds-word-writer 스킬로 Word 파일 만들어줘.
+
+파일명: qualtrics_analysis_20260527.docx
+저장: files/
+문서 허브 HTML 목록에도 추가해줘.
+커밋·태그·푸시까지 해줘.</div>
+      </div>
+    </div>
+
+    <!-- ── TIPS ── -->
+    <div class="section" id="tips">
+      <div class="section-title">Tips &amp; 주의사항</div>
+
+      <div class="card-grid" style="grid-template-columns: 1fr 1fr;">
+        <div class="card" style="border-top: 3px solid #00875A;">
+          <div class="card-title">✅ 잘 되는 것</div>
+          <div class="card-desc" style="margin-top:10px;">
+            <ul class="dash">
+              <li>공개된 재무 수치 정리·비교</li>
+              <li>기사 여러 개를 합쳐서 흐름 파악</li>
+              <li>표·도표 자동 구성</li>
+              <li>보고서 문체로 변환</li>
+              <li>별첨 목차 자동 생성</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card" style="border-top: 3px solid #FF5630;">
+          <div class="card-title">⚠ 주의할 것</div>
+          <div class="card-desc" style="margin-top:10px;">
+            <ul class="dash">
+              <li>재무 수치는 반드시 원본 대조 확인</li>
+              <li>최신 뉴스(1주 이내)는 검색이 느릴 수 있음</li>
+              <li>비공개 정보는 사람이 직접 입력해야 함</li>
+              <li>AI 의견·예측은 참고용으로만 활용</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-box info-caution" style="margin-top:20px;">
+        <strong>중요 — AI 수치 검증 필수:</strong><br>
+        AI가 제시하는 재무 수치(특히 추정치·예상치)는 반드시 원본 자료와 대조하세요.
+        Medallia 보고서에서도 "Bloomberg, OnlyCFO 분석 기반 추정치"임을 명시했듯이
+        출처가 불명확한 수치는 보고서에 "(추정)" 표기를 붙여야 합니다.
+      </div>
+    </div>
+
+    <!-- ── EXAMPLES ── -->
+    <!-- ── 실전 사례 ── -->
+    <div class="section" id="casestudy">
+      <div class="section-title">실전 사례 — Medallia FY2022~2026 재무 데이터 추정</div>
+
+      <p style="color:#344563; margin-bottom:20px;">
+        Medallia는 2021년 상장폐지 후 재무 정보를 비공개로 전환했습니다.
+        보고서에 수록된 <strong>FY2022~2026 추정 수치</strong>는 4.1·4.2·4.3 원칙을 그대로 적용하여 산출한 것입니다.
+        아래에 추론 과정과 근거를 공개합니다.
+      </p>
+
+      <!-- 알 수 있는 것 vs 없는 것 -->
+      <h3 class="sub">출발점 — 공개 데이터 vs 추정이 필요한 데이터</h3>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px;">
+        <div class="card" style="border-top:3px solid #1868DB;">
+          <div class="card-title" style="color:#0052CC; margin-bottom:10px;">✅ 확인 가능한 공개 데이터</div>
+          <ul class="dash">
+            <li>인수 전 SEC 공시: FY2019~2021 매출·EBITDA·FCF</li>
+            <li>인수 조건: 총 인수가 $6.4B, 차입금 $1.8B (변동금리)</li>
+            <li>PIK 비중 변화: 100% → 50% → 35% → 0% (언론 보도)</li>
+            <li>SOFR 금리 추이: 연도별 미 연준 발표치</li>
+            <li>Bloomberg·OnlyCFO 분석가 추정치 (부분 공개)</li>
+            <li>Medallia를 통한 추가 M&A 차입금 $0.6B (보도)</li>
+          </ul>
+        </div>
+        <div class="card" style="border-top:3px solid #FF5630;">
+          <div class="card-title" style="color:#BF2600; margin-bottom:10px;">❓ 추정이 필요한 데이터</div>
+          <ul class="dash">
+            <li>FY2022~2026 연간 매출 (비공개)</li>
+            <li>연도별 EBITDA (비공개)</li>
+            <li>연도별 FCF (비공개)</li>
+            <li>정확한 연이자 비용</li>
+            <li>PIK 누적 원금 잔액</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 추정 과정 3단계 -->
+      <h3 class="sub">추정 과정 — 4.1 + 4.2 + 4.3 적용</h3>
+
+      <!-- 연이자 추정 -->
+      <div style="border:1px solid #DFE1E6; border-radius:10px; overflow:hidden; margin-bottom:16px;">
+        <div style="background:#0D1B35; padding:12px 20px; display:flex; align-items:center; gap:12px;">
+          <span style="background:#1868DB; color:#fff; font-size:11px; font-weight:700; padding:3px 10px; border-radius:20px;">4.1 데이터→추정</span>
+          <span style="color:#fff; font-size:14px; font-weight:700;">연이자 추정 — 확인 가능한 데이터 조합</span>
+        </div>
+        <div style="padding:16px 20px;">
+          <table class="t" style="margin:0;">
+            <tr>
+              <th>연도</th>
+              <th>SOFR (공개)</th>
+              <th>가산금리 추정</th>
+              <th>적용 금리</th>
+              <th>차입 잔액 추정</th>
+              <th>연이자 추정</th>
+            </tr>
+            <tr>
+              <td><strong>FY2022</strong></td>
+              <td>0.75% → 2.5%</td>
+              <td>~5.5%p</td>
+              <td>평균 ~7.5%</td>
+              <td>$1.8B</td>
+              <td><strong>~$135M</strong></td>
+            </tr>
+            <tr>
+              <td><strong>FY2023</strong></td>
+              <td>~4.5%</td>
+              <td>~5.5%p</td>
+              <td>~10%</td>
+              <td>$1.8B</td>
+              <td><strong>~$180M</strong></td>
+            </tr>
+            <tr>
+              <td><strong>FY2024</strong></td>
+              <td>~5.4%</td>
+              <td>~5.5%p</td>
+              <td>~10.9%</td>
+              <td>$2.2B (PIK 누적)</td>
+              <td><strong>~$300M</strong></td>
+            </tr>
+            <tr>
+              <td><strong>FY2025</strong></td>
+              <td>~3.7%</td>
+              <td>~5.5%p</td>
+              <td>~9.2%</td>
+              <td>$2.8B (M&A 추가)</td>
+              <td><strong>~$270M</strong></td>
+            </tr>
+          </table>
+          <div style="margin-top:10px; font-size:12px; color:#6B778C; line-height:1.6;">
+            <strong>근거:</strong> 차입금 $1.8B × (SOFR + 가산금리 추정 5.5%p) = 연이자.
+            가산금리는 2021년 당시 PE LBO 거래의 일반적 스프레드(Bloomberg 기준 5~6%p) 적용.
+            PIK 원금 누적은 현금이자 미지급분이 원금 가산되는 구조로 계산.
+          </div>
+        </div>
+      </div>
+
+      <!-- 매출·EBITDA 추정 -->
+      <div style="border:1px solid #DFE1E6; border-radius:10px; overflow:hidden; margin-bottom:16px;">
+        <div style="background:#0D1B35; padding:12px 20px; display:flex; align-items:center; gap:12px;">
+          <span style="background:#6554C0; color:#fff; font-size:11px; font-weight:700; padding:3px 10px; border-radius:20px;">4.2 가설→검증</span>
+          <span style="color:#fff; font-size:14px; font-weight:700;">매출·EBITDA 추정 — 가설 수립 후 데이터로 검증</span>
+        </div>
+        <div style="padding:16px 20px;">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+            <div>
+              <div style="font-size:12px; font-weight:700; color:#6554C0; margin-bottom:8px;">가설 설정</div>
+              <ul class="dash" style="font-size:13px;">
+                <li>인수 후 매출 성장률은 둔화되나 유지 (업계 평균 ~10~15% → 후반 정체)</li>
+                <li>PE 인수 후 비용 절감 단행 → EBITDA 개선 (업계 패턴)</li>
+                <li>이자 부담 증가로 FCF는 지속 악화</li>
+              </ul>
+            </div>
+            <div>
+              <div style="font-size:12px; font-weight:700; color:#6554C0; margin-bottom:8px;">검증 데이터</div>
+              <ul class="dash" style="font-size:13px;">
+                <li>OnlyCFO: Medallia 매출 $700M대 추정치 일치 확인</li>
+                <li>Zendesk·Qualtrics 유사 사례: PE 인수 후 EBITDA 마진 회복 패턴 확인</li>
+                <li>Blackstone 채권자 보고서 일부 내용 (보도 인용) 수치 교차 검증</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4.3 근거 명시 -->
+      <div style="border:1px solid #C0B6F2; border-radius:10px; overflow:hidden; margin-bottom:20px;">
+        <div style="background:#EAE6FF; padding:12px 20px; display:flex; align-items:center; gap:12px;">
+          <span style="background:#403294; color:#fff; font-size:11px; font-weight:700; padding:3px 10px; border-radius:20px;">4.3 근거 명시</span>
+          <span style="color:#403294; font-size:14px; font-weight:700;">보고서에 실제 표기한 방식</span>
+        </div>
+        <div style="padding:16px 20px; background:#FAFAFA;">
+          <div style="font-family:'SF Mono','Consolas',monospace; font-size:12.5px; background:#fff; border:1px solid #DFE1E6; border-radius:6px; padding:14px 16px; line-height:1.8; color:#172B4D;">
+            재무 수치 출처: <strong>Bloomberg, OnlyCFO 분석 기반 추정치</strong><br>
+            연이자: 차입금 × (SOFR + 가산금리 5.5%p) 산식 적용<br>
+            매출·EBITDA: 유사 PE 인수 SaaS 기업 패턴 + 분석가 추정 교차 검증<br>
+            <span style="color:#BF2600;">※ 상장폐지 이후 재무 정보는 비공개. 본 수치는 추정이며 실제와 차이가 있을 수 있음</span>
+          </div>
+          <div style="margin-top:12px; font-size:13px; color:#344563; line-height:1.7;">
+            <strong>효과:</strong> 보고 중 "이 $300M 이자 수치 어디서 나온 거냐"는 질문에
+            "SOFR 5.4% + 가산금리 5.5%p 적용, 원금은 PIK 누적분 포함 $2.2B 기준"이라고
+            즉시 답변 가능. 근거가 없으면 신뢰를 잃습니다.
+          </div>
+        </div>
+      </div>
+
+      <div class="info-box info-tip">
+        <strong>핵심 원칙:</strong>
+        추정치를 쓸 때는 항상 <strong>"이 숫자는 ___을 근거로 ___방식으로 추정한 값이며, ___% 오차 가능성이 있다"</strong>는 문장이 보고서 어딘가에 있어야 합니다.
+        그게 없으면 AI가 만들어낸 숫자와 구별되지 않습니다.
+      </div>
+    </div>
+
+    <div class="section" id="examples">
+      <div class="section-title">산출물 예시</div>
+
+      <p style="color:#344563; margin-bottom:16px;">이 Workflow로 만들어진 실제 산출물입니다.</p>
+
+      <table class="t">
+        <tr>
+          <th>산출물</th>
+          <th>형태</th>
+          <th>링크</th>
+        </tr>
+        <tr>
+          <td>Medallia 사례로 본 SaaS 기업 가치 평가</td>
+          <td><span class="badge b-blue">보고서 HTML</span> <span class="badge b-green">Word .docx</span></td>
+          <td><a href="/html/medallia_report_final.html" target="_blank" style="color:#1868DB;">보기</a></td>
+        </tr>
+        <tr>
+          <td>Medallia 발표자료 (8 Slides)</td>
+          <td><span class="badge b-purple">프레젠테이션 HTML</span></td>
+          <td><a href="/files/medallia_presentation.html" target="_blank" style="color:#1868DB;">보기</a></td>
+        </tr>
+        <tr>
+          <td>AI 진보의 이면 — SaaS 5개 장벽 분석</td>
+          <td><span class="badge b-blue">보고서 HTML</span></td>
+          <td><a href="/html/ai_industry_report_2026.html" target="_blank" style="color:#1868DB;">보기</a></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="footer">
+      솔루션전략그룹(솔루션) &nbsp;·&nbsp; '26.05.27 작성 &nbsp;·&nbsp; AI 에이전트 활용 가이드
+    </div>
+
+  </main>
+</div>
+
+<script>
+  // Active sidebar link tracking
+  const sections = document.querySelectorAll('[id]');
+  const links = document.querySelectorAll('.sidebar a');
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'));
+        const link = document.querySelector(`.sidebar a[href="#${e.target.id}"]`);
+        if (link) link.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+
+  sections.forEach(s => obs.observe(s));
+</script>
+</body>
+</html>

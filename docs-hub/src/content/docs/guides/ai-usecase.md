@@ -12,7 +12,7 @@ description: AI 기반 대시보드 와이어프레임 자동 생성 및 설계 
 아래 버튼을 클릭하면 HTML 슬라이드가 새 탭에서 열립니다.
 
 <p>
-  <a href="/ai_usecase_presentation.html" target="_blank" rel="noopener"
+  <a href="../../html/ai_usecase_presentation.html" target="_blank" rel="noopener"
     style="display:inline-block;padding:0.6em 1.4em;background:#2563eb;color:#fff;border-radius:6px;font-weight:600;text-decoration:none;">
     🖥️ AI Use Case PoC 슬라이드 열기 ↗
   </a>

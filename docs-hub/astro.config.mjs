@@ -86,7 +86,7 @@ export default defineConfig({
 					],
 				},
 				{
-					label: 'AI Use Case',
+					label: '사업건전성 대시보드 웹 구축',
 					items: [
 						{ label: '검증 프로젝트 구조서 (v1.1)', link: '/guides/ai-dashboard-project-charter/' },
 						{ label: '검증 계획서 (v1.0)', link: '/guides/ai-dashboard-verification-plan/' },

@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>사업건전성 — 매출/원가 현황</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; display: flex; height: 100vh; background: #EFEFEF; font-size: 12px; color: #222222; }
+
+  /* ── 사이드바 ── */
+  .sidebar {
+    width: 184px; min-width: 184px;
+    background: #27357F;
+    color: #B9C2E0; display: flex; flex-direction: column; padding: 0;
+  }
+  .sidebar-logo {
+    padding: 18px 16px 14px;
+    font-size: 13px; font-weight: 700; color: #fff;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .sidebar-menu { flex: 1; overflow-y: auto; padding: 8px 0; }
+  .menu-item {
+    padding: 9px 16px; cursor: pointer; font-size: 11.5px;
+    color: #B9C2E0; display: flex; align-items: center; gap: 6px;
+  }
+  .menu-item:hover { background: rgba(255,255,255,0.07); }
+  .menu-item.active {
+    background: #28B8C5; color: #fff; font-weight: 600;
+    border-radius: 0 20px 20px 0; margin-right: 8px;
+  }
+  .menu-item.parent { font-weight: 600; color: #CBD3EC; }
+  .menu-item.sub { padding-left: 28px; font-size: 11px; }
+  .menu-item.sub2 { padding-left: 40px; font-size: 11px; }
+  .menu-divider { height: 1px; background: rgba(255,255,255,0.07); margin: 6px 0; }
+  .menu-arrow { margin-left: auto; font-size: 9px; opacity: 0.6; }
+
+  /* ── 메인 영역 ── */
+  .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+  /* ── 헤더 ── */
+  .header {
+    background: #fff; border-bottom: 1px solid #E0E0E0;
+    padding: 10px 20px; display: flex; align-items: center; gap: 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .header-title { font-size: 16px; font-weight: 700; color: #1A1A1A; margin-right: 8px; }
+  .header-filter {
+    border: 1px solid #AFAFAF; border-radius: 4px;
+    padding: 5px 26px 5px 10px; font-size: 12px; color: #333;
+    background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23999'/%3E%3C/svg%3E") no-repeat right 8px center;
+    appearance: none; cursor: pointer;
+  }
+  .header-spacer { flex: 1; }
+  .header-badge {
+    display: flex; align-items: center; gap: 5px;
+    background: #F5F6FA; border: 1px solid #D8D8D8;
+    border-radius: 12px; padding: 4px 10px; font-size: 11px; color: #555;
+  }
+  .header-date { font-size: 11px; color: #888; }
+  .header-update { font-size: 10px; color: #aaa; }
+
+  /* ── 컨텐츠 ── */
+  .content { flex: 1; overflow-y: auto; background: #EFEFEF; padding: 28px 26px; }
+
+  .page-title { font-size: 21px; font-weight: 700; color: #222222; margin-bottom: 4px; }
+  .page-desc { font-size: 12px; color: #888888; margin-bottom: 24px; }
+
+  /* ── 섹션(흰색 대형 컨테이너) ── */
+  .section {
+    background: #FFFFFF; border: 1px solid #D8D8D8; border-radius: 2px;
+    padding: 24px 26px; margin-bottom: 30px;
+  }
+  .section-title { font-size: 17px; font-weight: 700; color: #222222; margin-bottom: 16px; }
+
+  /* ── 필터(ctrl-row) ── */
+  .ctrl-row { display: flex; gap: 9px; align-items: center; margin-bottom: 18px; flex-wrap: wrap; }
+  .ctrl-label { font-size: 11px; color: #888888; margin-right: 2px; }
+  .ctrl-select {
+    height: 24px; min-width: 150px;
+    border: 1px solid #AFAFAF; border-radius: 3px;
+    padding: 0 24px 0 9px; font-size: 11px; color: #333; background-color: #fff;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23999'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 7px center;
+    appearance: none; cursor: pointer; font-family: inherit;
+  }
+
+  /* ── 카드 ── */
+  .card {
+    background: #FFFFFF; border: 1px solid #D8D8D8; border-radius: 2px;
+    padding: 20px 22px; overflow: hidden;
+  }
+  .card + .card { margin-top: 24px; }
+  .card-title {
+    font-size: 16px; font-weight: 700; color: #222222;
+    margin-bottom: 4px; display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .card-title .title-left { display: flex; align-items: baseline; gap: 6px; }
+  .card-tag { font-size: 11px; color: #888888; font-weight: 400; }
+  .card-unit { font-size: 11px; color: #888888; font-weight: 400; }
+  .card-sub { font-size: 12px; color: #888888; margin-bottom: 12px; }
+
+  /* KPI 3분할 영역 */
+  .kpi-row3 { display: flex; background: #FAFAFC; border: 1px solid #EDEDED; margin: 12px 0 14px; }
+  .kpi-block3 { flex: 1; padding: 12px 16px; border-right: 1px solid #DDDDDD; min-height: 80px; }
+  .kpi-block3:last-child { border-right: none; }
+  .kpi-label3 { font-size: 12px; font-weight: 700; color: #3B6FE0; margin-bottom: 5px; }
+  .kpi-main3 { font-size: 23px; font-weight: 700; color: #1A1A1A; line-height: 1.15; }
+  .kpi-sub3 { font-size: 13px; font-weight: 500; color: #777777; margin-top: 3px; }
+  .kpi-sub3.pos { color: #2E8B57; }
+  .kpi-sub3.neg { color: #D64545; }
+
+  /* 차트 + 미니차트 배치 */
+  .chart-flex { display: flex; gap: 16px; align-items: stretch; }
+  .chart-main { flex: 1; min-width: 0; }
+  .chart-mini-wrap { width: 210px; flex-shrink: 0; display: flex; gap: 8px; border-left: 1px solid #ECECEC; padding-left: 14px; }
+  .mini-box { flex: 1; text-align: center; }
+  .mini-box-label { font-size: 11px; color: #888888; margin-top: 2px; font-weight: 600; }
+
+  /* Year Trend 3열 그리드 */
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+  .grid-3 + .grid-3 { margin-top: 20px; }
+
+  /* 범례 */
+  .legend { display: flex; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; }
+  .legend-item { display: flex; align-items: center; gap: 4px; font-size: 10.5px; color: #555; }
+  .legend-bar { width: 12px; height: 10px; border-radius: 2px; display: inline-block; }
+  .legend-line { width: 16px; height: 3px; border-radius: 2px; display: inline-block; }
+  .legend-line.dash { height: 0; border-top: 2px dashed; background: none; }
+
+  .chart-area { width: 100%; }
+  svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
+
+  /* 요약 테이블 카드 */
+  .summary-table { width: 100%; border-collapse: collapse; font-size: 11.5px; margin-top: 8px; }
+  .summary-table th { text-align: right; font-size: 10.5px; color: #888888; font-weight: 600; padding: 7px 4px; border-bottom: 1px solid #DDDDDD; }
+  .summary-table th:first-child, .summary-table td:first-child { text-align: left; }
+  .summary-table td { text-align: right; padding: 8px 4px; border-bottom: 1px solid #F0F0F0; color: #222222; }
+  .summary-table tr:last-child td { border-bottom: none; font-weight: 700; background: #FAFAFC; }
+  .summary-table td.pos { color: #2E8B57; font-weight: 600; }
+  .summary-table td.neg { color: #D64545; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════ 사이드바 ══════════════ -->
+<div class="sidebar">
+  <div class="sidebar-logo">📊 사업건전성</div>
+  <div class="sidebar-menu">
+    <div class="menu-item" onclick="window.location.href='bizunit_dashboard_wireframe.html'">사업부 대시보드</div>
+    <div class="menu-item" onclick="window.location.href='biz_health_status_wireframe.html'">사업건전성 현황</div>
+    <div class="menu-divider"></div>
+    <div class="menu-item parent">사업건전성 영역별 현황 <span class="menu-arrow">&#9662;</span></div>
+    <div class="menu-item sub parent">재무 <span class="menu-arrow">&#9662;</span></div>
+    <div class="menu-item sub2" onclick="window.location.href='growth_wireframe.html'">성장</div>
+    <div class="menu-item sub2" onclick="window.location.href='efficiency_profit_wireframe.html'">효율/수익</div>
+    <div class="menu-item sub" onclick="window.location.href='market_wireframe.html'">시장</div>
+    <div class="menu-item sub" onclick="window.location.href='sales_main_wireframe.html'">영업</div>
+    <div class="menu-divider"></div>
+    <div class="menu-item" onclick="window.location.href='customer_status_wireframe.html'">고객 현황</div>
+    <div class="menu-item active">매출/원가 현황</div>
+    <div class="menu-divider"></div>
+    <div class="menu-item parent">지표 정보 <span class="menu-arrow">&#9662;</span></div>
+    <div class="menu-item sub" onclick="window.location.href='indicator_info_wireframe.html'">지표</div>
+    <div class="menu-item sub">지표 테이블</div>
+    <div class="menu-item sub">지표 원천데이터</div>
+    <div class="menu-divider"></div>
+    <div class="menu-item">로그아웃</div>
+  </div>
+</div>
+
+<!-- ══════════════ 메인 ══════════════ -->
+<div class="main">
+
+  <!-- 헤더 -->
+  <div class="header">
+    <span class="header-title">매출/원가 현황</span>
+    <select class="header-filter">
+      <option>Brity Automation</option>
+      <option>ZTM</option>
+      <option>Knox Portal</option>
+    </select>
+    <div class="header-spacer"></div>
+    <div class="header-badge">기준년월: 2026년 05월</div>
+    <div class="header-date">업데이트: 매월 10일</div>
+  </div>
+
+  <!-- 컨텐츠 -->
+  <div class="content">
+
+    <div class="page-title">매출/원가 현황</div>
+    <div class="page-desc">실적 요약(당해년도 월별) → 연도별 추세(Year Trend) → 원가 원인 분석(원가/판관비/판매비/R&amp;D/BEP) 순으로 구성됩니다.</div>
+
+    <!-- ══════════════ SECTION 1: 매출/영업이익 (2026) ══════════════ -->
+    <div class="section">
+      <div class="section-title">매출 / 영업이익 (2026)</div>
+
+      <div class="ctrl-row">
+        <span class="ctrl-label">구분</span>
+        <select class="ctrl-select"><option>라이선스</option><option>구축(운영)</option><option>전체</option></select>
+        <span class="ctrl-label">대내/대외</span>
+        <select class="ctrl-select"><option>전체</option><option>대내</option><option>대외</option></select>
+        <span class="ctrl-label">국내/외</span>
+        <select class="ctrl-select"><option>전체</option><option>국내</option><option>해외</option></select>
+        <span class="ctrl-label">분석주기</span>
+        <select class="ctrl-select"><option>월별</option><option>분기별</option><option>연간</option></select>
+      </div>
+
+      <!-- 카드: 매출 -->
+      <div class="card">
+        <div class="card-title">
+          <span class="title-left">매출 <span class="card-tag">Revenue</span></span>
+          <span class="card-unit">억원</span>
+        </div>
+
+        <div class="kpi-row3">
+          <div class="kpi-block3">
+            <div class="kpi-label3">26.5월</div>
+            <div class="kpi-main3">30.4억</div>
+            <div class="kpi-sub3 pos">▲ +5.1억 vs.계획</div>
+            <div class="kpi-sub3 neg">▼ -33.5% vs.전년동기</div>
+          </div>
+          <div class="kpi-block3">
+            <div class="kpi-label3">YTM</div>
+            <div class="kpi-main3">165.6억</div>
+            <div class="kpi-sub3 neg">▼ -1.0억 vs.계획</div>
+            <div class="kpi-sub3 neg">▼ -5.6% vs.전년동기</div>
+          </div>
+          <div class="kpi-block3">
+            <div class="kpi-label3">연간전망</div>
+            <div class="kpi-main3">380억</div>
+            <div class="kpi-sub3 neg">▼ -36억 vs.계획</div>
+            <div class="kpi-sub3 pos">▲ +9.5% vs.전년</div>
+          </div>
+        </div>
+
+        <div class="legend">
+          <div class="legend-item"><div class="legend-bar" style="background:#5066E8"></div>계획</div>
+          <div class="legend-item"><div class="legend-bar" style="background:#123EE8"></div>실적/속보</div>
+        </div>
+
+        <div class="chart-flex">
+          <div class="chart-main">
+            <div class="chart-area">
+              <svg width="100%" height="190" viewBox="0 0 700 190">
+                <line x1="40" y1="15" x2="40" y2="140" stroke="#ddd" stroke-width="1"/>
+                <text x="35" y="19" text-anchor="end" font-size="9" fill="#999">40억</text>
+                <text x="35" y="79" text-anchor="end" font-size="9" fill="#999">20억</text>
+                <text x="35" y="142" text-anchor="end" font-size="9" fill="#999">0</text>
+                <line x1="40" y1="78" x2="685" y2="78" stroke="#F3F4F6" stroke-width="1"/>
+                <!-- 계획 (12개월) -->
+                <rect x="38"  y="53"  width="11" height="87" fill="#5066E8"/>
+                <rect x="95"  y="50"  width="11" height="90" fill="#5066E8"/>
+                <rect x="152" y="47"  width="11" height="93" fill="#5066E8"/>
+                <rect x="209" y="44"  width="11" height="96" fill="#5066E8"/>
+                <rect x="266" y="41"  width="11" height="99" fill="#5066E8"/>
+                <rect x="323" y="38"  width="11" height="102" fill="#5066E8"/>
+                <rect x="380" y="35"  width="11" height="105" fill="#5066E8"/>
+                <rect x="437" y="38"  width="11" height="102" fill="#5066E8"/>
+                <rect x="494" y="41"  width="11" height="99"  fill="#5066E8"/>
+                <rect x="551" y="44"  width="11" height="96"  fill="#5066E8"/>
+                <rect x="608" y="47"  width="11" height="93"  fill="#5066E8"/>
+                <rect x="665" y="50"  width="11" height="90"  fill="#5066E8"/>
+                <!-- 실적/속보 (1~5월만) -->
+                <rect x="51"  y="47" width="11" height="93"  fill="#123EE8"/>
+                <rect x="108" y="44" width="11" height="96"  fill="#123EE8"/>
+                <rect x="165" y="50" width="11" height="90"  fill="#123EE8"/>
+                <rect x="222" y="38" width="11" height="102" fill="#123EE8"/>
+                <rect x="279" y="47" width="11" height="93"  fill="#123EE8"/>
+                <text x="279" y="41" text-anchor="middle" font-size="10" font-weight="700" fill="#123EE8">30.4</text>
+                <text x="608" y="41" text-anchor="middle" font-size="10" font-weight="700" fill="#5066E8">29</text>
+                <line x1="40" y1="140" x2="685" y2="140" stroke="#ddd" stroke-width="1"/>
+                <text x="57"  y="154" text-anchor="middle" font-size="9.5" fill="#666">1월</text>
+                <text x="114" y="154" text-anchor="middle" font-size="9.5" fill="#666">2월</text>
+                <text x="171" y="154" text-anchor="middle" font-size="9.5" fill="#666">3월</text>
+                <text x="228" y="154" text-anchor="middle" font-size="9.5" fill="#666">4월</text>
+                <text x="285" y="154" text-anchor="middle" font-size="9.5" fill="#666">5월</text>
+                <text x="342" y="154" text-anchor="middle" font-size="9.5" fill="#666">6월</text>
+                <text x="399" y="154" text-anchor="middle" font-size="9.5" fill="#666">7월</text>
+                <text x="456" y="154" text-anchor="middle" font-size="9.5" fill="#666">8월</text>
+                <text x="513" y="154" text-anchor="middle" font-size="9.5" fill="#666">9월</text>
+                <text x="570" y="154" text-anchor="middle" font-size="9.5" fill="#666">10월</text>
+                <text x="627" y="154" text-anchor="middle" font-size="9.5" fill="#666">11월</text>
+                <text x="684" y="154" text-anchor="middle" font-size="9.5" fill="#666">12월</text>
+              </svg>
+            </div>
+          </div>
+          <div class="chart-mini-wrap">
+            <div class="mini-box">
+              <svg width="100%" height="190" viewBox="0 0 90 190">
+                <line x1="18" y1="15" x2="18" y2="140" stroke="#ddd" stroke-width="1"/>
+                <rect x="20" y="35" width="20" height="105" fill="#5066E8"/>
+                <text x="30" y="29" text-anchor="middle" font-size="9" font-weight="700" fill="#5066E8">166.6</text>
+                <rect x="48" y="38" width="20" height="102" fill="#123EE8"/>
+                <text x="58" y="32" text-anchor="middle" font-size="9" font-weight="700" fill="#123EE8">165.6</text>
+                <line x1="18" y1="140" x2="72" y2="140" stroke="#ddd" stroke-width="1"/>
+              </svg>
+              <div class="mini-box-label">YTM (억원)</div>
+            </div>
+            <div class="mini-box">
+              <svg width="100%" height="190" viewBox="0 0 90 190">
+                <line x1="18" y1="15" x2="18" y2="140" stroke="#ddd" stroke-width="1"/>
+                <rect x="20" y="24" width="20" height="116" fill="#5066E8"/>
+                <text x="30" y="18" text-anchor="middle" font-size="9" font-weight="700" fill="#5066E8">416</text>
+                <rect x="48" y="34" width="20" height="106" fill="#123EE8"/>
+                <text x="58" y="28" text-anchor="middle" font-size="9" font-weight="700" fill="#123EE8">380</text>
+                <line x1="18" y1="140" x2="72" y2="140" stroke="#ddd" stroke-width="1"/>
+              </svg>
+              <div class="mini-box-label">연간전망 (억원)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 카드: 영업이익 -->
+      <div class="card">
+        <div class="card-title">
+          <span class="title-left">영업이익 <span class="card-tag">Operating Profit</span></span>
+          <span class="card-unit">억원</span>
+        </div>
+
+        <div class="kpi-row3">
+          <div class="kpi-block3">
+            <div class="kpi-label3">26.5월</div>
+            <div class="kpi-main3">-4.4억</div>
+            <div class="kpi-sub3 pos">▲ +1.1억 vs.계획</div>
+            <div class="kpi-sub3 pos">▲ +8.2%p vs.전년동기</div>
+          </div>
+          <div class="kpi-block3">
+            <div class="kpi-label3">YTM</div>
+            <div class="kpi-main3">-11.6억</div>
+            <div class="kpi-sub3 neg">▼ -3.2억 vs.계획</div>
+            <div class="kpi-sub3 pos">▲ +5.4%p vs.전년동기</div>
+          </div>
+          <div class="kpi-block3">
+            <div class="kpi-label3">연간전망</div>
+            <div class="kpi-main3">18억</div>
+            <div class="kpi-sub3 neg">▼ -6억 vs.계획</div>
+            <div class="kpi-sub3 pos">▲ 흑자전환 vs.전년</div>
+          </div>
+        </div>
+
+        <div class="legend">
+          <div class="legend-item"><div class="legend-bar" style="background:#5066E8"></div>계획</div>
+          <div class="legend-item"><div class="legend-bar" style="background:#123EE8"></div>실적/속보</div>
+        </div>
+
+        <div class="chart-flex">
+          <div class="chart-main">
+            <div class="chart-area">
+              <svg width="100%" height="190" viewBox="0 0 700 190">
+                <line x1="40" y1="15" x2="40" y2="140" stroke="#ddd" stroke-width="1"/>
+                <text x="35" y="19"  text-anchor="end" font-size="9" fill="#999">+20억</text>
+                <text x="35" y="80"  text-anchor="end" font-size="9" fill="#999">0</text>
+                <text x="35" y="142" text-anchor="end" font-size="9" fill="#999">-20억</text>
+                <line x1="40" y1="78" x2="685" y2="78" stroke="#ddd" stroke-width="1" stroke-dasharray="3,2"/>
+                <!-- 계획 (부호별로 0선 기준 상/하) -->
+                <rect x="38"  y="78" width="11" height="8"  fill="#B8BCC4"/>
+                <rect x="95"  y="78" width="11" height="4"  fill="#B8BCC4"/>
+                <rect x="152" y="78" width="11" height="1"  fill="#B8BCC4"/>
+                <rect x="209" y="74" width="11" height="4"  fill="#5066E8"/>
+                <rect x="266" y="66" width="11" height="12" fill="#5066E8"/>
+                <rect x="323" y="61" width="11" height="17" fill="#5066E8"/>
+                <rect x="380" y="57" width="11" height="21" fill="#5066E8"/>
+                <rect x="437" y="61" width="11" height="17" fill="#5066E8"/>
+                <rect x="494" y="65" width="11" height="13" fill="#5066E8"/>
+                <rect x="551" y="70" width="11" height="8"  fill="#5066E8"/>
+                <rect x="608" y="74" width="11" height="4"  fill="#5066E8"/>
+                <rect x="665" y="76" width="11" height="2"  fill="#5066E8"/>
+                <!-- 실적/속보 (1~5월) -->
+                <rect x="51"  y="78" width="11" height="13" fill="#B8BCC4"/>
+                <rect x="108" y="78" width="11" height="8"  fill="#B8BCC4"/>
+                <rect x="165" y="74" width="11" height="4"  fill="#123EE8"/>
+                <rect x="222" y="61" width="11" height="17" fill="#123EE8"/>
+                <rect x="279" y="57" width="11" height="21" fill="#123EE8"/>
+                <text x="279" y="51" text-anchor="middle" font-size="10" font-weight="700" fill="#123EE8">4.4</text>
+                <text x="57"  y="99" text-anchor="middle" font-size="9" font-weight="700" fill="#B8BCC4">-4.4</text>
+                <line x1="40" y1="140" x2="685" y2="140" stroke="#ddd" stroke-width="1"/>
+                <text x="57"  y="154" text-anchor="middle" font-size="9.5" fill="#666">1월</text>
+                <text x="114" y="154" text-anchor="middle" font-size="9.5" fill="#666">2월</text>
+                <text x="171" y="154" text-anchor="middle" font-size="9.5" fill="#666">3월</text>
+                <text x="228" y="154" text-anchor="middle" font-size="9.5" fill="#666">4월</text>
+                <text x="285" y="154" text-anchor="middle" font-size="9.5" fill="#666">5월</text>
+                <text x="342" y="154" text-anchor="middle" font-size="9.5" fill="#666">6월</text>
+                <text x="399" y="154" text-anchor="middle" font-size="9.5" fill="#666">7월</text>
+                <text x="456" y="154" text-anchor="middle" font-size="9.5" fill="#666">8월</text>
+                <text x="513" y="154" text-anchor="middle" font-size="9.5" fill="#666">9월</text>
+                <text x="570" y="154" text-anchor="middle" font-size="9.5" fill="#666">10월</text>
+                <text x="627" y="154" text-anchor="middle" font-size="9.5" fill="#666">11월</text>
+                <text x="684" y="154" text-anchor="middle" font-size="9.5" fill="#666">12월</text>
+              </svg>
+            </div>
+          </div>
+          <div class="chart-mini-wrap">
+            <div class="mini-box">
+              <svg width="100%" height="190" viewBox="0 0 90 190">
+                <line x1="18" y1="15" x2="18" y2="140" stroke="#ddd" stroke-width="1"/>
+                <line x1="18" y1="65" x2="72" y2="65" stroke="#ddd" stroke-width="1" stroke-dasharray="3,2"/>
+                <rect x="20" y="65" width="20" height="46" fill="#B8BCC4"/>
+                <text x="30" y="122" text-anchor="middle" font-size="9" font-weight="700" fill="#B8BCC4">-14.8</text>
+                <rect x="48" y="65" width="20" height="36" fill="#123EE8"/>
+                <text x="58" y="112" text-anchor="middle" font-size="9" font-weight="700" fill="#123EE8">-11.6</text>
+                <line x1="18" y1="140" x2="72" y2="140" stroke="#ddd" stroke-width="1"/>
+              </svg>
+              <div class="mini-box-label">YTM (억원)</div>
+            </div>
+            <div class="mini-box">
+              <svg width="100%" height="190" viewBox="0 0 90 190">
+                <line x1="18" y1="15" x2="18" y2="140" stroke="#ddd" stroke-width="1"/>
+                <line x1="18" y1="90" x2="72" y2="90" stroke="#ddd" stroke-width="1" stroke-dasharray="3,2"/>
+                <rect x="20" y="52" width="20" height="38" fill="#5066E8"/>
+                <text x="30" y="46" text-anchor="middle" font-size="9" font-weight="700" fill="#5066E8">24</text>
+                <rect x="48" y="62" width="20" height="28" fill="#123EE8"/>
+                <text x="58" y="56" text-anchor="middle" font-size="9" font-weight="700" fill="#123EE8">18</text>
+                <line x1="18" y1="140" x2="72" y2="140" stroke="#ddd" stroke-width="1"/>
+              </svg>
+              <div class="mini-box-label">연간전망 (억원)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════ SECTION 2: 매출/영업이익 (Year Trend) ══════════════ -->
+    <div class="section">
+      <div class="section-title">매출 / 영업이익 (Year Trend)</div>
+
+      <div class="ctrl-row">
+        <span class="ctrl-label">당해년도 매출 기준</span>
+        <select class="ctrl-select"><option>2026년</option><option>2025년</option><option>2024년</option></select>
+        <span class="ctrl-label">대내/대외</span>
+        <select class="ctrl-select"><option>전체</option><option>대내</option><option>대외</option></select>
+        <span class="ctrl-label">국내/외</span>
+        <select class="ctrl-select"><option>전체</option><option>국내</option><option>해외</option></select>
+      </div>
+
+      <div class="grid-3">
+        <!-- 카드: 매출/영업이익 요약 -->
+        <div class="card">
+          <div class="card-title"><span class="title-left">매출/영업이익 요약</span></div>
+          <table class="summary-table">
+            <tr><th>연도</th><th>매출(억)</th><th>영업이익(억)</th><th>OP율</th></tr>
+            <tr><td>2022</td><td>298</td><td class="neg">-42</td><td class="neg">-14.1%</td></tr>
+            <tr><td>2023</td><td>335</td><td class="neg">-18</td><td class="neg">-5.4%</td></tr>
+            <tr><td>2024</td><td>356</td><td class="pos">4</td><td class="pos">1.1%</td></tr>
+            <tr><td>2025</td><td>371</td><td class="pos">12</td><td class="pos">3.2%</td></tr>
+            <tr><td>2026(E)</td><td>380</td><td class="pos">18</td><td class="pos">4.7%</td></tr>
+          </table>
+        </div>
+
+        <!-- 카드: 매출 -->
+        <div class="card">
+          <div class="card-title"><span class="title-left">매출</span><span class="card-unit">억원</span></div>
+          <div class="legend">
+            <div class="legend-item"><div class="legend-bar" style="background:#7EA2EA"></div>구축(운영)</div>
+            <div class="legend-item"><div class="legend-bar" style="background:#5066E8"></div>라이선스</div>
+          </div>
+          <div class="chart-area">
+            <svg width="100%" height="180" viewBox="0 0 420 180">
+              <line x1="40" y1="15" x2="40" y2="140" stroke="#ddd" stroke-width="1"/>
+              <text x="35" y="19"  text-anchor="end" font-size="9" fill="#999">400</text>
+              <text x="35" y="142" text-anchor="end" font-size="9" fill="#999">0</text>
+              <!-- 2022 -->
+              <rect x="45"  y="84" width="40" height="56" fill="#7EA2EA"/>
+              <rect x="45"  y="47" width="40" height="37" fill="#5066E8"/>
+              <text x="65" y="41" text-anchor="middle" font-size="9" font-weight="700" fill="#333">298</text>
+              <!-- 2023 -->
+              <rect x="120" y="79" width="40" height="61" fill="#7EA2EA"/>
+              <rect x="120" y="35" width="40" height="44" fill="#5066E8"/>
+              <!-- 2024 -->
+              <rect x="195" y="78" width="40" height="62" fill="#7EA2EA"/>
+              <rect x="195" y="29" width="40" height="49" fill="#5066E8"/>
+              <!-- 2025 -->
+              <rect x="270" y="76" width="40" height="64" fill="#7EA2EA"/>
+              <rect x="270" y="24" width="40" height="52" fill="#5066E8"/>
+              <!-- 2026(E) -->
+              <rect x="345" y="75" width="40" height="65" fill="#7EA2EA"/>
+              <rect x="345" y="21" width="40" height="54" fill="#5066E8"/>
+              <text x="365" y="15" text-anchor="middle" font-size="9" font-weight="700" fill="#333">380</text>
+              <line x1="40" y1="140" x2="400" y2="140" stroke="#ddd" stroke-width="1"/>
+              <text x="65"  y="154" text-anchor="middle" font-size="9.5" fill="#666">2022</text>
+              <text x="140" y="154" text-anchor="middle" font-size="9.5" fill="#666">2023</text>
+              <text x="215" y="154" text-anchor="middle" font-size="9.5" fill="#666">2024</text>
+              <text x="290" y="154" text-anchor="middle" font-size="9.5" fill="#666">2025</text>
+              <text x="365" y="154" text-anchor="middle" font-size="9.5" fill="#666">2026(E)</text>
+            </svg>
+          </div>
+        </div>
+
+        <!-- 카드: 영업이익 -->
+        <div class="card">
+          <div class="card-title"><span class="title-left">영업이익</span><span class="card-unit">억원</span></div>
+          <div class="legend">
+            <div class="legend-item"><div class="legend-bar" style="background:#B8BCC4"></div>적자(-)</div>
+            <div class="legend-item"><div class="legend-bar" style="background:#5066E8"></div>흑자(+)</div>
+          </div>
+          <div class="chart-area">
+            <svg width="100%" height="180" viewBox="0 0 420 180">
+              <line x1="40" y1="15" x2="40" y2="140" stroke="#ddd" stroke-width="1"/>
+              <text x="35" y="19"  text-anchor="end" font-size="9" fill="#999">+40</text>
+              <text x="35" y="80"  text-anchor="end" font-size="9" fill="#999">0</text>
+              <text x="35" y="142" text-anchor="end" font-size="9" fill="#999">-40</text>
+              <line x1="40" y1="78" x2="400" y2="78" stroke="#ddd" stroke-width="1" stroke-dasharray="3,2"/>
+              <rect x="45"  y="78" width="40" height="60" fill="#B8BCC4"/>
+              <text x="65" y="150" text-anchor="middle" font-size="9" font-weight="700" fill="#888">-42</text>
+              <rect x="120" y="78" width="40" height="26" fill="#B8BCC4"/>
+              <rect x="195" y="72" width="40" height="6"  fill="#5066E8"/>
+              <rect x="270" y="60" width="40" height="18" fill="#5066E8"/>
+              <rect x="345" y="51" width="40" height="27" fill="#5066E8"/>
+              <text x="365" y="45" text-anchor="middle" font-size="9" font-weight="700" fill="#5066E8">18</text>
+              <line x1="40" y1="140" x2="400" y2="140" stroke="#ddd" stroke-width="1"/>
+              <text x="65"  y="154" text-anchor="middle" font-size="9.5" fill="#666">2022</text>
+              <text x="140" y="154" text-anchor="middle" font-size="9.5" fill="#666">2023</text>
+              <text x="215" y="154" text-anchor="middle" font-size="9.5" fill="#666">2024</text>
+              <text x="290" y="154" text-anchor="middle" font-size="9.5" fill="#666">2025</text>
+              <text x="365" y="154" text-anchor="middle" font-size="9.5" fill="#666">2026(E)</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <!-- 카드: 구축 매출 -->
+        <div class="card">
+          <div class="card-title"><span class="title-left">구축 매출</span><span class="card-unit">억원</span></div>
+          <div class="legend">
+            <div class="legend-item"><div class="legend-bar" style="background:#7EA2EA"></div>국내</div>
+            <div class="legend-item"><div class="legend-bar" style="background:#5066E8"></div>해외</div>
+          </div>
+          <div class="chart-area">
+            <svg width="100%" height="170" viewBox="0 0 420 170">
+              <line x1="40" y1="15" x2="40" y2="130" stroke="#ddd" stroke-width="1"/>
+              <text x="35" y="19"  text-anchor="end" font-size="9" fill="#999">250</text>
+              <text x="35" y="132" text-anchor="end" font-size="9" fill="#999">0</text>
+              <rect x="45"  y="70" width="40" height="60" fill="#7EA2EA"/>
+              <rect x="45"  y="44" width="40" height="26" fill="#5066E8"/>
+              <rect x="120" y="65" width="40" height="65" fill="#7EA2EA"/>
+              <rect x="120" y="37" width="40" height="28" fill="#5066E8"/>
+              <rect x="195" y="62" width="40" height="68" fill="#7EA2EA"/>
+              <rect x="195" y="33" width="40" height="29" fill="#5066E8"/>
+              <rect x="270" y="60" width="40" height="70" fill="#7EA2EA"/>
+              <rect x="270" y="30" width="40" height="30" fill="#5066E8"/>
+              <rect x="345" y="59" width="40" height="71" fill="#7EA2EA"/>
+              <rect x="345" y="28" width="40" height="31" fill="#5066E8"/>
+              <line x1="40" y1="130" x2="400" y2="130" stroke="#ddd" stroke-width="1"/>
+              <text x="65"  y="144" text-anchor="middle" font-size="9" fill="#666">2022</text>
+              <text x="140" y="144" text-anchor="middle" font-size="9" fill="#666">2023</text>
+              <text x="215" y="144" text-anchor="middle" font-size="9" fill="#666">2024</text>
+              <text x="290" y="144" text-anchor="middle" font-size="9" fill="#666">2025</text>
+              <text x="365" y="144" text-anchor="middle" font-size="9" fill="#666">2026(E)</text>
+            </svg>
+          </div>
+        </div>
+
+        <!-- 카드: 라이선스 매출 -->
+        <div class="card">
+          <div class="card-title"><span class="title-left">라이선스 매출</span><span class="card-unit">억원</span></div>
+          <div class="legend">
+            <div class="legend-item"><div class="legend-bar" style="background:#7EA2EA"></div>국내</div>
+            <div class="legend-item"><div class="legend-bar" style="background:#5066E8"></div>해외</div>
+          </div>
+          <div class="chart-area">
+            <svg width="100%" height="170" viewBox="0 0 420 170">
+              <line x1="40" y1="15" x2="40" y2="130" stroke="#ddd" stroke-width="1"/>
+              <text x="35" y="19"  text-anchor="end" font-size="9" fill="#999">200</text>
+              <text x="35" y="132" text-anchor="end" font-size="9" fill="#999">0</text>
+              <rect x="45"  y="83" width="40" height="47" fill="#7EA2EA"/>
+              <rect x="45"  y="52" width="40" height="31" fill="#5066E8"/>
+              <rect x="120" y="73" width="40" height="57" fill="#7EA2EA"/>
+              <rect x="120" y="37" width="40" height="36" fill="#5066E8"/>
+              <rect x="195" y="65" width="40" height="65" fill="#7EA2EA"/>
+              <rect x="195" y="25" width="40" height="40" fill="#5066E8"/>
+              <rect x="270" y="60" width="40" height="70" fill="#7EA2EA"/>
+              <rect x="270" y="17" width="40" height="43" fill="#5066E8"/>
+              <rect x="345" y="57" width="40" height="73" fill="#7EA2EA"/>
+              <rect x="345" y="13" width="40" height="44" fill="#5066E8"/>
+              <line x1="40" y1="130" x2="400" y2="130" stroke="#ddd" stroke-width="1"/>
+              <text x="65"  y="144" text-anchor="middle" font-size="9" fill="#666">2022</text>
+              <text x="140" y="144" text-anchor="middle" font-size="9" fill="#666">2023</text>
+              <text x="215" y="144" text-anchor="middle" font-size="9" fill="#666">2024</text>
+              <text x="290" y="144" text-anchor="middle" font-size="9" fill="#666">2025</text>
+              <text x="365" y="144" text-anchor="middle" font-size="9" fill="#666">2026(E)</text>
+            </svg>
+          </div>
+        </div>
+
+        <!-- 카드: On-Prem 라이선스 매출 -->
+        <div class="card">
+          <div class="card-title"><span class="title-left">On-Prem 라이선스 매출</span><span class="card-unit">억원</span></div>
+          <div class="legend">
+            <div class="legend-item"><div class="legend-bar" style="background:#7EA2EA"></div>국내</div>
+            <div class="legend-item"><div class="legend-bar" style="background:#5066E8"></div>해외</div>
+          </div>
+          <div class="chart-area">
+            <svg width="100%" height="170" viewBox="0 0 420 170">
+              <line x1="40" y1="15" x2="40" y2="130" stroke="#ddd" stroke-width="1"/>
+              <text x="35" y="19"  text-anchor="end" font-size="9" fill="#999">80</text>
+              <text x="35" y="132" text-anchor="end" font-size="9" fill="#999">0</text>
+              <rect x="45"  y="88" width="40" height="42" fill="#7EA2EA"/>
+              <rect x="45"  y="60" width="40" height="28" fill="#5066E8"/>
+              <rect x="120" y="79" width="40" height="51" fill="#7EA2EA"/>
+              <rect x="120" y="49" width="40" height="30" fill="#5066E8"/>
+              <rect x="195" y="73" width="40" height="57" fill="#7EA2EA"/>
+              <rect x="195" y="40" width="40" height="33" fill="#5066E8"/>
+              <rect x="270" y="68" width="40" height="62" fill="#7EA2EA"/>
+              <rect x="270" y="34" width="40" height="34" fill="#5066E8"/>
+              <rect x="345" y="66" width="40" height="64" fill="#7EA2EA"/>
+              <rect x="345" y="30" width="40" height="36" fill="#5066E8"/>
+              <line x1="40" y1="130" x2="400" y2="130" stroke="#ddd" stroke-width="1"/>
+              <text x="65"  y="144" text-anchor="middle" font-size="9" fill="#666">2022</text>
+              <text x="140" y="144" text-anchor="middle" font-size="9" fill="#666">2023</text>
+              <text x="215" y="144" text-anchor="middle" font-size="9" fill="#666">2024</text>
+              <text x="290" y="144" text-anchor="middle" font-size="9" fill="#666">2025</text>
+              <text x="365" y="144" text-anchor="middle" font-size="9" fill="#666">2026(E)</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════ SECTION 3: 매출/원가 ══════════════ -->
+    <div class="section">
+      <div class="section-title">매출 / 원가</div>
+
+      <div class="ctrl-row">
+        <span class="ctrl-label">분석주기</span>
+        <select class="ctrl-select"><option>월별</option><option>분기별</option><option>연간</option></select>
+        <span class="ctrl-label">보기 기준</span>
+        <select class="ctrl-select"><option>금액(억원)</option><option>매출 대비(%)</option></select>
+      </div>
+
+      <!-- 카드: 총 원가 VS. 매출 -->
+      <div class="card">
+        <div class="card-title"><span class="title-left">총 원가 VS. 매출</span><span class="card-unit">억원</span></div>
+        <div class="legend">
+          <div class="legend-item"><div class="legend-bar" style="background:#B8BCC4"></div>매출원가</div>
+          <div class="legend-item"><div class="legend-bar" style="background:#7EA2EA"></div>판관비</div>
+          <div class="legend-item"><div class="legend-line" style="background:#FF7A00"></div>매출</div>
+        </div>
+        <div class="chart-area">
+          <svg width="100%" height="210" viewBox="0 0 900 210">
+            <line x1="50" y1="20" x2="50" y2="155" stroke="#ddd" stroke-width="1"/>
+            <text x="45" y="24"  text-anchor="end" font-size="9" fill="#999">40억</text>
+            <text x="45" y="90"  text-anchor="end" font-size="9" fill="#999">20억</text>
+            <text x="45" y="157" text-anchor="end" font-size="9" fill="#999">0</text>
+            <line x1="50" y1="88" x2="850" y2="88" stroke="#F3F4F6" stroke-width="1"/>
+            <!-- 매출원가(하단) + 판관비(상단) 12개월 -->
+            <rect x="60"  y="104" width="18" height="51" fill="#B8BCC4"/><rect x="60"  y="77"  width="18" height="27" fill="#7EA2EA"/>
+            <rect x="130" y="101" width="18" height="54" fill="#B8BCC4"/><rect x="130" y="71"  width="18" height="30" fill="#7EA2EA"/>
+            <rect x="200" y="101" width="18" height="54" fill="#B8BCC4"/><rect x="200" y="71"  width="18" height="30" fill="#7EA2EA"/>
+            <rect x="270" y="98"  width="18" height="57" fill="#B8BCC4"/><rect x="270" y="68"  width="18" height="30" fill="#7EA2EA"/>
+            <rect x="340" y="94"  width="18" height="61" fill="#B8BCC4"/><rect x="340" y="60"  width="18" height="34" fill="#7EA2EA"/>
+            <rect x="410" y="94"  width="18" height="61" fill="#B8BCC4"/><rect x="410" y="60"  width="18" height="34" fill="#7EA2EA"/>
+            <rect x="480" y="91"  width="18" height="64" fill="#B8BCC4"/><rect x="480" y="57"  width="18" height="34" fill="#7EA2EA"/>
+            <rect x="550" y="94"  width="18" height="61" fill="#B8BCC4"/><rect x="550" y="60"  width="18" height="34" fill="#7EA2EA"/>
+            <rect x="620" y="94"  width="18" height="61" fill="#B8BCC4"/><rect x="620" y="60"  width="18" height="34" fill="#7EA2EA"/>
+            <rect x="690" y="98"  width="18" height="57" fill="#B8BCC4"/><rect x="690" y="68"  width="18" height="30" fill="#7EA2EA"/>
+            <rect x="760" y="101" width="18" height="54" fill="#B8BCC4"/><rect x="760" y="71"  width="18" height="30" fill="#7EA2EA"/>
+            <rect x="830" y="101" width="18" height="54" fill="#B8BCC4"/><rect x="830" y="71"  width="18" height="30" fill="#7EA2EA"/>
+            <!-- 매출 라인 -->
+            <polyline points="69,60 139,57 209,54 279,50 349,47 419,44 489,40 559,44 629,47 699,50 769,54 839,57"
+              fill="none" stroke="#FF7A00" stroke-width="2.5" stroke-linejoin="round"/>
+            <circle cx="69" cy="60" r="4" fill="#FF7A00"/>
+            <circle cx="839" cy="57" r="4" fill="#FF7A00"/>
+            <text x="69"  y="52" text-anchor="middle" font-size="10" font-weight="700" fill="#FF7A00">28</text>
+            <text x="839" y="49" text-anchor="middle" font-size="10" font-weight="700" fill="#FF7A00">29</text>
+            <line x1="50" y1="155" x2="850" y2="155" stroke="#ddd" stroke-width="1"/>
+            <text x="69"  y="169" text-anchor="middle" font-size="10" fill="#666">1월</text>
+            <text x="139" y="169" text-anchor="middle" font-size="10" fill="#666">2월</text>
+            <text x="209" y="169" text-anchor="middle" font-size="10" fill="#666">3월</text>
+            <text x="279" y="169" text-anchor="middle" font-size="10" fill="#666">4월</text>
+            <text x="349" y="169" text-anchor="middle" font-size="10" fill="#666">5월</text>
+            <text x="419" y="169" text-anchor="middle" font-size="10" fill="#666">6월</text>
+            <text x="489" y="169" text-anchor="middle" font-size="10" fill="#666">7월</text>
+            <text x="559" y="169" text-anchor="middle" font-size="10" fill="#666">8월</text>
+            <text x="629" y="169" text-anchor="middle" font-size="10" fill="#666">9월</text>
+            <text x="699" y="169" text-anchor="middle" font-size="10" fill="#666">10월</text>
+            <text x="769" y="169" text-anchor="middle" font-size="10" fill="#666">11월</text>
+            <text x="839" y="169" text-anchor="middle" font-size="10" fill="#666">12월</text>
+          </svg>
+        </div>
+      </div>
+
+      <!-- 카드: 매출원가 VS. 매출 -->
+      <div class="card">
+        <div class="card-title"><span class="title-left">매출원가 VS. 매출</span><span class="card-unit">억원</span></div>
+        <div class="legend">
+          <div class="legend-item"><div class="legend-bar" style="background:#B8BCC4"></div>인건비</div>
+          <div class="legend-item"><div class="legend-bar" style="background:#D6D9DE"></div>외주비</div>
+          <div class="legend-item"><div class="legend-line" style="background:#FF7A00"></div>매출</div>
+        </div>
+        <div class="chart-area">
+          <svg width="100%" height="210" viewBox="0 0 900 210">
+            <line x1="50" y1="20" x2="50" y2="155" stroke="#ddd" stroke-width="1"/>
+            <text x="45" y="24"  text-anchor="end" font-size="9" fill="#999">40억</text>
+            <text x="45" y="90"  text-anchor="end" font-size="9" fill="#999">20억</text>
+            <text x="45" y="157" text-anchor="end" font-size="9" fill="#999">0</text>
+            <line x1="50" y1="88" x2="850" y2="88" stroke="#F3F4F6" stroke-width="1"/>
+            <!-- 인건비(하단) + 외주비(상단) 12개월 -->
+            <rect x="60"  y="125" width="18" height="30" fill="#B8BCC4"/><rect x="60"  y="105" width="18" height="20" fill="#D6D9DE"/>
+            <rect x="130" y="121" width="18" height="34" fill="#B8BCC4"/><rect x="130" y="101" width="18" height="20" fill="#D6D9DE"/>
+            <rect x="200" y="121" width="18" height="34" fill="#B8BCC4"/><rect x="200" y="101" width="18" height="20" fill="#D6D9DE"/>
+            <rect x="270" y="118" width="18" height="37" fill="#B8BCC4"/><rect x="270" y="94"  width="18" height="24" fill="#D6D9DE"/>
+            <rect x="340" y="114" width="18" height="41" fill="#B8BCC4"/><rect x="340" y="90"  width="18" height="24" fill="#D6D9DE"/>
+            <rect x="410" y="114" width="18" height="41" fill="#B8BCC4"/><rect x="410" y="90"  width="18" height="24" fill="#D6D9DE"/>
+            <rect x="480" y="111" width="18" height="44" fill="#B8BCC4"/><rect x="480" y="83"  width="18" height="28" fill="#D6D9DE"/>
+            <rect x="550" y="114" width="18" height="41" fill="#B8BCC4"/><rect x="550" y="90"  width="18" height="24" fill="#D6D9DE"/>
+            <rect x="620" y="114" width="18" height="41" fill="#B8BCC4"/><rect x="620" y="90"  width="18" height="24" fill="#D6D9DE"/>
+            <rect x="690" y="118" width="18" height="37" fill="#B8BCC4"/><rect x="690" y="94"  width="18" height="24" fill="#D6D9DE"/>
+            <rect x="760" y="121" width="18" height="34" fill="#B8BCC4"/><rect x="760" y="101" width="18" height="20" fill="#D6D9DE"/>
+            <rect x="830" y="121" width="18" height="34" fill="#B8BCC4"/><rect x="830" y="101" width="18" height="20" fill="#D6D9DE"/>
+            <!-- 매출 라인 -->
+            <polyline points="69,60 139,57 209,54 279,50 349,47 419,44 489,40 559,44 629,47 699,50 769,54 839,57"
+              fill="none" stroke="#FF7A00" stroke-width="2.5" stroke-linejoin="round"/>
+            <circle cx="69" cy="60" r="4" fill="#FF7A00"/>
+            <circle cx="839" cy="57" r="4" fill="#FF7A00"/>
+            <text x="69"  y="52" text-anchor="middle" font-size="10" font-weight="700" fill="#FF7A00">28</text>
+            <text x="839" y="49" text-anchor="middle" font-size="10" font-weight="700" fill="#FF7A00">29</text>
+            <line x1="50" y1="155" x2="850" y2="155" stroke="#ddd" stroke-width="1"/>
+            <text x="69"  y="169" text-anchor="middle" font-size="10" fill="#666">1월</text>
+            <text x="139" y="169" text-anchor="middle" font-size="10" fill="#666">2월</text>
+            <text x="209" y="169" text-anchor="middle" font-size="10" fill="#666">3월</text>
+            <text x="279" y="169" text-anchor="middle" font-size="10" fill="#666">4월</text>
+            <text x="349" y="169" text-anchor="middle" font-size="10" fill="#666">5월</text>
+            <text x="419" y="169" text-anchor="middle" font-size="10" fill="#666">6월</text>
+            <text x="489" y="169" text-anchor="middle" font-size="10" fill="#666">7월</text>
+            <text x="559" y="169" text-anchor="middle" font-size="10" fill="#666">8월</text>
+            <text x="629" y="169" text-anchor="middle" font-size="10" fill="#666">9월</text>
+            <text x="699" y="169" text-anchor="middle" font-size="10" fill="#666">10월</text>
+            <text x="769" y="169" text-anchor="middle" font-size="10" fill="#666">11월</text>
+            <text x="839" y="169" text-anchor="middle" font-size="10" fill="#666">12월</text>
+          </svg>
+        </div>
+      </div>
+
+      <!-- 카드: 판관비 VS. 매출 -->
+      <div class="card">
+        <div class="card-title"><span class="title-left">판관비 VS. 매출</span><span class="card-unit">억원</span></div>
+        <div class="legend">
+          <div class="legend-item"><div class="legend-bar" style="background:#7EA2EA"></div>관리인건비</div>
+          <div class="legend-item"><div class="legend-bar" style="background:#AEC6F2"></div>기타 판관비</div>
+          <div class="legend-item"><div class="legend-line" style="background:#FF7A00"></div>매출</div>
+        </div>
+        <div class="chart-area">
+          <svg width="100%" height="210" viewBox="0 0 900 210">
+            <line x1="50" y1="20" x2="50" y2="155" stroke="#ddd" stroke-width="1"/>
+            <text x="45" y="24"  text-anchor="end" font-size="9" fill="#999">40억</text>
+            <text x="45" y="90"  text-anchor="end" font-size="9" fill="#999">20억</text>
+            <text x="45" y="157" text-anchor="end" font-size="9" fill="#999">0</text>
+            <line x1="50" y1="88" x2="850" y2="88" stroke="#F3F4F6" stroke-width="1"/>
+            <rect x="60"  y="135" width="18" height="20" fill="#7EA2EA"/><rect x="60"  y="128" width="18" height="7" fill="#AEC6F2"/>
+            <rect x="130" y="135" width="18" height="20" fill="#7EA2EA"/><rect x="130" y="125" width="18" height="10" fill="#AEC6F2"/>
+            <rect x="200" y="135" width="18" height="20" fill="#7EA2EA"/><rect x="200" y="125" width="18" height="10" fill="#AEC6F2"/>
+            <rect x="270" y="135" width="18" height="20" fill="#7EA2EA"/><rect x="270" y="125" width="18" height="10" fill="#AEC6F2"/>
+            <rect x="340" y="131" width="18" height="24" fill="#7EA2EA"/><rect x="340" y="121" width="18" height="10" fill="#AEC6F2"/>
+            <rect x="410" y="131" width="18" height="24" fill="#7EA2EA"/><rect x="410" y="121" width="18" height="10" fill="#AEC6F2"/>
+            <rect x="480" y="131" width="18" height="24" fill="#7EA2EA"/><rect x="480" y="121" width="18" height="10" fill="#AEC6F2"/>
+            <rect x="550" y="131" width="18" height="24" fill="#7EA2EA"/><rect x="550" y="121" width="18" height="10" fill="#AEC6F2"/>
+            <rect x="620" y="131" width="18" height="24" fill="#7EA2EA"/><rect x="620" y="121" width="18" height="10" fill="#AEC6F2"/>
+            <rect x="690" y="135" width="18" height="20" fill="#7EA2EA"/><rect x="690" y="125" width="18" height="10" fill="#AEC6F2"/>
+            <rect x="760" y="135" width="18" height="20" fill="#7EA2EA"/><rect x="760" y="125" width="18" height="10" fill="#AEC6F2"/>
+            <rect x="830" y="135" width="18" height="20" fill="#7EA2EA"/><rect x="830" y="125" width="18" height="10" fill="#AEC6F2"/>
+            <polyline points="69,60 139,57 209,54 279,50 349,47 419,44 489,40 559,44 629,47 699,50 769,54 839,57"
+              fill="none" stroke="#FF7A00" stroke-width="2.5" stroke-linejoin="round"/>
+            <circle cx="69" cy="60" r="4" fill="#FF7A00"/>
+            <circle cx="839" cy="57" r="4" fill="#FF7A00"/>
+            <text x="69"  y="52" text-anchor="middle" font-size="10" font-weight="700" fill="#FF7A00">28</text>
+            <text x="839" y="49" text-anchor="middle" font-size="10" font-weight="700" fill="#FF7A00">29</text>
+            <line x1="50" y1="155" x2="850" y2="155" stroke="#ddd" stroke-width="1"/>
+            <text x="69"  y="169" text-anchor="middle" font-size="10" fill="#666">1월</text>
+            <text x="139" y="169" text-anchor="middle" font-size="10" fill="#666">2월</text>
+            <text x="209" y="169" text-anchor="middle" font-size="10" fill="#666">3월</text>
+            <text x="279" y="169" text-anchor="middle" font-size="10" fill="#666">4월</text>
+            <text x="349" y="169" text-anchor="middle" font-size="10" fill="#666">5월</text>
+            <text x="419" y="169" text-anchor="middle" font-size="10" fill="#666">6월</text>
+            <text x="489" y="169" text-anchor="middle" font-size="10" fill="#666">7월</text>
+            <text x="559" y="169" text-anchor="middle" font-size="10" fill="#666">8월</text>
+            <text x="629" y="169" text-anchor="middle" font-size="10" fill="#666">9월</text>
+            <text x="699" y="169" text-anchor="middle" font-size="10" fill="#666">10월</text>
+            <text x="769" y="169" text-anchor="middle" font-size="10" fill="#666">11월</text>
+            <text x="839" y="169" text-anchor="middle" font-size="10" fill="#666">12월</text>
+          </svg>
+        </div>
+      </div>
+
+      <!-- 카드: 판매비 VS. 매출 -->
+      <div class="card">
+        <div class="card-title"><span class="title-left">판매비 VS. 매출</span><span class="card-unit">억원</span></div>
+        <div class="legend">
+          <div class="legend-item"><div class="legend-bar" style="background:#7EA2EA"></div>판매비</div>
+          <div class="legend-item"><div class="legend-line" style="background:#FF7A00"></div>매출</div>
+        </div>
+        <div class="chart-area">
+          <svg width="100%" height="210" viewBox="0 0 900 210">
+            <line x1="50" y1="20" x2="50" y2="155" stroke="#ddd" stroke-width="1"/>
+            <text x="45" y="24"  text-anchor="end" font-size="9" fill="#999">40억</text>
+            <text x="45" y="90"  text-anchor="end" font-size="9" fill="#999">20억</text>
+            <text x="45" y="157" text-anchor="end" font-size="9" fill="#999">0</text>
+            <line x1="50" y1="88" x2="850" y2="88" stroke="#F3F4F6" stroke-width="1"/>
+            <rect x="60"  y="141" width="18" height="14" fill="#7EA2EA"/>
+            <rect x="130" y="139" width="18" height="16" fill="#7EA2EA"/>
+            <rect x="200" y="139" width="18" height="16" fill="#7EA2EA"/>
+            <rect x="270" y="139" width="18" height="16" fill="#7EA2EA"/>
+            <rect x="340" y="137" width="18" height="18" fill="#7EA2EA"/>
+            <rect x="410" y="137" width="18" height="18" fill="#7EA2EA"/>
+            <rect x="480" y="137" width="18" height="18" fill="#7EA2EA"/>
+            <rect x="550" y="137" width="18" height="18" fill="#7EA2EA"/>
+            <rect x="620" y="137" width="18" height="18" fill="#7EA2EA"/>
+            <rect x="690" y="139" width="18" height="16" fill="#7EA2EA"/>
+            <rect x="760" y="139" width="18" height="16" fill="#7EA2EA"/>
+            <rect x="830" y="139" width="18" height="16" fill="#7EA2EA"/>
+            <polyline points="69,60 139,57 209,54 279,50 349,47 419,44 489,40 559,44 629,47 699,50 769,54 839,57"
+              fill="none" stroke="#FF7A00" stroke-width="2.5" stroke-linejoin="round"/>
+            <circle cx="69" cy="60" r="4" fill="#FF7A00"/>
+            <circle cx="839" cy="57" r="4" fill="#FF7A00"/>
+            <text x="69"  y="52" text-anchor="middle" font-size="10" font-weight="700" fill="#FF7A00">28</text>
+            <text x="839" y="49" text-anchor="middle" font-size="10" font-weight="700" fill="#FF7A00">29</text>
+            <line x1="50" y1="155" x2="850" y2="155" stroke="#ddd" stroke-width="1"/>
+            <text x="69"  y="169" text-anchor="middle" font-size="10" fill="#666">1월</text>
+            <text x="139" y="169" text-anchor="middle" font-size="10" fill="#666">2월</text>
+            <text x="209" y="169" text-anchor="middle" font-size="10" fill="#666">3월</text>
+            <text x="279" y="169" text-anchor="middle" font-size="10" fill="#666">4월</text>
+            <text x="349" y="169" text-anchor="middle" font-size="10" fill="#666">5월</text>
+            <text x="419" y="169" text-anchor="middle" font-size="10" fill="#666">6월</text>
+            <text x="489" y="169" text-anchor="middle" font-size="10" fill="#666">7월</text>
+            <text x="559" y="169" text-anchor="middle" font-size="10" fill="#666">8월</text>
+            <text x="629" y="169" text-anchor="middle" font-size="10" fill="#666">9월</text>
+            <text x="699" y="169" text-anchor="middle" font-size="10" fill="#666">10월</text>
+            <text x="769" y="169" text-anchor="middle" font-size="10" fill="#666">11월</text>
+            <text x="839" y="169" text-anchor="middle" font-size="10" fill="#666">12월</text>
+          </svg>
+        </div>
+      </div>
+
+      <!-- 카드: R&D VS. 매출 -->
+      <div class="card">
+        <div class="card-title"><span class="title-left">R&amp;D VS. 매출</span><span class="card-unit">억원</span></div>
+        <div class="legend">
+          <div class="legend-item"><div class="legend-bar" style="background:#B8BCC4"></div>R&amp;D</div>
+          <div class="legend-item"><div class="legend-line" style="background:#FF7A00"></div>매출</div>
+        </div>
+        <div class="chart-area">
+          <svg width="100%" height="210" viewBox="0 0 900 210">
+            <line x1="50" y1="20" x2="50" y2="155" stroke="#ddd" stroke-width="1"/>
+            <text x="45" y="24"  text-anchor="end" font-size="9" fill="#999">40억</text>
+            <text x="45" y="90"  text-anchor="end" font-size="9" fill="#999">20억</text>
+            <text x="45" y="157" text-anchor="end" font-size="9" fill="#999">0</text>
+            <line x1="50" y1="88" x2="850" y2="88" stroke="#F3F4F6" stroke-width="1"/>
+            <rect x="60"  y="138" width="18" height="17" fill="#B8BCC4"/>
+            <rect x="130" y="137" width="18" height="18" fill="#B8BCC4"/>
+            <rect x="200" y="137" width="18" height="18" fill="#B8BCC4"/>
+            <rect x="270" y="135" width="18" height="20" fill="#B8BCC4"/>
+            <rect x="340" y="134" width="18" height="21" fill="#B8BCC4"/>
+            <rect x="410" y="134" width="18" height="21" fill="#B8BCC4"/>
+            <rect x="480" y="132" width="18" height="23" fill="#B8BCC4"/>
+            <rect x="550" y="134" width="18" height="21" fill="#B8BCC4"/>
+            <rect x="620" y="134" width="18" height="21" fill="#B8BCC4"/>
+            <rect x="690" y="135" width="18" height="20" fill="#B8BCC4"/>
+            <rect x="760" y="137" width="18" height="18" fill="#B8BCC4"/>
+            <rect x="830" y="137" width="18" height="18" fill="#B8BCC4"/>
+            <polyline points="69,60 139,57 209,54 279,50 349,47 419,44 489,40 559,44 629,47 699,50 769,54 839,57"
+              fill="none" stroke="#FF7A00" stroke-width="2.5" stroke-linejoin="round"/>
+            <circle cx="69" cy="60" r="4" fill="#FF7A00"/>
+            <circle cx="839" cy="57" r="4" fill="#FF7A00"/>
+            <text x="69"  y="52" text-anchor="middle" font-size="10" font-weight="700" fill="#FF7A00">28</text>
+            <text x="839" y="49" text-anchor="middle" font-size="10" font-weight="700" fill="#FF7A00">29</text>
+            <line x1="50" y1="155" x2="850" y2="155" stroke="#ddd" stroke-width="1"/>
+            <text x="69"  y="169" text-anchor="middle" font-size="10" fill="#666">1월</text>
+            <text x="139" y="169" text-anchor="middle" font-size="10" fill="#666">2월</text>
+            <text x="209" y="169" text-anchor="middle" font-size="10" fill="#666">3월</text>
+            <text x="279" y="169" text-anchor="middle" font-size="10" fill="#666">4월</text>
+            <text x="349" y="169" text-anchor="middle" font-size="10" fill="#666">5월</text>
+            <text x="419" y="169" text-anchor="middle" font-size="10" fill="#666">6월</text>
+            <text x="489" y="169" text-anchor="middle" font-size="10" fill="#666">7월</text>
+            <text x="559" y="169" text-anchor="middle" font-size="10" fill="#666">8월</text>
+            <text x="629" y="169" text-anchor="middle" font-size="10" fill="#666">9월</text>
+            <text x="699" y="169" text-anchor="middle" font-size="10" fill="#666">10월</text>
+            <text x="769" y="169" text-anchor="middle" font-size="10" fill="#666">11월</text>
+            <text x="839" y="169" text-anchor="middle" font-size="10" fill="#666">12월</text>
+          </svg>
+        </div>
+      </div>
+
+      <!-- 카드: 손익분기점(BEP) -->
+      <div class="card">
+        <div class="card-title"><span class="title-left">손익분기점 (BEP)</span><span class="card-unit">억원</span></div>
+        <div class="legend">
+          <div class="legend-item"><div class="legend-bar" style="background:#7EA2EA"></div>매출</div>
+          <div class="legend-item"><div class="legend-line" style="background:#FF7A00"></div>매출 추세</div>
+          <div class="legend-item"><div class="legend-line dash" style="border-color:#6356E8"></div>BEP 기준선 (30억)</div>
+        </div>
+        <div class="chart-area">
+          <svg width="100%" height="210" viewBox="0 0 900 210">
+            <line x1="50" y1="20" x2="50" y2="155" stroke="#ddd" stroke-width="1"/>
+            <text x="45" y="24"  text-anchor="end" font-size="9" fill="#999">40억</text>
+            <text x="45" y="90"  text-anchor="end" font-size="9" fill="#999">20억</text>
+            <text x="45" y="157" text-anchor="end" font-size="9" fill="#999">0</text>
+            <!-- BEP 기준선 -->
+            <line x1="50" y1="54" x2="850" y2="54" stroke="#6356E8" stroke-width="2" stroke-dasharray="6,4"/>
+            <text x="855" y="58" text-anchor="start" font-size="10" fill="#6356E8" font-weight="700">BEP 30억</text>
+            <!-- 매출 막대 12개월 -->
+            <rect x="60"  y="60" width="18" height="95" fill="#7EA2EA"/>
+            <rect x="130" y="57" width="18" height="98" fill="#7EA2EA"/>
+            <rect x="200" y="54" width="18" height="101" fill="#7EA2EA"/>
+            <rect x="270" y="50" width="18" height="105" fill="#7EA2EA"/>
+            <rect x="340" y="47" width="18" height="108" fill="#7EA2EA"/>
+            <rect x="410" y="44" width="18" height="111" fill="#7EA2EA"/>
+            <rect x="480" y="40" width="18" height="115" fill="#7EA2EA"/>
+            <rect x="550" y="44" width="18" height="111" fill="#7EA2EA"/>
+            <rect x="620" y="47" width="18" height="108" fill="#7EA2EA"/>
+            <rect x="690" y="50" width="18" height="105" fill="#7EA2EA"/>
+            <rect x="760" y="54" width="18" height="101" fill="#7EA2EA"/>
+            <rect x="830" y="57" width="18" height="98"  fill="#7EA2EA"/>
+            <!-- 매출 추세선 -->
+            <polyline points="69,60 139,57 209,54 279,50 349,47 419,44 489,40 559,44 629,47 699,50 769,54 839,57"
+              fill="none" stroke="#FF7A00" stroke-width="2.5" stroke-linejoin="round"/>
+            <circle cx="69" cy="60" r="4" fill="#FF7A00"/>
+            <circle cx="839" cy="57" r="4" fill="#FF7A00"/>
+            <text x="69"  y="52" text-anchor="middle" font-size="10" font-weight="700" fill="#FF7A00">28</text>
+            <text x="839" y="49" text-anchor="middle" font-size="10" font-weight="700" fill="#FF7A00">29</text>
+            <line x1="50" y1="155" x2="850" y2="155" stroke="#ddd" stroke-width="1"/>
+            <text x="69"  y="169" text-anchor="middle" font-size="10" fill="#666">1월</text>
+            <text x="139" y="169" text-anchor="middle" font-size="10" fill="#666">2월</text>
+            <text x="209" y="169" text-anchor="middle" font-size="10" fill="#666">3월</text>
+            <text x="279" y="169" text-anchor="middle" font-size="10" fill="#666">4월</text>
+            <text x="349" y="169" text-anchor="middle" font-size="10" fill="#666">5월</text>
+            <text x="419" y="169" text-anchor="middle" font-size="10" fill="#666">6월</text>
+            <text x="489" y="169" text-anchor="middle" font-size="10" fill="#666">7월</text>
+            <text x="559" y="169" text-anchor="middle" font-size="10" fill="#666">8월</text>
+            <text x="629" y="169" text-anchor="middle" font-size="10" fill="#666">9월</text>
+            <text x="699" y="169" text-anchor="middle" font-size="10" fill="#666">10월</text>
+            <text x="769" y="169" text-anchor="middle" font-size="10" fill="#666">11월</text>
+            <text x="839" y="169" text-anchor="middle" font-size="10" fill="#666">12월</text>
+          </svg>
+        </div>
+      </div>
+
+    </div><!-- /section 3 -->
+
+  </div><!-- /content -->
+</div><!-- /main -->
+
+</body>
+</html>

@@ -240,7 +240,7 @@
 
     <div class="warn risk">
       <span class="ic">⛔</span>
-      <span><b>[검증 반영 · 최우선 리스크]</b> VDI ↔ GitHub ↔ 회사PC 릴레이는 데이터 유출 통로가 될 수 있음. <b>실데이터·개인정보·민감 실적치가 SQL 결과·핸드오프 메모·verify 로그에 섞여 반출되지 않도록</b> 커밋 전 스캔 규칙을 <code>CLAUDE.md</code>·<code>AIPRO.md</code> 최상단에 명문화.</span>
+      <span><b>[검증 반영 · 최우선 리스크]</b> VDI ↔ GitHub ↔ 회사PC 릴레이는 데이터 유출 통로가 될 수 있음. <b>실데이터·개인정보·민감 실적치가 SQL 결과·핸드오프 메모·verify 로그에 섞여 반출되지 않도록</b> 커밋 전 스캔 규칙을 <code>CLAUDE.md</code>·<code>AIPRO.md</code> 최상단에 명문화. <b>추가 조치</b> : (1) <code>work/data/</code> 커밋 전 정규식 기반 PII 자동 스캔을 pre-commit hook으로 강제(이름·전화번호·주민번호 패턴 등) — 문서화만으로는 사람의 실수를 못 막음. (2) 데이터 반출 승인을 동료 A 단독 판단이 아닌 PM(동료 C) 2차 확인을 거치는 <b>2인 승인 구조</b>로 변경.</span>
     </div>
 
     <!-- 데이터 흐름 -->
@@ -300,20 +300,20 @@
         <td><span class="wk-pill" style="background:var(--g1);">Wk 3–5</span></td>
         <td>동료 B (프론트)</td>
         <td class="dep">Phase 0</td>
-        <td class="dod">대표 KPI 1~2개 화면 시안·프로토타입 완성 · 마스킹/합성 데이터로 동작 · UX 검토 통과. <i>리스크 최저, 데이터 의존 낮음.</i></td>
+        <td class="dod">대표 KPI 1~2개 화면 시안·프로토타입 완성 · 마스킹/합성 데이터로 동작 · UX 검토 통과. <i>리스크 최저, 데이터 의존 낮음. Task 2와 병렬 착수.</i></td>
       </tr>
       <tr>
         <td class="tno" style="color:var(--g2);">2</td>
         <td><b>Task 2</b><br>데이터 모델</td>
-        <td><span class="wk-pill" style="background:var(--g2);">Wk 5–8</span></td>
+        <td><span class="wk-pill" style="background:var(--g2);">Wk 3–6</span></td>
         <td>동료 A (데이터)</td>
         <td class="dep">Phase 0</td>
-        <td class="dod">SQL·ERD 확정 · Impala 검증으로 <b>정합도 ±5% 이내</b> 입증 · 시안 지표와 매핑 완료.</td>
+        <td class="dod">SQL·ERD 확정 · Impala 검증으로 <b>정합도 ±5% 이내</b> 입증 · 시안 지표와 매핑 완료. <i>담당자·의존성 다름 → Task 3와 동시 착수.</i></td>
       </tr>
       <tr>
         <td class="tno" style="color:var(--g3);">3</td>
         <td><b>Task 1</b><br>웹 재구축</td>
-        <td><span class="wk-pill" style="background:var(--g3);">Wk 8–12</span></td>
+        <td><span class="wk-pill" style="background:var(--g3);">Wk 6–10</span></td>
         <td>동료 C (PM)</td>
         <td class="dep">Task 3 + Task 2</td>
         <td class="dod">Web/WAS 실제 구현 · 시안+데이터 모델 통합 · 지표 10~15개 재현 · 기존 Tableau 화면 대비 완성도 평가.</td>
@@ -321,7 +321,7 @@
       <tr>
         <td class="tno" style="color:var(--g4);">4</td>
         <td><b>Task 4</b><br>자동 리포트</td>
-        <td><span class="wk-pill" style="background:var(--g4);">Wk 12–14</span></td>
+        <td><span class="wk-pill" style="background:var(--g4);">Wk 10–12</span></td>
         <td>동료 C + 동료 A</td>
         <td class="dep">Task 1</td>
         <td class="dod">월별 리포트 자동/반자동 생성 · 앞선 3개 산출물 기반 · 최종 검증 로그 정리.</td>
@@ -329,14 +329,16 @@
       <tr style="background:#f7f3fc;">
         <td class="tno" style="color:var(--z-ops);">5</td>
         <td><b>Task 5</b> <span class="lg-new">신규</span><br>운영 전환 (조건부)</td>
-        <td><span class="wk-pill" style="background:var(--z-ops);">Wk 14~ +버퍼</span></td>
+        <td><span class="wk-pill" style="background:var(--z-ops);">Wk 12~ +버퍼</span></td>
         <td>동료 C</td>
         <td class="dep">Task 1·4</td>
         <td class="dod">호스팅·인증·배포·유지보수 주체 결정 · 운영 전환 가능 여부(Y/N + 조건) 판정. <b>가설의 "운영·유지보수" 검증 대응.</b></td>
       </tr>
     </table>
 
-    <div class="warn"><span class="ic">⏱</span><span><b>[검증 반영 · 타임라인]</b> 7월 킥오프 + Phase0 2주 + Wk3~14 → 10월 말 마감에 <b>버퍼 0</b>. Task가 직렬 의존이라 한 곳만 밀리면 데드라인 초과. <b>각 Task 최소 1주 버퍼</b> 확보 권고. Task 5는 데드라인 외 조건부 트랙으로 분리 가능.</span></div>
+    <div class="warn good"><span class="ic">🟢</span><span><b>[검증 반영 · 신규]</b> Task2·3는 담당자·의존관계가 독립적이므로 순차가 아닌 <b>병렬 착수</b> 권고. 확보되는 약 2주는 그대로 프로젝트 버퍼로 전환.</span></div>
+
+    <div class="warn"><span class="ic">⏱</span><span><b>[검증 반영 · 수정]</b> 7/3 킥오프 기준 Phase0 2주 + Wk3~14 종료 시점은 <b>10/9 전후</b>. 마감이 '10월 말'이 맞다면 약 3주 버퍼 확보 가능 — 단, 정확한 마감일을 킥오프에서 먼저 확정할 것. 마감일이 10월 초·중순이라면 버퍼는 그만큼 줄어드니 재계산 필요.</span></div>
 
     <div class="success-box">
       <h4>■ 검증 성공 기준 (Exit Criteria) — 원본 미정의분, 킥오프에서 확정 필요</h4>
@@ -345,6 +347,7 @@
         <div class="sc"><span class="k">2</span><span><b>공수·리드타임 절감률</b> — 기존 전문가 방식 대비 man-day / 기간</span></div>
         <div class="sc"><span class="k">3</span><span><b>화면 재현율</b> — 대상 지표 N개 중 재현 성공 개수</span></div>
         <div class="sc"><span class="k">4</span><span><b>운영 전환 가능 여부</b> — Y/N + 전환 조건 명시</span></div>
+        <div class="sc"><span class="k">5</span><span><b>[검증 반영 · 신규] 이해관계자 만족도</b> — 실사용 부서(사업부장 등) 대상 화면 품질·사용성 정성 평가(5점 척도 등), 정량 지표 통과와 별개로 확인. 정량 재현율은 높아도 실무 적용 가능성이 낮으면 Task 5(운영전환) 판단에 반영.</span></div>
       </div>
       <div class="note" style="margin-top:12px;">※ <b>비교 기준선(Baseline) 선확보</b>: "전문가 없이 가능한가"를 정량 입증하려면 기존 Tableau 방식의 공수·기간·품질을 대조군으로 먼저 측정해야 함.</div>
     </div>
@@ -396,7 +399,7 @@
         </div>
         <div class="rnr-card data">
           <div class="rhead"><span class="rname">동료 A — 데이터</span><span class="renv">AIPro · VDI</span></div>
-          <div class="rrole">SQL 설계·검증 · ERD 작성 · Impala 데이터 검증 · <b>데이터 반출 승인(비식별화 확인)</b></div>
+          <div class="rrole">SQL 설계·검증 · ERD 작성 · Impala 데이터 검증 · <b>데이터 반출 승인(비식별화 확인, PM 2차 확인 필요)</b></div>
           <span class="bus">⚑ VDI/Impala 단독 접근 — 데이터 반출 게이트키퍼, 대체자 확보 필요</span>
         </div>
         <div class="rnr-card front">
@@ -414,6 +417,7 @@
         <div class="decstep"><span class="dn">5</span><span><b>컨텍스트 공유 방식</b> 결정 (릴레이 or Plan B)</span></div>
         <div class="decstep"><span class="dn">6</span><span><b>데이터 반출 승인 절차</b> <span class="lg-new">신규</span> — 누가 무엇을 승인하는가</span></div>
         <div class="decstep"><span class="dn">7</span><span><b>성공 기준(Exit Criteria)</b> <span class="lg-new">신규</span> — VIEW 2 정량 지표 확정</span></div>
+        <div class="decstep"><span class="dn">8</span><span><b>[검증 반영 · 신규]</b> 동료 A·B의 실제 SQL/디자인 경력 수준 확인 및 문서화 — 가설이 검증하려는 건 '비전문가 + AI'이므로, 두 분이 이미 전문가 수준 배경이 있다면 가설 자체를 '준전문가 + AI 도구'로 재정의할 것.</span></div>
       </div>
     </div>
     <div class="note">※ 결정사항 각 건에 <b>오너·기한(due date)</b>을 붙여 킥오프 아웃풋 = "누가 언제까지"로 관리. 1인 이탈 대비(bus factor)를 킥오프에서 한 줄이라도 합의할 것.</div>

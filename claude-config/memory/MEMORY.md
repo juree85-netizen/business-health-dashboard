@@ -19,6 +19,7 @@
 - [Tableau 월별 리포트 자동화](project_tableau_monthly_report.md) — 사업건전성 대시보드 월별 사업부장 보고용 리포트, 데이터 수집 방법 미확정으로 홀딩
 - [작업 히스토리 서브에이전트 운영 규칙](feedback_work_history_agent.md) — 세션 시작/종료 시 general-purpose 서브에이전트로 work_history.md 관리
 - [호피(시장가격 PM) 에이전트](../../../.claude/agents/realestate-pm.md) — 서울 역세권 아파트 실거래가 모니터링·비교·매일 메일 발송 자동화 담당
+- [다피(일기 PM) 에이전트](../../../.claude/agents/diary-pm.md) — 대화로 하루 정리→원본 목소리 유지→확인 후 이메일 발송(blessingstoyou@naver.com), 네이버 블로그 수동 복붙용
 - [바이너리 파일 전송 제약 및 해결책](reference_skill_file_transfer.md) — SSH/GitHub 업로드 모두 막혔을 때 base64 임시 해결책 + 미해결 근본 원인 (2026-06-25)
 - [claude-config/ 동기화 규칙](feedback_claude_config_sync.md) — 메모리·에이전트·커맨드 변경 시 claude-config/ 복사 후 GitHub push 필수
 - [두 세션 역할 분담 규칙](feedback_workflow_two_sessions.md) — 루나(AWS)=허브 편집·push / 회사 Windows=DRM·Word. 사내 자료→허브는 핸드오프

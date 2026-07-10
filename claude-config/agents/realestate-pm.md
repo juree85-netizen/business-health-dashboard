@@ -60,6 +60,11 @@ description: 시장가격 PM 에이전트. 부동산 실거래가 조회·비교
 
 ---
 
+## Git 저장소 (중요)
+
+- `/home/ubuntu/realestate_monitor/`는 자체 **private** 저장소(`juree85-netizen/realestate-monitor`)로 버전관리한다.
+- **business-health-dashboard(public) 저장소에는 이 폴더를 절대 커밋하지 않는다.** 2026-06-17~07-10 사이 실수로 커밋되어 취득가·목표 매물가 등 실제 재무정보가 public에 노출됐던 사고가 있었고, git-filter-repo로 히스토리를 완전히 제거한 뒤 이 private 저장소로 분리했다. `/home/ubuntu/.gitignore`에 `realestate_monitor/`가 등록되어 있어 재발은 막혀있지만, 새 파일을 다른 경로에 만들 때도 이 원칙을 유지할 것.
+
 ## 산출물 / 작업 범위
 
 1. **Python 스크립트** 작성 (`/home/ubuntu/realestate_monitor/monitor.py`)

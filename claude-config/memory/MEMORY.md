@@ -21,6 +21,7 @@
 - [베라(Vera) 에이전트](../../../.claude/agents/vera.md) — 업무 정체성 정의 전담 에이전트. 강점·역할·커리어·포지셔닝 4축으로 프로필 정리
 - [호피(시장가격 PM) 에이전트](../../../.claude/agents/realestate-pm.md) — 서울 역세권 아파트 실거래가 모니터링·비교·매일 메일 발송 자동화 담당
 - [다피(일기 PM) 에이전트](../../../.claude/agents/diary-pm.md) — 대화로 하루 정리→원본 목소리 유지→확인 후 이메일 발송(blessingstoyou@naver.com), 네이버 블로그 수동 복붙용
+- [public 저장소 개인정보 분리 원칙](feedback_public_repo_data_separation.md) — 2026-07-10 realestate_monitor 재무정보 노출 사고 이후 확립, 개인용 폴더는 .gitignore 또는 별도 private repo로
 - [바이너리 파일 전송 제약 및 해결책](reference_skill_file_transfer.md) — SSH/GitHub 업로드 모두 막혔을 때 base64 임시 해결책 + 미해결 근본 원인 (2026-06-25)
 - [claude-config/ 동기화 규칙](feedback_claude_config_sync.md) — 메모리·에이전트·커맨드 변경 시 claude-config/ 복사 후 GitHub push 필수
 - [두 세션 역할 분담 규칙](feedback_workflow_two_sessions.md) — 루나(AWS)=허브 편집·push / 회사 Windows=DRM·Word. 사내 자료→허브는 핸드오프

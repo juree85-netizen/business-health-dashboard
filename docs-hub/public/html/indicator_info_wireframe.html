@@ -296,8 +296,83 @@
     .detail-panel.open { width: 360px; min-width: 360px; }
   }
 </style>
+  <link rel="icon" href="data:,">
+  <style>
+:root{
+  --gx-navy:#1E3079; --gx-navy-2:#17235c;
+  --gx-teal:#17B8B8; --gx-side-text:#B8C6DB;
+  --gx-ink:#354052; --gx-sub:#6A798E; --gx-line:#E2E8F0;
+}
+.gx-sidebar{
+  width:210px; min-width:210px; height:100vh;
+  background:var(--gx-navy); color:var(--gx-side-text);
+  display:flex; flex-direction:column; flex-shrink:0; overflow-y:auto;
+  font-family:'Malgun Gothic','Noto Sans KR',sans-serif;
+}
+.gx-logo{
+  padding:16px 16px 14px; font-size:14px; font-weight:700; color:#fff;
+  border-bottom:1px solid rgba(255,255,255,.10); display:flex; align-items:center; gap:8px;
+}
+.gx-logo-mark{ font-size:15px; }
+.gx-menu{ flex:1; padding:8px 0; }
+.gx-mi{
+  display:flex; align-items:center; gap:6px;
+  padding:9px 16px; font-size:12px; color:var(--gx-side-text);
+  text-decoration:none; cursor:pointer;
+}
+.gx-mi:hover{ background:rgba(255,255,255,.08); color:#fff; }
+.gx-mi.gx-active{
+  background:var(--gx-teal); color:#fff; font-weight:700;
+  border-radius:0 18px 18px 0; margin-right:8px;
+}
+.gx-parent{ font-weight:700; color:#CBD8E8; cursor:default; }
+.gx-parent:hover{ background:none; color:#CBD8E8; }
+.gx-lv1{ padding-left:28px; }
+.gx-lv2{ padding-left:42px; }
+.gx-caret{ margin-left:auto; font-size:9px; opacity:.6; }
+.gx-divider{ height:1px; background:rgba(255,255,255,.09); margin:6px 12px; }
+.gx-header{
+  height:56px; flex-shrink:0; background:#fff;
+  border-bottom:1px solid var(--gx-line); box-shadow:0 1px 3px rgba(0,0,0,.04);
+  display:flex; align-items:center; gap:10px; padding:0 22px;
+  font-family:'Malgun Gothic','Noto Sans KR',sans-serif;
+}
+.gx-title{ font-size:16px; font-weight:800; color:#1A1A1A; margin:0; }
+.gx-crumb{ font-size:12px; color:var(--gx-sub); }
+.gx-spacer{ flex:1; }
+.gx-status{
+  display:inline-flex; align-items:center; gap:6px;
+  padding:4px 10px; border:1px solid #BFE7E7; background:#E9F8F8;
+  color:#0E8A8A; border-radius:14px; font-size:11px; font-weight:600;
+}
+.gx-dot{ width:7px; height:7px; border-radius:50%; background:var(--gx-teal); }
+.gx-badge{
+  display:inline-flex; align-items:center; padding:4px 10px;
+  border:1px solid #CBD5E0; background:#F8FAFC; color:var(--gx-sub);
+  border-radius:13px; font-size:11px; font-weight:500; white-space:nowrap;
+}
+.gx-select{
+  height:30px; padding:0 10px; border:1px solid #CBD5E0; border-radius:4px;
+  font-size:12px; color:var(--gx-ink); background:#fff; cursor:pointer;
+  font-family:inherit;
+}
+.gx-footer{
+  flex-shrink:0; padding:8px 20px; background:#F0F2F5;
+  border-top:1px solid var(--gx-line); text-align:right;
+  font-size:10.5px; color:#A0A8B8;
+  font-family:'Malgun Gothic','Noto Sans KR',sans-serif;
+}
+.gx-sr-only{
+  position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+}
+@media (max-width:1280px){
+  .gx-crumb{ display:none; }
+  .gx-badge, .gx-status{ font-size:10px; padding:3px 8px; }
+}
+</style>
 </head>
-<body>
+<body data-page="indicator">
 
 <!-- ══ 사이드바 ══ -->
 <div class="sidebar">
@@ -612,6 +687,146 @@ document.getElementById("detailClose").addEventListener("click", closeDetail);
 
 // 초기 렌더
 renderTable();
+</script>
+<script>
+window.SITE = {
+  baseMonth:   '2026년 06월',
+  updateShort: '매월 10일',
+  updateFull:  '매월 10일 (실적) · 23일 (속보)',
+  statusText:  '사업 건전성: 양호',
+  showStatus:  true,
+  products: [
+    'Brity Automation', 'Knox Portal', 'Knox Teams',
+    'Knox Meeting', 'Knox Drive', 'Knox EFSS', 'Copilot'
+  ],
+  menu: [
+    { kind:'item',   label:'사업부 대시보드', page:'bizunit',   href:'bizunit_dashboard_wireframe.html' },
+    { kind:'item',   label:'사업건전성 현황', page:'health',    href:'biz_health_status_wireframe.html' },
+    { kind:'divider' },
+    { kind:'parent', label:'사업건전성 영역별 현황' },
+    { kind:'parent', label:'재무', level:1 },
+    { kind:'item',   label:'성장',        page:'growth',     href:'growth_wireframe.html',            level:2 },
+    { kind:'item',   label:'효율/수익',    page:'efficiency', href:'efficiency_profit_wireframe.html', level:2 },
+    { kind:'item',   label:'시장',        page:'market',     href:'market_wireframe.html',            level:1 },
+    { kind:'item',   label:'영업',        page:'sales',      href:'sales_main_wireframe.html',        level:1 },
+    { kind:'divider' },
+    { kind:'item',   label:'고객 현황',      page:'customer', href:'customer_status_wireframe.html' },
+    { kind:'item',   label:'매출/원가 현황', page:'revcost',  href:'revenue_cost_wireframe.html' },
+    { kind:'divider' },
+    { kind:'parent', label:'지표 정보' },
+    { kind:'item',   label:'지표',          page:'indicator', href:'indicator_info_wireframe.html',   level:1 },
+    { kind:'item',   label:'지표 테이블',    page:'indtable',  href:'indicator_table_wireframe.html',  level:1 },
+    { kind:'item',   label:'지표 원천데이터', page:'indsource', href:'indicator_source_wireframe.html', level:1 },
+    { kind:'divider' },
+    { kind:'item',   label:'로그아웃', page:'logout', href:'#' }
+  ],
+  pages: {
+    bizunit:   { title:'사업부 대시보드' },
+    health:    { title:'사업건전성 현황' },
+    growth:    { title:'성장',           crumb:'재무 › 성장' },
+    efficiency:{ title:'효율/수익',       crumb:'재무 › 효율/수익' },
+    market:    { title:'시장',           crumb:'재무 › 시장' },
+    sales:     { title:'영업 (Sales)' },
+    customer:  { title:'고객 현황 (CS)' },
+    revcost:   { title:'매출/원가 현황' },
+    indicator: { title:'지표',           crumb:'지표 정보 › 지표' },
+    indtable:  { title:'지표 테이블',     crumb:'지표 정보 › 지표 테이블' },
+    indsource: { title:'지표 원천데이터',  crumb:'지표 정보 › 지표 원천데이터' }
+  }
+};
+</script>
+<script>
+(function () {
+  var S = window.SITE;
+  if (!S) { console.error('[app.js] config.js(SITE)를 먼저 로드하세요.'); return; }
+
+  var pageKey = document.body.getAttribute('data-page') || '';
+  var meta = S.pages[pageKey] || { title: document.title || '' };
+
+  var product = null;
+  try { product = localStorage.getItem('bh_product'); } catch (e) {}
+  if (!product || S.products.indexOf(product) < 0) product = S.products[0];
+
+  var esc = function (s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  };
+
+  function buildSidebar() {
+    var el = document.querySelector('.sidebar');
+    if (!el) return;
+    el.className = 'gx-sidebar';
+    var h = '<div class="gx-logo"><span class="gx-logo-mark">&#128202;</span> 사업건전성</div>';
+    h += '<nav class="gx-menu" aria-label="주 메뉴">';
+    S.menu.forEach(function (m) {
+      if (m.kind === 'divider') { h += '<div class="gx-divider"></div>'; return; }
+      var lvl = m.level ? (' gx-lv' + m.level) : '';
+      if (m.kind === 'parent') {
+        h += '<div class="gx-mi gx-parent' + lvl + '">' + esc(m.label) +
+             ' <span class="gx-caret">▾</span></div>';
+        return;
+      }
+      var active = (m.page === pageKey) ? ' gx-active' : '';
+      h += '<a class="gx-mi' + lvl + active + '" href="' + esc(m.href) + '"' +
+           (active ? ' aria-current="page"' : '') + '>' + esc(m.label) + '</a>';
+    });
+    h += '</nav>';
+    el.innerHTML = h;
+  }
+
+  function buildHeader() {
+    var main = document.querySelector('.main');
+    if (!main) return;
+    var el = main.querySelector('.header');
+    if (!el) { el = document.createElement('div'); main.insertBefore(el, main.firstChild); }
+    el.className = 'gx-header';
+
+    var h = '<h1 class="gx-title">' + esc(meta.title) + '</h1>';
+    if (meta.crumb) h += '<span class="gx-crumb">' + esc(meta.crumb) + '</span>';
+    h += '<div class="gx-spacer"></div>';
+    if (S.showStatus) {
+      h += '<span class="gx-status"><span class="gx-dot"></span>' + esc(S.statusText) + '</span>';
+    }
+    h += '<label class="gx-sr-only" for="gx-product">상품 선택</label>';
+    h += '<select class="gx-select" id="gx-product">';
+    S.products.forEach(function (p) {
+      h += '<option' + (p === product ? ' selected' : '') + '>' + esc(p) + '</option>';
+    });
+    h += '</select>';
+    h += '<span class="gx-badge">기준월: ' + esc(S.baseMonth) + '</span>';
+    h += '<span class="gx-badge">업데이트: ' + esc(S.updateShort) + '</span>';
+    el.innerHTML = h;
+
+    var sel = document.getElementById('gx-product');
+    if (sel) sel.addEventListener('change', function () {
+      try { localStorage.setItem('bh_product', this.value); } catch (e) {}
+      buildFooter();
+    });
+  }
+
+  function buildFooter() {
+    var main = document.querySelector('.main');
+    if (!main) return;
+    var el = main.querySelector('.footer, .gx-footer');
+    if (!el) { el = document.createElement('div'); main.appendChild(el); }
+    el.className = 'gx-footer';
+    var sel = document.getElementById('gx-product');
+    var p = sel ? sel.value : product;
+    el.innerHTML = '기준: ' + esc(S.baseMonth) + ' &nbsp;|&nbsp; 상품: ' + esc(p) +
+                   ' &nbsp;|&nbsp; 업데이트: ' + esc(S.updateFull);
+  }
+
+  function run() {
+    document.title = (meta.title ? meta.title + ' — ' : '') + '사업건전성';
+    buildSidebar();
+    buildHeader();
+    buildFooter();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', run);
+  } else { run(); }
+})();
 </script>
 </body>
 </html>

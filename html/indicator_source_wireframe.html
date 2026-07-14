@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>지표 원천데이터 — 사업건전성</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; display:flex; height:100vh; background:#F5F7FA; font-size:12px; }
+
+/* ── Sidebar ── */
+.sidebar { width:200px; min-width:200px; background:#1E3079; color:#B8C6DB; display:flex; flex-direction:column; padding:0; }
+.sidebar-logo { padding:18px 16px 14px; font-size:13px; font-weight:700; color:#fff; border-bottom:1px solid rgba(255,255,255,0.08); }
+.sidebar-menu { flex:1; overflow-y:auto; padding:8px 0; }
+.menu-item { padding:9px 16px; cursor:pointer; font-size:11.5px; color:#B8C6DB; display:flex; align-items:center; gap:6px; }
+.menu-item:hover { background:rgba(255,255,255,0.07); }
+.menu-item.active { background:#17B8B8; color:#fff; font-weight:600; border-radius:0 20px 20px 0; margin-right:8px; }
+.menu-item.parent { font-weight:600; color:#CBD8E8; }
+.menu-item.sub { padding-left:28px; font-size:11px; }
+.menu-item.sub2 { padding-left:40px; font-size:11px; }
+.menu-divider { height:1px; background:rgba(255,255,255,0.07); margin:6px 0; }
+.menu-arrow { margin-left:auto; font-size:9px; opacity:0.6; }
+
+/* ── Main ── */
+.main { flex:1; display:flex; flex-direction:column; overflow:hidden; }
+.header { height:54px; background:#fff; border-bottom:1px solid #E2E8F0; padding:0 24px; display:flex; align-items:center; gap:10px; flex-shrink:0; box-shadow:0 1px 3px rgba(0,0,0,0.04); }
+.header-title { font-size:15px; font-weight:700; color:#354052; }
+.header-spacer { flex:1; }
+.badge { display:inline-flex; align-items:center; padding:4px 10px; border-radius:12px; font-size:11px; font-weight:500; border:1px solid #CBD5E0; color:#6A798E; background:#F8FAFC; }
+.header-select { height:30px; padding:0 10px; border:1px solid #CBD5E0; border-radius:4px; font-size:12px; font-family:'Malgun Gothic',sans-serif; color:#354052; background:#fff; cursor:pointer; }
+.content { flex:1; overflow-y:auto; padding:16px 20px 24px; }
+.footer { padding:8px 20px; background:#F0F2F5; border-top:1px solid #E2E8F0; font-size:10.5px; color:#A0A8B8; text-align:right; flex-shrink:0; }
+
+/* ── Section / Filters ── */
+.sec { background:#fff; border:1px solid #E2E8F0; border-radius:4px; box-shadow:0 1px 3px rgba(0,0,0,0.04); padding:14px 16px; margin-bottom:16px; }
+.filterbar { display:flex; align-items:center; gap:8px; margin-bottom:12px; flex-wrap:wrap; }
+.date-in { height:28px; padding:0 8px; border:1px solid #CBD5E0; border-radius:4px; font-size:11px; color:#354052; background:#fff; min-width:112px; }
+.flabel { font-size:11px; color:#6A798E; }
+.sel { height:28px; padding:0 26px 0 9px; border:1px solid #CBD5E0; border-radius:4px; font-size:11px; color:#354052; background:#fff url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 10 10'><path d='M1 3l4 4 4-4' stroke='%236A798E' fill='none' stroke-width='1.5'/></svg>") no-repeat right 9px center; font-family:inherit; cursor:pointer; appearance:none; -webkit-appearance:none; }
+.excel-btn { margin-left:auto; height:28px; padding:0 12px; border:1px solid #17B8B8; color:#0E8A8A; background:#E6F7F7; border-radius:4px; font-size:11px; font-weight:600; display:inline-flex; align-items:center; gap:5px; cursor:pointer; }
+.excel-btn:hover { background:#D4F0F0; }
+.tbl-title { font-size:13.5px; font-weight:700; color:#354052; margin:6px 0 8px; }
+.tbl-title.mt { margin-top:20px; }
+
+/* ── Tables ── */
+.tbl-wrap { overflow-x:auto; border:1px solid #E2E8F0; border-radius:4px; }
+table.dt { border-collapse:separate; border-spacing:0; width:100%; font-size:11px; white-space:nowrap; }
+table.dt th, table.dt td { padding:5px 9px; border-bottom:1px solid #EEF1F5; }
+.fh { background:#EAF1FB; color:#354052; font-weight:700; text-align:left; border-bottom:1px solid #CBD5E0; position:sticky; top:0; z-index:1; }
+.fh.ar { text-align:right; }
+.mh { background:#EAF1FB; color:#354052; font-weight:700; text-align:left; border-bottom:1px solid #CBD5E0; vertical-align:middle; }
+th.yr { text-align:center; color:#354052; font-weight:700; border-bottom:1px solid #CBD5E0; }
+th.q  { text-align:center; color:#6A798E; font-weight:600; border-bottom:1px solid #CBD5E0; }
+th.y0 { background:#EAF1FB; } th.y1 { background:#F5F8FC; }
+th.yb, td.qb { border-left:1px solid #D8E0EC; }
+td.txt { color:#354052; text-align:left; }
+td.txt.ind { padding-left:22px; color:#6A798E; }
+td.txt.grp { font-weight:600; }
+td.num { text-align:right; color:#354052; font-variant-numeric:tabular-nums; }
+td.num.neg { color:#F04438; }
+td.stt { text-align:center; color:#6A798E; }
+td.st-new { color:#24A148; font-weight:600; }
+td.st-churn { color:#F04438; font-weight:600; }
+td.st-exist { color:#8A94A6; }
+.stick { position:sticky; left:0; z-index:2; border-right:1px solid #CBD5E0; }
+th.fh.stick, th.mh.stick { z-index:3; }
+td.stick { background:#fff; }
+tr.alt td { background:#FAFBFD; }
+tr.alt td.stick { background:#FAFBFD; }
+tr.sep td { border-top:2px solid #D8E0EC; }
+tr:hover td { background:#EFF6FF; }
+tr:hover td.stick { background:#EFF6FF; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ SIDEBAR ═══════════ -->
+<div class="sidebar">
+  <div class="sidebar-logo">&#128202; 사업건전성</div>
+  <div class="sidebar-menu">
+    <div class="menu-item" onclick="window.location.href='bizunit_dashboard_wireframe.html'">사업부 대시보드</div>
+    <div class="menu-item" onclick="window.location.href='biz_health_status_wireframe.html'">사업건전성 현황</div>
+    <div class="menu-divider"></div>
+    <div class="menu-item parent">사업건전성 영역별 현황 <span class="menu-arrow">&#9662;</span></div>
+    <div class="menu-item sub parent">재무 <span class="menu-arrow">&#9662;</span></div>
+    <div class="menu-item sub2" onclick="window.location.href='growth_wireframe.html'">성장</div>
+    <div class="menu-item sub2" onclick="window.location.href='efficiency_profit_wireframe.html'">효율/수익</div>
+    <div class="menu-item sub" onclick="window.location.href='market_wireframe.html'">시장</div>
+    <div class="menu-item sub" onclick="window.location.href='sales_main_wireframe.html'">영업</div>
+    <div class="menu-divider"></div>
+    <div class="menu-item" onclick="window.location.href='customer_status_wireframe.html'">고객 현황</div>
+    <div class="menu-item" onclick="window.location.href='revenue_cost_wireframe.html'">매출/원가 현황</div>
+    <div class="menu-divider"></div>
+    <div class="menu-item parent">지표 정보 <span class="menu-arrow">&#9662;</span></div>
+    <div class="menu-item sub" onclick="window.location.href='indicator_info_wireframe.html'">지표</div>
+    <div class="menu-item sub" onclick="window.location.href='indicator_table_wireframe.html'">지표 테이블</div>
+    <div class="menu-item sub active">지표 원천데이터</div>
+    <div class="menu-divider"></div>
+    <div class="menu-item">로그아웃</div>
+  </div>
+</div>
+
+<!-- ═══════════ MAIN ═══════════ -->
+<div class="main">
+  <div class="header">
+    <span class="header-title">지표 원천데이터</span>
+    <div class="header-spacer"></div>
+    <span class="badge">기준월: 2026년 06월</span>
+    <span class="badge">업데이트: 매월 10일</span>
+    <select class="header-select">
+      <option selected>Brity Automation</option>
+      <option>Knox Portal</option>
+      <option>Knox Teams</option>
+      <option>Knox Meeting</option>
+      <option>Knox Drive</option>
+      <option>Knox EFSS</option>
+      <option>Copilot</option>
+    </select>
+  </div>
+
+  <div class="content" id="content"></div>
+
+  <div class="footer">
+    기준: 2026년 06월 &nbsp;|&nbsp; 상품: Brity Automation &nbsp;|&nbsp; 업데이트: 매월 10일 (실적) · 23일 (속보)
+  </div>
+</div>
+
+<script>
+var M2024 = ['01월','02월','03월','04월','05월','06월','07월','08월','09월','10월','11월','12월'];
+function rep(v,n){ var a=[]; for(var i=0;i<n;i++) a.push(v); return a; }
+
+/* 값 파서: '~' = 빈칸 */
+function vals(s){ return s.trim().split(/\s+/).map(function(t){ return t==='~'?'':t; }); }
+
+/* ── 평면 텍스트 테이블 (계약정보 / 결산손익) ── */
+function renderFlat(cols, rows){
+  var h='<div class="tbl-wrap"><table class="dt"><thead><tr>';
+  cols.forEach(function(c,i){ h+='<th class="fh'+(c.a==='r'?' ar':'')+(i===0?' stick':'')+'">'+c.h+'</th>'; });
+  h+='</tr></thead><tbody>';
+  rows.forEach(function(row,ri){
+    h+='<tr class="'+(ri%2?'alt':'')+'">';
+    row.forEach(function(v,i){
+      var r=cols[i].a==='r';
+      var neg=r&&v.charAt(0)==='-';
+      h+='<td class="'+(r?'num':'txt')+(neg?' neg':'')+(i===0?' stick':'')+'">'+v+'</td>';
+    });
+    h+='</tr>';
+  });
+  return h+'</tbody></table></div>';
+}
+
+/* ── 월별 그룹 테이블 (원청별 매출/상태 / 매출손익) ── */
+function renderMonthly(metaCols, groups, rows, statusMode){
+  var firsts=[]; groups.forEach(function(g){ g.cols.forEach(function(m,i){ firsts.push(i===0); }); });
+  var h='<div class="tbl-wrap"><table class="dt"><thead><tr>';
+  metaCols.forEach(function(m,i){ h+='<th class="mh'+(i===0?' stick':'')+'" rowspan="2">'+m.h+'</th>'; });
+  groups.forEach(function(g,gi){ h+='<th class="yr y'+(gi%2)+' yb" colspan="'+g.cols.length+'">'+g.y+'</th>'; });
+  h+='</tr><tr>';
+  groups.forEach(function(g,gi){ g.cols.forEach(function(m,i){ h+='<th class="q y'+(gi%2)+(i===0?' yb':'')+'">'+m+'</th>'; }); });
+  h+='</tr></thead><tbody>';
+  rows.forEach(function(row,ri){
+    h+='<tr class="'+(ri%2?'alt':'')+(row.sep?' sep':'')+'">';
+    row.meta.forEach(function(v,i){
+      var last=i===metaCols.length-1;
+      h+='<td class="txt'+(i===0?' stick':'')+(row.ind&&last?' ind':'')+(row.grp?' grp':'')+'">'+v+'</td>';
+    });
+    row.vals.forEach(function(v,i){
+      if(statusMode){
+        var cls=v==='New'?'st-new':(v==='Churn'?'st-churn':(v==='Existing'?'st-exist':''));
+        h+='<td class="stt '+cls+(firsts[i]?' qb':'')+'">'+v+'</td>';
+      } else {
+        var neg=v.charAt(0)==='-';
+        h+='<td class="num'+(neg?' neg':'')+(firsts[i]?' qb':'')+'">'+v+'</td>';
+      }
+    });
+    h+='</tr>';
+  });
+  return h+'</tbody></table></div>';
+}
+
+/* 필터바 헬퍼 */
+function dateFilter(from,to,extra,excel){
+  var h='<div class="filterbar">';
+  (extra||[]).forEach(function(sel){ h+='<select class="sel">'+sel.map(function(o,i){return '<option'+(i===0?' selected':'')+'>'+o+'</option>';}).join('')+'</select>'; });
+  h+='<input class="date-in" value="'+from+'"><span class="flabel">에서</span>';
+  h+='<input class="date-in" value="'+to+'"><span class="flabel">까지</span>';
+  if(excel) h+='<button class="excel-btn">&#8681; 엑셀다운로드</button>';
+  return h+'</div>';
+}
+
+/* ═══════════ 데이터 ═══════════ */
+
+/* 표1: 계약정보(WBS) - SAP SD */
+var c1cols=[
+ {h:'기준년월'},{h:'원청코드'},{h:'원청명'},{h:'업종대분류'},{h:'업종소분류'},{h:'그룹내외'},{h:'국내외'},
+ {h:'PJT실행기간 From',a:'r'},{h:'PJT실행기간 To',a:'r'},{h:'Contract Period',a:'r'},{h:'Solution Code'},
+ {h:'Solution Name'},{h:'Delivery Type'},{h:'Biz Type'},{h:'통화'},
+ {h:'수주금액',a:'r'},{h:'Monthly Revenue',a:'r'},{h:'Acv',a:'r'},{h:'Monthly Acv',a:'r'}
+];
+var c1rows=[
+ ['202401','A0024002','주식회사 마크에니','서비스','IT서비스','Group Out','Domestic','20231101','20241031','12','32000058','Brity Automation…','Saas','L-Subscri…','KRW','7,448,800','620,733','7,448,800','620,733'],
+ ['','A0024054','한국산업은행','공공','공공기관/공기업','Group Out','Domestic','20231101','20240729','19','32000072','Brity Automation','On-Premises','L-Subscri…','KRW','172,110,000','9,058,421','108,701,053','9,058,421'],
+ ['','','','','','','','20240101','20250131','13','32000072','Brity Automation','On-Premises','L-Subscri…','KRW','172,110,000','13,239,231','158,870,769','13,239,231'],
+ ['','A0024145','(주)에스앤두네트웍스','제조(Discrete)','전기/전자','Group Out','Domestic','20231215','20250114','13','32000072','Brity Automation','On-Premises','L-Subscri…','KRW','3,430,000','263,846','3,166,154','263,846'],
+ ['','A0024262','한국무역보험공사','공공','공공기관/공기업','Group Out','Domestic','20221202','20231201','24','32000072','Brity Automation','On-Premises','L-Subscri…','KRW','42,630,000','3,552,500','42,630,000','3,552,500'],
+ ['','','','','','','','20231202','20241201','12','32000072','Brity Automation','On-Premises','L-Subscri…','KRW','8,830,500','735,875','8,830,500','735,875'],
+ ['','','','','','','','20231231','20250130','13','32000072','Brity Automation','On-Premises','L-Subscri…','KRW','13,487,600','1,037,508','12,450,092','1,037,508'],
+ ['','A0024266','외교부','공공','중앙기관','Group Out','Domestic','20230628','20240727','13','32000072','Brity Automation','On-Premises','L-Subscri…','KRW','13,786,500','1,060,500','12,726,000','1,060,500'],
+ ['','','','','','','','20240101','20250131','13','32000072','Brity Automation','On-Premises','L-Subscri…','KRW','68,880,000','5,298,462','63,581,538','5,298,462'],
+ ['','A0024400','(주)아이마켓코리아','서비스','유통','Group Out','Domestic','20240801','20250228','19','32000058','Brity Automation…','Saas','L-Subscri…','KRW','26,984,000','1,420,211','17,042,526','1,420,211'],
+ ['','A0024450','서울특별시','공공','지방자치단체','Group Out','Domestic','20231101','20241130','26','32000072','Brity Automation','On-Premises','L-Subscri…','KRW','13,720,000','1,055,385','12,664,615','1,055,385'],
+ ['','A0024505','농협은행 주식회사','금융','은행','Group Out','Domestic','20230220','20240131','12','32000072','Brity Automation','On-Premises','L-Subscri…','KRW','155,545,454','12,962,121','155,545,454','12,962,121']
+];
+
+/* 표2: 결산손익정보(WBS) - SAP CO (오더리스트) */
+var c2cols=[
+ {h:'기준년월'},{h:'원청코드'},{h:'원청명'},{h:'업종대분류'},{h:'업종소분류'},{h:'그룹내외'},{h:'국내외'},
+ {h:'WBS'},{h:'Solution Code'},{h:'Solution Name'},{h:'Delivery Type'},{h:'Biz Type'},{h:'매출총계',a:'r'}
+];
+var c2rows=[
+ ['202401','A0024054','한국산업은행','The Public','Public Institution/Public…','Group Out','Local','SMC24014301A00132','32000072','Brity Automation','On-Premises','','14,342,502'],
+ ['','A0024262','한국무역보험공사','The Public','Public Institution/…','Group Out','Local','SMC23203561A00132','32000072','Brity Automation','On-Premises','','734,775'],
+ ['','A0024266','외교부','The Public','Central organization','Group Out','Local','SMC23173801A00132','32000072','Brity Automation','On-Premises','','1,150,583'],
+ ['','A0024400','(주)아이마켓코리아','Service','Distribution/Wholesale/…','Group Out','Local','SCC23123411A00132','32000058','Brity Automation (Cloud)','SaaS','','1,240,000'],
+ ['','A0024450','서울특별시','The Public','Local government','Group Out','Local','SMC24015361A00132','32000080','Brity Automation Implementation','','Operation','1,500,000'],
+ ['','A0024505','농협은행 주식회사','Finance','Bank','Group Out','Local','SIC23098041A00111','32000080','Brity Automation Implementation','','Implements','144,292,150'],
+ ['','A0027152','한국예탁결제원','The Public','Public Institution/…','Group Out','Local','SCC23234911A00132','32000072','Brity Automation','On-Premises','','37,632,400'],
+ ['','A0027157','금융감독원','The Public','Public Institution/…','Group Out','Local','SMC23222181A00132','32000072','Brity Automation','On-Premises','','752,500'],
+ ['','A0027845','효성ITX(주)','Service','Business outsourcing','Group Out','Local','SCC21466571A00132','32000072','Brity Automation','On-Premises','','32,835,600']
+];
+
+/* 표3: 원청별 매출 (2024 월별) */
+var revMeta=[{h:'원청코드'},{h:'원청명'},{h:'업종대분류'},{h:'업종소분류'},{h:'그룹 내/외'},{h:'국내/해외'},{h:'분석주기'}];
+function mrow(meta, monthly){ return {meta:meta, vals:monthly}; }
+var revRows=[
+ mrow(['A0024002','주식회사 마크에니','서비스','IT서비스','Group O…','Domestic','Month'], rep('7,448,796',12)),
+ mrow(['A0024054','한국산업은행','공공','공공기관/공기업','Group O…','Domestic','Month'], rep('267,571,824',6).concat(rep('158,870,772',6))),
+ mrow(['A0024145','(주)에스앤두네트웍스','제조(Discrete)','전기/전자','Group O…','Domestic','Month'], rep('3,166,152',12)),
+ mrow(['A0024262','한국무역보험공사','공공','공공기관/공기업','Group O…','Domestic','Month'], rep('21,280,596',12)),
+ mrow(['A0024266','외교부','공공','중앙기관','Group O…','Domestic','Month'], rep('76,307,544',6).concat(['88,124,544']).concat(rep('75,398,544',5))),
+ mrow(['A0024268','서울시교육청','공공','공공기관/공기업','Group O…','','Month'], ['','','','16,860,000','16,860,000','16,860,000','16,860,000','16,860,000','16,860,000','16,860,000','16,860,000','16,860,000']),
+ mrow(['A0024400','(주)아이마켓코리아','서비스','유통','Group O…','Domestic','Month'], rep('17,042,532',12)),
+ mrow(['A0024450','서울특별시','공공','지방자치단체','Group O…','Domestic','Month'], rep('12,664,620',12)),
+ mrow(['A0024505','농협은행 주식회사','금융','은행','Group O…','Domestic','Month'], rep('234,884,292',2).concat(rep('79,338,840',10))),
+ mrow(['A0024512','삼성웰스토리 (주)','서비스','요식업(케이터링,외식…)','Group In','Domestic','Month'], rep('51,108,924',8).concat(rep('100,315,000',4)))
+];
+
+/* 표4: 원청별 상태 (2024 월별) */
+var stMeta=[{h:'원청코드'},{h:'원청명'}];
+function srow(code,name,arr){ return {meta:[code,name], vals:arr}; }
+var E='Existing', N='New', C='Churn';
+var stRows=[
+ srow('A0024002','주식회사 마크에니', rep(E,10).concat([C,''])),
+ srow('A0024054','한국산업은행', rep(E,12)),
+ srow('A0024145','(주)에스앤두네트웍스', [N].concat(rep(E,11))),
+ srow('A0024262','한국무역보험공사', [N].concat(rep(E,11))),
+ srow('A0024266','외교부', rep(E,12)),
+ srow('A0024268','서울시교육청', ['','','',N].concat(rep(E,8))),
+ srow('A0024400','(주)아이마켓코리아', rep(E,12)),
+ srow('A0024450','서울특별시', rep(E,12))
+];
+
+/* 표5: 매출 손익 (2024 12개월 + 2025 3개월) */
+var plMeta=[{h:'구분'}];
+var plGroups=[{y:'2024',cols:M2024},{y:'2025',cols:['01월','02월','03월']}];
+function prow(label, s, opt){ opt=opt||{}; return {meta:[label], vals:vals(s), ind:!!opt.ind, grp:!!opt.grp, sep:!!opt.sep}; }
+var plRows=[
+ prow('매출총계','47.45 54.98 42.65 57.06 42.03 26.17 38.19 28.80 27.33 26.66 21.64 28.28 26.88 34.67 31.61',{grp:1}),
+ prow('직접원가계','14.88 15.11 12.40 17.04 11.43 14.55 14.21 12.87 11.32 10.81 9.50 10.09 9.70 8.44 9.61',{grp:1}),
+ prow('직접인건비계','7.78 8.13 8.15 8.52 8.18 8.76 8.93 8.23 7.35 6.35 6.68 5.13 5.39 5.32 5.74',{ind:1}),
+ prow('외주비 소계','5.74 5.34 2.86 5.47 0.93 4.08 3.25 2.99 2.63 3.14 2.46 3.66 3.11 2.25 3.51',{ind:1}),
+ prow('재료비 소계','0.20 0.01 0.21 1.22 0.84 -0.49 0.37 0.10 -0.01 0.02 -0.05 0.14 0.16 -0.06 -0.71',{ind:1}),
+ prow('직접기타경비소','1.16 1.62 1.18 1.84 1.48 2.21 1.66 1.55 1.35 1.12 0.41 1.16 1.04 0.93 1.06',{ind:1}),
+ prow('인건비성 복리후생비','0.83 0.77 0.68 0.79 0.70 0.73 0.74 0.77 0.61 0.52 0.59 0.38 0.51 0.47 0.52',{ind:1}),
+ prow('사내원가총계','0.75 0.77 0.81 0.83 0.83 0.85 0.99 1.04 1.04 1.04 1.06 0.94 0.98 0.97 0.94',{grp:1}),
+ prow('한계이익총계','31.82 39.10 29.43 39.19 29.77 10.77 23.00 14.89 14.97 14.81 11.08 17.24 16.19 25.25 21.06',{grp:1,sep:1}),
+ prow('간접원가총계','12.13 11.90 11.18 11.81 10.43 12.75 11.88 11.42 10.89 14.10 11.53 15.75 11.51 12.17 11.99',{grp:1}),
+ prow('간미총계','9.90 9.42 9.15 9.32 8.44 9.31 8.29 9.07 8.00 10.48 8.88 11.13 8.97 9.85 9.31',{ind:1}),
+ prow('간배총계','2.23 2.48 2.04 2.49 1.99 3.44 3.60 2.35 2.89 3.62 2.65 4.62 2.55 2.33 2.68',{ind:1}),
+ prow('매출총이익','19.69 27.21 18.25 27.38 19.34 -1.98 11.11 3.47 4.09 0.71 -0.45 1.50 4.68 13.08 9.07',{grp:1,sep:1}),
+ prow('판매비총계','6.74 6.34 6.58 6.86 6.52 7.49 7.49 7.88 7.84 8.07 6.67 8.47 6.78 8.01 7.66',{grp:1}),
+ prow('판자 총계','1.06 0.95 0.98 0.97 1.03 1.03 0.94 1.20 1.16 1.65 1.08 7.84 6.45 7.61 7.24',{ind:1}),
+ prow('판매사전 총계','0.03 0.00 0.02 0.00 0.00 0.01 0.00 0.00 0.00 0.00 0.00 0.00 0.04 0.00 0.00',{ind:1}),
+ prow('판매 총계','5.65 5.39 5.58 5.89 5.49 6.45 6.55 6.67 6.68 6.42 5.59 0.63 0.29 0.40 0.41',{ind:1}),
+ prow('일반비총계','3.50 4.16 3.61 3.76 3.08 3.31 3.33 2.90 2.79 3.71 2.49 3.58 2.77 2.61 1.76',{grp:1}),
+ prow('영업이익','9.45 16.71 8.06 16.76 9.74 -12.78 0.30 -7.30 -6.55 -11.06 -9.61 -10.56 -4.86 2.46 -0.35',{grp:1,sep:1})
+];
+
+/* ═══════════ 조립 ═══════════ */
+var out='';
+/* 블록 A */
+out+='<div class="sec">';
+out+=dateFilter('2024-01-01','2025-01-01',null,true);
+out+='<div class="tbl-title">계약정보(WBS) - SAP SD</div>'+renderFlat(c1cols,c1rows);
+out+='<div class="tbl-title mt">결산손익정보 (WBS) - SAP CO (오더리스트)</div>'+renderFlat(c2cols,c2rows);
+out+='</div>';
+/* 블록 B */
+out+='<div class="sec">';
+out+=dateFilter('2024-01-01','2024-12-31',[['ARR','MRR','ACV'],['원청명 (전체)','원청명 (선택)']],false);
+out+='<div class="tbl-title">원청별 매출</div>'+renderMonthly(revMeta,[{y:'2024',cols:M2024}],revRows,false);
+out+='<div class="tbl-title mt">원청별 상태</div>'+renderMonthly(stMeta,[{y:'2024',cols:M2024}],stRows,true);
+out+='</div>';
+/* 블록 C */
+out+='<div class="sec">';
+out+=dateFilter('2024-01-01','2025-03-19',null,false);
+out+='<div class="tbl-title">매출 손익</div>'+renderMonthly(plMeta,plGroups,plRows,false);
+out+='</div>';
+
+document.getElementById('content').innerHTML=out;
+</script>
+</body>
+</html>

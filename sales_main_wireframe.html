@@ -1746,6 +1746,70 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
         </svg>
       </div>
     </div>
+<!-- Row: BO Pipeline Flow (Sankey) — 전체 너비 -->
+<div class="row">
+  <div class="card">
+    <div class="card-title">BO Pipeline Flow (Sankey) <span class="card-unit">단위: 건</span></div>
+    <div class="card-note">*전체 기간 누적 — 단계별 전진 물량과 이탈(Lost·Dropped) 흐름. 리본 두께 = 건수, 리본 색 = 도착 결과(전진은 출발 단계색)</div>
+    <div class="legend" style="flex-wrap:wrap; gap:10px;">
+      <div class="legend-item"><span class="leg-bar" style="background:#93C4E8;"></span>Identified</div>
+      <div class="legend-item"><span class="leg-bar" style="background:#6B9BD8;"></span>Validated</div>
+      <div class="legend-item"><span class="leg-bar" style="background:#5BA85C;"></span>Qualified</div>
+      <div class="legend-item"><span class="leg-bar" style="background:#F4A460;"></span>Solutioned</div>
+      <div class="legend-item"><span class="leg-bar" style="background:#27AE60; border-radius:2px; opacity:.6;"></span>Won</div>
+      <div class="legend-item"><span class="leg-bar" style="background:#4A90E2; border-radius:2px; opacity:.6;"></span>In-Process</div>
+      <div class="legend-item"><span class="leg-bar" style="background:#E74C3C; border-radius:2px; opacity:.6;"></span>Lost</div>
+      <div class="legend-item"><span class="leg-bar" style="background:#9CA3AF; border-radius:2px; opacity:.6;"></span>Dropped</div>
+    </div>
+    <div id="bo-sankey"></div>
+  </div>
+</div>
+<script>
+(function(){
+  var W=730, top=36, bottom=288, cx0=60, marginR=112, nodeW=16, gap=12, cols=5;
+  var nodes = [
+    {id:'ident',  col:0, name:'Identified',  color:'#93C4E8'},
+    {id:'valid',  col:1, name:'Validated',   color:'#6B9BD8'},
+    {id:'qual',   col:2, name:'Qualified',   color:'#5BA85C'},
+    {id:'sol',    col:3, name:'Solutioned',  color:'#F4A460'},
+    {id:'won',    col:4, name:'Won',         color:'#27AE60'},
+    {id:'inproc', col:4, name:'In-Process',  color:'#4A90E2'},
+    {id:'lost',   col:4, name:'Lost',        color:'#E74C3C'},
+    {id:'drop',   col:4, name:'Dropped',     color:'#9CA3AF'}
+  ];
+  var links = [
+    {s:'ident', t:'valid',  v:240}, {s:'ident', t:'lost', v:50}, {s:'ident', t:'drop', v:30},
+    {s:'valid', t:'qual',   v:175}, {s:'valid', t:'lost', v:40}, {s:'valid', t:'drop', v:25},
+    {s:'qual',  t:'sol',    v:120}, {s:'qual',  t:'lost', v:35}, {s:'qual',  t:'drop', v:20},
+    {s:'sol',   t:'won',    v:78},  {s:'sol',   t:'inproc', v:22}, {s:'sol', t:'lost', v:12}, {s:'sol', t:'drop', v:8}
+  ];
+  var byId={}; nodes.forEach(function(n){ byId[n.id]=n; n['in']=0; n.out=0; });
+  links.forEach(function(l){ byId[l.s].out+=l.v; byId[l.t]['in']+=l.v; });
+  nodes.forEach(function(n){ n.value=Math.max(n['in'],n.out); });
+  var total=byId.ident.value, areaH=bottom-top, spanRight=W-marginR-nodeW, colGap=(spanRight-cx0)/(cols-1);
+  var colX=[]; for(var i=0;i<cols;i++) colX[i]=cx0+i*colGap;
+  var colNodes=[[],[],[],[],[]]; nodes.forEach(function(n){ colNodes[n.col].push(n); });
+  var scale=Infinity;
+  colNodes.forEach(function(cn){ var sum=0; cn.forEach(function(n){ sum+=n.value; }); var sc=(areaH-(cn.length-1)*gap)/sum; if(sc<scale) scale=sc; });
+  colNodes.forEach(function(cn,ci){ var th=0; cn.forEach(function(n){ th+=n.value*scale; }); th+=(cn.length-1)*gap; var y=top+(areaH-th)/2; cn.forEach(function(n){ n.x=colX[ci]; n.h=n.value*scale; n.y0=y; n.y1=y+n.h; y=n.y1+gap; }); });
+  nodes.forEach(function(n){ n.so=n.y0; n.ti=n.y0; });
+  links.forEach(function(l){ var s=byId[l.s],t=byId[l.t]; l.sy0=s.so; s.so+=l.v*scale; l.sy1=s.so; l.ty0=t.ti; t.ti+=l.v*scale; l.ty1=t.ti; });
+  var term={won:1,inproc:1,lost:1,drop:1};
+  function ribbon(l){ var x0=byId[l.s].x+nodeW,x1=byId[l.t].x,xc=(x0+x1)/2; return 'M'+x0+','+l.sy0+' C'+xc+','+l.sy0+' '+xc+','+l.ty0+' '+x1+','+l.ty0+' L'+x1+','+l.ty1+' C'+xc+','+l.ty1+' '+xc+','+l.sy1+' '+x0+','+l.sy1+' Z'; }
+  function ribColor(l){ return term[l.t]? byId[l.t].color : byId[l.s].color; }
+  function ribOp(l){ return l.t==='lost'||l.t==='drop'?0.4:(l.t==='won'?0.6:(l.t==='inproc'?0.5:0.45)); }
+  var s='<svg width="100%" height="320" viewBox="0 0 '+W+' 320" preserveAspectRatio="xMidYMid meet">';
+  links.filter(function(l){return l.t==='lost'||l.t==='drop';}).forEach(function(l){ s+='<path d="'+ribbon(l)+'" fill="'+ribColor(l)+'" opacity="'+ribOp(l)+'"/>'; });
+  links.filter(function(l){return !(l.t==='lost'||l.t==='drop');}).forEach(function(l){ s+='<path d="'+ribbon(l)+'" fill="'+ribColor(l)+'" opacity="'+ribOp(l)+'"/>'; });
+  links.forEach(function(l){ if(term[l.t]) return; var x0=byId[l.s].x+nodeW,x1=byId[l.t].x,xc=(x0+x1)/2,ym=((l.sy0+l.sy1)/2+(l.ty0+l.ty1)/2)/2,pct=Math.round(l.v/byId[l.s].value*100); s+='<text x="'+xc+'" y="'+(ym+3)+'" text-anchor="middle" font-size="8.5" font-weight="700" fill="#2F5CA8">'+pct+'%</text>'; });
+  nodes.forEach(function(n){
+    s+='<rect x="'+n.x+'" y="'+n.y0.toFixed(1)+'" width="'+nodeW+'" height="'+n.h.toFixed(1)+'" rx="2" fill="'+n.color+'"/>';
+    if(n.col<4){ s+='<text x="'+(n.x+nodeW/2)+'" y="'+(n.y0-6)+'" text-anchor="middle" font-size="10" font-weight="700" fill="#1A1A1A">'+n.name+' · '+n.value+'</text>'; }
+    else { var cy=(n.y0+n.y1)/2,pct=Math.round(n.value/total*100); s+='<text x="'+(n.x+nodeW+7)+'" y="'+(cy-1)+'" font-size="10" font-weight="700" fill="#1A1A1A">'+n.name+'</text>'; s+='<text x="'+(n.x+nodeW+7)+'" y="'+(cy+11)+'" font-size="9" fill="#6B7280">'+n.value+'건 · '+pct+'%</text>'; }
+  });
+  s+='</svg>'; document.getElementById('bo-sankey').innerHTML=s;
+})();
+</script>
 
   </div><!-- /content -->
 </div><!-- /main -->

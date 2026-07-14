@@ -85,8 +85,84 @@ body { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; display:flex; heig
 
 svg text { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; }
 </style>
+  <link rel="icon" href="data:,">
+  <style>
+/* theme.css (inlined) */
+:root{
+  --gx-navy:#1E3079; --gx-navy-2:#17235c;
+  --gx-teal:#17B8B8; --gx-side-text:#B8C6DB;
+  --gx-ink:#354052; --gx-sub:#6A798E; --gx-line:#E2E8F0;
+}
+.gx-sidebar{
+  width:210px; min-width:210px; height:100vh;
+  background:var(--gx-navy); color:var(--gx-side-text);
+  display:flex; flex-direction:column; flex-shrink:0; overflow-y:auto;
+  font-family:'Malgun Gothic','Noto Sans KR',sans-serif;
+}
+.gx-logo{
+  padding:16px 16px 14px; font-size:14px; font-weight:700; color:#fff;
+  border-bottom:1px solid rgba(255,255,255,.10); display:flex; align-items:center; gap:8px;
+}
+.gx-logo-mark{ font-size:15px; }
+.gx-menu{ flex:1; padding:8px 0; }
+.gx-mi{
+  display:flex; align-items:center; gap:6px;
+  padding:9px 16px; font-size:12px; color:var(--gx-side-text);
+  text-decoration:none; cursor:pointer;
+}
+.gx-mi:hover{ background:rgba(255,255,255,.08); color:#fff; }
+.gx-mi.gx-active{
+  background:var(--gx-teal); color:#fff; font-weight:700;
+  border-radius:0 18px 18px 0; margin-right:8px;
+}
+.gx-parent{ font-weight:700; color:#CBD8E8; cursor:default; }
+.gx-parent:hover{ background:none; color:#CBD8E8; }
+.gx-lv1{ padding-left:28px; }
+.gx-lv2{ padding-left:42px; }
+.gx-caret{ margin-left:auto; font-size:9px; opacity:.6; }
+.gx-divider{ height:1px; background:rgba(255,255,255,.09); margin:6px 12px; }
+.gx-header{
+  height:56px; flex-shrink:0; background:#fff;
+  border-bottom:1px solid var(--gx-line); box-shadow:0 1px 3px rgba(0,0,0,.04);
+  display:flex; align-items:center; gap:10px; padding:0 22px;
+  font-family:'Malgun Gothic','Noto Sans KR',sans-serif;
+}
+.gx-title{ font-size:16px; font-weight:800; color:#1A1A1A; margin:0; }
+.gx-crumb{ font-size:12px; color:var(--gx-sub); }
+.gx-spacer{ flex:1; }
+.gx-status{
+  display:inline-flex; align-items:center; gap:6px;
+  padding:4px 10px; border:1px solid #BFE7E7; background:#E9F8F8;
+  color:#0E8A8A; border-radius:14px; font-size:11px; font-weight:600;
+}
+.gx-dot{ width:7px; height:7px; border-radius:50%; background:var(--gx-teal); }
+.gx-badge{
+  display:inline-flex; align-items:center; padding:4px 10px;
+  border:1px solid #CBD5E0; background:#F8FAFC; color:var(--gx-sub);
+  border-radius:13px; font-size:11px; font-weight:500; white-space:nowrap;
+}
+.gx-select{
+  height:30px; padding:0 10px; border:1px solid #CBD5E0; border-radius:4px;
+  font-size:12px; color:var(--gx-ink); background:#fff; cursor:pointer;
+  font-family:inherit;
+}
+.gx-footer{
+  flex-shrink:0; padding:8px 20px; background:#F0F2F5;
+  border-top:1px solid var(--gx-line); text-align:right;
+  font-size:10.5px; color:#A0A8B8;
+  font-family:'Malgun Gothic','Noto Sans KR',sans-serif;
+}
+.gx-sr-only{
+  position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+}
+@media (max-width:1280px){
+  .gx-crumb{ display:none; }
+  .gx-badge, .gx-status{ font-size:10px; padding:3px 8px; }
+}
+</style>
 </head>
-<body>
+<body data-page="health">
 
 <!-- ═══════════ SIDEBAR ═══════════ -->
 <div class="sidebar">
@@ -97,13 +173,13 @@ svg text { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; }
     <div class="menu-divider"></div>
     <div class="menu-item parent">사업건전성 영역별 현황 <span class="menu-arrow">&#9662;</span></div>
     <div class="menu-item sub parent">재무 <span class="menu-arrow">&#9662;</span></div>
-    <div class="menu-item sub2">성장</div>
+    <div class="menu-item sub2" onclick="window.location.href='growth_wireframe.html'">성장</div>
     <div class="menu-item sub2" onclick="window.location.href='efficiency_profit_wireframe.html'">효율/수익</div>
     <div class="menu-item sub" onclick="window.location.href='market_wireframe.html'">시장</div>
     <div class="menu-item sub" onclick="window.location.href='sales_main_wireframe.html'">영업</div>
     <div class="menu-divider"></div>
     <div class="menu-item" onclick="window.location.href='customer_status_wireframe.html'">고객 현황</div>
-    <div class="menu-item">매출/원가 현황</div>
+    <div class="menu-item" onclick="window.location.href='revenue_cost_wireframe.html'">매출/원가 현황</div>
     <div class="menu-divider"></div>
     <div class="menu-item parent">지표 정보 <span class="menu-arrow">&#9662;</span></div>
     <div class="menu-item sub" onclick="window.location.href='indicator_info_wireframe.html'">지표</div>
@@ -170,8 +246,6 @@ svg text { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; }
     <div class="chart-grid">
 
       <!-- ══════ 차트 1: ARR (좌상) ══════ -->
-      <!-- viewBox 420×205, 막대 x=53 pitch=21 width=18 rx=1, 색=#89B4F7 / #4A90E2(최신) -->
-      <!-- 좌축 0~350억(y=185~25), 우축 -10%~+15%(y=185~25) -->
       <div class="card-base chart-card">
         <div class="card-header">
           <div class="card-title-row">
@@ -188,49 +262,39 @@ svg text { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; }
           <div class="legend-item"><div class="leg-line" style="background:#E88A4A;"></div>YoY Growth(%)</div>
         </div>
         <svg width="100%" height="205" viewBox="0 0 420 205">
-          <!-- 그리드 -->
           <line x1="54" y1="25"  x2="386" y2="25"  stroke="#E5E7EB" stroke-width="1"/>
           <line x1="54" y1="58"  x2="386" y2="58"  stroke="#F3F4F6" stroke-width="1"/>
           <line x1="54" y1="91"  x2="386" y2="91"  stroke="#E5E7EB" stroke-width="1"/>
           <line x1="54" y1="124" x2="386" y2="124" stroke="#F3F4F6" stroke-width="1"/>
           <line x1="54" y1="185" x2="386" y2="185" stroke="#E5E7EB" stroke-width="1"/>
           <line x1="54" y1="15"  x2="54"  y2="185" stroke="#E2E8F0" stroke-width="1"/>
-          <!-- 좌축 -->
           <text x="50" y="29"  text-anchor="end" font-size="10" fill="#6A798E">350</text>
           <text x="50" y="95"  text-anchor="end" font-size="10" fill="#6A798E">175</text>
           <text x="50" y="189" text-anchor="end" font-size="10" fill="#6A798E">0</text>
-          <!-- 우축 -->
           <text x="389" y="29"  text-anchor="start" font-size="10" fill="#E88A4A">+15%</text>
           <text x="389" y="95"  text-anchor="start" font-size="10" fill="#E88A4A">0%</text>
           <text x="389" y="189" text-anchor="start" font-size="10" fill="#E88A4A">-10%</text>
-
-          <!-- 막대 (bar_h=(val/350)*160, y=185-h, width=18 rx=1 pitch=21) -->
-          <!-- 25.01=240: h=109.7,y=75 --> <rect x="53"  y="75" width="18" height="110" rx="1" fill="#89B4F7"/>
-          <!-- 25.02=243: h=111.1,y=74 --> <rect x="74"  y="74" width="18" height="111" rx="1" fill="#89B4F7"/>
-          <!-- 25.03=245: h=112.0,y=73 --> <rect x="95"  y="73" width="18" height="112" rx="1" fill="#89B4F7"/>
-          <!-- 25.04=248: h=113.4,y=72 --> <rect x="116" y="72" width="18" height="113" rx="1" fill="#89B4F7"/>
-          <!-- 25.05=251: h=114.7,y=70 --> <rect x="137" y="70" width="18" height="115" rx="1" fill="#89B4F7"/>
-          <!-- 25.06=254: h=116.0,y=69 --> <rect x="158" y="69" width="18" height="116" rx="1" fill="#89B4F7"/>
-          <!-- 25.07=257: h=117.3,y=68 --> <rect x="179" y="68" width="18" height="117" rx="1" fill="#89B4F7"/>
-          <!-- 25.08=260: h=118.9,y=66 --> <rect x="200" y="66" width="18" height="119" rx="1" fill="#89B4F7"/>
-          <!-- 25.09=262: h=119.8,y=65 --> <rect x="221" y="65" width="18" height="120" rx="1" fill="#89B4F7"/>
-          <!-- 25.10=265: h=121.1,y=64 --> <rect x="242" y="64" width="18" height="121" rx="1" fill="#89B4F7"/>
-          <!-- 25.11=268: h=122.3,y=63 --> <rect x="263" y="63" width="18" height="122" rx="1" fill="#89B4F7"/>
-          <!-- 25.12=270: h=123.4,y=62 --> <rect x="284" y="62" width="18" height="123" rx="1" fill="#89B4F7"/>
-          <!-- 26.01=268: h=122.3,y=63 --> <rect x="305" y="63" width="18" height="122" rx="1" fill="#89B4F7"/>
-          <!-- 26.02=271: h=123.9,y=61 --> <rect x="326" y="61" width="18" height="124" rx="1" fill="#89B4F7"/>
-          <!-- 26.03=273 (최신월)       --> <rect x="347" y="60" width="18" height="125" rx="1" fill="#4A90E2"/>
-
-          <!-- YoY 꺾은선 (+7%→+9.7%, 우축: 0%≈y=91) -->
-          <!-- centers: 62,83,104,125,146,167,188,209,230,251,272,293,314,335,356 -->
+          <rect x="53"  y="75" width="18" height="110" rx="1" fill="#89B4F7"/>
+          <rect x="74"  y="74" width="18" height="111" rx="1" fill="#89B4F7"/>
+          <rect x="95"  y="73" width="18" height="112" rx="1" fill="#89B4F7"/>
+          <rect x="116" y="72" width="18" height="113" rx="1" fill="#89B4F7"/>
+          <rect x="137" y="70" width="18" height="115" rx="1" fill="#89B4F7"/>
+          <rect x="158" y="69" width="18" height="116" rx="1" fill="#89B4F7"/>
+          <rect x="179" y="68" width="18" height="117" rx="1" fill="#89B4F7"/>
+          <rect x="200" y="66" width="18" height="119" rx="1" fill="#89B4F7"/>
+          <rect x="221" y="65" width="18" height="120" rx="1" fill="#89B4F7"/>
+          <rect x="242" y="64" width="18" height="121" rx="1" fill="#89B4F7"/>
+          <rect x="263" y="63" width="18" height="122" rx="1" fill="#89B4F7"/>
+          <rect x="284" y="62" width="18" height="123" rx="1" fill="#89B4F7"/>
+          <rect x="305" y="63" width="18" height="122" rx="1" fill="#89B4F7"/>
+          <rect x="326" y="61" width="18" height="124" rx="1" fill="#89B4F7"/>
+          <rect x="347" y="60" width="18" height="125" rx="1" fill="#4A90E2"/>
           <polyline points="62,60 83,57 104,54 125,51 146,48 167,47 188,46 209,45 230,45 251,44 272,44 293,44 314,44 335,44 356,44"
                     fill="none" stroke="#E88A4A" stroke-width="2" stroke-linejoin="round"/>
           <circle cx="62"  cy="60" r="3.5" fill="#E88A4A"/>
           <text x="62"  y="55" text-anchor="middle" font-size="10" fill="#E88A4A">+7%</text>
           <circle cx="356" cy="44" r="3.5" fill="#E88A4A"/>
           <text x="356" y="39" text-anchor="middle" font-size="10" fill="#E88A4A">+9.7%</text>
-
-          <!-- X축 -->
           <text x="62"  y="200" text-anchor="middle" font-size="10" fill="#6A798E">25.01</text>
           <text x="104" y="200" text-anchor="middle" font-size="10" fill="#6A798E">25.03</text>
           <text x="167" y="200" text-anchor="middle" font-size="10" fill="#6A798E">25.06</text>
@@ -242,8 +306,6 @@ svg text { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; }
       </div>
 
       <!-- ══════ 차트 2: ACV (우상) ══════ -->
-      <!-- 우축: 0%=y=25(top), -15%=y=91(mid), -30%=y=185(bot) -->
-      <!-- YoY: -25.1%(y=159) → -16%(y=110), 개선 추세 -->
       <div class="card-base chart-card">
         <div class="card-header">
           <div class="card-title-row">
@@ -273,34 +335,27 @@ svg text { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; }
           <text x="389" y="29"  text-anchor="start" font-size="10" fill="#E88A4A">0%</text>
           <text x="389" y="95"  text-anchor="start" font-size="10" fill="#E88A4A">-15%</text>
           <text x="389" y="189" text-anchor="start" font-size="10" fill="#E88A4A">-30%</text>
-
-          <!-- 막대 (bar_h=(val/300)*160, y=185-h) -->
-          <!-- 275→h=146.7,y=38 --> <rect x="53"  y="38" width="18" height="147" rx="1" fill="#89B4F7"/>
-          <!-- 271→h=144.5,y=40 --> <rect x="74"  y="41" width="18" height="144" rx="1" fill="#89B4F7"/>
-          <!-- 268→h=142.9,y=42 --> <rect x="95"  y="43" width="18" height="142" rx="1" fill="#89B4F7"/>
-          <!-- 262→h=139.7,y=45 --> <rect x="116" y="46" width="18" height="139" rx="1" fill="#89B4F7"/>
-          <!-- 258→h=137.6,y=47 --> <rect x="137" y="48" width="18" height="137" rx="1" fill="#89B4F7"/>
-          <!-- 253→h=134.9,y=50 --> <rect x="158" y="51" width="18" height="134" rx="1" fill="#89B4F7"/>
-          <!-- 249→h=132.8,y=52 --> <rect x="179" y="53" width="18" height="132" rx="1" fill="#89B4F7"/>
-          <!-- 244→h=130.1,y=55 --> <rect x="200" y="55" width="18" height="130" rx="1" fill="#89B4F7"/>
-          <!-- 240→h=128.0,y=57 --> <rect x="221" y="57" width="18" height="128" rx="1" fill="#89B4F7"/>
-          <!-- 237→h=126.4,y=59 --> <rect x="242" y="59" width="18" height="126" rx="1" fill="#89B4F7"/>
-          <!-- 233→h=124.3,y=61 --> <rect x="263" y="61" width="18" height="124" rx="1" fill="#89B4F7"/>
-          <!-- 230→h=122.7,y=62 --> <rect x="284" y="62" width="18" height="123" rx="1" fill="#89B4F7"/>
-          <!-- 232→h=123.7,y=61 --> <rect x="305" y="61" width="18" height="124" rx="1" fill="#89B4F7"/>
-          <!-- 229→h=122.1,y=63 --> <rect x="326" y="63" width="18" height="122" rx="1" fill="#89B4F7"/>
-          <!-- 227 (최신월)       --> <rect x="347" y="64" width="18" height="121" rx="1" fill="#4A90E2"/>
-
-          <!-- YoY 꺾은선 (-25.1%→y=159 ~ -16%→y=110, 우축 0%=y=25, -30%=y=185) -->
-          <!-- y = 25+(|val|/30)*160 : -25.1%→159, -16%→110 -->
+          <rect x="53"  y="38" width="18" height="147" rx="1" fill="#89B4F7"/>
+          <rect x="74"  y="41" width="18" height="144" rx="1" fill="#89B4F7"/>
+          <rect x="95"  y="43" width="18" height="142" rx="1" fill="#89B4F7"/>
+          <rect x="116" y="46" width="18" height="139" rx="1" fill="#89B4F7"/>
+          <rect x="137" y="48" width="18" height="137" rx="1" fill="#89B4F7"/>
+          <rect x="158" y="51" width="18" height="134" rx="1" fill="#89B4F7"/>
+          <rect x="179" y="53" width="18" height="132" rx="1" fill="#89B4F7"/>
+          <rect x="200" y="55" width="18" height="130" rx="1" fill="#89B4F7"/>
+          <rect x="221" y="57" width="18" height="128" rx="1" fill="#89B4F7"/>
+          <rect x="242" y="59" width="18" height="126" rx="1" fill="#89B4F7"/>
+          <rect x="263" y="61" width="18" height="124" rx="1" fill="#89B4F7"/>
+          <rect x="284" y="62" width="18" height="123" rx="1" fill="#89B4F7"/>
+          <rect x="305" y="61" width="18" height="124" rx="1" fill="#89B4F7"/>
+          <rect x="326" y="63" width="18" height="122" rx="1" fill="#89B4F7"/>
+          <rect x="347" y="64" width="18" height="121" rx="1" fill="#4A90E2"/>
           <polyline points="62,159 83,153 104,148 125,143 146,138 167,134 188,129 209,124 230,121 251,118 272,115 293,113 314,112 335,111 356,110"
                     fill="none" stroke="#E88A4A" stroke-width="2" stroke-linejoin="round"/>
           <circle cx="62"  cy="159" r="3.5" fill="#E88A4A"/>
           <text x="79" y="165" font-size="10" fill="#E88A4A">-25.1%</text>
           <circle cx="356" cy="110" r="3.5" fill="#E88A4A"/>
           <text x="356" y="123" text-anchor="middle" font-size="10" fill="#E88A4A">-16%</text>
-
-          <!-- X축 -->
           <text x="62"  y="200" text-anchor="middle" font-size="10" fill="#6A798E">25.01</text>
           <text x="104" y="200" text-anchor="middle" font-size="10" fill="#6A798E">25.03</text>
           <text x="167" y="200" text-anchor="middle" font-size="10" fill="#6A798E">25.06</text>
@@ -312,8 +367,6 @@ svg text { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; }
       </div>
 
       <!-- ══════ 차트 3: Customers By ARR(MRR) (좌하) ══════ -->
-      <!-- zero-line y=155. 좌축 0~400개, y=155(0) ~ y=25(400). scale=130px/400=0.325px/개 -->
-      <!-- 우축 0%=y=155, 20%=y=25. scale=130/20=6.5px/% -->
       <div class="card-base chart-card">
         <div class="card-header">
           <div class="card-title-row">
@@ -333,7 +386,6 @@ svg text { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; }
           <div class="legend-item"><div class="leg-box" style="background:#CBD5E0;"></div>Churn</div>
           <div class="legend-item"><div class="leg-line" style="background:#E88A4A;"></div>% Growth</div>
         </div>
-        <!-- zero-line y=155. Existing: y=155-h_E. New: y=y_E-h_N. Churn: y=155, h down. -->
         <svg width="100%" height="205" viewBox="0 0 420 205">
           <line x1="54" y1="25"  x2="386" y2="25"  stroke="#E5E7EB" stroke-width="1"/>
           <line x1="54" y1="58"  x2="386" y2="58"  stroke="#F3F4F6" stroke-width="1"/>
@@ -348,10 +400,6 @@ svg text { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; }
           <text x="389" y="29"  text-anchor="start" font-size="10" fill="#E88A4A">20%</text>
           <text x="389" y="95"  text-anchor="start" font-size="10" fill="#E88A4A">10%</text>
           <text x="389" y="159" text-anchor="start" font-size="10" fill="#E88A4A">0%</text>
-
-          <!-- Stacked Bars: E=255,N=22,C=12 (초기) → E=272,N=15,C=0 (26.03) -->
-          <!-- h = val*0.325 -->
-          <!-- 25.01: E=255→h=82.9≈83, y_E=155-83=72. N=22→h=7.15≈7, y_N=65. C=12→h=3.9≈4 -->
           <rect x="53"  y="72" width="18" height="83" fill="#89B4F7"/><rect x="53"  y="65" width="18" height="7" fill="#4A90E2"/><rect x="53"  y="155" width="18" height="4" fill="#CBD5E0"/>
           <text x="62" y="60" text-anchor="middle" font-size="9" font-weight="700" fill="#354052">277</text>
           <rect x="74"  y="73" width="18" height="82" fill="#89B4F7"/><rect x="74"  y="67" width="18" height="6" fill="#4A90E2"/><rect x="74"  y="155" width="18" height="4" fill="#CBD5E0"/>
@@ -359,29 +407,22 @@ svg text { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; }
           <rect x="116" y="73" width="18" height="82" fill="#89B4F7"/><rect x="116" y="68" width="18" height="5" fill="#4A90E2"/><rect x="116" y="155" width="18" height="4" fill="#CBD5E0"/>
           <rect x="137" y="73" width="18" height="82" fill="#89B4F7"/><rect x="137" y="69" width="18" height="4" fill="#4A90E2"/><rect x="137" y="155" width="18" height="4" fill="#CBD5E0"/>
           <rect x="158" y="73" width="18" height="82" fill="#89B4F7"/><rect x="158" y="70" width="18" height="3" fill="#4A90E2"/><rect x="158" y="155" width="18" height="4" fill="#CBD5E0"/>
-          <!-- 25.07 -->
           <rect x="179" y="73" width="18" height="82" fill="#89B4F7"/><rect x="179" y="70" width="18" height="3" fill="#4A90E2"/><rect x="179" y="155" width="18" height="5" fill="#CBD5E0"/>
           <rect x="200" y="72" width="18" height="83" fill="#89B4F7"/><rect x="200" y="70" width="18" height="2" fill="#4A90E2"/><rect x="200" y="155" width="18" height="5" fill="#CBD5E0"/>
-          <!-- 25.09: E=261→h=84.8≈85, y=70. N=18→h=5.85≈6, y=64. C=14→h=4.55≈5 -->
           <rect x="221" y="70" width="18" height="85" fill="#89B4F7"/><rect x="221" y="64" width="18" height="6" fill="#4A90E2"/><rect x="221" y="155" width="18" height="5" fill="#CBD5E0"/>
           <rect x="242" y="70" width="18" height="85" fill="#89B4F7"/><rect x="242" y="66" width="18" height="4" fill="#4A90E2"/><rect x="242" y="155" width="18" height="4" fill="#CBD5E0"/>
           <rect x="263" y="70" width="18" height="85" fill="#89B4F7"/><rect x="263" y="67" width="18" height="3" fill="#4A90E2"/><rect x="263" y="155" width="18" height="4" fill="#CBD5E0"/>
           <rect x="284" y="70" width="18" height="85" fill="#89B4F7"/><rect x="284" y="67" width="18" height="3" fill="#4A90E2"/><rect x="284" y="155" width="18" height="3" fill="#CBD5E0"/>
           <rect x="305" y="69" width="18" height="86" fill="#89B4F7"/><rect x="305" y="67" width="18" height="2" fill="#4A90E2"/><rect x="305" y="155" width="18" height="3" fill="#CBD5E0"/>
           <rect x="326" y="68" width="18" height="87" fill="#89B4F7"/><rect x="326" y="66" width="18" height="2" fill="#4A90E2"/><rect x="326" y="155" width="18" height="3" fill="#CBD5E0"/>
-          <!-- 26.03: E=272→h=88.4≈88, y=67. N=15→h=4.875≈5, y=62. C=0 -->
           <rect x="347" y="67" width="18" height="88" fill="#89B4F7"/><rect x="347" y="62" width="18" height="5" fill="#4A90E2"/>
           <text x="356" y="57" text-anchor="middle" font-size="9" font-weight="700" fill="#354052">287</text>
-
-          <!-- % Growth 꺾은선 (1.4%≈y=146, 평탄) -->
           <polyline points="62,146 83,146 104,146 125,147 146,147 167,147 188,147 209,147 230,146 251,146 272,146 293,146 314,146 335,146 356,147"
                     fill="none" stroke="#E88A4A" stroke-width="2" stroke-linejoin="round"/>
           <circle cx="62"  cy="146" r="3.5" fill="#E88A4A"/>
           <text x="62"  y="141" text-anchor="middle" font-size="10" fill="#E88A4A">1.4%</text>
           <circle cx="356" cy="147" r="3.5" fill="#E88A4A"/>
           <text x="356" y="142" text-anchor="middle" font-size="10" fill="#E88A4A">1.4%</text>
-
-          <!-- X축 -->
           <text x="62"  y="200" text-anchor="middle" font-size="10" fill="#6A798E">25.01</text>
           <text x="104" y="200" text-anchor="middle" font-size="10" fill="#6A798E">25.03</text>
           <text x="167" y="200" text-anchor="middle" font-size="10" fill="#6A798E">25.06</text>
@@ -393,8 +434,6 @@ svg text { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; }
       </div>
 
       <!-- ══════ 차트 4: Revenue & Profit (우하) ══════ -->
-      <!-- 좌축: 0~60억(y=185~25). 우축: -20%~60%(y=185~25), 0%=y=145 -->
-      <!-- bar_h=(val/60)*160. 우축 y=25+(60-val)*2 -->
       <div class="card-base chart-card">
         <div class="card-header">
           <div class="card-title-row">
@@ -427,71 +466,53 @@ svg text { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; }
           <div class="legend-item"><div class="leg-line" style="background:#9B7EFF;"></div>Operating Profit</div>
         </div>
         <svg width="100%" height="205" viewBox="0 0 420 205">
-          <!-- 그리드 -->
           <line x1="54" y1="25"  x2="386" y2="25"  stroke="#E5E7EB" stroke-width="1"/>
           <line x1="54" y1="58"  x2="386" y2="58"  stroke="#F3F4F6" stroke-width="1"/>
           <line x1="54" y1="91"  x2="386" y2="91"  stroke="#E5E7EB" stroke-width="1"/>
           <line x1="54" y1="124" x2="386" y2="124" stroke="#F3F4F6" stroke-width="1"/>
           <line x1="54" y1="185" x2="386" y2="185" stroke="#E5E7EB" stroke-width="1"/>
-          <!-- 0% 기준선 (OP/GM 기준, y=145) -->
           <line x1="54" y1="145" x2="386" y2="145" stroke="#94A3B8" stroke-width="0.8" stroke-dasharray="3,3" opacity="0.7"/>
           <line x1="54" y1="15"  x2="54"  y2="185" stroke="#E2E8F0" stroke-width="1"/>
-          <!-- 좌축 -->
           <text x="50" y="29"  text-anchor="end" font-size="10" fill="#6A798E">60억</text>
           <text x="50" y="107" text-anchor="end" font-size="10" fill="#6A798E">30억</text>
           <text x="50" y="189" text-anchor="end" font-size="10" fill="#6A798E">0억</text>
-          <!-- 우축: 60%=y=25, 30%=y=85, 0%=y=145, -20%=y=185 -->
           <text x="389" y="29"  text-anchor="start" font-size="10" fill="#E88A4A">60%</text>
           <text x="389" y="89"  text-anchor="start" font-size="10" fill="#E88A4A">30%</text>
           <text x="389" y="149" text-anchor="start" font-size="10" fill="#9B7EFF">0%</text>
           <text x="389" y="189" text-anchor="start" font-size="10" fill="#9B7EFF">-20%</text>
-
-          <!-- Revenue 막대 (bar_h=(val/60)*160) -->
-          <!-- 24: h=64,y=121 --> <rect x="53"  y="121" width="18" height="64"  rx="1" fill="#89B4F7"/>
-          <!-- 25: h=66.7,y=118 --> <rect x="74"  y="118" width="18" height="67"  rx="1" fill="#89B4F7"/>
-          <!-- 26: h=69.3,y=116 --> <rect x="95"  y="116" width="18" height="69"  rx="1" fill="#89B4F7"/>
-          <!-- 28: h=74.7,y=110 --> <rect x="116" y="110" width="18" height="75"  rx="1" fill="#89B4F7"/>
-          <!-- 30: h=80,y=105   --> <rect x="137" y="105" width="18" height="80"  rx="1" fill="#89B4F7"/>
-          <!-- 31: h=82.7,y=102 --> <rect x="158" y="102" width="18" height="83"  rx="1" fill="#89B4F7"/>
-          <!-- 32: h=85.3,y=100 --> <rect x="179" y="100" width="18" height="85"  rx="1" fill="#89B4F7"/>
-          <!-- 33: h=88,y=97    --> <rect x="200" y="97"  width="18" height="88"  rx="1" fill="#89B4F7"/>
-          <!-- 33: h=88,y=97    --> <rect x="221" y="97"  width="18" height="88"  rx="1" fill="#89B4F7"/>
-          <!-- 34: h=90.7,y=94  --> <rect x="242" y="94"  width="18" height="91"  rx="1" fill="#89B4F7"/>
-          <!-- 34: h=90.7,y=94  --> <rect x="263" y="94"  width="18" height="91"  rx="1" fill="#89B4F7"/>
-          <!-- 35: h=93.3,y=92  --> <rect x="284" y="92"  width="18" height="93"  rx="1" fill="#89B4F7"/>
-          <!-- 34: h=90.7,y=94  --> <rect x="305" y="94"  width="18" height="91"  rx="1" fill="#89B4F7"/>
-          <!-- 35: h=93.3,y=92  --> <rect x="326" y="92"  width="18" height="93"  rx="1" fill="#89B4F7"/>
-          <!-- 35 (최신월)       --> <rect x="347" y="92"  width="18" height="93"  rx="1" fill="#4A90E2"/>
-
-          <!-- Revenue 시작/끝 레이블 -->
+          <rect x="53"  y="121" width="18" height="64"  rx="1" fill="#89B4F7"/>
+          <rect x="74"  y="118" width="18" height="67"  rx="1" fill="#89B4F7"/>
+          <rect x="95"  y="116" width="18" height="69"  rx="1" fill="#89B4F7"/>
+          <rect x="116" y="110" width="18" height="75"  rx="1" fill="#89B4F7"/>
+          <rect x="137" y="105" width="18" height="80"  rx="1" fill="#89B4F7"/>
+          <rect x="158" y="102" width="18" height="83"  rx="1" fill="#89B4F7"/>
+          <rect x="179" y="100" width="18" height="85"  rx="1" fill="#89B4F7"/>
+          <rect x="200" y="97"  width="18" height="88"  rx="1" fill="#89B4F7"/>
+          <rect x="221" y="97"  width="18" height="88"  rx="1" fill="#89B4F7"/>
+          <rect x="242" y="94"  width="18" height="91"  rx="1" fill="#89B4F7"/>
+          <rect x="263" y="94"  width="18" height="91"  rx="1" fill="#89B4F7"/>
+          <rect x="284" y="92"  width="18" height="93"  rx="1" fill="#89B4F7"/>
+          <rect x="305" y="94"  width="18" height="91"  rx="1" fill="#89B4F7"/>
+          <rect x="326" y="92"  width="18" height="93"  rx="1" fill="#89B4F7"/>
+          <rect x="347" y="92"  width="18" height="93"  rx="1" fill="#4A90E2"/>
           <text x="62"  y="117" text-anchor="middle" font-size="9" fill="#4A90E2" font-weight="600">24억</text>
           <text x="356" y="88"  text-anchor="middle" font-size="9" fill="#4A90E2" font-weight="600">35.4억</text>
-
-          <!-- 흑자전환 마커 ▲ (25.04, x=116, 0%선 y=145) -->
           <line x1="116" y1="25" x2="116" y2="183" stroke="#24A148" stroke-width="1" stroke-dasharray="3,3" opacity="0.65"/>
           <polygon points="116,138 111,145 121,145" fill="#24A148" opacity="0.9"/>
           <text x="119" y="133" font-size="8.5" fill="#24A148" font-weight="600">흑자전환</text>
           <text x="119" y="142" font-size="8.5" fill="#24A148">('25.04)</text>
-
-          <!-- Gross Margin (우축: y=25+(60-val)*2) -->
-          <!-- 51%→y=43, 34%→y=77, 33.6%→y=78 -->
           <polyline points="62,43 83,43 104,43 125,77 146,78 167,78 188,78 209,78 230,78 251,78 272,78 293,78 314,78 335,78 356,78"
                     fill="none" stroke="#E88A4A" stroke-width="2" stroke-linejoin="round"/>
           <circle cx="62"  cy="43" r="3.5" fill="#E88A4A"/>
           <text x="62"  y="38" text-anchor="middle" font-size="10" fill="#E88A4A">51%</text>
           <circle cx="356" cy="78" r="3.5" fill="#E88A4A"/>
           <text x="356" y="73" text-anchor="middle" font-size="10" fill="#E88A4A">33.6%</text>
-
-          <!-- Operating Profit (우축, 음수시작) -->
-          <!-- -8%→y=161, -6%→y=157, -3%→y=151, 0%→y=145, 3%→y=139, 6.7%→y=132 -->
           <polyline points="62,161 83,157 104,151 125,145 146,139 167,137 188,135 209,133 230,132 251,131 272,131 293,131 314,131 335,131 356,131"
                     fill="none" stroke="#9B7EFF" stroke-width="2" stroke-linejoin="round"/>
           <circle cx="62"  cy="161" r="3.5" fill="#9B7EFF"/>
           <text x="62"  y="171" text-anchor="middle" font-size="10" fill="#9B7EFF">-8%</text>
           <circle cx="356" cy="131" r="3.5" fill="#9B7EFF"/>
           <text x="356" y="126" text-anchor="middle" font-size="10" fill="#9B7EFF">6.7%</text>
-
-          <!-- X축 -->
           <text x="62"  y="200" text-anchor="middle" font-size="10" fill="#6A798E">25.01</text>
           <text x="104" y="200" text-anchor="middle" font-size="10" fill="#6A798E">25.03</text>
           <text x="167" y="200" text-anchor="middle" font-size="10" fill="#6A798E">25.06</text>
@@ -512,5 +533,147 @@ svg text { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; }
   </div>
 
 </div><!-- /main -->
+<script>
+/* config.js (inlined) */
+window.SITE = {
+  baseMonth:   '2026년 06월',
+  updateShort: '매월 10일',
+  updateFull:  '매월 10일 (실적) · 23일 (속보)',
+  statusText:  '사업 건전성: 양호',
+  showStatus:  true,
+  products: [
+    'Brity Automation', 'Knox Portal', 'Knox Teams',
+    'Knox Meeting', 'Knox Drive', 'Knox EFSS', 'Copilot'
+  ],
+  menu: [
+    { kind:'item',   label:'사업부 대시보드', page:'bizunit',   href:'bizunit_dashboard_wireframe.html' },
+    { kind:'item',   label:'사업건전성 현황', page:'health',    href:'biz_health_status_wireframe.html' },
+    { kind:'divider' },
+    { kind:'parent', label:'사업건전성 영역별 현황' },
+    { kind:'parent', label:'재무', level:1 },
+    { kind:'item',   label:'성장',        page:'growth',     href:'growth_wireframe.html',            level:2 },
+    { kind:'item',   label:'효율/수익',    page:'efficiency', href:'efficiency_profit_wireframe.html', level:2 },
+    { kind:'item',   label:'시장',        page:'market',     href:'market_wireframe.html',            level:1 },
+    { kind:'item',   label:'영업',        page:'sales',      href:'sales_main_wireframe.html',        level:1 },
+    { kind:'divider' },
+    { kind:'item',   label:'고객 현황',      page:'customer', href:'customer_status_wireframe.html' },
+    { kind:'item',   label:'매출/원가 현황', page:'revcost',  href:'revenue_cost_wireframe.html' },
+    { kind:'divider' },
+    { kind:'parent', label:'지표 정보' },
+    { kind:'item',   label:'지표',          page:'indicator', href:'indicator_info_wireframe.html',   level:1 },
+    { kind:'item',   label:'지표 테이블',    page:'indtable',  href:'indicator_table_wireframe.html',  level:1 },
+    { kind:'item',   label:'지표 원천데이터', page:'indsource', href:'indicator_source_wireframe.html', level:1 },
+    { kind:'divider' },
+    { kind:'item',   label:'로그아웃', page:'logout', href:'#' }
+  ],
+  pages: {
+    bizunit:   { title:'사업부 대시보드' },
+    health:    { title:'사업건전성 현황' },
+    growth:    { title:'성장',           crumb:'재무 › 성장' },
+    efficiency:{ title:'효율/수익',       crumb:'재무 › 효율/수익' },
+    market:    { title:'시장',           crumb:'재무 › 시장' },
+    sales:     { title:'영업 (Sales)' },
+    customer:  { title:'고객 현황 (CS)' },
+    revcost:   { title:'매출/원가 현황' },
+    indicator: { title:'지표',           crumb:'지표 정보 › 지표' },
+    indtable:  { title:'지표 테이블',     crumb:'지표 정보 › 지표 테이블' },
+    indsource: { title:'지표 원천데이터',  crumb:'지표 정보 › 지표 원천데이터' }
+  }
+};
+</script>
+<script>
+/* app.js (inlined) — 로고 마크 한 줄만 ▧ → 📊로 수정해서 저장할 것 */
+(function () {
+  var S = window.SITE;
+  if (!S) { console.error('[app.js] config.js(SITE)를 먼저 로드하세요.'); return; }
+
+  var pageKey = document.body.getAttribute('data-page') || '';
+  var meta = S.pages[pageKey] || { title: document.title || '' };
+
+  var product = null;
+  try { product = localStorage.getItem('bh_product'); } catch (e) {}
+  if (!product || S.products.indexOf(product) < 0) product = S.products[0];
+
+  var esc = function (s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  };
+
+  function buildSidebar() {
+    var el = document.querySelector('.sidebar');
+    if (!el) return;
+    el.className = 'gx-sidebar';
+    var h = '<div class="gx-logo"><span class="gx-logo-mark">&#128202;</span> 사업건전성</div>';
+    h += '<nav class="gx-menu" aria-label="주 메뉴">';
+    S.menu.forEach(function (m) {
+      if (m.kind === 'divider') { h += '<div class="gx-divider"></div>'; return; }
+      var lvl = m.level ? (' gx-lv' + m.level) : '';
+      if (m.kind === 'parent') {
+        h += '<div class="gx-mi gx-parent' + lvl + '">' + esc(m.label) +
+             ' <span class="gx-caret">▾</span></div>';
+        return;
+      }
+      var active = (m.page === pageKey) ? ' gx-active' : '';
+      h += '<a class="gx-mi' + lvl + active + '" href="' + esc(m.href) + '"' +
+           (active ? ' aria-current="page"' : '') + '>' + esc(m.label) + '</a>';
+    });
+    h += '</nav>';
+    el.innerHTML = h;
+  }
+
+  function buildHeader() {
+    var main = document.querySelector('.main');
+    if (!main) return;
+    var el = main.querySelector('.header');
+    if (!el) { el = document.createElement('div'); main.insertBefore(el, main.firstChild); }
+    el.className = 'gx-header';
+
+    var h = '<h1 class="gx-title">' + esc(meta.title) + '</h1>';
+    if (meta.crumb) h += '<span class="gx-crumb">' + esc(meta.crumb) + '</span>';
+    h += '<div class="gx-spacer"></div>';
+    if (S.showStatus) {
+      h += '<span class="gx-status"><span class="gx-dot"></span>' + esc(S.statusText) + '</span>';
+    }
+    h += '<label class="gx-sr-only" for="gx-product">상품 선택</label>';
+    h += '<select class="gx-select" id="gx-product">';
+    S.products.forEach(function (p) {
+      h += '<option' + (p === product ? ' selected' : '') + '>' + esc(p) + '</option>';
+    });
+    h += '</select>';
+    h += '<span class="gx-badge">기준월: ' + esc(S.baseMonth) + '</span>';
+    h += '<span class="gx-badge">업데이트: ' + esc(S.updateShort) + '</span>';
+    el.innerHTML = h;
+
+    var sel = document.getElementById('gx-product');
+    if (sel) sel.addEventListener('change', function () {
+      try { localStorage.setItem('bh_product', this.value); } catch (e) {}
+      buildFooter();
+    });
+  }
+
+  function buildFooter() {
+    var main = document.querySelector('.main');
+    if (!main) return;
+    var el = main.querySelector('.footer, .gx-footer');
+    if (!el) { el = document.createElement('div'); main.appendChild(el); }
+    el.className = 'gx-footer';
+    var sel = document.getElementById('gx-product');
+    var p = sel ? sel.value : product;
+    el.innerHTML = '기준: ' + esc(S.baseMonth) + ' &nbsp;|&nbsp; 상품: ' + esc(p) +
+                   ' &nbsp;|&nbsp; 업데이트: ' + esc(S.updateFull);
+  }
+
+  function run() {
+    document.title = (meta.title ? meta.title + ' — ' : '') + '사업건전성';
+    buildSidebar();
+    buildHeader();
+    buildFooter();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', run);
+  } else { run(); }
+})();
+</script>
 </body>
 </html>

@@ -214,6 +214,29 @@
   .gx-crumb{ display:none; }
   .gx-badge, .gx-status{ font-size:10px; padding:3px 8px; }
 }
+
+/* ── gx-tooltip (지표 설명 툴팁, 11개 페이지 공통) ── */
+.gx-tooltip{ cursor:help; }
+.gx-tooltip[data-tooltip]{ border-bottom:1px dotted #A7B4CC; }
+.gx-tip-bubble{
+  position:fixed; display:none; max-width:280px;
+  background:#1E3079; color:#fff; padding:8px 11px; border-radius:6px;
+  font-size:11px; font-weight:400; line-height:1.55; word-break:keep-all;
+  box-shadow:0 6px 18px rgba(30,48,121,.30);
+  z-index:99999; pointer-events:none;
+  opacity:0; transform:translateY(4px);
+  transition:opacity .15s ease, transform .15s ease;
+  font-family:'Malgun Gothic','Noto Sans KR',sans-serif;
+}
+.gx-tip-bubble.gx-tip-show{ opacity:1; transform:translateY(0); }
+.gx-tip-bubble::after{
+  content:''; position:absolute; left:var(--gx-tip-arrow,20px); top:100%;
+  border:5px solid transparent; border-top-color:#1E3079; margin-left:-5px;
+}
+.gx-tip-bubble.gx-tip-below::after{
+  top:auto; bottom:100%; border-top-color:transparent; border-bottom-color:#1E3079; margin-top:-10px;
+}
+
 </style>
 </head>
 <body data-page="revcost">
@@ -284,7 +307,7 @@
       <!-- 카드: 매출 -->
       <div class="card">
         <div class="card-title">
-          <span class="title-left">매출 <span class="card-tag">Revenue</span></span>
+          <span class="title-left gx-tooltip" data-tooltip="당 기간 발생한 전체 매출.">매출 <span class="card-tag">Revenue</span></span>
           <span class="card-unit">억원</span>
         </div>
 
@@ -390,7 +413,7 @@
       <!-- 카드: 영업이익 -->
       <div class="card">
         <div class="card-title">
-          <span class="title-left">영업이익 <span class="card-tag">Operating Profit</span></span>
+          <span class="title-left gx-tooltip" data-tooltip="매출에서 매출원가·판관비를 차감한 영업활동 이익.">영업이익 <span class="card-tag">Operating Profit</span></span>
           <span class="card-unit">억원</span>
         </div>
 
@@ -512,7 +535,7 @@
       <div class="grid-3">
         <!-- 카드: 매출/영업이익 요약 -->
         <div class="card">
-          <div class="card-title"><span class="title-left">매출/영업이익 요약</span></div>
+          <div class="card-title"><span class="title-left gx-tooltip" data-tooltip="매출과 영업이익 실적 요약.">매출/영업이익 요약</span></div>
           <table class="summary-table">
             <tr><th>연도</th><th>매출(억)</th><th>영업이익(억)</th><th>OP율</th></tr>
             <tr><td>2022</td><td>298</td><td class="neg">-42</td><td class="neg">-14.1%</td></tr>
@@ -525,7 +548,7 @@
 
         <!-- 카드: 매출 -->
         <div class="card">
-          <div class="card-title"><span class="title-left">매출</span><span class="card-unit">억원</span></div>
+          <div class="card-title"><span class="title-left gx-tooltip" data-tooltip="당 기간 발생한 전체 매출.">매출</span><span class="card-unit">억원</span></div>
           <div class="legend">
             <div class="legend-item"><div class="legend-bar" style="background:#7EA2EA"></div>구축(운영)</div>
             <div class="legend-item"><div class="legend-bar" style="background:#5066E8"></div>라이선스</div>
@@ -564,7 +587,7 @@
 
         <!-- 카드: 영업이익 -->
         <div class="card">
-          <div class="card-title"><span class="title-left">영업이익</span><span class="card-unit">억원</span></div>
+          <div class="card-title"><span class="title-left gx-tooltip" data-tooltip="매출에서 매출원가·판관비를 차감한 영업활동 이익.">영업이익</span><span class="card-unit">억원</span></div>
           <div class="legend">
             <div class="legend-item"><div class="legend-bar" style="background:#B8BCC4"></div>적자(-)</div>
             <div class="legend-item"><div class="legend-bar" style="background:#5066E8"></div>흑자(+)</div>
@@ -597,7 +620,7 @@
       <div class="grid-3">
         <!-- 카드: 구축 매출 -->
         <div class="card">
-          <div class="card-title"><span class="title-left">구축 매출</span><span class="card-unit">억원</span></div>
+          <div class="card-title"><span class="title-left gx-tooltip" data-tooltip="SI/구축(Implementation) 성격의 일회성 매출.">구축 매출</span><span class="card-unit">억원</span></div>
           <div class="legend">
             <div class="legend-item"><div class="legend-bar" style="background:#7EA2EA"></div>국내</div>
             <div class="legend-item"><div class="legend-bar" style="background:#5066E8"></div>해외</div>
@@ -629,7 +652,7 @@
 
         <!-- 카드: 라이선스 매출 -->
         <div class="card">
-          <div class="card-title"><span class="title-left">라이선스 매출</span><span class="card-unit">억원</span></div>
+          <div class="card-title"><span class="title-left gx-tooltip" data-tooltip="라이선스(Subscription/Term/Perpetual) 매출.">라이선스 매출</span><span class="card-unit">억원</span></div>
           <div class="legend">
             <div class="legend-item"><div class="legend-bar" style="background:#7EA2EA"></div>국내</div>
             <div class="legend-item"><div class="legend-bar" style="background:#5066E8"></div>해외</div>
@@ -661,7 +684,7 @@
 
         <!-- 카드: On-Prem 라이선스 매출 -->
         <div class="card">
-          <div class="card-title"><span class="title-left">On-Prem 라이선스 매출</span><span class="card-unit">억원</span></div>
+          <div class="card-title"><span class="title-left gx-tooltip" data-tooltip="On-Premises 형태 라이선스 매출.">On-Prem 라이선스 매출</span><span class="card-unit">억원</span></div>
           <div class="legend">
             <div class="legend-item"><div class="legend-bar" style="background:#7EA2EA"></div>국내</div>
             <div class="legend-item"><div class="legend-bar" style="background:#5066E8"></div>해외</div>
@@ -706,7 +729,7 @@
 
       <!-- 카드: 총 원가 VS. 매출 -->
       <div class="card">
-        <div class="card-title"><span class="title-left">총 원가 VS. 매출</span><span class="card-unit">억원</span></div>
+        <div class="card-title"><span class="title-left gx-tooltip" data-tooltip="매출 대비 총원가(직접원가+간접원가+판관비) 비율.">총 원가 VS. 매출</span><span class="card-unit">억원</span></div>
         <div class="legend">
           <div class="legend-item"><div class="legend-bar" style="background:#B8BCC4"></div>매출원가</div>
           <div class="legend-item"><div class="legend-bar" style="background:#7EA2EA"></div>판관비</div>
@@ -758,7 +781,7 @@
 
       <!-- 카드: 매출원가 VS. 매출 -->
       <div class="card">
-        <div class="card-title"><span class="title-left">매출원가 VS. 매출</span><span class="card-unit">억원</span></div>
+        <div class="card-title"><span class="title-left gx-tooltip" data-tooltip="매출 대비 매출원가(COGS) 비율.">매출원가 VS. 매출</span><span class="card-unit">억원</span></div>
         <div class="legend">
           <div class="legend-item"><div class="legend-bar" style="background:#B8BCC4"></div>인건비</div>
           <div class="legend-item"><div class="legend-bar" style="background:#D6D9DE"></div>외주비</div>
@@ -810,7 +833,7 @@
 
       <!-- 카드: 판관비 VS. 매출 -->
       <div class="card">
-        <div class="card-title"><span class="title-left">판관비 VS. 매출</span><span class="card-unit">억원</span></div>
+        <div class="card-title"><span class="title-left gx-tooltip" data-tooltip="매출 대비 판매비와관리비(판관비) 비율.">판관비 VS. 매출</span><span class="card-unit">억원</span></div>
         <div class="legend">
           <div class="legend-item"><div class="legend-bar" style="background:#7EA2EA"></div>관리인건비</div>
           <div class="legend-item"><div class="legend-bar" style="background:#AEC6F2"></div>기타 판관비</div>
@@ -860,7 +883,7 @@
 
       <!-- 카드: 판매비 VS. 매출 -->
       <div class="card">
-        <div class="card-title"><span class="title-left">판매비 VS. 매출</span><span class="card-unit">억원</span></div>
+        <div class="card-title"><span class="title-left gx-tooltip" data-tooltip="매출 대비 판매비 비율.">판매비 VS. 매출</span><span class="card-unit">억원</span></div>
         <div class="legend">
           <div class="legend-item"><div class="legend-bar" style="background:#7EA2EA"></div>판매비</div>
           <div class="legend-item"><div class="legend-line" style="background:#FF7A00"></div>매출</div>
@@ -909,7 +932,7 @@
 
       <!-- 카드: R&D VS. 매출 -->
       <div class="card">
-        <div class="card-title"><span class="title-left">R&amp;D VS. 매출</span><span class="card-unit">억원</span></div>
+        <div class="card-title"><span class="title-left gx-tooltip" data-tooltip="매출액 대비 R&amp;D 비용 비중. 일반적으로 15~30% 수준.">R&amp;D VS. 매출</span><span class="card-unit">억원</span></div>
         <div class="legend">
           <div class="legend-item"><div class="legend-bar" style="background:#B8BCC4"></div>R&amp;D</div>
           <div class="legend-item"><div class="legend-line" style="background:#FF7A00"></div>매출</div>
@@ -958,7 +981,7 @@
 
       <!-- 카드: 손익분기점(BEP) -->
       <div class="card">
-        <div class="card-title"><span class="title-left">손익분기점 (BEP)</span><span class="card-unit">억원</span></div>
+        <div class="card-title"><span class="title-left gx-tooltip" data-tooltip="매출과 총원가가 같아져 이익이 0이 되는 손익분기 매출액.">손익분기점 (BEP)</span><span class="card-unit">억원</span></div>
         <div class="legend">
           <div class="legend-item"><div class="legend-bar" style="background:#7EA2EA"></div>매출</div>
           <div class="legend-item"><div class="legend-line" style="background:#FF7A00"></div>매출 추세</div>
@@ -1153,6 +1176,53 @@ window.SITE = {
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', run);
   } else { run(); }
+})();
+</script>
+
+<script>
+/* gx-tooltip engine (11개 페이지 공통, 지표 설명 hover 툴팁) */
+(function () {
+  var bubble;
+  function ensureBubble() {
+    if (!bubble) {
+      bubble = document.createElement('div');
+      bubble.className = 'gx-tip-bubble';
+      document.body.appendChild(bubble);
+    }
+    return bubble;
+  }
+  function showTip(el) {
+    var text = el.getAttribute('data-tooltip');
+    if (!text) return;
+    var t = ensureBubble();
+    t.textContent = text;
+    t.style.display = 'block';
+    t.classList.remove('gx-tip-show', 'gx-tip-below');
+    var r = el.getBoundingClientRect();
+    var tw = t.offsetWidth, th = t.offsetHeight;
+    var left = r.left + r.width / 2 - tw / 2;
+    var top = r.top - th - 10;
+    var below = false;
+    if (top < 6) { top = r.bottom + 10; below = true; }
+    if (left < 6) left = 6;
+    if (left + tw > window.innerWidth - 6) left = window.innerWidth - 6 - tw;
+    var arrowLeft = Math.max(10, Math.min(tw - 10, r.left + r.width / 2 - left));
+    t.style.left = left + 'px';
+    t.style.top = top + 'px';
+    t.style.setProperty('--gx-tip-arrow', arrowLeft + 'px');
+    if (below) t.classList.add('gx-tip-below');
+    requestAnimationFrame(function () { t.classList.add('gx-tip-show'); });
+  }
+  function hideTip() { if (bubble) bubble.classList.remove('gx-tip-show'); }
+  document.addEventListener('mouseover', function (e) {
+    var el = e.target.closest && e.target.closest('.gx-tooltip[data-tooltip]');
+    if (el) showTip(el);
+  });
+  document.addEventListener('mouseout', function (e) {
+    var el = e.target.closest && e.target.closest('.gx-tooltip[data-tooltip]');
+    if (el) hideTip();
+  });
+  document.addEventListener('scroll', hideTip, true);
 })();
 </script>
 </body>

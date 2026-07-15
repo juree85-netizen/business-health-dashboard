@@ -150,6 +150,29 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
   .gx-crumb{ display:none; }
   .gx-badge, .gx-status{ font-size:10px; padding:3px 8px; }
 }
+
+/* ── gx-tooltip (지표 설명 툴팁, 11개 페이지 공통) ── */
+.gx-tooltip{ cursor:help; }
+.gx-tooltip[data-tooltip]{ border-bottom:1px dotted #A7B4CC; }
+.gx-tip-bubble{
+  position:fixed; display:none; max-width:280px;
+  background:#1E3079; color:#fff; padding:8px 11px; border-radius:6px;
+  font-size:11px; font-weight:400; line-height:1.55; word-break:keep-all;
+  box-shadow:0 6px 18px rgba(30,48,121,.30);
+  z-index:99999; pointer-events:none;
+  opacity:0; transform:translateY(4px);
+  transition:opacity .15s ease, transform .15s ease;
+  font-family:'Malgun Gothic','Noto Sans KR',sans-serif;
+}
+.gx-tip-bubble.gx-tip-show{ opacity:1; transform:translateY(0); }
+.gx-tip-bubble::after{
+  content:''; position:absolute; left:var(--gx-tip-arrow,20px); top:100%;
+  border:5px solid transparent; border-top-color:#1E3079; margin-left:-5px;
+}
+.gx-tip-bubble.gx-tip-below::after{
+  top:auto; bottom:100%; border-top-color:transparent; border-bottom-color:#1E3079; margin-top:-10px;
+}
+
 </style>
 </head>
 <body data-page="sales">
@@ -216,7 +239,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
 
       <!-- 카드 A: BO Amount -->
       <div class="card">
-        <div class="card-title">BO Amount <span class="card-unit">단위: 억원, %</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="영업기회(Business Opportunity) 전체 금액 합계.">BO Amount <span class="card-unit">단위: 억원, %</span></div>
         <div class="card-note">*Total BO (Won+In-process+Drop+Lost) 기준</div>
         <div class="kpi-area">
           <div class="kpi-block">
@@ -293,7 +316,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
 
       <!-- 카드 B: BO Count -->
       <div class="card">
-        <div class="card-title">BO Count <span class="card-unit">단위: 건, %</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="영업기회(BO) 건수 합계.">BO Count <span class="card-unit">단위: 건, %</span></div>
         <div class="card-note">*Total BO (Won+In-process+Drop+Lost) 기준</div>
         <div class="kpi-area">
           <div class="kpi-block">
@@ -382,7 +405,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
 
       <!-- 1행 좌: New BO -->
       <div class="card">
-        <div class="card-title">New BO <span class="card-unit">단위: 억원, %</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="이번 기간 신규로 발생한 영업기회.">New BO <span class="card-unit">단위: 억원, %</span></div>
         <div class="legend">
           <div class="legend-item"><span class="leg-bar" style="background:#6B9BD8;"></span>New BO</div>
           <div class="legend-item"><span class="leg-line" style="background:#F4A460;"></span>YoY Change</div>
@@ -442,7 +465,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
 
       <!-- 1행 중: Existing BO -->
       <div class="card">
-        <div class="card-title">Existing BO <span class="card-unit">단위: 억원, %</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="이전 기간부터 이어져 진행 중인 영업기회.">Existing BO <span class="card-unit">단위: 억원, %</span></div>
         <div class="legend">
           <div class="legend-item"><span class="leg-bar" style="background:#6B9BD8;"></span>Existing BO</div>
           <div class="legend-item"><span class="leg-line" style="background:#F4A460;"></span>YoY Change</div>
@@ -502,7 +525,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
 
       <!-- 1행 우: Won BO -->
       <div class="card">
-        <div class="card-title">Won BO <span class="card-unit">단위: 억원, %</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="수주(계약 성사)로 종결된 영업기회.">Won BO <span class="card-unit">단위: 억원, %</span></div>
         <div class="legend">
           <div class="legend-item"><span class="leg-bar" style="background:#6B9BD8;"></span>Won BO</div>
           <div class="legend-item"><span class="leg-line" style="background:#F4A460;"></span>YoY Change</div>
@@ -565,7 +588,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
 
       <!-- 2행 좌: In-Process BO -->
       <div class="card">
-        <div class="card-title">In-Process BO <span class="card-unit">단위: 억원, %</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="현재 진행 중인 영업기회.">In-Process BO <span class="card-unit">단위: 억원, %</span></div>
         <div class="legend">
           <div class="legend-item"><span class="leg-bar" style="background:#6B9BD8;"></span>In-Process BO</div>
           <div class="legend-item"><span class="leg-line" style="background:#F4A460;"></span>YoY Change</div>
@@ -625,7 +648,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
 
       <!-- 2행 중: Lost BO -->
       <div class="card">
-        <div class="card-title">Lost BO <span class="card-unit">단위: 억원, %</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="경쟁에서 패배하여 종료된 영업기회.">Lost BO <span class="card-unit">단위: 억원, %</span></div>
         <div class="legend">
           <div class="legend-item"><span class="leg-bar" style="background:#6B9BD8;"></span>Lost BO</div>
           <div class="legend-item"><span class="leg-line" style="background:#F4A460;"></span>Lost Ratio</div>
@@ -685,7 +708,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
 
       <!-- 2행 우: Drop BO -->
       <div class="card">
-        <div class="card-title">Drop BO <span class="card-unit">단위: 억원, %</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="고객 사정 등으로 중단·철회된 영업기회.">Drop BO <span class="card-unit">단위: 억원, %</span></div>
         <div class="legend">
           <div class="legend-item"><span class="leg-bar" style="background:#6B9BD8;"></span>Drop BO</div>
           <div class="legend-item"><span class="leg-line" style="background:#F4A460;"></span>Drop Ratio</div>
@@ -754,7 +777,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
 
       <!-- 카드 A: Ratio by Amount -->
       <div class="card">
-        <div class="card-title">Win/Hit/Conversion Ratio by Amount <span class="card-unit">단위: %</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="금액 기준 수주율(Win)/적중률(Hit)/전환율(Conversion).">Win/Hit/Conversion Ratio by Amount <span class="card-unit">단위: %</span></div>
         <div class="ctrl-row">
           <select class="ctrl-select"><option>분석주기: Month</option></select>
           <select class="ctrl-select"><option>대내외: 전체</option><option>대내</option><option>대외</option></select>
@@ -802,7 +825,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
 
       <!-- 카드 B: Ratio by Count -->
       <div class="card">
-        <div class="card-title">Win/Hit/Conversion Ratio by Count <span class="card-unit">단위: %</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="건수 기준 수주율(Win)/적중률(Hit)/전환율(Conversion).">Win/Hit/Conversion Ratio by Count <span class="card-unit">단위: %</span></div>
         <div class="ctrl-row">
           <select class="ctrl-select"><option>분석주기: Month</option></select>
           <select class="ctrl-select"><option>대내외: 전체</option><option>대내</option><option>대외</option></select>
@@ -863,7 +886,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
 
       <!-- 카드 A: BO Amount By Industry -->
       <div class="card">
-        <div class="card-title">BO Amount By Industry <span class="card-unit">단위: 억원</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="업종별 영업기회 금액 분포.">BO Amount By Industry <span class="card-unit">단위: 억원</span></div>
         <div class="legend">
           <div class="legend-item"><span class="leg-bar" style="background:#87CEEB;"></span>하이테크</div>
           <div class="legend-item"><span class="leg-bar" style="background:#6495ED;"></span>전기/전자</div>
@@ -921,7 +944,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
 
       <!-- 카드 B: BO Count By Industry -->
       <div class="card">
-        <div class="card-title">BO Count By Industry <span class="card-unit">단위: 건</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="업종별 영업기회 건수 분포.">BO Count By Industry <span class="card-unit">단위: 건</span></div>
         <div class="legend">
           <div class="legend-item"><span class="leg-bar" style="background:#87CEEB;"></span>하이테크</div>
           <div class="legend-item"><span class="leg-bar" style="background:#6495ED;"></span>전기/전자</div>
@@ -983,7 +1006,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
 
       <!-- 카드 A: Average BO Amount -->
       <div class="card">
-        <div class="card-title">Average BO Amount <span class="card-unit">단위: 억원</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="영업기회 건당 평균 금액.">Average BO Amount <span class="card-unit">단위: 억원</span></div>
         <div class="ctrl-row">
           <select class="ctrl-select"><option>분석주기: Half Year</option></select>
           <select class="ctrl-select"><option>BO 진행상태: Total BO</option></select>
@@ -1024,7 +1047,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
 
       <!-- 카드 B: Average Sales Lead Time -->
       <div class="card">
-        <div class="card-title">Average Sales Lead Time <span class="card-unit">단위: 개월</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="영업기회 발생부터 종결까지 평균 소요 기간.">Average Sales Lead Time <span class="card-unit">단위: 개월</span></div>
         <div class="ctrl-row">
           <select class="ctrl-select"><option>분석주기: Half Year</option></select>
           <select class="ctrl-select"><option>대내외: 전체</option></select>
@@ -1095,7 +1118,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
 
       <!-- 좌: 전사 연간 월별 수주 전망 (넓게) -->
       <div class="card">
-        <div class="card-title">전사 연간 월별 수주 전망 <span class="card-unit">단위: 억원</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="연간 월별 수주 예상 금액 전망치.">전사 연간 월별 수주 전망 <span class="card-unit">단위: 억원</span></div>
         <div class="legend">
           <div class="legend-item"><span class="leg-bar" style="background:#0047AB;"></span>실적</div>
           <div class="legend-item"><span class="leg-bar" style="background:#87CEEB;"></span>전망</div>
@@ -1161,7 +1184,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
 
       <!-- 우: YTM/YEAR 요약 -->
       <div class="card">
-        <div class="card-title">YTM / YEAR 요약 <span class="card-unit">단위: 억원</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="연초 누계(YTM) 및 연간 실적 요약.">YTM / YEAR 요약 <span class="card-unit">단위: 억원</span></div>
         <div class="legend" style="flex-direction:column; gap:4px;">
           <div class="legend-item"><span class="leg-bar" style="background:#B0C4DE;"></span>2024(전년)</div>
           <div class="legend-item"><span class="leg-bar" style="background:#87CEEB;"></span>계획</div>
@@ -1251,7 +1274,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
 
       <!-- 좌: 월별 차트 (1~12월) -->
       <div class="card">
-        <div class="card-title">수주 확도별 계획/실적 전망 <span class="card-unit">단위: 억원</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="수주 확도(가능성) 구간별 계획 대비 실적 전망.">수주 확도별 계획/실적 전망 <span class="card-unit">단위: 억원</span></div>
         <div class="legend">
           <div class="legend-item"><span class="leg-bar" style="background:#B0C4DE;"></span>2024(전년)</div>
           <div class="legend-item"><span class="leg-bar" style="background:#6B9BD8;"></span>계획</div>
@@ -1341,7 +1364,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
 
       <!-- 우: YTM / YEAR 요약 (3막대씩) -->
       <div class="card">
-        <div class="card-title">YTM / YEAR 요약 <span class="card-unit">단위: 억원</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="연초 누계(YTM) 및 연간 실적 요약.">YTM / YEAR 요약 <span class="card-unit">단위: 억원</span></div>
         <div class="legend" style="flex-direction:column; gap:4px;">
           <div class="legend-item"><span class="leg-bar" style="background:#B0C4DE;"></span>2024(전년)</div>
           <div class="legend-item"><span class="leg-bar" style="background:#6B9BD8;"></span>계획</div>
@@ -1401,7 +1424,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
 
       <!-- 카드 A: BO Time Passed (In-process) -->
       <div class="card">
-        <div class="card-title">BO Time Passed (In-process) <span class="card-unit">단위: 건</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="진행 중인 영업기회의 경과 기간 분포.">BO Time Passed (In-process) <span class="card-unit">단위: 건</span></div>
         <div class="card-note">*진행 중인 BO의 경과기간 구간별 분포 (스냅샷)</div>
         <div class="legend" style="flex-wrap:wrap; gap:8px;">
           <div class="legend-item"><span class="leg-bar" style="background:#C8DCEF;"></span>~3M</div>
@@ -1480,7 +1503,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
 
       <!-- 카드 B: BO Status Trace (New) -->
       <div class="card">
-        <div class="card-title">BO Status Trace (New) <span class="card-unit">단위: 건</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="신규 영업기회의 상태(Stage) 변화 추적.">BO Status Trace (New) <span class="card-unit">단위: 건</span></div>
         <div class="card-note">*신규 유입(In) 기준 Status별 월별 건수 추이</div>
         <div class="legend" style="flex-wrap:wrap; gap:8px;">
           <div class="legend-item"><span class="leg-line" style="background:#4A7EC7;"></span>Identified(new)</div>
@@ -1559,7 +1582,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
 
       <!-- 카드 C: BO Status Change Rate (이중축) -->
       <div class="card">
-        <div class="card-title">BO Status Change Rate <span class="card-unit">단위: 건, %</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="영업기회 상태(단계) 변화율.">BO Status Change Rate <span class="card-unit">단위: 건, %</span></div>
         <div class="card-note">*좌축: BO Count (막대) / 우축: Change Rate % (꺾은선)</div>
         <div class="legend">
           <div class="legend-item"><span class="leg-bar" style="background:#6B9BD8;"></span>BO Count</div>
@@ -1605,7 +1628,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
 
       <!-- 카드 E: BO Stage 현황 테이블 -->
       <div class="card">
-        <div class="card-title">BO Stage 현황 <span class="card-unit">단위: 건</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="영업 단계(Stage)별 영업기회 분포 현황.">BO Stage 현황 <span class="card-unit">단위: 건</span></div>
         <div class="card-note">*기간별 각 스테이지 잔여 건수 (최종상태 기준)</div>
         <table style="width:100%;border-collapse:collapse;font-size:11px;margin-top:10px;">
           <thead>
@@ -1666,7 +1689,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
     <!-- Row 3: BO Stage Flow (Alluvial) — 전체 너비 -->
     <div class="row">
       <div class="card">
-        <div class="card-title">BO Stage Flow <span class="card-unit">스테이지 분포 시계열 추이</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="영업 단계 간 이동 흐름.">BO Stage Flow <span class="card-unit">스테이지 분포 시계열 추이</span></div>
         <div class="card-note">*리본 색 = 출발 스테이지. 단계 진행(↘) 외 직접 이탈(Lost·Dropped) 가능 — 리본이 다른 스테이지를 가로질러 연결됨</div>
         <div class="legend" style="flex-wrap:wrap; gap:10px; margin-bottom:12px;">
           <div class="legend-item"><span class="leg-bar" style="background:#93C4E8;"></span>Identified</div>
@@ -1824,7 +1847,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
 <!-- Row: BO Pipeline Flow (Sankey) — 전체 너비 -->
 <div class="row">
   <div class="card">
-    <div class="card-title">BO Pipeline Flow (Sankey) <span class="card-unit">단위: 건</span></div>
+    <div class="card-title gx-tooltip" data-tooltip="영업 파이프라인 전체 흐름(Sankey 다이어그램).">BO Pipeline Flow (Sankey) <span class="card-unit">단위: 건</span></div>
     <div class="card-note">*전체 기간 누적 — 단계별 전진 물량과 이탈(Lost·Dropped) 흐름. 리본 두께 = 건수, 리본 색 = 도착 결과(전진은 출발 단계색)</div>
     <div class="legend" style="flex-wrap:wrap; gap:10px;">
       <div class="legend-item"><span class="leg-bar" style="background:#93C4E8;"></span>Identified</div>
@@ -2026,6 +2049,53 @@ window.SITE = {
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', run);
   } else { run(); }
+})();
+</script>
+
+<script>
+/* gx-tooltip engine (11개 페이지 공통, 지표 설명 hover 툴팁) */
+(function () {
+  var bubble;
+  function ensureBubble() {
+    if (!bubble) {
+      bubble = document.createElement('div');
+      bubble.className = 'gx-tip-bubble';
+      document.body.appendChild(bubble);
+    }
+    return bubble;
+  }
+  function showTip(el) {
+    var text = el.getAttribute('data-tooltip');
+    if (!text) return;
+    var t = ensureBubble();
+    t.textContent = text;
+    t.style.display = 'block';
+    t.classList.remove('gx-tip-show', 'gx-tip-below');
+    var r = el.getBoundingClientRect();
+    var tw = t.offsetWidth, th = t.offsetHeight;
+    var left = r.left + r.width / 2 - tw / 2;
+    var top = r.top - th - 10;
+    var below = false;
+    if (top < 6) { top = r.bottom + 10; below = true; }
+    if (left < 6) left = 6;
+    if (left + tw > window.innerWidth - 6) left = window.innerWidth - 6 - tw;
+    var arrowLeft = Math.max(10, Math.min(tw - 10, r.left + r.width / 2 - left));
+    t.style.left = left + 'px';
+    t.style.top = top + 'px';
+    t.style.setProperty('--gx-tip-arrow', arrowLeft + 'px');
+    if (below) t.classList.add('gx-tip-below');
+    requestAnimationFrame(function () { t.classList.add('gx-tip-show'); });
+  }
+  function hideTip() { if (bubble) bubble.classList.remove('gx-tip-show'); }
+  document.addEventListener('mouseover', function (e) {
+    var el = e.target.closest && e.target.closest('.gx-tooltip[data-tooltip]');
+    if (el) showTip(el);
+  });
+  document.addEventListener('mouseout', function (e) {
+    var el = e.target.closest && e.target.closest('.gx-tooltip[data-tooltip]');
+    if (el) hideTip();
+  });
+  document.addEventListener('scroll', hideTip, true);
 })();
 </script>
 </body>

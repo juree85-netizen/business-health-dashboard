@@ -150,6 +150,29 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
   .gx-crumb{ display:none; }
   .gx-badge, .gx-status{ font-size:10px; padding:3px 8px; }
 }
+
+/* ── gx-tooltip (지표 설명 툴팁, 11개 페이지 공통) ── */
+.gx-tooltip{ cursor:help; }
+.gx-tooltip[data-tooltip]{ border-bottom:1px dotted #A7B4CC; }
+.gx-tip-bubble{
+  position:fixed; display:none; max-width:280px;
+  background:#1E3079; color:#fff; padding:8px 11px; border-radius:6px;
+  font-size:11px; font-weight:400; line-height:1.55; word-break:keep-all;
+  box-shadow:0 6px 18px rgba(30,48,121,.30);
+  z-index:99999; pointer-events:none;
+  opacity:0; transform:translateY(4px);
+  transition:opacity .15s ease, transform .15s ease;
+  font-family:'Malgun Gothic','Noto Sans KR',sans-serif;
+}
+.gx-tip-bubble.gx-tip-show{ opacity:1; transform:translateY(0); }
+.gx-tip-bubble::after{
+  content:''; position:absolute; left:var(--gx-tip-arrow,20px); top:100%;
+  border:5px solid transparent; border-top-color:#1E3079; margin-left:-5px;
+}
+.gx-tip-bubble.gx-tip-below::after{
+  top:auto; bottom:100%; border-top-color:transparent; border-bottom-color:#1E3079; margin-top:-10px;
+}
+
 </style>
 </head>
 <body data-page="customer">
@@ -235,7 +258,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
 
       <!-- 카드 A: 고객 현황 -->
       <div class="card">
-        <div class="card-title">고객 현황 <span class="card-unit">단위: 개</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="신규/이탈/기존 고객 수 현황.">고객 현황 <span class="card-unit">단위: 개</span></div>
         <div class="legend">
           <div class="legend-item"><span class="leg-bar" style="background:#3b82f6;"></span>New</div>
           <div class="legend-item"><span class="leg-bar" style="background:#93c5fd;"></span>Existing</div>
@@ -306,7 +329,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
 
       <!-- 카드 B: 매출 현황 -->
       <div class="card">
-        <div class="card-title">매출 현황 <span class="card-unit">단위: 억원</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="신규/이탈/기존 고객 구분별 매출 현황.">매출 현황 <span class="card-unit">단위: 억원</span></div>
         <div class="legend">
           <div class="legend-item"><span class="leg-bar" style="background:#3b82f6;"></span>New</div>
           <div class="legend-item"><span class="leg-bar" style="background:#93c5fd;"></span>Existing</div>
@@ -401,7 +424,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
     <div class="row">
       <!-- 카드: 업종 대분류 (매출) -->
       <div class="card">
-        <div class="card-title">업종 대분류 (매출) <span class="card-unit">단위: 억원</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="업종 대분류별 매출 분포.">업종 대분류 (매출) <span class="card-unit">단위: 억원</span></div>
         <div class="legend">
           <div class="legend-item"><span class="leg-bar" style="background:#93c5fd;"></span>제조(Discrete)</div>
           <div class="legend-item"><span class="leg-bar" style="background:#60a5fa;"></span>공공</div>
@@ -493,7 +516,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
     <div class="row">
       <!-- 카드: 업종 소분류 (매출) -->
       <div class="card">
-        <div class="card-title">업종 소분류 (매출) <span class="card-unit">단위: 억원</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="업종 소분류별 매출 분포.">업종 소분류 (매출) <span class="card-unit">단위: 억원</span></div>
         <div class="legend">
           <div class="legend-item"><span class="leg-bar" style="background:#bfdbfe;"></span>하이테크</div>
           <div class="legend-item"><span class="leg-bar" style="background:#93c5fd;"></span>전기/전자</div>
@@ -599,7 +622,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
 
       <!-- 카드 A: Top 20 도넛 -->
       <div class="card">
-        <div class="card-title">Top 20 <span class="card-unit">단위: 억원</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="매출 상위 20개 고객사.">Top 20 <span class="card-unit">단위: 억원</span></div>
         <svg width="100%" height="290" viewBox="0 0 480 290">
           <!-- 도넛 세그먼트: cx=150, cy=150, R=90, r=52 -->
           <!-- 삼성전자(주) 16.38억 16.1% -->
@@ -647,7 +670,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
 
       <!-- 카드 B: 라이선스 Top 20 도넛 -->
       <div class="card">
-        <div class="card-title">라이선스 Top 20 <span class="card-unit">단위: 억원</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="라이선스 매출 상위 20개 고객사.">라이선스 Top 20 <span class="card-unit">단위: 억원</span></div>
         <svg width="100%" height="290" viewBox="0 0 480 290">
           <!-- 도넛 세그먼트: 동일 비율/색상 -->
           <path d="M 150,60 A 90,90 0 0,1 226.3,92.3 L 194.1,112.4 A 52,52 0 0,0 150,98 Z" fill="#3b82f6"/>
@@ -698,7 +721,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
 
       <!-- 카드 A: 신규고객 Top 20 -->
       <div class="card">
-        <div class="card-title">신규고객 Top 20 <span class="card-unit">단위: 억원</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="매출 기준 상위 20개 신규 고객사.">신규고객 Top 20 <span class="card-unit">단위: 억원</span></div>
         <svg width="100%" height="450" viewBox="0 0 500 450">
           <!-- X gridlines -->
           <line x1="160" y1="10" x2="160" y2="425" stroke="#E5E7EB" stroke-dasharray="2,2" stroke-width="1"/>
@@ -818,7 +841,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
 
       <!-- 카드 B: 이탈고객 Top 20 -->
       <div class="card">
-        <div class="card-title">이탈고객 Top 20 <span class="card-unit">단위: 억원</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="매출 기준 상위 20개 이탈 고객사.">이탈고객 Top 20 <span class="card-unit">단위: 억원</span></div>
         <svg width="100%" height="450" viewBox="0 0 500 450">
           <!-- X gridlines -->
           <line x1="160" y1="10" x2="160" y2="425" stroke="#E5E7EB" stroke-dasharray="2,2" stroke-width="1"/>
@@ -1079,6 +1102,53 @@ window.SITE = {
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', run);
   } else { run(); }
+})();
+</script>
+
+<script>
+/* gx-tooltip engine (11개 페이지 공통, 지표 설명 hover 툴팁) */
+(function () {
+  var bubble;
+  function ensureBubble() {
+    if (!bubble) {
+      bubble = document.createElement('div');
+      bubble.className = 'gx-tip-bubble';
+      document.body.appendChild(bubble);
+    }
+    return bubble;
+  }
+  function showTip(el) {
+    var text = el.getAttribute('data-tooltip');
+    if (!text) return;
+    var t = ensureBubble();
+    t.textContent = text;
+    t.style.display = 'block';
+    t.classList.remove('gx-tip-show', 'gx-tip-below');
+    var r = el.getBoundingClientRect();
+    var tw = t.offsetWidth, th = t.offsetHeight;
+    var left = r.left + r.width / 2 - tw / 2;
+    var top = r.top - th - 10;
+    var below = false;
+    if (top < 6) { top = r.bottom + 10; below = true; }
+    if (left < 6) left = 6;
+    if (left + tw > window.innerWidth - 6) left = window.innerWidth - 6 - tw;
+    var arrowLeft = Math.max(10, Math.min(tw - 10, r.left + r.width / 2 - left));
+    t.style.left = left + 'px';
+    t.style.top = top + 'px';
+    t.style.setProperty('--gx-tip-arrow', arrowLeft + 'px');
+    if (below) t.classList.add('gx-tip-below');
+    requestAnimationFrame(function () { t.classList.add('gx-tip-show'); });
+  }
+  function hideTip() { if (bubble) bubble.classList.remove('gx-tip-show'); }
+  document.addEventListener('mouseover', function (e) {
+    var el = e.target.closest && e.target.closest('.gx-tooltip[data-tooltip]');
+    if (el) showTip(el);
+  });
+  document.addEventListener('mouseout', function (e) {
+    var el = e.target.closest && e.target.closest('.gx-tooltip[data-tooltip]');
+    if (el) hideTip();
+  });
+  document.addEventListener('scroll', hideTip, true);
 })();
 </script>
 </body>

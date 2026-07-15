@@ -164,6 +164,29 @@ svg text { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; }
   .gx-badge, .gx-status{ font-size:10px; padding:3px 8px; }
 }
 
+/* ── gx-tooltip (지표 설명 툴팁, 11개 페이지 공통) ── */
+.gx-tooltip{ cursor:help; }
+.gx-tooltip[data-tooltip]{ border-bottom:1px dotted #A7B4CC; }
+.gx-tip-bubble{
+  position:fixed; display:none; max-width:280px;
+  background:#1E3079; color:#fff; padding:8px 11px; border-radius:6px;
+  font-size:11px; font-weight:400; line-height:1.55; word-break:keep-all;
+  box-shadow:0 6px 18px rgba(30,48,121,.30);
+  z-index:99999; pointer-events:none;
+  opacity:0; transform:translateY(4px);
+  transition:opacity .15s ease, transform .15s ease;
+  font-family:'Malgun Gothic','Noto Sans KR',sans-serif;
+}
+.gx-tip-bubble.gx-tip-show{ opacity:1; transform:translateY(0); }
+.gx-tip-bubble::after{
+  content:''; position:absolute; left:var(--gx-tip-arrow,20px); top:100%;
+  border:5px solid transparent; border-top-color:#1E3079; margin-left:-5px;
+}
+.gx-tip-bubble.gx-tip-below::after{
+  top:auto; bottom:100%; border-top-color:transparent; border-bottom-color:#1E3079; margin-top:-10px;
+}
+
+
 </style>
 </head>
 <body data-page="bizunit">
@@ -221,7 +244,7 @@ svg text { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; }
       <div class="card">
         <div class="card-header">
           <div class="card-title-row">
-            <span class="card-title">ARR</span>
+            <span class="card-title gx-tooltip" data-tooltip="연 반복 라이선스 매출(ARR). MRR × 12로 환산, 1년간 벌 것으로 예상되는 반복 매출.">ARR</span>
             <span class="card-unit">(억원)</span>
           </div>
           <div class="growth-row">
@@ -316,7 +339,7 @@ svg text { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; }
       <div class="card">
         <div class="card-header">
           <div class="card-title-row">
-            <span class="card-title">ACV</span>
+            <span class="card-title gx-tooltip" data-tooltip="계약 당 연 계약가치(ACV). 다양한 계약 형태를 1년 기준으로 환산·평균화한 매출.">ACV</span>
             <span class="card-unit">(억원)</span>
           </div>
           <div class="growth-row">
@@ -449,7 +472,7 @@ svg text { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; }
       <div class="card">
         <div class="card-header">
           <div class="card-title-row">
-            <span class="card-title">Revenue / 영업이익</span>
+            <span class="card-title gx-tooltip" data-tooltip="매출과 영업이익 추이를 함께 보여주는 지표.">Revenue / 영업이익</span>
             <span class="card-unit">(억원)</span>
           </div>
           <div class="growth-row">
@@ -592,7 +615,7 @@ svg text { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; }
       <div class="card">
         <div class="card-header">
           <div class="card-title-row">
-            <span class="card-title">Customers by ACV</span>
+            <span class="card-title gx-tooltip" data-tooltip="ACV 기준으로 집계한 유료 고객 수.">Customers by ACV</span>
             <span class="card-unit">(개)</span>
           </div>
           <div class="growth-row">
@@ -898,6 +921,53 @@ window.SITE = {
   } else { run(); }
 })();
 
+</script>
+
+<script>
+/* gx-tooltip engine (11개 페이지 공통, 지표 설명 hover 툴팁) */
+(function () {
+  var bubble;
+  function ensureBubble() {
+    if (!bubble) {
+      bubble = document.createElement('div');
+      bubble.className = 'gx-tip-bubble';
+      document.body.appendChild(bubble);
+    }
+    return bubble;
+  }
+  function showTip(el) {
+    var text = el.getAttribute('data-tooltip');
+    if (!text) return;
+    var t = ensureBubble();
+    t.textContent = text;
+    t.style.display = 'block';
+    t.classList.remove('gx-tip-show', 'gx-tip-below');
+    var r = el.getBoundingClientRect();
+    var tw = t.offsetWidth, th = t.offsetHeight;
+    var left = r.left + r.width / 2 - tw / 2;
+    var top = r.top - th - 10;
+    var below = false;
+    if (top < 6) { top = r.bottom + 10; below = true; }
+    if (left < 6) left = 6;
+    if (left + tw > window.innerWidth - 6) left = window.innerWidth - 6 - tw;
+    var arrowLeft = Math.max(10, Math.min(tw - 10, r.left + r.width / 2 - left));
+    t.style.left = left + 'px';
+    t.style.top = top + 'px';
+    t.style.setProperty('--gx-tip-arrow', arrowLeft + 'px');
+    if (below) t.classList.add('gx-tip-below');
+    requestAnimationFrame(function () { t.classList.add('gx-tip-show'); });
+  }
+  function hideTip() { if (bubble) bubble.classList.remove('gx-tip-show'); }
+  document.addEventListener('mouseover', function (e) {
+    var el = e.target.closest && e.target.closest('.gx-tooltip[data-tooltip]');
+    if (el) showTip(el);
+  });
+  document.addEventListener('mouseout', function (e) {
+    var el = e.target.closest && e.target.closest('.gx-tooltip[data-tooltip]');
+    if (el) hideTip();
+  });
+  document.addEventListener('scroll', hideTip, true);
+})();
 </script>
 </body>
 </html>

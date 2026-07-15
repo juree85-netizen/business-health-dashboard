@@ -168,6 +168,42 @@ tr:hover td { background:#EFF6FF; }
   top:auto; bottom:100%; border-top-color:transparent; border-bottom-color:#1E3079; margin-top:-10px;
 }
 
+/* ── gx-chat (지표 테이블 검색·조회 챗봇) ── */
+.gx-chat-fab{
+  position:fixed; right:24px; bottom:24px; width:52px; height:52px; border-radius:50%;
+  background:#1E3079; color:#fff; display:flex; align-items:center; justify-content:center;
+  font-size:22px; box-shadow:0 4px 14px rgba(30,48,121,.35); cursor:pointer; z-index:9998;
+  border:none; transition:transform .15s ease, background .15s ease;
+}
+.gx-chat-fab:hover{ transform:scale(1.06); background:#17235c; }
+.gx-chat-panel{
+  position:fixed; right:24px; bottom:88px; width:330px; height:440px;
+  background:#fff; border-radius:12px; box-shadow:0 10px 34px rgba(0,0,0,.22);
+  display:none; flex-direction:column; overflow:hidden; z-index:9998;
+  font-family:'Malgun Gothic','Noto Sans KR',sans-serif; border:1px solid #E2E8F0;
+}
+.gx-chat-panel.gx-chat-open{ display:flex; }
+.gx-chat-header{
+  background:#1E3079; color:#fff; padding:12px 14px; font-size:12.5px; font-weight:700;
+  display:flex; align-items:center; justify-content:space-between; flex-shrink:0;
+}
+.gx-chat-header-sub{ font-weight:400; font-size:10.5px; color:#B8C6DB; margin-top:2px; }
+.gx-chat-close{ background:none; border:none; color:#fff; font-size:18px; cursor:pointer; line-height:1; padding:2px 4px; }
+.gx-chat-body{ flex:1; overflow-y:auto; padding:12px; display:flex; flex-direction:column; gap:8px; background:#F5F7FA; }
+.gx-chat-msg{ max-width:88%; padding:8px 11px; border-radius:11px; font-size:11.5px; line-height:1.55; white-space:pre-wrap; word-break:break-word; }
+.gx-chat-msg.bot{ background:#fff; border:1px solid #E2E8F0; color:#354052; align-self:flex-start; border-bottom-left-radius:2px; }
+.gx-chat-msg.user{ background:#17B8B8; color:#fff; align-self:flex-end; border-bottom-right-radius:2px; }
+.gx-chat-suggest{ display:flex; flex-wrap:wrap; gap:5px; margin-top:2px; }
+.gx-chat-suggest-btn{
+  background:#EAF1FB; color:#1E3079; border:1px solid #CBD8E8; border-radius:12px;
+  padding:4px 9px; font-size:10.5px; cursor:pointer;
+}
+.gx-chat-suggest-btn:hover{ background:#1E3079; color:#fff; }
+.gx-chat-input-row{ display:flex; border-top:1px solid #E2E8F0; padding:8px; gap:6px; background:#fff; flex-shrink:0; }
+.gx-chat-input-row input{ flex:1; border:1px solid #CBD5E0; border-radius:6px; padding:7px 9px; font-size:11.5px; font-family:inherit; }
+.gx-chat-input-row input:focus{ outline:none; border-color:#17B8B8; }
+.gx-chat-input-row button{ background:#1E3079; color:#fff; border:none; border-radius:6px; padding:0 13px; font-size:11.5px; font-weight:600; cursor:pointer; }
+.gx-chat-input-row button:hover{ background:#17235c; }
 
 </style>
 </head>
@@ -647,6 +683,236 @@ window.SITE = {
     if (el) hideTip();
   });
   document.addEventListener('scroll', hideTip, true);
+})();
+</script>
+
+<!-- ══════════════ gx-chat: 지표 테이블 검색·조회 챗봇 ══════════════ -->
+<button class="gx-chat-fab" id="gxChatFab" title="지표 테이블 검색·조회 챗봇 열기">💬</button>
+<div class="gx-chat-panel" id="gxChatPanel">
+  <div class="gx-chat-header">
+    <div>
+      지표 테이블 검색·조회 챗봇
+      <div class="gx-chat-header-sub">이 페이지 테이블의 실제 값/정의로 답변합니다</div>
+    </div>
+    <button class="gx-chat-close" id="gxChatClose" aria-label="닫기">&times;</button>
+  </div>
+  <div class="gx-chat-body" id="gxChatBody"></div>
+  <div class="gx-chat-input-row">
+    <input type="text" id="gxChatInput" placeholder="예: MRR Total 2025년 3분기">
+    <button id="gxChatSend">전송</button>
+  </div>
+</div>
+
+<script>
+/* =============================================================
+ *  gx-chat  —  지표 테이블(indtable) 페이지 규칙 기반 검색·조회 챗봇
+ *  - 이 페이지 상단 <script>에 이미 선언된 전역 QCOLS/MCOLS/t1~t5/T1_TIP~T5_TIP 를 그대로 재사용
+ *  - 행(지표)명 검색 → 분기/월 조회, 최신값, 최댓값·최솟값, 정의(tipMap) 응답
+ * ============================================================= */
+(function () {
+
+  function normalize(s) {
+    return String(s || '').toLowerCase().replace(/[\s\-_/()%,·]/g, '');
+  }
+
+  var TABLES = (typeof t1 !== 'undefined') ? [
+    { key: 'growth',        name: '재무 (성장)', cols: QCOLS, rows: t1, tip: T1_TIP },
+    { key: 'customercount', name: '재무 (고객)', cols: QCOLS, rows: t2, tip: T2_TIP },
+    { key: 'profit',        name: '재무 (수익)', cols: QCOLS, rows: t3, tip: T3_TIP },
+    { key: 'customer',      name: '고객',        cols: MCOLS, rows: t4, tip: T4_TIP },
+    { key: 'product',       name: '상품',        cols: MCOLS, rows: t5, tip: T5_TIP }
+  ] : [];
+
+  function keyFor(y, q) { return y.slice(2) + '-' + q; }
+  function flatKeys(cols) {
+    var out = [];
+    cols.forEach(function (c) { c.q.forEach(function (q) { out.push(keyFor(c.y, q)); }); });
+    return out;
+  }
+  var PERIODS = {};
+  TABLES.forEach(function (t) { PERIODS[t.key] = flatKeys(t.cols); });
+
+  function rowSeries(table, row) {
+    var periods = PERIODS[table.key];
+    var out = {};
+    row.v.forEach(function (val, i) {
+      if (val !== '' && periods[i]) out[periods[i]] = val;
+    });
+    return out;
+  }
+
+  function findRowMatches(rawQuestion) {
+    var n = normalize(rawQuestion);
+    var matches = [];
+    TABLES.forEach(function (t) {
+      t.rows.forEach(function (row) {
+        var rn = normalize(row.label);
+        if (rn && n.indexOf(rn) !== -1) matches.push({ table: t, row: row });
+      });
+    });
+    matches.sort(function (a, b) { return normalize(b.row.label).length - normalize(a.row.label).length; });
+    /* MRR/고객수 키워드로 동명 행(Total/New/Churn 등)의 테이블 모호성 해소 */
+    if (matches.length > 1) {
+      if (n.indexOf('mrr') !== -1) {
+        var f = matches.filter(function (m) { return m.table.key === 'growth'; });
+        if (f.length) matches = f;
+      } else if (n.indexOf('고객수') !== -1 || n.indexOf('customercount') !== -1) {
+        var f2 = matches.filter(function (m) { return m.table.key === 'customercount'; });
+        if (f2.length) matches = f2;
+      }
+    }
+    return matches;
+  }
+
+  function detectPeriod(q) {
+    var m = q.match(/(\d{2,4})\s*년?\s*[.\-]?\s*([1-4])\s*[qQ분기]/);
+    var year, quarter;
+    if (m) { year = m[1]; quarter = m[2]; }
+    else {
+      m = q.match(/([1-4])\s*[qQ]\s*['.\-]?\s*(\d{2,4})/);
+      if (m) { quarter = m[1]; year = m[2]; }
+    }
+    if (year && quarter) {
+      var yy = year.length >= 4 ? year.slice(2) : (year.length === 1 ? ('0' + year) : year);
+      return yy + '-' + quarter + 'Q';
+    }
+    var mm = q.match(/(\d{1,2})\s*월/);
+    if (mm) {
+      var month = mm[1].length === 1 ? '0' + mm[1] : mm[1];
+      var ym = q.match(/(\d{2,4})\s*년/);
+      var yy2 = ym ? (ym[1].length >= 4 ? ym[1].slice(2) : ym[1]) : '24';
+      return yy2 + '-' + month + '월';
+    }
+    return null;
+  }
+
+  function parseNum(s) {
+    if (!s) return null;
+    var v = parseFloat(String(s).replace(/%/g, '').replace(/,/g, ''));
+    return isNaN(v) ? null : v;
+  }
+
+  function maxMinEntry(seriesObj, wantMax) {
+    var best = null, bestP = null;
+    Object.keys(seriesObj).forEach(function (p) {
+      var v = parseNum(seriesObj[p]);
+      if (v === null) return;
+      if (best === null || (wantMax ? v > best : v < best)) { best = v; bestP = p; }
+    });
+    return bestP === null ? null : { period: bestP, value: seriesObj[bestP] };
+  }
+
+  function isDefIntent(q) { return /정의|설명|뜻|의미|이\s*뭐|뭐야|뭔가요|뭔지|무엇/.test(q); }
+  function isMaxIntent(q) { return /최고|최대|가장\s*높|가장\s*큰/.test(q); }
+  function isMinIntent(q) { return /최저|최소|가장\s*낮|가장\s*작/.test(q); }
+  function isGreeting(q) { return /^(안녕|hi|hello|헬로|도움|help|뭐.*할.*수|무엇을.*할)/i.test(q.trim()); }
+
+  var HELP_MSG = '안녕하세요! 이 페이지(지표 테이블)의 실제 표에 있는 값으로 답변하는 챗봇이에요.\n이렇게 물어봐 주세요:\n• MRR Total 2025년 3분기\n• 고객수 New 얼마야?\n• Rule of 40이 뭐야?\n• 재구독율 최고치는?';
+  var FALLBACK_MSG = '죄송해요, 해당 지표(행)를 표에서 찾지 못했어요. 이렇게 물어봐 주세요:\n• "매출총계 2024년 4분기" (지표+기간)\n• "영업이익 얼마야?" (지표 → 최신값)\n• "Net Promoter Score가 뭐야?" (정의)\n• "% 매출총이익 최고치는?" (최댓값)';
+
+  function answer(q) {
+    if (isGreeting(q)) return HELP_MSG;
+    if (!TABLES.length) return FALLBACK_MSG;
+
+    var matches = findRowMatches(q);
+    if (!matches.length) return FALLBACK_MSG;
+
+    if (isDefIntent(q)) {
+      return matches.slice(0, 3).map(function (m) {
+        var tip = m.table.tip[m.row.label];
+        return '[' + m.table.name + '] ' + m.row.label + ': ' + (tip || '(정의 정보 없음)');
+      }).join('\n');
+    }
+
+    var period = detectPeriod(q);
+    var wantMax = isMaxIntent(q), wantMin = isMinIntent(q);
+
+    var lines = matches.slice(0, 3).map(function (m) {
+      var series = rowSeries(m.table, m.row);
+      var label = '[' + m.table.name + '] ' + m.row.label;
+
+      if (wantMax || wantMin) {
+        var ext = maxMinEntry(series, wantMax);
+        if (!ext) return label + ': 표시된 값이 없어요.';
+        return label + '의 ' + (wantMax ? '최고치는 ' : '최저치는 ') + ext.period + ' ' + ext.value;
+      }
+      if (period && series[period] !== undefined) {
+        return label + ' (' + period + '): ' + series[period];
+      }
+
+      var periodsOrder = PERIODS[m.table.key];
+      var latestVal = null, latestP = null;
+      for (var i = periodsOrder.length - 1; i >= 0; i--) {
+        if (series[periodsOrder[i]] !== undefined) { latestVal = series[periodsOrder[i]]; latestP = periodsOrder[i]; break; }
+      }
+      if (latestVal === null) return label + ': 표시된 값이 없어요.';
+      if (period) return label + '는 ' + period + ' 값이 없어요. 최신 값(' + latestP + '): ' + latestVal;
+      return label + ' 최신 값(' + latestP + '): ' + latestVal;
+    });
+    return lines.join('\n');
+  }
+
+  /* ── UI 연결 ── */
+  var fab = document.getElementById('gxChatFab');
+  var panel = document.getElementById('gxChatPanel');
+  var closeBtn = document.getElementById('gxChatClose');
+  var body = document.getElementById('gxChatBody');
+  var input = document.getElementById('gxChatInput');
+  var sendBtn = document.getElementById('gxChatSend');
+
+  var SUGGESTIONS = ['MRR Total 2025년 3분기', '고객수 New 얼마야?', 'Rule of 40이 뭐야?', '재구독율 최고치는?'];
+
+  function addMsg(text, who) {
+    var div = document.createElement('div');
+    div.className = 'gx-chat-msg ' + who;
+    div.textContent = text;
+    body.appendChild(div);
+    body.scrollTop = body.scrollHeight;
+    return div;
+  }
+
+  function addSuggestions() {
+    var wrap = document.createElement('div');
+    wrap.className = 'gx-chat-suggest';
+    SUGGESTIONS.forEach(function (s) {
+      var b = document.createElement('button');
+      b.className = 'gx-chat-suggest-btn';
+      b.type = 'button';
+      b.textContent = s;
+      b.addEventListener('click', function () { handleSend(s); });
+      wrap.appendChild(b);
+    });
+    body.appendChild(wrap);
+    body.scrollTop = body.scrollHeight;
+  }
+
+  function handleSend(text) {
+    var q = (typeof text === 'string' ? text : input.value).trim();
+    if (!q) return;
+    addMsg(q, 'user');
+    input.value = '';
+    setTimeout(function () { addMsg(answer(q), 'bot'); }, 150);
+  }
+
+  var opened = false;
+  fab.addEventListener('click', function () {
+    opened = !opened;
+    panel.classList.toggle('gx-chat-open', opened);
+    if (opened && !body.dataset.inited) {
+      body.dataset.inited = '1';
+      addMsg(HELP_MSG, 'bot');
+      addSuggestions();
+    }
+    if (opened) input.focus();
+  });
+  closeBtn.addEventListener('click', function () {
+    opened = false;
+    panel.classList.remove('gx-chat-open');
+  });
+  sendBtn.addEventListener('click', function () { handleSend(); });
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') handleSend();
+  });
 })();
 </script>
 </body>

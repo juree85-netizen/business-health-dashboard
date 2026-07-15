@@ -173,6 +173,43 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
   top:auto; bottom:100%; border-top-color:transparent; border-bottom-color:#1E3079; margin-top:-10px;
 }
 
+/* ── gx-chat (영업(Sales) 메인 페이지 데이터 분석 챗봇) ── */
+.gx-chat-fab{
+  position:fixed; right:24px; bottom:24px; width:52px; height:52px; border-radius:50%;
+  background:#1E3079; color:#fff; display:flex; align-items:center; justify-content:center;
+  font-size:22px; box-shadow:0 4px 14px rgba(30,48,121,.35); cursor:pointer; z-index:9998;
+  border:none; transition:transform .15s ease, background .15s ease;
+}
+.gx-chat-fab:hover{ transform:scale(1.06); background:#17235c; }
+.gx-chat-panel{
+  position:fixed; right:24px; bottom:88px; width:330px; height:440px;
+  background:#fff; border-radius:12px; box-shadow:0 10px 34px rgba(0,0,0,.22);
+  display:none; flex-direction:column; overflow:hidden; z-index:9998;
+  font-family:'Malgun Gothic','Noto Sans KR',sans-serif; border:1px solid #E2E8F0;
+}
+.gx-chat-panel.gx-chat-open{ display:flex; }
+.gx-chat-header{
+  background:#1E3079; color:#fff; padding:12px 14px; font-size:12.5px; font-weight:700;
+  display:flex; align-items:center; justify-content:space-between; flex-shrink:0;
+}
+.gx-chat-header-sub{ font-weight:400; font-size:10.5px; color:#B8C6DB; margin-top:2px; }
+.gx-chat-close{ background:none; border:none; color:#fff; font-size:18px; cursor:pointer; line-height:1; padding:2px 4px; }
+.gx-chat-body{ flex:1; overflow-y:auto; padding:12px; display:flex; flex-direction:column; gap:8px; background:#F5F7FA; }
+.gx-chat-msg{ max-width:88%; padding:8px 11px; border-radius:11px; font-size:11.5px; line-height:1.55; white-space:pre-wrap; word-break:break-word; }
+.gx-chat-msg.bot{ background:#fff; border:1px solid #E2E8F0; color:#354052; align-self:flex-start; border-bottom-left-radius:2px; }
+.gx-chat-msg.user{ background:#17B8B8; color:#fff; align-self:flex-end; border-bottom-right-radius:2px; }
+.gx-chat-suggest{ display:flex; flex-wrap:wrap; gap:5px; margin-top:2px; }
+.gx-chat-suggest-btn{
+  background:#EAF1FB; color:#1E3079; border:1px solid #CBD8E8; border-radius:12px;
+  padding:4px 9px; font-size:10.5px; cursor:pointer;
+}
+.gx-chat-suggest-btn:hover{ background:#1E3079; color:#fff; }
+.gx-chat-input-row{ display:flex; border-top:1px solid #E2E8F0; padding:8px; gap:6px; background:#fff; flex-shrink:0; }
+.gx-chat-input-row input{ flex:1; border:1px solid #CBD5E0; border-radius:6px; padding:7px 9px; font-size:11.5px; font-family:inherit; }
+.gx-chat-input-row input:focus{ outline:none; border-color:#17B8B8; }
+.gx-chat-input-row button{ background:#1E3079; color:#fff; border:none; border-radius:6px; padding:0 13px; font-size:11.5px; font-weight:600; cursor:pointer; }
+.gx-chat-input-row button:hover{ background:#17235c; }
+
 </style>
 </head>
 <body data-page="sales">
@@ -2096,6 +2133,259 @@ window.SITE = {
     if (el) hideTip();
   });
   document.addEventListener('scroll', hideTip, true);
+})();
+</script>
+
+<!-- ══════════════ gx-chat: 영업(Sales) 메인 페이지 데이터 분석 챗봇 ══════════════ -->
+<button class="gx-chat-fab" id="gxChatFab" title="영업(Sales) 지표 분석 챗봇 열기">💬</button>
+<div class="gx-chat-panel" id="gxChatPanel">
+  <div class="gx-chat-header">
+    <div>
+      영업(Sales) 분석 챗봇
+      <div class="gx-chat-header-sub">이 페이지에 표시된 실적 데이터로 답변합니다</div>
+    </div>
+    <button class="gx-chat-close" id="gxChatClose" aria-label="닫기">&times;</button>
+  </div>
+  <div class="gx-chat-body" id="gxChatBody"></div>
+  <div class="gx-chat-input-row">
+    <input type="text" id="gxChatInput" placeholder="예: BO Amount 얼마야?, Won BO가 뭐야?">
+    <button id="gxChatSend">전송</button>
+  </div>
+</div>
+
+<script>
+/* =============================================================
+ *  gx-chat  —  영업(Sales, sales) 페이지 규칙 기반 분석 챗봇
+ *  - 외부 API/백엔드 없이, 이 페이지의 실제 표시 데이터(GX_SALES_DATA)만 사용
+ *  - 키워드 + 기간 패턴 매칭으로 값 조회 / 최신값·증감 / 최댓값·최솟값 / 정의 응답
+ *  - BO Pipeline 분석(Time Passed/Status Trace/Stage Flow/Sankey) 섹션은
+ *    시각적 흐름도 위주라 수치 질답 대상에서 제외(HELP_MSG에 안내)
+ * ============================================================= */
+(function () {
+
+  /* ── 이 페이지(섹션1 BO현황, 섹션2 Ratio/산업별, 섹션3 Average BO&LeadTime, 섹션4 수주전망)에 표시된 실제 값 ── */
+  var GX_SALES_DATA = {
+    metrics: {
+      'BO Amount': { unit: '억원', series: { "'24.04": 280, "'26.04": 386 },
+        extra: 'Last Month 386억 (YoY Change +19.2%). 차트 YoY: 24.04 -12% → 26.04 19.2%',
+        def: '영업기회(Business Opportunity) 전체 금액 합계. (Total BO = Won+In-process+Drop+Lost 기준)' },
+      'BO Count': { unit: '건', series: { "'24.04": 25, "'26.04": 50 },
+        extra: 'Last Month 50건 (YoY Change +19.2%). 차트 YoY: 24.04 -8% → 26.04 19.2%',
+        def: '영업기회(BO) 건수 합계. (Total BO 기준)' },
+      'New BO': { unit: '억원', series: { "'24.04": 55, "'26.04": 92 },
+        extra: '차트 YoY: 24.04 -10% → 26.04 18%',
+        def: '이번 기간 신규로 발생한 영업기회.' },
+      'Existing BO': { unit: '억원', series: { "'24.04": 60, "'26.04": 100 },
+        extra: '차트 YoY: 24.04 -8% → 26.04 16%',
+        def: '이전 기간부터 이어져 진행 중인 영업기회.' },
+      'Won BO': { unit: '억원', series: { "'24.04": 40, "'26.04": 76 },
+        extra: '차트 YoY: 24.04 -9% → 26.04 21%',
+        def: '수주(계약 성사)로 종결된 영업기회.' },
+      'In-Process BO': { unit: '억원', series: { "'24.04": 50, "'26.04": 80 },
+        extra: '차트 YoY: 24.04 -7% → 26.04 17%',
+        def: '현재 진행 중인 영업기회.' },
+      'Lost BO': { unit: '억원', series: { "'24.04": 24, "'26.04": 40 },
+        extra: 'Lost Ratio: 24.04 25% → 26.04 20%',
+        def: '경쟁에서 패배하여 종료된 영업기회.' },
+      'Drop BO': { unit: '억원', series: { "'24.04": 18, "'26.04": 31 },
+        extra: 'Drop Ratio: 24.04 18% → 26.04 15%',
+        def: '고객 사정 등으로 중단·철회된 영업기회.' },
+      'BO Amount By Industry (하이테크)': { unit: '억원', series: { '2021': 150, '2022': 175, '2023': 192, '2024': 201.9 },
+        def: '업종 대분류(하이테크) 기준 영업기회 금액.' },
+      'BO Amount By Industry (전기/전자)': { unit: '억원', series: { '2021': 38, '2022': 40, '2023': 42, '2024': 39.1 },
+        def: '업종 대분류(전기/전자) 기준 영업기회 금액.' },
+      'BO Count By Industry (하이테크)': { unit: '건', series: { '2021': 27, '2022': 30, '2023': 34, '2024': 38 },
+        def: '업종 대분류(하이테크) 기준 영업기회 건수.' },
+      'BO Count By Industry (전기/전자)': { unit: '건', series: { '2021': 10, '2022': 11, '2023': 12, '2024': 13 },
+        def: '업종 대분류(전기/전자) 기준 영업기회 건수.' },
+      'Average BO Amount': { unit: '억원', series: { '23.2H': 3.1, '25.1H': 2.8 },
+        def: '영업기회 건당 평균 금액.' },
+      'Average Sales Lead Time (Won 기준)': { unit: '개월', series: { '23.2H': 1.3, '25.1H': 0.9 },
+        def: '영업기회 발생부터 수주(Won) 종결까지 평균 소요 기간.' },
+      'Average Sales Lead Time (전체 종결)': { unit: '개월', series: { '23.2H': 3.1, '25.1H': 2.8 },
+        def: '영업기회 발생부터 전체(Won+Lost+Drop 포함) 종결까지 평균 소요 기간.' },
+      '전사 연간 월별 수주 전망': { unit: '억원', series: { '1월': 380, '3월': 420, '7월': 430, '8월': 380 },
+        extra: '계획선: 1월 480억 → 12월 490억 (월별 500억 내외 변동)',
+        def: '연간 월별 수주 예상 금액 전망치(실적 1~8월, 전망 9~12월).' },
+      'YTM 요약 (수주전망 4-1)': { unit: '억원', series: { '2024(전년)': 2500, '계획': 4000, '실적': 2980 },
+        def: '연초 누계(YTM) 실적 요약. 2024(전년)/계획/실적 비교.' },
+      'YEAR 요약 (수주전망 4-1)': { unit: '억원', series: { '2024(전년)': 3800, '계획': 6000, '전망': 4260 },
+        def: '연간(YEAR) 실적 요약. 2024(전년)/계획/전망 비교.' },
+      '수주 확도별 계획/실적 전망 KPI': { unit: '억원', series: { "'25.10월": 21.5, 'YTM': 292.3, '연간전망': 345 },
+        extra: 'vs.계획: 25.10월 -15.1억, YTM -160.6억, 연간전망 -186억 / vs.전년동기: 25.10월 -19.2%, YTM -25.3%, 연간전망 -21.8%',
+        def: '수주 확도(가능성) 구간별 계획 대비 실적 전망 KPI 요약.' },
+      'YTM 요약 (수주확도별 4-2)': { unit: '억원', series: { '2025(전년)': 391, '계획': 453, '실적': 292.3 },
+        def: '수주확도별 전망 섹션의 연초 누계(YTM) 실적 요약.' },
+      'YEAR 요약 (수주확도별 4-2)': { unit: '억원', series: { '2025(전년)': 441, '계획': 531, '전망': 345 },
+        def: '수주확도별 전망 섹션의 연간(YEAR) 실적 요약.' }
+    }
+  };
+
+  /* ── 별칭(한글/영문 키워드) → 지표 매핑, 정규화 길이 내림차순 정렬 후 매칭 ── */
+  var ALIASES = [
+    ['boamountbyindustry하이테크', 'BO Amount By Industry (하이테크)'], ['bo금액하이테크', 'BO Amount By Industry (하이테크)'],
+    ['boamountbyindustry전기전자', 'BO Amount By Industry (전기/전자)'], ['bo금액전기전자', 'BO Amount By Industry (전기/전자)'],
+    ['bocountbyindustry하이테크', 'BO Count By Industry (하이테크)'], ['bo건수하이테크', 'BO Count By Industry (하이테크)'],
+    ['bocountbyindustry전기전자', 'BO Count By Industry (전기/전자)'], ['bo건수전기전자', 'BO Count By Industry (전기/전자)'],
+    ['averagesalesleadtimewon기준', 'Average Sales Lead Time (Won 기준)'], ['leadtimewon', 'Average Sales Lead Time (Won 기준)'], ['won리드타임', 'Average Sales Lead Time (Won 기준)'],
+    ['averagesalesleadtime전체종결', 'Average Sales Lead Time (전체 종결)'], ['leadtime전체', 'Average Sales Lead Time (전체 종결)'], ['평균리드타임', 'Average Sales Lead Time (전체 종결)'], ['leadtime', 'Average Sales Lead Time (전체 종결)'],
+    ['averageboamount', 'Average BO Amount'], ['평균bo금액', 'Average BO Amount'], ['건당평균금액', 'Average BO Amount'],
+    ['전사연간월별수주전망', '전사 연간 월별 수주 전망'], ['월별수주전망', '전사 연간 월별 수주 전망'], ['연간수주전망', '전사 연간 월별 수주 전망'],
+    ['수주확도별계획실적전망kpi', '수주 확도별 계획/실적 전망 KPI'], ['수주확도별', '수주 확도별 계획/실적 전망 KPI'], ['수주확도', '수주 확도별 계획/실적 전망 KPI'],
+    ['ytm요약수주확도별', 'YTM 요약 (수주확도별 4-2)'], ['year요약수주확도별', 'YEAR 요약 (수주확도별 4-2)'],
+    ['ytm요약수주전망', 'YTM 요약 (수주전망 4-1)'], ['year요약수주전망', 'YEAR 요약 (수주전망 4-1)'],
+    ['ytm요약', 'YTM 요약 (수주전망 4-1)'], ['year요약', 'YEAR 요약 (수주전망 4-1)'],
+    ['newbo', 'New BO'], ['신규bo', 'New BO'],
+    ['existingbo', 'Existing BO'], ['기존bo', 'Existing BO'],
+    ['wonbo', 'Won BO'], ['수주bo', 'Won BO'],
+    ['inprocessbo', 'In-Process BO'], ['진행중bo', 'In-Process BO'],
+    ['lostbo', 'Lost BO'], ['실주bo', 'Lost BO'],
+    ['dropbo', 'Drop BO'], ['철회bo', 'Drop BO'],
+    ['boamount', 'BO Amount'], ['bo금액', 'BO Amount'],
+    ['bocount', 'BO Count'], ['bo건수', 'BO Count'],
+    ['bo', 'BO Amount']
+  ].sort(function (a, b) { return b[0].length - a[0].length; });
+
+  function normalize(s) {
+    return String(s || '').toLowerCase().replace(/[\s\-_/()%,·']/g, '');
+  }
+
+  function findMetric(rawQuestion) {
+    var n = normalize(rawQuestion);
+    for (var i = 0; i < ALIASES.length; i++) {
+      if (n.indexOf(normalize(ALIASES[i][0])) !== -1) return ALIASES[i][1];
+    }
+    return null;
+  }
+
+  function detectPeriod(q) {
+    var m = q.match(/'?\s*(2[3-6])\.(\d{2})/);
+    if (m) return "'" + m[1] + '.' + m[2];
+    m = q.match(/(2[3-6])\.([12])h/i);
+    if (m) return m[1] + '.' + m[2] + 'H';
+    m = q.match(/20(2[1-5])년?/);
+    if (m) return '20' + m[1];
+    m = q.match(/(\d{1,2})\s*월/);
+    if (m) return m[1] + '월';
+    if (/ytm/i.test(q)) return 'YTM';
+    if (/연간전망/.test(q)) return '연간전망';
+    return null;
+  }
+
+  function fmt(n) {
+    if (typeof n !== 'number') return n;
+    var r = Math.round(n * 100) / 100;
+    return String(r);
+  }
+
+  function maxMinEntry(values, wantMax) {
+    var best = null, bestP = null;
+    Object.keys(values).forEach(function (p) {
+      var v = values[p];
+      if (best === null || (wantMax ? v > best : v < best)) { best = v; bestP = p; }
+    });
+    return { period: bestP, value: best };
+  }
+
+  function isDefIntent(q) { return /정의|설명|뜻|의미|이\s*뭐|뭐야|뭔가요|뭔지|무엇/.test(q); }
+  function isMaxIntent(q) { return /최고|최대|가장\s*높|가장\s*큰/.test(q); }
+  function isMinIntent(q) { return /최저|최소|가장\s*낮|가장\s*작/.test(q); }
+  function isGreeting(q) { return /^(안녕|hi|hello|헬로|도움|help|뭐.*할.*수|무엇을.*할)/i.test(q.trim()); }
+
+  var HELP_MSG = '안녕하세요! 이 페이지(영업 Sales)에 표시된 실제 실적 데이터로 답변하는 챗봇이에요.\n(BO Pipeline 분석 섹션의 흐름도/Sankey는 수치 질답 대상이 아니에요)\n이렇게 물어봐 주세요:\n• BO Amount 얼마야?\n• Won BO 26.04\n• 가장 높은 연도의 BO Amount By Industry(하이테크)는?\n• Lost BO가 뭐야?';
+  var FALLBACK_MSG = '죄송해요, 질문을 이해하지 못했어요. 이렇게 물어봐 주세요:\n• "BO Amount 얼마야?" (지표 → 최신값+비교)\n• "New BO 24.04" (지표+기간)\n• "가장 높은 시점의 Average BO Amount는?" (최댓값)\n• "Drop BO가 뭐야?" (지표 정의)';
+
+  function answer(q) {
+    if (isGreeting(q)) return HELP_MSG;
+
+    var metricKey = findMetric(q);
+    if (!metricKey) return FALLBACK_MSG;
+
+    var m = GX_SALES_DATA.metrics[metricKey];
+    var periods = Object.keys(m.series);
+
+    if (isDefIntent(q)) {
+      return metricKey + ': ' + m.def;
+    }
+    if ((isMaxIntent(q) || isMinIntent(q)) && periods.length >= 2) {
+      var ext = maxMinEntry(m.series, isMaxIntent(q));
+      return metricKey + '의 전체 기간 중 ' + (isMaxIntent(q) ? '최고치는 ' : '최저치는 ') + ext.period + '에 ' + fmt(ext.value) + m.unit + '입니다.';
+    }
+
+    var qp = detectPeriod(q);
+    if (qp) {
+      var matchKey = periods.filter(function (p) { return normalize(p) === normalize(qp); })[0];
+      if (matchKey) return metricKey + ' (' + matchKey + '): ' + fmt(m.series[matchKey]) + m.unit;
+    }
+
+    /* 기간 미지정 → 최신(마지막) 값 + 추가 정보 */
+    var latest = periods[periods.length - 1];
+    var out = metricKey + ' 최신 값(' + latest + '): ' + fmt(m.series[latest]) + m.unit;
+    if (m.extra) out += '\n' + m.extra;
+    return out;
+  }
+
+  /* ── UI 연결 ── */
+  var fab = document.getElementById('gxChatFab');
+  var panel = document.getElementById('gxChatPanel');
+  var closeBtn = document.getElementById('gxChatClose');
+  var body = document.getElementById('gxChatBody');
+  var input = document.getElementById('gxChatInput');
+  var sendBtn = document.getElementById('gxChatSend');
+
+  var SUGGESTIONS = ['BO Amount 얼마야?', 'Won BO 26.04', '가장 높은 연도의 BO Amount By Industry(하이테크)는?', 'Lost BO가 뭐야?'];
+
+  function addMsg(text, who) {
+    var div = document.createElement('div');
+    div.className = 'gx-chat-msg ' + who;
+    div.textContent = text;
+    body.appendChild(div);
+    body.scrollTop = body.scrollHeight;
+    return div;
+  }
+
+  function addSuggestions() {
+    var wrap = document.createElement('div');
+    wrap.className = 'gx-chat-suggest';
+    SUGGESTIONS.forEach(function (s) {
+      var b = document.createElement('button');
+      b.className = 'gx-chat-suggest-btn';
+      b.type = 'button';
+      b.textContent = s;
+      b.addEventListener('click', function () { handleSend(s); });
+      wrap.appendChild(b);
+    });
+    body.appendChild(wrap);
+    body.scrollTop = body.scrollHeight;
+  }
+
+  function handleSend(text) {
+    var q = (typeof text === 'string' ? text : input.value).trim();
+    if (!q) return;
+    addMsg(q, 'user');
+    input.value = '';
+    setTimeout(function () { addMsg(answer(q), 'bot'); }, 150);
+  }
+
+  var opened = false;
+  fab.addEventListener('click', function () {
+    opened = !opened;
+    panel.classList.toggle('gx-chat-open', opened);
+    if (opened && !body.dataset.inited) {
+      body.dataset.inited = '1';
+      addMsg(HELP_MSG, 'bot');
+      addSuggestions();
+    }
+    if (opened) input.focus();
+  });
+  closeBtn.addEventListener('click', function () {
+    opened = false;
+    panel.classList.remove('gx-chat-open');
+  });
+  sendBtn.addEventListener('click', function () { handleSend(); });
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') handleSend();
+  });
 })();
 </script>
 </body>

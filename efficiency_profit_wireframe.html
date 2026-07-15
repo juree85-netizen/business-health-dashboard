@@ -193,6 +193,43 @@
   top:auto; bottom:100%; border-top-color:transparent; border-bottom-color:#1E3079; margin-top:-10px;
 }
 
+/* ── gx-chat (효율/수익 페이지 데이터 분석 챗봇) ── */
+.gx-chat-fab{
+  position:fixed; right:24px; bottom:24px; width:52px; height:52px; border-radius:50%;
+  background:#1E3079; color:#fff; display:flex; align-items:center; justify-content:center;
+  font-size:22px; box-shadow:0 4px 14px rgba(30,48,121,.35); cursor:pointer; z-index:9998;
+  border:none; transition:transform .15s ease, background .15s ease;
+}
+.gx-chat-fab:hover{ transform:scale(1.06); background:#17235c; }
+.gx-chat-panel{
+  position:fixed; right:24px; bottom:88px; width:330px; height:440px;
+  background:#fff; border-radius:12px; box-shadow:0 10px 34px rgba(0,0,0,.22);
+  display:none; flex-direction:column; overflow:hidden; z-index:9998;
+  font-family:'Malgun Gothic','Noto Sans KR',sans-serif; border:1px solid #E2E8F0;
+}
+.gx-chat-panel.gx-chat-open{ display:flex; }
+.gx-chat-header{
+  background:#1E3079; color:#fff; padding:12px 14px; font-size:12.5px; font-weight:700;
+  display:flex; align-items:center; justify-content:space-between; flex-shrink:0;
+}
+.gx-chat-header-sub{ font-weight:400; font-size:10.5px; color:#B8C6DB; margin-top:2px; }
+.gx-chat-close{ background:none; border:none; color:#fff; font-size:18px; cursor:pointer; line-height:1; padding:2px 4px; }
+.gx-chat-body{ flex:1; overflow-y:auto; padding:12px; display:flex; flex-direction:column; gap:8px; background:#F5F7FA; }
+.gx-chat-msg{ max-width:88%; padding:8px 11px; border-radius:11px; font-size:11.5px; line-height:1.55; white-space:pre-wrap; word-break:break-word; }
+.gx-chat-msg.bot{ background:#fff; border:1px solid #E2E8F0; color:#354052; align-self:flex-start; border-bottom-left-radius:2px; }
+.gx-chat-msg.user{ background:#17B8B8; color:#fff; align-self:flex-end; border-bottom-right-radius:2px; }
+.gx-chat-suggest{ display:flex; flex-wrap:wrap; gap:5px; margin-top:2px; }
+.gx-chat-suggest-btn{
+  background:#EAF1FB; color:#1E3079; border:1px solid #CBD8E8; border-radius:12px;
+  padding:4px 9px; font-size:10.5px; cursor:pointer;
+}
+.gx-chat-suggest-btn:hover{ background:#1E3079; color:#fff; }
+.gx-chat-input-row{ display:flex; border-top:1px solid #E2E8F0; padding:8px; gap:6px; background:#fff; flex-shrink:0; }
+.gx-chat-input-row input{ flex:1; border:1px solid #CBD5E0; border-radius:6px; padding:7px 9px; font-size:11.5px; font-family:inherit; }
+.gx-chat-input-row input:focus{ outline:none; border-color:#17B8B8; }
+.gx-chat-input-row button{ background:#1E3079; color:#fff; border:none; border-radius:6px; padding:0 13px; font-size:11.5px; font-weight:600; cursor:pointer; }
+.gx-chat-input-row button:hover{ background:#17235c; }
+
 </style>
 </head>
 <body data-page="efficiency">
@@ -894,6 +931,238 @@ window.SITE = {
     if (el) hideTip();
   });
   document.addEventListener('scroll', hideTip, true);
+})();
+</script>
+
+<!-- ══════════════ gx-chat: 효율/수익 페이지 데이터 분석 챗봇 ══════════════ -->
+<button class="gx-chat-fab" id="gxChatFab" title="효율/수익 지표 분석 챗봇 열기">💬</button>
+<div class="gx-chat-panel" id="gxChatPanel">
+  <div class="gx-chat-header">
+    <div>
+      효율/수익 지표 분석 챗봇
+      <div class="gx-chat-header-sub">이 페이지에 표시된 실적 데이터로 답변합니다</div>
+    </div>
+    <button class="gx-chat-close" id="gxChatClose" aria-label="닫기">&times;</button>
+  </div>
+  <div class="gx-chat-body" id="gxChatBody"></div>
+  <div class="gx-chat-input-row">
+    <input type="text" id="gxChatInput" placeholder="예: CAC Payback 얼마야?, Rule of 40 뭐야?">
+    <button id="gxChatSend">전송</button>
+  </div>
+</div>
+
+<script>
+/* =============================================================
+ *  gx-chat  —  효율/수익(efficiency) 페이지 규칙 기반 분석 챗봇
+ *  - 외부 API/백엔드 없이, 이 페이지의 실제 표시 데이터(GX_EFFICIENCY_DATA)만 사용
+ *  - 키워드 + 기간 패턴 매칭으로 값 조회 / 최신값·증감 / 최댓값·최솟값 / 정의 응답
+ * ============================================================= */
+(function () {
+
+  /* ── 이 페이지(Row1~6, 12개 카드)에 표시된 실제 값 ── */
+  var GX_EFFICIENCY_DATA = {
+    metrics: {
+      'Gross Sales Efficiency': { unit: '%', series: { '2022': 70.2, '2023': 81.0, '2024': 81.1 },
+        def: '총 신규 ARR ÷ 전 분기 영업/마케팅비. B2B SaaS 적정 수준 0.8~1.2.' },
+      'Net Sales Efficiency': { unit: '%', series: { '2022': 70.2, '2023': 81.0, '2024': 81.1 },
+        def: '순 신규(Net New) ARR ÷ 전 분기 영업/마케팅비. 성장단계 0.6~0.8, 성숙단계 0.8~1.0↑ 적정.' },
+      'LTV:CAC Ratio': { unit: '배', series: { '2022': 1.6, '2023': 1.9, '2024': 2.1 },
+        def: '고객획득비용(CAC), 고객생애가치(LTV)와 그 비율. 일반적으로 3:1 이상이 이상적.' },
+      'CAC Payback Period': { unit: '개월', series: { '2022': 17, '2023': 15, '2024': 13 },
+        def: '신규고객 확보비용(CAC) 회수 기간. B2B SaaS 적정 수준 12개월 이하.' },
+      'ARPA by ACV': { unit: '억원', series: { '22.4Q': 1.1, '25.1Q': 0.9 },
+        def: 'ACV 기준 고객사 당 평균 매출.' },
+      'ARPA by ACV (신규)': { unit: '억원', series: { '22.4Q': 0.7, '25.1Q': 0.6 },
+        def: '신규 계약 고객만 대상으로 한 ACV 기준 평균 매출.' },
+      'ARPA by MRR': { unit: '천만원', series: { '22.4Q': 0.35, '25.1Q': 0.28 },
+        def: 'MRR 기준 고객사 당 평균 매출.' },
+      'ARPA by MRR (신규)': { unit: '천만원', series: { '22.4Q': 0.22, '25.1Q': 0.18 },
+        def: '신규 계약 고객만 대상으로 한 MRR 기준 평균 매출.' },
+      'Revenue on FTE': { unit: '억원', series: { '23.2H': 3.1, '24.1H': 3.6, '25.1H': 2.8 },
+        def: 'Revenue ÷ FTE 수. 조직의 효율성과 규모의 경제를 평가.' },
+      'Rule of 40': { unit: '%', series: { '22.4Q': -15.7, '25.1Q': 3.0 },
+        extra: '%ARR Growth -37.8%(22.4Q), %OP -22.1%(22.4Q) → -12.3%(25.1Q 근사)',
+        def: '매출성장률 + 영업이익률. 40% 이상이면 성장과 수익성의 균형이 양호한 것으로 판단.' },
+      'Revenue': { unit: '억원', series: { 'Last Month': 24.4 },
+        extra: '전월 대비 +2.1억',
+        def: '해당 월 발생한 매출액.' },
+      'Operating Profit': { unit: '억원', series: { '23.10': 32.2, '25.10': -2.4 },
+        extra: 'Last Month -4.4억 (전월 대비 +4.1억)',
+        def: '매출과 영업이익 실적 추이(Revenue & Operating Profit 카드).' },
+      'Gross Margin': { unit: '%', series: { '23.07': 50.2, '24.07': 43.5 },
+        extra: 'Last Month 28.6% (전월 대비 +13.8%p)',
+        def: '매출총이익률(Gross Margin). 매출에서 매출원가를 제외한 매출총이익의 비율.' },
+      'Operating Profit Margin': { unit: '%', series: { '23.07': -15.7 },
+        extra: 'Last Month -17.9% (전월 대비 +20.1%p)',
+        def: '영업이익률. 매출에서 영업비용을 제외한 영업이익의 비율.' },
+      'Revenue vs. Plan': { unit: '%', series: { '1월': 81.1, '3월': 122.1 },
+        extra: 'Last Month vs Plan 24.4억(-25.3억), YTM vs Plan 270.8억(-145.5억)',
+        def: '매출 실적과 계획(Plan) 대비 달성률.' },
+      'Operating Profit vs. Plan': { unit: '%', series: { '1월': 104 },
+        extra: 'Last Month vs Plan -4.4억(-1.1억), YTM vs Plan -11.6억(-47.9억)',
+        def: '영업이익 실적과 계획(Plan) 대비 달성률.' }
+    }
+  };
+
+  /* ── 별칭(한글/영문 키워드) → 지표 매핑, 정규화 길이 내림차순 정렬 후 매칭 ── */
+  var ALIASES = [
+    ['grosssalesefficiency', 'Gross Sales Efficiency'], ['총영업효율', 'Gross Sales Efficiency'],
+    ['netsalesefficiency', 'Net Sales Efficiency'], ['순영업효율', 'Net Sales Efficiency'],
+    ['ltvcac', 'LTV:CAC Ratio'], ['ltv', 'LTV:CAC Ratio'], ['cac회수', 'CAC Payback Period'], ['cacpayback', 'CAC Payback Period'],
+    ['cacpaybackperiod', 'CAC Payback Period'], ['페이백', 'CAC Payback Period'],
+    ['cac', 'LTV:CAC Ratio'],
+    ['arpabyacv신규', 'ARPA by ACV (신규)'], ['acv신규', 'ARPA by ACV (신규)'], ['신규acv', 'ARPA by ACV (신규)'],
+    ['arpabymrr신규', 'ARPA by MRR (신규)'], ['mrr신규', 'ARPA by MRR (신규)'], ['신규mrr', 'ARPA by MRR (신규)'],
+    ['arpabyacv', 'ARPA by ACV'], ['acv', 'ARPA by ACV'],
+    ['arpabymrr', 'ARPA by MRR'], ['arpa', 'ARPA by MRR'],
+    ['revenueonfte', 'Revenue on FTE'], ['fte당매출', 'Revenue on FTE'], ['인당매출', 'Revenue on FTE'],
+    ['ruleof40', 'Rule of 40'], ['룰오브40', 'Rule of 40'], ['40의법칙', 'Rule of 40'],
+    ['revenuevsplan', 'Revenue vs. Plan'], ['매출계획대비', 'Revenue vs. Plan'], ['매출plan', 'Revenue vs. Plan'], ['매출달성률', 'Revenue vs. Plan'],
+    ['operatingprofitvsplan', 'Operating Profit vs. Plan'], ['영업이익계획대비', 'Operating Profit vs. Plan'], ['영업이익plan', 'Operating Profit vs. Plan'], ['영업이익달성률', 'Operating Profit vs. Plan'],
+    ['operatingprofitmargin', 'Operating Profit Margin'], ['영업이익률', 'Operating Profit Margin'],
+    ['grossmargin', 'Gross Margin'], ['매출총이익률', 'Gross Margin'], ['총마진', 'Gross Margin'],
+    ['operatingprofit', 'Operating Profit'], ['영업이익', 'Operating Profit'],
+    ['revenue', 'Revenue'], ['매출', 'Revenue']
+  ].sort(function (a, b) { return b[0].length - a[0].length; });
+
+  function normalize(s) {
+    return String(s || '').toLowerCase().replace(/[\s\-_/()%,·]/g, '');
+  }
+
+  function findMetric(rawQuestion) {
+    var n = normalize(rawQuestion);
+    for (var i = 0; i < ALIASES.length; i++) {
+      if (n.indexOf(ALIASES[i][0]) !== -1) return ALIASES[i][1];
+    }
+    return null;
+  }
+
+  function detectPeriod(q) {
+    var m = q.match(/(\d{2})\.(\d)\s*q/i);
+    if (m) return m[1] + '.' + m[2] + 'Q';
+    m = q.match(/(\d{2})\.(\d)\s*h/i);
+    if (m) return m[1] + '.' + m[2] + 'H';
+    m = q.match(/20(2[2-6])년?/);
+    if (m) return '20' + m[1];
+    m = q.match(/(\d{1,2})\s*월/);
+    if (m) return (m[1].length === 1 ? '0' + m[1] : m[1]) + '월';
+    if (/최신|현재|지난달|전월/.test(q)) return 'Last Month';
+    return null;
+  }
+
+  function fmt(n) {
+    if (typeof n !== 'number') return n;
+    var r = Math.round(n * 100) / 100;
+    return String(r);
+  }
+
+  function maxMinEntry(values, wantMax) {
+    var best = null, bestP = null;
+    Object.keys(values).forEach(function (p) {
+      var v = values[p];
+      if (best === null || (wantMax ? v > best : v < best)) { best = v; bestP = p; }
+    });
+    return { period: bestP, value: best };
+  }
+
+  function isDefIntent(q) { return /정의|설명|뜻|의미|이\s*뭐|뭐야|뭔가요|뭔지|무엇/.test(q); }
+  function isMaxIntent(q) { return /최고|최대|가장\s*높|가장\s*큰/.test(q); }
+  function isMinIntent(q) { return /최저|최소|가장\s*낮|가장\s*작/.test(q); }
+  function isGreeting(q) { return /^(안녕|hi|hello|헬로|도움|help|뭐.*할.*수|무엇을.*할)/i.test(q.trim()); }
+
+  var HELP_MSG = '안녕하세요! 이 페이지(재무 › 효율/수익)에 표시된 실제 실적 데이터로 답변하는 챗봇이에요.\n이렇게 물어봐 주세요:\n• CAC Payback Period 얼마야?\n• Gross Sales Efficiency 2024\n• 가장 낮은 시점의 Rule of 40은?\n• LTV:CAC Ratio가 뭐야?';
+  var FALLBACK_MSG = '죄송해요, 질문을 이해하지 못했어요. 이렇게 물어봐 주세요:\n• "ARPA by ACV 얼마야?" (지표 → 최신값+비교)\n• "Gross Sales Efficiency 2023" (지표+기간)\n• "가장 높은 시점의 Revenue on FTE는?" (최댓값)\n• "Rule of 40이 뭐야?" (지표 정의)';
+
+  function answer(q) {
+    if (isGreeting(q)) return HELP_MSG;
+
+    var metricKey = findMetric(q);
+    if (!metricKey) return FALLBACK_MSG;
+
+    var m = GX_EFFICIENCY_DATA.metrics[metricKey];
+    var periods = Object.keys(m.series);
+
+    if (isDefIntent(q)) {
+      return metricKey + ': ' + m.def;
+    }
+    if ((isMaxIntent(q) || isMinIntent(q)) && periods.length >= 2) {
+      var ext = maxMinEntry(m.series, isMaxIntent(q));
+      return metricKey + '의 전체 기간 중 ' + (isMaxIntent(q) ? '최고치는 ' : '최저치는 ') + ext.period + '에 ' + fmt(ext.value) + m.unit + '입니다.';
+    }
+
+    var qp = detectPeriod(q);
+    if (qp && m.series[qp] !== undefined) {
+      return metricKey + ' (' + qp + '): ' + fmt(m.series[qp]) + m.unit;
+    }
+
+    /* 기간 미지정 → 최신(마지막) 값 + 추가 정보 */
+    var latest = periods[periods.length - 1];
+    var out = metricKey + ' 최신 값(' + latest + '): ' + fmt(m.series[latest]) + m.unit;
+    if (m.extra) out += '\n' + m.extra;
+    return out;
+  }
+
+  /* ── UI 연결 ── */
+  var fab = document.getElementById('gxChatFab');
+  var panel = document.getElementById('gxChatPanel');
+  var closeBtn = document.getElementById('gxChatClose');
+  var body = document.getElementById('gxChatBody');
+  var input = document.getElementById('gxChatInput');
+  var sendBtn = document.getElementById('gxChatSend');
+
+  var SUGGESTIONS = ['CAC Payback Period 얼마야?', 'Gross Sales Efficiency 2024', '가장 낮은 시점의 Rule of 40은?', 'LTV:CAC Ratio가 뭐야?'];
+
+  function addMsg(text, who) {
+    var div = document.createElement('div');
+    div.className = 'gx-chat-msg ' + who;
+    div.textContent = text;
+    body.appendChild(div);
+    body.scrollTop = body.scrollHeight;
+    return div;
+  }
+
+  function addSuggestions() {
+    var wrap = document.createElement('div');
+    wrap.className = 'gx-chat-suggest';
+    SUGGESTIONS.forEach(function (s) {
+      var b = document.createElement('button');
+      b.className = 'gx-chat-suggest-btn';
+      b.type = 'button';
+      b.textContent = s;
+      b.addEventListener('click', function () { handleSend(s); });
+      wrap.appendChild(b);
+    });
+    body.appendChild(wrap);
+    body.scrollTop = body.scrollHeight;
+  }
+
+  function handleSend(text) {
+    var q = (typeof text === 'string' ? text : input.value).trim();
+    if (!q) return;
+    addMsg(q, 'user');
+    input.value = '';
+    setTimeout(function () { addMsg(answer(q), 'bot'); }, 150);
+  }
+
+  var opened = false;
+  fab.addEventListener('click', function () {
+    opened = !opened;
+    panel.classList.toggle('gx-chat-open', opened);
+    if (opened && !body.dataset.inited) {
+      body.dataset.inited = '1';
+      addMsg(HELP_MSG, 'bot');
+      addSuggestions();
+    }
+    if (opened) input.focus();
+  });
+  closeBtn.addEventListener('click', function () {
+    opened = false;
+    panel.classList.remove('gx-chat-open');
+  });
+  sendBtn.addEventListener('click', function () { handleSend(); });
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') handleSend();
+  });
 })();
 </script>
 </body>

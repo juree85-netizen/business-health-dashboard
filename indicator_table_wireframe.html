@@ -146,6 +146,29 @@ tr:hover td { background:#EFF6FF; }
   .gx-badge, .gx-status{ font-size:10px; padding:3px 8px; }
 }
 
+/* ── gx-tooltip (지표 설명 툴팁, 11개 페이지 공통) ── */
+.gx-tooltip{ cursor:help; }
+.gx-tooltip[data-tooltip]{ border-bottom:1px dotted #A7B4CC; }
+.gx-tip-bubble{
+  position:fixed; display:none; max-width:280px;
+  background:#1E3079; color:#fff; padding:8px 11px; border-radius:6px;
+  font-size:11px; font-weight:400; line-height:1.55; word-break:keep-all;
+  box-shadow:0 6px 18px rgba(30,48,121,.30);
+  z-index:99999; pointer-events:none;
+  opacity:0; transform:translateY(4px);
+  transition:opacity .15s ease, transform .15s ease;
+  font-family:'Malgun Gothic','Noto Sans KR',sans-serif;
+}
+.gx-tip-bubble.gx-tip-show{ opacity:1; transform:translateY(0); }
+.gx-tip-bubble::after{
+  content:''; position:absolute; left:var(--gx-tip-arrow,20px); top:100%;
+  border:5px solid transparent; border-top-color:#1E3079; margin-left:-5px;
+}
+.gx-tip-bubble.gx-tip-below::after{
+  top:auto; bottom:100%; border-top-color:transparent; border-bottom-color:#1E3079; margin-top:-10px;
+}
+
+
 </style>
 </head>
 <body data-page="indtable">
@@ -217,8 +240,84 @@ var MCOLS = [
 function vals(s){ return s.trim().split(/\s+/).map(function(t){ return t==='~'?'':t; }); }
 function r(label, s, opt){ opt=opt||{}; return {label:label, v:vals(s), ind:!!opt.ind, grp:!!opt.grp, sep:!!opt.sep}; }
 
+/* ── 지표 설명 툴팁 (indicator_info_wireframe.html의 indicators 정의를 요약/재사용) ── */
+function escT(s){ return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function labelHtml(label, tipMap){
+  var tip = tipMap && tipMap[label];
+  if(!tip) return label;
+  return '<span class="gx-tooltip" data-tooltip="'+escT(tip)+'">'+label+'</span>';
+}
+
+var T1_TIP = {
+  'Total':'전체 MRR (반복 라이선스 매출) 합계.',
+  'New':'신규 고객으로부터 이번 기간 새로 발생한 MRR.',
+  'Churn':'고객의 구독 중지로 줄어든 MRR (이탈).',
+  'Expansion(+/-)':'기존 고객의 업셀/다운셀로 늘거나 줄어든 MRR (확장/축소).',
+  'Existing':'기존 고객이 유지하고 있는 MRR 합계.',
+  'Existing - Expansion':'기존 고객 중 구독 비용이 증가(업셀/크로스셀)한 MRR.',
+  'Existing - Contraction':'기존 고객 중 구독 비용이 감소한 MRR (축소).',
+  'Existing - NoChange':'기존 고객 중 구독 비용 변동이 없는 MRR.',
+  'Net New':'신규MRR + 확장MRR - 축소MRR - 이탈MRR (MRR 순증분).',
+  'Average':'고객 1개사 당 평균 MRR.',
+  'Average (New)':'신규 고객 1개사 당 평균 MRR.',
+  '% Total Growth':'MRR 전기 대비 성장률 (MoM/QoQ).',
+  '% Total YoY Growth':'MRR 전년 동기 대비 성장률.',
+  '% New':'전체 MRR 중 신규 MRR 비율.',
+  '% Existing':'전체 MRR 중 기존 고객 MRR 비율.',
+  '% Existing-Expansion':'전기 MRR 대비 확장 MRR 비율.',
+  '% Existing-Contraction':'전기 MRR 대비 축소 MRR 비율.',
+  '% Existing-NoChange':'전기 MRR 대비 변동 없는 MRR 비율.',
+  '% Churn':'전기 MRR 대비 이탈 MRR 비율.',
+  '% Net New':'전기 MRR 대비 순증 MRR 비율.',
+  'YTM':'연초 누계(Year to Month) MRR.',
+  'YoY YTM Difference':'연초 누계 MRR의 전년 동기 대비 차이.',
+  '% YoY YTM Difference':'연초 누계 MRR의 전년 동기 대비 증감률.'
+};
+var T2_TIP = {
+  'Total':'전체 유료 고객 수.',
+  'New':'이번 기간 신규로 계약한 고객 수.',
+  'Churn':'이번 기간 이탈(해지)한 고객 수.',
+  'Existing':'기존에 유지되고 있는 고객 수.',
+  'Net New':'신규 고객 수 - 이탈 고객 수 (고객 순증분).',
+  '% Growth':'고객 수 전기 대비 성장률.',
+  '% YoY Growth':'고객 수 전년 동기 대비 성장률.',
+  '% New':'전체 고객 중 신규 고객 비율.',
+  '% Existing':'전체 고객 중 기존 고객 비율.',
+  '% Churn':'전기 고객 수 대비 이탈 고객 비율.',
+  '% Net New':'전기 고객 수 대비 순증 고객 비율.'
+};
+var T3_TIP = {
+  '매출총계':'당 기간 발생한 전체 매출.',
+  '매출원가 (COGS)':'매출을 발생시키기 위해 직접 소요된 원가.',
+  '매출총이익 (Gross Margin)':'매출에서 매출원가를 제외한 이익.',
+  '% 매출총이익 (Gross Margin)':'매출 대비 매출총이익 비율. 일반적으로 70~90%가 이상적.',
+  '신상품개발 (R&D)':'신상품 개발(R&D)에 투입된 비용.',
+  '판매비총계':'영업/마케팅 활동에 투입된 판매비 합계.',
+  '일반비총계':'일반관리 활동에 투입된 비용 합계.',
+  '손익분기 (BEP)':'매출과 총원가가 같아져 이익이 0이 되는 손익분기 매출액.',
+  '영업이익':'매출총이익에서 판매비와 관리비를 차감한 이익.',
+  '% 영업이익':'매출 대비 영업이익 비율(영업이익률).',
+  '% 매출원가 vs. 매출':'매출 대비 매출원가(COGS) 비율.',
+  '% 신상품개발(R&D) vs. 매출':'매출액 대비 R&D 비용 비중. 일반적으로 15~30%.',
+  '% 판매비총계 vs. 매출':'매출 대비 판매비 비율.',
+  '% 판관비 vs. 매출':'매출 대비 판매비와관리비(판관비) 비율.',
+  '% 총원가 vs. 매출':'매출 대비 총원가(직접원가+간접원가+판관비) 비율.',
+  '% YoY Growth (매출)':'매출의 전년 동기 대비 성장률.',
+  '% YoY Growth (영업이익)':'영업이익의 전년 동기 대비 성장률.',
+  '매출 (직전 1년)':'최근 12개월 누계 매출.',
+  '영업이익 (직전 1년)':'최근 12개월 누계 영업이익.',
+  '% 영업이익 (직전1년)':'최근 12개월 누계 영업이익률.',
+  'Rule of 40':'매출성장률 + 영업이익률. 40% 이상이면 성장과 수익성의 균형이 양호.'
+};
+var T4_TIP = {
+  'Net Promoter Score':'고객추천지수(NPS). 추천고객 비율 - 비추천고객 비율. Bain 기준 0 이상 양호, 50 이상 탁월.',
+  'Customer Satisfaction Score':'고객만족도(CSAT). 설문 응답자의 평균 만족 비율.',
+  'Customer Effort Score':'고객노력지수(CES). 제품/서비스 이용에 든 노력의 정도(사용 편의성).'
+};
+var T5_TIP = { '재구독율':'구독 갱신 시점에 재구독(갱신)한 고객의 비율.' };
+
 /* ── 테이블 렌더 ── */
-function renderTable(name, cols, rows){
+function renderTable(name, cols, rows, tipMap){
   var flat=[]; cols.forEach(function(c){ c.q.forEach(function(q,i){ flat.push({q:q, first:i===0}); }); });
   var h='<div class="tbl-wrap"><table class="dt"><thead>';
   h+='<tr><th class="lab-h" rowspan="2">'+name+'</th>';
@@ -229,7 +328,7 @@ function renderTable(name, cols, rows){
   rows.forEach(function(row,ri){
     var cls=(ri%2?'alt':'')+(row.sep?' sep':'');
     h+='<tr class="'+cls.trim()+'">';
-    h+='<td class="lab'+(row.ind?' ind':'')+(row.grp?' grp':'')+'">'+row.label+'</td>';
+    h+='<td class="lab'+(row.ind?' ind':'')+(row.grp?' grp':'')+'">'+labelHtml(row.label,tipMap)+'</td>';
     row.v.forEach(function(val,i){
       var neg=val.charAt(0)==='-';
       h+='<td class="num'+(neg?' neg':'')+(flat[i]&&flat[i].first?' qb':'')+'">'+val+'</td>';
@@ -330,11 +429,11 @@ function toolbar(selects, excel){
 
 /* ── 조립 ── */
 var out='';
-out+='<div class="tbl-block">'+toolbar([['MRR','ARR','고객수'],['Quarter','Month','Year']], true)+renderTable('재무 (성장)', QCOLS, t1)+'</div>';
-out+='<div class="tbl-block">'+toolbar([['Revenue','고객수'],['Quarter','Month','Year']], false)+renderTable('재무 (고객)', QCOLS, t2)+'</div>';
-out+='<div class="tbl-block">'+toolbar([['Quarter','Month','Year']], false)+renderTable('재무 (수익)', QCOLS, t3)+'</div>';
-out+='<div class="tbl-block">'+toolbar([['Month','Quarter']], false)+renderTable('고객', MCOLS, t4)+'</div>';
-out+='<div class="tbl-block">'+toolbar([['Month','Quarter']], false)+renderTable('상품', MCOLS, t5)+'</div>';
+out+='<div class="tbl-block">'+toolbar([['MRR','ARR','고객수'],['Quarter','Month','Year']], true)+renderTable('재무 (성장)', QCOLS, t1, T1_TIP)+'</div>';
+out+='<div class="tbl-block">'+toolbar([['Revenue','고객수'],['Quarter','Month','Year']], false)+renderTable('재무 (고객)', QCOLS, t2, T2_TIP)+'</div>';
+out+='<div class="tbl-block">'+toolbar([['Quarter','Month','Year']], false)+renderTable('재무 (수익)', QCOLS, t3, T3_TIP)+'</div>';
+out+='<div class="tbl-block">'+toolbar([['Month','Quarter']], false)+renderTable('고객', MCOLS, t4, T4_TIP)+'</div>';
+out+='<div class="tbl-block">'+toolbar([['Month','Quarter']], false)+renderTable('상품', MCOLS, t5, T5_TIP)+'</div>';
 document.getElementById('content').innerHTML=out;
 </script>
 <script>
@@ -502,6 +601,53 @@ window.SITE = {
   } else { run(); }
 })();
 
+</script>
+
+<script>
+/* gx-tooltip engine (11개 페이지 공통, 지표 설명 hover 툴팁) */
+(function () {
+  var bubble;
+  function ensureBubble() {
+    if (!bubble) {
+      bubble = document.createElement('div');
+      bubble.className = 'gx-tip-bubble';
+      document.body.appendChild(bubble);
+    }
+    return bubble;
+  }
+  function showTip(el) {
+    var text = el.getAttribute('data-tooltip');
+    if (!text) return;
+    var t = ensureBubble();
+    t.textContent = text;
+    t.style.display = 'block';
+    t.classList.remove('gx-tip-show', 'gx-tip-below');
+    var r = el.getBoundingClientRect();
+    var tw = t.offsetWidth, th = t.offsetHeight;
+    var left = r.left + r.width / 2 - tw / 2;
+    var top = r.top - th - 10;
+    var below = false;
+    if (top < 6) { top = r.bottom + 10; below = true; }
+    if (left < 6) left = 6;
+    if (left + tw > window.innerWidth - 6) left = window.innerWidth - 6 - tw;
+    var arrowLeft = Math.max(10, Math.min(tw - 10, r.left + r.width / 2 - left));
+    t.style.left = left + 'px';
+    t.style.top = top + 'px';
+    t.style.setProperty('--gx-tip-arrow', arrowLeft + 'px');
+    if (below) t.classList.add('gx-tip-below');
+    requestAnimationFrame(function () { t.classList.add('gx-tip-show'); });
+  }
+  function hideTip() { if (bubble) bubble.classList.remove('gx-tip-show'); }
+  document.addEventListener('mouseover', function (e) {
+    var el = e.target.closest && e.target.closest('.gx-tooltip[data-tooltip]');
+    if (el) showTip(el);
+  });
+  document.addEventListener('mouseout', function (e) {
+    var el = e.target.closest && e.target.closest('.gx-tooltip[data-tooltip]');
+    if (el) hideTip();
+  });
+  document.addEventListener('scroll', hideTip, true);
+})();
 </script>
 </body>
 </html>

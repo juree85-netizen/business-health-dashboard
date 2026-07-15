@@ -170,6 +170,29 @@
   .gx-crumb{ display:none; }
   .gx-badge, .gx-status{ font-size:10px; padding:3px 8px; }
 }
+
+/* ── gx-tooltip (지표 설명 툴팁, 11개 페이지 공통) ── */
+.gx-tooltip{ cursor:help; }
+.gx-tooltip[data-tooltip]{ border-bottom:1px dotted #A7B4CC; }
+.gx-tip-bubble{
+  position:fixed; display:none; max-width:280px;
+  background:#1E3079; color:#fff; padding:8px 11px; border-radius:6px;
+  font-size:11px; font-weight:400; line-height:1.55; word-break:keep-all;
+  box-shadow:0 6px 18px rgba(30,48,121,.30);
+  z-index:99999; pointer-events:none;
+  opacity:0; transform:translateY(4px);
+  transition:opacity .15s ease, transform .15s ease;
+  font-family:'Malgun Gothic','Noto Sans KR',sans-serif;
+}
+.gx-tip-bubble.gx-tip-show{ opacity:1; transform:translateY(0); }
+.gx-tip-bubble::after{
+  content:''; position:absolute; left:var(--gx-tip-arrow,20px); top:100%;
+  border:5px solid transparent; border-top-color:#1E3079; margin-left:-5px;
+}
+.gx-tip-bubble.gx-tip-below::after{
+  top:auto; bottom:100%; border-top-color:transparent; border-bottom-color:#1E3079; margin-top:-10px;
+}
+
 </style>
 </head>
 <body data-page="efficiency">
@@ -224,7 +247,7 @@
     <!-- ── Row 1: Sales Efficiency ── -->
     <div class="row">
       <div class="card">
-        <div class="card-title">Gross Sales Efficiency <span class="card-unit">%</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="총 신규 ARR ÷ 전 분기 영업/마케팅비. B2B SaaS 적정 수준 0.8~1.2.">Gross Sales Efficiency <span class="card-unit">%</span></div>
         <div class="chart-area">
           <svg width="100%" height="140" viewBox="0 0 320 140">
             <line x1="40" y1="10" x2="40" y2="115" stroke="#ddd" stroke-width="1"/>
@@ -248,7 +271,7 @@
       </div>
 
       <div class="card">
-        <div class="card-title">Net Sales Efficiency <span class="card-unit">%</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="순 신규(Net New) ARR ÷ 전 분기 영업/마케팅비. 성장단계 0.6~0.8, 성숙단계 0.8~1.0↑ 적정.">Net Sales Efficiency <span class="card-unit">%</span></div>
         <div class="chart-area">
           <svg width="100%" height="140" viewBox="0 0 320 140">
             <line x1="40" y1="10" x2="40" y2="115" stroke="#ddd" stroke-width="1"/>
@@ -275,7 +298,7 @@
     <!-- ── Row 2: LTV/CAC ── -->
     <div class="row">
       <div class="card">
-        <div class="card-title">CAC / LTV / LTV:CAC Ratio</div>
+        <div class="card-title gx-tooltip" data-tooltip="고객획득비용(CAC), 고객생애가치(LTV)와 그 비율. 일반적으로 3:1 이상이 이상적.">CAC / LTV / LTV:CAC Ratio</div>
         <div class="legend">
           <div class="legend-item"><div class="legend-bar" style="background:#90CAF9"></div>CAC (억원)</div>
           <div class="legend-item"><div class="legend-bar" style="background:#1E88E5"></div>LTV (억원)</div>
@@ -315,7 +338,7 @@
       </div>
 
       <div class="card">
-        <div class="card-title">CAC Payback Period <span class="card-unit">개월</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="신규고객 확보비용(CAC) 회수 기간. B2B SaaS 적정 수준 12개월 이하.">CAC Payback Period <span class="card-unit">개월</span></div>
         <div class="legend">
           <div class="legend-item"><div class="legend-line" style="background:#7E57C2"></div>CAC Payback (개월)</div>
         </div>
@@ -346,7 +369,7 @@
     <!-- ── Row 3: ARPA 추이 ── -->
     <div class="row">
       <div class="card">
-        <div class="card-title">ARPA by ACV <span class="card-unit">억원</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="ACV 기준 고객사 당 평균 매출.">ARPA by ACV <span class="card-unit">억원</span></div>
         <div class="legend">
           <div class="legend-item"><div class="legend-line" style="background:#FF9800"></div>Average ACV</div>
           <div class="legend-item"><div class="legend-line" style="background:#7E57C2"></div>Average ACV (New)</div>
@@ -374,7 +397,7 @@
       </div>
 
       <div class="card">
-        <div class="card-title">ARPA by MRR <span class="card-unit">천만원</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="MRR 기준 고객사 당 평균 매출.">ARPA by MRR <span class="card-unit">천만원</span></div>
         <div class="legend">
           <div class="legend-item"><div class="legend-line" style="background:#FF9800"></div>Average MRR</div>
           <div class="legend-item"><div class="legend-line" style="background:#7E57C2"></div>Average MRR (New)</div>
@@ -405,7 +428,7 @@
     <!-- ── Row 4: 효율 지표 ── -->
     <div class="row">
       <div class="card">
-        <div class="card-title">Revenue on FTE <span class="card-unit">억원</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="Revenue ÷ FTE 수. 조직의 효율성과 규모의 경제를 평가.">Revenue on FTE <span class="card-unit">억원</span></div>
         <div class="legend">
           <div class="legend-item"><div class="legend-line" style="background:#7E57C2"></div>Revenue / FTE</div>
         </div>
@@ -434,7 +457,7 @@
       </div>
 
       <div class="card">
-        <div class="card-title">Rule of 40</div>
+        <div class="card-title gx-tooltip" data-tooltip="매출성장률 + 영업이익률. 40% 이상이면 성장과 수익성의 균형이 양호한 것으로 판단.">Rule of 40</div>
         <div class="legend">
           <div class="legend-item"><div class="legend-line" style="background:#FF9800"></div>Rule of 40</div>
           <div class="legend-item"><div class="legend-line" style="background:#7E57C2"></div>%ARR Growth</div>
@@ -470,7 +493,7 @@
     <!-- ── Row 5: 수익성 추이 (대형) ── -->
     <div class="row">
       <div class="card">
-        <div class="card-title">Revenue &amp; Operating Profit <span class="card-unit">억원</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="매출과 영업이익 실적 추이.">Revenue &amp; Operating Profit <span class="card-unit">억원</span></div>
         <div class="kpi-row">
           <div class="kpi-box">
             <div class="kpi-label">Revenue · Last Month</div>
@@ -520,7 +543,7 @@
       </div>
 
       <div class="card">
-        <div class="card-title">% Gross Margin &amp; Operating Profit <span class="card-unit">%</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="매출총이익률(Gross Margin)과 영업이익률 추이.">% Gross Margin &amp; Operating Profit <span class="card-unit">%</span></div>
         <div class="kpi-row">
           <div class="kpi-box">
             <div class="kpi-label">Gross Margin · Last Month</div>
@@ -563,7 +586,7 @@
     <!-- ── Row 6: vs. Plan (대형) ── -->
     <div class="row">
       <div class="card">
-        <div class="card-title">Revenue vs. Plan <span class="card-unit">억원</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="매출 실적과 계획(Plan) 대비 달성률.">Revenue vs. Plan <span class="card-unit">억원</span></div>
         <div class="kpi-row">
           <div class="kpi-box">
             <div class="kpi-label">Last Month vs. Plan</div>
@@ -623,7 +646,7 @@
       </div>
 
       <div class="card">
-        <div class="card-title">Operating Profit vs. Plan <span class="card-unit">억원</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="영업이익 실적과 계획(Plan) 대비 달성률.">Operating Profit vs. Plan <span class="card-unit">억원</span></div>
         <div class="kpi-row">
           <div class="kpi-box">
             <div class="kpi-label">Last Month vs. Plan</div>
@@ -824,6 +847,53 @@ window.SITE = {
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', run);
   } else { run(); }
+})();
+</script>
+
+<script>
+/* gx-tooltip engine (11개 페이지 공통, 지표 설명 hover 툴팁) */
+(function () {
+  var bubble;
+  function ensureBubble() {
+    if (!bubble) {
+      bubble = document.createElement('div');
+      bubble.className = 'gx-tip-bubble';
+      document.body.appendChild(bubble);
+    }
+    return bubble;
+  }
+  function showTip(el) {
+    var text = el.getAttribute('data-tooltip');
+    if (!text) return;
+    var t = ensureBubble();
+    t.textContent = text;
+    t.style.display = 'block';
+    t.classList.remove('gx-tip-show', 'gx-tip-below');
+    var r = el.getBoundingClientRect();
+    var tw = t.offsetWidth, th = t.offsetHeight;
+    var left = r.left + r.width / 2 - tw / 2;
+    var top = r.top - th - 10;
+    var below = false;
+    if (top < 6) { top = r.bottom + 10; below = true; }
+    if (left < 6) left = 6;
+    if (left + tw > window.innerWidth - 6) left = window.innerWidth - 6 - tw;
+    var arrowLeft = Math.max(10, Math.min(tw - 10, r.left + r.width / 2 - left));
+    t.style.left = left + 'px';
+    t.style.top = top + 'px';
+    t.style.setProperty('--gx-tip-arrow', arrowLeft + 'px');
+    if (below) t.classList.add('gx-tip-below');
+    requestAnimationFrame(function () { t.classList.add('gx-tip-show'); });
+  }
+  function hideTip() { if (bubble) bubble.classList.remove('gx-tip-show'); }
+  document.addEventListener('mouseover', function (e) {
+    var el = e.target.closest && e.target.closest('.gx-tooltip[data-tooltip]');
+    if (el) showTip(el);
+  });
+  document.addEventListener('mouseout', function (e) {
+    var el = e.target.closest && e.target.closest('.gx-tooltip[data-tooltip]');
+    if (el) hideTip();
+  });
+  document.addEventListener('scroll', hideTip, true);
 })();
 </script>
 </body>

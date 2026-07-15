@@ -70,6 +70,28 @@ tr.alt td.stick { background:#FAFBFD; }
 tr.sep td { border-top:2px solid #D8E0EC; }
 tr:hover td { background:#EFF6FF; }
 tr:hover td.stick { background:#EFF6FF; }
+
+/* ── gx-tooltip (지표 설명 툴팁, 11개 페이지 공통) ── */
+.gx-tooltip{ cursor:help; }
+.gx-tooltip[data-tooltip]{ border-bottom:1px dotted #A7B4CC; }
+.gx-tip-bubble{
+  position:fixed; display:none; max-width:280px;
+  background:#1E3079; color:#fff; padding:8px 11px; border-radius:6px;
+  font-size:11px; font-weight:400; line-height:1.55; word-break:keep-all;
+  box-shadow:0 6px 18px rgba(30,48,121,.30);
+  z-index:99999; pointer-events:none;
+  opacity:0; transform:translateY(4px);
+  transition:opacity .15s ease, transform .15s ease;
+  font-family:'Malgun Gothic','Noto Sans KR',sans-serif;
+}
+.gx-tip-bubble.gx-tip-show{ opacity:1; transform:translateY(0); }
+.gx-tip-bubble::after{
+  content:''; position:absolute; left:var(--gx-tip-arrow,20px); top:100%;
+  border:5px solid transparent; border-top-color:#1E3079; margin-left:-5px;
+}
+.gx-tip-bubble.gx-tip-below::after{
+  top:auto; bottom:100%; border-top-color:transparent; border-bottom-color:#1E3079; margin-top:-10px;
+}
 </style>
 </head>
 <body>
@@ -149,8 +171,16 @@ function renderFlat(cols, rows){
   return h+'</tbody></table></div>';
 }
 
+/* ── 지표 설명 툴팁 헬퍼 ── */
+function escT(s){ return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function labelHtml(label, tipMap){
+  var tip = tipMap && tipMap[label];
+  if(!tip) return label;
+  return '<span class="gx-tooltip" data-tooltip="'+escT(tip)+'">'+label+'</span>';
+}
+
 /* ── 월별 그룹 테이블 (원청별 매출/상태 / 매출손익) ── */
-function renderMonthly(metaCols, groups, rows, statusMode){
+function renderMonthly(metaCols, groups, rows, statusMode, tipMap){
   var firsts=[]; groups.forEach(function(g){ g.cols.forEach(function(m,i){ firsts.push(i===0); }); });
   var h='<div class="tbl-wrap"><table class="dt"><thead><tr>';
   metaCols.forEach(function(m,i){ h+='<th class="mh'+(i===0?' stick':'')+'" rowspan="2">'+m.h+'</th>'; });
@@ -162,7 +192,8 @@ function renderMonthly(metaCols, groups, rows, statusMode){
     h+='<tr class="'+(ri%2?'alt':'')+(row.sep?' sep':'')+'">';
     row.meta.forEach(function(v,i){
       var last=i===metaCols.length-1;
-      h+='<td class="txt'+(i===0?' stick':'')+(row.ind&&last?' ind':'')+(row.grp?' grp':'')+'">'+v+'</td>';
+      var txt = (last && row.grp) ? labelHtml(v,tipMap) : v;
+      h+='<td class="txt'+(i===0?' stick':'')+(row.ind&&last?' ind':'')+(row.grp?' grp':'')+'">'+txt+'</td>';
     });
     row.vals.forEach(function(v,i){
       if(statusMode){
@@ -286,6 +317,19 @@ var plRows=[
  prow('영업이익','9.45 16.71 8.06 16.76 9.74 -12.78 0.30 -7.30 -6.55 -11.06 -9.61 -10.56 -4.86 2.46 -0.35',{grp:1,sep:1})
 ];
 
+/* 매출 손익 그룹 라벨 툴팁 (indicator_info_wireframe.html의 지표 정의를 요약/재사용) */
+var PL_TIP = {
+  '매출총계':'당 기간 발생한 전체 매출.',
+  '직접원가계':'매출 창출에 직접 투입된 원가(인건비·외주비·재료비 등) 합계.',
+  '사내원가총계':'사내에서 발생한 원가성 비용 합계.',
+  '한계이익총계':'매출에서 직접원가와 사내원가를 차감한 한계이익.',
+  '간접원가총계':'매출에 직접 대응되지 않는 간접(공통) 원가 합계.',
+  '매출총이익':'매출에서 매출원가(직접+간접원가)를 제외한 이익(Gross Margin).',
+  '판매비총계':'영업/마케팅 활동에 투입된 판매비 합계.',
+  '일반비총계':'일반관리 활동에 투입된 비용 합계.',
+  '영업이익':'매출총이익에서 판매비와 관리비를 차감한 영업활동 이익.'
+};
+
 /* ═══════════ 조립 ═══════════ */
 var out='';
 /* 블록 A */
@@ -303,10 +347,57 @@ out+='</div>';
 /* 블록 C */
 out+='<div class="sec">';
 out+=dateFilter('2024-01-01','2025-03-19',null,false);
-out+='<div class="tbl-title">매출 손익</div>'+renderMonthly(plMeta,plGroups,plRows,false);
+out+='<div class="tbl-title">매출 손익</div>'+renderMonthly(plMeta,plGroups,plRows,false,PL_TIP);
 out+='</div>';
 
 document.getElementById('content').innerHTML=out;
+</script>
+
+<script>
+/* gx-tooltip engine (11개 페이지 공통, 지표 설명 hover 툴팁) */
+(function () {
+  var bubble;
+  function ensureBubble() {
+    if (!bubble) {
+      bubble = document.createElement('div');
+      bubble.className = 'gx-tip-bubble';
+      document.body.appendChild(bubble);
+    }
+    return bubble;
+  }
+  function showTip(el) {
+    var text = el.getAttribute('data-tooltip');
+    if (!text) return;
+    var t = ensureBubble();
+    t.textContent = text;
+    t.style.display = 'block';
+    t.classList.remove('gx-tip-show', 'gx-tip-below');
+    var r = el.getBoundingClientRect();
+    var tw = t.offsetWidth, th = t.offsetHeight;
+    var left = r.left + r.width / 2 - tw / 2;
+    var top = r.top - th - 10;
+    var below = false;
+    if (top < 6) { top = r.bottom + 10; below = true; }
+    if (left < 6) left = 6;
+    if (left + tw > window.innerWidth - 6) left = window.innerWidth - 6 - tw;
+    var arrowLeft = Math.max(10, Math.min(tw - 10, r.left + r.width / 2 - left));
+    t.style.left = left + 'px';
+    t.style.top = top + 'px';
+    t.style.setProperty('--gx-tip-arrow', arrowLeft + 'px');
+    if (below) t.classList.add('gx-tip-below');
+    requestAnimationFrame(function () { t.classList.add('gx-tip-show'); });
+  }
+  function hideTip() { if (bubble) bubble.classList.remove('gx-tip-show'); }
+  document.addEventListener('mouseover', function (e) {
+    var el = e.target.closest && e.target.closest('.gx-tooltip[data-tooltip]');
+    if (el) showTip(el);
+  });
+  document.addEventListener('mouseout', function (e) {
+    var el = e.target.closest && e.target.closest('.gx-tooltip[data-tooltip]');
+    if (el) hideTip();
+  });
+  document.addEventListener('scroll', hideTip, true);
+})();
 </script>
 </body>
 </html>

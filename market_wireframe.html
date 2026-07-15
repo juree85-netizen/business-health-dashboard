@@ -195,6 +195,29 @@
   .gx-crumb{ display:none; }
   .gx-badge, .gx-status{ font-size:10px; padding:3px 8px; }
 }
+
+/* ── gx-tooltip (지표 설명 툴팁, 11개 페이지 공통) ── */
+.gx-tooltip{ cursor:help; }
+.gx-tooltip[data-tooltip]{ border-bottom:1px dotted #A7B4CC; }
+.gx-tip-bubble{
+  position:fixed; display:none; max-width:280px;
+  background:#1E3079; color:#fff; padding:8px 11px; border-radius:6px;
+  font-size:11px; font-weight:400; line-height:1.55; word-break:keep-all;
+  box-shadow:0 6px 18px rgba(30,48,121,.30);
+  z-index:99999; pointer-events:none;
+  opacity:0; transform:translateY(4px);
+  transition:opacity .15s ease, transform .15s ease;
+  font-family:'Malgun Gothic','Noto Sans KR',sans-serif;
+}
+.gx-tip-bubble.gx-tip-show{ opacity:1; transform:translateY(0); }
+.gx-tip-bubble::after{
+  content:''; position:absolute; left:var(--gx-tip-arrow,20px); top:100%;
+  border:5px solid transparent; border-top-color:#1E3079; margin-left:-5px;
+}
+.gx-tip-bubble.gx-tip-below::after{
+  top:auto; bottom:100%; border-top-color:transparent; border-bottom-color:#1E3079; margin-top:-10px;
+}
+
 </style>
 </head>
 <body data-page="market">
@@ -250,7 +273,7 @@
     <div class="row">
 
       <div class="card">
-        <div class="card-title">Revenue &amp; Market Share (External) <span class="card-unit">억원 / %</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="외부 시장 규모 대비 당사 매출 및 시장 점유율(Market Share).">Revenue &amp; Market Share (External) <span class="card-unit">억원 / %</span></div>
         <div class="ctrl-row">
           <select class="ctrl-select"><option>국내</option><option>해외</option></select>
           <select class="ctrl-select"><option>대외 전체</option><option>신규</option></select>
@@ -338,7 +361,7 @@
       </div>
 
       <div class="card">
-        <div class="card-title">Market &amp; Revenue CAGR (External)</div>
+        <div class="card-title gx-tooltip" data-tooltip="외부 시장 규모와 당사 매출의 연평균성장률(CAGR) 비교.">Market &amp; Revenue CAGR (External)</div>
         <div class="ctrl-row">
           <select class="ctrl-select"><option>국내</option><option>해외</option></select>
           <select class="ctrl-select"><option>대외 전체</option><option>신규</option></select>
@@ -400,7 +423,7 @@
     <div class="row">
 
       <div class="card">
-        <div class="card-title">SAM &amp; Revenue Growth (External) <span class="card-unit">%</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="유효시장(SAM) 규모 대비 매출 성장률.">SAM &amp; Revenue Growth (External) <span class="card-unit">%</span></div>
         <div class="ctrl-row">
           <select class="ctrl-select"><option>국내</option><option>해외</option></select>
           <select class="ctrl-select"><option>대외 전체</option><option>신규</option></select>
@@ -462,7 +485,7 @@
       </div>
 
       <div class="card">
-        <div class="card-title">Revenue Growth / S&amp;M / R&amp;D Ratio (Total) <span class="card-unit">%</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="매출 성장률과 매출 대비 영업/마케팅비(S&amp;M), R&amp;D 비중.">Revenue Growth / S&amp;M / R&amp;D Ratio (Total) <span class="card-unit">%</span></div>
         <div class="ctrl-row">
           <select class="ctrl-select"><option>국내</option><option>해외</option></select>
           <select class="ctrl-select"><option>대외 전체</option><option>신규</option></select>
@@ -548,7 +571,7 @@
     <div class="row">
 
       <div class="card">
-        <div class="card-title">SAM (External) by Cloud/On-prem <span class="card-unit">억원</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="Cloud/On-premises 구분별 유효시장(SAM) 규모.">SAM (External) by Cloud/On-prem <span class="card-unit">억원</span></div>
         <div class="ctrl-row">
           <select class="ctrl-select"><option>국내</option><option>해외</option></select>
           <select class="ctrl-select"><option>대외 전체</option><option>신규</option></select>
@@ -609,7 +632,7 @@
       </div>
 
       <div class="card">
-        <div class="card-title">Revenue (External) by Cloud/On-prem <span class="card-unit">억원</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="Cloud/On-premises 구분별 외부 매출 규모.">Revenue (External) by Cloud/On-prem <span class="card-unit">억원</span></div>
         <div class="ctrl-row">
           <select class="ctrl-select"><option>국내</option><option>해외</option></select>
           <select class="ctrl-select"><option>대외 전체</option><option>신규</option></select>
@@ -810,6 +833,53 @@ window.SITE = {
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', run);
   } else { run(); }
+})();
+</script>
+
+<script>
+/* gx-tooltip engine (11개 페이지 공통, 지표 설명 hover 툴팁) */
+(function () {
+  var bubble;
+  function ensureBubble() {
+    if (!bubble) {
+      bubble = document.createElement('div');
+      bubble.className = 'gx-tip-bubble';
+      document.body.appendChild(bubble);
+    }
+    return bubble;
+  }
+  function showTip(el) {
+    var text = el.getAttribute('data-tooltip');
+    if (!text) return;
+    var t = ensureBubble();
+    t.textContent = text;
+    t.style.display = 'block';
+    t.classList.remove('gx-tip-show', 'gx-tip-below');
+    var r = el.getBoundingClientRect();
+    var tw = t.offsetWidth, th = t.offsetHeight;
+    var left = r.left + r.width / 2 - tw / 2;
+    var top = r.top - th - 10;
+    var below = false;
+    if (top < 6) { top = r.bottom + 10; below = true; }
+    if (left < 6) left = 6;
+    if (left + tw > window.innerWidth - 6) left = window.innerWidth - 6 - tw;
+    var arrowLeft = Math.max(10, Math.min(tw - 10, r.left + r.width / 2 - left));
+    t.style.left = left + 'px';
+    t.style.top = top + 'px';
+    t.style.setProperty('--gx-tip-arrow', arrowLeft + 'px');
+    if (below) t.classList.add('gx-tip-below');
+    requestAnimationFrame(function () { t.classList.add('gx-tip-show'); });
+  }
+  function hideTip() { if (bubble) bubble.classList.remove('gx-tip-show'); }
+  document.addEventListener('mouseover', function (e) {
+    var el = e.target.closest && e.target.closest('.gx-tooltip[data-tooltip]');
+    if (el) showTip(el);
+  });
+  document.addEventListener('mouseout', function (e) {
+    var el = e.target.closest && e.target.closest('.gx-tooltip[data-tooltip]');
+    if (el) hideTip();
+  });
+  document.addEventListener('scroll', hideTip, true);
 })();
 </script>
 </body>

@@ -195,6 +195,66 @@
   .gx-crumb{ display:none; }
   .gx-badge, .gx-status{ font-size:10px; padding:3px 8px; }
 }
+
+/* ── gx-tooltip (지표 설명 툴팁, 11개 페이지 공통) ── */
+.gx-tooltip{ cursor:help; }
+.gx-tooltip[data-tooltip]{ border-bottom:1px dotted #A7B4CC; }
+.gx-tip-bubble{
+  position:fixed; display:none; max-width:280px;
+  background:#1E3079; color:#fff; padding:8px 11px; border-radius:6px;
+  font-size:11px; font-weight:400; line-height:1.55; word-break:keep-all;
+  box-shadow:0 6px 18px rgba(30,48,121,.30);
+  z-index:99999; pointer-events:none;
+  opacity:0; transform:translateY(4px);
+  transition:opacity .15s ease, transform .15s ease;
+  font-family:'Malgun Gothic','Noto Sans KR',sans-serif;
+}
+.gx-tip-bubble.gx-tip-show{ opacity:1; transform:translateY(0); }
+.gx-tip-bubble::after{
+  content:''; position:absolute; left:var(--gx-tip-arrow,20px); top:100%;
+  border:5px solid transparent; border-top-color:#1E3079; margin-left:-5px;
+}
+.gx-tip-bubble.gx-tip-below::after{
+  top:auto; bottom:100%; border-top-color:transparent; border-bottom-color:#1E3079; margin-top:-10px;
+}
+
+/* ── gx-chat (시장 페이지 데이터 분석 챗봇) ── */
+.gx-chat-fab{
+  position:fixed; right:24px; bottom:24px; width:52px; height:52px; border-radius:50%;
+  background:#1E3079; color:#fff; display:flex; align-items:center; justify-content:center;
+  font-size:22px; box-shadow:0 4px 14px rgba(30,48,121,.35); cursor:pointer; z-index:9998;
+  border:none; transition:transform .15s ease, background .15s ease;
+}
+.gx-chat-fab:hover{ transform:scale(1.06); background:#17235c; }
+.gx-chat-panel{
+  position:fixed; right:24px; bottom:88px; width:330px; height:440px;
+  background:#fff; border-radius:12px; box-shadow:0 10px 34px rgba(0,0,0,.22);
+  display:none; flex-direction:column; overflow:hidden; z-index:9998;
+  font-family:'Malgun Gothic','Noto Sans KR',sans-serif; border:1px solid #E2E8F0;
+}
+.gx-chat-panel.gx-chat-open{ display:flex; }
+.gx-chat-header{
+  background:#1E3079; color:#fff; padding:12px 14px; font-size:12.5px; font-weight:700;
+  display:flex; align-items:center; justify-content:space-between; flex-shrink:0;
+}
+.gx-chat-header-sub{ font-weight:400; font-size:10.5px; color:#B8C6DB; margin-top:2px; }
+.gx-chat-close{ background:none; border:none; color:#fff; font-size:18px; cursor:pointer; line-height:1; padding:2px 4px; }
+.gx-chat-body{ flex:1; overflow-y:auto; padding:12px; display:flex; flex-direction:column; gap:8px; background:#F5F7FA; }
+.gx-chat-msg{ max-width:88%; padding:8px 11px; border-radius:11px; font-size:11.5px; line-height:1.55; white-space:pre-wrap; word-break:break-word; }
+.gx-chat-msg.bot{ background:#fff; border:1px solid #E2E8F0; color:#354052; align-self:flex-start; border-bottom-left-radius:2px; }
+.gx-chat-msg.user{ background:#17B8B8; color:#fff; align-self:flex-end; border-bottom-right-radius:2px; }
+.gx-chat-suggest{ display:flex; flex-wrap:wrap; gap:5px; margin-top:2px; }
+.gx-chat-suggest-btn{
+  background:#EAF1FB; color:#1E3079; border:1px solid #CBD8E8; border-radius:12px;
+  padding:4px 9px; font-size:10.5px; cursor:pointer;
+}
+.gx-chat-suggest-btn:hover{ background:#1E3079; color:#fff; }
+.gx-chat-input-row{ display:flex; border-top:1px solid #E2E8F0; padding:8px; gap:6px; background:#fff; flex-shrink:0; }
+.gx-chat-input-row input{ flex:1; border:1px solid #CBD5E0; border-radius:6px; padding:7px 9px; font-size:11.5px; font-family:inherit; }
+.gx-chat-input-row input:focus{ outline:none; border-color:#17B8B8; }
+.gx-chat-input-row button{ background:#1E3079; color:#fff; border:none; border-radius:6px; padding:0 13px; font-size:11.5px; font-weight:600; cursor:pointer; }
+.gx-chat-input-row button:hover{ background:#17235c; }
+
 </style>
 </head>
 <body data-page="market">
@@ -250,7 +310,7 @@
     <div class="row">
 
       <div class="card">
-        <div class="card-title">Revenue &amp; Market Share (External) <span class="card-unit">억원 / %</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="외부 시장 규모 대비 당사 매출 및 시장 점유율(Market Share).">Revenue &amp; Market Share (External) <span class="card-unit">억원 / %</span></div>
         <div class="ctrl-row">
           <select class="ctrl-select"><option>국내</option><option>해외</option></select>
           <select class="ctrl-select"><option>대외 전체</option><option>신규</option></select>
@@ -338,7 +398,7 @@
       </div>
 
       <div class="card">
-        <div class="card-title">Market &amp; Revenue CAGR (External)</div>
+        <div class="card-title gx-tooltip" data-tooltip="외부 시장 규모와 당사 매출의 연평균성장률(CAGR) 비교.">Market &amp; Revenue CAGR (External)</div>
         <div class="ctrl-row">
           <select class="ctrl-select"><option>국내</option><option>해외</option></select>
           <select class="ctrl-select"><option>대외 전체</option><option>신규</option></select>
@@ -400,7 +460,7 @@
     <div class="row">
 
       <div class="card">
-        <div class="card-title">SAM &amp; Revenue Growth (External) <span class="card-unit">%</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="유효시장(SAM) 규모 대비 매출 성장률.">SAM &amp; Revenue Growth (External) <span class="card-unit">%</span></div>
         <div class="ctrl-row">
           <select class="ctrl-select"><option>국내</option><option>해외</option></select>
           <select class="ctrl-select"><option>대외 전체</option><option>신규</option></select>
@@ -462,7 +522,7 @@
       </div>
 
       <div class="card">
-        <div class="card-title">Revenue Growth / S&amp;M / R&amp;D Ratio (Total) <span class="card-unit">%</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="매출 성장률과 매출 대비 영업/마케팅비(S&amp;M), R&amp;D 비중.">Revenue Growth / S&amp;M / R&amp;D Ratio (Total) <span class="card-unit">%</span></div>
         <div class="ctrl-row">
           <select class="ctrl-select"><option>국내</option><option>해외</option></select>
           <select class="ctrl-select"><option>대외 전체</option><option>신규</option></select>
@@ -548,7 +608,7 @@
     <div class="row">
 
       <div class="card">
-        <div class="card-title">SAM (External) by Cloud/On-prem <span class="card-unit">억원</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="Cloud/On-premises 구분별 유효시장(SAM) 규모.">SAM (External) by Cloud/On-prem <span class="card-unit">억원</span></div>
         <div class="ctrl-row">
           <select class="ctrl-select"><option>국내</option><option>해외</option></select>
           <select class="ctrl-select"><option>대외 전체</option><option>신규</option></select>
@@ -609,7 +669,7 @@
       </div>
 
       <div class="card">
-        <div class="card-title">Revenue (External) by Cloud/On-prem <span class="card-unit">억원</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="Cloud/On-premises 구분별 외부 매출 규모.">Revenue (External) by Cloud/On-prem <span class="card-unit">억원</span></div>
         <div class="ctrl-row">
           <select class="ctrl-select"><option>국내</option><option>해외</option></select>
           <select class="ctrl-select"><option>대외 전체</option><option>신규</option></select>
@@ -810,6 +870,249 @@ window.SITE = {
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', run);
   } else { run(); }
+})();
+</script>
+
+<script>
+/* gx-tooltip engine (11개 페이지 공통, 지표 설명 hover 툴팁) */
+(function () {
+  var bubble;
+  function ensureBubble() {
+    if (!bubble) {
+      bubble = document.createElement('div');
+      bubble.className = 'gx-tip-bubble';
+      document.body.appendChild(bubble);
+    }
+    return bubble;
+  }
+  function showTip(el) {
+    var text = el.getAttribute('data-tooltip');
+    if (!text) return;
+    var t = ensureBubble();
+    t.textContent = text;
+    t.style.display = 'block';
+    t.classList.remove('gx-tip-show', 'gx-tip-below');
+    var r = el.getBoundingClientRect();
+    var tw = t.offsetWidth, th = t.offsetHeight;
+    var left = r.left + r.width / 2 - tw / 2;
+    var top = r.top - th - 10;
+    var below = false;
+    if (top < 6) { top = r.bottom + 10; below = true; }
+    if (left < 6) left = 6;
+    if (left + tw > window.innerWidth - 6) left = window.innerWidth - 6 - tw;
+    var arrowLeft = Math.max(10, Math.min(tw - 10, r.left + r.width / 2 - left));
+    t.style.left = left + 'px';
+    t.style.top = top + 'px';
+    t.style.setProperty('--gx-tip-arrow', arrowLeft + 'px');
+    if (below) t.classList.add('gx-tip-below');
+    requestAnimationFrame(function () { t.classList.add('gx-tip-show'); });
+  }
+  function hideTip() { if (bubble) bubble.classList.remove('gx-tip-show'); }
+  document.addEventListener('mouseover', function (e) {
+    var el = e.target.closest && e.target.closest('.gx-tooltip[data-tooltip]');
+    if (el) showTip(el);
+  });
+  document.addEventListener('mouseout', function (e) {
+    var el = e.target.closest && e.target.closest('.gx-tooltip[data-tooltip]');
+    if (el) hideTip();
+  });
+  document.addEventListener('scroll', hideTip, true);
+})();
+</script>
+
+<!-- ══════════════ gx-chat: 시장 페이지 데이터 분석 챗봇 ══════════════ -->
+<button class="gx-chat-fab" id="gxChatFab" title="시장 지표 분석 챗봇 열기">💬</button>
+<div class="gx-chat-panel" id="gxChatPanel">
+  <div class="gx-chat-header">
+    <div>
+      시장 지표 분석 챗봇
+      <div class="gx-chat-header-sub">이 페이지에 표시된 실적 데이터로 답변합니다</div>
+    </div>
+    <button class="gx-chat-close" id="gxChatClose" aria-label="닫기">&times;</button>
+  </div>
+  <div class="gx-chat-body" id="gxChatBody"></div>
+  <div class="gx-chat-input-row">
+    <input type="text" id="gxChatInput" placeholder="예: SAM 2028, Market Share가 뭐야?">
+    <button id="gxChatSend">전송</button>
+  </div>
+</div>
+
+<script>
+/* =============================================================
+ *  gx-chat  —  시장(market) 페이지 규칙 기반 분석 챗봇
+ *  - 외부 API/백엔드 없이, 이 페이지의 실제 표시 데이터(GX_MARKET_DATA)만 사용
+ *  - 키워드 + 기간 패턴 매칭으로 값 조회 / 최신값·증감 / 최댓값·최솟값 / 정의 응답
+ * ============================================================= */
+(function () {
+
+  /* ── 이 페이지(Row1~3, 데이터 테이블 포함)에 표시된 실제 값 ── */
+  var GX_MARKET_DATA = {
+    metrics: {
+      'SAM': { unit: '억원', series: { '2025': 2010, '2026': 2132, '2027': 2264, '2028': 2402 },
+        extra: "CAGR('25~'28) 6.1%",
+        def: '유효시장(SAM, Serviceable Addressable Market) 규모(외부 기준).' },
+      'Revenue': { unit: '억원', series: { '2025': 386, '2026': 421, '2027': 461, '2028': 507 },
+        extra: "CAGR('25~'28) 9.5%",
+        def: '외부 매출(대외 매출) 규모.' },
+      'Market Share': { unit: '%', series: { '2025': 19.2, '2026': 19.7, '2027': 20.4, '2028': 21.1 },
+        extra: '2025년 (-4.5%p) vs Previous Period',
+        def: '외부 시장 규모 대비 당사 매출 및 시장 점유율(Market Share).' },
+      'SAM Growth': { unit: '%', series: { '2026': 3.9, '2028': 14.0 },
+        extra: 'KPI 카드 값: 2026년 7.9% (-2.1%p vs Previous Period)',
+        def: '유효시장(SAM) 규모의 전년 대비 성장률.' },
+      'Revenue Growth': { unit: '%', series: { '2022': 20.6, '2025': -12.6 },
+        extra: 'KPI 카드 값(2025): -12.6% (-23.2%p vs Previous Period). 별도 차트(SAM & Revenue Growth 카드)에는 2026년 -2.0%, 2028년 10.1%로 표시됨.',
+        def: '외부 매출의 전년 대비 성장률.' },
+      'S&M Ratio': { unit: '%', series: { '2022': 27.3, '2025': 24.6 },
+        extra: 'KPI 카드 값(2025): 24.6% (+4.9%p vs Previous Period)',
+        def: '매출 대비 영업/마케팅비(S&M, Sales & Marketing) 비중.' },
+      'R&D Ratio': { unit: '%', series: { '2022': 20.6, '2025': 9.5 },
+        extra: 'KPI 카드 값(2025): 9.5% (+1.0%p vs Previous Period)',
+        def: '매출 대비 연구개발비(R&D) 비중.' }
+    }
+  };
+
+  /* ── 별칭(한글/영문 키워드) → 지표 매핑, 정규화 길이 내림차순 정렬 후 매칭 ── */
+  var ALIASES = [
+    ['marketshare', 'Market Share'], ['시장점유율', 'Market Share'],
+    ['samgrowth', 'SAM Growth'], ['sam성장률', 'SAM Growth'],
+    ['revenuegrowth', 'Revenue Growth'], ['매출성장률', 'Revenue Growth'],
+    ['s&mratio', 'S&M Ratio'], ['smratio', 'S&M Ratio'], ['영업마케팅비', 'S&M Ratio'], ['sm비율', 'S&M Ratio'],
+    ['r&dratio', 'R&D Ratio'], ['rdratio', 'R&D Ratio'], ['연구개발비', 'R&D Ratio'], ['rd비율', 'R&D Ratio'],
+    ['sam', 'SAM'], ['유효시장', 'SAM'],
+    ['revenue', 'Revenue'], ['매출', 'Revenue']
+  ].sort(function (a, b) { return b[0].length - a[0].length; });
+
+  function normalize(s) {
+    return String(s || '').toLowerCase().replace(/[\s\-_/()%,·]/g, '');
+  }
+
+  function findMetric(rawQuestion) {
+    var n = normalize(rawQuestion);
+    for (var i = 0; i < ALIASES.length; i++) {
+      if (n.indexOf(ALIASES[i][0]) !== -1) return ALIASES[i][1];
+    }
+    return null;
+  }
+
+  function detectPeriod(q) {
+    var m = q.match(/20(2[2-8])년?/);
+    return m ? m[0].replace('년', '') : null;
+  }
+
+  function fmt(n) {
+    if (typeof n !== 'number') return n;
+    var r = Math.round(n * 100) / 100;
+    return String(r);
+  }
+
+  function maxMinEntry(values, wantMax) {
+    var best = null, bestP = null;
+    Object.keys(values).forEach(function (p) {
+      var v = values[p];
+      if (best === null || (wantMax ? v > best : v < best)) { best = v; bestP = p; }
+    });
+    return { period: bestP, value: best };
+  }
+
+  function isDefIntent(q) { return /정의|설명|뜻|의미|이\s*뭐|뭐야|뭔가요|뭔지|무엇/.test(q); }
+  function isMaxIntent(q) { return /최고|최대|가장\s*높|가장\s*큰/.test(q); }
+  function isMinIntent(q) { return /최저|최소|가장\s*낮|가장\s*작/.test(q); }
+  function isGreeting(q) { return /^(안녕|hi|hello|헬로|도움|help|뭐.*할.*수|무엇을.*할)/i.test(q.trim()); }
+
+  var HELP_MSG = '안녕하세요! 이 페이지(재무 › 시장)에 표시된 실제 데이터로 답변하는 챗봇이에요.\n이렇게 물어봐 주세요:\n• SAM 2028\n• Revenue 얼마야?\n• 가장 높은 연도의 Market Share는?\n• S&M Ratio가 뭐야?';
+  var FALLBACK_MSG = '죄송해요, 질문을 이해하지 못했어요. 이렇게 물어봐 주세요:\n• "SAM 2028" (지표+연도)\n• "Market Share 얼마야?" (지표 → 최신값+비교)\n• "가장 높은 연도의 SAM은?" (최댓값)\n• "R&D Ratio가 뭐야?" (지표 정의)';
+
+  function answer(q) {
+    if (isGreeting(q)) return HELP_MSG;
+
+    var metricKey = findMetric(q);
+    if (!metricKey) return FALLBACK_MSG;
+
+    var m = GX_MARKET_DATA.metrics[metricKey];
+    var periods = Object.keys(m.series);
+
+    if (isDefIntent(q)) {
+      return metricKey + ': ' + m.def;
+    }
+    if ((isMaxIntent(q) || isMinIntent(q)) && periods.length >= 2) {
+      var ext = maxMinEntry(m.series, isMaxIntent(q));
+      return metricKey + '의 전체 기간 중 ' + (isMaxIntent(q) ? '최고치는 ' : '최저치는 ') + ext.period + '년에 ' + fmt(ext.value) + m.unit + '입니다.';
+    }
+
+    var qp = detectPeriod(q);
+    if (qp && m.series[qp] !== undefined) {
+      return metricKey + ' (' + qp + '년): ' + fmt(m.series[qp]) + m.unit;
+    }
+
+    /* 기간 미지정 → 최신(마지막) 값 + 추가 정보 */
+    var latest = periods[periods.length - 1];
+    var out = metricKey + ' 최신 값(' + latest + '년): ' + fmt(m.series[latest]) + m.unit;
+    if (m.extra) out += '\n' + m.extra;
+    return out;
+  }
+
+  /* ── UI 연결 ── */
+  var fab = document.getElementById('gxChatFab');
+  var panel = document.getElementById('gxChatPanel');
+  var closeBtn = document.getElementById('gxChatClose');
+  var body = document.getElementById('gxChatBody');
+  var input = document.getElementById('gxChatInput');
+  var sendBtn = document.getElementById('gxChatSend');
+
+  var SUGGESTIONS = ['SAM 2028', 'Revenue 얼마야?', '가장 높은 연도의 Market Share는?', 'S&M Ratio가 뭐야?'];
+
+  function addMsg(text, who) {
+    var div = document.createElement('div');
+    div.className = 'gx-chat-msg ' + who;
+    div.textContent = text;
+    body.appendChild(div);
+    body.scrollTop = body.scrollHeight;
+    return div;
+  }
+
+  function addSuggestions() {
+    var wrap = document.createElement('div');
+    wrap.className = 'gx-chat-suggest';
+    SUGGESTIONS.forEach(function (s) {
+      var b = document.createElement('button');
+      b.className = 'gx-chat-suggest-btn';
+      b.type = 'button';
+      b.textContent = s;
+      b.addEventListener('click', function () { handleSend(s); });
+      wrap.appendChild(b);
+    });
+    body.appendChild(wrap);
+    body.scrollTop = body.scrollHeight;
+  }
+
+  function handleSend(text) {
+    var q = (typeof text === 'string' ? text : input.value).trim();
+    if (!q) return;
+    addMsg(q, 'user');
+    input.value = '';
+    setTimeout(function () { addMsg(answer(q), 'bot'); }, 150);
+  }
+
+  var opened = false;
+  fab.addEventListener('click', function () {
+    opened = !opened;
+    panel.classList.toggle('gx-chat-open', opened);
+    if (opened && !body.dataset.inited) {
+      body.dataset.inited = '1';
+      addMsg(HELP_MSG, 'bot');
+      addSuggestions();
+    }
+    if (opened) input.focus();
+  });
+  closeBtn.addEventListener('click', function () {
+    opened = false;
+    panel.classList.remove('gx-chat-open');
+  });
+  sendBtn.addEventListener('click', function () { handleSend(); });
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') handleSend();
+  });
 })();
 </script>
 </body>

@@ -164,6 +164,65 @@ svg text { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; }
   .gx-badge, .gx-status{ font-size:10px; padding:3px 8px; }
 }
 
+/* ── gx-tooltip (지표 설명 툴팁, 11개 페이지 공통) ── */
+.gx-tooltip{ cursor:help; }
+.gx-tooltip[data-tooltip]{ border-bottom:1px dotted #A7B4CC; }
+.gx-tip-bubble{
+  position:fixed; display:none; max-width:280px;
+  background:#1E3079; color:#fff; padding:8px 11px; border-radius:6px;
+  font-size:11px; font-weight:400; line-height:1.55; word-break:keep-all;
+  box-shadow:0 6px 18px rgba(30,48,121,.30);
+  z-index:99999; pointer-events:none;
+  opacity:0; transform:translateY(4px);
+  transition:opacity .15s ease, transform .15s ease;
+  font-family:'Malgun Gothic','Noto Sans KR',sans-serif;
+}
+.gx-tip-bubble.gx-tip-show{ opacity:1; transform:translateY(0); }
+.gx-tip-bubble::after{
+  content:''; position:absolute; left:var(--gx-tip-arrow,20px); top:100%;
+  border:5px solid transparent; border-top-color:#1E3079; margin-left:-5px;
+}
+.gx-tip-bubble.gx-tip-below::after{
+  top:auto; bottom:100%; border-top-color:transparent; border-bottom-color:#1E3079; margin-top:-10px;
+}
+
+/* ── gx-chat (사업부 대시보드 페이지 데이터 분석 챗봇) ── */
+.gx-chat-fab{
+  position:fixed; right:24px; bottom:24px; width:52px; height:52px; border-radius:50%;
+  background:#1E3079; color:#fff; display:flex; align-items:center; justify-content:center;
+  font-size:22px; box-shadow:0 4px 14px rgba(30,48,121,.35); cursor:pointer; z-index:9998;
+  border:none; transition:transform .15s ease, background .15s ease;
+}
+.gx-chat-fab:hover{ transform:scale(1.06); background:#17235c; }
+.gx-chat-panel{
+  position:fixed; right:24px; bottom:88px; width:330px; height:440px;
+  background:#fff; border-radius:12px; box-shadow:0 10px 34px rgba(0,0,0,.22);
+  display:none; flex-direction:column; overflow:hidden; z-index:9998;
+  font-family:'Malgun Gothic','Noto Sans KR',sans-serif; border:1px solid #E2E8F0;
+}
+.gx-chat-panel.gx-chat-open{ display:flex; }
+.gx-chat-header{
+  background:#1E3079; color:#fff; padding:12px 14px; font-size:12.5px; font-weight:700;
+  display:flex; align-items:center; justify-content:space-between; flex-shrink:0;
+}
+.gx-chat-header-sub{ font-weight:400; font-size:10.5px; color:#B8C6DB; margin-top:2px; }
+.gx-chat-close{ background:none; border:none; color:#fff; font-size:18px; cursor:pointer; line-height:1; padding:2px 4px; }
+.gx-chat-body{ flex:1; overflow-y:auto; padding:12px; display:flex; flex-direction:column; gap:8px; background:#F5F7FA; }
+.gx-chat-msg{ max-width:88%; padding:8px 11px; border-radius:11px; font-size:11.5px; line-height:1.55; white-space:pre-wrap; word-break:break-word; }
+.gx-chat-msg.bot{ background:#fff; border:1px solid #E2E8F0; color:#354052; align-self:flex-start; border-bottom-left-radius:2px; }
+.gx-chat-msg.user{ background:#17B8B8; color:#fff; align-self:flex-end; border-bottom-right-radius:2px; }
+.gx-chat-suggest{ display:flex; flex-wrap:wrap; gap:5px; margin-top:2px; }
+.gx-chat-suggest-btn{
+  background:#EAF1FB; color:#1E3079; border:1px solid #CBD8E8; border-radius:12px;
+  padding:4px 9px; font-size:10.5px; cursor:pointer;
+}
+.gx-chat-suggest-btn:hover{ background:#1E3079; color:#fff; }
+.gx-chat-input-row{ display:flex; border-top:1px solid #E2E8F0; padding:8px; gap:6px; background:#fff; flex-shrink:0; }
+.gx-chat-input-row input{ flex:1; border:1px solid #CBD5E0; border-radius:6px; padding:7px 9px; font-size:11.5px; font-family:inherit; }
+.gx-chat-input-row input:focus{ outline:none; border-color:#17B8B8; }
+.gx-chat-input-row button{ background:#1E3079; color:#fff; border:none; border-radius:6px; padding:0 13px; font-size:11.5px; font-weight:600; cursor:pointer; }
+.gx-chat-input-row button:hover{ background:#17235c; }
+
 </style>
 </head>
 <body data-page="bizunit">
@@ -221,7 +280,7 @@ svg text { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; }
       <div class="card">
         <div class="card-header">
           <div class="card-title-row">
-            <span class="card-title">ARR</span>
+            <span class="card-title gx-tooltip" data-tooltip="연 반복 라이선스 매출(ARR). MRR × 12로 환산, 1년간 벌 것으로 예상되는 반복 매출.">ARR</span>
             <span class="card-unit">(억원)</span>
           </div>
           <div class="growth-row">
@@ -316,7 +375,7 @@ svg text { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; }
       <div class="card">
         <div class="card-header">
           <div class="card-title-row">
-            <span class="card-title">ACV</span>
+            <span class="card-title gx-tooltip" data-tooltip="계약 당 연 계약가치(ACV). 다양한 계약 형태를 1년 기준으로 환산·평균화한 매출.">ACV</span>
             <span class="card-unit">(억원)</span>
           </div>
           <div class="growth-row">
@@ -449,7 +508,7 @@ svg text { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; }
       <div class="card">
         <div class="card-header">
           <div class="card-title-row">
-            <span class="card-title">Revenue / 영업이익</span>
+            <span class="card-title gx-tooltip" data-tooltip="매출과 영업이익 추이를 함께 보여주는 지표.">Revenue / 영업이익</span>
             <span class="card-unit">(억원)</span>
           </div>
           <div class="growth-row">
@@ -592,7 +651,7 @@ svg text { font-family:'Malgun Gothic','Noto Sans KR',sans-serif; }
       <div class="card">
         <div class="card-header">
           <div class="card-title-row">
-            <span class="card-title">Customers by ACV</span>
+            <span class="card-title gx-tooltip" data-tooltip="ACV 기준으로 집계한 유료 고객 수.">Customers by ACV</span>
             <span class="card-unit">(개)</span>
           </div>
           <div class="growth-row">
@@ -898,6 +957,263 @@ window.SITE = {
   } else { run(); }
 })();
 
+</script>
+
+<script>
+/* gx-tooltip engine (11개 페이지 공통, 지표 설명 hover 툴팁) */
+(function () {
+  var bubble;
+  function ensureBubble() {
+    if (!bubble) {
+      bubble = document.createElement('div');
+      bubble.className = 'gx-tip-bubble';
+      document.body.appendChild(bubble);
+    }
+    return bubble;
+  }
+  function showTip(el) {
+    var text = el.getAttribute('data-tooltip');
+    if (!text) return;
+    var t = ensureBubble();
+    t.textContent = text;
+    t.style.display = 'block';
+    t.classList.remove('gx-tip-show', 'gx-tip-below');
+    var r = el.getBoundingClientRect();
+    var tw = t.offsetWidth, th = t.offsetHeight;
+    var left = r.left + r.width / 2 - tw / 2;
+    var top = r.top - th - 10;
+    var below = false;
+    if (top < 6) { top = r.bottom + 10; below = true; }
+    if (left < 6) left = 6;
+    if (left + tw > window.innerWidth - 6) left = window.innerWidth - 6 - tw;
+    var arrowLeft = Math.max(10, Math.min(tw - 10, r.left + r.width / 2 - left));
+    t.style.left = left + 'px';
+    t.style.top = top + 'px';
+    t.style.setProperty('--gx-tip-arrow', arrowLeft + 'px');
+    if (below) t.classList.add('gx-tip-below');
+    requestAnimationFrame(function () { t.classList.add('gx-tip-show'); });
+  }
+  function hideTip() { if (bubble) bubble.classList.remove('gx-tip-show'); }
+  document.addEventListener('mouseover', function (e) {
+    var el = e.target.closest && e.target.closest('.gx-tooltip[data-tooltip]');
+    if (el) showTip(el);
+  });
+  document.addEventListener('mouseout', function (e) {
+    var el = e.target.closest && e.target.closest('.gx-tooltip[data-tooltip]');
+    if (el) hideTip();
+  });
+  document.addEventListener('scroll', hideTip, true);
+})();
+</script>
+
+<!-- ══════════════ gx-chat: 사업부 대시보드 페이지 데이터 분석 챗봇 ══════════════ -->
+<button class="gx-chat-fab" id="gxChatFab" title="사업부 대시보드 지표 분석 챗봇 열기">💬</button>
+<div class="gx-chat-panel" id="gxChatPanel">
+  <div class="gx-chat-header">
+    <div>
+      사업부 대시보드 분석 챗봇
+      <div class="gx-chat-header-sub">이 페이지에 표시된 실적 데이터로 답변합니다</div>
+    </div>
+    <button class="gx-chat-close" id="gxChatClose" aria-label="닫기">&times;</button>
+  </div>
+  <div class="gx-chat-body" id="gxChatBody"></div>
+  <div class="gx-chat-input-row">
+    <input type="text" id="gxChatInput" placeholder="예: ARR 얼마야?, NPS가 뭐야?">
+    <button id="gxChatSend">전송</button>
+  </div>
+</div>
+
+<script>
+/* =============================================================
+ *  gx-chat  —  사업부 대시보드(bizunit) 페이지 규칙 기반 분석 챗봇
+ *  - 외부 API/백엔드 없이, 이 페이지의 실제 표시 데이터(GX_BIZUNIT_DATA)만 사용
+ *  - 키워드 + 기간 패턴 매칭으로 값 조회 / 최신값 / 최댓값·최솟값 / 정의 응답
+ * ============================================================= */
+(function () {
+
+  /* ── 이 페이지(Row1: ARR·ACV·Rule of 40 / Row2: Revenue·Customers·NPS)에 표시된 실제 값 ── */
+  var GX_BIZUNIT_DATA = {
+    metrics: {
+      'ARR': { unit: '%', yoySeries: { '25.03': -7.2, '26.03': 9.7 },
+        extra: '+9.7% YoY (vs. 25.03)',
+        def: '연 반복 라이선스 매출(ARR). MRR × 12로 환산, 1년간 벌 것으로 예상되는 반복 매출.' },
+      'ACV': { unit: '%', yoySeries: { '25.03': -25.1, '26.03': -5.0 },
+        extra: '-5.0% YoY (vs. 25.03)',
+        insight: 'ARR ↑ · ACV ↓: 고객수 증가 vs. 계약 단가 하락 추세',
+        def: '계약 당 연 계약가치(ACV). 다양한 계약 형태를 1년 기준으로 환산·평균화한 매출.' },
+      'Rule of 40': { unit: '%', series: { '26.01Q': -2.6 },
+        extra: '전분기 4.5% → ARR 성장률 +9.7% + EBITDA 마진 -12.3% = 합산 -2.6',
+        def: '매출 성장률과 이익률(EBITDA 마진)의 합이 40% 이상이면 건전한 성장으로 보는 SaaS 업계 벤치마크 지표(Rule of 40).' },
+      'Revenue': { unit: '%', extra: '매출 YoY +12.2%, 흑자전환(\'25.04), 25년 연간 기준',
+        marginSeries: { '25.01': -15.7, '26.03': 23.5 },
+        def: '매출과 영업이익 추이를 함께 보여주는 지표. 이익률(%)은 영업이익/매출.' },
+      'Customers by ACV': { unit: '%', yoySeries: { '25.03': 13.7, '26.03': 1.4 },
+        extra: '+2.8% YoY (vs. 25.03)',
+        def: 'ACV 기준으로 집계한 유료 고객 수.' },
+      'NPS': { unit: '', series: { '2023': 39, '2024': 43, '2025': 47 },
+        extra: '+4 vs. 전년, 2025년 기준, 2026년 측정 예정',
+        def: '순고객추천지수(Net Promoter Score). 고객이 타인에게 추천할 의향을 수치화한 지표.' },
+      'CSAT': { unit: '점', series: { '2025': 84.2 }, extra: '전년 대비 ▲', def: '고객만족도(Customer Satisfaction) 점수.' },
+      'CES': { unit: '점', series: { '2025': 75.0 }, extra: '전년 대비 ▲', def: '고객노력점수(Customer Effort Score).' }
+    }
+  };
+
+  /* ── 별칭(한글/영문 키워드) → 지표 매핑, 정규화 길이 내림차순 정렬 후 매칭 ── */
+  var ALIASES = [
+    ['customersbyacv', 'Customers by ACV'], ['고객수', 'Customers by ACV'], ['고객사수', 'Customers by ACV'],
+    ['ruleof40', 'Rule of 40'], ['룰오브40', 'Rule of 40'], ['40의법칙', 'Rule of 40'],
+    ['acv', 'ACV'], ['계약가치', 'ACV'],
+    ['arr', 'ARR'], ['연반복매출', 'ARR'],
+    ['csat', 'CSAT'], ['고객만족도', 'CSAT'],
+    ['ces', 'CES'], ['고객노력점수', 'CES'],
+    ['nps', 'NPS'], ['순추천지수', 'NPS'],
+    ['영업이익', 'Revenue'], ['매출', 'Revenue'], ['revenue', 'Revenue']
+  ].sort(function (a, b) { return b[0].length - a[0].length; });
+
+  function normalize(s) {
+    return String(s || '').toLowerCase().replace(/[\s\-_/()%,·]/g, '');
+  }
+
+  function findMetric(rawQuestion) {
+    var n = normalize(rawQuestion);
+    for (var i = 0; i < ALIASES.length; i++) {
+      if (n.indexOf(ALIASES[i][0]) !== -1) return ALIASES[i][1];
+    }
+    return null;
+  }
+
+  function detectPeriod(q) {
+    var m = q.match(/2[3-6](?:\.\d{2})?|20(2[3-6])/);
+    if (/25\.03/.test(q)) return '25.03';
+    if (/26\.03|최신|현재/.test(q)) return '26.03';
+    if (/26\.01\s*q|26년\s*1분기/i.test(q)) return '26.01Q';
+    if (/25\.01/.test(q)) return '25.01';
+    if (/2023년|2023/.test(q)) return '2023';
+    if (/2024년|2024/.test(q)) return '2024';
+    if (/2025년|2025|작년/.test(q)) return '2025';
+    return null;
+  }
+
+  function fmt(n) {
+    if (typeof n !== 'number') return n;
+    var r = Math.round(n * 100) / 100;
+    return String(r);
+  }
+
+  function maxMinEntry(values, wantMax) {
+    var best = null, bestP = null;
+    Object.keys(values).forEach(function (p) {
+      var v = values[p];
+      if (best === null || (wantMax ? v > best : v < best)) { best = v; bestP = p; }
+    });
+    return { period: bestP, value: best };
+  }
+
+  function isDefIntent(q) { return /정의|설명|뜻|의미|이\s*뭐|뭐야|뭔가요|뭔지|무엇/.test(q); }
+  function isMaxIntent(q) { return /최고|최대|가장\s*높|가장\s*큰/.test(q); }
+  function isMinIntent(q) { return /최저|최소|가장\s*낮|가장\s*작/.test(q); }
+  function isGreeting(q) { return /^(안녕|hi|hello|헬로|도움|help|뭐.*할.*수|무엇을.*할)/i.test(q.trim()); }
+
+  var HELP_MSG = '안녕하세요! 이 페이지(사업부 대시보드)에 표시된 실제 실적 데이터로 답변하는 챗봇이에요.\n이렇게 물어봐 주세요:\n• ARR 얼마야?\n• Rule of 40 최신 값은?\n• NPS 2025 값은?\n• ACV가 뭐야?';
+  var FALLBACK_MSG = '죄송해요, 질문을 이해하지 못했어요. 이렇게 물어봐 주세요:\n• "ARR 얼마야?" (지표 → 최신값+비교)\n• "NPS 2024" (지표+기간)\n• "가장 높은 연도의 NPS는?" (최댓값)\n• "Rule of 40이 뭐야?" (지표 정의)';
+
+  function answer(q) {
+    if (isGreeting(q)) return HELP_MSG;
+
+    var metricKey = findMetric(q);
+    if (!metricKey) return FALLBACK_MSG;
+
+    var m = GX_BIZUNIT_DATA.metrics[metricKey];
+    var series = m.series || m.yoySeries || m.marginSeries || {};
+    var periods = Object.keys(series);
+
+    if (isDefIntent(q)) {
+      return metricKey + ': ' + m.def + (m.insight ? '\n▶ ' + m.insight : '');
+    }
+    if ((isMaxIntent(q) || isMinIntent(q)) && periods.length >= 2) {
+      var ext = maxMinEntry(series, isMaxIntent(q));
+      return metricKey + '의 ' + (isMaxIntent(q) ? '최고치는 ' : '최저치는 ') + ext.period + '에 ' + fmt(ext.value) + m.unit + '입니다.';
+    }
+
+    var qp = detectPeriod(q);
+    if (qp && series[qp] !== undefined) {
+      return metricKey + ' (' + qp + '): ' + fmt(series[qp]) + m.unit;
+    }
+
+    if (!periods.length) {
+      return metricKey + ': ' + (m.extra || '이 페이지에 수치가 표시되어 있지 않아요.');
+    }
+
+    /* 기간 미지정 → 최신(마지막) 값 + 추가 정보 */
+    var latest = periods[periods.length - 1];
+    var out = metricKey + ' 최신 값(' + latest + '): ' + fmt(series[latest]) + m.unit;
+    if (m.extra) out += '\n' + m.extra;
+    if (m.insight) out += '\n▶ ' + m.insight;
+    return out;
+  }
+
+  /* ── UI 연결 ── */
+  var fab = document.getElementById('gxChatFab');
+  var panel = document.getElementById('gxChatPanel');
+  var closeBtn = document.getElementById('gxChatClose');
+  var body = document.getElementById('gxChatBody');
+  var input = document.getElementById('gxChatInput');
+  var sendBtn = document.getElementById('gxChatSend');
+
+  var SUGGESTIONS = ['ARR 얼마야?', 'Rule of 40 최신 값은?', 'NPS 2025 값은?', 'ACV가 뭐야?'];
+
+  function addMsg(text, who) {
+    var div = document.createElement('div');
+    div.className = 'gx-chat-msg ' + who;
+    div.textContent = text;
+    body.appendChild(div);
+    body.scrollTop = body.scrollHeight;
+    return div;
+  }
+
+  function addSuggestions() {
+    var wrap = document.createElement('div');
+    wrap.className = 'gx-chat-suggest';
+    SUGGESTIONS.forEach(function (s) {
+      var b = document.createElement('button');
+      b.className = 'gx-chat-suggest-btn';
+      b.type = 'button';
+      b.textContent = s;
+      b.addEventListener('click', function () { handleSend(s); });
+      wrap.appendChild(b);
+    });
+    body.appendChild(wrap);
+    body.scrollTop = body.scrollHeight;
+  }
+
+  function handleSend(text) {
+    var q = (typeof text === 'string' ? text : input.value).trim();
+    if (!q) return;
+    addMsg(q, 'user');
+    input.value = '';
+    setTimeout(function () { addMsg(answer(q), 'bot'); }, 150);
+  }
+
+  var opened = false;
+  fab.addEventListener('click', function () {
+    opened = !opened;
+    panel.classList.toggle('gx-chat-open', opened);
+    if (opened && !body.dataset.inited) {
+      body.dataset.inited = '1';
+      addMsg(HELP_MSG, 'bot');
+      addSuggestions();
+    }
+    if (opened) input.focus();
+  });
+  closeBtn.addEventListener('click', function () {
+    opened = false;
+    panel.classList.remove('gx-chat-open');
+  });
+  sendBtn.addEventListener('click', function () { handleSend(); });
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') handleSend();
+  });
+})();
 </script>
 </body>
 </html>

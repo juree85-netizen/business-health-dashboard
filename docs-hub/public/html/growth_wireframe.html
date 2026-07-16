@@ -190,6 +190,66 @@
   .gx-crumb{ display:none; }
   .gx-badge, .gx-status{ font-size:10px; padding:3px 8px; }
 }
+
+/* ── gx-tooltip (지표 설명 툴팁, 11개 페이지 공통) ── */
+.gx-tooltip{ cursor:help; }
+.gx-tooltip[data-tooltip]{ border-bottom:1px dotted #A7B4CC; }
+.gx-tip-bubble{
+  position:fixed; display:none; max-width:280px;
+  background:#1E3079; color:#fff; padding:8px 11px; border-radius:6px;
+  font-size:11px; font-weight:400; line-height:1.55; word-break:keep-all;
+  box-shadow:0 6px 18px rgba(30,48,121,.30);
+  z-index:99999; pointer-events:none;
+  opacity:0; transform:translateY(4px);
+  transition:opacity .15s ease, transform .15s ease;
+  font-family:'Malgun Gothic','Noto Sans KR',sans-serif;
+}
+.gx-tip-bubble.gx-tip-show{ opacity:1; transform:translateY(0); }
+.gx-tip-bubble::after{
+  content:''; position:absolute; left:var(--gx-tip-arrow,20px); top:100%;
+  border:5px solid transparent; border-top-color:#1E3079; margin-left:-5px;
+}
+.gx-tip-bubble.gx-tip-below::after{
+  top:auto; bottom:100%; border-top-color:transparent; border-bottom-color:#1E3079; margin-top:-10px;
+}
+
+/* ── gx-chat (성장 페이지 데이터 분석 챗봇) ── */
+.gx-chat-fab{
+  position:fixed; right:24px; bottom:24px; width:52px; height:52px; border-radius:50%;
+  background:#1E3079; color:#fff; display:flex; align-items:center; justify-content:center;
+  font-size:22px; box-shadow:0 4px 14px rgba(30,48,121,.35); cursor:pointer; z-index:9998;
+  border:none; transition:transform .15s ease, background .15s ease;
+}
+.gx-chat-fab:hover{ transform:scale(1.06); background:#17235c; }
+.gx-chat-panel{
+  position:fixed; right:24px; bottom:88px; width:330px; height:440px;
+  background:#fff; border-radius:12px; box-shadow:0 10px 34px rgba(0,0,0,.22);
+  display:none; flex-direction:column; overflow:hidden; z-index:9998;
+  font-family:'Malgun Gothic','Noto Sans KR',sans-serif; border:1px solid #E2E8F0;
+}
+.gx-chat-panel.gx-chat-open{ display:flex; }
+.gx-chat-header{
+  background:#1E3079; color:#fff; padding:12px 14px; font-size:12.5px; font-weight:700;
+  display:flex; align-items:center; justify-content:space-between; flex-shrink:0;
+}
+.gx-chat-header-sub{ font-weight:400; font-size:10.5px; color:#B8C6DB; margin-top:2px; }
+.gx-chat-close{ background:none; border:none; color:#fff; font-size:18px; cursor:pointer; line-height:1; padding:2px 4px; }
+.gx-chat-body{ flex:1; overflow-y:auto; padding:12px; display:flex; flex-direction:column; gap:8px; background:#F5F7FA; }
+.gx-chat-msg{ max-width:88%; padding:8px 11px; border-radius:11px; font-size:11.5px; line-height:1.55; white-space:pre-wrap; word-break:break-word; }
+.gx-chat-msg.bot{ background:#fff; border:1px solid #E2E8F0; color:#354052; align-self:flex-start; border-bottom-left-radius:2px; }
+.gx-chat-msg.user{ background:#17B8B8; color:#fff; align-self:flex-end; border-bottom-right-radius:2px; }
+.gx-chat-suggest{ display:flex; flex-wrap:wrap; gap:5px; margin-top:2px; }
+.gx-chat-suggest-btn{
+  background:#EAF1FB; color:#1E3079; border:1px solid #CBD8E8; border-radius:12px;
+  padding:4px 9px; font-size:10.5px; cursor:pointer;
+}
+.gx-chat-suggest-btn:hover{ background:#1E3079; color:#fff; }
+.gx-chat-input-row{ display:flex; border-top:1px solid #E2E8F0; padding:8px; gap:6px; background:#fff; flex-shrink:0; }
+.gx-chat-input-row input{ flex:1; border:1px solid #CBD5E0; border-radius:6px; padding:7px 9px; font-size:11.5px; font-family:inherit; }
+.gx-chat-input-row input:focus{ outline:none; border-color:#17B8B8; }
+.gx-chat-input-row button{ background:#1E3079; color:#fff; border:none; border-radius:6px; padding:0 13px; font-size:11.5px; font-weight:600; cursor:pointer; }
+.gx-chat-input-row button:hover{ background:#17235c; }
+
 </style>
 </head>
 <body data-page="growth">
@@ -267,7 +327,7 @@
       <!-- 카드 1-1: MRR -->
       <div class="card">
         <div class="card-title">
-          <span class="title-left">MRR <span class="card-tag">Monthly Recurring Revenue</span></span>
+          <span class="title-left gx-tooltip" data-tooltip="월 반복 라이선스 매출(MRR). 구독형 비즈니스의 핵심 매출 지표.">MRR <span class="card-tag">Monthly Recurring Revenue</span></span>
           <span class="card-unit">억원</span>
         </div>
         <div class="kpi-row">
@@ -324,7 +384,7 @@
       <!-- 카드 1-2: Revenue -->
       <div class="card">
         <div class="card-title">
-          <span class="title-left">Revenue <span class="card-tag">Total Revenue</span></span>
+          <span class="title-left gx-tooltip" data-tooltip="당 기간 발생한 전체 매출(반복 매출 + 일회성 매출 포함).">Revenue <span class="card-tag">Total Revenue</span></span>
           <span class="card-unit">억원</span>
         </div>
         <div class="kpi-row">
@@ -404,7 +464,7 @@
       <!-- 카드 2-1: New MRR -->
       <div class="card">
         <div class="card-title">
-          <span class="title-left">New MRR <span class="card-tag">신규 계약</span></span>
+          <span class="title-left gx-tooltip" data-tooltip="신규 고객으로부터 이번 달에 새로 발생한 MRR의 합.">New MRR <span class="card-tag">신규 계약</span></span>
           <span class="card-unit">천만원</span>
         </div>
         <div class="legend">
@@ -437,7 +497,7 @@
       <!-- 카드 2-2: Expansion MRR -->
       <div class="card">
         <div class="card-title">
-          <span class="title-left">Expansion MRR <span class="card-tag">업셀/다운셀</span></span>
+          <span class="title-left gx-tooltip" data-tooltip="기존 고객의 업셀/크로스셀로 증가한 MRR(확장 매출).">Expansion MRR <span class="card-tag">업셀/다운셀</span></span>
           <span class="card-unit">천만원</span>
         </div>
         <div class="legend">
@@ -478,7 +538,7 @@
       <!-- 카드 3-1: Churn MRR -->
       <div class="card">
         <div class="card-title">
-          <span class="title-left">Churn MRR <span class="card-tag">해지</span></span>
+          <span class="title-left gx-tooltip" data-tooltip="고객의 구독 중지로 줄어든 MRR(이탈 매출).">Churn MRR <span class="card-tag">해지</span></span>
           <span class="card-unit">천만원</span>
         </div>
         <div class="legend">
@@ -514,7 +574,7 @@
       <!-- 카드 3-2: Net New MRR -->
       <div class="card">
         <div class="card-title">
-          <span class="title-left">Net New MRR <span class="card-tag">New + Expansion - Churn</span></span>
+          <span class="title-left gx-tooltip" data-tooltip="신규MRR + 확장MRR - 축소MRR - 이탈MRR (MRR 순증분).">Net New MRR <span class="card-tag">New + Expansion - Churn</span></span>
           <span class="card-unit">천만원</span>
         </div>
         <div class="legend">
@@ -552,7 +612,7 @@
       <!-- 카드 4-1: ARPA by ACV -->
       <div class="card">
         <div class="card-title">
-          <span class="title-left">ARPA by ACV <span class="card-tag">By ACV</span></span>
+          <span class="title-left gx-tooltip" data-tooltip="ACV 기준 고객사 당 평균 매출.">ARPA by ACV <span class="card-tag">By ACV</span></span>
           <span class="card-unit">억원</span>
         </div>
         <div class="legend">
@@ -594,7 +654,7 @@
       <!-- 카드 4-2: ARPA by MRR -->
       <div class="card">
         <div class="card-title">
-          <span class="title-left">ARPA by MRR <span class="card-tag">By MRR</span></span>
+          <span class="title-left gx-tooltip" data-tooltip="MRR 기준 고객사 당 평균 매출.">ARPA by MRR <span class="card-tag">By MRR</span></span>
           <span class="card-unit">천만원</span>
         </div>
         <div class="legend">
@@ -657,7 +717,7 @@
       <!-- 카드 5-1: Customers by MRR -->
       <div class="card">
         <div class="card-title">
-          <span class="title-left">Customers by MRR <span class="card-tag">By MRR</span></span>
+          <span class="title-left gx-tooltip" data-tooltip="MRR을 발생시키는 유료 고객 수.">Customers by MRR <span class="card-tag">By MRR</span></span>
           <span class="card-unit">개사</span>
         </div>
         <div class="legend">
@@ -699,7 +759,7 @@
       <!-- 카드 5-2: Customers by Revenue -->
       <div class="card">
         <div class="card-title">
-          <span class="title-left">Customers by Revenue <span class="card-tag">By Revenue</span></span>
+          <span class="title-left gx-tooltip" data-tooltip="Revenue 기준으로 집계한 유료 고객 수.">Customers by Revenue <span class="card-tag">By Revenue</span></span>
           <span class="card-unit">개사</span>
         </div>
         <div class="legend">
@@ -764,7 +824,7 @@
       <!-- 카드 6-1: New Customers -->
       <div class="card">
         <div class="card-title">
-          <span class="title-left">New Customers <span class="card-tag">신규 고객</span></span>
+          <span class="title-left gx-tooltip" data-tooltip="이번 기간 신규로 계약한 고객 수.">New Customers <span class="card-tag">신규 고객</span></span>
           <span class="card-unit">개사</span>
         </div>
         <div class="legend">
@@ -797,7 +857,7 @@
       <!-- 카드 6-2: Churned Customers -->
       <div class="card">
         <div class="card-title">
-          <span class="title-left">Churned Customers <span class="card-tag">해지 고객</span></span>
+          <span class="title-left gx-tooltip" data-tooltip="이번 기간 이탈(해지)한 고객 수.">Churned Customers <span class="card-tag">해지 고객</span></span>
           <span class="card-unit">개사</span>
         </div>
         <div class="legend">
@@ -835,7 +895,7 @@
       <!-- 카드 7-1: Net New Customers -->
       <div class="card">
         <div class="card-title">
-          <span class="title-left">Net New Customers <span class="card-tag">New - Churn</span></span>
+          <span class="title-left gx-tooltip" data-tooltip="신규 고객 수 - 이탈 고객 수 (고객 순증분).">Net New Customers <span class="card-tag">New - Churn</span></span>
           <span class="card-unit">개사</span>
         </div>
         <div class="legend">
@@ -869,7 +929,7 @@
       <!-- 카드 7-2: NRR -->
       <div class="card">
         <div class="card-title">
-          <span class="title-left">NRR <span class="card-tag">Net Revenue Retention</span></span>
+          <span class="title-left gx-tooltip" data-tooltip="순 매출 유지율(Net Revenue Retention). 기존 고객 매출의 유지·성장을 측정, 100% 이상이면 기존 고객 매출이 증가 중임을 의미.">NRR <span class="card-tag">Net Revenue Retention</span></span>
           <span class="card-unit">%</span>
         </div>
         <div class="legend">
@@ -1042,6 +1102,300 @@ window.SITE = {
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', run);
   } else { run(); }
+})();
+</script>
+
+<script>
+/* gx-tooltip engine (11개 페이지 공통, 지표 설명 hover 툴팁) */
+(function () {
+  var bubble;
+  function ensureBubble() {
+    if (!bubble) {
+      bubble = document.createElement('div');
+      bubble.className = 'gx-tip-bubble';
+      document.body.appendChild(bubble);
+    }
+    return bubble;
+  }
+  function showTip(el) {
+    var text = el.getAttribute('data-tooltip');
+    if (!text) return;
+    var t = ensureBubble();
+    t.textContent = text;
+    t.style.display = 'block';
+    t.classList.remove('gx-tip-show', 'gx-tip-below');
+    var r = el.getBoundingClientRect();
+    var tw = t.offsetWidth, th = t.offsetHeight;
+    var left = r.left + r.width / 2 - tw / 2;
+    var top = r.top - th - 10;
+    var below = false;
+    if (top < 6) { top = r.bottom + 10; below = true; }
+    if (left < 6) left = 6;
+    if (left + tw > window.innerWidth - 6) left = window.innerWidth - 6 - tw;
+    var arrowLeft = Math.max(10, Math.min(tw - 10, r.left + r.width / 2 - left));
+    t.style.left = left + 'px';
+    t.style.top = top + 'px';
+    t.style.setProperty('--gx-tip-arrow', arrowLeft + 'px');
+    if (below) t.classList.add('gx-tip-below');
+    requestAnimationFrame(function () { t.classList.add('gx-tip-show'); });
+  }
+  function hideTip() { if (bubble) bubble.classList.remove('gx-tip-show'); }
+  document.addEventListener('mouseover', function (e) {
+    var el = e.target.closest && e.target.closest('.gx-tooltip[data-tooltip]');
+    if (el) showTip(el);
+  });
+  document.addEventListener('mouseout', function (e) {
+    var el = e.target.closest && e.target.closest('.gx-tooltip[data-tooltip]');
+    if (el) hideTip();
+  });
+  document.addEventListener('scroll', hideTip, true);
+})();
+</script>
+
+<!-- ══════════════ gx-chat: 성장 페이지 데이터 분석 챗봇 ══════════════ -->
+<button class="gx-chat-fab" id="gxChatFab" title="성장 지표 분석 챗봇 열기">💬</button>
+<div class="gx-chat-panel" id="gxChatPanel">
+  <div class="gx-chat-header">
+    <div>
+      성장 지표 분석 챗봇
+      <div class="gx-chat-header-sub">이 페이지에 표시된 실적 데이터로 답변합니다</div>
+    </div>
+    <button class="gx-chat-close" id="gxChatClose" aria-label="닫기">&times;</button>
+  </div>
+  <div class="gx-chat-body" id="gxChatBody"></div>
+  <div class="gx-chat-input-row">
+    <input type="text" id="gxChatInput" placeholder="예: MRR Q4, Revenue 얼마야?">
+    <button id="gxChatSend">전송</button>
+  </div>
+</div>
+
+<script>
+/* =============================================================
+ *  gx-chat  —  성장(growth) 페이지 규칙 기반 분석 챗봇
+ *  - 외부 API/백엔드 없이, 이 페이지의 실제 표시 데이터(GX_GROWTH_DATA)만 사용
+ *  - 키워드 + 기간 패턴 매칭으로 값 조회 / 최신값·증감 / 최댓값·최솟값 / 정의 응답
+ * ============================================================= */
+(function () {
+
+  /* ── 이 페이지 카드에 표시된 실제 값 (분기별) ── */
+  var GX_GROWTH_DATA = {
+    periods: ['Q1', 'Q2', 'Q3', 'Q4'],
+    metrics: {
+      'MRR': { unit: '억원', values: { Q1: 34.8, Q2: 37.9, Q3: 39.6, Q4: 42.3 },
+        growthRate: { Q1: 10.1, Q4: 8.2 }, yoy: '+21.4%',
+        def: '월 반복 라이선스 매출(MRR). 구독형 비즈니스의 핵심 매출 지표.' },
+      'Revenue': { unit: '억원', values: { Q1: 108, Q2: 116, Q3: 121, Q4: 129 },
+        growthRate: { Q1: 7.9, Q4: 6.1 }, yoy: '+18.9%',
+        def: '당 기간 발생한 전체 매출(반복 매출 + 일회성 매출 포함).' },
+      'New MRR': { unit: '천만원', values: { Q1: 18.1, Q2: 20.0, Q3: 16.1, Q4: 21.7 },
+        def: '신규 고객으로부터 이번 달에 새로 발생한 MRR의 합.' },
+      'Expansion MRR': { unit: '천만원', values: { Q1: 7.8, Q2: 10.1, Q3: -4.2, Q4: 8.9 },
+        def: '기존 고객의 업셀/크로스셀로 증가한 MRR(확장 매출). 단 Q3는 다운셀(-4.2)만 발생.' },
+      'Churn MRR': { unit: '천만원', values: { Q1: -6.3, Q2: -5.3, Q3: -7.2, Q4: -4.8 },
+        def: '고객의 구독 중지로 줄어든 MRR(이탈 매출).' },
+      'Net New MRR': { unit: '천만원', values: { Q1: 19.6, Q2: 24.8, Q3: -4.9, Q4: 25.8 },
+        def: '신규MRR + 확장MRR - 축소MRR - 이탈MRR (MRR 순증분).' },
+      'ARPA by ACV': { unit: '억원', values: { Q1: 1.02, Q4: 0.90 },
+        def: 'ACV 기준 고객사 당 평균 매출.' },
+      'ARPA by ACV (신규)': { unit: '억원', values: { Q1: 0.68, Q4: 0.60 },
+        def: 'ACV 기준, 신규 고객사 당 평균 매출.' },
+      'ARPA by MRR': { unit: '천만원', values: { Q1: 0.34, Q4: 0.28 },
+        def: 'MRR 기준 고객사 당 평균 매출.' },
+      'ARPA by MRR (신규)': { unit: '천만원', values: { Q1: 0.22, Q4: 0.18 },
+        def: 'MRR 기준, 신규 고객사 당 평균 매출.' },
+      'Customers by MRR': { unit: '개사', values: { Q1: 412, Q2: 448, Q3: 476, Q4: 512 },
+        growthRate: { Q1: 8.9, Q4: 7.6 }, def: 'MRR을 발생시키는 유료 고객 수.' },
+      'Customers by Revenue': { unit: '개사', values: { Q1: 602, Q2: 648, Q3: 688, Q4: 724 },
+        growthRate: { Q1: 7.8, Q4: 5.2 }, def: 'Revenue 기준으로 집계한 유료 고객 수.' },
+      'New Customers': { unit: '개사', values: { Q1: 42, Q2: 48, Q3: 39, Q4: 51 },
+        def: '이번 기간 신규로 계약한 고객 수.' },
+      'Churned Customers': { unit: '개사', values: { Q1: -13, Q2: -11, Q3: -16, Q4: -9 },
+        def: '이번 기간 이탈(해지)한 고객 수.' },
+      'Net New Customers': { unit: '개사', values: { Q1: 29, Q2: 37, Q3: -8, Q4: 42 },
+        def: '신규 고객 수 - 이탈 고객 수 (고객 순증분).' },
+      'NRR': { unit: '%', values: { Q1: 98, Q4: 110 },
+        def: '순 매출 유지율(Net Revenue Retention). 기존 고객 매출의 유지·성장을 측정하는 지표로, 100% 이상이면 기존 고객 매출이 늘고 있다는 의미.' }
+    }
+  };
+
+  /* ── 별칭(한글/영문 키워드) → 지표 매핑, 뒤에서 정규화 길이 내림차순 정렬 후 매칭 ── */
+  var ALIASES = [
+    ['newmrr', 'New MRR'], ['신규mrr', 'New MRR'], ['신규매출', 'New MRR'],
+    ['expansionmrr', 'Expansion MRR'], ['확장mrr', 'Expansion MRR'], ['업셀', 'Expansion MRR'],
+    ['churnmrr', 'Churn MRR'], ['이탈mrr', 'Churn MRR'], ['해지mrr', 'Churn MRR'],
+    ['netnewmrr', 'Net New MRR'], ['순증mrr', 'Net New MRR'], ['순신규mrr', 'Net New MRR'],
+    ['arpabyacv신규', 'ARPA by ACV (신규)'], ['acv신규', 'ARPA by ACV (신규)'], ['신규acv', 'ARPA by ACV (신규)'],
+    ['arpabymrr신규', 'ARPA by MRR (신규)'], ['신규arpa', 'ARPA by MRR (신규)'],
+    ['arpabyacv', 'ARPA by ACV'], ['acv', 'ARPA by ACV'],
+    ['arpabymrr', 'ARPA by MRR'], ['arpa', 'ARPA by MRR'],
+    ['customersbymrr', 'Customers by MRR'], ['mrr고객수', 'Customers by MRR'], ['mrr고객', 'Customers by MRR'],
+    ['customersbyrevenue', 'Customers by Revenue'], ['revenue고객수', 'Customers by Revenue'], ['매출고객', 'Customers by Revenue'],
+    ['newcustomers', 'New Customers'], ['신규고객', 'New Customers'],
+    ['churnedcustomers', 'Churned Customers'], ['이탈고객', 'Churned Customers'], ['해지고객', 'Churned Customers'],
+    ['netnewcustomers', 'Net New Customers'], ['순증고객', 'Net New Customers'], ['순신규고객', 'Net New Customers'],
+    ['nrr', 'NRR'], ['순매출유지율', 'NRR'], ['매출유지율', 'NRR'],
+    ['mrr', 'MRR'],
+    ['revenue', 'Revenue'], ['매출', 'Revenue'],
+    ['고객수', 'Customers by MRR'], ['고객', 'Customers by MRR']
+  ].sort(function (a, b) { return b[0].length - a[0].length; });
+
+  function normalize(s) {
+    return String(s || '').toLowerCase().replace(/[\s\-_/()%,·]/g, '');
+  }
+
+  function findMetric(rawQuestion) {
+    var n = normalize(rawQuestion);
+    for (var i = 0; i < ALIASES.length; i++) {
+      if (n.indexOf(ALIASES[i][0]) !== -1) return ALIASES[i][1];
+    }
+    return null;
+  }
+
+  function detectPeriod(q) {
+    var m = q.match(/q\s*([1-4])/i);
+    if (m) return 'Q' + m[1];
+    m = q.match(/([1-4])\s*(분기|사분기)/);
+    if (m) return 'Q' + m[1];
+    return null;
+  }
+
+  function fmt(n) {
+    if (typeof n !== 'number') return n;
+    var r = Math.round(n * 100) / 100;
+    return (r % 1 === 0) ? String(r) : String(r);
+  }
+
+  function maxMinEntry(values, wantMax) {
+    var best = null, bestP = null;
+    Object.keys(values).forEach(function (p) {
+      var v = values[p];
+      if (best === null || (wantMax ? v > best : v < best)) { best = v; bestP = p; }
+    });
+    return { period: bestP, value: best };
+  }
+
+  function isDefIntent(q) { return /정의|설명|뜻|의미|이\s*뭐|뭐야|뭔가요|뭔지|무엇/.test(q); }
+  function isMaxIntent(q) { return /최고|최대|가장\s*높|가장\s*큰/.test(q); }
+  function isMinIntent(q) { return /최저|최소|가장\s*낮|가장\s*작/.test(q); }
+  function isGreeting(q) { return /^(안녕|hi|hello|헬로|도움|help|뭐.*할.*수|무엇을.*할)/i.test(q.trim()); }
+
+  var HELP_MSG = '안녕하세요! 이 페이지(재무 › 성장)에 표시된 실제 실적 데이터로 답변하는 챗봇이에요.\n이렇게 물어봐 주세요:\n• MRR Q4\n• Revenue 얼마야?\n• 가장 높은 분기 고객수는?\n• NRR이 뭐야?';
+  var FALLBACK_MSG = '죄송해요, 질문을 이해하지 못했어요. 이렇게 물어봐 주세요:\n• "MRR Q4" (지표+기간)\n• "Churn MRR 얼마야?" (지표만 → 최신값+증감)\n• "가장 높은 분기 New Customers는?" (최댓값)\n• "NRR이 뭐야?" (지표 정의)';
+
+  function answer(q) {
+    if (isGreeting(q)) return HELP_MSG;
+
+    var metricKey = findMetric(q);
+    if (!metricKey) return FALLBACK_MSG;
+
+    var m = GX_GROWTH_DATA.metrics[metricKey];
+    var periods = Object.keys(m.values);
+
+    if (isDefIntent(q)) {
+      return metricKey + ': ' + m.def;
+    }
+    if (isMaxIntent(q)) {
+      var mx = maxMinEntry(m.values, true);
+      return metricKey + '의 전체 기간 중 최고치는 ' + mx.period + '에 ' + fmt(mx.value) + m.unit + '입니다.';
+    }
+    if (isMinIntent(q)) {
+      var mn = maxMinEntry(m.values, false);
+      return metricKey + '의 전체 기간 중 최저치는 ' + mn.period + '에 ' + fmt(mn.value) + m.unit + '입니다.';
+    }
+
+    var qp = detectPeriod(q);
+    if (qp) {
+      if (m.values[qp] !== undefined) {
+        var msg = metricKey + ' (' + qp + '): ' + fmt(m.values[qp]) + m.unit;
+        if (m.growthRate && m.growthRate[qp] !== undefined) msg += ' (성장률 ' + m.growthRate[qp] + '%)';
+        return msg;
+      }
+      return metricKey + '는 ' + qp + ' 값이 이 페이지에 표시되어 있지 않아요. (제공 구간: ' + periods.join(', ') + ')';
+    }
+
+    /* 기간 미지정 → 최신값 + 직전 기간 대비 증감 */
+    var latest = periods[periods.length - 1];
+    var latestVal = m.values[latest];
+    var out = metricKey + ' 최신 값(' + latest + '): ' + fmt(latestVal) + m.unit;
+    if (periods.length >= 2) {
+      var prev = periods[periods.length - 2];
+      var prevVal = m.values[prev];
+      var diff = Math.round((latestVal - prevVal) * 100) / 100;
+      var pctTxt = '';
+      if (prevVal !== 0) {
+        var pct = Math.round((diff / Math.abs(prevVal)) * 1000) / 10;
+        pctTxt = ', ' + (pct >= 0 ? '+' : '') + pct + '%';
+      }
+      out += '\n(' + prev + ' 대비 ' + (diff >= 0 ? '+' : '') + fmt(diff) + m.unit + pctTxt + ')';
+    }
+    if (m.growthRate && m.growthRate[latest] !== undefined) {
+      out += '\n분기 성장률(' + latest + '): ' + m.growthRate[latest] + '%';
+    }
+    if (m.yoy && latest === 'Q4') out += '\nYoY(전년 동기 대비): ' + m.yoy;
+    return out;
+  }
+
+  /* ── UI 연결 ── */
+  var fab = document.getElementById('gxChatFab');
+  var panel = document.getElementById('gxChatPanel');
+  var closeBtn = document.getElementById('gxChatClose');
+  var body = document.getElementById('gxChatBody');
+  var input = document.getElementById('gxChatInput');
+  var sendBtn = document.getElementById('gxChatSend');
+
+  var SUGGESTIONS = ['MRR Q4', 'Revenue 얼마야?', '가장 높은 분기 고객수는?', 'NRR이 뭐야?'];
+
+  function addMsg(text, who) {
+    var div = document.createElement('div');
+    div.className = 'gx-chat-msg ' + who;
+    div.textContent = text;
+    body.appendChild(div);
+    body.scrollTop = body.scrollHeight;
+    return div;
+  }
+
+  function addSuggestions() {
+    var wrap = document.createElement('div');
+    wrap.className = 'gx-chat-suggest';
+    SUGGESTIONS.forEach(function (s) {
+      var b = document.createElement('button');
+      b.className = 'gx-chat-suggest-btn';
+      b.type = 'button';
+      b.textContent = s;
+      b.addEventListener('click', function () { handleSend(s); });
+      wrap.appendChild(b);
+    });
+    body.appendChild(wrap);
+    body.scrollTop = body.scrollHeight;
+  }
+
+  function handleSend(text) {
+    var q = (typeof text === 'string' ? text : input.value).trim();
+    if (!q) return;
+    addMsg(q, 'user');
+    input.value = '';
+    setTimeout(function () { addMsg(answer(q), 'bot'); }, 150);
+  }
+
+  var opened = false;
+  fab.addEventListener('click', function () {
+    opened = !opened;
+    panel.classList.toggle('gx-chat-open', opened);
+    if (opened && !body.dataset.inited) {
+      body.dataset.inited = '1';
+      addMsg(HELP_MSG, 'bot');
+      addSuggestions();
+    }
+    if (opened) input.focus();
+  });
+  closeBtn.addEventListener('click', function () {
+    opened = false;
+    panel.classList.remove('gx-chat-open');
+  });
+  sendBtn.addEventListener('click', function () { handleSend(); });
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') handleSend();
+  });
 })();
 </script>
 </body>

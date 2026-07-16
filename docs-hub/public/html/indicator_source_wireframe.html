@@ -70,6 +70,65 @@ tr.alt td.stick { background:#FAFBFD; }
 tr.sep td { border-top:2px solid #D8E0EC; }
 tr:hover td { background:#EFF6FF; }
 tr:hover td.stick { background:#EFF6FF; }
+
+/* ── gx-tooltip (지표 설명 툴팁, 11개 페이지 공통) ── */
+.gx-tooltip{ cursor:help; }
+.gx-tooltip[data-tooltip]{ border-bottom:1px dotted #A7B4CC; }
+.gx-tip-bubble{
+  position:fixed; display:none; max-width:280px;
+  background:#1E3079; color:#fff; padding:8px 11px; border-radius:6px;
+  font-size:11px; font-weight:400; line-height:1.55; word-break:keep-all;
+  box-shadow:0 6px 18px rgba(30,48,121,.30);
+  z-index:99999; pointer-events:none;
+  opacity:0; transform:translateY(4px);
+  transition:opacity .15s ease, transform .15s ease;
+  font-family:'Malgun Gothic','Noto Sans KR',sans-serif;
+}
+.gx-tip-bubble.gx-tip-show{ opacity:1; transform:translateY(0); }
+.gx-tip-bubble::after{
+  content:''; position:absolute; left:var(--gx-tip-arrow,20px); top:100%;
+  border:5px solid transparent; border-top-color:#1E3079; margin-left:-5px;
+}
+.gx-tip-bubble.gx-tip-below::after{
+  top:auto; bottom:100%; border-top-color:transparent; border-bottom-color:#1E3079; margin-top:-10px;
+}
+
+/* ── gx-chat (지표 원천데이터 검색 챗봇) ── */
+.gx-chat-fab{
+  position:fixed; right:24px; bottom:24px; width:52px; height:52px; border-radius:50%;
+  background:#1E3079; color:#fff; display:flex; align-items:center; justify-content:center;
+  font-size:22px; box-shadow:0 4px 14px rgba(30,48,121,.35); cursor:pointer; z-index:9998;
+  border:none; transition:transform .15s ease, background .15s ease;
+}
+.gx-chat-fab:hover{ transform:scale(1.06); background:#17235c; }
+.gx-chat-panel{
+  position:fixed; right:24px; bottom:88px; width:330px; height:440px;
+  background:#fff; border-radius:12px; box-shadow:0 10px 34px rgba(0,0,0,.22);
+  display:none; flex-direction:column; overflow:hidden; z-index:9998;
+  font-family:'Malgun Gothic','Noto Sans KR',sans-serif; border:1px solid #E2E8F0;
+}
+.gx-chat-panel.gx-chat-open{ display:flex; }
+.gx-chat-header{
+  background:#1E3079; color:#fff; padding:12px 14px; font-size:12.5px; font-weight:700;
+  display:flex; align-items:center; justify-content:space-between; flex-shrink:0;
+}
+.gx-chat-header-sub{ font-weight:400; font-size:10.5px; color:#B8C6DB; margin-top:2px; }
+.gx-chat-close{ background:none; border:none; color:#fff; font-size:18px; cursor:pointer; line-height:1; padding:2px 4px; }
+.gx-chat-body{ flex:1; overflow-y:auto; padding:12px; display:flex; flex-direction:column; gap:8px; background:#F5F7FA; }
+.gx-chat-msg{ max-width:88%; padding:8px 11px; border-radius:11px; font-size:11.5px; line-height:1.55; white-space:pre-wrap; word-break:break-word; }
+.gx-chat-msg.bot{ background:#fff; border:1px solid #E2E8F0; color:#354052; align-self:flex-start; border-bottom-left-radius:2px; }
+.gx-chat-msg.user{ background:#17B8B8; color:#fff; align-self:flex-end; border-bottom-right-radius:2px; }
+.gx-chat-suggest{ display:flex; flex-wrap:wrap; gap:5px; margin-top:2px; }
+.gx-chat-suggest-btn{
+  background:#EAF1FB; color:#1E3079; border:1px solid #CBD8E8; border-radius:12px;
+  padding:4px 9px; font-size:10.5px; cursor:pointer;
+}
+.gx-chat-suggest-btn:hover{ background:#1E3079; color:#fff; }
+.gx-chat-input-row{ display:flex; border-top:1px solid #E2E8F0; padding:8px; gap:6px; background:#fff; flex-shrink:0; }
+.gx-chat-input-row input{ flex:1; border:1px solid #CBD5E0; border-radius:6px; padding:7px 9px; font-size:11.5px; font-family:inherit; }
+.gx-chat-input-row input:focus{ outline:none; border-color:#17B8B8; }
+.gx-chat-input-row button{ background:#1E3079; color:#fff; border:none; border-radius:6px; padding:0 13px; font-size:11.5px; font-weight:600; cursor:pointer; }
+.gx-chat-input-row button:hover{ background:#17235c; }
 </style>
 </head>
 <body>
@@ -149,8 +208,16 @@ function renderFlat(cols, rows){
   return h+'</tbody></table></div>';
 }
 
+/* ── 지표 설명 툴팁 헬퍼 ── */
+function escT(s){ return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function labelHtml(label, tipMap){
+  var tip = tipMap && tipMap[label];
+  if(!tip) return label;
+  return '<span class="gx-tooltip" data-tooltip="'+escT(tip)+'">'+label+'</span>';
+}
+
 /* ── 월별 그룹 테이블 (원청별 매출/상태 / 매출손익) ── */
-function renderMonthly(metaCols, groups, rows, statusMode){
+function renderMonthly(metaCols, groups, rows, statusMode, tipMap){
   var firsts=[]; groups.forEach(function(g){ g.cols.forEach(function(m,i){ firsts.push(i===0); }); });
   var h='<div class="tbl-wrap"><table class="dt"><thead><tr>';
   metaCols.forEach(function(m,i){ h+='<th class="mh'+(i===0?' stick':'')+'" rowspan="2">'+m.h+'</th>'; });
@@ -162,7 +229,8 @@ function renderMonthly(metaCols, groups, rows, statusMode){
     h+='<tr class="'+(ri%2?'alt':'')+(row.sep?' sep':'')+'">';
     row.meta.forEach(function(v,i){
       var last=i===metaCols.length-1;
-      h+='<td class="txt'+(i===0?' stick':'')+(row.ind&&last?' ind':'')+(row.grp?' grp':'')+'">'+v+'</td>';
+      var txt = (last && row.grp) ? labelHtml(v,tipMap) : v;
+      h+='<td class="txt'+(i===0?' stick':'')+(row.ind&&last?' ind':'')+(row.grp?' grp':'')+'">'+txt+'</td>';
     });
     row.vals.forEach(function(v,i){
       if(statusMode){
@@ -286,6 +354,19 @@ var plRows=[
  prow('영업이익','9.45 16.71 8.06 16.76 9.74 -12.78 0.30 -7.30 -6.55 -11.06 -9.61 -10.56 -4.86 2.46 -0.35',{grp:1,sep:1})
 ];
 
+/* 매출 손익 그룹 라벨 툴팁 (indicator_info_wireframe.html의 지표 정의를 요약/재사용) */
+var PL_TIP = {
+  '매출총계':'당 기간 발생한 전체 매출.',
+  '직접원가계':'매출 창출에 직접 투입된 원가(인건비·외주비·재료비 등) 합계.',
+  '사내원가총계':'사내에서 발생한 원가성 비용 합계.',
+  '한계이익총계':'매출에서 직접원가와 사내원가를 차감한 한계이익.',
+  '간접원가총계':'매출에 직접 대응되지 않는 간접(공통) 원가 합계.',
+  '매출총이익':'매출에서 매출원가(직접+간접원가)를 제외한 이익(Gross Margin).',
+  '판매비총계':'영업/마케팅 활동에 투입된 판매비 합계.',
+  '일반비총계':'일반관리 활동에 투입된 비용 합계.',
+  '영업이익':'매출총이익에서 판매비와 관리비를 차감한 영업활동 이익.'
+};
+
 /* ═══════════ 조립 ═══════════ */
 var out='';
 /* 블록 A */
@@ -303,10 +384,326 @@ out+='</div>';
 /* 블록 C */
 out+='<div class="sec">';
 out+=dateFilter('2024-01-01','2025-03-19',null,false);
-out+='<div class="tbl-title">매출 손익</div>'+renderMonthly(plMeta,plGroups,plRows,false);
+out+='<div class="tbl-title">매출 손익</div>'+renderMonthly(plMeta,plGroups,plRows,false,PL_TIP);
 out+='</div>';
 
 document.getElementById('content').innerHTML=out;
+</script>
+
+<script>
+/* gx-tooltip engine (11개 페이지 공통, 지표 설명 hover 툴팁) */
+(function () {
+  var bubble;
+  function ensureBubble() {
+    if (!bubble) {
+      bubble = document.createElement('div');
+      bubble.className = 'gx-tip-bubble';
+      document.body.appendChild(bubble);
+    }
+    return bubble;
+  }
+  function showTip(el) {
+    var text = el.getAttribute('data-tooltip');
+    if (!text) return;
+    var t = ensureBubble();
+    t.textContent = text;
+    t.style.display = 'block';
+    t.classList.remove('gx-tip-show', 'gx-tip-below');
+    var r = el.getBoundingClientRect();
+    var tw = t.offsetWidth, th = t.offsetHeight;
+    var left = r.left + r.width / 2 - tw / 2;
+    var top = r.top - th - 10;
+    var below = false;
+    if (top < 6) { top = r.bottom + 10; below = true; }
+    if (left < 6) left = 6;
+    if (left + tw > window.innerWidth - 6) left = window.innerWidth - 6 - tw;
+    var arrowLeft = Math.max(10, Math.min(tw - 10, r.left + r.width / 2 - left));
+    t.style.left = left + 'px';
+    t.style.top = top + 'px';
+    t.style.setProperty('--gx-tip-arrow', arrowLeft + 'px');
+    if (below) t.classList.add('gx-tip-below');
+    requestAnimationFrame(function () { t.classList.add('gx-tip-show'); });
+  }
+  function hideTip() { if (bubble) bubble.classList.remove('gx-tip-show'); }
+  document.addEventListener('mouseover', function (e) {
+    var el = e.target.closest && e.target.closest('.gx-tooltip[data-tooltip]');
+    if (el) showTip(el);
+  });
+  document.addEventListener('mouseout', function (e) {
+    var el = e.target.closest && e.target.closest('.gx-tooltip[data-tooltip]');
+    if (el) hideTip();
+  });
+  document.addEventListener('scroll', hideTip, true);
+})();
+</script>
+
+<!-- ══════════════ gx-chat: 지표 원천데이터 검색 챗봇 ══════════════ -->
+<button class="gx-chat-fab" id="gxChatFab" title="지표 원천데이터 검색 챗봇 열기">💬</button>
+<div class="gx-chat-panel" id="gxChatPanel">
+  <div class="gx-chat-header">
+    <div>
+      지표 원천데이터 검색 챗봇
+      <div class="gx-chat-header-sub">이 페이지 원천 테이블의 실제 값으로 답변합니다</div>
+    </div>
+    <button class="gx-chat-close" id="gxChatClose" aria-label="닫기">&times;</button>
+  </div>
+  <div class="gx-chat-body" id="gxChatBody"></div>
+  <div class="gx-chat-input-row">
+    <input type="text" id="gxChatInput" placeholder="예: 농협은행 검색, 매출총계 2024년 3월">
+    <button id="gxChatSend">전송</button>
+  </div>
+</div>
+
+<script>
+/* =============================================================
+ *  gx-chat  —  지표 원천데이터(indsource) 페이지 규칙 기반 검색 챗봇
+ *  - 이 페이지 상단 <script>에 이미 선언된 전역 c1rows/c2rows/revRows/stRows/
+ *    plRows/plGroups/M2024/PL_TIP 를 그대로 재사용
+ *  - 원청명 검색(계약정보/결산손익/월별매출/월별상태 통합 조회) +
+ *    매출손익(plRows) 라벨+기간 조회/최댓값·최솟값/정의(PL_TIP) 응답
+ * ============================================================= */
+(function () {
+
+  function normalize(s) {
+    return String(s || '').toLowerCase().replace(/[\s\-_/()%,·]/g, '');
+  }
+
+  var HAS_DATA = (typeof c1rows !== 'undefined' && typeof revRows !== 'undefined' && typeof plRows !== 'undefined');
+
+  /* ── 병합 셀(빈칸='이전 행 값 유지') 채우기 ── */
+  function carryForward(rows, colCount) {
+    var out = [], last = [];
+    rows.forEach(function (row) {
+      var newRow = row.slice();
+      for (var i = 0; i < colCount; i++) {
+        if (newRow[i] === '') newRow[i] = last[i] || '';
+        else last[i] = newRow[i];
+      }
+      out.push(newRow);
+    });
+    return out;
+  }
+
+  var C1F = HAS_DATA ? carryForward(c1rows, 7) : [];  // 기준년월~국내외 (계약정보)
+  var C2F = HAS_DATA ? carryForward(c2rows, 7) : [];  // 기준년월~국내외 (결산손익정보)
+
+  /* ── 원청명 검색 ── */
+  function coreName(nm) { return normalize(String(nm || '').replace(/\(주\)|주식회사/g, '')); }
+
+  function findCompanyMatches(rawQuestion) {
+    if (!HAS_DATA) return [];
+    var n = normalize(rawQuestion);
+    var names = {};
+    C1F.forEach(function (r) { if (r[2]) names[r[2]] = true; });
+    C2F.forEach(function (r) { if (r[2]) names[r[2]] = true; });
+    revRows.forEach(function (r) { if (r.meta[1]) names[r.meta[1]] = true; });
+    stRows.forEach(function (r) { if (r.meta[1]) names[r.meta[1]] = true; });
+    return Object.keys(names).filter(function (nm) {
+      var c = coreName(nm);
+      return c.length >= 2 && n.indexOf(c) !== -1;
+    });
+  }
+
+  function lastNonEmpty(arr, labels) {
+    for (var i = arr.length - 1; i >= 0; i--) {
+      if (arr[i] !== '') return { value: arr[i], period: labels[i] };
+    }
+    return null;
+  }
+
+  function companySummary(name) {
+    var lines = ['■ ' + name];
+
+    var contracts = C1F.filter(function (r) { return r[2] === name; });
+    if (contracts.length) {
+      lines.push('▶ 계약정보(WBS): ' + contracts.length + '건');
+      contracts.slice(0, 3).forEach(function (r) {
+        lines.push('  · ' + r[11] + ' (' + r[7] + '~' + r[8] + ') 수주금액 ' + r[15] + ', ACV ' + r[17]);
+      });
+    }
+
+    var settlements = C2F.filter(function (r) { return r[2] === name; });
+    if (settlements.length) {
+      var sum = 0, hasNum = false;
+      settlements.forEach(function (r) {
+        var v = parseFloat(String(r[12]).replace(/,/g, ''));
+        if (!isNaN(v)) { sum += v; hasNum = true; }
+      });
+      lines.push('▶ 결산손익(202401 매출총계 합계): ' + (hasNum ? sum.toLocaleString() : settlements[0][12]));
+    }
+
+    var revRow = revRows.filter(function (r) { return r.meta[1] === name; })[0];
+    if (revRow) {
+      var latestRev = lastNonEmpty(revRow.vals, M2024);
+      if (latestRev) lines.push('▶ 원청별 매출 최신월(' + latestRev.period + '): ' + latestRev.value);
+    }
+
+    var stRow = stRows.filter(function (r) { return r.meta[1] === name; })[0];
+    if (stRow) {
+      var latestSt = lastNonEmpty(stRow.vals, M2024);
+      if (latestSt) lines.push('▶ 원청별 상태 최신월(' + latestSt.period + '): ' + latestSt.value);
+    }
+
+    if (lines.length === 1) lines.push('(원천 테이블에서 상세 데이터를 찾지 못했어요)');
+    return lines.join('\n');
+  }
+
+  /* ── 매출 손익(plRows) 라벨+기간 조회 ── */
+  function keyFor(y, m) { return y.slice(2) + '-' + m; }
+  var PL_PERIODS = HAS_DATA ? (function () {
+    var out = [];
+    plGroups.forEach(function (g) { g.cols.forEach(function (m) { out.push(keyFor(g.y, m)); }); });
+    return out;
+  })() : [];
+
+  function plRowSeries(row) {
+    var out = {};
+    row.vals.forEach(function (val, i) {
+      if (val !== '' && PL_PERIODS[i]) out[PL_PERIODS[i]] = val;
+    });
+    return out;
+  }
+
+  function findPlRowMatches(rawQuestion) {
+    if (!HAS_DATA) return [];
+    var n = normalize(rawQuestion);
+    return plRows.filter(function (row) {
+      var rn = normalize(row.meta[0]);
+      return rn && n.indexOf(rn) !== -1;
+    }).sort(function (a, b) { return normalize(b.meta[0]).length - normalize(a.meta[0]).length; });
+  }
+
+  function detectPeriod(q) {
+    var mm = q.match(/(\d{1,2})\s*월/);
+    if (!mm) return null;
+    var month = mm[1].length === 1 ? '0' + mm[1] : mm[1];
+    var ym = q.match(/(\d{2,4})\s*년/);
+    var yy = ym ? (ym[1].length >= 4 ? ym[1].slice(2) : ym[1]) : '24';
+    return yy + '-' + month + '월';
+  }
+
+  function parseNum(s) {
+    if (!s) return null;
+    var v = parseFloat(String(s).replace(/%/g, '').replace(/,/g, ''));
+    return isNaN(v) ? null : v;
+  }
+  function maxMinEntry(seriesObj, wantMax) {
+    var best = null, bestP = null;
+    Object.keys(seriesObj).forEach(function (p) {
+      var v = parseNum(seriesObj[p]);
+      if (v === null) return;
+      if (best === null || (wantMax ? v > best : v < best)) { best = v; bestP = p; }
+    });
+    return bestP === null ? null : { period: bestP, value: seriesObj[bestP] };
+  }
+
+  function isDefIntent(q) { return /정의|설명|뜻|의미|이\s*뭐|뭐야|뭔가요|뭔지|무엇/.test(q); }
+  function isMaxIntent(q) { return /최고|최대|가장\s*높|가장\s*큰/.test(q); }
+  function isMinIntent(q) { return /최저|최소|가장\s*낮|가장\s*작/.test(q); }
+  function isSearchIntent(q) { return /검색|찾아|알려/.test(q); }
+  function isGreeting(q) { return /^(안녕|hi|hello|헬로|도움|help|뭐.*할.*수|무엇을.*할)/i.test(q.trim()); }
+
+  var HELP_MSG = '안녕하세요! 이 페이지(지표 원천데이터)의 원청별 계약/매출/상태 및 매출손익 원천 테이블로 답변하는 챗봇이에요.\n이렇게 물어봐 주세요:\n• 농협은행 검색\n• 외교부 매출 얼마야?\n• 매출총계 2024년 3월\n• 영업이익이 뭐야?';
+  var FALLBACK_MSG = '죄송해요, 찾지 못했어요. 이렇게 물어봐 주세요:\n• "농협은행 검색" (원청명 → 계약/매출/상태 통합조회)\n• "매출총계 2024년 3월" (매출손익 라벨+기간)\n• "영업이익이 뭐야?" (매출손익 라벨 정의)\n• "한계이익총계 최고치는?" (최댓값)';
+
+  function answer(q) {
+    if (isGreeting(q)) return HELP_MSG;
+    if (!HAS_DATA) return FALLBACK_MSG;
+
+    /* 1) 매출손익(plRows) 라벨 매칭 우선 처리(정의/기간/최댓값) */
+    var plMatches = findPlRowMatches(q);
+    if (plMatches.length) {
+      var row = plMatches[0];
+      if (isDefIntent(q)) {
+        return row.meta[0] + ': ' + (PL_TIP[row.meta[0]] || '(정의 정보 없음)');
+      }
+      var series = plRowSeries(row);
+      if (isMaxIntent(q) || isMinIntent(q)) {
+        var ext = maxMinEntry(series, isMaxIntent(q));
+        if (ext) return row.meta[0] + '의 ' + (isMaxIntent(q) ? '최고치는 ' : '최저치는 ') + ext.period + ' ' + ext.value + '억';
+      }
+      var period = detectPeriod(q);
+      if (period && series[period] !== undefined) {
+        return row.meta[0] + ' (' + period + '): ' + series[period] + '억';
+      }
+      if (!isSearchIntent(q)) {
+        var periodsKeys = Object.keys(series);
+        var latestP = periodsKeys[periodsKeys.length - 1];
+        return row.meta[0] + ' 최신 값(' + latestP + '): ' + series[latestP] + '억';
+      }
+    }
+
+    /* 2) 원청명 검색 */
+    var companies = findCompanyMatches(q);
+    if (companies.length) {
+      return companies.slice(0, 2).map(companySummary).join('\n\n');
+    }
+
+    return FALLBACK_MSG;
+  }
+
+  /* ── UI 연결 ── */
+  var fab = document.getElementById('gxChatFab');
+  var panel = document.getElementById('gxChatPanel');
+  var closeBtn = document.getElementById('gxChatClose');
+  var body = document.getElementById('gxChatBody');
+  var input = document.getElementById('gxChatInput');
+  var sendBtn = document.getElementById('gxChatSend');
+
+  var SUGGESTIONS = ['농협은행 검색', '외교부 매출 얼마야?', '매출총계 2024년 3월', '영업이익이 뭐야?'];
+
+  function addMsg(text, who) {
+    var div = document.createElement('div');
+    div.className = 'gx-chat-msg ' + who;
+    div.textContent = text;
+    body.appendChild(div);
+    body.scrollTop = body.scrollHeight;
+    return div;
+  }
+
+  function addSuggestions() {
+    var wrap = document.createElement('div');
+    wrap.className = 'gx-chat-suggest';
+    SUGGESTIONS.forEach(function (s) {
+      var b = document.createElement('button');
+      b.className = 'gx-chat-suggest-btn';
+      b.type = 'button';
+      b.textContent = s;
+      b.addEventListener('click', function () { handleSend(s); });
+      wrap.appendChild(b);
+    });
+    body.appendChild(wrap);
+    body.scrollTop = body.scrollHeight;
+  }
+
+  function handleSend(text) {
+    var q = (typeof text === 'string' ? text : input.value).trim();
+    if (!q) return;
+    addMsg(q, 'user');
+    input.value = '';
+    setTimeout(function () { addMsg(answer(q), 'bot'); }, 150);
+  }
+
+  var opened = false;
+  fab.addEventListener('click', function () {
+    opened = !opened;
+    panel.classList.toggle('gx-chat-open', opened);
+    if (opened && !body.dataset.inited) {
+      body.dataset.inited = '1';
+      addMsg(HELP_MSG, 'bot');
+      addSuggestions();
+    }
+    if (opened) input.focus();
+  });
+  closeBtn.addEventListener('click', function () {
+    opened = false;
+    panel.classList.remove('gx-chat-open');
+  });
+  sendBtn.addEventListener('click', function () { handleSend(); });
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') handleSend();
+  });
+})();
 </script>
 </body>
 </html>

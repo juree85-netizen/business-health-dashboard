@@ -150,6 +150,66 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
   .gx-crumb{ display:none; }
   .gx-badge, .gx-status{ font-size:10px; padding:3px 8px; }
 }
+
+/* ── gx-tooltip (지표 설명 툴팁, 11개 페이지 공통) ── */
+.gx-tooltip{ cursor:help; }
+.gx-tooltip[data-tooltip]{ border-bottom:1px dotted #A7B4CC; }
+.gx-tip-bubble{
+  position:fixed; display:none; max-width:280px;
+  background:#1E3079; color:#fff; padding:8px 11px; border-radius:6px;
+  font-size:11px; font-weight:400; line-height:1.55; word-break:keep-all;
+  box-shadow:0 6px 18px rgba(30,48,121,.30);
+  z-index:99999; pointer-events:none;
+  opacity:0; transform:translateY(4px);
+  transition:opacity .15s ease, transform .15s ease;
+  font-family:'Malgun Gothic','Noto Sans KR',sans-serif;
+}
+.gx-tip-bubble.gx-tip-show{ opacity:1; transform:translateY(0); }
+.gx-tip-bubble::after{
+  content:''; position:absolute; left:var(--gx-tip-arrow,20px); top:100%;
+  border:5px solid transparent; border-top-color:#1E3079; margin-left:-5px;
+}
+.gx-tip-bubble.gx-tip-below::after{
+  top:auto; bottom:100%; border-top-color:transparent; border-bottom-color:#1E3079; margin-top:-10px;
+}
+
+/* ── gx-chat (CS 고객 현황 페이지 데이터 분석 챗봇) ── */
+.gx-chat-fab{
+  position:fixed; right:24px; bottom:24px; width:52px; height:52px; border-radius:50%;
+  background:#1E3079; color:#fff; display:flex; align-items:center; justify-content:center;
+  font-size:22px; box-shadow:0 4px 14px rgba(30,48,121,.35); cursor:pointer; z-index:9998;
+  border:none; transition:transform .15s ease, background .15s ease;
+}
+.gx-chat-fab:hover{ transform:scale(1.06); background:#17235c; }
+.gx-chat-panel{
+  position:fixed; right:24px; bottom:88px; width:330px; height:440px;
+  background:#fff; border-radius:12px; box-shadow:0 10px 34px rgba(0,0,0,.22);
+  display:none; flex-direction:column; overflow:hidden; z-index:9998;
+  font-family:'Malgun Gothic','Noto Sans KR',sans-serif; border:1px solid #E2E8F0;
+}
+.gx-chat-panel.gx-chat-open{ display:flex; }
+.gx-chat-header{
+  background:#1E3079; color:#fff; padding:12px 14px; font-size:12.5px; font-weight:700;
+  display:flex; align-items:center; justify-content:space-between; flex-shrink:0;
+}
+.gx-chat-header-sub{ font-weight:400; font-size:10.5px; color:#B8C6DB; margin-top:2px; }
+.gx-chat-close{ background:none; border:none; color:#fff; font-size:18px; cursor:pointer; line-height:1; padding:2px 4px; }
+.gx-chat-body{ flex:1; overflow-y:auto; padding:12px; display:flex; flex-direction:column; gap:8px; background:#F5F7FA; }
+.gx-chat-msg{ max-width:88%; padding:8px 11px; border-radius:11px; font-size:11.5px; line-height:1.55; white-space:pre-wrap; word-break:break-word; }
+.gx-chat-msg.bot{ background:#fff; border:1px solid #E2E8F0; color:#354052; align-self:flex-start; border-bottom-left-radius:2px; }
+.gx-chat-msg.user{ background:#17B8B8; color:#fff; align-self:flex-end; border-bottom-right-radius:2px; }
+.gx-chat-suggest{ display:flex; flex-wrap:wrap; gap:5px; margin-top:2px; }
+.gx-chat-suggest-btn{
+  background:#EAF1FB; color:#1E3079; border:1px solid #CBD8E8; border-radius:12px;
+  padding:4px 9px; font-size:10.5px; cursor:pointer;
+}
+.gx-chat-suggest-btn:hover{ background:#1E3079; color:#fff; }
+.gx-chat-input-row{ display:flex; border-top:1px solid #E2E8F0; padding:8px; gap:6px; background:#fff; flex-shrink:0; }
+.gx-chat-input-row input{ flex:1; border:1px solid #CBD5E0; border-radius:6px; padding:7px 9px; font-size:11.5px; font-family:inherit; }
+.gx-chat-input-row input:focus{ outline:none; border-color:#17B8B8; }
+.gx-chat-input-row button{ background:#1E3079; color:#fff; border:none; border-radius:6px; padding:0 13px; font-size:11.5px; font-weight:600; cursor:pointer; }
+.gx-chat-input-row button:hover{ background:#17235c; }
+
 </style>
 </head>
 <body data-page="customer">
@@ -235,7 +295,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
 
       <!-- 카드 A: 고객 현황 -->
       <div class="card">
-        <div class="card-title">고객 현황 <span class="card-unit">단위: 개</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="신규/이탈/기존 고객 수 현황.">고객 현황 <span class="card-unit">단위: 개</span></div>
         <div class="legend">
           <div class="legend-item"><span class="leg-bar" style="background:#3b82f6;"></span>New</div>
           <div class="legend-item"><span class="leg-bar" style="background:#93c5fd;"></span>Existing</div>
@@ -306,7 +366,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
 
       <!-- 카드 B: 매출 현황 -->
       <div class="card">
-        <div class="card-title">매출 현황 <span class="card-unit">단위: 억원</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="신규/이탈/기존 고객 구분별 매출 현황.">매출 현황 <span class="card-unit">단위: 억원</span></div>
         <div class="legend">
           <div class="legend-item"><span class="leg-bar" style="background:#3b82f6;"></span>New</div>
           <div class="legend-item"><span class="leg-bar" style="background:#93c5fd;"></span>Existing</div>
@@ -401,7 +461,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
     <div class="row">
       <!-- 카드: 업종 대분류 (매출) -->
       <div class="card">
-        <div class="card-title">업종 대분류 (매출) <span class="card-unit">단위: 억원</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="업종 대분류별 매출 분포.">업종 대분류 (매출) <span class="card-unit">단위: 억원</span></div>
         <div class="legend">
           <div class="legend-item"><span class="leg-bar" style="background:#93c5fd;"></span>제조(Discrete)</div>
           <div class="legend-item"><span class="leg-bar" style="background:#60a5fa;"></span>공공</div>
@@ -493,7 +553,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
     <div class="row">
       <!-- 카드: 업종 소분류 (매출) -->
       <div class="card">
-        <div class="card-title">업종 소분류 (매출) <span class="card-unit">단위: 억원</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="업종 소분류별 매출 분포.">업종 소분류 (매출) <span class="card-unit">단위: 억원</span></div>
         <div class="legend">
           <div class="legend-item"><span class="leg-bar" style="background:#bfdbfe;"></span>하이테크</div>
           <div class="legend-item"><span class="leg-bar" style="background:#93c5fd;"></span>전기/전자</div>
@@ -599,7 +659,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
 
       <!-- 카드 A: Top 20 도넛 -->
       <div class="card">
-        <div class="card-title">Top 20 <span class="card-unit">단위: 억원</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="매출 상위 20개 고객사.">Top 20 <span class="card-unit">단위: 억원</span></div>
         <svg width="100%" height="290" viewBox="0 0 480 290">
           <!-- 도넛 세그먼트: cx=150, cy=150, R=90, r=52 -->
           <!-- 삼성전자(주) 16.38억 16.1% -->
@@ -647,7 +707,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
 
       <!-- 카드 B: 라이선스 Top 20 도넛 -->
       <div class="card">
-        <div class="card-title">라이선스 Top 20 <span class="card-unit">단위: 억원</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="라이선스 매출 상위 20개 고객사.">라이선스 Top 20 <span class="card-unit">단위: 억원</span></div>
         <svg width="100%" height="290" viewBox="0 0 480 290">
           <!-- 도넛 세그먼트: 동일 비율/색상 -->
           <path d="M 150,60 A 90,90 0 0,1 226.3,92.3 L 194.1,112.4 A 52,52 0 0,0 150,98 Z" fill="#3b82f6"/>
@@ -698,7 +758,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
 
       <!-- 카드 A: 신규고객 Top 20 -->
       <div class="card">
-        <div class="card-title">신규고객 Top 20 <span class="card-unit">단위: 억원</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="매출 기준 상위 20개 신규 고객사.">신규고객 Top 20 <span class="card-unit">단위: 억원</span></div>
         <svg width="100%" height="450" viewBox="0 0 500 450">
           <!-- X gridlines -->
           <line x1="160" y1="10" x2="160" y2="425" stroke="#E5E7EB" stroke-dasharray="2,2" stroke-width="1"/>
@@ -818,7 +878,7 @@ svg text { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
 
       <!-- 카드 B: 이탈고객 Top 20 -->
       <div class="card">
-        <div class="card-title">이탈고객 Top 20 <span class="card-unit">단위: 억원</span></div>
+        <div class="card-title gx-tooltip" data-tooltip="매출 기준 상위 20개 이탈 고객사.">이탈고객 Top 20 <span class="card-unit">단위: 억원</span></div>
         <svg width="100%" height="450" viewBox="0 0 500 450">
           <!-- X gridlines -->
           <line x1="160" y1="10" x2="160" y2="425" stroke="#E5E7EB" stroke-dasharray="2,2" stroke-width="1"/>
@@ -1079,6 +1139,301 @@ window.SITE = {
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', run);
   } else { run(); }
+})();
+</script>
+
+<script>
+/* gx-tooltip engine (11개 페이지 공통, 지표 설명 hover 툴팁) */
+(function () {
+  var bubble;
+  function ensureBubble() {
+    if (!bubble) {
+      bubble = document.createElement('div');
+      bubble.className = 'gx-tip-bubble';
+      document.body.appendChild(bubble);
+    }
+    return bubble;
+  }
+  function showTip(el) {
+    var text = el.getAttribute('data-tooltip');
+    if (!text) return;
+    var t = ensureBubble();
+    t.textContent = text;
+    t.style.display = 'block';
+    t.classList.remove('gx-tip-show', 'gx-tip-below');
+    var r = el.getBoundingClientRect();
+    var tw = t.offsetWidth, th = t.offsetHeight;
+    var left = r.left + r.width / 2 - tw / 2;
+    var top = r.top - th - 10;
+    var below = false;
+    if (top < 6) { top = r.bottom + 10; below = true; }
+    if (left < 6) left = 6;
+    if (left + tw > window.innerWidth - 6) left = window.innerWidth - 6 - tw;
+    var arrowLeft = Math.max(10, Math.min(tw - 10, r.left + r.width / 2 - left));
+    t.style.left = left + 'px';
+    t.style.top = top + 'px';
+    t.style.setProperty('--gx-tip-arrow', arrowLeft + 'px');
+    if (below) t.classList.add('gx-tip-below');
+    requestAnimationFrame(function () { t.classList.add('gx-tip-show'); });
+  }
+  function hideTip() { if (bubble) bubble.classList.remove('gx-tip-show'); }
+  document.addEventListener('mouseover', function (e) {
+    var el = e.target.closest && e.target.closest('.gx-tooltip[data-tooltip]');
+    if (el) showTip(el);
+  });
+  document.addEventListener('mouseout', function (e) {
+    var el = e.target.closest && e.target.closest('.gx-tooltip[data-tooltip]');
+    if (el) hideTip();
+  });
+  document.addEventListener('scroll', hideTip, true);
+})();
+</script>
+
+<!-- ══════════════ gx-chat: CS(고객 현황) 페이지 데이터 분석 챗봇 ══════════════ -->
+<button class="gx-chat-fab" id="gxChatFab" title="고객 현황 데이터 분석 챗봇 열기">💬</button>
+<div class="gx-chat-panel" id="gxChatPanel">
+  <div class="gx-chat-header">
+    <div>
+      고객 현황 분석 챗봇
+      <div class="gx-chat-header-sub">이 페이지에 표시된 실적 데이터로 답변합니다</div>
+    </div>
+    <button class="gx-chat-close" id="gxChatClose" aria-label="닫기">&times;</button>
+  </div>
+  <div class="gx-chat-body" id="gxChatBody"></div>
+  <div class="gx-chat-input-row">
+    <input type="text" id="gxChatInput" placeholder="예: 삼성전자 매출, 이탈고객 Top20">
+    <button id="gxChatSend">전송</button>
+  </div>
+</div>
+
+<script>
+/* =============================================================
+ *  gx-chat  —  CS(고객 현황, customer) 페이지 규칙 기반 분석 챗봇
+ *  - 외부 API/백엔드 없이, 이 페이지의 실제 표시 데이터(GX_CUSTOMER_DATA)만 사용
+ *  - 고객사명 검색 / 섹션+연도 조회 / Top리스트 요약 / 정의 응답
+ * ============================================================= */
+(function () {
+
+  /* ── 이 페이지(섹션1~5)에 표시된 실제 값 ── */
+  var GX_CUSTOMER_DATA = {
+    sections: {
+      '고객 현황': { unit: '개', def: '신규/이탈/기존 고객 수 현황.',
+        years: {
+          '2023': { New: 80, Existing: 140, Churn: -30, 합계: 190 },
+          '2024': { New: 110, Existing: 155, Churn: -40, 합계: 265 },
+          '2025': { New: 140, Existing: 165, Churn: -50, 합계: 305 },
+          '2026': { New: 165, Existing: 180, Churn: -60, 합계: 345 }
+        } },
+      '매출 현황': { unit: '억원', def: '신규/이탈/기존 고객 구분별 매출 현황.',
+        years: {
+          '2023': { New: 15, Existing: 55, Churn: -8, 합계: 62 },
+          '2024': { New: 20, Existing: 65, Churn: -10, 합계: 75 },
+          '2025': { New: 25, Existing: 72, Churn: -12, 합계: 85 },
+          '2026': { New: 30, Existing: 78, Churn: -14, 합계: 95 }
+        } },
+      '업종 대분류': { unit: '억원', def: '업종 대분류별 매출 분포.',
+        years: {
+          '2023': { 합계: 100, 제조: 40, 공공: 20, 금융: 18, 서비스: 12, 기타: 10 },
+          '2024': { 합계: 110, 제조: 45, 공공: 22, 금융: 20, 서비스: 14, 기타: 9 },
+          '2025': { 합계: 120, 제조: 50, 공공: 24, 금융: 22, 서비스: 16, 기타: 8 },
+          '2026': { 합계: 125, 제조: 55, 공공: 25, 금융: 22, 서비스: 17, 기타: 6 }
+        } },
+      '업종 소분류': { unit: '억원', def: '업종 소분류별 매출 분포.',
+        years: {
+          '2023': { 합계: 100, 하이테크: 22, '전기/전자': 20, 공공기관: 11, 은행: 9, IT서비스: 7, 기타: 31 },
+          '2024': { 합계: 110, 하이테크: 25, '전기/전자': 22, 공공기관: 12, 은행: 10, IT서비스: 8, 기타: 33 },
+          '2025': { 합계: 120, 하이테크: 28, '전기/전자': 24, 공공기관: 13, 은행: 11, IT서비스: 9, 기타: 35 },
+          '2026': { 합계: 125, 하이테크: 30, '전기/전자': 25, 공공기관: 15, 은행: 12, IT서비스: 10, 기타: 33 }
+        } }
+    },
+    lists: {
+      'Top 20': { unit: '억원', def: '매출 상위 20개 고객사 (2026년, 도넛차트 — 상위 5개사 + 기타(Top15) 합계로 표시).',
+        items: [['삼성전자(주)', 16.38], ['Samsung Electronics America', 12.87], ['삼성디스플레이(주)', 9.10],
+                 ['SK하이닉스(주)', 8.50], ['LG전자(주)', 7.20], ['기타(Top15)', 48.00]] },
+      '라이선스 Top 20': { unit: '억원', def: '라이선스 매출 상위 20개 고객사 (2026년, 상위 5개사 + 기타(Top15) 합계로 표시).',
+        items: [['삼성전자(주)', 8.20], ['LG CNS(주)', 5.40], ['현대자동차(주)', 4.80],
+                 ['SK텔레콤(주)', 3.90], ['롯데정보통신(주)', 3.10], ['기타(Top15)', 22.10]] },
+      '신규고객 Top 20': { unit: '억원', def: '매출 기준 상위 20개 신규 고객사.',
+        items: [['하이트진로(주)', 1.85], ['그랜나,국내', 1.72], ['지상작전사령부', 1.65], ['산업통상자원부', 1.58],
+                 ['현대모비스(주)', 1.42], ['LG이노텍(주)', 1.38], ['한화에어로스페이스', 1.25], ['기아자동차(주)', 1.18],
+                 ['삼성물산(주)', 1.05], ['포스코홀딩스(주)', 0.98], ['두산에너빌리티(주)', 0.92], ['SK하이닉스(주)', 0.85],
+                 ['현대제철(주)', 0.78], ['롯데케미칼(주)', 0.72], ['GS칼텍스(주)', 0.65], ['한국전력공사', 0.58],
+                 ['CJ제일제당(주)', 0.52], ['쿠팡(주)', 0.45], ['카카오(주)', 0.38], ['네이버(주)', 0.32]] },
+      '이탈고객 Top 20': { unit: '억원', def: '매출 기준 상위 20개 이탈 고객사.',
+        items: [['한국IBM(주)', 1.75], ['오라클코리아', 1.60], ['SAP코리아(주)', 1.45], ['한국마이크로소프트', 1.32],
+                 ['시스코시스템즈코리아', 1.20], ['VMware코리아', 1.08], ['한국HPE(주)', 0.98], ['델테크놀로지스코리아', 0.88],
+                 ['한국레드햇(주)', 0.78], ['세일즈포스코리아', 0.70], ['한국지멘스(주)', 0.62], ['어도비코리아', 0.55],
+                 ['한국EMC(주)', 0.48], ['뉴타닉스코리아(주)', 0.42], ['베리타스코리아', 0.36], ['지니언스(주)', 0.30],
+                 ['파이오링크(주)', 0.25], ['모니터랩(주)', 0.20], ['펜타시큐리티(주)', 0.15], ['솔트룩스(주)', 0.10]] }
+    }
+  };
+
+  var SECTION_ALIASES = [
+    ['업종대분류', '업종 대분류'], ['업종대', '업종 대분류'],
+    ['업종소분류', '업종 소분류'], ['업종소', '업종 소분류'],
+    ['고객현황', '고객 현황'], ['고객수', '고객 현황'],
+    ['매출현황', '매출 현황']
+  ].sort(function (a, b) { return b[0].length - a[0].length; });
+
+  var LIST_ALIASES = [
+    ['라이선스top20', '라이선스 Top 20'], ['라이선스탑20', '라이선스 Top 20'],
+    ['신규고객top20', '신규고객 Top 20'], ['신규고객탑20', '신규고객 Top 20'], ['신규탑20', '신규고객 Top 20'],
+    ['이탈고객top20', '이탈고객 Top 20'], ['이탈고객탑20', '이탈고객 Top 20'], ['이탈탑20', '이탈고객 Top 20'], ['churn', '이탈고객 Top 20'],
+    ['top20', 'Top 20'], ['탑20', 'Top 20']
+  ].sort(function (a, b) { return b[0].length - a[0].length; });
+
+  function normalize(s) {
+    return String(s || '').toLowerCase().replace(/[\s\-_/()%,·]/g, '');
+  }
+
+  function findCompany(rawQuestion) {
+    var n = normalize(rawQuestion);
+    var found = [];
+    Object.keys(GX_CUSTOMER_DATA.lists).forEach(function (listName) {
+      GX_CUSTOMER_DATA.lists[listName].items.forEach(function (pair) {
+        var nameNorm = normalize(pair[0]);
+        // 회사명 핵심 키워드(예: '삼성전자') 포함 매칭. 최소 3자 이상만 비교.
+        var coreName = pair[0].replace(/\(주\)|코리아|주식회사/g, '');
+        var coreNorm = normalize(coreName);
+        if (coreNorm.length >= 2 && n.indexOf(coreNorm) !== -1) {
+          found.push({ list: listName, name: pair[0], value: pair[1], unit: GX_CUSTOMER_DATA.lists[listName].unit });
+        }
+      });
+    });
+    return found;
+  }
+
+  function findList(rawQuestion) {
+    var n = normalize(rawQuestion);
+    for (var i = 0; i < LIST_ALIASES.length; i++) {
+      if (n.indexOf(LIST_ALIASES[i][0]) !== -1) return LIST_ALIASES[i][1];
+    }
+    return null;
+  }
+
+  function findSection(rawQuestion) {
+    var n = normalize(rawQuestion);
+    for (var i = 0; i < SECTION_ALIASES.length; i++) {
+      if (n.indexOf(SECTION_ALIASES[i][0]) !== -1) return SECTION_ALIASES[i][1];
+    }
+    return null;
+  }
+
+  function detectYear(q) {
+    var m = q.match(/20(2[3-6])/);
+    return m ? m[0] : null;
+  }
+
+  function isDefIntent(q) { return /정의|설명|뜻|의미|이\s*뭐|뭐야|뭔가요|뭔지|무엇/.test(q); }
+  function isGreeting(q) { return /^(안녕|hi|hello|헬로|도움|help|뭐.*할.*수|무엇을.*할)/i.test(q.trim()); }
+
+  var HELP_MSG = '안녕하세요! 이 페이지(고객 현황)에 표시된 실제 데이터로 답변하는 챗봇이에요.\n이렇게 물어봐 주세요:\n• 삼성전자 매출\n• 2026년 업종 대분류 매출은?\n• 이탈고객 Top20 알려줘\n• 고객 현황이 뭐야?';
+  var FALLBACK_MSG = '죄송해요, 질문을 이해하지 못했어요. 이렇게 물어봐 주세요:\n• "삼성전자 매출" (고객사명 검색)\n• "2025년 고객 현황" (섹션+연도)\n• "신규고객 Top20" (리스트 요약)\n• "업종 대분류가 뭐야?" (정의)';
+
+  function fmt(n) {
+    if (typeof n !== 'number') return n;
+    var r = Math.round(n * 100) / 100;
+    return String(r);
+  }
+
+  function answer(q) {
+    if (isGreeting(q)) return HELP_MSG;
+
+    /* 1) 고객사명 검색 우선 */
+    var companies = findCompany(q);
+    if (companies.length) {
+      return companies.map(function (c) {
+        return '[' + c.list + '] ' + c.name + ': ' + fmt(c.value) + c.unit;
+      }).join('\n');
+    }
+
+    /* 2) Top 리스트 요약 */
+    var listName = findList(q);
+    if (listName) {
+      var L = GX_CUSTOMER_DATA.lists[listName];
+      if (isDefIntent(q)) return listName + ': ' + L.def;
+      var top = L.items.slice(0, 5);
+      var out = listName + ' (상위 5개, 단위: ' + L.unit + ')\n' +
+        top.map(function (p, i) { return (i + 1) + '. ' + p[0] + ' ' + fmt(p[1]); }).join('\n');
+      return out;
+    }
+
+    /* 3) 섹션(고객현황/매출현황/업종대·소분류) + 연도 조회 */
+    var sectionName = findSection(q);
+    if (sectionName) {
+      var S = GX_CUSTOMER_DATA.sections[sectionName];
+      if (isDefIntent(q)) return sectionName + ': ' + S.def;
+      var year = detectYear(q) || '2026';
+      var y = S.years[year];
+      if (!y) return sectionName + '는 ' + year + '년 데이터가 이 페이지에 없어요. (제공 연도: ' + Object.keys(S.years).join(', ') + ')';
+      var parts = Object.keys(y).map(function (k) { return k + ' ' + fmt(y[k]) + S.unit; });
+      return sectionName + ' (' + year + '년): ' + parts.join(', ');
+    }
+
+    return FALLBACK_MSG;
+  }
+
+  /* ── UI 연결 ── */
+  var fab = document.getElementById('gxChatFab');
+  var panel = document.getElementById('gxChatPanel');
+  var closeBtn = document.getElementById('gxChatClose');
+  var body = document.getElementById('gxChatBody');
+  var input = document.getElementById('gxChatInput');
+  var sendBtn = document.getElementById('gxChatSend');
+
+  var SUGGESTIONS = ['삼성전자 매출', '2026년 업종 대분류 매출은?', '이탈고객 Top20 알려줘', '고객 현황이 뭐야?'];
+
+  function addMsg(text, who) {
+    var div = document.createElement('div');
+    div.className = 'gx-chat-msg ' + who;
+    div.textContent = text;
+    body.appendChild(div);
+    body.scrollTop = body.scrollHeight;
+    return div;
+  }
+
+  function addSuggestions() {
+    var wrap = document.createElement('div');
+    wrap.className = 'gx-chat-suggest';
+    SUGGESTIONS.forEach(function (s) {
+      var b = document.createElement('button');
+      b.className = 'gx-chat-suggest-btn';
+      b.type = 'button';
+      b.textContent = s;
+      b.addEventListener('click', function () { handleSend(s); });
+      wrap.appendChild(b);
+    });
+    body.appendChild(wrap);
+    body.scrollTop = body.scrollHeight;
+  }
+
+  function handleSend(text) {
+    var q = (typeof text === 'string' ? text : input.value).trim();
+    if (!q) return;
+    addMsg(q, 'user');
+    input.value = '';
+    setTimeout(function () { addMsg(answer(q), 'bot'); }, 150);
+  }
+
+  var opened = false;
+  fab.addEventListener('click', function () {
+    opened = !opened;
+    panel.classList.toggle('gx-chat-open', opened);
+    if (opened && !body.dataset.inited) {
+      body.dataset.inited = '1';
+      addMsg(HELP_MSG, 'bot');
+      addSuggestions();
+    }
+    if (opened) input.focus();
+  });
+  closeBtn.addEventListener('click', function () {
+    opened = false;
+    panel.classList.remove('gx-chat-open');
+  });
+  sendBtn.addEventListener('click', function () { handleSend(); });
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') handleSend();
+  });
 })();
 </script>
 </body>

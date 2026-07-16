@@ -25,3 +25,5 @@
 - [바이너리 파일 전송 제약 및 해결책](reference_skill_file_transfer.md) — SSH/GitHub 업로드 모두 막혔을 때 base64 임시 해결책 + 미해결 근본 원인 (2026-06-25)
 - [claude-config/ 동기화 규칙](feedback_claude_config_sync.md) — 메모리·에이전트·커맨드 변경 시 claude-config/ 복사 후 GitHub push 필수
 - [두 세션 역할 분담 규칙](feedback_workflow_two_sessions.md) — 루나(AWS)=허브 편집·push / 회사 Windows=DRM·Word. 사내 자료→허브는 핸드오프
+- [사내 GitLab 와이어프레임 미러링 대상](reference_sds_gitlab_biz_health.md) — code.sdsdev.co.kr/.../biz-health-legacy/wireframe, AWS 세션 접근 불가 확인
+- [html/↔docs-hub 이중관리 및 자동동기화 훅](project_wireframe_docshub_sync.md) — .githooks/pre-commit 추가, Windows 세션은 core.hooksPath 설정 미확인

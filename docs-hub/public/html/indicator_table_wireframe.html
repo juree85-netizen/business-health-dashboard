@@ -146,6 +146,65 @@ tr:hover td { background:#EFF6FF; }
   .gx-badge, .gx-status{ font-size:10px; padding:3px 8px; }
 }
 
+/* ── gx-tooltip (지표 설명 툴팁, 11개 페이지 공통) ── */
+.gx-tooltip{ cursor:help; }
+.gx-tooltip[data-tooltip]{ border-bottom:1px dotted #A7B4CC; }
+.gx-tip-bubble{
+  position:fixed; display:none; max-width:280px;
+  background:#1E3079; color:#fff; padding:8px 11px; border-radius:6px;
+  font-size:11px; font-weight:400; line-height:1.55; word-break:keep-all;
+  box-shadow:0 6px 18px rgba(30,48,121,.30);
+  z-index:99999; pointer-events:none;
+  opacity:0; transform:translateY(4px);
+  transition:opacity .15s ease, transform .15s ease;
+  font-family:'Malgun Gothic','Noto Sans KR',sans-serif;
+}
+.gx-tip-bubble.gx-tip-show{ opacity:1; transform:translateY(0); }
+.gx-tip-bubble::after{
+  content:''; position:absolute; left:var(--gx-tip-arrow,20px); top:100%;
+  border:5px solid transparent; border-top-color:#1E3079; margin-left:-5px;
+}
+.gx-tip-bubble.gx-tip-below::after{
+  top:auto; bottom:100%; border-top-color:transparent; border-bottom-color:#1E3079; margin-top:-10px;
+}
+
+/* ── gx-chat (지표 테이블 검색·조회 챗봇) ── */
+.gx-chat-fab{
+  position:fixed; right:24px; bottom:24px; width:52px; height:52px; border-radius:50%;
+  background:#1E3079; color:#fff; display:flex; align-items:center; justify-content:center;
+  font-size:22px; box-shadow:0 4px 14px rgba(30,48,121,.35); cursor:pointer; z-index:9998;
+  border:none; transition:transform .15s ease, background .15s ease;
+}
+.gx-chat-fab:hover{ transform:scale(1.06); background:#17235c; }
+.gx-chat-panel{
+  position:fixed; right:24px; bottom:88px; width:330px; height:440px;
+  background:#fff; border-radius:12px; box-shadow:0 10px 34px rgba(0,0,0,.22);
+  display:none; flex-direction:column; overflow:hidden; z-index:9998;
+  font-family:'Malgun Gothic','Noto Sans KR',sans-serif; border:1px solid #E2E8F0;
+}
+.gx-chat-panel.gx-chat-open{ display:flex; }
+.gx-chat-header{
+  background:#1E3079; color:#fff; padding:12px 14px; font-size:12.5px; font-weight:700;
+  display:flex; align-items:center; justify-content:space-between; flex-shrink:0;
+}
+.gx-chat-header-sub{ font-weight:400; font-size:10.5px; color:#B8C6DB; margin-top:2px; }
+.gx-chat-close{ background:none; border:none; color:#fff; font-size:18px; cursor:pointer; line-height:1; padding:2px 4px; }
+.gx-chat-body{ flex:1; overflow-y:auto; padding:12px; display:flex; flex-direction:column; gap:8px; background:#F5F7FA; }
+.gx-chat-msg{ max-width:88%; padding:8px 11px; border-radius:11px; font-size:11.5px; line-height:1.55; white-space:pre-wrap; word-break:break-word; }
+.gx-chat-msg.bot{ background:#fff; border:1px solid #E2E8F0; color:#354052; align-self:flex-start; border-bottom-left-radius:2px; }
+.gx-chat-msg.user{ background:#17B8B8; color:#fff; align-self:flex-end; border-bottom-right-radius:2px; }
+.gx-chat-suggest{ display:flex; flex-wrap:wrap; gap:5px; margin-top:2px; }
+.gx-chat-suggest-btn{
+  background:#EAF1FB; color:#1E3079; border:1px solid #CBD8E8; border-radius:12px;
+  padding:4px 9px; font-size:10.5px; cursor:pointer;
+}
+.gx-chat-suggest-btn:hover{ background:#1E3079; color:#fff; }
+.gx-chat-input-row{ display:flex; border-top:1px solid #E2E8F0; padding:8px; gap:6px; background:#fff; flex-shrink:0; }
+.gx-chat-input-row input{ flex:1; border:1px solid #CBD5E0; border-radius:6px; padding:7px 9px; font-size:11.5px; font-family:inherit; }
+.gx-chat-input-row input:focus{ outline:none; border-color:#17B8B8; }
+.gx-chat-input-row button{ background:#1E3079; color:#fff; border:none; border-radius:6px; padding:0 13px; font-size:11.5px; font-weight:600; cursor:pointer; }
+.gx-chat-input-row button:hover{ background:#17235c; }
+
 </style>
 </head>
 <body data-page="indtable">
@@ -217,8 +276,84 @@ var MCOLS = [
 function vals(s){ return s.trim().split(/\s+/).map(function(t){ return t==='~'?'':t; }); }
 function r(label, s, opt){ opt=opt||{}; return {label:label, v:vals(s), ind:!!opt.ind, grp:!!opt.grp, sep:!!opt.sep}; }
 
+/* ── 지표 설명 툴팁 (indicator_info_wireframe.html의 indicators 정의를 요약/재사용) ── */
+function escT(s){ return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function labelHtml(label, tipMap){
+  var tip = tipMap && tipMap[label];
+  if(!tip) return label;
+  return '<span class="gx-tooltip" data-tooltip="'+escT(tip)+'">'+label+'</span>';
+}
+
+var T1_TIP = {
+  'Total':'전체 MRR (반복 라이선스 매출) 합계.',
+  'New':'신규 고객으로부터 이번 기간 새로 발생한 MRR.',
+  'Churn':'고객의 구독 중지로 줄어든 MRR (이탈).',
+  'Expansion(+/-)':'기존 고객의 업셀/다운셀로 늘거나 줄어든 MRR (확장/축소).',
+  'Existing':'기존 고객이 유지하고 있는 MRR 합계.',
+  'Existing - Expansion':'기존 고객 중 구독 비용이 증가(업셀/크로스셀)한 MRR.',
+  'Existing - Contraction':'기존 고객 중 구독 비용이 감소한 MRR (축소).',
+  'Existing - NoChange':'기존 고객 중 구독 비용 변동이 없는 MRR.',
+  'Net New':'신규MRR + 확장MRR - 축소MRR - 이탈MRR (MRR 순증분).',
+  'Average':'고객 1개사 당 평균 MRR.',
+  'Average (New)':'신규 고객 1개사 당 평균 MRR.',
+  '% Total Growth':'MRR 전기 대비 성장률 (MoM/QoQ).',
+  '% Total YoY Growth':'MRR 전년 동기 대비 성장률.',
+  '% New':'전체 MRR 중 신규 MRR 비율.',
+  '% Existing':'전체 MRR 중 기존 고객 MRR 비율.',
+  '% Existing-Expansion':'전기 MRR 대비 확장 MRR 비율.',
+  '% Existing-Contraction':'전기 MRR 대비 축소 MRR 비율.',
+  '% Existing-NoChange':'전기 MRR 대비 변동 없는 MRR 비율.',
+  '% Churn':'전기 MRR 대비 이탈 MRR 비율.',
+  '% Net New':'전기 MRR 대비 순증 MRR 비율.',
+  'YTM':'연초 누계(Year to Month) MRR.',
+  'YoY YTM Difference':'연초 누계 MRR의 전년 동기 대비 차이.',
+  '% YoY YTM Difference':'연초 누계 MRR의 전년 동기 대비 증감률.'
+};
+var T2_TIP = {
+  'Total':'전체 유료 고객 수.',
+  'New':'이번 기간 신규로 계약한 고객 수.',
+  'Churn':'이번 기간 이탈(해지)한 고객 수.',
+  'Existing':'기존에 유지되고 있는 고객 수.',
+  'Net New':'신규 고객 수 - 이탈 고객 수 (고객 순증분).',
+  '% Growth':'고객 수 전기 대비 성장률.',
+  '% YoY Growth':'고객 수 전년 동기 대비 성장률.',
+  '% New':'전체 고객 중 신규 고객 비율.',
+  '% Existing':'전체 고객 중 기존 고객 비율.',
+  '% Churn':'전기 고객 수 대비 이탈 고객 비율.',
+  '% Net New':'전기 고객 수 대비 순증 고객 비율.'
+};
+var T3_TIP = {
+  '매출총계':'당 기간 발생한 전체 매출.',
+  '매출원가 (COGS)':'매출을 발생시키기 위해 직접 소요된 원가.',
+  '매출총이익 (Gross Margin)':'매출에서 매출원가를 제외한 이익.',
+  '% 매출총이익 (Gross Margin)':'매출 대비 매출총이익 비율. 일반적으로 70~90%가 이상적.',
+  '신상품개발 (R&D)':'신상품 개발(R&D)에 투입된 비용.',
+  '판매비총계':'영업/마케팅 활동에 투입된 판매비 합계.',
+  '일반비총계':'일반관리 활동에 투입된 비용 합계.',
+  '손익분기 (BEP)':'매출과 총원가가 같아져 이익이 0이 되는 손익분기 매출액.',
+  '영업이익':'매출총이익에서 판매비와 관리비를 차감한 이익.',
+  '% 영업이익':'매출 대비 영업이익 비율(영업이익률).',
+  '% 매출원가 vs. 매출':'매출 대비 매출원가(COGS) 비율.',
+  '% 신상품개발(R&D) vs. 매출':'매출액 대비 R&D 비용 비중. 일반적으로 15~30%.',
+  '% 판매비총계 vs. 매출':'매출 대비 판매비 비율.',
+  '% 판관비 vs. 매출':'매출 대비 판매비와관리비(판관비) 비율.',
+  '% 총원가 vs. 매출':'매출 대비 총원가(직접원가+간접원가+판관비) 비율.',
+  '% YoY Growth (매출)':'매출의 전년 동기 대비 성장률.',
+  '% YoY Growth (영업이익)':'영업이익의 전년 동기 대비 성장률.',
+  '매출 (직전 1년)':'최근 12개월 누계 매출.',
+  '영업이익 (직전 1년)':'최근 12개월 누계 영업이익.',
+  '% 영업이익 (직전1년)':'최근 12개월 누계 영업이익률.',
+  'Rule of 40':'매출성장률 + 영업이익률. 40% 이상이면 성장과 수익성의 균형이 양호.'
+};
+var T4_TIP = {
+  'Net Promoter Score':'고객추천지수(NPS). 추천고객 비율 - 비추천고객 비율. Bain 기준 0 이상 양호, 50 이상 탁월.',
+  'Customer Satisfaction Score':'고객만족도(CSAT). 설문 응답자의 평균 만족 비율.',
+  'Customer Effort Score':'고객노력지수(CES). 제품/서비스 이용에 든 노력의 정도(사용 편의성).'
+};
+var T5_TIP = { '재구독율':'구독 갱신 시점에 재구독(갱신)한 고객의 비율.' };
+
 /* ── 테이블 렌더 ── */
-function renderTable(name, cols, rows){
+function renderTable(name, cols, rows, tipMap){
   var flat=[]; cols.forEach(function(c){ c.q.forEach(function(q,i){ flat.push({q:q, first:i===0}); }); });
   var h='<div class="tbl-wrap"><table class="dt"><thead>';
   h+='<tr><th class="lab-h" rowspan="2">'+name+'</th>';
@@ -229,7 +364,7 @@ function renderTable(name, cols, rows){
   rows.forEach(function(row,ri){
     var cls=(ri%2?'alt':'')+(row.sep?' sep':'');
     h+='<tr class="'+cls.trim()+'">';
-    h+='<td class="lab'+(row.ind?' ind':'')+(row.grp?' grp':'')+'">'+row.label+'</td>';
+    h+='<td class="lab'+(row.ind?' ind':'')+(row.grp?' grp':'')+'">'+labelHtml(row.label,tipMap)+'</td>';
     row.v.forEach(function(val,i){
       var neg=val.charAt(0)==='-';
       h+='<td class="num'+(neg?' neg':'')+(flat[i]&&flat[i].first?' qb':'')+'">'+val+'</td>';
@@ -330,11 +465,11 @@ function toolbar(selects, excel){
 
 /* ── 조립 ── */
 var out='';
-out+='<div class="tbl-block">'+toolbar([['MRR','ARR','고객수'],['Quarter','Month','Year']], true)+renderTable('재무 (성장)', QCOLS, t1)+'</div>';
-out+='<div class="tbl-block">'+toolbar([['Revenue','고객수'],['Quarter','Month','Year']], false)+renderTable('재무 (고객)', QCOLS, t2)+'</div>';
-out+='<div class="tbl-block">'+toolbar([['Quarter','Month','Year']], false)+renderTable('재무 (수익)', QCOLS, t3)+'</div>';
-out+='<div class="tbl-block">'+toolbar([['Month','Quarter']], false)+renderTable('고객', MCOLS, t4)+'</div>';
-out+='<div class="tbl-block">'+toolbar([['Month','Quarter']], false)+renderTable('상품', MCOLS, t5)+'</div>';
+out+='<div class="tbl-block">'+toolbar([['MRR','ARR','고객수'],['Quarter','Month','Year']], true)+renderTable('재무 (성장)', QCOLS, t1, T1_TIP)+'</div>';
+out+='<div class="tbl-block">'+toolbar([['Revenue','고객수'],['Quarter','Month','Year']], false)+renderTable('재무 (고객)', QCOLS, t2, T2_TIP)+'</div>';
+out+='<div class="tbl-block">'+toolbar([['Quarter','Month','Year']], false)+renderTable('재무 (수익)', QCOLS, t3, T3_TIP)+'</div>';
+out+='<div class="tbl-block">'+toolbar([['Month','Quarter']], false)+renderTable('고객', MCOLS, t4, T4_TIP)+'</div>';
+out+='<div class="tbl-block">'+toolbar([['Month','Quarter']], false)+renderTable('상품', MCOLS, t5, T5_TIP)+'</div>';
 document.getElementById('content').innerHTML=out;
 </script>
 <script>
@@ -502,6 +637,283 @@ window.SITE = {
   } else { run(); }
 })();
 
+</script>
+
+<script>
+/* gx-tooltip engine (11개 페이지 공통, 지표 설명 hover 툴팁) */
+(function () {
+  var bubble;
+  function ensureBubble() {
+    if (!bubble) {
+      bubble = document.createElement('div');
+      bubble.className = 'gx-tip-bubble';
+      document.body.appendChild(bubble);
+    }
+    return bubble;
+  }
+  function showTip(el) {
+    var text = el.getAttribute('data-tooltip');
+    if (!text) return;
+    var t = ensureBubble();
+    t.textContent = text;
+    t.style.display = 'block';
+    t.classList.remove('gx-tip-show', 'gx-tip-below');
+    var r = el.getBoundingClientRect();
+    var tw = t.offsetWidth, th = t.offsetHeight;
+    var left = r.left + r.width / 2 - tw / 2;
+    var top = r.top - th - 10;
+    var below = false;
+    if (top < 6) { top = r.bottom + 10; below = true; }
+    if (left < 6) left = 6;
+    if (left + tw > window.innerWidth - 6) left = window.innerWidth - 6 - tw;
+    var arrowLeft = Math.max(10, Math.min(tw - 10, r.left + r.width / 2 - left));
+    t.style.left = left + 'px';
+    t.style.top = top + 'px';
+    t.style.setProperty('--gx-tip-arrow', arrowLeft + 'px');
+    if (below) t.classList.add('gx-tip-below');
+    requestAnimationFrame(function () { t.classList.add('gx-tip-show'); });
+  }
+  function hideTip() { if (bubble) bubble.classList.remove('gx-tip-show'); }
+  document.addEventListener('mouseover', function (e) {
+    var el = e.target.closest && e.target.closest('.gx-tooltip[data-tooltip]');
+    if (el) showTip(el);
+  });
+  document.addEventListener('mouseout', function (e) {
+    var el = e.target.closest && e.target.closest('.gx-tooltip[data-tooltip]');
+    if (el) hideTip();
+  });
+  document.addEventListener('scroll', hideTip, true);
+})();
+</script>
+
+<!-- ══════════════ gx-chat: 지표 테이블 검색·조회 챗봇 ══════════════ -->
+<button class="gx-chat-fab" id="gxChatFab" title="지표 테이블 검색·조회 챗봇 열기">💬</button>
+<div class="gx-chat-panel" id="gxChatPanel">
+  <div class="gx-chat-header">
+    <div>
+      지표 테이블 검색·조회 챗봇
+      <div class="gx-chat-header-sub">이 페이지 테이블의 실제 값/정의로 답변합니다</div>
+    </div>
+    <button class="gx-chat-close" id="gxChatClose" aria-label="닫기">&times;</button>
+  </div>
+  <div class="gx-chat-body" id="gxChatBody"></div>
+  <div class="gx-chat-input-row">
+    <input type="text" id="gxChatInput" placeholder="예: MRR Total 2025년 3분기">
+    <button id="gxChatSend">전송</button>
+  </div>
+</div>
+
+<script>
+/* =============================================================
+ *  gx-chat  —  지표 테이블(indtable) 페이지 규칙 기반 검색·조회 챗봇
+ *  - 이 페이지 상단 <script>에 이미 선언된 전역 QCOLS/MCOLS/t1~t5/T1_TIP~T5_TIP 를 그대로 재사용
+ *  - 행(지표)명 검색 → 분기/월 조회, 최신값, 최댓값·최솟값, 정의(tipMap) 응답
+ * ============================================================= */
+(function () {
+
+  function normalize(s) {
+    return String(s || '').toLowerCase().replace(/[\s\-_/()%,·]/g, '');
+  }
+
+  var TABLES = (typeof t1 !== 'undefined') ? [
+    { key: 'growth',        name: '재무 (성장)', cols: QCOLS, rows: t1, tip: T1_TIP },
+    { key: 'customercount', name: '재무 (고객)', cols: QCOLS, rows: t2, tip: T2_TIP },
+    { key: 'profit',        name: '재무 (수익)', cols: QCOLS, rows: t3, tip: T3_TIP },
+    { key: 'customer',      name: '고객',        cols: MCOLS, rows: t4, tip: T4_TIP },
+    { key: 'product',       name: '상품',        cols: MCOLS, rows: t5, tip: T5_TIP }
+  ] : [];
+
+  function keyFor(y, q) { return y.slice(2) + '-' + q; }
+  function flatKeys(cols) {
+    var out = [];
+    cols.forEach(function (c) { c.q.forEach(function (q) { out.push(keyFor(c.y, q)); }); });
+    return out;
+  }
+  var PERIODS = {};
+  TABLES.forEach(function (t) { PERIODS[t.key] = flatKeys(t.cols); });
+
+  function rowSeries(table, row) {
+    var periods = PERIODS[table.key];
+    var out = {};
+    row.v.forEach(function (val, i) {
+      if (val !== '' && periods[i]) out[periods[i]] = val;
+    });
+    return out;
+  }
+
+  function findRowMatches(rawQuestion) {
+    var n = normalize(rawQuestion);
+    var matches = [];
+    TABLES.forEach(function (t) {
+      t.rows.forEach(function (row) {
+        var rn = normalize(row.label);
+        if (rn && n.indexOf(rn) !== -1) matches.push({ table: t, row: row });
+      });
+    });
+    matches.sort(function (a, b) { return normalize(b.row.label).length - normalize(a.row.label).length; });
+    /* MRR/고객수 키워드로 동명 행(Total/New/Churn 등)의 테이블 모호성 해소 */
+    if (matches.length > 1) {
+      if (n.indexOf('mrr') !== -1) {
+        var f = matches.filter(function (m) { return m.table.key === 'growth'; });
+        if (f.length) matches = f;
+      } else if (n.indexOf('고객수') !== -1 || n.indexOf('customercount') !== -1) {
+        var f2 = matches.filter(function (m) { return m.table.key === 'customercount'; });
+        if (f2.length) matches = f2;
+      }
+    }
+    return matches;
+  }
+
+  function detectPeriod(q) {
+    var m = q.match(/(\d{2,4})\s*년?\s*[.\-]?\s*([1-4])\s*[qQ분기]/);
+    var year, quarter;
+    if (m) { year = m[1]; quarter = m[2]; }
+    else {
+      m = q.match(/([1-4])\s*[qQ]\s*['.\-]?\s*(\d{2,4})/);
+      if (m) { quarter = m[1]; year = m[2]; }
+    }
+    if (year && quarter) {
+      var yy = year.length >= 4 ? year.slice(2) : (year.length === 1 ? ('0' + year) : year);
+      return yy + '-' + quarter + 'Q';
+    }
+    var mm = q.match(/(\d{1,2})\s*월/);
+    if (mm) {
+      var month = mm[1].length === 1 ? '0' + mm[1] : mm[1];
+      var ym = q.match(/(\d{2,4})\s*년/);
+      var yy2 = ym ? (ym[1].length >= 4 ? ym[1].slice(2) : ym[1]) : '24';
+      return yy2 + '-' + month + '월';
+    }
+    return null;
+  }
+
+  function parseNum(s) {
+    if (!s) return null;
+    var v = parseFloat(String(s).replace(/%/g, '').replace(/,/g, ''));
+    return isNaN(v) ? null : v;
+  }
+
+  function maxMinEntry(seriesObj, wantMax) {
+    var best = null, bestP = null;
+    Object.keys(seriesObj).forEach(function (p) {
+      var v = parseNum(seriesObj[p]);
+      if (v === null) return;
+      if (best === null || (wantMax ? v > best : v < best)) { best = v; bestP = p; }
+    });
+    return bestP === null ? null : { period: bestP, value: seriesObj[bestP] };
+  }
+
+  function isDefIntent(q) { return /정의|설명|뜻|의미|이\s*뭐|뭐야|뭔가요|뭔지|무엇/.test(q); }
+  function isMaxIntent(q) { return /최고|최대|가장\s*높|가장\s*큰/.test(q); }
+  function isMinIntent(q) { return /최저|최소|가장\s*낮|가장\s*작/.test(q); }
+  function isGreeting(q) { return /^(안녕|hi|hello|헬로|도움|help|뭐.*할.*수|무엇을.*할)/i.test(q.trim()); }
+
+  var HELP_MSG = '안녕하세요! 이 페이지(지표 테이블)의 실제 표에 있는 값으로 답변하는 챗봇이에요.\n이렇게 물어봐 주세요:\n• MRR Total 2025년 3분기\n• 고객수 New 얼마야?\n• Rule of 40이 뭐야?\n• 재구독율 최고치는?';
+  var FALLBACK_MSG = '죄송해요, 해당 지표(행)를 표에서 찾지 못했어요. 이렇게 물어봐 주세요:\n• "매출총계 2024년 4분기" (지표+기간)\n• "영업이익 얼마야?" (지표 → 최신값)\n• "Net Promoter Score가 뭐야?" (정의)\n• "% 매출총이익 최고치는?" (최댓값)';
+
+  function answer(q) {
+    if (isGreeting(q)) return HELP_MSG;
+    if (!TABLES.length) return FALLBACK_MSG;
+
+    var matches = findRowMatches(q);
+    if (!matches.length) return FALLBACK_MSG;
+
+    if (isDefIntent(q)) {
+      return matches.slice(0, 3).map(function (m) {
+        var tip = m.table.tip[m.row.label];
+        return '[' + m.table.name + '] ' + m.row.label + ': ' + (tip || '(정의 정보 없음)');
+      }).join('\n');
+    }
+
+    var period = detectPeriod(q);
+    var wantMax = isMaxIntent(q), wantMin = isMinIntent(q);
+
+    var lines = matches.slice(0, 3).map(function (m) {
+      var series = rowSeries(m.table, m.row);
+      var label = '[' + m.table.name + '] ' + m.row.label;
+
+      if (wantMax || wantMin) {
+        var ext = maxMinEntry(series, wantMax);
+        if (!ext) return label + ': 표시된 값이 없어요.';
+        return label + '의 ' + (wantMax ? '최고치는 ' : '최저치는 ') + ext.period + ' ' + ext.value;
+      }
+      if (period && series[period] !== undefined) {
+        return label + ' (' + period + '): ' + series[period];
+      }
+
+      var periodsOrder = PERIODS[m.table.key];
+      var latestVal = null, latestP = null;
+      for (var i = periodsOrder.length - 1; i >= 0; i--) {
+        if (series[periodsOrder[i]] !== undefined) { latestVal = series[periodsOrder[i]]; latestP = periodsOrder[i]; break; }
+      }
+      if (latestVal === null) return label + ': 표시된 값이 없어요.';
+      if (period) return label + '는 ' + period + ' 값이 없어요. 최신 값(' + latestP + '): ' + latestVal;
+      return label + ' 최신 값(' + latestP + '): ' + latestVal;
+    });
+    return lines.join('\n');
+  }
+
+  /* ── UI 연결 ── */
+  var fab = document.getElementById('gxChatFab');
+  var panel = document.getElementById('gxChatPanel');
+  var closeBtn = document.getElementById('gxChatClose');
+  var body = document.getElementById('gxChatBody');
+  var input = document.getElementById('gxChatInput');
+  var sendBtn = document.getElementById('gxChatSend');
+
+  var SUGGESTIONS = ['MRR Total 2025년 3분기', '고객수 New 얼마야?', 'Rule of 40이 뭐야?', '재구독율 최고치는?'];
+
+  function addMsg(text, who) {
+    var div = document.createElement('div');
+    div.className = 'gx-chat-msg ' + who;
+    div.textContent = text;
+    body.appendChild(div);
+    body.scrollTop = body.scrollHeight;
+    return div;
+  }
+
+  function addSuggestions() {
+    var wrap = document.createElement('div');
+    wrap.className = 'gx-chat-suggest';
+    SUGGESTIONS.forEach(function (s) {
+      var b = document.createElement('button');
+      b.className = 'gx-chat-suggest-btn';
+      b.type = 'button';
+      b.textContent = s;
+      b.addEventListener('click', function () { handleSend(s); });
+      wrap.appendChild(b);
+    });
+    body.appendChild(wrap);
+    body.scrollTop = body.scrollHeight;
+  }
+
+  function handleSend(text) {
+    var q = (typeof text === 'string' ? text : input.value).trim();
+    if (!q) return;
+    addMsg(q, 'user');
+    input.value = '';
+    setTimeout(function () { addMsg(answer(q), 'bot'); }, 150);
+  }
+
+  var opened = false;
+  fab.addEventListener('click', function () {
+    opened = !opened;
+    panel.classList.toggle('gx-chat-open', opened);
+    if (opened && !body.dataset.inited) {
+      body.dataset.inited = '1';
+      addMsg(HELP_MSG, 'bot');
+      addSuggestions();
+    }
+    if (opened) input.focus();
+  });
+  closeBtn.addEventListener('click', function () {
+    opened = false;
+    panel.classList.remove('gx-chat-open');
+  });
+  sendBtn.addEventListener('click', function () { handleSend(); });
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') handleSend();
+  });
+})();
 </script>
 </body>
 </html>

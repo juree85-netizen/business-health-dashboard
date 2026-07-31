@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>사업건전성 대시보드 추진 배경 및 목적 — 사업팀 안내</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+    background: #f5f6fa;
+    color: #1a1a2e;
+    padding: 40px 24px;
+  }
+  .container { max-width: 860px; margin: 0 auto; }
+
+  .doc-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 6px;
+  }
+  .doc-subtitle {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 32px;
+  }
+
+  /* 트리 */
+  .tree-box {
+    background: #1e1e2e;
+    color: #cdd6f4;
+    border-radius: 10px;
+    padding: 24px 28px;
+    font-family: 'Consolas', 'D2Coding', monospace;
+    font-size: 14px;
+    line-height: 2;
+    margin-bottom: 36px;
+  }
+  .tree-box .tree-title {
+    color: #89b4fa;
+    font-weight: 700;
+    margin-bottom: 8px;
+    font-size: 13px;
+    letter-spacing: 0.05em;
+  }
+  .tree-why   { color: #f38ba8; font-weight: 600; }
+  .tree-what  { color: #a6e3a1; font-weight: 600; }
+  .tree-how   { color: #fab387; font-weight: 600; }
+  .tree-leaf  { color: #cdd6f4; }
+  .tree-line  { color: #6c7086; }
+
+  /* 섹션 */
+  .section {
+    background: #fff;
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .section-label {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+  .label-why  { background: #fde8ec; color: #c0392b; }
+  .label-what { background: #e8f8ee; color: #27ae60; }
+  .label-how  { background: #fef3e8; color: #d35400; }
+
+  .sub-heading {
+    font-size: 14px;
+    font-weight: 700;
+    color: #555;
+    margin: 24px 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .sub-heading:first-of-type { margin-top: 0; }
+  .sub-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px; height: 22px;
+    background: #e8eaf6;
+    color: #3949ab;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  p.body-text {
+    font-size: 14px;
+    line-height: 1.9;
+    color: #333;
+    margin-bottom: 10px;
+  }
+
+  /* 표 */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin-top: 4px;
+  }
+  th {
+    background: #f0f2f8;
+    color: #555;
+    font-weight: 600;
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 2px solid #dde2f0;
+  }
+  td {
+    padding: 11px 14px;
+    border-bottom: 1px solid #eee;
+    vertical-align: top;
+    line-height: 1.7;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #fafbff; }
+  .col-label {
+    font-weight: 600;
+    color: #3949ab;
+    white-space: nowrap;
+    width: 90px;
+  }
+  .col-num {
+    font-weight: 700;
+    color: #3949ab;
+    width: 40px;
+    text-align: center;
+  }
+
+  /* 인용 박스 */
+  .quote-box {
+    background: #f8f9ff;
+    border-left: 4px solid #3949ab;
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    font-size: 14px;
+    line-height: 1.8;
+    color: #2c3e50;
+    margin-top: 4px;
+  }
+  .quote-box strong { color: #3949ab; }
+
+  /* 안내 박스 (권한 신청) */
+  .notice-box {
+    background: #fffaf0;
+    border: 1px solid #f5e3c8;
+    border-radius: 8px;
+    padding: 16px 20px;
+    font-size: 13px;
+    line-height: 1.8;
+    color: #7a5c1e;
+    margin-top: 16px;
+  }
+  .notice-box strong { color: #b8860b; }
+
+  /* 태그 */
+  .tag {
+    display: inline-block;
+    background: #eef0fb;
+    color: #3949ab;
+    border-radius: 4px;
+    padding: 1px 7px;
+    font-size: 12px;
+    font-weight: 600;
+    margin: 2px 2px 2px 0;
+  }
+
+  /* 5대 영역 카드 */
+  .area-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px;
+    margin-top: 4px;
+  }
+  .area-card {
+    background: #f8f9ff;
+    border: 1px solid #e4e7f8;
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .area-card .area-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #3949ab;
+    margin-bottom: 4px;
+  }
+  .area-card .area-ex {
+    font-size: 12px;
+    color: #666;
+    line-height: 1.6;
+  }
+
+  .schedule-row td:first-child {
+    white-space: nowrap;
+    font-weight: 600;
+    color: #d35400;
+    width: 90px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="doc-title">사업건전성 대시보드<br>추진 배경 및 목적</div>
+  <div class="doc-subtitle">솔루션사업부 사업팀 안내 · 보고용</div>
+
+  <!-- 전체 구조 트리 -->
+  <div class="tree-box">
+    <div class="tree-title">▸ 전체 구조</div>
+    <div>
+      <span class="tree-line">├── </span><span class="tree-why">WHY</span><span class="tree-leaf">  — 왜 필요했는가</span><br>
+      <span class="tree-line">│   ├── </span><span class="tree-leaf">1. 재무지표만으로는 놓치는 것들</span><br>
+      <span class="tree-line">│   ├── </span><span class="tree-leaf">2. 흩어진 데이터, 반복되는 수작업</span><br>
+      <span class="tree-line">│   └── </span><span class="tree-leaf">3. SaaS다운 관리 기준의 부재</span><br>
+      <span class="tree-line">├── </span><span class="tree-what">WHAT</span><span class="tree-leaf"> — 무엇을 담았는가</span><br>
+      <span class="tree-line">│   ├── </span><span class="tree-leaf">4. 분석 대상 및 5개 영역</span><br>
+      <span class="tree-line">│   └── </span><span class="tree-leaf">5. 지표 확장 계획 (26개 → 64개)</span><br>
+      <span class="tree-line">└── </span><span class="tree-how">HOW</span><span class="tree-leaf">  — 어떻게 확인하는가</span><br>
+      <span class="tree-line">    ├── </span><span class="tree-leaf">6. 데이터 업데이트 주기</span><br>
+      <span class="tree-line">    └── </span><span class="tree-leaf">7. 접속 안내</span>
+    </div>
+  </div>
+
+  <!-- WHY -->
+  <div class="section">
+    <div class="section-label label-why">WHY — 왜 필요했는가</div>
+
+    <div class="sub-heading"><span class="sub-num">1</span> 재무지표만으로는 놓치는 것들</div>
+    <p class="body-text">매출·영업이익 중심 관리로는 장기적인 사업건전성까지 판단하기 어렵습니다. 지금 잘 되고 있어 보여도 성장·고객·효율 관점에서는 위험 신호가 먼저 나타날 수 있습니다.</p>
+
+    <div class="sub-heading"><span class="sub-num">2</span> 흩어진 데이터, 반복되는 수작업</div>
+    <p class="body-text">지표가 부서·시스템별로 흩어져 있어, 매번 엑셀과 워드를 붙여가며 현황을 취합해야 했습니다. 그만큼 현황 파악이 늦어지고 추세를 놓치기 쉬웠습니다.</p>
+
+    <div class="sub-heading"><span class="sub-num">3</span> SaaS다운 관리 기준의 부재</div>
+    <p class="body-text">SI 사업 중심으로 쌓아온 관리 경험만으로는 구독형(SaaS) 사업 특유의 지표 — ARR, Rule of 40, NPS 같은 — 를 챙기기 어렵습니다. 대외 사업 확장에 대응할 선진 관리체계가 필요했습니다.</p>
+
+    <div class="quote-box" style="margin-top:20px">
+      사업건전성 대시보드는 이 질문들에 답하기 위해 만들어졌습니다.
+      엑셀·워드로 흩어져 있던 지표를 한 곳에 모아, 사업팀이 <strong>매월, 클릭 몇 번</strong>으로
+      우리 상품의 현재 상태를 확인할 수 있게 하는 것이 목표입니다.
+    </div>
+  </div>
+
+  <!-- WHAT -->
+  <div class="section">
+    <div class="section-label label-what">WHAT — 무엇을 담았는가</div>
+
+    <div class="sub-heading"><span class="sub-num">4</span> 분석 대상 및 5개 영역</div>
+    <p class="body-text">자사·글로벌 솔루션 12종을 5개 영역으로 나누어 분석합니다.</p>
+    <div class="area-grid">
+      <div class="area-card">
+        <div class="area-name">성장</div>
+        <div class="area-ex">ARR · ACV · Rule of 40 · Net Sales Efficiency</div>
+      </div>
+      <div class="area-card">
+        <div class="area-name">고객</div>
+        <div class="area-ex">고객상태별 매출 · NPS · VoC · MAU</div>
+      </div>
+      <div class="area-card">
+        <div class="area-name">효율/수익</div>
+        <div class="area-ex">CAC · LTV · CAC Payback Period</div>
+      </div>
+      <div class="area-card">
+        <div class="area-name">시장</div>
+        <div class="area-ex">시장 CAGR · 시장점유율 · R&amp;D 비율</div>
+      </div>
+      <div class="area-card">
+        <div class="area-name">영업</div>
+        <div class="area-ex">BO 전망/건수 · Win·Hit·Conversion Ratio</div>
+      </div>
+    </div>
+
+    <div class="sub-heading"><span class="sub-num">5</span> 지표 확장 계획</div>
+    <p class="body-text">
+      '25년 26개였던 지표가 '26년에는 64개까지 늘어납니다.
+      <span class="tag">Knox 시리즈 등 자사 SaaS 7종</span>
+      <span class="tag">EMS(On-prem)</span>
+      <span class="tag">o9·Workday·Salesforce(Global SaaS)</span>
+      순으로 상품 특성에 맞는 지표를 넓혀가고 있습니다.
+    </p>
+  </div>
+
+  <!-- HOW -->
+  <div class="section">
+    <div class="section-label label-how">HOW — 어떻게 확인하는가</div>
+
+    <div class="sub-heading"><span class="sub-num">6</span> 데이터 업데이트 주기</div>
+    <table>
+      <thead><tr><th style="width:180px">영역</th><th>업데이트 주기</th></tr></thead>
+      <tbody class="schedule-row">
+        <tr><td>효율/수익 지표</td><td>월 2회 (10일 · 23일)</td></tr>
+        <tr><td>고객/상품 · 영업 · 파트너 지표</td><td>월 1회 (10일)</td></tr>
+        <tr><td>시장 지표</td><td>연 1회 (11월)</td></tr>
+      </tbody>
+    </table>
+
+    <div class="sub-heading"><span class="sub-num">7</span> 접속 안내</div>
+    <p class="body-text">최신 화면은 문서허브에서 확인하실 수 있으며, 궁금하신 점은 담당자(기획팀)에게 문의해 주세요.</p>
+    <div class="notice-box">
+      <strong>접속 권한 신청 안내는 별도로 드릴 예정입니다.</strong><br>
+      대시보드 접속 계정·권한 신청 절차는 준비되는 대로 사업팀에 추가 공지하겠습니다.
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

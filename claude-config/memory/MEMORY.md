@@ -28,5 +28,4 @@
 - [두 세션 역할 분담 규칙](feedback_workflow_two_sessions.md) — 루나(AWS)=허브 편집·push / 회사 Windows=DRM·Word. 사내 자료→허브는 핸드오프
 - [사내 GitLab 와이어프레임 미러링 대상](reference_sds_gitlab_biz_health.md) — code.sdsdev.co.kr/.../biz-health-legacy/wireframe, AWS 세션 접근 불가 확인
 - [html/↔docs-hub 이중관리 및 자동동기화 훅](project_wireframe_docshub_sync.md) — .githooks/pre-commit 추가, Windows 세션은 core.hooksPath 설정 미확인
-
 - [서울형키즈카페 빈자리 알림 시스템](project_kidscafe_monitor.md) — 9개구/연나이2세/주말/오전제외, 하루3회 이메일. private repo: kidscafe-monitor

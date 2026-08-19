@@ -5,6 +5,7 @@ metadata:
   node_type: memory
   type: feedback
   originSessionId: eda9367b-03fe-4759-ad42-82e5aeb23359
+  modified: 2026-08-19T06:38:59.378Z
 ---
 
 `business-health-dashboard`는 **public** GitHub 저장소다. 사업건전성 대시보드 관련 산출물(와이어프레임, 개발요청서, 지표 문서 등) 외에 **개인적인 내용이나 실제 재무 데이터가 담긴 폴더/스크립트는 절대 이 저장소에 커밋하지 않는다.**
@@ -14,5 +15,7 @@ metadata:
 **How to apply:**
 - 새로운 개인용 자동화(부동산 모니터링, 일기 발송 등)를 만들 때는 **처음부터** 별도 private 저장소를 쓰거나, `/home/ubuntu/.gitignore`에 해당 폴더를 등록해서 `git add -A`류 명령에도 안 딸려가게 막는다. ([[feedback_git_snapshot]] 스냅샷 저장 루틴을 실행하기 전에 반드시 확인)
 - 커밋 전에 `git status`로 의도치 않은 폴더가 스테이징되지 않았는지 확인하는 습관을 유지한다.
-- 현재 `.gitignore`에 등록된 개인/비공개 폴더: `diary/`, `realestate_monitor/`, `selleyo/`, `selleyo-hub/`, `selleyo-app/`, `vera-hub/`.
+- 현재 `.gitignore`에 등록된 개인/비공개 폴더·파일: `diary/`, `realestate_monitor/`, `selleyo/`, `selleyo-hub/`, `selleyo-app/`, `vera-hub/`, `claude-config/memory/project_esg_transfer.md`.
 - git 히스토리 재작성(force-push)이 필요한 경우, 반드시 사전에 ① 다른 clone 존재 여부 확인 ② `.git` 백업 ③ 재작성 후 working tree 파일이 실제로 남아있는지(특히 cron 등 실행 중인 스크립트) 검증까지 세트로 수행한다.
+
+**2번째 사고 (2026-08-19):** `claude-config/` 동기화 루틴([[feedback_claude_config_sync]])이 폴더 단위가 아니라 메모리 파일 단위(`*.md` 블랭킷 cp)로 동작하기 때문에 위 `.gitignore` 폴더 목록으로는 못 막았던 케이스. `project_esg_transfer.md`(개인 부서이동 협상, 동료 실명 포함)가 2커밋에 걸쳐 `business-health-dashboard`(public)에 노출됨 → git-filter-repo로 히스토리 전체 제거 + force-push, 내용은 `vera-hub`(private) `memory/`로 이관. 포크/스타/워처 0건으로 외부 열람 흔적 없음. 교훈: 개인/민감 메모리는 폴더뿐 아니라 **개별 파일 단위**로도 블랭킷 sync 대상에서 빠질 수 있는지 매번 점검할 것 — 새 project/feedback 메모리를 쓸 때 "이거 public repo에 가도 되는 내용인가?"를 먼저 판단. [[project_esg_transfer]] 참고.

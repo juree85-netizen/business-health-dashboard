@@ -57,7 +57,7 @@ description: 일기 전담 에이전트. 대화로 하루 얘기를 들으면 �
 - **저장 경로**: `/home/ubuntu/diary/YYYY-MM-DD.txt`
 - **발송 스크립트**: `/home/ubuntu/diary/send_diary_mail.py`
 - **인증정보**: `/home/ubuntu/diary/.env` (GMAIL_ADDRESS, GMAIL_APP_PASSWORD — 호피의 Gmail 발신 계정 재사용, RECIPIENT)
-- **수신 이메일**: blessingstoyou@naver.com (사용자가 새로 만든 계정)
+- **수신 이메일**: juree85@naver.com (2026-07-13부터 변경, 기존 blessingstoyou@naver.com에서 전환)
 - **발신 방식**: Gmail SMTP (smtp.gmail.com:587, STARTTLS)
 
 ## 작업 원칙

@@ -10,6 +10,7 @@
 - [지표산출 로직 (기존) — 효율/수익 핵심 산식](project_indicator_definitions.md) — Row 1·3·4·5·6 산식 (Sales Efficiency/ARPA/FTE/Margin 등)
 - [지표산출 로직 (신규) — Finance/Sales/CS/Market 51개](project_indicator_definitions_new.md) — DB 테이블·컬럼·적용 로직 확정본 (l_sap.orderlist/bo_opportunity/solution_if_voc)
 - [문서허브 고정 URL](reference_docs_hub_url.md) — http://13.49.177.238:8090 (8090포트 nginx, /html/→/home/ubuntu/, /files/→/home/ubuntu/files/ 직접 서빙)
+- [베라허브 고정 URL](reference_vera_hub_url.md) — http://13.49.177.238:8091 (8091포트 nginx, 저장소는 private 유지, dist/만 배포)
 - [스냅샷 저장 시 GitHub 동시 푸시](feedback_git_snapshot.md) — 커밋/태그 저장 시 반드시 GitHub push까지 함께 실행
 - [작업 시작 트리거 및 호칭](user_preferences.md) — 사용자가 "루나"라고 부르면 메모리/산출물파일/git스냅샷 전체를 표로 보여주고 업무 시작
 - [다음 세션 우선 작업](project_next_task.md) — FabriX 메일 발송 확인 + 셀레요 의사결정 3건 대기 (v4.24.2/selleyo-v1.6 기준 2026-06-16)
@@ -20,10 +21,12 @@
 - [작업 히스토리 서브에이전트 운영 규칙](feedback_work_history_agent.md) — 세션 시작/종료 시 general-purpose 서브에이전트로 work_history.md 관리
 - [베라(Vera) 에이전트](../../../.claude/agents/vera.md) — 업무 정체성 정의 전담 에이전트. 강점·역할·커리어·포지셔닝 4축으로 프로필 정리
 - [호피(시장가격 PM) 에이전트](../../../.claude/agents/realestate-pm.md) — 서울 역세권 아파트 실거래가 모니터링·비교·매일 메일 발송 자동화 담당
-- [다피(일기 PM) 에이전트](../../../.claude/agents/diary-pm.md) — 대화로 하루 정리→원본 목소리 유지→확인 후 이메일 발송(blessingstoyou@naver.com), 네이버 블로그 수동 복붙용
+- [다피(일기 PM) 에이전트](../../../.claude/agents/diary-pm.md) — 대화로 하루 정리→원본 목소리 유지→확인 후 이메일 발송(juree85@naver.com, 2026-07-13부터), 네이버 블로그 수동 복붙용
 - [public 저장소 개인정보 분리 원칙](feedback_public_repo_data_separation.md) — 2026-07-10 realestate_monitor 재무정보 노출 사고 이후 확립, 개인용 폴더는 .gitignore 또는 별도 private repo로
 - [바이너리 파일 전송 제약 및 해결책](reference_skill_file_transfer.md) — SSH/GitHub 업로드 모두 막혔을 때 base64 임시 해결책 + 미해결 근본 원인 (2026-06-25)
 - [claude-config/ 동기화 규칙](feedback_claude_config_sync.md) — 메모리·에이전트·커맨드 변경 시 claude-config/ 복사 후 GitHub push 필수
 - [두 세션 역할 분담 규칙](feedback_workflow_two_sessions.md) — 루나(AWS)=허브 편집·push / 회사 Windows=DRM·Word. 사내 자료→허브는 핸드오프
 - [사내 GitLab 와이어프레임 미러링 대상](reference_sds_gitlab_biz_health.md) — code.sdsdev.co.kr/.../biz-health-legacy/wireframe, AWS 세션 접근 불가 확인
 - [html/↔docs-hub 이중관리 및 자동동기화 훅](project_wireframe_docshub_sync.md) — .githooks/pre-commit 추가, Windows 세션은 core.hooksPath 설정 미확인
+
+- [서울형키즈카페 빈자리 알림 시스템](project_kidscafe_monitor.md) — 9개구/연나이2세/주말/오전제외, 하루3회 이메일. private repo: kidscafe-monitor

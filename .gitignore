@@ -27,3 +27,6 @@ diary/
 realestate_monitor/
 kidscafe_monitor/
 claude-config/memory/project_esg_transfer.md
+
+# personal (gitignored — 개인용, public repo 유출 금지)
+personal/

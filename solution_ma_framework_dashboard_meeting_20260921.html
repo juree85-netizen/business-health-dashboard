@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M&A 검토 프레임워크 및 사업건전성 대시보드 협의 회의록 ('26.09.21)</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: '바탕체', 'Batang', 'UnBatang', 'Nanum Myeongjo', Georgia, serif;
+    background: #f0f0f0;
+    color: #111;
+    font-size: 13px;
+    line-height: 1.85;
+  }
+  .page-header {
+    background: #1a3a5c;
+    color: #fff;
+    padding: 18px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+  .page-header .title { font-size: 15px; font-weight: bold; letter-spacing: 0.5px; }
+  .page-header .meta { font-size: 11px; opacity: 0.8; }
+  .doc-page {
+    width: 794px;
+    min-height: 1123px;
+    background: #fff;
+    margin: 28px auto;
+    padding: 60px 70px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+    position: relative;
+  }
+  .doc-page:last-child { margin-bottom: 40px; }
+
+  .report-title {
+    text-align: center;
+    border-top: 3px solid #1a3a5c;
+    border-bottom: 3px solid #1a3a5c;
+    padding: 20px 0 18px;
+    margin-bottom: 28px;
+  }
+  .report-title h1 {
+    font-size: 19px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .report-title .subtitle {
+    font-size: 13px;
+    color: #555;
+    letter-spacing: 0.5px;
+  }
+
+  .meta-box {
+    border: 1px solid #ccc;
+    background: #f9f9f9;
+    padding: 12px 18px;
+    margin-bottom: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 6px 0;
+    font-size: 12px;
+  }
+  .meta-box .item { display: flex; gap: 8px; }
+  .meta-box .label { color: #666; min-width: 60px; }
+  .meta-box .value { font-weight: bold; color: #1a3a5c; }
+
+  .section { margin-bottom: 28px; }
+  .section-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: #1a3a5c;
+    border-left: 4px solid #1a3a5c;
+    padding-left: 10px;
+    margin-bottom: 12px;
+    letter-spacing: 0.3px;
+  }
+  .section-title .num {
+    background: #1a3a5c;
+    color: #fff;
+    padding: 1px 7px;
+    margin-right: 8px;
+    font-size: 11px;
+    border-radius: 2px;
+  }
+
+  .sub-title {
+    font-size: 13px;
+    font-weight: bold;
+    margin: 14px 0 6px;
+    color: #333;
+    padding-left: 2px;
+  }
+  .sub-title::before { content: "▶ "; color: #1a3a5c; font-size: 10px; }
+
+  ul.sq { list-style: none; padding-left: 14px; }
+  ul.sq li { margin-bottom: 5px; }
+  ul.sq li::before { content: "□ "; color: #1a3a5c; font-size: 11px; }
+
+  ul.dash { list-style: none; padding-left: 18px; }
+  ul.dash li { margin-bottom: 4px; }
+  ul.dash li::before { content: "- "; color: #555; }
+
+  .hl { color: #c00; font-weight: bold; }
+  .bl { color: #1a3a5c; font-weight: bold; }
+  .gr { color: #2a7a2a; font-weight: bold; }
+
+  table.t {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+    font-size: 12px;
+  }
+  table.t th {
+    background: #1a3a5c;
+    color: #fff;
+    padding: 7px 10px;
+    text-align: center;
+    border: 1px solid #1a3a5c;
+    font-weight: bold;
+  }
+  table.t td {
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    vertical-align: top;
+  }
+  table.t tr:nth-child(even) td { background: #f5f7fa; }
+  table.t .num-cell { text-align: right; font-family: 'Courier New', monospace; }
+  table.t .center { text-align: center; }
+
+  .insight-box {
+    border: 1px solid #1a3a5c;
+    background: #eef3f9;
+    padding: 12px 16px;
+    margin: 14px 0;
+    border-radius: 2px;
+  }
+  .insight-box .insight-title {
+    font-weight: bold;
+    color: #1a3a5c;
+    margin-bottom: 6px;
+    font-size: 12px;
+  }
+
+  .action-box {
+    border: 1px solid #2a7a2a;
+    background: #f5fff5;
+    padding: 12px 16px;
+    margin: 10px 0;
+    border-radius: 2px;
+  }
+  .action-box .action-title {
+    font-weight: bold;
+    color: #2a7a2a;
+    margin-bottom: 6px;
+    font-size: 12px;
+  }
+
+  .fn {
+    font-size: 11px;
+    color: #666;
+    border-top: 1px solid #ddd;
+    margin-top: 20px;
+    padding-top: 8px;
+  }
+  .fn p { margin-bottom: 3px; }
+
+  hr.sec { border: none; border-top: 1px solid #ddd; margin: 20px 0; }
+
+  .page-num {
+    text-align: center;
+    font-size: 11px;
+    color: #999;
+    position: absolute;
+    bottom: 24px;
+    left: 0; right: 0;
+  }
+
+  .summary-banner {
+    background: linear-gradient(135deg, #1a3a5c 0%, #2a5a8c 100%);
+    color: #fff;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    border-radius: 2px;
+  }
+  .summary-banner .banner-title { font-size: 13px; font-weight: bold; margin-bottom: 8px; }
+  .summary-banner ul { padding-left: 16px; font-size: 12px; }
+  .summary-banner ul li { margin-bottom: 3px; list-style: disc; }
+
+  .doc-end {
+    text-align: right;
+    font-size: 13px;
+    letter-spacing: 6px;
+    margin-top: 20px;
+  }
+
+  @media print {
+    .page-header { display: none; }
+    .doc-page { box-shadow: none; margin: 0; }
+  }
+</style>
+
+</head>
+<body>
+
+<div class="page-header">
+  <div class="title">M&amp;A 검토 프레임워크 및 사업건전성 대시보드 협의 회의록</div>
+  <div class="meta">'26.09.21 | 솔루션전략그룹</div>
+</div>
+
+<!-- PAGE 1 -->
+<div class="doc-page">
+  <div class="report-title">
+    <h1>M&amp;A 검토 프레임워크 및 사업건전성 대시보드 협의 회의록</h1>
+    <div class="subtitle">'26.09.21(월) 11:02~11:24 · 내부검토용</div>
+  </div>
+
+  <div class="meta-box">
+    <div class="item"><span class="label">일시</span><span class="value">'26.9.21(월) 11:02~11:24</span></div>
+    <div class="item"><span class="label">참석</span><span class="value">솔루션전략그룹(솔루션)</span></div>
+    <div class="item"><span class="label">안건</span><span class="value">M&amp;A 프레임워크 · 대시보드 개발</span></div>
+  </div>
+
+  <div class="summary-banner">
+    <div class="banner-title">회의 결과 요약</div>
+    <ul>
+      <li>M&amp;A 검토를 <b>①후보 풀 관리 ②스크리닝 체크리스트 ③시너지 분석 ④실사(DD)</b> 4개 컴포넌트의 프레임워크로 정리하고, <b>PPT 1장 오버뷰</b>로 팀장님께 방향성 먼저 공유하기로 함</li>
+      <li>인터뷰 결과는 체크리스트·R&amp;R에 반영 중이며, Morgan Stanley에 <b>표준 DD 자료·시너지 모델(P×Q) 추가 요청</b> 및 작성본 리뷰 요청 검토</li>
+      <li>사업건전성 대시보드는 GDC 비전담 운영으로 <b>계획 대비 3~4개월 지연</b> — 삭감된 외주 예산 대신 <b>GDC 1억 확보</b>하기로 함</li>
+      <li>팀장님 보고 전, 내부 확정 미팅을 <b>9/22(화) 또는 9/28~30 중</b> 진행</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="num">1</span>M&amp;A 검토 프레임워크 방향</div>
+
+    <div class="sub-title">현황 및 추가 요청 검토</div>
+    <ul class="sq">
+      <li>외부 전문가 인터뷰는 정리 완료 상태 — 인터뷰 내용을 <span class="bl">M&amp;A 체크리스트 및 사업부 R&amp;R</span>에 반영하기 위해 추가 반영 사항 검토 시간이 필요</li>
+      <li>이해도 측면에서 신영증권, 자료 제공 가능성 측면에서 <span class="bl">Morgan Stanley</span>가 유효 — 해당 기관에 추가 자료 요청 제안</li>
+    </ul>
+
+    <table class="t">
+      <tr>
+        <th style="width:22%">요청 후보</th>
+        <th style="width:50%">내용</th>
+        <th style="width:28%">비고</th>
+      </tr>
+      <tr>
+        <td class="center">표준 DD 자료</td>
+        <td>DD 3종(재무·법률·CDD 등) + <span class="bl">테크니컬 DD</span> 중 공유 가능한 표준 양식</td>
+        <td>DD 종류 확정 필요(*1)</td>
+      </tr>
+      <tr>
+        <td class="center">시너지 모델</td>
+        <td>시너지 산출 표준화 모델 — 인터뷰 중 <span class="bl">P(가격)×Q(물량)</span> 기반, 코스트·매출 시너지 언급</td>
+        <td>시너지가 M&amp;A 판단의 핵심이라는 인식</td>
+      </tr>
+      <tr>
+        <td class="center">작성본 리뷰</td>
+        <td>당사 작성 체크리스트·R&amp;R 자료에 대한 자문/리뷰</td>
+        <td>Morgan Stanley 가능 시</td>
+      </tr>
+    </table>
+
+    <div class="sub-title">프레임워크 4대 컴포넌트</div>
+    <table class="t">
+      <tr>
+        <th style="width:5%">No.</th>
+        <th style="width:23%">컴포넌트</th>
+        <th style="width:44%">내용</th>
+        <th style="width:28%">준비 상태</th>
+      </tr>
+      <tr>
+        <td class="center">1</td>
+        <td><b>후보 풀 관리</b></td>
+        <td>타겟 기업(잠재 후보군)을 어떻게 관리할 것인가. 후보별 2~3페이지 요약 시트를 주기적으로 업데이트하여 최종 의사결정 지원(*2)</td>
+        <td>향후 수립</td>
+      </tr>
+      <tr>
+        <td class="center">2</td>
+        <td><b>시너지 분석</b></td>
+        <td>후보별 시너지를 어떤 방식으로 산출할 것인가 (Morgan Stanley 모델 참조)</td>
+        <td>자료 요청 후 수립</td>
+      </tr>
+      <tr>
+        <td class="center">3</td>
+        <td><b>스크리닝 체크리스트</b></td>
+        <td>사전 스크리닝용 M&amp;A 체크리스트</td>
+        <td>작성 중 (인터뷰 반영)</td>
+      </tr>
+      <tr>
+        <td class="center">4</td>
+        <td><b>실사(DD) 프레임워크</b></td>
+        <td>실사 단계에서 사업부(솔루션)가 검토할 항목. 통상 컨설팅 펌이 수행하나, <span class="bl">사업부 검토 관점</span>에서 확인할 부분 정의</td>
+        <td>향후 수립 (R&amp;R과 연계)</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="fn">
+    <p>*1 DD 종류(재무·법률·CDD 등)는 Morgan Stanley 표준 자료 확인 후 확정 필요.</p>
+    <p>*2 후보 관리용 요약 시트의 명칭·양식은 향후 확정 필요.</p>
+  </div>
+  <div class="page-num">— 1 —</div>
+</div>
+
+<!-- PAGE 2 -->
+<div class="doc-page">
+
+  <div class="section">
+    <div class="section-title"><span class="num">2</span>팀장님 보고 방식 및 추진 방향</div>
+    <ul class="sq">
+      <li><span class="bl">PPT 1장 오버뷰</span>: 사업부 차원 M&amp;A 검토 프레임워크를 박스 수준의 구조도로 제시 (풀 관리 → 시너지 분석 → 스크리닝 체크리스트 → 실사)</li>
+      <li>보고 흐름: 인터뷰 수행 → 체크리스트·R&amp;R 반영 내용 → 프레임워크 → 현재 준비 범위와 향후 과제 순으로 설명하고, 상세 자료는 <span class="bl">현재까지 작성본</span>으로 공유</li>
+      <li>오버뷰의 구체화 수준은 협의 후 조정 (박스 구조 수준이 기본안)</li>
+      <li>방향성이 넓어 <span class="bl">프레임을 먼저 만들고 단계적으로 진행</span>하되, 급하게 준비하지 않으면서도 늘어지지 않도록 일정을 함께 제시</li>
+      <li>사업건전성 대시보드 일정과 병행 조율 필요</li>
+    </ul>
+
+    <div class="insight-box">
+      <div class="insight-title">▶ 아이디어: 후보 기업 모니터링 에이전트</div>
+      <p style="font-size:12px;">후보 풀 관리와 관련해 1~4개 후보 기업을 대상으로 재무·매출 변동, 주요 이벤트(공시 등)를 상시 모니터링하고 알림을 받는 <b>AI 에이전트</b> 구성 가능성 제기. 프레임워크 확정 후 단계적 검토 대상.</p>
+    </div>
+  </div>
+
+  <hr class="sec">
+
+  <div class="section">
+    <div class="section-title"><span class="num">3</span>사업건전성 대시보드 개발 현황 및 이슈</div>
+
+    <div class="sub-title">이슈 진단</div>
+    <ul class="sq">
+      <li>개발 인력(GDC)이 <span class="hl">전담이 아닌 운영 병행</span> 구조 — 타 급건 발생 시 개발이 중단·후순위로 밀리며, 과거 외주 전담 방식 대비 속도 저하</li>
+      <li>계획 대비 <span class="hl">약 3~4개월 지연</span>: VoC·시장 지표는 마무리, <b>BO 지표는 착수 단계</b>, 효율 등 추가 지표는 후속</li>
+      <li>지연 → 보고 지연 구조가 반복되어 팀장님께는 "GDC로 인한 지연"만 전달되고 있음. 지표 산출·오픈 일정의 <b>가시성 확보</b>가 챌린지 포인트</li>
+      <li>차세대 시스템 전환 이후에는 개편 작업량이 커져, 전담 인력 없이는 <span class="bl">내년 상반기 대응 지연</span> 우려</li>
+      <li>AI 활용 검토 중이나 Tableau/DB 연동 가능한 도구가 AI Pro뿐이고 속도가 느려 도입 확정이 어려움</li>
+    </ul>
+
+    <div class="sub-title">GDC 인력 확보</div>
+    <table class="t">
+      <tr>
+        <th style="width:22%">구분</th>
+        <th>내용</th>
+      </tr>
+      <tr><td class="center">외주 예산</td><td>계획에 반영했던 외주 비용은 <span class="hl">삭감(제외)됨</span></td></tr>
+      <tr><td class="center">GDC 전환</td><td>외주 대신 GDC 전환 요청은 했으나 별도 반영이 되어 있지 않았음 → 이번 회의에서 <span class="bl">GDC 1억 원 규모로 확보</span>하기로 함</td></tr>
+      <tr><td class="center">조율</td><td>관련 그룹장과 협의 필요. 10/1 경영계획 관련 일정 전까지 조율 가능</td></tr>
+    </table>
+
+    <div class="sub-title">정보화 과제 연계 (전사 과제 편승)</div>
+    <ul class="sq">
+      <li>전사 측에서 유사 개발을 추진 중이므로 <span class="bl">정보화 과제로 함께 등록</span>해 전담 GDC를 확보하는 방안을 담당자에게 반복 요청했으나 회신 없음</li>
+      <li>차기 정보화 과제 접수는 10월 초라 이미 상정됐을 가능성이 있으나, 지금이라도 재문의</li>
+      <li>과제 편입 시 <b>오너십 이관 여부</b> 불확실, 연말 조직 개편으로 해당 조직 존속도 불투명 — 다만 과제로 등록해 두면 조직 변경과 무관하게 유지 가능하다는 의견</li>
+    </ul>
+  </div>
+
+  <hr class="sec">
+
+  <div class="section">
+    <div class="section-title"><span class="num">4</span>후속 조치</div>
+    <table class="t">
+      <tr>
+        <th style="width:6%">No.</th>
+        <th style="width:52%">항목</th>
+        <th style="width:20%">담당</th>
+        <th style="width:22%">일정</th>
+      </tr>
+      <tr><td class="center">1</td><td>M&amp;A 프레임워크(4대 컴포넌트) 및 1장 오버뷰 정리, 소요 기간 및 일정 산정</td><td class="center">솔루션</td><td class="center">이번 주 중 일정 회신</td></tr>
+      <tr><td class="center">2</td><td>내부 확정 미팅(프레임워크 · 대시보드 방향 · 일정 얼라인)</td><td class="center">솔루션 / 전략그룹</td><td class="center">9/22(화) 또는 9/28~30</td></tr>
+      <tr><td class="center">3</td><td>Morgan Stanley 추가 자료(표준 DD·시너지 모델) 요청 및 리뷰 요청 검토</td><td class="center">솔루션</td><td class="center">프레임워크 정리 후</td></tr>
+      <tr><td class="center">4</td><td>GDC 1억 원 예산 반영 및 관련 그룹장 협의</td><td class="center">예산 담당 국장</td><td class="center">10/1 이전</td></tr>
+      <tr><td class="center">5</td><td>전사 측 정보화 과제 등록 가능 여부 재문의</td><td class="center">솔루션(+전략그룹)</td><td class="center">즉시</td></tr>
+      <tr><td class="center">6</td><td>팀장님 방향성 보고(오버뷰 + 작성본 공유 세션)</td><td class="center">솔루션 / 전략그룹</td><td class="center">항목 2 이후</td></tr>
+    </table>
+    <div class="action-box">
+      <div class="action-title">▶ 요청 사항</div>
+      <p style="font-size:12px;">이슈, 의사결정 필요 사항, 지원이 필요한 사항은 별도로 문의 요청 (오늘 논의 내용을 각 팀 내에서 검토 후 일정 회신).</p>
+    </div>
+  </div>
+
+  <div class="fn">
+    <p>※ 발언자를 특정하지 않고 논의 내용 중심으로 기술함. 담당·일정 항목은 회의 중 명시적으로 지정되지 않은 부분을 문맥상 정리하였으므로 확인 바랍니다.</p>
+    <p>※ 작성: 솔루션전략그룹 | '26.09.21</p>
+  </div>
+
+  <div class="doc-end">- 以 上 -</div>
+  <div class="page-num">— 2 —</div>
+</div>
+
+</body>
+</html>

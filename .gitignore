@@ -30,3 +30,10 @@ claude-config/memory/project_esg_transfer.md
 
 # personal (gitignored — 개인용, public repo 유출 금지)
 personal/
+
+# 베라(업무 프로필) 관련 — private(vera-hub) 전용, public repo 유출 금지
+profile_vera.md
+vera_agent.md
+claude-config/agents/vera.md
+claude-config/memory/profile_vera.md
+claude-config/memory/reference_vera_hub_url.md

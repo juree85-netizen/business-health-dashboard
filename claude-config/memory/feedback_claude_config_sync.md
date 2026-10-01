@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: feedback
   originSessionId: c2c6491b-7e54-4982-b4b8-523da2cacecd
-  modified: 2026-08-19T06:38:16.886Z
+  modified: 2026-10-01T06:00:04.332Z
 ---
 
 메모리 파일(`.claude/projects/-home-ubuntu/memory/`)을 저장·수정할 때마다, 또는 에이전트/커맨드 파일이 바뀔 때마다 `claude-config/` 폴더를 동기화하고 GitHub에 push한다.
@@ -19,11 +19,17 @@ metadata:
 ```bash
 cp /home/ubuntu/.claude/projects/-home-ubuntu/memory/*.md /home/ubuntu/claude-config/memory/
 rm -f /home/ubuntu/claude-config/memory/project_esg_transfer.md   # public repo 제외 대상
+rm -f /home/ubuntu/claude-config/memory/profile_vera.md /home/ubuntu/claude-config/memory/reference_vera_hub_url.md   # 베라 관련 — public 제외
+# MEMORY.md는 베라/ESG 줄을 빼고 복사 (cp로 덮어쓴 것을 다시 필터링)
+grep -viE '베라|vera|esg|전배' /home/ubuntu/.claude/projects/-home-ubuntu/memory/MEMORY.md > /home/ubuntu/claude-config/memory/MEMORY.md
 cp /home/ubuntu/.claude/agents/*.md /home/ubuntu/claude-config/agents/
+rm -f /home/ubuntu/claude-config/agents/vera.md   # 베라 에이전트 정의 — public 제외
 cp /home/ubuntu/.claude/commands/*.md /home/ubuntu/claude-config/commands/
 git add claude-config/
 # 기존 스냅샷 커밋에 포함하거나, 단독 커밋으로 push
 ```
+**베라 관련 파일은 전부 private (2026-10-01 사용자 지시):** `profile_vera.md`, `vera_agent.md`, `claude-config/agents/vera.md`, `claude-config/memory/profile_vera.md`, `claude-config/memory/reference_vera_hub_url.md`와 과거 `vera-hub/` 폴더를 public 히스토리 전체에서 제거하고 force-push함. 위 5개는 `.gitignore`에 등록됨. 베라 관련 작업 기록도 public `work_history.md`가 아니라 `vera-hub/memory/work_history_private.md`에 쓸 것. 다른 메모리 파일(예: project_next_task.md)에 ESG 전배·베라 내용이 섞여 있으면 동기화 전에 해당 파일도 제외할 것.
+
 새로운 개인 인사/커리어 관련 메모리를 만들 때는 **처음부터** 이 블랭킷 cp 대상에서 빼는 것을 우선 고려하고, 위 목록(project_esg_transfer.md)에 추가할지 판단할 것.
 
 [[feedback_git_snapshot]]
